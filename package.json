@@ -1,0 +1,61 @@
+{
+    "name": "damamyamamy-app",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server/server.js",
+    "scripts": {
+        "build": "webpack --config webpack.config.js --mode production",
+        "dev:client": "webpack serve --mode development",
+        "dev:server": "nodemon --watch server --ignore server/uploads server/server.js",
+        "dev": "concurrently \"npm:dev:*\" --kill-others",
+        "start": "node server/server.js",
+        "test": "jest"
+    },
+    "engines": {
+        "node": "14"
+    },
+    "keywords": [],
+    "author": "Nicola Gaioni",
+    "license": "ISC",
+    "dependencies": {
+        "@babel/cli": "^7.13.0",
+        "@babel/core": "^7.13.8",
+        "@babel/polyfill": "^7.12.1",
+        "@babel/preset-env": "^7.13.9",
+        "@babel/preset-react": "^7.12.13",
+        "@testing-library/react": "^11.2.5",
+        "aws-sdk": "^2.858.0",
+        "axios": "^0.21.1",
+        "babel-loader": "^8.2.2",
+        "bcryptjs": "^2.4.3",
+        "compression": "^1.7.4",
+        "concurrently": "^6.0.0",
+        "cookie-session": "^1.4.0",
+        "crypto-random-string": "^3.3.1",
+        "css-loader": "^5.1.1",
+        "csurf": "^1.11.0",
+        "eslint": "^7.21.0",
+        "eslint-plugin-react": "^7.22.0",
+        "express": "^4.17.1",
+        "html-webpack-plugin": "^5.2.0",
+        "jest": "^26.6.3",
+        "mini-css-extract-plugin": "^1.3.9",
+        "multer": "^1.4.2",
+        "nodemon": "^2.0.7",
+        "pg": "^8.5.1",
+        "react": "^17.0.1",
+        "react-dom": "^17.0.1",
+        "react-router": "^5.2.0",
+        "react-router-dom": "^5.2.0",
+        "react-test-renderer": "^17.0.1",
+        "uid-safe": "^2.1.5",
+        "webpack": "^5.24.3",
+        "webpack-cli": "^4.5.0",
+        "webpack-dev-server": "^3.11.2"
+    },
+    "jest": {
+        "setupFiles": [
+            "./jest.js"
+        ]
+    }
+}
