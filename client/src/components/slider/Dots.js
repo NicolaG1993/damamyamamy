@@ -3,19 +3,39 @@
 import React, { memo } from "react";
 import { css, jsx } from "@emotion/react";
 
-const Slide = ({ content, width }) => {
+const Dot = ({ active }) => {
     return (
-        <div
+        <span
             css={css`
-                height: 100%;
-                width: ${width}px;
-                background-image: url("${content}");
-                background-size: cover;
-                background-repeat: no-repeat;
-                background-position: center;
+                padding: 6px;
+                margin-right: 5px;
+                cursor: pointer;
+                border-radius: 50%;
+                background: ${active ? "rgb(201,201,201)" : "rgb(232,232,232)"};
             `}
         />
     );
 };
 
-export default memo(Slide);
+const MemoDot = memo(Dot);
+
+const Dots = ({ slides, activeSlide }) => {
+    return (
+        <div
+            css={css`
+                position: absolute;
+                bottom: -30px;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            `}
+        >
+            {slides.map((slide, i) => (
+                <MemoDot key={slide} active={activeSlide === i} />
+            ))}
+        </div>
+    );
+};
+
+export default Dots;

@@ -121,24 +121,25 @@ const Slider = (props) => {
         });
 
     return (
-        <div css={SliderCSS} ref={sliderRef}>
-            <SliderContent
-                translate={translate}
-                transition={transition}
-                width={getWidth() * _slides.length}
-            >
-                {_slides.map((_slide, i) => (
-                    <Slide
-                        width={getWidth()}
-                        key={_slide + i}
-                        content={_slide}
-                    />
-                ))}
-            </SliderContent>
+        <div className={"sliderBox"}>
+            <div css={SliderCSS} ref={sliderRef}>
+                <SliderContent
+                    translate={translate}
+                    transition={transition}
+                    width={getWidth() * _slides.length}
+                >
+                    {_slides.map((_slide, i) => (
+                        <Slide
+                            width={getWidth()}
+                            key={_slide + i}
+                            content={_slide}
+                        />
+                    ))}
+                </SliderContent>
 
-            <Arrow direction="left" handleClick={prevSlide} />
-            <Arrow direction="right" handleClick={nextSlide} />
-
+                <Arrow direction="left" handleClick={prevSlide} />
+                <Arrow direction="right" handleClick={nextSlide} />
+            </div>
             <Dots slides={slides} activeSlide={activeSlide} />
         </div>
     );
@@ -146,11 +147,12 @@ const Slider = (props) => {
 
 const SliderCSS = css`
     position: relative;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     margin: 0 auto;
     overflow: hidden;
     white-space: nowrap;
+    border-radius: 8px;
 `;
 
 export default Slider;
