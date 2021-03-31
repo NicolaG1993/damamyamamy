@@ -5,8 +5,7 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 import Logo from "./components/logo";
 import Home from "./components/home/Home";
 import Auth from "./components/auth/Auth";
-import Login from "./components/auth/Login";
-import Registration from "./components/auth/Registration";
+import Access from "./components/auth/Access";
 
 export default class App extends Component {
     constructor(props) {
@@ -94,7 +93,7 @@ export default class App extends Component {
                             <a href="/shop">Prodotti</a>
                         </p>
                         <p>
-                            <a href="/servizi">Servizi</a>
+                            <a href="/communityShop">Da altri utenti</a>
                         </p>
                         <p>
                             <a href="/contatto">Contatto</a>
@@ -102,14 +101,11 @@ export default class App extends Component {
                     </nav>
 
                     {!this.state.id && (
-                        <div
-                            className={
-                                this.state.accessFormIsActive
-                                    ? "visible"
-                                    : "hidden"
-                            }
-                        >
-                            <Login accessForm={this.state.accessFormIsActive} />
+                        <div>
+                            <Access
+                                accessForm={this.state.accessFormIsActive}
+                                toggleAccessForm={this.toggleAccessForm}
+                            />
                         </div>
                     )}
 

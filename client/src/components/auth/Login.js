@@ -2,8 +2,6 @@ import { Component } from "react";
 import axios from "/client/src/axios";
 import { Link } from "react-router-dom";
 
-import Logo from "../logo";
-
 export default class Login extends Component {
     constructor(props) {
         super(props);
@@ -16,23 +14,27 @@ export default class Login extends Component {
 
     async componentDidMount() {
         console.log("Login component did mount");
-        console.log("this.state in Login: ", this.state);
-        console.log("props in Login: ", this.props);
-        this.setState({
-            accessFormIsActive: this.props.accessForm,
-        });
+
+        // this.setState({
+        //     accessFormIsActive: this.props.accessForm,
+        // });
     }
 
     //more code here...
 
     render() {
+        // console.log("this.state in Login: ", this.state);
+        // console.log("props in Login: ", this.props);
         return (
-            <div className={"access-overlay"}>
+            <div className={"login"}>
                 {this.state.error && <p>Something broke :(</p>}
 
-                <Link to={"/"}>
-                    <Logo />
-                </Link>
+                <button
+                    className={"close-access-overlay"}
+                    onClick={this.props.toggleAccessForm}
+                >
+                    X
+                </button>
 
                 <h1>Login</h1>
 
