@@ -1,7 +1,22 @@
 import { Link } from "react-router-dom";
 
-export default function Auth() {
-    return <div className="auth-container"></div>;
+export default function Auth(props) {
+    console.log("props in Auth.js: ", props);
+
+    if (!props.userId) {
+        return (
+            <div className="auth-container" onClick={props.toggleAccessForm}>
+                Accedi
+            </div>
+        );
+    }
+    if (props.userId) {
+        return (
+            <Link className="auth-container" to={"/profile"}>
+                <div className="profile-pic">User Pic</div>
+            </Link>
+        );
+    }
 }
 
 /*
@@ -18,4 +33,15 @@ oppure i due button per accedere o registrarsi
 lo userId posso riceverlo con una axios req qui oppure passarlo da App con props
 
 anzi, si va direttamente ad accedi
+🐲
+*/
+
+/*
+AGGIORNAMENTO!!!
+come migliore questa parte:
+in caso non cé userId, sarebbe da avere un toggleForm al posto del link /login (che passiamo in props)
+cosí il form per accedere sará un component che apparirá in fronte della pagina attuale, con un btn per chiuderlo
+e la possibilitá di switchare fra login e registration
+inoltre questo form sará disponibile in app solo se non cé userId, altrimenti non verrá caricato nell'html
+🐔
 */

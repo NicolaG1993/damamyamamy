@@ -3,11 +3,10 @@ import { Component } from "react";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 
 import Logo from "./components/logo";
+import Home from "./components/home/Home";
 import Auth from "./components/auth/Auth";
-import Slider from "./components/slider/Slider";
-import images from "./images";
-import ItemsListShort from "./components/items-list-short/ItemsListShort";
-import PostsListShort from "./components/posts-list-short/PostsListShort";
+import Login from "./components/auth/Login";
+import Registration from "./components/auth/Registration";
 
 export default class App extends Component {
     constructor(props) {
@@ -15,9 +14,11 @@ export default class App extends Component {
 
         this.state = {
             navIsActive: false,
+            accessFormIsActive: false,
         };
 
         this.toggleNav = this.toggleNav.bind(this);
+        this.toggleAccessForm = this.toggleAccessForm.bind(this);
     }
 
     async componentDidMount() {
@@ -25,14 +26,14 @@ export default class App extends Component {
 
         try {
             const { data } = await axios.get("/user");
-            console.log("data: ", data);
+            console.log("user: ", data);
 
             this.setState({
-                id: data.id || "",
-                first: data.first || "",
-                last: data.last || "",
-                profilePicUrl: data.profile_pic_url || "",
-                bio: data.bio || "",
+                id: data.id,
+                first: data.first,
+                last: data.last,
+                profilePicUrl: data.profile_pic_url,
+                bio: data.bio,
             });
         } catch (err) {
             console.log("err in app-->componentDidMount: ", err);
@@ -43,7 +44,14 @@ export default class App extends Component {
         this.setState({ navIsActive: !this.state.navIsActive });
     }
 
+    toggleAccessForm() {
+        console.log("toggleAccessForm activated");
+        this.setState({ accessFormIsActive: !this.state.accessFormIsActive });
+    }
+
     render() {
+        console.log("this.state in app: ", this.state);
+
         return (
             <BrowserRouter>
                 <div className={"App"}>
@@ -72,8 +80,11 @@ export default class App extends Component {
                         id="nav"
                         className={`${this.state.navIsActive ? "on" : ""}`}
                     >
-                        <div className={"auth-box"}>
-                            <Auth />
+                        <div className={"auth-box"} onClick={this.toggleNav}>
+                            <Auth
+                                userId={this.state.id}
+                                toggleAccessForm={this.toggleAccessForm}
+                            />
                         </div>
 
                         <p>
@@ -90,24 +101,29 @@ export default class App extends Component {
                         </p>
                     </nav>
 
+                    {!this.state.id && (
+                        <div
+                            className={
+                                this.state.accessFormIsActive
+                                    ? "visible"
+                                    : "hidden"
+                            }
+                        >
+                            <Login accessForm={this.state.accessFormIsActive} />
+                        </div>
+                    )}
+
                     <div className={"main"}>
                         <h1>Da Mamy a Mamy App</h1>
-                        <Slider slides={images} />
+                        {this.state.error && <p>Something broke :(</p>}
 
-                        <div className={"shop-items shortlist"}>
-                            <h2>Articoli in negozio</h2>
-                            <ItemsListShort />
-                        </div>
+                        <Route exact path="/" render={() => <Home />} />
 
-                        <div className={"users-items shortlist"}>
-                            <h2>Articoli della community</h2>
-                            <ItemsListShort />
-                        </div>
-
-                        <div className={"users-posts shortlist"}>
-                            <h2>Posts recenti</h2>
-                            <PostsListShort />
-                        </div>
+                        {/* <Route path="/login" render={() => <Login />} />
+                        <Route
+                            path="/registration"
+                            render={() => <Registration />}
+                        /> */}
                     </div>
 
                     <div className={"footer"}>
