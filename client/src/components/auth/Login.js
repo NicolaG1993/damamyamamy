@@ -78,7 +78,7 @@ export default class Login extends Component {
                     className="auth-button"
                     onClick={() => this.handleClick()}
                 >
-                    Accedi
+                    Entra
                 </button>
                 <br />
 

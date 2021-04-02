@@ -6,7 +6,7 @@ import Logo from "./components/logo";
 import Home from "./components/home/Home";
 import Auth from "./components/auth/Auth";
 import Access from "./components/auth/Access";
-import Logout from "./components/auth/Logout";
+import Footer from "./components/Footer";
 
 export default class App extends Component {
     constructor(props) {
@@ -19,6 +19,7 @@ export default class App extends Component {
 
         this.toggleNav = this.toggleNav.bind(this);
         this.toggleAccessForm = this.toggleAccessForm.bind(this);
+        this.setProfilePicUrl = this.setProfilePicUrl.bind(this);
     }
 
     async componentDidMount() {
@@ -47,6 +48,14 @@ export default class App extends Component {
     toggleAccessForm() {
         console.log("toggleAccessForm activated");
         this.setState({ accessFormIsActive: !this.state.accessFormIsActive });
+    }
+
+    setProfilePicUrl(profilePicUrl) {
+        console.log("setProfilePicUrl activated");
+        this.setState({
+            profilePicUrl: profilePicUrl,
+            uploaderVisible: false,
+        });
     }
 
     render() {
@@ -84,6 +93,9 @@ export default class App extends Component {
                             <Auth
                                 userId={this.state.id}
                                 toggleAccessForm={this.toggleAccessForm}
+                                firstName={this.state.first}
+                                lastName={this.state.last}
+                                profilePicUrl={this.state.profilePicUrl}
                             />
                         </div>
 
@@ -126,26 +138,7 @@ export default class App extends Component {
                         <Route exact path="/" render={() => <Home />} />
                     </div>
 
-                    <div className={"footer"}>
-                        <div id="contact-footer">
-                            <p>Vicolo Teatro, 4, 37010</p>
-                            <p>Cavaion, Verona, IT</p>
-                            <p>
-                                <a href="tel:+393479792644">
-                                    (+39) 347 9792 644
-                                </a>
-                            </p>
-                            <p>
-                                <a href="mailto:damamyamamy@gmail.com">
-                                    damamyamamy@gmail.com
-                                </a>
-                            </p>
-                        </div>
-
-                        <div className={"copyrights"}>
-                            Da Mamy a Mamy, © 2021
-                        </div>
-                    </div>
+                    <Footer />
                 </div>
             </BrowserRouter>
         );
@@ -155,8 +148,11 @@ export default class App extends Component {
 /*
 
 MIGLIORIE:
+🐲 🐔
+creare un header component 🐔
+creare un footer component 🐲
 
-creare un header component
+fare funzioni async, ma quali e come? 🐔
 
 
 */

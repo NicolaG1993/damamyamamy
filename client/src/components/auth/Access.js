@@ -48,7 +48,7 @@ export default class Access extends Component {
                     </button>
 
                     <div className={"btns-container"}>
-                        <button onClick={this.displayLogin}>Log in</button>
+                        <button onClick={this.displayLogin}>Accedi</button>
                         <button onClick={this.displayReg}>
                             Crea un account!
                         </button>

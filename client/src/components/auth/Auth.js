@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import ProfilePic from "../profile/ProfilePic";
 
 export default function Auth(props) {
     console.log("props in Auth.js: ", props);
@@ -13,7 +14,12 @@ export default function Auth(props) {
     if (props.userId) {
         return (
             <Link className="auth-container" to={"/profile"}>
-                <div className="profile-pic">User Pic</div>
+                <ProfilePic
+                    firstName={props.first}
+                    lastName={props.last}
+                    profilePicUrl={props.profilePicUrl}
+                    size="small"
+                />
             </Link>
         );
     }
