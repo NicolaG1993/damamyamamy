@@ -242,8 +242,16 @@ a:hover {
     transition: 0.5s ease;
 }
 
-.access-overlay > a > .logo > img {
-    height: 65px;
+.access {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: pink;
+    border-radius: 8px;
+    padding: 25px;
+    position: fixed;
+    z-index: 21;
+    min-width: 50vw;
 }
 
 .hidden {
@@ -263,15 +271,15 @@ a:hover {
     top: 25px;
 }
 
-.login {
+.btns-container {
+    width: 100%;
+}
+
+.login,
+.registration {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: pink;
-    border-radius: 8px;
-    padding: 25px;
-    position: fixed;
-    z-index: 21;
 }
 /* transition opacity non funziona per .visible */
 

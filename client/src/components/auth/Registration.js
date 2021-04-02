@@ -2,8 +2,6 @@ import { Component } from "react";
 import axios from "/client/src/axios";
 import { Link } from "react-router-dom";
 
-import Logo from "../logo";
-
 export default class Registration extends Component {
     constructor() {
         super();
@@ -18,17 +16,50 @@ export default class Registration extends Component {
 
     //more code here...
 
+    handleClick() {
+        axios
+            .post("/registration", this.state)
+            .then((resp) => {
+                console.log("resp from server: ", resp);
+                if (
+                    this.state.first == "" ||
+                    this.state.last == "" ||
+                    this.state.email == "" ||
+                    this.state.password == ""
+                ) {
+                    this.setState({
+                        error: true,
+                    });
+                } else {
+                    location.replace("/"); //app?
+                }
+            })
+            .catch((err) => {
+                console.log("err in registration: ", err);
+                this.setState({
+                    error: true,
+                });
+                // render an error message
+            });
+    }
+
+    handleChange(e) {
+        console.log("e target name: ", e.target.name);
+        this.setState(
+            {
+                [e.target.name]: e.target.value,
+            },
+            () => console.log("this.state after setState: ", this.state)
+        );
+    }
+
     render() {
         return (
-            <div className={"access-overlay"}>
+            <div className={"registration"}>
                 {this.state.error && <p>Something broke :(</p>}
 
-                <Link to={"/"}>
-                    <Logo />
-                </Link>
+                <h1>Registrazione</h1>
 
-                <h1>Registration</h1>
-                <Link to="/login">Click here to Log in!</Link>
                 <br />
                 <input
                     className="auth-input"
@@ -66,7 +97,7 @@ export default class Registration extends Component {
                     className="auth-button"
                     onClick={() => this.handleClick()}
                 >
-                    Submit
+                    Registrati
                 </button>
             </div>
         );

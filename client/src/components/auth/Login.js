@@ -14,13 +14,40 @@ export default class Login extends Component {
 
     async componentDidMount() {
         console.log("Login component did mount");
-
-        // this.setState({
-        //     accessFormIsActive: this.props.accessForm,
-        // });
     }
 
     //more code here...
+    handleClick() {
+        axios
+            .post("/login", this.state)
+            .then((resp) => {
+                console.log("resp from server: ", resp);
+                if (this.state.email == "" || this.state.password == "") {
+                    this.setState({
+                        error: true,
+                    });
+                } else {
+                    location.replace("/"); //app?
+                }
+            })
+            .catch((err) => {
+                console.log("err in login: ", err);
+                return this.setState({
+                    error: true,
+                });
+                // render an error message
+            });
+    }
+
+    handleChange(e) {
+        console.log("e target name: ", e.target.name);
+        this.setState(
+            {
+                [e.target.name]: e.target.value,
+            },
+            () => console.log("this.state after setState: ", this.state)
+        );
+    }
 
     render() {
         // console.log("this.state in Login: ", this.state);
@@ -28,13 +55,6 @@ export default class Login extends Component {
         return (
             <div className={"login"}>
                 {this.state.error && <p>Something broke :(</p>}
-
-                <button
-                    className={"close-access-overlay"}
-                    onClick={this.props.toggleAccessForm}
-                >
-                    X
-                </button>
 
                 <h1>Login</h1>
 
@@ -58,13 +78,11 @@ export default class Login extends Component {
                     className="auth-button"
                     onClick={() => this.handleClick()}
                 >
-                    Login
+                    Accedi
                 </button>
                 <br />
-                <Link to="/registration">Create an account!</Link>
 
-                <br />
-                <Link to="/reset">Click here if you forgot your password!</Link>
+                <Link to="/reset">Ho dimenticato la mia password</Link>
             </div>
         );
     }

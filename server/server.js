@@ -53,6 +53,7 @@ app.post("/registration", async (req, res) => {
         console.log("db.userRegistration had no issues!");
         res.json({ results });
     } catch (err) {
+        // devo rivedere questa parte
         console.log("err in POST /registration", err.message);
         console.log(err.code);
         if (err.message === 'relation "users" does not exist') {
@@ -109,6 +110,10 @@ app.get("/user", async (req, res) => {
 });
 
 /////*****OTHER REQ*****/////
+app.get("/logout", requireLoggedInUser, (req, res) => {
+    req.session = null;
+    res.redirect("/");
+});
 
 app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "..", "client", "index.html"));

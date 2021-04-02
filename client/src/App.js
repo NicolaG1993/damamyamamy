@@ -6,6 +6,7 @@ import Logo from "./components/logo";
 import Home from "./components/home/Home";
 import Auth from "./components/auth/Auth";
 import Access from "./components/auth/Access";
+import Logout from "./components/auth/Logout";
 
 export default class App extends Component {
     constructor(props) {
@@ -86,6 +87,12 @@ export default class App extends Component {
                             />
                         </div>
 
+                        {this.state.id && (
+                            <a href="/logout" onClick={this.toggleNav}>
+                                Logout
+                            </a>
+                        )}
+
                         <p>
                             <a href="/noi">Chi siamo</a>
                         </p>
@@ -97,6 +104,9 @@ export default class App extends Component {
                         </p>
                         <p>
                             <a href="/contatto">Contatto</a>
+                        </p>
+                        <p>
+                            <a href="/?">Vendi</a>
                         </p>
                     </nav>
 
@@ -114,12 +124,6 @@ export default class App extends Component {
                         {this.state.error && <p>Something broke :(</p>}
 
                         <Route exact path="/" render={() => <Home />} />
-
-                        {/* <Route path="/login" render={() => <Login />} />
-                        <Route
-                            path="/registration"
-                            render={() => <Registration />}
-                        /> */}
                     </div>
 
                     <div className={"footer"}>
@@ -147,3 +151,12 @@ export default class App extends Component {
         );
     }
 }
+
+/*
+
+MIGLIORIE:
+
+creare un header component
+
+
+*/
