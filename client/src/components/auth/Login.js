@@ -27,7 +27,7 @@ export default class Login extends Component {
                         error: true,
                     });
                 } else {
-                    location.replace("/"); //app?
+                    location.replace("/"); //app? //voglio che resti sulla stessa pagina senza reindirizzare
                 }
             })
             .catch((err) => {

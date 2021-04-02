@@ -3,10 +3,13 @@ import { Component } from "react";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 
 import Logo from "./components/logo";
+import Footer from "./components/Footer";
+
 import Home from "./components/home/Home";
 import Auth from "./components/auth/Auth";
 import Access from "./components/auth/Access";
-import Footer from "./components/Footer";
+import About from "./components/shop/About";
+import Shop from "./components/shop/Shop";
 
 export default class App extends Component {
     constructor(props) {
@@ -106,13 +109,13 @@ export default class App extends Component {
                         )}
 
                         <p>
-                            <a href="/noi">Chi siamo</a>
+                            <Link to={"/about"}>Chi siamo</Link>
                         </p>
                         <p>
-                            <a href="/shop">Prodotti</a>
+                            <Link to={"/shop"}>Prodotti</Link>
                         </p>
                         <p>
-                            <a href="/communityShop">Da altri utenti</a>
+                            <a href="/communityShop">Mercatino digitale</a>
                         </p>
                         <p>
                             <a href="/contatto">Contatto</a>
@@ -136,6 +139,8 @@ export default class App extends Component {
                         {this.state.error && <p>Something broke :(</p>}
 
                         <Route exact path="/" render={() => <Home />} />
+                        <Route path="/about" render={() => <About />} />
+                        <Route path="/shop" render={() => <Shop />} />
                     </div>
 
                     <Footer />

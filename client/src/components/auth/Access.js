@@ -95,4 +95,6 @@ MIGLIORIE:
 potrei usare i css come in slider comp per eliminare quel fastidioso problema con opacity
 in css - inizia da visibile quando carica la pagina
 con emotion potrei risolverlo
+
+in tutti e tre i casi (login, reg, logout) non voglio venire reindirizzato a home, ma voglio restare sulla stessa pagina
  */
