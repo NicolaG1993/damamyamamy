@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import Home from "./components/home/Home";
 import Auth from "./components/auth/Auth";
 import Access from "./components/auth/Access";
+import Profile from "./components/profile/Profile";
 import About from "./components/shop/About";
 import Shop from "./components/shop/Shop";
 
@@ -109,10 +110,14 @@ export default class App extends Component {
                         )}
 
                         <p>
-                            <Link to={"/about"}>Chi siamo</Link>
+                            <Link to={"/about"} onClick={this.toggleNav}>
+                                Chi siamo
+                            </Link>
                         </p>
                         <p>
-                            <Link to={"/shop"}>Prodotti</Link>
+                            <Link to={"/shop"} onClick={this.toggleNav}>
+                                Prodotti
+                            </Link>
                         </p>
                         <p>
                             <a href="/communityShop">Mercatino digitale</a>
@@ -139,6 +144,17 @@ export default class App extends Component {
                         {this.state.error && <p>Something broke :(</p>}
 
                         <Route exact path="/" render={() => <Home />} />
+                        <Route
+                            path="/profile"
+                            render={() => (
+                                <Profile
+                                    firstName={this.state.first}
+                                    lastName={this.state.last}
+                                    profilePicUrl={this.state.profilePicUrl}
+                                    bio={this.state.bio}
+                                />
+                            )}
+                        />
                         <Route path="/about" render={() => <About />} />
                         <Route path="/shop" render={() => <Shop />} />
                     </div>

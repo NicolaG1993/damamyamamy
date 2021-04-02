@@ -63,38 +63,23 @@ export default class Access extends Component {
     }
 }
 
-/*
-forse mi conviene fare un class component? credo
-poi con bind creare un toggle/switch fn
-che viene attivata dai due tasti (login/reg)
-e mostra il relativo form
-*/
-
-/*
-AGGIORNAMENTO:
-ora passo la funzione toggleForms e la utilizzo con i pulsanti dentro login o reg components
-invece potrei renderizzarli in questo component (i due btn intendo)
-e passargli lo stile (clicked ad es.) quando displayRegistrationForm é true o false
-stessa cosa per btn X
-
-----
-ora peró ogni tasto funziona come toggle e non va bene
-devono portare al component corrispondente
-*/
-
 /* 
 IMPORTANTE!
-Non dimenticarmi di creare codice per i vari errori in forms
+🐔 Non dimenticarmi di creare codice per i vari errori in forms
 guarda codice di socialnetwork di francesco
 
-submit deve funzionare anche con invio della keyboard
+🐔 submit deve funzionare anche con invio della keyboard
+
+🐔 toggleOverlay funziona anche se login o reg hanno errori, sbagliato!
+devono solo tornare l'errore senza chiudere l'overlay in quel caso
 */
 
 /*
 MIGLIORIE:
-potrei usare i css come in slider comp per eliminare quel fastidioso problema con opacity
+🐔 potrei usare i css come in slider comp per eliminare quel fastidioso problema con opacity
 in css - inizia da visibile quando carica la pagina
 con emotion potrei risolverlo
 
-in tutti e tre i casi (login, reg, logout) non voglio venire reindirizzato a home, ma voglio restare sulla stessa pagina
- */
+🐔 in tutti e tre i casi (login, reg, logout) non voglio venire reindirizzato a home, ma voglio restare sulla stessa pagina
+
+*/
