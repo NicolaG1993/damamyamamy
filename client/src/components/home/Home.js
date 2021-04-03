@@ -25,6 +25,7 @@ export default class Home extends Component {
 
         return (
             <div id="home">
+                <h1>Da Mamy a Mamy App</h1>
                 <Slider slides={images} />
 
                 <div className={"shop-items shortlist"}>

@@ -140,7 +140,6 @@ export default class App extends Component {
                     )}
 
                     <div className={"main"}>
-                        <h1>Da Mamy a Mamy App</h1>
                         {this.state.error && <p>Something broke :(</p>}
 
                         <Route exact path="/" render={() => <Home />} />

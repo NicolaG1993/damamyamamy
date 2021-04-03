@@ -6,8 +6,8 @@ export default function Auth(props) {
 
     if (!props.userId) {
         return (
-            <div className="auth-container" onClick={props.toggleAccessForm}>
-                Accedi
+            <div className="auth-container">
+                <button onClick={props.toggleAccessForm}>Accedi</button>
             </div>
         );
     }
@@ -20,6 +20,7 @@ export default function Auth(props) {
                     profilePicUrl={props.profilePicUrl}
                     size="small"
                 />
+                <div className={"profile-pic-overlay"}>Profilo</div>
             </Link>
         );
     }

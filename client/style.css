@@ -187,17 +187,44 @@ a:hover {
 
 .auth-box {
     width: 100%;
-    /* border: 2px solid red; */
     display: flex;
     justify-content: center;
     margin-bottom: 40px;
 }
 
 .auth-container {
-    border: 2px solid red;
-    border-radius: 25px;
-    width: 50px;
-    height: 50px;
+    width: 90px;
+    height: 90px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-pic-overlay {
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    width: 90px;
+    height: 0px;
+    line-height: 30px; /* Half of the container */
+    background-color: rgba(255, 255, 255, 0.5);
+    transition: 0.3s ease-out;
+}
+
+.auth-container:hover .profile-pic-overlay {
+    height: 30px; /* Half of the container */
+}
+
+.auth-container > button {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(219, 219, 219);
 }
 
 /* SCRIPT.JS STYLES */
@@ -334,14 +361,27 @@ a:hover {
 ************ PROFILE *************
 *************************************/
 
+.profileComp {
+    margin: 10px 0;
+    background-color: rgba(128, 128, 128, 0.342);
+    border-radius: 10px;
+    display: inline-block;
+    width: 100%;
+    padding: 20px;
+}
+
+.profileComp > .profile-pic,
+.profileComp > img {
+    float: left;
+    margin: 0 50px 25px 0;
+}
+
 /*************************************
 ************ PROFILE PIC *************
 *************************************/
 
 .profile-pic {
     display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 .profile-pic > img {
@@ -357,17 +397,19 @@ a:hover {
 }
 
 .small {
-    width: 40px;
-    height: 40px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
 
     object-fit: cover;
+    background-color: rgb(219, 219, 219);
 }
 
 .medium {
     width: 250px;
     height: 250px;
     object-fit: cover;
+    background-color: rgb(219, 219, 219);
 }
 
 /*************************************
