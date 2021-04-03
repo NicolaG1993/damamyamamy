@@ -25,22 +25,13 @@ export default class Home extends Component {
 
         return (
             <div id="home">
-                <h1>Da Mamy a Mamy App</h1>
                 <Slider slides={images} />
 
                 <div className={"shop-items shortlist"}>
-                    <h2>Articoli in negozio</h2>
-                    <ItemsListShort />
-                </div>
+                    <h2>In negozio</h2>
+                    <Link>Vedi tutti gli articoli</Link>
 
-                <div className={"users-items shortlist"}>
-                    <h2>Articoli della community</h2>
                     <ItemsListShort />
-                </div>
-
-                <div className={"users-posts shortlist"}>
-                    <h2>Posts recenti</h2>
-                    <PostsListShort />
                 </div>
             </div>
         );

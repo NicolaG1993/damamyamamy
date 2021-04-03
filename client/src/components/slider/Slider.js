@@ -152,7 +152,6 @@ const SliderCSS = css`
     margin: 0 auto;
     overflow: hidden;
     white-space: nowrap;
-    border-radius: 8px;
 `;
 
 export default Slider;

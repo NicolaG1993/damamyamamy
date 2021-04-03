@@ -120,9 +120,6 @@ export default class App extends Component {
                             </Link>
                         </p>
                         <p>
-                            <a href="/communityShop">Mercatino digitale</a>
-                        </p>
-                        <p>
                             <a href="/contatto">Contatto</a>
                         </p>
                         <p>
