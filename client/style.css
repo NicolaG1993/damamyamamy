@@ -95,11 +95,35 @@ a:hover {
 ************ NAV *************
 *************************************/
 
+/* CART */
+
+#cartIcon {
+    height: 30px;
+    width: 30px;
+    position: relative;
+    border: 1px solid green;
+}
+
+#cartCounter {
+    height: 15px;
+    width: 15px;
+    line-height: 15px;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+    border-radius: 50%;
+}
+
 /* BUTTON */
 #hamBtn {
     width: 25px;
-    /*height: 20px;
-     display: flex;
+    height: 35px;
+    /* display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between; */
@@ -387,6 +411,37 @@ a:hover {
     object-fit: cover;
     background-color: rgb(219, 219, 219);
 }
+
+/*************************************
+************ SHOP *************
+*************************************/
+
+.shop {
+    width: 100%;
+    padding: 20px;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    column-gap: 10px;
+    row-gap: 15px;
+    margin-top: 30px;
+}
+
+.product-box {
+    padding: 20px;
+    background-color: aquamarine;
+    border-radius: 8px;
+}
+
+.product-box > img {
+    height: 60px;
+    width: 80px;
+    object-fit: cover;
+}
+/* questo sará un component forse, uno slider */
 
 /*************************************
 ************ FOOTER *************

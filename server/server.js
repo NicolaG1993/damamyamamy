@@ -43,31 +43,6 @@ app.use(setToken);
 app.use(dealWithCookieVulnerabilities); // mi serve questo?
 
 /////*****AUTH*****/////
-app.post("/registration", async (req, res) => {
-    console.log("req.body: ", req.body);
-    const { first, last, email, password } = req.body;
-    try {
-        const hashedPw = await bc.hash(password);
-        const results = await db.userRegistration(first, last, email, hashedPw);
-        req.session.userId = results.rows[0].id;
-        console.log("db.userRegistration had no issues!");
-        res.json({ results });
-    } catch (err) {
-        // devo rivedere questa parte
-        console.log("err in POST /registration", err.message);
-        console.log(err.code);
-        if (err.message === 'relation "users" does not exist') {
-            // send back an error specific response
-            console.log('relation "users" does not exist');
-            res.json({ error: true });
-        } else if (err.code == "54301") {
-            // send back an error specific response
-            console.log("err.code: 54301");
-            res.json({ error: true });
-        }
-        res.json({ error: true });
-    }
-});
 
 app.post("/login", (req, res) => {
     const email = req.body.email;

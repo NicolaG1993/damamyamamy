@@ -6,9 +6,7 @@ import Logo from "./components/logo";
 import Footer from "./components/Footer";
 
 import Home from "./components/home/Home";
-import Auth from "./components/auth/Auth";
-import Access from "./components/auth/Access";
-import Profile from "./components/profile/Profile";
+
 import About from "./components/shop/About";
 import Shop from "./components/shop/Shop";
 
@@ -22,6 +20,7 @@ export default class App extends Component {
         };
 
         this.toggleNav = this.toggleNav.bind(this);
+        this.closeNav = this.closeNav.bind(this);
         this.toggleAccessForm = this.toggleAccessForm.bind(this);
         this.setProfilePicUrl = this.setProfilePicUrl.bind(this);
     }
@@ -49,6 +48,10 @@ export default class App extends Component {
         this.setState({ navIsActive: !this.state.navIsActive });
     }
 
+    closeNav() {
+        this.setState({ navIsActive: false });
+    }
+
     toggleAccessForm() {
         console.log("toggleAccessForm activated");
         this.setState({ accessFormIsActive: !this.state.accessFormIsActive });
@@ -69,9 +72,13 @@ export default class App extends Component {
             <BrowserRouter>
                 <div className={"App"}>
                     <div className={"header"}>
-                        <Link to={"/"}>
+                        <Link to={"/"} onClick={this.closeNav}>
                             <Logo />
                         </Link>
+
+                        <div id="cartIcon">
+                            <div id="cartCounter">2</div>
+                        </div>
 
                         <div
                             id="hamBtn"
@@ -93,22 +100,6 @@ export default class App extends Component {
                         id="nav"
                         className={`${this.state.navIsActive ? "on" : ""}`}
                     >
-                        <div className={"auth-box"} onClick={this.toggleNav}>
-                            <Auth
-                                userId={this.state.id}
-                                toggleAccessForm={this.toggleAccessForm}
-                                firstName={this.state.first}
-                                lastName={this.state.last}
-                                profilePicUrl={this.state.profilePicUrl}
-                            />
-                        </div>
-
-                        {this.state.id && (
-                            <a href="/logout" onClick={this.toggleNav}>
-                                Logout
-                            </a>
-                        )}
-
                         <p>
                             <Link to={"/about"} onClick={this.toggleNav}>
                                 Chi siamo
@@ -127,30 +118,11 @@ export default class App extends Component {
                         </p>
                     </nav>
 
-                    {!this.state.id && (
-                        <div>
-                            <Access
-                                accessForm={this.state.accessFormIsActive}
-                                toggleAccessForm={this.toggleAccessForm}
-                            />
-                        </div>
-                    )}
-
                     <div className={"main"}>
                         {this.state.error && <p>Something broke :(</p>}
 
                         <Route exact path="/" render={() => <Home />} />
-                        <Route
-                            path="/profile"
-                            render={() => (
-                                <Profile
-                                    firstName={this.state.first}
-                                    lastName={this.state.last}
-                                    profilePicUrl={this.state.profilePicUrl}
-                                    bio={this.state.bio}
-                                />
-                            )}
-                        />
+
                         <Route path="/about" render={() => <About />} />
                         <Route path="/shop" render={() => <Shop />} />
                     </div>

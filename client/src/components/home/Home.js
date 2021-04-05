@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import Slider from "../slider/Slider";
 import images from "../slider/img/images";
 import ItemsListShort from "../items-list-short/ItemsListShort";
-import PostsListShort from "../posts-list-short/PostsListShort";
 
 export default class Home extends Component {
     constructor(props) {
@@ -29,7 +28,7 @@ export default class Home extends Component {
 
                 <div className={"shop-items shortlist"}>
                     <h2>In negozio</h2>
-                    <Link>Vedi tutti gli articoli</Link>
+                    <Link to={"/shop"}>Vedi tutti gli articoli</Link>
 
                     <ItemsListShort />
                 </div>
