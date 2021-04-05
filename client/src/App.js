@@ -1,6 +1,7 @@
 import axios from "./axios";
 import { Component } from "react";
 import { BrowserRouter, Route, Link } from "react-router-dom";
+import { commerce } from "./lib/commerce";
 
 import Logo from "./components/logo";
 import Footer from "./components/Footer";
@@ -29,15 +30,13 @@ export default class App extends Component {
         console.log("App component did mount");
 
         try {
-            const { data } = await axios.get("/user");
-            console.log("user: ", data);
+            // const { data } = await axios.get("/user");
+            // console.log("user: ", data);
+            const { data } = await commerce.products.list();
+            console.log("products: ", data);
 
             this.setState({
-                id: data.id,
-                first: data.first,
-                last: data.last,
-                profilePicUrl: data.profile_pic_url,
-                bio: data.bio,
+                products: data,
             });
         } catch (err) {
             console.log("err in app-->componentDidMount: ", err);
@@ -124,7 +123,12 @@ export default class App extends Component {
                         <Route exact path="/" render={() => <Home />} />
 
                         <Route path="/about" render={() => <About />} />
-                        <Route path="/shop" render={() => <Shop />} />
+                        <Route
+                            path="/shop"
+                            render={() => (
+                                <Shop products={this.state.products} />
+                            )}
+                        />
                     </div>
 
                     <Footer />
@@ -142,6 +146,8 @@ creare un header component 🐔
 creare un footer component 🐲
 
 fare funzioni async, ma quali e come? 🐔
+
+dovrei fare solo fn components? app incluso ed usare hooks (informarsi) 🐔
 
 
 */

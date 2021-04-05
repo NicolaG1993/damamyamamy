@@ -108,3 +108,9 @@ npm run test filename ??
 sudo service postgresql start
 killall node
 */
+
+/*
+OBBIETTIVI BACK END:
+
+disinistallare @chec/commerce.js e fare tutta la parte backend da solo
+*/

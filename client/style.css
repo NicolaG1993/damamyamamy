@@ -431,17 +431,33 @@ a:hover {
 }
 
 .product-box {
-    padding: 20px;
     background-color: aquamarine;
     border-radius: 8px;
+    overflow: hidden;
+    height: 260px;
 }
 
-.product-box > img {
-    height: 60px;
-    width: 80px;
+.product-content {
+    position: relative;
+    height: 100%;
+}
+
+.product-content > img {
+    height: 140px;
+    width: 100%;
     object-fit: cover;
 }
 /* questo sará un component forse, uno slider */
+
+.product-content > button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.product-info {
+    padding: 10px;
+}
 
 /*************************************
 ************ FOOTER *************
