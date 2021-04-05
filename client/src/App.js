@@ -24,6 +24,7 @@ export default class App extends Component {
         this.closeNav = this.closeNav.bind(this);
         this.toggleAccessForm = this.toggleAccessForm.bind(this);
         this.setProfilePicUrl = this.setProfilePicUrl.bind(this);
+        // this.handleAddToCart = this.handleAddToCart.bind(this);
     }
 
     async componentDidMount() {
@@ -33,10 +34,13 @@ export default class App extends Component {
             // const { data } = await axios.get("/user");
             // console.log("user: ", data);
             const { data } = await commerce.products.list();
+            const cart = await commerce.cart.retrieve();
             console.log("products: ", data);
+            console.log("cart: ", cart);
 
             this.setState({
                 products: data,
+                cart: cart,
             });
         } catch (err) {
             console.log("err in app-->componentDidMount: ", err);
@@ -61,6 +65,15 @@ export default class App extends Component {
         this.setState({
             profilePicUrl: profilePicUrl,
             uploaderVisible: false,
+        });
+    }
+
+    async handleAddToCart(productId, quantity) {
+        const item = await commerce.cart.add(productId, quantity);
+        console.log("handleAddToCart activated", this.state.cart);
+
+        this.setState({
+            cart: item.cart,
         });
     }
 
@@ -126,7 +139,10 @@ export default class App extends Component {
                         <Route
                             path="/shop"
                             render={() => (
-                                <Shop products={this.state.products} />
+                                <Shop
+                                    products={this.state.products}
+                                    onAddToCart={this.handleAddToCart}
+                                />
                             )}
                         />
                     </div>
@@ -148,6 +164,7 @@ creare un footer component 🐲
 fare funzioni async, ma quali e come? 🐔
 
 dovrei fare solo fn components? app incluso ed usare hooks (informarsi) 🐔
+https://www.youtube.com/watch?v=377AQ0y6LPA -> per rifare con hooks la parte relative a commerce.js
 
 
 */

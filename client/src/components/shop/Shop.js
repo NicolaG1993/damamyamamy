@@ -1,7 +1,8 @@
 import React from "react";
 import Product from "./product/Product";
+import { Link } from "react-router-dom";
 
-export default function Shop({ products }) {
+export default function Shop({ products, onAddToCart }) {
     console.log("products in Shop.js: ", products);
 
     return (
@@ -12,7 +13,12 @@ export default function Shop({ products }) {
                 {products &&
                     products.map((product) => (
                         <div className={"product-box"} key={product.id}>
-                            <Product product={product} />
+                            <Link>
+                                <Product
+                                    product={product}
+                                    onAddToCart={onAddToCart}
+                                />
+                            </Link>
                         </div>
                     ))}
             </div>

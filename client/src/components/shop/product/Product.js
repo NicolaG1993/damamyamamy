@@ -1,13 +1,12 @@
 import React from "react";
 
-export default function Product({ product }) {
+export default function Product({ product, onAddToCart }) {
     console.log("props in Product.js: ", product);
-
-    // return <div>Test</div>;
 
     return (
         <div className={"product-content"}>
             <img src={product.media.source || "test1.jpg"} />
+
             <div className={"product-info"}>
                 <h2>{product.name}</h2>
                 <p
@@ -15,7 +14,9 @@ export default function Product({ product }) {
                 ></p>
                 <p>{product.price.raw}€</p>
             </div>
-            <button>Nel carrello</button>
+            <button onClick={() => onAddToCart(product.id, 1)}>
+                Nel carrello
+            </button>
         </div>
     );
 }
