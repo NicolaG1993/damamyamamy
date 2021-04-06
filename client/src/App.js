@@ -26,8 +26,6 @@ export default class App extends Component {
         console.log("App component did mount");
 
         try {
-            // const { data } = await axios.get("/user");
-            // console.log("user: ", data);
             const { data } = await commerce.products.list();
             const cart = await commerce.cart.retrieve();
             console.log("products: ", data);
@@ -128,8 +126,9 @@ export default class App extends Component {
 
                         <Route exact path="/" render={() => <Home />} />
 
-                        <Route path="/about" render={() => <About />} />
+                        <Route exact path="/about" render={() => <About />} />
                         <Route
+                            exact
                             path="/shop"
                             render={() => (
                                 <Shop
@@ -138,7 +137,11 @@ export default class App extends Component {
                                 />
                             )}
                         />
-                        <Route path="/cart" render={() => <Cart />} />
+                        <Route
+                            exact
+                            path="/cart"
+                            render={() => <Cart cart={this.state.cart} />}
+                        />
                     </div>
 
                     <Footer />

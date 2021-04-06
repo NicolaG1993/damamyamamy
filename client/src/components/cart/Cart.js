@@ -1,19 +1,35 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import CartItem from "./cart-item/CartItem";
 
-export default function Cart(props) {
-    console.log("props in Cart.js: ", props);
-    const isEmpty = true;
+export default function Cart({ cart }) {
+    // console.log("cart in Cart.js: ", cart);
 
     const EmptyCart = () => <p>Nessun prodotto nel tuo carrello</p>;
 
-    const FilledCart = () => <div className={"cart"}></div>;
+    const FilledCart = () => (
+        <div className={"cart-container"}>
+            <div className={"products"}>
+                {cart.line_items.map((item) => (
+                    <div className={"product-box"} key={item.id}>
+                        <CartItem item={item} />
+                    </div>
+                ))}
+            </div>
+            <div className={"cart-interact"}>
+                <h3>Importo: {cart.subtotal.formatted_with_symbol}</h3>
+                <button className={"empty-btn"}>Svuota il carrello</button>
+                <button className={"checkout-btn"}>Alla cassa</button>
+            </div>
+        </div>
+    );
+
+    if (!cart) return <p>Loading...</p>;
 
     return (
         <div className={"cart-comp"}>
             <h3>Il tuo carrello</h3>
 
-            {isEmpty ? <EmptyCart /> : <FilledCart />}
+            {!cart.line_items.length ? <EmptyCart /> : <FilledCart />}
         </div>
     );
 }
