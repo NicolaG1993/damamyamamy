@@ -4,12 +4,14 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 import { commerce } from "./lib/commerce";
 
 import Logo from "./components/logo";
+import CartIcon from "./components/cart/CartIcon";
 import Footer from "./components/Footer";
 
 import Home from "./components/home/Home";
 
 import About from "./components/shop/About";
 import Shop from "./components/shop/Shop";
+import Cart from "./components/cart/Cart";
 
 export default class App extends Component {
     constructor(props) {
@@ -24,7 +26,7 @@ export default class App extends Component {
         this.closeNav = this.closeNav.bind(this);
         this.toggleAccessForm = this.toggleAccessForm.bind(this);
         this.setProfilePicUrl = this.setProfilePicUrl.bind(this);
-        // this.handleAddToCart = this.handleAddToCart.bind(this);
+        this.handleAddToCart = this.handleAddToCart.bind(this);
     }
 
     async componentDidMount() {
@@ -70,7 +72,7 @@ export default class App extends Component {
 
     async handleAddToCart(productId, quantity) {
         const item = await commerce.cart.add(productId, quantity);
-        console.log("handleAddToCart activated", this.state.cart);
+        // console.log("handleAddToCart activated", this.state.cart);
 
         this.setState({
             cart: item.cart,
@@ -88,9 +90,7 @@ export default class App extends Component {
                             <Logo />
                         </Link>
 
-                        <div id="cartIcon">
-                            <div id="cartCounter">2</div>
-                        </div>
+                        <CartIcon cart={this.state.cart} />
 
                         <div
                             id="hamBtn"
@@ -145,6 +145,7 @@ export default class App extends Component {
                                 />
                             )}
                         />
+                        <Route path="/cart" render={() => <Cart />} />
                     </div>
 
                     <Footer />

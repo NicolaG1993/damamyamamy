@@ -14,8 +14,15 @@ export default function Product({ product, onAddToCart }) {
                 ></p>
                 <p>{product.price.raw}€</p>
             </div>
-            <button onClick={() => onAddToCart(product.id, 1)}>
-                Nel carrello
+            <button
+                className={"add-cart"}
+                onClick={() => onAddToCart(product.id, 1)}
+            >
+                <img
+                    src={
+                        "https://www.flaticon.com/svg/vstatic/svg/34/34568.svg?token=exp=1617620984~hmac=36cbab7489a1eb0abbfd28b9ea32ca3b"
+                    }
+                />
             </button>
         </div>
     );

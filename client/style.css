@@ -97,25 +97,31 @@ a:hover {
 
 /* CART */
 
-#cartIcon {
+.cart-icon-box {
     height: 30px;
     width: 30px;
     position: relative;
-    border: 1px solid green;
+}
+
+.cart-icon {
+    height: 30px;
+    width: 30px;
+    background-image: url("https://www.flaticon.com/svg/vstatic/svg/34/34568.svg?token=exp=1617620984~hmac=36cbab7489a1eb0abbfd28b9ea32ca3b");
+    background-size: contain;
 }
 
 #cartCounter {
-    height: 15px;
-    width: 15px;
-    line-height: 15px;
+    height: 16px;
+    width: 16px;
+    line-height: 16px;
     text-align: center;
     position: absolute;
-    top: 0;
-    left: 0;
+    top: -6px;
+    right: -6px;
     background-color: red;
     color: white;
     font-weight: bold;
-    font-size: 12px;
+    font-size: 11px;
     border-radius: 50%;
 }
 
@@ -377,42 +383,6 @@ a:hover {
 }
 
 /*************************************
-************ PROFILE PIC *************
-*************************************/
-
-.profile-pic {
-    display: flex;
-}
-
-.profile-pic > img {
-    cursor: pointer;
-}
-
-.very-small {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-
-    object-fit: cover;
-}
-
-.small {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-
-    object-fit: cover;
-    background-color: rgb(219, 219, 219);
-}
-
-.medium {
-    width: 250px;
-    height: 250px;
-    object-fit: cover;
-    background-color: rgb(219, 219, 219);
-}
-
-/*************************************
 ************ SHOP *************
 *************************************/
 
@@ -457,6 +427,25 @@ a:hover {
 
 .product-info {
     padding: 10px;
+}
+
+.add-cart {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.add-cart > img {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+.add-cart:hover {
+    background-color: transparent;
+    border-color: white;
 }
 
 /*************************************
