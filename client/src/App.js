@@ -3,7 +3,7 @@ import { Component } from "react";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import { commerce } from "./lib/commerce";
 
-import { Logo, CartIcon, Footer } from "./components";
+import { Header, Nav, Footer } from "./components";
 import { Home, About, Shop, Cart } from "./components";
 
 export default class App extends Component {
@@ -12,13 +12,10 @@ export default class App extends Component {
 
         this.state = {
             navIsActive: false,
-            accessFormIsActive: false,
         };
 
         this.toggleNav = this.toggleNav.bind(this);
         this.closeNav = this.closeNav.bind(this);
-        this.toggleAccessForm = this.toggleAccessForm.bind(this);
-        this.setProfilePicUrl = this.setProfilePicUrl.bind(this);
         this.handleAddToCart = this.handleAddToCart.bind(this);
     }
 
@@ -48,19 +45,6 @@ export default class App extends Component {
         this.setState({ navIsActive: false });
     }
 
-    toggleAccessForm() {
-        console.log("toggleAccessForm activated");
-        this.setState({ accessFormIsActive: !this.state.accessFormIsActive });
-    }
-
-    setProfilePicUrl(profilePicUrl) {
-        console.log("setProfilePicUrl activated");
-        this.setState({
-            profilePicUrl: profilePicUrl,
-            uploaderVisible: false,
-        });
-    }
-
     async handleAddToCart(productId, quantity) {
         const item = await commerce.cart.add(productId, quantity);
         // console.log("handleAddToCart activated", this.state.cart);
@@ -76,50 +60,16 @@ export default class App extends Component {
         return (
             <BrowserRouter>
                 <div className={"App"}>
-                    <div className={"header"}>
-                        <Link to={"/"} onClick={this.closeNav}>
-                            <Logo />
-                        </Link>
-
-                        <CartIcon cart={this.state.cart} />
-
-                        <div
-                            id="hamBtn"
-                            className={this.state.navIsActive ? "active" : ""}
-                            onClick={this.toggleNav}
-                        >
-                            <div className={"stick"}></div>
-                        </div>
-                    </div>
-
-                    <div
-                        className={`overlay ${
-                            this.state.navIsActive ? "overlayIn" : "overlayOut"
-                        }`}
-                        onClick={this.toggleNav}
-                    ></div>
-
-                    <nav
-                        id="nav"
-                        className={`${this.state.navIsActive ? "on" : ""}`}
-                    >
-                        <p>
-                            <Link to={"/about"} onClick={this.toggleNav}>
-                                Chi siamo
-                            </Link>
-                        </p>
-                        <p>
-                            <Link to={"/shop"} onClick={this.toggleNav}>
-                                Prodotti
-                            </Link>
-                        </p>
-                        <p>
-                            <a href="/contatto">Contatto</a>
-                        </p>
-                        <p>
-                            <a href="/?">Vendi</a>
-                        </p>
-                    </nav>
+                    <Header
+                        navIsActive={this.state.navIsActive}
+                        closeNav={this.closeNav}
+                        toggleNav={this.toggleNav}
+                        cart={this.state.cart}
+                    />
+                    <Nav
+                        navIsActive={this.state.navIsActive}
+                        toggleNav={this.toggleNav}
+                    />
 
                     <div className={"main"}>
                         {this.state.error && <p>Something broke :(</p>}

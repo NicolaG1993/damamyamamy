@@ -1,7 +1,7 @@
 //global components
-export { default as Logo } from "./logo";
-export { default as CartIcon } from "./cart/CartIcon";
-export { default as Footer } from "./Footer";
+export { default as Nav } from "./header/Nav";
+export { default as Header } from "./header/Header";
+export { default as Footer } from "./footer/Footer";
 
 //routes
 export { default as Home } from "./home/Home";
