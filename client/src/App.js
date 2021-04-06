@@ -3,15 +3,8 @@ import { Component } from "react";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import { commerce } from "./lib/commerce";
 
-import Logo from "./components/logo";
-import CartIcon from "./components/cart/CartIcon";
-import Footer from "./components/Footer";
-
-import Home from "./components/home/Home";
-
-import About from "./components/shop/About";
-import Shop from "./components/shop/Shop";
-import Cart from "./components/cart/Cart";
+import { Logo, CartIcon, Footer } from "./components";
+import { Home, About, Shop, Cart } from "./components";
 
 export default class App extends Component {
     constructor(props) {
