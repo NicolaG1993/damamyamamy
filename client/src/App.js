@@ -17,6 +17,8 @@ export default class App extends Component {
         this.toggleNav = this.toggleNav.bind(this);
         this.closeNav = this.closeNav.bind(this);
         this.handleAddToCart = this.handleAddToCart.bind(this);
+        this.handleRemoveFromCart = this.handleRemoveFromCart.bind(this);
+        this.handleEmptyCart = this.handleEmptyCart.bind(this);
     }
 
     async componentDidMount() {
@@ -47,7 +49,20 @@ export default class App extends Component {
 
     async handleAddToCart(productId, quantity) {
         const item = await commerce.cart.add(productId, quantity);
-        // console.log("handleAddToCart activated", this.state.cart);
+
+        this.setState({
+            cart: item.cart,
+        });
+    }
+    async handleRemoveFromCart(productId) {
+        const item = await commerce.cart.remove(productId);
+
+        this.setState({
+            cart: item.cart,
+        });
+    }
+    async handleEmptyCart() {
+        const item = await commerce.cart.empty();
 
         this.setState({
             cart: item.cart,
@@ -84,13 +99,20 @@ export default class App extends Component {
                                 <Shop
                                     products={this.state.products}
                                     onAddToCart={this.handleAddToCart}
+                                    removeFromCart={this.handleRemoveFromCart}
                                 />
                             )}
                         />
                         <Route
                             exact
                             path="/cart"
-                            render={() => <Cart cart={this.state.cart} />}
+                            render={() => (
+                                <Cart
+                                    cart={this.state.cart}
+                                    removeFromCart={this.handleRemoveFromCart}
+                                    emptyCart={this.handleEmptyCart}
+                                />
+                            )}
                         />
                     </div>
 

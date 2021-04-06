@@ -2,7 +2,7 @@ import React from "react";
 import Product from "./product/Product";
 import { Link } from "react-router-dom";
 
-export default function Shop({ products, onAddToCart }) {
+export default function Shop({ products, onAddToCart, removeFromCart }) {
     console.log("products in Shop.js: ", products);
 
     return (
@@ -17,6 +17,7 @@ export default function Shop({ products, onAddToCart }) {
                                 <Product
                                     product={product}
                                     onAddToCart={onAddToCart}
+                                    RemoveFromCart={removeFromCart}
                                 />
                             </Link>
                         </div>

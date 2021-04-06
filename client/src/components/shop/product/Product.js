@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Product({ product, onAddToCart }) {
+export default function Product({ product, onAddToCart, removeFromCart }) {
     console.log("props in Product.js: ", product);
 
     return (
