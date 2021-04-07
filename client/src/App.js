@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 import { commerce } from "./lib/commerce";
 
 import { Header, Nav, Footer } from "./components";
-import { Home, About, Shop, Cart } from "./components";
+import { Home, About, Shop, Cart, Checkout } from "./components";
 
 export default class App extends Component {
     constructor(props) {
@@ -113,6 +113,12 @@ export default class App extends Component {
                                     emptyCart={this.handleEmptyCart}
                                 />
                             )}
+                        />
+
+                        <Route
+                            exact
+                            path="/checkout"
+                            render={() => <Checkout />}
                         />
                     </div>
 

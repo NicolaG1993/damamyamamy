@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import CartItem from "./cart-item/CartItem";
 
 export default function Cart({ cart, removeFromCart, emptyCart }) {
@@ -20,7 +21,9 @@ export default function Cart({ cart, removeFromCart, emptyCart }) {
                 <button className={"empty-btn"} onClick={emptyCart}>
                     Svuota il carrello
                 </button>
-                <button className={"checkout-btn"}>Alla cassa</button>
+                <Link to="/checkout">
+                    <button className={"checkout-btn"}>Alla cassa</button>
+                </Link>
             </div>
         </div>
     );
