@@ -118,7 +118,7 @@ export default class App extends Component {
                         <Route
                             exact
                             path="/checkout"
-                            render={() => <Checkout />}
+                            render={() => <Checkout cart={this.state.cart} />}
                         />
                     </div>
 
