@@ -1,9 +1,10 @@
+import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { commerce } from "../../lib/commerce";
 // import CustomTextField from "./CustomTextField";
 
-export default function AddressForm({ checkoutToken }) {
+export default function AddressForm({ checkoutToken, next }) {
     const [shippingCountries, setShippingCountries] = useState([]);
     const [shippingCountry, setShippingCountry] = useState("");
     const [shippingSubdivisions, setShippingSubdivisions] = useState([]);
@@ -11,6 +12,8 @@ export default function AddressForm({ checkoutToken }) {
     const [shippingOptions, setShippingOptions] = useState([]);
     const [shippingOption, setShippingOption] = useState("");
     // const methods = useForm();
+    const [values, setValues] = useState({});
+    // const [errors, setErrors] = useState({});
 
     const countries = Object.entries(shippingCountries).map(([code, name]) => ({
         id: code,
@@ -84,73 +87,119 @@ export default function AddressForm({ checkoutToken }) {
             );
     }, [shippingSubdivision]);
 
+    const handleForm = (e) => {
+        e.preventDefault();
+        const form = e.target.form;
+        const data = new FormData(form);
+        const allValues = Object.fromEntries(data.entries());
+        // console.log("form data: ", allValues);
+
+        setValues(allValues);
+
+        // for (let name of data.keys()) {
+        //     console.log("form name: ", name);
+        // }
+        // for (let value of data.values()) {
+        //     console.log("form value: ", value);
+        // }
+    };
+
+    useEffect(() => {
+        if (values) {
+            console.log("values in useEffect: ", values);
+        }
+    }, [values]);
+
     return (
         <div className={"address-form-box"}>
             <h3>Address Form Comp</h3>
-            <form onSubmit={""}>
+            <form onChange={(e) => handleForm(e)} onSubmit={() => next(values)}>
                 {/* <CustomTextField /> */}
-                <label>First name *</label>
-                <input required type="text" name="firstName" id="firstName" />
+                <label>
+                    First name *
+                    <input
+                        required
+                        type="text"
+                        name="firstName"
+                        id="firstName"
+                    />
+                </label>
                 <br />
-                <label>Last name *</label>
-                <input required type="text" name="lastName" id="lastName" />
+                <label>
+                    Last name *
+                    <input required type="text" name="lastName" id="lastName" />
+                </label>
                 <br />
-                <label>Address *</label>
-                <input required type="text" name="address1" id="address1" />
+                <label>
+                    Address *
+                    <input required type="text" name="address1" id="address1" />
+                </label>
                 <br />
-                <label>Email *</label>
-                <input required type="text" name="email" id="email" />
+                <label>
+                    Email *
+                    <input required type="text" name="email" id="email" />
+                </label>
                 <br />
-                <label>City *</label>
-                <input required type="text" name="city" id="city" />
+                <label>
+                    City *
+                    <input required type="text" name="city" id="city" />
+                </label>
                 <br />
-                <label>CAP *</label>
-                <input required type="text" name="zip" id="zip" />
+                <label>
+                    CAP *
+                    <input required type="text" name="zip" id="zip" />
+                </label>
                 <br />
-                <label>Choose a coutry *</label>
-                <select
-                    required
-                    name="country"
-                    id="country"
-                    value={shippingCountry}
-                    onChange={(e) => setShippingCountry(e.target.value)}
-                >
-                    {countries.map((country) => (
-                        <option key={country.id} value={country.id}>
-                            {country.label}
-                        </option>
-                    ))}
-                </select>
+                <label>
+                    Choose a coutry *
+                    <select
+                        required
+                        name="country"
+                        id="country"
+                        value={shippingCountry}
+                        onChange={(e) => setShippingCountry(e.target.value)}
+                    >
+                        {countries.map((country) => (
+                            <option key={country.id} value={country.id}>
+                                {country.label}
+                            </option>
+                        ))}
+                    </select>
+                </label>
                 <br />
-                <label>Choose a region *</label>
-                <select
-                    required
-                    name="region"
-                    id="region"
-                    value={shippingSubdivision}
-                    onChange={(e) => setShippingSubdivision(e.target.value)}
-                >
-                    {subdivisions.map((subdivision) => (
-                        <option key={subdivision.id} value={subdivision.id}>
-                            {subdivision.label}
-                        </option>
-                    ))}
-                </select>
+                <label>
+                    Choose a region *
+                    <select
+                        required
+                        name="region"
+                        id="region"
+                        value={shippingSubdivision}
+                        onChange={(e) => setShippingSubdivision(e.target.value)}
+                    >
+                        {subdivisions.map((subdivision) => (
+                            <option key={subdivision.id} value={subdivision.id}>
+                                {subdivision.label}
+                            </option>
+                        ))}
+                    </select>
+                </label>
                 <br />
-                <label>Shipping options *</label>
-                <select
-                    required
-                    name="shipping"
-                    id="shipping"
-                    value={shippingOption}
-                    onChange={(e) => setShippingOption(e.target.value)}
-                >
-                    {options.map((option) => (
-                        <option key={option.id} value={option.id}>
-                            {option.label}
-                        </option>
-                    ))}
-                </select>
+                <label>
+                    Shipping options *
+                    <select
+                        required
+                        name="shipping"
+                        id="shipping"
+                        value={shippingOption}
+                        onChange={(e) => setShippingOption(e.target.value)}
+                    >
+                        {options.map((option) => (
+                            <option key={option.id} value={option.id}>
+                                {option.label}
+                            </option>
+                        ))}
+                    </select>
+                </label>
                 <div>
                     <Link to="/cart">
                         <button>Torna al carrello</button>
