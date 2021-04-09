@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { commerce } from "../../lib/commerce";
@@ -19,14 +18,14 @@ export default function AddressForm({ checkoutToken, next }) {
         id: code,
         label: name,
     }));
-    console.log("countries: ", countries);
+    // console.log("countries: ", countries);
     const subdivisions = Object.entries(shippingSubdivisions).map(
         ([code, name]) => ({
             id: code,
             label: name,
         })
     );
-    console.log("subdivisions: ", subdivisions);
+    // console.log("subdivisions: ", subdivisions);
     const options = shippingOptions.map((sO) => ({
         id: sO.id,
         label: `${sO.description} - (${sO.price.formatted_with_symbol})`,

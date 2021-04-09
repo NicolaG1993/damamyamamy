@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link, useHistory } from "react-router-dom";
 import AddressForm from "../AddressForm";
 import PaymentForm from "../PaymentForm";
 import { commerce } from "../../../lib/commerce";
@@ -9,6 +10,7 @@ export default function Checkout({ cart }) {
     const [activeStep, setActiveStep] = useState(0);
     const [checkoutToken, setCheckoutToken] = useState(null);
     const [shippingData, setShippingData] = useState({});
+    const history = useHistory();
 
     const nextStep = (prevActiveStep) => {
         setActiveStep(prevActiveStep + 1);
@@ -30,7 +32,9 @@ export default function Checkout({ cart }) {
                 });
                 console.log("token: ", token);
                 setCheckoutToken(token);
-            } catch (err) {}
+            } catch {
+                if (activeStep !== steps.length) history.push("/");
+            }
         };
 
         generateToken();
@@ -40,7 +44,11 @@ export default function Checkout({ cart }) {
         activeStep === 0 ? (
             <AddressForm checkoutToken={checkoutToken} next={next} />
         ) : (
-            <PaymentForm />
+            <PaymentForm
+                checkoutToken={checkoutToken}
+                shippingData={shippingData}
+                backStep={backStep}
+            />
         );
     const Confirmation = () => <div>Confirmation</div>;
 
