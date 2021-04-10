@@ -47,6 +47,7 @@ export default function Checkout({ cart }) {
             <PaymentForm
                 checkoutToken={checkoutToken}
                 shippingData={shippingData}
+                nextStep={nextStep}
                 backStep={backStep}
             />
         );
