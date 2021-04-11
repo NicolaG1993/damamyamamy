@@ -12,13 +12,12 @@ export default function Checkout({ cart, order, onCaptureCheckout, error }) {
     const [shippingData, setShippingData] = useState({});
     const history = useHistory();
 
-    const nextStep = (prevActiveStep) => {
-        setActiveStep(prevActiveStep + 1);
+    const nextStep = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
-    const backStep = (prevActiveStep) => {
-        console.log("prevActiveStep: ", prevActiveStep);
-        setActiveStep(prevActiveStep - 1);
-    };
+    const backStep = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    }; // !!in react, if u want to use the previous state, u need to call it as a callback fn
     const next = (data) => {
         setShippingData(data);
         nextStep();

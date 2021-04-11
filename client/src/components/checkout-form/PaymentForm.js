@@ -19,7 +19,7 @@ export default function PaymentForm({
     backStep,
     onCaptureCheckout,
 }) {
-    const [values, setValues] = useState({});
+    // const [values, setValues] = useState({});
     console.log("shippingData: ", shippingData);
 
     const handleSubmit = async (e, elements, stripe) => {
@@ -65,15 +65,15 @@ export default function PaymentForm({
         }
     }; //copiata questa fn - devo ancora analizzarla ed integrarla
 
-    const handleForm = (e) => {
-        e.preventDefault();
-        const form = e.target.form;
-        const data = new FormData(form);
-        const allValues = Object.fromEntries(data.entries());
-        // console.log("form data: ", allValues);
+    // const handleForm = (e) => {
+    //     e.preventDefault();
+    //     const form = e.target.form;
+    //     const data = new FormData(form);
+    //     const allValues = Object.fromEntries(data.entries());
+    //     // console.log("form data: ", allValues);
 
-        setValues(allValues);
-    };
+    //     setValues(allValues);
+    // };
 
     // const handleSubmit = (e) => {
     //     console.log("handleSubmit: ", e);
@@ -93,10 +93,7 @@ export default function PaymentForm({
                             <CardElement />
                             <br /> <br />
                             <div>
-                                <button
-                                    type="button"
-                                    onClick={() => backStep(1)}
-                                >
+                                <button type="button" onClick={backStep}>
                                     Torna indietro
                                 </button>
                                 <button type="submit" disabled={!stripe}>
