@@ -6,7 +6,7 @@ import { commerce } from "../../../lib/commerce";
 
 const steps = ["Shipping address", "Payment details"];
 
-export default function Checkout({ cart }) {
+export default function Checkout({ cart, order, onCaptureCheckout, error }) {
     const [activeStep, setActiveStep] = useState(0);
     const [checkoutToken, setCheckoutToken] = useState(null);
     const [shippingData, setShippingData] = useState({});
@@ -16,6 +16,7 @@ export default function Checkout({ cart }) {
         setActiveStep(prevActiveStep + 1);
     };
     const backStep = (prevActiveStep) => {
+        console.log("prevActiveStep: ", prevActiveStep);
         setActiveStep(prevActiveStep - 1);
     };
     const next = (data) => {
@@ -47,8 +48,10 @@ export default function Checkout({ cart }) {
             <PaymentForm
                 checkoutToken={checkoutToken}
                 shippingData={shippingData}
+                activeStep={activeStep}
                 nextStep={nextStep}
                 backStep={backStep}
+                onCaptureCheckout={onCaptureCheckout}
             />
         );
     const Confirmation = () => <div>Confirmation</div>;

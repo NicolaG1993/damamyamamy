@@ -10,19 +10,20 @@ import { commerce } from "../../lib/commerce";
 
 import Review from "./Review";
 
-const stripePromise = loadStripe(""); // da inserire public key
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 export default function PaymentForm({
     checkoutToken,
     shippingData,
     nextStep,
     backStep,
+    onCaptureCheckout,
 }) {
     const [values, setValues] = useState({});
     console.log("shippingData: ", shippingData);
 
-    const handleSubmit = async (event, elements, stripe) => {
-        event.preventDefault();
+    const handleSubmit = async (e, elements, stripe) => {
+        e.preventDefault();
         if (!stripe || !elements) return;
         const cardElement = elements.getElement(CardElement);
 
@@ -42,12 +43,12 @@ export default function PaymentForm({
                     email: shippingData.email,
                 },
                 shipping: {
-                    name: "International",
+                    name: "Domestico",
                     street: shippingData.address1,
                     town_city: shippingData.city,
-                    county_state: shippingData.shippingSubdivision,
+                    county_state: shippingData.region,
                     postal_zip_code: shippingData.zip,
-                    country: shippingData.shippingCountry,
+                    country: shippingData.country,
                 },
                 fulfillment: { shipping_method: shippingData.shippingOption },
                 payment: {
@@ -81,47 +82,37 @@ export default function PaymentForm({
     return (
         <div className={""}>
             <h3></h3>Payment Form Component
-            <form
-                onChange={(e) => handleForm(e)}
-                onSubmit={() => handleSubmit(values)}
-            >
-                <Review checkoutToken={checkoutToken} />
-                <h6>Metodi di pagamento</h6>
-
-                <Elements stripe={stripePromise}>
-                    <ElementsConsumer>
-                        {({ elements, stripe }) => (
-                            <form
-                                onSubmit={(e) =>
-                                    handleSubmit(e, elements, stripe)
-                                }
-                            >
-                                <CardElement />
-                                <br /> <br />
-                                <div>
-                                    <button onClick={backStep}>Back</button>
-                                    <button type="submit" disabled={!stripe}>
-                                        Pay{" "}
-                                        {
-                                            checkoutToken.live.subtotal
-                                                .formatted_with_symbol
-                                        }
-                                    </button>
-                                </div>
-                            </form>
-                        )}
-                    </ElementsConsumer>
-                </Elements>
-
-                <div>
-                    <Link to="/cart">
-                        <button onClick={() => backStep()}>
-                            Torna indietro
-                        </button>
-                    </Link>
-                    <button type="submit">Prosegui</button>
-                </div>
-            </form>
+            <Review checkoutToken={checkoutToken} />
+            <h6>Metodi di pagamento</h6>
+            <Elements stripe={stripePromise}>
+                <ElementsConsumer>
+                    {({ elements, stripe }) => (
+                        <form
+                            onSubmit={(e) => handleSubmit(e, elements, stripe)}
+                        >
+                            <CardElement />
+                            <br /> <br />
+                            <div>
+                                <button
+                                    type="button"
+                                    onClick={() => backStep(1)}
+                                >
+                                    Torna indietro
+                                </button>
+                                <button type="submit" disabled={!stripe}>
+                                    Conferma{" "}
+                                    {
+                                        checkoutToken.live.subtotal
+                                            .formatted_with_symbol
+                                    }
+                                </button>
+                            </div>
+                        </form>
+                    )}
+                </ElementsConsumer>
+            </Elements>
         </div>
     );
 }
+
+// RIPULIRE FILE

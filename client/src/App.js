@@ -19,6 +19,8 @@ export default class App extends Component {
         this.handleAddToCart = this.handleAddToCart.bind(this);
         this.handleRemoveFromCart = this.handleRemoveFromCart.bind(this);
         this.handleEmptyCart = this.handleEmptyCart.bind(this);
+        this.handleCaptureCheckout = this.handleCaptureCheckout.bind(this);
+        this.refreshCart = this.refreshCart.bind(this);
     }
 
     async componentDidMount() {
@@ -66,6 +68,29 @@ export default class App extends Component {
 
         this.setState({
             cart: item.cart,
+        });
+    }
+
+    async handleCaptureCheckout(checkoutTokenId, newOrder) {
+        try {
+            const incomingOrder = await commerce.checkout.capture(
+                checkoutTokenId,
+                newOrder
+            );
+            this.setState({
+                order: incomingOrder,
+            });
+            this.refreshCart();
+        } catch (err) {
+            this.setState({ errorMessage: err.data.error.message });
+        }
+    }
+
+    async refreshCart() {
+        const newCart = await commerce.cart.refresh();
+
+        this.setState({
+            cart: newCart,
         });
     }
 
@@ -118,7 +143,16 @@ export default class App extends Component {
                         <Route
                             exact
                             path="/checkout"
-                            render={() => <Checkout cart={this.state.cart} />}
+                            render={() => (
+                                <Checkout
+                                    cart={this.state.cart}
+                                    order={this.state.order}
+                                    onCaptureCheckout={
+                                        this.handleCaptureCheckout
+                                    }
+                                    error={this.state.errorMessage}
+                                />
+                            )}
                         />
                     </div>
 
