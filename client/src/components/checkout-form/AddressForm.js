@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { commerce } from "../../lib/commerce";
-// import CustomTextField from "./CustomTextField";
 
 export default function AddressForm({ checkoutToken, next }) {
     const [shippingCountries, setShippingCountries] = useState([]);
@@ -113,7 +112,6 @@ export default function AddressForm({ checkoutToken, next }) {
         <div className={"address-form-box"}>
             <h3>Address Form Comp</h3>
             <form onChange={(e) => handleForm(e)} onSubmit={() => next(values)}>
-                {/* <CustomTextField /> */}
                 <label>
                     First name *
                     <input
