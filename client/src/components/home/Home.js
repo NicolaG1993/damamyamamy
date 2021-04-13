@@ -30,7 +30,11 @@ export default class Home extends Component {
                     <h2>In negozio</h2>
                     <Link to={"/shop"}>Vedi tutti gli articoli</Link>
 
-                    <ItemsListShort />
+                    <ItemsListShort
+                        products={this.props.products}
+                        onAddToCart={this.props.handleAddToCart}
+                        removeFromCart={this.props.handleRemoveFromCart}
+                    />
                 </div>
             </div>
         );

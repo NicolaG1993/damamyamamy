@@ -114,7 +114,17 @@ export default class App extends Component {
                     <div className={"main"}>
                         {this.state.error && <p>Something broke :(</p>}
 
-                        <Route exact path="/" render={() => <Home />} />
+                        <Route
+                            exact
+                            path="/"
+                            render={() => (
+                                <Home
+                                    products={this.state.products}
+                                    onAddToCart={this.handleAddToCart}
+                                    removeFromCart={this.handleRemoveFromCart}
+                                />
+                            )}
+                        />
 
                         <Route exact path="/about" render={() => <About />} />
                         <Route
