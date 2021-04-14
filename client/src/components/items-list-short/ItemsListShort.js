@@ -1,32 +1,47 @@
-import React from "react";
-import Product from "../shop/product/Product";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+
+import Product from "../shop/product/Product";
 
 export default function ItemsListShort({
     products,
     onAddToCart,
     removeFromCart,
 }) {
-    console.log("Products: ", products);
-    //devo mettere un limite a map
-    //magari fare un carousel? o solo due freccie che caricano nuovi index?
-    //va bene che passo Products component o meglio crearne uno nuovo, specifico per qui?
+    const [sliceStart, setSliceStart] = useState(0);
+    const [sliceEnd, setSliceEnd] = useState(5);
+
+    const seeNext = () => {
+        setSliceStart((startingPoint) =>
+            startingPoint < products.length
+                ? startingPoint + 5
+                : (startingPoint = 0)
+        );
+    };
+    const seePrev = () => {
+        setSliceStart((startingPoint) => startingPoint + 5);
+        setSliceEnd((endingPoint) => endingPoint + 5);
+    };
+
     return (
         <div className="items-shortlist-container">
-            <div className={"products"}>
+            <div className={"products-small"}>
                 {products &&
-                    products.map((product) => (
+                    products.slice(sliceStart, sliceEnd).map((product) => (
                         <div className={"product-box"} key={product.id}>
                             <Link>
                                 <Product
                                     product={product}
                                     onAddToCart={onAddToCart}
                                     RemoveFromCart={removeFromCart}
+                                    cardSize={"small"}
                                 />
                             </Link>
                         </div>
                     ))}
             </div>
+            <button onClick={seePrev}>Prev</button>
+            <button onClick={seeNext}>Next</button>
         </div>
     );
 }

@@ -18,6 +18,7 @@ export default function Shop({ products, onAddToCart, removeFromCart }) {
                                     product={product}
                                     onAddToCart={onAddToCart}
                                     RemoveFromCart={removeFromCart}
+                                    cardSize={"medium"}
                                 />
                             </Link>
                         </div>
