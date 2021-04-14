@@ -9,39 +9,47 @@ export default function ItemsListShort({
     removeFromCart,
 }) {
     const [sliceStart, setSliceStart] = useState(0);
-    const [sliceEnd, setSliceEnd] = useState(5);
 
     const seeNext = () => {
+        console.log("products.length: ", products.length);
         setSliceStart((startingPoint) =>
-            startingPoint < products.length
+            startingPoint < products.length - 1
                 ? startingPoint + 5
                 : (startingPoint = 0)
         );
+        console.log("startingPoint: ", sliceStart);
     };
+
     const seePrev = () => {
-        setSliceStart((startingPoint) => startingPoint + 5);
-        setSliceEnd((endingPoint) => endingPoint + 5);
+        setSliceStart((startingPoint) =>
+            startingPoint < 5
+                ? products.length - (products.length % 5)
+                : startingPoint - 5
+        );
+        console.log("startingPoint: ", sliceStart);
     };
 
     return (
         <div className="items-shortlist-container">
             <div className={"products-small"}>
                 {products &&
-                    products.slice(sliceStart, sliceEnd).map((product) => (
-                        <div className={"product-box"} key={product.id}>
-                            <Link>
-                                <Product
-                                    product={product}
-                                    onAddToCart={onAddToCart}
-                                    RemoveFromCart={removeFromCart}
-                                    cardSize={"small"}
-                                />
-                            </Link>
-                        </div>
-                    ))}
+                    products
+                        .slice(sliceStart, sliceStart + 5)
+                        .map((product) => (
+                            <div className={"product-box"} key={product.id}>
+                                <Link>
+                                    <Product
+                                        product={product}
+                                        onAddToCart={onAddToCart}
+                                        RemoveFromCart={removeFromCart}
+                                        cardSize={"small"}
+                                    />
+                                </Link>
+                            </div>
+                        ))}
             </div>
-            <button onClick={seePrev}>Prev</button>
-            <button onClick={seeNext}>Next</button>
+            <button onClick={() => seePrev()}>Prev</button>
+            <button onClick={() => seeNext()}>Next</button>
         </div>
     );
 }
