@@ -32,8 +32,8 @@ export default class Home extends Component {
 
                     <ItemsListShort
                         products={this.props.products}
-                        onAddToCart={this.props.handleAddToCart}
-                        removeFromCart={this.props.handleRemoveFromCart}
+                        onAddToCart={this.props.onAddToCart}
+                        removeFromCart={this.props.removeFromCart}
                     />
                 </div>
             </div>

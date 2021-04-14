@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import Product from "../shop/product/Product";
@@ -11,13 +11,11 @@ export default function ItemsListShort({
     const [sliceStart, setSliceStart] = useState(0);
 
     const seeNext = () => {
-        console.log("products.length: ", products.length);
         setSliceStart((startingPoint) =>
             startingPoint < products.length - 1
                 ? startingPoint + 5
                 : (startingPoint = 0)
         );
-        console.log("startingPoint: ", sliceStart);
     };
 
     const seePrev = () => {
@@ -26,7 +24,6 @@ export default function ItemsListShort({
                 ? products.length - (products.length % 5)
                 : startingPoint - 5
         );
-        console.log("startingPoint: ", sliceStart);
     };
 
     return (
