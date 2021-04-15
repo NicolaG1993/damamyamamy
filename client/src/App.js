@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 import { commerce } from "./lib/commerce";
 
 import { Header, Nav, Footer } from "./components";
-import { Home, About, Shop, Cart, Checkout } from "./components";
+import { Home, About, Shop, Item, Cart, Checkout } from "./components";
 
 export default class App extends Component {
     constructor(props) {
@@ -138,6 +138,21 @@ export default class App extends Component {
                                 />
                             )}
                         />
+
+                        {/* <Route path={`/item/${id}`} render={() => <Item />} /> */}
+                        <Route
+                            path="/item/:id"
+                            render={(props) => (
+                                <Item
+                                    key={props.match.params.id}
+                                    match={props.match}
+                                    history={props.history}
+                                    onAddToCart={this.handleAddToCart}
+                                    removeFromCart={this.handleRemoveFromCart}
+                                />
+                            )}
+                        />
+
                         <Route
                             exact
                             path="/cart"

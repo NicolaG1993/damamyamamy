@@ -34,7 +34,7 @@ export default function ItemsListShort({
                         .slice(sliceStart, sliceStart + 5)
                         .map((product) => (
                             <div className={"product-box"} key={product.id}>
-                                <Link>
+                                <Link to={`/item/${product.id}`}>
                                     <Product
                                         product={product}
                                         onAddToCart={onAddToCart}
