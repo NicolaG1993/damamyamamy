@@ -11,6 +11,7 @@ export default function Checkout({ cart, order, onCaptureCheckout, error }) {
     const [checkoutToken, setCheckoutToken] = useState(null);
     const [shippingData, setShippingData] = useState({});
     const history = useHistory();
+    const [isFinished, setIsFinished] = useState(false);
 
     const nextStep = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -32,13 +33,23 @@ export default function Checkout({ cart, order, onCaptureCheckout, error }) {
                 });
                 console.log("token: ", token);
                 setCheckoutToken(token);
-            } catch {
+            } catch (err) {
                 if (activeStep !== steps.length) history.push("/");
+                // this fix the bug: if refresh page in checkout the cart will be empty
+                // console.log("error: ", err);
             }
         };
 
         generateToken();
     }, [cart]);
+
+    // timeout -> mock up the transaction without using my card details on stripe
+    const timeout = () => {
+        console.log("timeout activated!");
+        setTimeout(() => {
+            setIsFinished(true);
+        }, 3000);
+    };
 
     const Form = () =>
         activeStep === 0 ? (
@@ -51,11 +62,12 @@ export default function Checkout({ cart, order, onCaptureCheckout, error }) {
                 nextStep={nextStep}
                 backStep={backStep}
                 onCaptureCheckout={onCaptureCheckout}
+                timeout={timeout}
             />
         );
 
     let Confirmation = () =>
-        order.customer ? (
+        order ? (
             <>
                 <div>
                     <h3>
@@ -68,9 +80,18 @@ export default function Checkout({ cart, order, onCaptureCheckout, error }) {
                 <br />
                 <Link to="/">Torna al sito</Link>
             </>
+        ) : isFinished ? (
+            <>
+                <div>
+                    <h3>Grazie per il tuo acquisto!</h3>
+                </div>
+                <br />
+                <Link to="/">Torna al sito</Link>
+            </>
         ) : (
             <div className={"spinner"}>Loading</div>
         );
+    //  (after testing) remove the "isFinished" condition and leave only the spinner
 
     if (error) {
         Confirmation = () => (

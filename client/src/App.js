@@ -80,16 +80,19 @@ export default class App extends Component {
     }
 
     async handleCaptureCheckout(checkoutTokenId, newOrder) {
+        console.log("newOrder: ", newOrder);
         try {
             const incomingOrder = await commerce.checkout.capture(
                 checkoutTokenId,
                 newOrder
             );
+            console.log("order: ", incomingOrder);
             this.setState({
                 order: incomingOrder,
             });
             this.refreshCart();
         } catch (err) {
+            console.log("error in handleCaptureCheckout: ", err);
             this.setState({ errorMessage: err.data.error.message });
         }
     }

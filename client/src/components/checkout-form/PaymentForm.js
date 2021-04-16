@@ -6,7 +6,6 @@ import {
     ElementsConsumer,
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { commerce } from "../../lib/commerce";
 
 import Review from "./Review";
 
@@ -18,12 +17,17 @@ export default function PaymentForm({
     nextStep,
     backStep,
     onCaptureCheckout,
+    timeout,
 }) {
     // const [values, setValues] = useState({});
     console.log("shippingData: ", shippingData);
 
     const handleSubmit = async (e, elements, stripe) => {
         e.preventDefault();
+        const form = e.target.form;
+        const data = new FormData(form);
+        console.log("e: ", e);
+        console.log("data: ", data);
         if (!stripe || !elements) return;
         const cardElement = elements.getElement(CardElement);
 
@@ -60,6 +64,9 @@ export default function PaymentForm({
             };
 
             onCaptureCheckout(checkoutToken.id, orderData);
+            console.log("orderData: ", orderData);
+
+            timeout();
 
             nextStep();
         }
@@ -97,7 +104,7 @@ export default function PaymentForm({
                                     Torna indietro
                                 </button>
                                 <button type="submit" disabled={!stripe}>
-                                    Conferma{" "}
+                                    Conferma
                                     {
                                         checkoutToken.live.subtotal
                                             .formatted_with_symbol

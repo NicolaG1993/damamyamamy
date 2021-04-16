@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import CartItem from "./cart-item/CartItem";
 
 export default function Cart({ cart, removeFromCart, emptyCart }) {
     // console.log("cart in Cart.js: ", cart);
+
+    useEffect(() => {
+        document.querySelectorAll(".product-box").forEach((el) => {
+            el.classList.add("fade-in");
+        });
+    });
 
     const EmptyCart = () => <p>Nessun prodotto nel tuo carrello</p>;
 
