@@ -147,6 +147,7 @@ export default class App extends Component {
                                     key={props.match.params.id}
                                     match={props.match}
                                     history={props.history}
+                                    products={this.state.products}
                                     onAddToCart={this.handleAddToCart}
                                     removeFromCart={this.handleRemoveFromCart}
                                 />
@@ -192,7 +193,7 @@ export default class App extends Component {
 
 MIGLIORIE:
 🐲 🐔
-creare un header component 🐔
+creare un header component 🐲
 creare un footer component 🐲
 
 fare funzioni async, ma quali e come? 🐔
@@ -200,5 +201,22 @@ fare funzioni async, ma quali e come? 🐔
 dovrei fare solo fn components? app incluso ed usare hooks (informarsi) 🐔
 https://www.youtube.com/watch?v=377AQ0y6LPA -> per rifare con hooks la parte relative a commerce.js
 
+
+NEXT STEPS:
+🐲 🐔
+filtra/ricerca in shop 🐔
+come fare suggested items in list comp 🐔
+
+styling 🐔
+ritocchi finali in react ai vari components 🐔
+
+fare "/about" 🐔
+fare "/contacts" 🐔
+
+BACKEND:
+🐲 🐔
+creare le varie lists in psql 🐔
+fare tutta parte di commerce.js (server side e react requests) 🐔
+fare tutta parte di stripe (?) 🐔
 
 */

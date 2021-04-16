@@ -299,7 +299,7 @@ a:hover {
 .shortlist {
     min-height: 300px;
     background-color: rgb(244, 244, 244);
-    margin: 20px auto;
+    margin-bottom: 20px;
     padding: 20px;
     border-radius: 8px;
 }
@@ -377,6 +377,32 @@ a:hover {
 .add-cart:hover {
     background-color: transparent;
     border-color: white;
+}
+
+/*************************************
+************ ITEM *************
+*************************************/
+
+.item-card {
+    display: flex;
+    align-items: center;
+    background-color: rgb(244, 244, 244);
+    margin: 20px 0 40px 0;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.item-left-side {
+    margin-right: 50px;
+}
+
+.item-left-side > h2 {
+    margin-bottom: 15px;
+}
+
+.item-left-side > img {
+    max-height: 400px;
+    max-width: 400px;
 }
 
 /*************************************
