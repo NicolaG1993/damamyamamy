@@ -304,6 +304,11 @@ a:hover {
     border-radius: 8px;
 }
 
+.product-box {
+    opacity: 0;
+    transition: opacity 0.8s ease-in;
+}
+
 .products-small {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -423,4 +428,11 @@ footer {
 .copyrights {
     background-color: rgb(223, 223, 223);
     padding: 0px 20px;
+}
+
+/*************************************
+************ SCRIPTS *************
+*************************************/
+.fade-in {
+    opacity: 1;
 }

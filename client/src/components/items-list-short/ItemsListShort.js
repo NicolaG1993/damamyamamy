@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import Product from "../shop/product/Product";
@@ -26,6 +26,12 @@ export default function ItemsListShort({
         );
     };
 
+    useEffect(() => {
+        document.querySelectorAll(".product-box").forEach((el) => {
+            el.classList.add("fade-in");
+        });
+    });
+
     return (
         <div className="items-shortlist-container">
             <div className={"products-small"}>
@@ -34,7 +40,10 @@ export default function ItemsListShort({
                         .slice(sliceStart, sliceStart + 5)
                         .map((product) => (
                             <div className={"product-box"} key={product.id}>
-                                <Link to={`/item/${product.id}`}>
+                                <Link
+                                    to={`/item/${product.id}`}
+                                    className={"product-link"}
+                                >
                                     <Product
                                         product={product}
                                         onAddToCart={onAddToCart}
