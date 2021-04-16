@@ -53,7 +53,34 @@ export default function Checkout({ cart, order, onCaptureCheckout, error }) {
                 onCaptureCheckout={onCaptureCheckout}
             />
         );
-    const Confirmation = () => <div>Confirmation</div>;
+
+    let Confirmation = () =>
+        order.customer ? (
+            <>
+                <div>
+                    <h3>
+                        Grazie per il tuo acquisto, {order.customer.firstname}{" "}
+                        {order.customer.lastname}!
+                    </h3>
+
+                    <h5>Order ref: {order.customer_reference}</h5>
+                </div>
+                <br />
+                <Link to="/">Torna al sito</Link>
+            </>
+        ) : (
+            <div className={"spinner"}>Loading</div>
+        );
+
+    if (error) {
+        Confirmation = () => (
+            <>
+                <h5>Errore: {error}</h5>
+                <br />
+                <Link to="/">Torna al sito</Link>
+            </>
+        );
+    }
 
     return (
         <div className={"checkout-container"}>

@@ -71,6 +71,14 @@ export default class App extends Component {
         });
     }
 
+    async refreshCart() {
+        const newCart = await commerce.cart.refresh();
+
+        this.setState({
+            cart: newCart,
+        });
+    }
+
     async handleCaptureCheckout(checkoutTokenId, newOrder) {
         try {
             const incomingOrder = await commerce.checkout.capture(
@@ -84,14 +92,6 @@ export default class App extends Component {
         } catch (err) {
             this.setState({ errorMessage: err.data.error.message });
         }
-    }
-
-    async refreshCart() {
-        const newCart = await commerce.cart.refresh();
-
-        this.setState({
-            cart: newCart,
-        });
     }
 
     render() {
