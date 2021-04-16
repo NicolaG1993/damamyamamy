@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Product from "./product/Product";
 
 export default function Shop({ products, onAddToCart, removeFromCart }) {
     console.log("products in Shop.js: ", products);
+
+    useEffect(() => {
+        document.querySelectorAll(".product-box").forEach((el) => {
+            el.classList.add("fade-in");
+        });
+    });
 
     return (
         <div className={"shop"}>

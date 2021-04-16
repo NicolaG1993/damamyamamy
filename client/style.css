@@ -306,7 +306,7 @@ a:hover {
 
 .product-box {
     opacity: 0;
-    transition: opacity 0.8s ease-in;
+    transition: opacity 0.5s ease-in;
 }
 
 .products-small {
