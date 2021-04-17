@@ -44,12 +44,12 @@ export default function Checkout({ cart, order, onCaptureCheckout, error }) {
     }, [cart]);
 
     // timeout -> mock up the transaction without using my card details on stripe
-    const timeout = () => {
-        console.log("timeout activated!");
-        setTimeout(() => {
-            setIsFinished(true);
-        }, 3000);
-    };
+    // const timeout = () => {
+    //     console.log("timeout activated!");
+    //     setTimeout(() => {
+    //         setIsFinished(true);
+    //     }, 3000);
+    // };
 
     const Form = () =>
         activeStep === 0 ? (
@@ -62,7 +62,7 @@ export default function Checkout({ cart, order, onCaptureCheckout, error }) {
                 nextStep={nextStep}
                 backStep={backStep}
                 onCaptureCheckout={onCaptureCheckout}
-                timeout={timeout}
+                // timeout={timeout}
             />
         );
 
@@ -80,17 +80,19 @@ export default function Checkout({ cart, order, onCaptureCheckout, error }) {
                 <br />
                 <Link to="/">Torna al sito</Link>
             </>
-        ) : isFinished ? (
-            <>
-                <div>
-                    <h3>Grazie per il tuo acquisto!</h3>
-                </div>
-                <br />
-                <Link to="/">Torna al sito</Link>
-            </>
         ) : (
             <div className={"spinner"}>Loading</div>
         );
+
+    // : isFinished ? (
+    //     <>
+    //         <div>
+    //             <h3>Grazie per il tuo acquisto!</h3>
+    //         </div>
+    //         <br />
+    //         <Link to="/">Torna al sito</Link>
+    //     </>
+    // )
     //  (after testing) remove the "isFinished" condition and leave only the spinner
 
     if (error) {

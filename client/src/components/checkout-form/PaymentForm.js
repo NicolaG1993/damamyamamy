@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+
 import {
     Elements,
     CardElement,
@@ -17,7 +17,6 @@ export default function PaymentForm({
     nextStep,
     backStep,
     onCaptureCheckout,
-    timeout,
 }) {
     // const [values, setValues] = useState({});
     console.log("shippingData: ", shippingData);
@@ -67,11 +66,11 @@ export default function PaymentForm({
             // console.log("orderData: ", orderData);
             onCaptureCheckout(checkoutToken.id, orderData);
 
-            timeout();
+            // timeout(); // only for test // i need to pass it as a prop
 
             nextStep();
         }
-    }; //copiata questa fn - devo ancora analizzarla ed integrarla
+    };
 
     // const handleForm = (e) => {
     //     e.preventDefault();

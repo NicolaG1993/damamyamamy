@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Product({
     product,
@@ -11,17 +12,19 @@ export default function Product({
     if (cardSize === "medium")
         return (
             <div className={"product-content"}>
-                <img src={product.media.source || "test1.jpg"} />
+                <Link to={`/item/${product.id}`}>
+                    <img src={product.media.source || "test1.jpg"} />
 
-                <div className={"product-info"}>
-                    <h2>{product.name}</h2>
-                    <p
-                        dangerouslySetInnerHTML={{
-                            __html: product.description,
-                        }}
-                    ></p>
-                    <p>{product.price.raw}€</p>
-                </div>
+                    <div className={"product-info"}>
+                        <h2>{product.name}</h2>
+                        <p
+                            dangerouslySetInnerHTML={{
+                                __html: product.description,
+                            }}
+                        ></p>
+                        <p>{product.price.raw}€</p>
+                    </div>
+                </Link>
                 <button
                     className={"add-cart"}
                     onClick={() => onAddToCart(product.id, 1)}

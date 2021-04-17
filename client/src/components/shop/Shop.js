@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+
 import Product from "./product/Product";
 
 export default function Shop({ products, onAddToCart, removeFromCart }) {
@@ -19,14 +19,12 @@ export default function Shop({ products, onAddToCart, removeFromCart }) {
                 {products &&
                     products.map((product) => (
                         <div className={"product-box"} key={product.id}>
-                            <Link to={`/item/${product.id}`}>
-                                <Product
-                                    product={product}
-                                    onAddToCart={onAddToCart}
-                                    RemoveFromCart={removeFromCart}
-                                    cardSize={"medium"}
-                                />
-                            </Link>
+                            <Product
+                                product={product}
+                                onAddToCart={onAddToCart}
+                                RemoveFromCart={removeFromCart}
+                                cardSize={"medium"}
+                            />
                         </div>
                     ))}
             </div>
