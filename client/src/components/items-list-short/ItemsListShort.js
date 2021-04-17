@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 
 import Product from "../shop/product/Product";
 
@@ -40,17 +39,12 @@ export default function ItemsListShort({
                         .slice(sliceStart, sliceStart + 5)
                         .map((product) => (
                             <div className={"product-box"} key={product.id}>
-                                <Link
-                                    to={`/item/${product.id}`}
-                                    className={"product-link"}
-                                >
-                                    <Product
-                                        product={product}
-                                        onAddToCart={onAddToCart}
-                                        RemoveFromCart={removeFromCart}
-                                        cardSize={"small"}
-                                    />
-                                </Link>
+                                <Product
+                                    product={product}
+                                    onAddToCart={onAddToCart}
+                                    RemoveFromCart={removeFromCart}
+                                    cardSize={"small"}
+                                />
                             </div>
                         ))}
             </div>

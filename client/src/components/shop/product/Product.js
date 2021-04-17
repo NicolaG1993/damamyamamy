@@ -41,17 +41,19 @@ export default function Product({
     if (cardSize === "small")
         return (
             <div className={"product-content"}>
-                <img src={product.media.source || "test1.jpg"} />
+                <Link to={`/item/${product.id}`}>
+                    <img src={product.media.source || "test1.jpg"} />
 
-                <div className={"product-info"}>
-                    <h4>{product.name}</h4>
-                    <p
-                        dangerouslySetInnerHTML={{
-                            __html: product.description,
-                        }}
-                    ></p>
-                    <p>{product.price.raw}€</p>
-                </div>
+                    <div className={"product-info"}>
+                        <h4>{product.name}</h4>
+                        <p
+                            dangerouslySetInnerHTML={{
+                                __html: product.description,
+                            }}
+                        ></p>
+                        <p>{product.price.raw}€</p>
+                    </div>
+                </Link>
                 <button
                     className={"add-cart"}
                     onClick={() => onAddToCart(product.id, 1)}
