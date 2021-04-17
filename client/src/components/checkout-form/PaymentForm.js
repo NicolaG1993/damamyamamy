@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import {
     Elements,
@@ -24,10 +24,10 @@ export default function PaymentForm({
 
     const handleSubmit = async (e, elements, stripe) => {
         e.preventDefault();
-        const form = e.target.form;
-        const data = new FormData(form);
-        console.log("e: ", e);
-        console.log("data: ", data);
+        // const form = e.target.form;
+        // const data = new FormData(form);
+        // console.log("e: ", e);
+        // console.log("data: ", data);
         if (!stripe || !elements) return;
         const cardElement = elements.getElement(CardElement);
 
@@ -54,7 +54,7 @@ export default function PaymentForm({
                     postal_zip_code: shippingData.zip,
                     country: shippingData.country,
                 },
-                fulfillment: { shipping_method: shippingData.shippingOption },
+                fulfillment: { shipping_method: shippingData.shipping },
                 payment: {
                     gateway: "stripe",
                     stripe: {
@@ -63,8 +63,9 @@ export default function PaymentForm({
                 },
             };
 
+            // console.log("paymentMethod: ", paymentMethod);
+            // console.log("orderData: ", orderData);
             onCaptureCheckout(checkoutToken.id, orderData);
-            console.log("orderData: ", orderData);
 
             timeout();
 
@@ -120,3 +121,15 @@ export default function PaymentForm({
 }
 
 // RIPULIRE FILE
+
+/*
+PER TESTARE PAGAMENTO 
+gateway: 'test_gateway',
+    card: {
+      number: '4242 4242 4242 4242',
+      expiry_month: '01',
+      expiry_year: '2023',
+      cvc: '123',
+      postal_zip_code: '94103',
+    },
+*/
