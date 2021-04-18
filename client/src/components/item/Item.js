@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import { commerce } from "../../lib/commerce";
 
 import ItemsListShort from "../items-list-short/ItemsListShort";
+import AddToCartBtn from "../shop/product/AddToCartBtn";
 
 export default function Item({
     match,
     history,
     products,
+    notAvailables,
     onAddToCart,
     removeFromCart,
 }) {
@@ -47,16 +49,12 @@ export default function Item({
                             }}
                         ></p>
                         <p>Prezzo: {item.price.raw}€</p>
-                        <button
-                            className={"add-cart"}
-                            onClick={() => onAddToCart(item.id, 1)}
-                        >
-                            <img
-                                src={
-                                    "https://www.flaticon.com/svg/vstatic/svg/34/34568.svg?token=exp=1617620984~hmac=36cbab7489a1eb0abbfd28b9ea32ca3b"
-                                }
-                            />
-                        </button>
+                        <AddToCartBtn
+                            product_id={item.id}
+                            notAvailables={notAvailables}
+                            onAddToCart={onAddToCart}
+                            removeFromCart={removeFromCart}
+                        />
                     </div>
                 </div>
                 <div className={"shop-items shortlist"}>
@@ -65,6 +63,7 @@ export default function Item({
 
                     <ItemsListShort
                         products={products}
+                        notAvailables={notAvailables}
                         onAddToCart={onAddToCart}
                         removeFromCart={removeFromCart}
                     />

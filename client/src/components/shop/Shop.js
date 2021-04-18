@@ -2,7 +2,12 @@ import React, { useEffect } from "react";
 
 import Product from "./product/Product";
 
-export default function Shop({ products, onAddToCart, removeFromCart }) {
+export default function Shop({
+    products,
+    notAvailables,
+    onAddToCart,
+    removeFromCart,
+}) {
     console.log("products in Shop.js: ", products);
 
     useEffect(() => {
@@ -21,8 +26,9 @@ export default function Shop({ products, onAddToCart, removeFromCart }) {
                         <div className={"product-box"} key={product.id}>
                             <Product
                                 product={product}
+                                notAvailables={notAvailables}
                                 onAddToCart={onAddToCart}
-                                RemoveFromCart={removeFromCart}
+                                removeFromCart={removeFromCart}
                                 cardSize={"medium"}
                             />
                         </div>

@@ -12,6 +12,7 @@ export default class App extends Component {
 
         this.state = {
             navIsActive: false,
+            notAvailables: [],
         };
 
         this.toggleNav = this.toggleNav.bind(this);
@@ -29,12 +30,18 @@ export default class App extends Component {
         try {
             const { data } = await commerce.products.list();
             const cart = await commerce.cart.retrieve();
+            const addedItems = cart.line_items.map((obj) => ({
+                item_id: obj.id,
+                product_id: obj.product_id,
+            })); //scriverla una sola volta con componentDidUpdate ?
             console.log("products: ", data);
             console.log("cart: ", cart);
+            console.log("addedItems: ", addedItems); // array con tutti i product_id ed item_id in cart
 
             this.setState({
                 products: data,
                 cart: cart,
+                notAvailables: addedItems,
             });
         } catch (err) {
             console.log("err in app-->componentDidMount: ", err);
@@ -51,23 +58,38 @@ export default class App extends Component {
 
     async handleAddToCart(productId, quantity) {
         const item = await commerce.cart.add(productId, quantity);
+        const addedItems = item.cart.line_items.map((obj) => ({
+            item_id: obj.id,
+            product_id: obj.product_id,
+        }));
 
         this.setState({
             cart: item.cart,
+            notAvailables: addedItems,
         });
     }
     async handleRemoveFromCart(productId) {
         const item = await commerce.cart.remove(productId);
+        const addedItems = item.cart.line_items.map((obj) => ({
+            item_id: obj.id,
+            product_id: obj.product_id,
+        }));
 
         this.setState({
             cart: item.cart,
+            notAvailables: addedItems,
         });
     }
     async handleEmptyCart() {
         const item = await commerce.cart.empty();
+        const addedItems = item.cart.line_items.map((obj) => ({
+            item_id: obj.id,
+            product_id: obj.product_id,
+        }));
 
         this.setState({
             cart: item.cart,
+            notAvailables: addedItems,
         });
     }
 
@@ -76,6 +98,7 @@ export default class App extends Component {
 
         this.setState({
             cart: newCart,
+            notAvailables: [],
         });
     }
 
@@ -124,6 +147,7 @@ export default class App extends Component {
                             render={() => (
                                 <Home
                                     products={this.state.products}
+                                    notAvailables={this.state.notAvailables}
                                     onAddToCart={this.handleAddToCart}
                                     removeFromCart={this.handleRemoveFromCart}
                                 />
@@ -137,6 +161,7 @@ export default class App extends Component {
                             render={() => (
                                 <Shop
                                     products={this.state.products}
+                                    notAvailables={this.state.notAvailables}
                                     onAddToCart={this.handleAddToCart}
                                     removeFromCart={this.handleRemoveFromCart}
                                 />
@@ -152,6 +177,7 @@ export default class App extends Component {
                                     match={props.match}
                                     history={props.history}
                                     products={this.state.products}
+                                    notAvailables={this.state.notAvailables}
                                     onAddToCart={this.handleAddToCart}
                                     removeFromCart={this.handleRemoveFromCart}
                                 />

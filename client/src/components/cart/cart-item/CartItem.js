@@ -14,3 +14,5 @@ export default function CartItem({ item, removeFromCart }) {
         </div>
     );
 }
+
+// btn deve switchare to remove se item é gia in cart 🐔

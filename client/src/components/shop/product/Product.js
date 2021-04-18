@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import AddToCartBtn from "./AddToCartBtn";
 
 export default function Product({
     product,
+    notAvailables,
     onAddToCart,
     removeFromCart,
     cardSize,
@@ -25,16 +27,13 @@ export default function Product({
                         <p>{product.price.raw}€</p>
                     </div>
                 </Link>
-                <button
-                    className={"add-cart"}
-                    onClick={() => onAddToCart(product.id, 1)}
-                >
-                    <img
-                        src={
-                            "https://www.flaticon.com/svg/vstatic/svg/34/34568.svg?token=exp=1617620984~hmac=36cbab7489a1eb0abbfd28b9ea32ca3b"
-                        }
-                    />
-                </button>
+                {/* {notAvailables && notAvailables.filter} */}
+                <AddToCartBtn
+                    product_id={product.id}
+                    notAvailables={notAvailables}
+                    onAddToCart={onAddToCart}
+                    removeFromCart={removeFromCart}
+                />
             </div>
         );
 
@@ -54,16 +53,12 @@ export default function Product({
                         <p>{product.price.raw}€</p>
                     </div>
                 </Link>
-                <button
-                    className={"add-cart"}
-                    onClick={() => onAddToCart(product.id, 1)}
-                >
-                    <img
-                        src={
-                            "https://www.flaticon.com/svg/vstatic/svg/34/34568.svg?token=exp=1617620984~hmac=36cbab7489a1eb0abbfd28b9ea32ca3b"
-                        }
-                    />
-                </button>
+                <AddToCartBtn
+                    product_id={product.id}
+                    notAvailables={notAvailables}
+                    onAddToCart={onAddToCart}
+                    removeFromCart={removeFromCart}
+                />
             </div>
         );
 }

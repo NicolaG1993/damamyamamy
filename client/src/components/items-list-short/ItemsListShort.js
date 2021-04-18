@@ -4,6 +4,7 @@ import Product from "../shop/product/Product";
 
 export default function ItemsListShort({
     products,
+    notAvailables,
     onAddToCart,
     removeFromCart,
 }) {
@@ -41,8 +42,9 @@ export default function ItemsListShort({
                             <div className={"product-box"} key={product.id}>
                                 <Product
                                     product={product}
+                                    notAvailables={notAvailables}
                                     onAddToCart={onAddToCart}
-                                    RemoveFromCart={removeFromCart}
+                                    removeFromCart={removeFromCart}
                                     cardSize={"small"}
                                 />
                             </div>
