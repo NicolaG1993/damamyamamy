@@ -61,6 +61,20 @@ a:hover {
     color: rgb(204, 108, 207);
 }
 
+.layout-button {
+    background-color: rgb(231, 134, 235);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 5px 15px;
+    cursor: pointer;
+    min-width: 70px;
+}
+
+.layout-button:hover {
+    background-color: rgb(204, 108, 207);
+}
+
 /*************************************
 ************ MAIN *************
 *************************************/
@@ -80,12 +94,17 @@ a:hover {
     background-color: rgb(241, 241, 241);
     z-index: 20;
     padding: 3px 20px 0 20px;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    /* display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-between; */
     box-shadow: 0px 5px 10px #00000048;
 }
 
+/* .header > a > .logo {
+    justify-self: flex-start;
+} */
 .header > a > .logo > img {
     height: 65px;
     float: left;
@@ -101,12 +120,14 @@ a:hover {
     height: 30px;
     width: 30px;
     position: relative;
+    justify-self: center;
+    align-self: center;
 }
 
 .cart-icon {
     height: 30px;
     width: 30px;
-    background-image: url("https://www.flaticon.com/svg/vstatic/svg/34/34568.svg?token=exp=1617620984~hmac=36cbab7489a1eb0abbfd28b9ea32ca3b");
+    background-image: url(shopping-cart-empty-side-view.svg);
     background-size: contain;
 }
 
@@ -129,12 +150,14 @@ a:hover {
 #hamBtn {
     width: 25px;
     height: 35px;
+    position: relative;
+    justify-self: end;
+    align-self: center;
     /* display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between; */
     cursor: pointer;
-    position: relative;
 }
 
 .stick {
@@ -213,48 +236,6 @@ a:hover {
     display: block;
     font-size: 25pt;
     padding-bottom: 20px;
-}
-
-.auth-box {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 40px;
-}
-
-.auth-container {
-    width: 90px;
-    height: 90px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-    position: relative;
-    overflow: hidden;
-}
-
-.profile-pic-overlay {
-    position: absolute;
-    bottom: 0;
-    text-align: center;
-    width: 90px;
-    height: 0px;
-    line-height: 30px; /* Half of the container */
-    background-color: rgba(255, 255, 255, 0.5);
-    transition: 0.3s ease-out;
-}
-
-.auth-container:hover .profile-pic-overlay {
-    height: 30px; /* Half of the container */
-}
-
-.auth-container > button {
-    border-radius: 50%;
-    width: 100%;
-    height: 100%;
-    background-color: rgb(219, 219, 219);
 }
 
 /* SCRIPT.JS STYLES */
@@ -370,7 +351,7 @@ a:hover {
     padding: 10px;
 }
 
-.add-cart {
+.remove-cart {
     height: 40px;
     width: 40px;
     border-radius: 50%;
@@ -378,13 +359,26 @@ a:hover {
     transition: 0.3s ease;
 }
 
-.add-cart > img {
+.add-cart {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s ease;
+    background-image: url(shopping-cart-empty-side-view.svg);
+    background-size: 75%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* .add-cart > img {
     display: block;
     height: 100%;
     width: 100%;
-}
+} */
 
-.add-cart:hover {
+.add-cart:hover,
+.add-cart-on:hover {
     background-color: transparent;
     border-color: white;
 }

@@ -199,9 +199,13 @@ export default function AddressForm({ checkoutToken, next }) {
                 </label>
                 <div>
                     <Link to="/cart">
-                        <button>Torna al carrello</button>
+                        <button className={"layout-button"}>
+                            Torna al carrello
+                        </button>
                     </Link>
-                    <button type="submit">Prosegui</button>
+                    <button className={"layout-button"} type="submit">
+                        Prosegui
+                    </button>
                 </div>
             </form>
         </div>

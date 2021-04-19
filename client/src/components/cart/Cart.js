@@ -24,11 +24,16 @@ export default function Cart({ cart, removeFromCart, emptyCart }) {
             </div>
             <div className={"cart-interact"}>
                 <h3>Importo: {cart.subtotal.formatted_with_symbol}</h3>
-                <button className={"empty-btn"} onClick={emptyCart}>
+                <button
+                    className={"empty-btn layout-button"}
+                    onClick={emptyCart}
+                >
                     Svuota il carrello
                 </button>
                 <Link to="/checkout">
-                    <button className={"checkout-btn"}>Alla cassa</button>
+                    <button className={"checkout-btn layout-button"}>
+                        Alla cassa
+                    </button>
                 </Link>
             </div>
         </div>

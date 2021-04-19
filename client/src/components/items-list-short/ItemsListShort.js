@@ -50,8 +50,12 @@ export default function ItemsListShort({
                             </div>
                         ))}
             </div>
-            <button onClick={() => seePrev()}>Prev</button>
-            <button onClick={() => seeNext()}>Next</button>
+            <button className={"layout-button"} onClick={() => seePrev()}>
+                Prev
+            </button>
+            <button className={"layout-button"} onClick={() => seeNext()}>
+                Next
+            </button>
         </div>
     );
 }

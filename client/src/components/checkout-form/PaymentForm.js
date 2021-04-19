@@ -100,10 +100,18 @@ export default function PaymentForm({
                             <CardElement />
                             <br /> <br />
                             <div>
-                                <button type="button" onClick={backStep}>
+                                <button
+                                    className={"layout-button"}
+                                    type="button"
+                                    onClick={backStep}
+                                >
                                     Torna indietro
                                 </button>
-                                <button type="submit" disabled={!stripe}>
+                                <button
+                                    className={"layout-button"}
+                                    type="submit"
+                                    disabled={!stripe}
+                                >
                                     Conferma
                                     {
                                         checkoutToken.live.subtotal

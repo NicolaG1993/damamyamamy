@@ -9,6 +9,8 @@ import Arrow from "./Arrow";
 import Dots from "./Dots";
 
 const getWidth = () => window.innerWidth;
+// console.log("window: ", document.body.clientWidth);
+// window.document.width();
 
 /**
  * @function Slider

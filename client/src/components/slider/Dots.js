@@ -29,8 +29,8 @@ const Dots = ({ slides, activeSlide }) => {
                 bottom: 5px;
                 width: 100%;
                 display: flex;
-                align-items: center;
                 justify-content: center;
+                align-items: center;
             `}
         >
             {slides.map((slide, i) => (

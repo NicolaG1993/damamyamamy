@@ -37,16 +37,10 @@ export default function AddToCartBtn({
             <button
                 className={"add-cart"}
                 onClick={() => onAddToCart(product_id, 1)}
-            >
-                <img
-                    src={
-                        "https://www.flaticon.com/svg/vstatic/svg/34/34568.svg?token=exp=1617620984~hmac=36cbab7489a1eb0abbfd28b9ea32ca3b"
-                    }
-                />
-            </button>
+            ></button>
         ) : (
             <button
-                className={"add-cart"}
+                className={"remove-cart"}
                 onClick={() => removeFromCart(itemId)}
             >
                 X
