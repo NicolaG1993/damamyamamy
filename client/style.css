@@ -322,7 +322,8 @@ a:hover {
 *************************************/
 
 .product-box {
-    background-color: aquamarine;
+    background-color: rgb(240, 240, 240);
+    /* background-color: aquamarine; */
     border-radius: 8px;
     overflow: hidden;
     height: 260px;
@@ -337,6 +338,7 @@ a:hover {
     height: 140px;
     width: 100%;
     object-fit: cover;
+    object-position: center;
 }
 /* questo sará un component forse, uno slider */
 

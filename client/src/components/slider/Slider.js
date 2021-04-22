@@ -157,3 +157,5 @@ const SliderCSS = css`
 `;
 
 export default Slider;
+
+// video -> https://www.youtube.com/watch?v=N7W-S4JhMXY

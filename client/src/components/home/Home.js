@@ -24,7 +24,7 @@ export default class Home extends Component {
 
         return (
             <div id="home">
-                <Slider slides={images} />
+                <Slider slides={images} autoPlay={7} />
 
                 <div className={"shop-items shortlist"}>
                     <h2>In negozio</h2>
