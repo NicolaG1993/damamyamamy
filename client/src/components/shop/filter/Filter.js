@@ -14,7 +14,7 @@ export default function Filter({ userFilters }) {
         e.preventDefault(); // mi serve?
         const form = e.target.form;
 
-        if (form[1].value > form[2].value) {
+        if (Number(form[1].value) >= Number(form[2].value)) {
             form[2].value = form[1].value;
         }
 
