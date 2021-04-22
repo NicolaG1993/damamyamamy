@@ -42,7 +42,7 @@ export default function Filter({ categories, userFilters, filters }) {
                     <input
                         type="number"
                         defaultValue="1000"
-                        min={filters.priceMin}
+                        min={filters && filters.priceMin}
                         max="1000"
                         name="priceMax"
                         id="priceMax"

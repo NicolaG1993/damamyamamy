@@ -12,28 +12,52 @@ export default function Shop({
 }) {
     console.log("products in Shop.js: ", products);
     const [categories, setCategories] = useState([]);
-    const [filters, setFilters] = useState({});
-
-    useEffect(() => {
-        document.querySelectorAll(".product-box").forEach((el) => {
-            el.classList.add("fade-in");
-        });
-        console.log("filters: ", filters);
-    });
-
-    useEffect(() => {
-        fetchCategories();
-    }, []);
-
-    const userFilters = (obj) => {
-        setFilters(obj);
-    };
+    const [filters, setFilters] = useState(null);
+    const [results, setResults] = useState(null);
 
     const fetchCategories = async () => {
         const { data } = await commerce.categories.list();
 
         console.log("fetched categories: ", data);
         setCategories(data);
+    };
+
+    useEffect(() => {
+        document.querySelectorAll(".product-box").forEach((el) => {
+            el.classList.add("fade-in");
+        });
+
+        // console.log("filters: ", filters);
+    });
+
+    useEffect(() => {
+        fetchCategories();
+    }, []);
+
+    useEffect(() => {
+        setResults(products);
+    }, [products]);
+
+    useEffect(() => {
+        if (filters) {
+            let newProducts = products.filter(
+                (product) => product.categories[0].id === filters.categories
+            );
+
+            // return (
+            //     product.categories[0].name === filters.categories &&
+            //     product.name === filters.name &&
+            //     product.categories.price.raw >= filters.priceMin
+            // );
+            // console.log("product in filter: ", product);
+
+            console.log("newProducts: ", newProducts);
+            setResults(newProducts);
+        }
+    }, [filters]);
+
+    const userFilters = (obj) => {
+        setFilters(obj);
     };
 
     return (
@@ -46,8 +70,8 @@ export default function Shop({
                 filters={filters}
             />
             <div className={"products"}>
-                {products &&
-                    products.map((product) => (
+                {results &&
+                    results.map((product) => (
                         <div className={"product-box"} key={product.id}>
                             <Product
                                 product={product}
