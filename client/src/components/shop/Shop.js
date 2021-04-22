@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 
 import Product from "./product/Product";
+import Filter from "./filter/Filter";
 
 export default function Shop({
     products,
@@ -20,6 +21,7 @@ export default function Shop({
         <div className={"shop"}>
             <h1>Shop</h1>
             <h3>Filtra risultati</h3>
+            <Filter products={products} />
             <div className={"products"}>
                 {products &&
                     products.map((product) => (

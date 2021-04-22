@@ -11,7 +11,7 @@ export default function Checkout({ cart, order, onCaptureCheckout, error }) {
     const [checkoutToken, setCheckoutToken] = useState(null);
     const [shippingData, setShippingData] = useState({});
     const history = useHistory();
-    const [isFinished, setIsFinished] = useState(false);
+    // const [isFinished, setIsFinished] = useState(false);
 
     const nextStep = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
