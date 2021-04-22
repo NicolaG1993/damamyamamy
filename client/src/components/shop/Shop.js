@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import Product from "./product/Product";
 import Filter from "./filter/Filter";
+import { commerce } from "../../lib/commerce";
 
 export default function Shop({
     products,
@@ -10,6 +11,7 @@ export default function Shop({
     removeFromCart,
 }) {
     console.log("products in Shop.js: ", products);
+    const [categories, setCategories] = useState([]);
     const [filters, setFilters] = useState({});
 
     useEffect(() => {
@@ -19,15 +21,30 @@ export default function Shop({
         console.log("filters: ", filters);
     });
 
+    useEffect(() => {
+        fetchCategories();
+    }, []);
+
     const userFilters = (obj) => {
         setFilters(obj);
+    };
+
+    const fetchCategories = async () => {
+        const { data } = await commerce.categories.list();
+
+        console.log("fetched categories: ", data);
+        setCategories(data);
     };
 
     return (
         <div className={"shop"}>
             <h1>Shop</h1>
             <h3>Filtra risultati</h3>
-            <Filter userFilters={userFilters} />
+            <Filter
+                categories={categories}
+                userFilters={userFilters}
+                filters={filters}
+            />
             <div className={"products"}>
                 {products &&
                     products.map((product) => (

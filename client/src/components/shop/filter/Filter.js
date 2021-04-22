@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-export default function Filter({ userFilters }) {
-    const [filters, setFilters] = useState({});
-
-    useEffect(() => {
-        if (filters) {
-            console.log("filters in useEffect: ", filters);
-        }
-    }, [filters]);
-
+export default function Filter({ categories, userFilters, filters }) {
     const handleForm = (e) => {
         // console.log("e in form", e);
         e.preventDefault(); // mi serve?
@@ -17,6 +9,7 @@ export default function Filter({ userFilters }) {
         if (Number(form[1].value) >= Number(form[2].value)) {
             form[2].value = form[1].value;
         }
+        // Number() per convertire da numero a string
 
         const data = new FormData(form);
         const allValues = Object.fromEntries(data.entries());
@@ -60,8 +53,12 @@ export default function Filter({ userFilters }) {
                     Categorie
                     <select name="categories" id="categories">
                         <option value="">Please Choose...</option>
-                        <option value="Giochi">Giochi</option>
-                        <option value="Alimentazione">Alimentazione</option>
+
+                        {categories.map((category) => (
+                            <option key={category.id} value={category.id}>
+                                {category.name}
+                            </option>
+                        ))}
                     </select>
                 </label>
             </form>
