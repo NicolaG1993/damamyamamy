@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import Product from "./product/Product";
 import Filter from "./filter/Filter";
@@ -10,18 +10,24 @@ export default function Shop({
     removeFromCart,
 }) {
     console.log("products in Shop.js: ", products);
+    const [filters, setFilters] = useState({});
 
     useEffect(() => {
         document.querySelectorAll(".product-box").forEach((el) => {
             el.classList.add("fade-in");
         });
+        console.log("filters: ", filters);
     });
+
+    const userFilters = (obj) => {
+        setFilters(obj);
+    };
 
     return (
         <div className={"shop"}>
             <h1>Shop</h1>
             <h3>Filtra risultati</h3>
-            <Filter products={products} />
+            <Filter userFilters={userFilters} />
             <div className={"products"}>
                 {products &&
                     products.map((product) => (
@@ -52,3 +58,5 @@ export default function Shop({
 //             "https://cdn.babycscdn.com/m/25415-large_default/passeggino-chicco-simplicity.jpg",
 //     },
 // ];
+
+// devo creare una fn da passare a Filter
