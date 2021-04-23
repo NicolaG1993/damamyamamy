@@ -52,9 +52,13 @@ export default function Shop({
             // console.log("product in filter: ", product);
 
             console.log("newProducts: ", newProducts);
+
             setResults(newProducts);
+
+            filters.categories === "" && setResults(products);
         }
     }, [filters]);
+    // funziona solo per categories al momento, trovare modo migliore per far funzionare tutto insieme
 
     const userFilters = (obj) => {
         setFilters(obj);
