@@ -54,7 +54,8 @@ export default function Filter({ categories, userFilters, filters }) {
                     />
                 </label>
                 <br />
-                <label>
+
+                {/* <label>
                     Categorie
                     <select name="categories" id="categories">
                         <option value="">Please Choose...</option>
@@ -66,7 +67,27 @@ export default function Filter({ categories, userFilters, filters }) {
                         ))}
                     </select>
                 </label>
-                <br />
+                <br /> */}
+
+                <label>
+                    Categorie
+                    {categories.map((category) => (
+                        <div key={category.id}>
+                            <input
+                                type="checkbox"
+                                id={category.id}
+                                name="category"
+                                value={category.name}
+                                onChange={(e) => {
+                                    console.log("clicked!!!", e.target.checked);
+                                    console.log("clicked!!!", e.target.value);
+                                }}
+                            ></input>
+                            <label htmlFor={category.id}>{category.name}</label>
+                        </div>
+                    ))}
+                </label>
+
                 <label>
                     Ordina per
                     <select name="order" id="order">
