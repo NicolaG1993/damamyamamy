@@ -44,6 +44,12 @@ export default function Shop({
 
     useEffect(() => {
         if (filters) {
+            if (filters.name === "") {
+                setResults(products);
+                //questa parte é incorretta peró al momento funziona solo cosi, non posso farla funzionare dentro l'altro if come con categories
+                //perché per categories ho un opzione corrispondente a "", qui invece é un caso
+            }
+
             if (filters.categories) {
                 newProducts = products.filter(
                     (product) => product.categories[0].id === filters.categories
@@ -76,16 +82,32 @@ export default function Shop({
                     }
                 });
                 setResults(newProducts);
-            }
-            if (filters.name === "") {
-                setResults(products);
-                //questa parte é incorretta peró al momento funziona solo cosi, non posso farla funzionare dentro l'altro if come con categories
-                //perché per categories ho un opzione corrispondente a "", qui invece é un caso
+
+                if (filters.categories) {
+                    let newNewProducts = newProducts.filter(
+                        (product) =>
+                            product.categories[0].id === filters.categories
+                    );
+
+                    // return (
+                    //     product.categories[0].name === filters.categories &&
+                    //     product.name === filters.name &&
+                    //     product.categories.price.raw >= filters.priceMin
+                    // );
+                    // console.log("product in filter: ", product);
+
+                    console.log("newProducts: ", newProducts);
+
+                    setResults(newNewProducts);
+
+                    filters.categories === "" && setResults(newProducts);
+                }
             }
         }
     }, [filters]);
     // funziona solo per categories al momento, trovare modo migliore per far funzionare tutto insieme 🐔
     // inoltre, ora funziona solo con una singola categoria, non di piu 🐔
+    // aggiungere caso anche per tags 🐔
 
     const userFilters = (obj) => {
         setFilters(obj);
