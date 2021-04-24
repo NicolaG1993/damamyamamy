@@ -123,18 +123,25 @@ export default function Shop({
                 filters={filters}
             />
             <div className={"products"}>
-                {results &&
-                    results.map((product) => (
-                        <div className={"product-box"} key={product.id}>
-                            <Product
-                                product={product}
-                                notAvailables={notAvailables}
-                                onAddToCart={onAddToCart}
-                                removeFromCart={removeFromCart}
-                                cardSize={"medium"}
-                            />
-                        </div>
-                    ))}
+                {results ? (
+                    results.length < 1 ? (
+                        <h4>No results</h4>
+                    ) : (
+                        results.map((product) => (
+                            <div className={"product-box"} key={product.id}>
+                                <Product
+                                    product={product}
+                                    notAvailables={notAvailables}
+                                    onAddToCart={onAddToCart}
+                                    removeFromCart={removeFromCart}
+                                    cardSize={"medium"}
+                                />
+                            </div>
+                        ))
+                    )
+                ) : (
+                    <h4>Loading...</h4>
+                )}
             </div>
         </div>
     );
