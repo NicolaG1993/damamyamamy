@@ -23,7 +23,12 @@ export default function Filter({ categories, userFilters, filters }) {
             <form onChange={(e) => handleForm(e)}>
                 <label>
                     Ricerca per nome
-                    <input type="text" name="name" id="name" />
+                    <input
+                        type="text"
+                        placeholder="Cerca..."
+                        name="name"
+                        id="name"
+                    />
                 </label>
                 <br />
                 <label>
@@ -61,6 +66,16 @@ export default function Filter({ categories, userFilters, filters }) {
                         ))}
                     </select>
                 </label>
+                <br />
+                <label>
+                    Ordina per
+                    <select name="order" id="order">
+                        <option value="new">Novitá</option>
+                        <option value="relevant">Rilevanza</option>
+                        <option value="lowPrice">Prezzo piú basso</option>
+                        <option value="highPrice">Prezzo piú alto</option>
+                    </select>
+                </label>
             </form>
         </div>
     );
@@ -69,7 +84,7 @@ export default function Filter({ categories, userFilters, filters }) {
 // nell'input prezzo max devo passare come valore minimo il valore di prezzo minimo, non 0 🐲
 // devo creare uno state che si aggiorna con un handleChange {[e.target.name]: e.target.value} 🐲
 
-// in categorie input devo fare un map di tutte le categorie esistenti (quindi non devo cercarle in products mi sa, devo fare un nuovo fetch) guarda AddressForm 🐔
+// in categorie input devo fare un map di tutte le categorie esistenti (quindi non devo cercarle in products mi sa, devo fare un nuovo fetch) guarda AddressForm 🐲
 
 //max price non deve scendere sotto min-price (mai!!) // forse fare handleChange su min price, se max price value é piu basso settare il nuovo valore 🐲
 // 🐔🐲

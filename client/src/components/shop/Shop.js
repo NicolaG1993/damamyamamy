@@ -15,6 +15,10 @@ export default function Shop({
     const [filters, setFilters] = useState(null);
     const [results, setResults] = useState(null);
 
+    let newProducts;
+
+    console.log("results: ", results);
+
     const fetchCategories = async () => {
         const { data } = await commerce.categories.list();
 
@@ -27,7 +31,7 @@ export default function Shop({
             el.classList.add("fade-in");
         });
 
-        // console.log("filters: ", filters);
+        console.log("filters: ", filters);
     });
 
     useEffect(() => {
@@ -40,25 +44,48 @@ export default function Shop({
 
     useEffect(() => {
         if (filters) {
-            let newProducts = products.filter(
-                (product) => product.categories[0].id === filters.categories
-            );
+            if (filters.categories) {
+                newProducts = products.filter(
+                    (product) => product.categories[0].id === filters.categories
+                );
 
-            // return (
-            //     product.categories[0].name === filters.categories &&
-            //     product.name === filters.name &&
-            //     product.categories.price.raw >= filters.priceMin
-            // );
-            // console.log("product in filter: ", product);
+                // return (
+                //     product.categories[0].name === filters.categories &&
+                //     product.name === filters.name &&
+                //     product.categories.price.raw >= filters.priceMin
+                // );
+                // console.log("product in filter: ", product);
 
-            console.log("newProducts: ", newProducts);
+                console.log("newProducts: ", newProducts);
 
-            setResults(newProducts);
+                setResults(newProducts);
 
-            filters.categories === "" && setResults(products);
+                filters.categories === "" && setResults(products);
+            }
+            if (filters.name) {
+                newProducts = products.filter((product) => {
+                    if (
+                        product.name
+                            .toLowerCase()
+                            .includes(filters.name.toLowerCase()) ||
+                        product.categories[0].name
+                            .toLowerCase()
+                            .includes(filters.name.toLowerCase())
+                    ) {
+                        return product;
+                    }
+                });
+                setResults(newProducts);
+            }
+            if (filters.name === "") {
+                setResults(products);
+                //questa parte é incorretta peró al momento funziona solo cosi, non posso farla funzionare dentro l'altro if come con categories
+                //perché per categories ho un opzione corrispondente a "", qui invece é un caso
+            }
         }
     }, [filters]);
-    // funziona solo per categories al momento, trovare modo migliore per far funzionare tutto insieme
+    // funziona solo per categories al momento, trovare modo migliore per far funzionare tutto insieme 🐔
+    // inoltre, ora funziona solo con una singola categoria, non di piu 🐔
 
     const userFilters = (obj) => {
         setFilters(obj);
@@ -104,4 +131,4 @@ export default function Shop({
 //     },
 // ];
 
-// devo creare una fn da passare a Filter
+// devo creare una fn da passare a Filter 🐲

@@ -9,7 +9,7 @@ export default function Product({
     removeFromCart,
     cardSize,
 }) {
-    console.log("props in Product.js: ", product);
+    // console.log("props in Product.js: ", product);
 
     if (cardSize === "medium")
         return (
@@ -19,12 +19,13 @@ export default function Product({
 
                     <div className={"product-info"}>
                         <h2>{product.name}</h2>
-                        <p
+                        <span
+                            className={"product-description"}
                             dangerouslySetInnerHTML={{
                                 __html: product.description,
                             }}
-                        ></p>
-                        <p>{product.price.raw}€</p>
+                        ></span>
+                        <h5>{product.price.raw}€</h5>
                     </div>
                 </Link>
                 {/* {notAvailables && notAvailables.filter} */}
@@ -45,12 +46,13 @@ export default function Product({
 
                     <div className={"product-info"}>
                         <h4>{product.name}</h4>
-                        <p
+                        <span
+                            className={"product-description"}
                             dangerouslySetInnerHTML={{
                                 __html: product.description,
                             }}
-                        ></p>
-                        <p>{product.price.raw}€</p>
+                        ></span>
+                        <h5>{product.price.raw}€</h5>
                     </div>
                 </Link>
                 <AddToCartBtn

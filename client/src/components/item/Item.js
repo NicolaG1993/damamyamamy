@@ -48,7 +48,7 @@ export default function Item({
                                 __html: item.description,
                             }}
                         ></p>
-                        <p>Prezzo: {item.price.raw}€</p>
+                        <h5>Prezzo: {item.price.raw}€</h5>
                         <AddToCartBtn
                             product_id={item.id}
                             notAvailables={notAvailables}

@@ -437,3 +437,11 @@ footer {
 .fade-in {
     opacity: 1;
 }
+
+.longText,
+.product-description > p {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
