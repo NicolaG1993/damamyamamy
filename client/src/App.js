@@ -1,12 +1,16 @@
 import axios from "./axios";
 import { Component } from "react";
 import { BrowserRouter, Route, Link } from "react-router-dom";
+
+import { connect } from "react-redux";
+import { loadData } from "./redux";
+
 import { commerce } from "./lib/commerce";
 
 import { Header, Nav, Footer } from "./components";
 import { Home, About, Shop, Item, Cart, Checkout } from "./components";
 
-export default class App extends Component {
+class App extends Component {
     constructor(props) {
         super(props);
 
@@ -43,6 +47,8 @@ export default class App extends Component {
                 cart: cart,
                 notAvailables: addedItems,
             });
+
+            this.props.dispatch(loadData({ allStore: this.props.products }));
         } catch (err) {
             console.log("err in app-->componentDidMount: ", err);
         }
@@ -218,6 +224,12 @@ export default class App extends Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+    return { state };
+} // ?
+
+export default connect(mapStateToProps)(App); // ? redux
 
 /*
 
