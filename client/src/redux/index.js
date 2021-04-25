@@ -1,3 +1,6 @@
+// questo file serve a mostrarmi come fare redux in un singolo file index
+// che poi posso importare direttamente cosí "./redux"
+
 const SORT_BY_ALPHABET = "SORT_BY_ALPHABET";
 const SORT_BY_PRICE = "SORT_BY_PRICE";
 const LOAD_DATA = "LOAD_DATA";
@@ -21,7 +24,7 @@ export function sortByAlphabet(payload) {
         payload,
     };
 }
-export async function loadData(payload) {
+export function loadData(payload) {
     return {
         type: LOAD_DATA,
         payload,
@@ -32,11 +35,10 @@ export function reducer(state = {}, action) {
     switch (action.type) {
         case LOAD_DATA:
             let allStore = action.payload.allStore;
-
             console.log("LOAD_DATA: ", allStore);
             return {
                 ...state,
-                products,
+                allStore,
             };
         case SORT_BY_ALPHABET:
             //sort alphabetically

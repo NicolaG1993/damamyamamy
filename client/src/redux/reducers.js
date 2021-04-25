@@ -26,15 +26,19 @@
 // };
 // export default filterStore;
 
+const SORT_BY_ALPHABET = "SORT_BY_ALPHABET";
+const SORT_BY_PRICE = "SORT_BY_PRICE";
+const LOAD_DATA = "LOAD_DATA";
+const FILTER_BY_PRICE = "FILTER_BY_PRICE";
+
 export function reducer(state = {}, action) {
     switch (action.type) {
         case LOAD_DATA:
             let allStore = action.payload.allStore;
-            let products = generate(allStore);
             console.log("LOAD_DATA: ", allStore);
             return {
                 ...state,
-                products,
+                allStore,
             };
         case SORT_BY_ALPHABET:
             //sort alphabetically

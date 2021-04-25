@@ -3,7 +3,7 @@ import { Component } from "react";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 
 import { connect } from "react-redux";
-import { loadData } from "./redux";
+import { loadData } from "./redux/actions";
 
 import { commerce } from "./lib/commerce";
 
