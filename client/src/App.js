@@ -48,7 +48,7 @@ class App extends Component {
                 notAvailables: addedItems,
             });
 
-            this.props.dispatch(loadData({ allStore: this.props.products }));
+            this.props.dispatch(loadData({ allStore: this.state.products }));
         } catch (err) {
             console.log("err in app-->componentDidMount: ", err);
         }
