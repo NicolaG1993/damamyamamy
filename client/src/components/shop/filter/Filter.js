@@ -55,10 +55,10 @@ export default function Filter({ categories, userFilters, filters }) {
                 </label>
                 <br />
 
-                {/* <label>
+                <label>
                     Categorie
-                    <select name="categories" id="categories">
-                        <option value="">Please Choose...</option>
+                    <select name="category" id="category">
+                        <option value="">--Tutte</option>
 
                         {categories.map((category) => (
                             <option key={category.id} value={category.id}>
@@ -67,9 +67,9 @@ export default function Filter({ categories, userFilters, filters }) {
                         ))}
                     </select>
                 </label>
-                <br /> */}
+                <br />
 
-                <label>
+                {/* <label>
                     Categorie
                     {categories.map((category) => (
                         <div key={category.id}>
@@ -86,7 +86,7 @@ export default function Filter({ categories, userFilters, filters }) {
                             <label htmlFor={category.id}>{category.name}</label>
                         </div>
                     ))}
-                </label>
+                </label> */}
 
                 <label>
                     Ordina per

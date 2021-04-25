@@ -50,13 +50,13 @@ export default function Shop({
                 //perché per categories ho un opzione corrispondente a "", qui invece é un caso
             }
 
-            if (filters.categories) {
+            if (filters.category) {
                 newProducts = products.filter(
-                    (product) => product.categories[0].id === filters.categories
+                    (product) => product.categories[0].id === filters.category
                 );
 
                 // return (
-                //     product.categories[0].name === filters.categories &&
+                //     product.categories[0].name === filters.category &&
                 //     product.name === filters.name &&
                 //     product.categories.price.raw >= filters.priceMin
                 // );
@@ -66,7 +66,7 @@ export default function Shop({
 
                 setResults(newProducts);
 
-                filters.categories === "" && setResults(products);
+                filters.category === "" && setResults(products);
             }
             if (filters.name) {
                 newProducts = products.filter((product) => {
@@ -83,30 +83,22 @@ export default function Shop({
                 });
                 setResults(newProducts);
 
-                if (filters.categories) {
+                if (filters.category) {
                     let newNewProducts = newProducts.filter(
                         (product) =>
-                            product.categories[0].id === filters.categories
+                            product.categories[0].id === filters.category
                     );
-
-                    // return (
-                    //     product.categories[0].name === filters.categories &&
-                    //     product.name === filters.name &&
-                    //     product.categories.price.raw >= filters.priceMin
-                    // );
-                    // console.log("product in filter: ", product);
 
                     console.log("newProducts: ", newProducts);
 
                     setResults(newNewProducts);
 
-                    filters.categories === "" && setResults(newProducts);
+                    filters.category === "" && setResults(newProducts);
                 }
             }
         }
     }, [filters]);
-    // funziona solo per categories al momento, trovare modo migliore per far funzionare tutto insieme 🐔
-    // inoltre, ora funziona solo con una singola categoria, non di piu 🐔
+    // funziona solo per categories e name al momento, trovare modo migliore per far funzionare tutto insieme 🐔
     // aggiungere caso anche per tags 🐔
 
     const userFilters = (obj) => {

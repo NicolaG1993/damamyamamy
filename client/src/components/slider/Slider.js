@@ -159,3 +159,4 @@ const SliderCSS = css`
 export default Slider;
 
 // video -> https://www.youtube.com/watch?v=N7W-S4JhMXY
+// devo ancora analizzare per bene questo component (tipo useRef ?)
