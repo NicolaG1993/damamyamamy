@@ -1,26 +1,33 @@
 import React, { useState, useEffect } from "react";
 
 export default function Filter({ categories, userFilters, filters }) {
-    const handleForm = (e) => {
-        // console.log("e in form", e);
-        e.preventDefault(); // mi serve?
-        const form = e.target.form;
+    // const handleForm = (e) => {
+    //     // console.log("e in form", e);
+    //     e.preventDefault(); // mi serve?
+    //     const form = e.target.form;
 
-        if (Number(form[1].value) >= Number(form[2].value)) {
-            form[2].value = form[1].value;
-        }
-        // Number() per convertire da numero a string
+    //     if (Number(form[1].value) >= Number(form[2].value)) {
+    //         form[2].value = form[1].value;
+    //     }
+    //     // Number() per convertire da numero a string
 
-        const data = new FormData(form);
-        const allValues = Object.fromEntries(data.entries());
+    //     const data = new FormData(form);
+    //     const allValues = Object.fromEntries(data.entries());
 
-        // setFilters(allValues);
-        userFilters(allValues);
+    //     // setFilters(allValues);
+    //     userFilters(allValues);
+    // };
+
+    const filterByInput = (e) => {
+        let input = e.target.value;
+        console.log("filterByInput: ", input);
+        // this.props.dispatch(filterByValue({ value: input }));
     };
 
     return (
         <div className={"filter-bar"}>
-            <form onChange={(e) => handleForm(e)}>
+            {/* <form onChange={(e) => handleForm(e)}> */}
+            <form>
                 <label>
                     Ricerca per nome
                     <input
@@ -28,6 +35,7 @@ export default function Filter({ categories, userFilters, filters }) {
                         placeholder="Cerca..."
                         name="name"
                         id="name"
+                        onChange={(e) => filterByInput(e)}
                     />
                 </label>
                 <br />

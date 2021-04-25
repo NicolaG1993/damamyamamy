@@ -31,10 +31,10 @@ export function loadData(payload) {
     };
 }
 
-export function reducer(state = {}, action) {
+export async function reducer(state = {}, action) {
     switch (action.type) {
         case LOAD_DATA:
-            let allStore = action.payload.allStore;
+            let allStore = await action.payload.allStore; //non so se debba essere async 🐔
             console.log("LOAD_DATA: ", allStore);
             return {
                 ...state,

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 
+// import { useDispatch, useSelector } from "react-redux";
+// import { loadData } from "../../redux/actions";
+
 import Product from "./product/Product";
 import Filter from "./filter/Filter";
 import { commerce } from "../../lib/commerce";
@@ -12,10 +15,10 @@ export default function Shop({
 }) {
     console.log("products in Shop.js: ", products);
     const [categories, setCategories] = useState([]);
-    const [filters, setFilters] = useState(null);
+    // const [filters, setFilters] = useState(null);
     const [results, setResults] = useState(null);
 
-    let newProducts;
+    // let newProducts;
 
     console.log("results: ", results);
 
@@ -31,7 +34,7 @@ export default function Shop({
             el.classList.add("fade-in");
         });
 
-        console.log("filters: ", filters);
+        // console.log("filters: ", filters);
     });
 
     useEffect(() => {
@@ -42,68 +45,68 @@ export default function Shop({
         setResults(products);
     }, [products]);
 
-    useEffect(() => {
-        if (filters) {
-            if (filters.name === "") {
-                setResults(products);
-                //questa parte é incorretta peró al momento funziona solo cosi, non posso farla funzionare dentro l'altro if come con categories
-                //perché per categories ho un opzione corrispondente a "", qui invece é un caso
-            }
+    // useEffect(() => {
+    //     if (filters) {
+    //         if (filters.name === "") {
+    //             setResults(products);
+    //             //questa parte é incorretta peró al momento funziona solo cosi, non posso farla funzionare dentro l'altro if come con categories
+    //             //perché per categories ho un opzione corrispondente a "", qui invece é un caso
+    //         }
 
-            if (filters.category) {
-                newProducts = products.filter(
-                    (product) => product.categories[0].id === filters.category
-                );
+    //         if (filters.category) {
+    //             newProducts = products.filter(
+    //                 (product) => product.categories[0].id === filters.category
+    //             );
 
-                // return (
-                //     product.categories[0].name === filters.category &&
-                //     product.name === filters.name &&
-                //     product.categories.price.raw >= filters.priceMin
-                // );
-                // console.log("product in filter: ", product);
+    //             // return (
+    //             //     product.categories[0].name === filters.category &&
+    //             //     product.name === filters.name &&
+    //             //     product.categories.price.raw >= filters.priceMin
+    //             // );
+    //             // console.log("product in filter: ", product);
 
-                console.log("newProducts: ", newProducts);
+    //             console.log("newProducts: ", newProducts);
 
-                setResults(newProducts);
+    //             setResults(newProducts);
 
-                filters.category === "" && setResults(products);
-            }
-            if (filters.name) {
-                newProducts = products.filter((product) => {
-                    if (
-                        product.name
-                            .toLowerCase()
-                            .includes(filters.name.toLowerCase()) ||
-                        product.categories[0].name
-                            .toLowerCase()
-                            .includes(filters.name.toLowerCase())
-                    ) {
-                        return product;
-                    }
-                });
-                setResults(newProducts);
+    //             filters.category === "" && setResults(products);
+    //         }
+    //         if (filters.name) {
+    //             newProducts = products.filter((product) => {
+    //                 if (
+    //                     product.name
+    //                         .toLowerCase()
+    //                         .includes(filters.name.toLowerCase()) ||
+    //                     product.categories[0].name
+    //                         .toLowerCase()
+    //                         .includes(filters.name.toLowerCase())
+    //                 ) {
+    //                     return product;
+    //                 }
+    //             });
+    //             setResults(newProducts);
 
-                if (filters.category) {
-                    let newNewProducts = newProducts.filter(
-                        (product) =>
-                            product.categories[0].id === filters.category
-                    );
+    //             if (filters.category) {
+    //                 let newNewProducts = newProducts.filter(
+    //                     (product) =>
+    //                         product.categories[0].id === filters.category
+    //                 );
 
-                    console.log("newProducts: ", newProducts);
+    //                 console.log("newProducts: ", newProducts);
 
-                    setResults(newNewProducts);
+    //                 setResults(newNewProducts);
 
-                    filters.category === "" && setResults(newProducts);
-                }
-            }
-        }
-    }, [filters]);
+    //                 filters.category === "" && setResults(newProducts);
+    //             }
+    //         }
+    //     }
+    // }, [filters]);
     // funziona solo per categories e name al momento, trovare modo migliore per far funzionare tutto insieme 🐔
     // aggiungere caso anche per tags 🐔
 
-    const userFilters = (obj) => {
-        setFilters(obj);
-    };
+    // const userFilters = (obj) => {
+    //     setFilters(obj);
+    // };
 
     return (
         <div className={"shop"}>
@@ -111,8 +114,9 @@ export default function Shop({
             <h3>Filtra risultati</h3>
             <Filter
                 categories={categories}
-                userFilters={userFilters}
-                filters={filters}
+
+                // userFilters={userFilters}
+                // filters={filters}
             />
             <div className={"products"}>
                 {results ? (
