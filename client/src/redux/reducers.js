@@ -33,20 +33,23 @@ const initialState = {
 
 const LOAD_DATA = "LOAD_DATA";
 const FILTER_BY_VALUE = "FILTER_BY_VALUE";
+const FILTER_BY_CATEGORY = "FILTER_BY_CATEGORY";
+const FILTER_BY_PRICE = "FILTER_BY_PRICE";
 const SORT_BY_ALPHABET = "SORT_BY_ALPHABET";
 const SORT_BY_PRICE = "SORT_BY_PRICE";
-const FILTER_BY_PRICE = "FILTER_BY_PRICE";
 
 export function reducer(state = initialState, action) {
     switch (action.type) {
-        case LOAD_DATA:
+        case LOAD_DATA: {
             let allStore = action.payload.allStore;
             console.log("LOAD_DATA: ", allStore);
             return {
                 ...state,
                 allStore,
             };
-        case FILTER_BY_VALUE:
+        }
+
+        case FILTER_BY_VALUE: {
             //clone the state
             let newState = Object.assign({}, state);
             //the value received from our presentational component
@@ -82,6 +85,14 @@ export function reducer(state = initialState, action) {
             }
 
             return newState;
+        }
+
+        case FILTER_BY_CATEGORY:
+            //filter by category
+            return state;
+        case FILTER_BY_PRICE:
+            //filter by price
+            return state;
 
         case SORT_BY_ALPHABET:
             //sort alphabetically
@@ -89,9 +100,7 @@ export function reducer(state = initialState, action) {
         case SORT_BY_PRICE:
             //sort by price
             return state;
-        case FILTER_BY_PRICE:
-            //filter by price
-            return state;
+
         default:
             return state;
     }

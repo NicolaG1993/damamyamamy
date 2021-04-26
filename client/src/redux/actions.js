@@ -26,6 +26,12 @@ export function filterByValue(payload) {
         payload,
     };
 }
+export function filterByCategory(payload) {
+    return {
+        type: "FILTER_BY_CATEGORY",
+        payload,
+    };
+}
 export function filterByPrice(payload) {
     return {
         type: "FILTER_BY_PRICE",

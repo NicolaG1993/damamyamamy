@@ -1,24 +1,32 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-
-// import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // import { loadData } from "../../redux/actions";
+import {
+    filterByValue,
+    filterByCategory,
+    filterByPrice,
+} from "../../redux/actions";
 
 import Product from "./product/Product";
 import Filter from "./filter/Filter";
 import { commerce } from "../../lib/commerce";
 
 export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
+    const dispatch = useDispatch();
     let state = useSelector((state) => state);
     console.log("products in Shop.js: ", state);
 
     const [categories, setCategories] = useState([]);
-    // const [filters, setFilters] = useState(null);
+    const [filters, setFilters] = useState(null);
     const [results, setResults] = useState(null);
 
     // let newProducts;
 
     console.log("results: ", results);
+
+    const userFilters = (obj) => {
+        setFilters(obj);
+    };
 
     const fetchCategories = async () => {
         const { data } = await commerce.categories.list();
@@ -32,7 +40,19 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
             el.classList.add("fade-in");
         });
 
-        // console.log("filters: ", filters);
+        console.log("filters: ", filters);
+        if (filters) {
+            dispatch(filterByValue({ value: filters.name }));
+            // dispatch(filterByCategory({ value: filters.category }));
+            // dispatch(
+            //     filterByPrice({
+            //         minPrice: filters.priceMin,
+            //         maxPrice: filters.priceMax,
+            //     })
+            // );
+
+            setResults(state.filteredProducts);
+        }
     });
 
     useEffect(() => {
@@ -43,9 +63,9 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
         setResults(state.allStore);
     }, [state.allStore]);
 
-    useEffect(() => {
-        setResults(state.filteredProducts);
-    }, [state.filteredProducts]);
+    // useEffect(() => {
+    //     setResults(state.filteredProducts);
+    // }, [state.filteredProducts]);
 
     // useEffect(() => {
     //     if (filters) {
@@ -106,19 +126,14 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
     // funziona solo per categories e name al momento, trovare modo migliore per far funzionare tutto insieme 🐔
     // aggiungere caso anche per tags 🐔
 
-    // const userFilters = (obj) => {
-    //     setFilters(obj);
-    // };
-
     return (
         <div className={"shop"}>
             <h1>Shop</h1>
             <h3>Filtra risultati</h3>
             <Filter
                 categories={categories}
-
-                // userFilters={userFilters}
-                // filters={filters}
+                userFilters={userFilters}
+                filters={filters}
             />
             <div className={"products"}>
                 {results ? (
@@ -159,3 +174,66 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
 // ];
 
 // devo creare una fn da passare a Filter 🐲
+
+// **************** COME FARE PIU FILTRI INSIEME !!!!!!!! **************s
+// useEffect(() => {
+//     const allProducts = products;
+//     let filteredProducts = [];
+
+//     if (filters.name) {
+//         if (filters.name === "") {
+//             filteredProducts = allProducts;
+//         } else {
+//             filteredProducts = allProducts.filter(
+//                 (product) =>
+//                     product.name
+//                         .toLowerCase()
+//                         .includes(filters.name.toLowerCase()) ||
+//                     product.categories[0].name
+//                         .toLowerCase()
+//                         .includes(filters.name.toLowerCase())
+//             );
+//         }
+//     }
+
+//     if (filters.category) {
+//         if (filters.category === "") {
+//             return filteredProducts;
+//         } else {
+//             filteredProducts = filteredProducts.filter(
+//                 (product) => product.categories[0].id === filters.category
+//             );
+//         }
+//     }
+//     if (filters.priceMin || filters.priceMax) {
+//         filteredProducts = filteredProducts.filter(
+//             (product) =>
+//                 product.categories.price.raw >= filters.priceMin &&
+//                 product.categories.price.raw <= filters.priceMax
+//         );
+//     }
+
+//     // etc ...
+
+//     setResults(filteredProducts);
+// }, [filters]);
+
+/////////////// **************** /////////////// ****************
+
+// const filterByInput = (e) => {
+//     let input = e.target.value;
+//     dispatch(filterByValue({ value: input }));
+//     // console.log("filterByInput: ", input);
+// };
+// const filterByCategory = (e) => {
+//     let input = e.target.value;
+//     dispatch(filterByValue({ value: input }));
+//     // console.log("filterByInput: ", input);
+// };
+// const filterByInput = (e) => {
+//     let input = e.target.value;
+//     dispatch(filterByValue({ value: input }));
+//     // console.log("filterByInput: ", input);
+// };
+
+/////////////// **************** /////////////// ****************
