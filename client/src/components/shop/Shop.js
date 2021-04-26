@@ -46,13 +46,13 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
             console.log("filters in useEffect[filters]: ", filters);
             dispatch(filterByValue({ value: filters.name }));
             dispatch(filterByCategory({ value: filters.category }));
+            dispatch(
+                filterByPrice({
+                    minPrice: filters.priceMin,
+                    maxPrice: filters.priceMax,
+                })
+            );
             console.log("state after filters: ", state);
-            // dispatch(
-            //     filterByPrice({
-            //         minPrice: filters.priceMin,
-            //         maxPrice: filters.priceMax,
-            //     })
-            // );
         }
     }, [filters]);
 

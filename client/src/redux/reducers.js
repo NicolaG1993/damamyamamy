@@ -105,9 +105,21 @@ export function reducer(state = initialState, action) {
 
         //devo capire bene come usare newState -> ora se cambio categoria mi torna tutti i prodotti
 
-        case FILTER_BY_PRICE:
-            //filter by price
-            return state;
+        case FILTER_BY_PRICE: {
+            console.log("FILTER_BY_PRICE [action.payload", action.payload);
+            let newState = Object.assign({}, state);
+            let minPrice = action.payload.minPrice;
+            let maxPrice = action.payload.maxPrice;
+            if (minPrice || maxPrice) {
+                let filteredValues = state.filteredProducts.filter(
+                    (product) =>
+                        product.price.raw >= minPrice &&
+                        product.price.raw <= maxPrice
+                );
+                newState.filteredProducts = filteredValues;
+            }
+            return newState;
+        }
 
         case SORT_BY_ALPHABET:
             //sort alphabetically
