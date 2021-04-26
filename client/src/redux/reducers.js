@@ -26,9 +26,10 @@
 // };
 // export default filterStore;
 
+const LOAD_DATA = "LOAD_DATA";
+const FILTER_BY_VALUE = "FILTER_BY_VALUE";
 const SORT_BY_ALPHABET = "SORT_BY_ALPHABET";
 const SORT_BY_PRICE = "SORT_BY_PRICE";
-const LOAD_DATA = "LOAD_DATA";
 const FILTER_BY_PRICE = "FILTER_BY_PRICE";
 
 export function reducer(state = {}, action) {
@@ -39,6 +40,22 @@ export function reducer(state = {}, action) {
             return {
                 ...state,
                 allStore,
+            };
+        case FILTER_BY_VALUE:
+            //the value passed from our presentational component
+            let value = action.payload.value;
+            console.log("FILTER_BY_VALUE: ", value);
+            let filteredValues = state.allStore.filter((product) => {
+                //return any product whose name or categories contains the input box string
+
+                return (
+                    product.name.toLowerCase().includes(value) ||
+                    product.categories[0].name.toLowerCase().includes(value)
+                );
+            });
+            return {
+                ...state,
+                allStore: filteredValues,
             };
         case SORT_BY_ALPHABET:
             //sort alphabetically

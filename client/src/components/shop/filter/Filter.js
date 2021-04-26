@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { filterByValue } from "../../../redux/actions";
 
 export default function Filter({ categories, userFilters, filters }) {
     // const handleForm = (e) => {
@@ -18,66 +20,68 @@ export default function Filter({ categories, userFilters, filters }) {
     //     userFilters(allValues);
     // };
 
+    const dispatch = useDispatch();
+
     const filterByInput = (e) => {
         let input = e.target.value;
+        dispatch(filterByValue({ value: input }));
         console.log("filterByInput: ", input);
-        // this.props.dispatch(filterByValue({ value: input }));
     };
 
     return (
         <div className={"filter-bar"}>
             {/* <form onChange={(e) => handleForm(e)}> */}
-            <form>
-                <label>
-                    Ricerca per nome
-                    <input
-                        type="text"
-                        placeholder="Cerca..."
-                        name="name"
-                        id="name"
-                        onChange={(e) => filterByInput(e)}
-                    />
-                </label>
-                <br />
-                <label>
-                    Prezzo minimo
-                    <input
-                        type="number"
-                        defaultValue="0"
-                        min="0"
-                        max="1000"
-                        name="priceMin"
-                        id="priceMin"
-                    />
-                </label>
-                <label>
-                    max.
-                    <input
-                        type="number"
-                        defaultValue="1000"
-                        min={filters && filters.priceMin}
-                        max="1000"
-                        name="priceMax"
-                        id="priceMax"
-                    />
-                </label>
-                <br />
 
-                <label>
-                    Categorie
-                    <select name="category" id="category">
-                        <option value="">--Tutte</option>
+            <label>
+                Ricerca per nome
+                <input
+                    type="text"
+                    placeholder="Cerca..."
+                    name="name"
+                    id="name"
+                    onChange={(e) => filterByInput(e)}
+                />
+            </label>
+            <br />
+            <label>
+                Prezzo minimo
+                <input
+                    type="number"
+                    defaultValue="0"
+                    min="0"
+                    max="1000"
+                    name="priceMin"
+                    id="priceMin"
+                />
+            </label>
+            <label>
+                max.
+                <input
+                    type="number"
+                    defaultValue="1000"
+                    min={filters && filters.priceMin}
+                    max="1000"
+                    name="priceMax"
+                    id="priceMax"
+                />
+            </label>
+            <br />
 
-                        {categories.map((category) => (
-                            <option key={category.id} value={category.id}>
-                                {category.name}
-                            </option>
-                        ))}
-                    </select>
-                </label>
-                <br />
+            <label>
+                Categorie
+                <select name="category" id="category">
+                    <option value="">--Tutte</option>
 
-                {/* <label>
+                    {categories.map((category) => (
+                        <option key={category.id} value={category.id}>
+                            {category.name}
+                        </option>
+                    ))}
+                </select>
+            </label>
+            <br />
+
+            {/* <label>
                     Categorie
                     {categories.map((category) => (
                         <div key={category.id}>
@@ -96,16 +100,15 @@ export default function Filter({ categories, userFilters, filters }) {
                     ))}
                 </label> */}
 
-                <label>
-                    Ordina per
-                    <select name="order" id="order">
-                        <option value="new">Novitá</option>
-                        <option value="relevant">Rilevanza</option>
-                        <option value="lowPrice">Prezzo piú basso</option>
-                        <option value="highPrice">Prezzo piú alto</option>
-                    </select>
-                </label>
-            </form>
+            <label>
+                Ordina per
+                <select name="order" id="order">
+                    <option value="new">Novitá</option>
+                    <option value="relevant">Rilevanza</option>
+                    <option value="lowPrice">Prezzo piú basso</option>
+                    <option value="highPrice">Prezzo piú alto</option>
+                </select>
+            </label>
         </div>
     );
 }

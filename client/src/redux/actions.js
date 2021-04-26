@@ -20,6 +20,12 @@ export function sortByPrice(payload) {
         payload,
     };
 }
+export function filterByValue(payload) {
+    return {
+        type: "FILTER_BY_VALUE",
+        payload,
+    };
+}
 export function filterByPrice(payload) {
     return {
         type: "FILTER_BY_PRICE",

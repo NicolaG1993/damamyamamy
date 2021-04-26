@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 // import { useDispatch, useSelector } from "react-redux";
 // import { loadData } from "../../redux/actions";
@@ -7,13 +8,10 @@ import Product from "./product/Product";
 import Filter from "./filter/Filter";
 import { commerce } from "../../lib/commerce";
 
-export default function Shop({
-    products,
-    notAvailables,
-    onAddToCart,
-    removeFromCart,
-}) {
-    console.log("products in Shop.js: ", products);
+export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
+    const allStore = useSelector((state) => state.allStore);
+    console.log("products in Shop.js: ", allStore);
+
     const [categories, setCategories] = useState([]);
     // const [filters, setFilters] = useState(null);
     const [results, setResults] = useState(null);
@@ -42,8 +40,8 @@ export default function Shop({
     }, []);
 
     useEffect(() => {
-        setResults(products);
-    }, [products]);
+        setResults(allStore);
+    }, [allStore]);
 
     // useEffect(() => {
     //     if (filters) {
