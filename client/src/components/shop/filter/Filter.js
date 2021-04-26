@@ -25,7 +25,7 @@ export default function Filter({ categories, userFilters, filters }) {
     const filterByInput = (e) => {
         let input = e.target.value;
         dispatch(filterByValue({ value: input }));
-        console.log("filterByInput: ", input);
+        // console.log("filterByInput: ", input);
     };
 
     return (

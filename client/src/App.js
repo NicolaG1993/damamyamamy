@@ -249,7 +249,7 @@ NEXT STEPS:
 filtra/ricerca in shop 🐔
 come fare suggested items in list comp 🐔
 
-completare slider 🐔
+completare slider 🐲
 
 styling 🐔
 ritocchi finali in react ai vari components 🐔

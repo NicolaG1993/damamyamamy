@@ -9,8 +9,8 @@ import Filter from "./filter/Filter";
 import { commerce } from "../../lib/commerce";
 
 export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
-    const allStore = useSelector((state) => state.allStore);
-    console.log("products in Shop.js: ", allStore);
+    let state = useSelector((state) => state);
+    console.log("products in Shop.js: ", state);
 
     const [categories, setCategories] = useState([]);
     // const [filters, setFilters] = useState(null);
@@ -40,8 +40,12 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
     }, []);
 
     useEffect(() => {
-        setResults(allStore);
-    }, [allStore]);
+        setResults(state.allStore);
+    }, [state.allStore]);
+
+    useEffect(() => {
+        setResults(state.filteredProducts);
+    }, [state.filteredProducts]);
 
     // useEffect(() => {
     //     if (filters) {
