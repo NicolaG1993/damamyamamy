@@ -52,7 +52,7 @@ export function reducer(state = initialState, action) {
         case FILTER_BY_VALUE: {
             //clone the state
             let newState = Object.assign({}, state);
-            //the value received from our presentational component
+            //the value received from our component
             let value = action.payload.value;
             let filteredValues = state.allStore.filter((product) => {
                 //look for objects with the received value in their ‘name’ or ‘categories’ fields
@@ -62,8 +62,8 @@ export function reducer(state = initialState, action) {
                 );
             });
             let appliedFilters = state.appliedFilters;
-            console.log("FILTER_BY_VALUE: ", filteredValues);
-            console.log("FILTER_BY_VALUE: ", appliedFilters);
+            console.log("FILTER_BY_VALUE [filteredValues]: ", filteredValues);
+            console.log("FILTER_BY_VALUE [appliedFilters]: ", appliedFilters);
             //if the value from the input box is not empty
             if (value) {
                 //check if the filter already exists in the tracking array
@@ -84,12 +84,27 @@ export function reducer(state = initialState, action) {
                 }
             }
 
+            console.log("FILTER_BY_VALUE newState: ", newState);
             return newState;
         }
 
-        case FILTER_BY_CATEGORY:
-            //filter by category
-            return state;
+        case FILTER_BY_CATEGORY: {
+            console.log("FILTER_BY_CATEGORY: ", state);
+            let newState = Object.assign({}, state);
+            let value = action.payload.value;
+            if (value === "") {
+                newState.filteredProducts = state.filteredProducts;
+            } else {
+                let filteredValues = state.filteredProducts.filter(
+                    (product) => product.categories[0].id === value
+                );
+                newState.filteredProducts = filteredValues;
+            }
+            return newState;
+        }
+
+        //devo capire bene come usare newState -> ora se cambio categoria mi torna tutti i prodotti
+
         case FILTER_BY_PRICE:
             //filter by price
             return state;

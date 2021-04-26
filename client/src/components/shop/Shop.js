@@ -39,21 +39,22 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
         document.querySelectorAll(".product-box").forEach((el) => {
             el.classList.add("fade-in");
         });
+    });
 
-        console.log("filters: ", filters);
+    useEffect(() => {
         if (filters) {
+            console.log("filters in useEffect[filters]: ", filters);
             dispatch(filterByValue({ value: filters.name }));
-            // dispatch(filterByCategory({ value: filters.category }));
+            dispatch(filterByCategory({ value: filters.category }));
+            console.log("state after filters: ", state);
             // dispatch(
             //     filterByPrice({
             //         minPrice: filters.priceMin,
             //         maxPrice: filters.priceMax,
             //     })
             // );
-
-            setResults(state.filteredProducts);
         }
-    });
+    }, [filters]);
 
     useEffect(() => {
         fetchCategories();
@@ -63,9 +64,9 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
         setResults(state.allStore);
     }, [state.allStore]);
 
-    // useEffect(() => {
-    //     setResults(state.filteredProducts);
-    // }, [state.filteredProducts]);
+    useEffect(() => {
+        setResults(state.filteredProducts);
+    }, [state.filteredProducts]);
 
     // useEffect(() => {
     //     if (filters) {
@@ -176,64 +177,69 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
 // devo creare una fn da passare a Filter 🐲
 
 // **************** COME FARE PIU FILTRI INSIEME !!!!!!!! **************s
-// useEffect(() => {
-//     const allProducts = products;
-//     let filteredProducts = [];
+/* 
+useEffect(() => {
+    const allProducts = products;
+    let filteredProducts = [];
 
-//     if (filters.name) {
-//         if (filters.name === "") {
-//             filteredProducts = allProducts;
-//         } else {
-//             filteredProducts = allProducts.filter(
-//                 (product) =>
-//                     product.name
-//                         .toLowerCase()
-//                         .includes(filters.name.toLowerCase()) ||
-//                     product.categories[0].name
-//                         .toLowerCase()
-//                         .includes(filters.name.toLowerCase())
-//             );
-//         }
-//     }
+    if (filters.name) {
+        if (filters.name === "") {
+            filteredProducts = allProducts;
+        } else {
+            filteredProducts = allProducts.filter(
+                (product) =>
+                    product.name
+                        .toLowerCase()
+                        .includes(filters.name.toLowerCase()) ||
+                    product.categories[0].name
+                        .toLowerCase()
+                        .includes(filters.name.toLowerCase())
+            );
+        }
+    }
 
-//     if (filters.category) {
-//         if (filters.category === "") {
-//             return filteredProducts;
-//         } else {
-//             filteredProducts = filteredProducts.filter(
-//                 (product) => product.categories[0].id === filters.category
-//             );
-//         }
-//     }
-//     if (filters.priceMin || filters.priceMax) {
-//         filteredProducts = filteredProducts.filter(
-//             (product) =>
-//                 product.categories.price.raw >= filters.priceMin &&
-//                 product.categories.price.raw <= filters.priceMax
-//         );
-//     }
+    if (filters.category) {
+        if (filters.category === "") {
+            return filteredProducts;
+        } else {
+            filteredProducts = filteredProducts.filter(
+                (product) => product.categories[0].id === filters.category
+            );
+        }
+    }
+    if (filters.priceMin || filters.priceMax) {
+        filteredProducts = filteredProducts.filter(
+            (product) =>
+                product.categories.price.raw >= filters.priceMin &&
+                product.categories.price.raw <= filters.priceMax
+        );
+    }
 
-//     // etc ...
+    // etc ...
 
-//     setResults(filteredProducts);
-// }, [filters]);
+    setResults(filteredProducts);
+}, [filters]);
+
+*/
 
 /////////////// **************** /////////////// ****************
 
-// const filterByInput = (e) => {
-//     let input = e.target.value;
-//     dispatch(filterByValue({ value: input }));
-//     // console.log("filterByInput: ", input);
-// };
-// const filterByCategory = (e) => {
-//     let input = e.target.value;
-//     dispatch(filterByValue({ value: input }));
-//     // console.log("filterByInput: ", input);
-// };
-// const filterByInput = (e) => {
-//     let input = e.target.value;
-//     dispatch(filterByValue({ value: input }));
-//     // console.log("filterByInput: ", input);
-// };
+/*
+const filterByInput = (e) => {
+    let input = e.target.value;
+    dispatch(filterByValue({ value: input }));
+    // console.log("filterByInput: ", input);
+};
+const filterByCategory = (e) => {
+    let input = e.target.value;
+    dispatch(filterByValue({ value: input }));
+    // console.log("filterByInput: ", input);
+};
+const filterByInput = (e) => {
+    let input = e.target.value;
+    dispatch(filterByValue({ value: input }));
+    // console.log("filterByInput: ", input);
+};
+*/
 
 /////////////// **************** /////////////// ****************
