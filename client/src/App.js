@@ -246,7 +246,7 @@ https://www.youtube.com/watch?v=377AQ0y6LPA -> per rifare con hooks la parte rel
 
 NEXT STEPS:
 🐲 🐔
-filtra/ricerca in shop 🐔
+filtra/ricerca in shop 🐲
 come fare suggested items in list comp 🐔
 
 completare slider 🐲

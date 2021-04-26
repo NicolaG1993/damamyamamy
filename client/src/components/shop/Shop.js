@@ -20,8 +20,6 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
     const [filters, setFilters] = useState(null);
     const [results, setResults] = useState(null);
 
-    // let newProducts;
-
     console.log("results: ", results);
 
     const userFilters = (obj) => {
@@ -36,6 +34,9 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
     };
 
     useEffect(() => {
+        if (!filters) {
+            setResults(state.allStore);
+        }
         document.querySelectorAll(".product-box").forEach((el) => {
             el.classList.add("fade-in");
         });
@@ -68,63 +69,6 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
         setResults(state.filteredProducts);
     }, [state.filteredProducts]);
 
-    // useEffect(() => {
-    //     if (filters) {
-    //         if (filters.name === "") {
-    //             setResults(products);
-    //             //questa parte é incorretta peró al momento funziona solo cosi, non posso farla funzionare dentro l'altro if come con categories
-    //             //perché per categories ho un opzione corrispondente a "", qui invece é un caso
-    //         }
-
-    //         if (filters.category) {
-    //             newProducts = products.filter(
-    //                 (product) => product.categories[0].id === filters.category
-    //             );
-
-    //             // return (
-    //             //     product.categories[0].name === filters.category &&
-    //             //     product.name === filters.name &&
-    //             //     product.categories.price.raw >= filters.priceMin
-    //             // );
-    //             // console.log("product in filter: ", product);
-
-    //             console.log("newProducts: ", newProducts);
-
-    //             setResults(newProducts);
-
-    //             filters.category === "" && setResults(products);
-    //         }
-    //         if (filters.name) {
-    //             newProducts = products.filter((product) => {
-    //                 if (
-    //                     product.name
-    //                         .toLowerCase()
-    //                         .includes(filters.name.toLowerCase()) ||
-    //                     product.categories[0].name
-    //                         .toLowerCase()
-    //                         .includes(filters.name.toLowerCase())
-    //                 ) {
-    //                     return product;
-    //                 }
-    //             });
-    //             setResults(newProducts);
-
-    //             if (filters.category) {
-    //                 let newNewProducts = newProducts.filter(
-    //                     (product) =>
-    //                         product.categories[0].id === filters.category
-    //                 );
-
-    //                 console.log("newProducts: ", newProducts);
-
-    //                 setResults(newNewProducts);
-
-    //                 filters.category === "" && setResults(newProducts);
-    //             }
-    //         }
-    //     }
-    // }, [filters]);
-    // funziona solo per categories e name al momento, trovare modo migliore per far funzionare tutto insieme 🐔
     // aggiungere caso anche per tags 🐔
 
     return (
@@ -161,22 +105,9 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
     );
 }
 
-// const products = [
-//     {
-//         id: 2,
-//         name: "Passeggino Chicco",
-//         description:
-//             "Passeggino della Chicco in ottime condizioni, come nuovo",
-//         price: "75€",
-//         tags: ["passeggino", "Chicco"],
-//         pic_url:
-//             "https://cdn.babycscdn.com/m/25415-large_default/passeggino-chicco-simplicity.jpg",
-//     },
-// ];
-
 // devo creare una fn da passare a Filter 🐲
 
-// **************** COME FARE PIU FILTRI INSIEME !!!!!!!! **************s
+// **************** COME FAR FUNZIONARE PIU FILTRI INSIEME !!!!!!!! **************s
 /* 
 useEffect(() => {
     const allProducts = products;
@@ -221,25 +152,3 @@ useEffect(() => {
 }, [filters]);
 
 */
-
-/////////////// **************** /////////////// ****************
-
-/*
-const filterByInput = (e) => {
-    let input = e.target.value;
-    dispatch(filterByValue({ value: input }));
-    // console.log("filterByInput: ", input);
-};
-const filterByCategory = (e) => {
-    let input = e.target.value;
-    dispatch(filterByValue({ value: input }));
-    // console.log("filterByInput: ", input);
-};
-const filterByInput = (e) => {
-    let input = e.target.value;
-    dispatch(filterByValue({ value: input }));
-    // console.log("filterByInput: ", input);
-};
-*/
-
-/////////////// **************** /////////////// ****************
