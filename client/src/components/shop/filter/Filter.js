@@ -29,7 +29,7 @@ export default function Filter({ categories, userFilters }) {
             });
 
             // Number() per convertire da numero a string
-        }, 700);
+        }, 300);
 
         const data = new FormData(form);
         const allValues = Object.fromEntries(data.entries());
@@ -112,7 +112,11 @@ export default function Filter({ categories, userFilters }) {
                 <InputRange
                     maxValue={1000}
                     minValue={0}
-                    value={priceRange}
+                    value={
+                        priceRange.max < priceRange.min
+                            ? { min: priceRange.min, max: priceRange.min }
+                            : priceRange
+                    }
                     formatLabel={(value) => `${value} €`}
                     onChange={(value) => setPriceRange(value)}
                     onChangeComplete={() => handleRangeSlider()}
