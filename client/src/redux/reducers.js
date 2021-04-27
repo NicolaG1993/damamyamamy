@@ -157,9 +157,47 @@ export function reducer(state = initialState, action) {
                 filteredProducts: sortedArr,
             };
         }
-        case SORT_BY_PRICE:
-            //sort by price
-            return state;
+
+        case SORT_BY_PRICE: {
+            console.log("SORT_BY_PRICE [action.payload]", action.payload);
+            console.log(
+                "SORT_BY_PRICE [state.filteredProducts]",
+                state.filteredProducts
+            );
+
+            function sortLowPrice(arr, field) {
+                return arr.sort(function (a, b) {
+                    if (a[field].raw > b[field].raw) {
+                        return 1;
+                    }
+                    if (b[field].raw > a[field].raw) {
+                        return -1;
+                    }
+                    return 0;
+                });
+            }
+            function sortHighPrice(arr, field) {
+                return arr.sort(function (a, b) {
+                    if (a[field].raw > b[field].raw) {
+                        return -1;
+                    }
+                    if (b[field].raw > a[field].raw) {
+                        return 1;
+                    }
+                    return 0;
+                });
+            }
+
+            let sortedArr =
+                action.payload.value === "lowPrice"
+                    ? sortLowPrice(state.filteredProducts, "price")
+                    : sortHighPrice(state.filteredProducts, "price");
+
+            return {
+                ...state,
+                filteredProducts: sortedArr,
+            };
+        }
 
         default:
             return state;

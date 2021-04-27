@@ -14,12 +14,13 @@
 //     }
 // }
 
-export function sortByPrice(payload) {
+export function loadData(payload) {
     return {
-        type: "SORT_BY_PRICE",
+        type: "LOAD_DATA",
         payload,
     };
 }
+
 export function filterByValue(payload) {
     return {
         type: "FILTER_BY_VALUE",
@@ -38,15 +39,16 @@ export function filterByPrice(payload) {
         payload,
     };
 }
+
 export function sortByAlphabet(payload) {
     return {
         type: "SORT_BY_ALPHABET",
         payload,
     };
 }
-export function loadData(payload) {
+export function sortByPrice(payload) {
     return {
-        type: "LOAD_DATA",
+        type: "SORT_BY_PRICE",
         payload,
     };
 }

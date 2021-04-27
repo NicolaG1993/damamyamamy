@@ -6,6 +6,7 @@ import {
     filterByCategory,
     filterByPrice,
     sortByAlphabet,
+    sortByPrice,
 } from "../../redux/actions";
 
 import Product from "./product/Product";
@@ -54,7 +55,32 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
                     maxPrice: filters.priceMax,
                 })
             );
-            dispatch(sortByAlphabet({ value: filters.order }));
+
+            switch (filters.order) {
+                case "new": {
+                    break;
+                }
+                case "asc": {
+                    dispatch(sortByAlphabet({ value: filters.order }));
+                    break;
+                }
+                case "desc": {
+                    dispatch(sortByAlphabet({ value: filters.order }));
+                    break;
+                }
+                case "lowPrice": {
+                    dispatch(sortByPrice({ value: filters.order }));
+                    break;
+                }
+                case "highPrice": {
+                    dispatch(sortByPrice({ value: filters.order }));
+                    break;
+                }
+
+                default:
+                    break;
+            }
+
             console.log("state after filters: ", state);
         }
     }, [filters]);
