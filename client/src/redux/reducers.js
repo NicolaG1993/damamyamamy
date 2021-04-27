@@ -35,6 +35,7 @@ const LOAD_DATA = "LOAD_DATA";
 const FILTER_BY_VALUE = "FILTER_BY_VALUE";
 const FILTER_BY_CATEGORY = "FILTER_BY_CATEGORY";
 const FILTER_BY_PRICE = "FILTER_BY_PRICE";
+const SORT_BY_NEW = "SORT_BY_NEW";
 const SORT_BY_ALPHABET = "SORT_BY_ALPHABET";
 const SORT_BY_PRICE = "SORT_BY_PRICE";
 
@@ -119,6 +120,29 @@ export function reducer(state = initialState, action) {
                 newState.filteredProducts = filteredValues;
             }
             return newState;
+        }
+
+        case SORT_BY_NEW: {
+            console.log("SORT_BY_NEW [action.payload]", action.payload);
+
+            function sortNew(arr, field) {
+                return arr.sort(function (a, b) {
+                    if (a[field] > b[field]) {
+                        return 1;
+                    }
+                    if (b[field] > a[field]) {
+                        return -1;
+                    }
+                    return 0;
+                });
+            }
+
+            let sortedArr = sortNew(state.filteredProducts, "created");
+
+            return {
+                ...state,
+                filteredProducts: sortedArr,
+            };
         }
 
         case SORT_BY_ALPHABET: {

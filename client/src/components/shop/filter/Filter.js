@@ -149,7 +149,7 @@ export default function Filter({ categories, userFilters }) {
                         onChange={(e) => handleForm(e)}
                     >
                         <option value="new">Novitá</option>
-                        <option value="relevant">Rilevanza</option>
+                        <option value="relevant">Rilevanza --?</option>
                         <option value="asc">Ordine alfabetico A-Z</option>
                         <option value="desc">Ordine alfabetico Z-A</option>
                         <option value="lowPrice">Prezzo piú basso</option>

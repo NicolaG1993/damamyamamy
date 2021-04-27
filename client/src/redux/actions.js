@@ -40,6 +40,12 @@ export function filterByPrice(payload) {
     };
 }
 
+export function sortByNew(payload) {
+    return {
+        type: "SORT_BY_NEW",
+        payload,
+    };
+}
 export function sortByAlphabet(payload) {
     return {
         type: "SORT_BY_ALPHABET",

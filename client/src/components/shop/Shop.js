@@ -7,6 +7,7 @@ import {
     filterByPrice,
     sortByAlphabet,
     sortByPrice,
+    sortByNew,
 } from "../../redux/actions";
 
 import Product from "./product/Product";
@@ -58,6 +59,7 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
 
             switch (filters.order) {
                 case "new": {
+                    dispatch(sortByNew({ value: filters.order }));
                     break;
                 }
                 case "asc": {
