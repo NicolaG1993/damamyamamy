@@ -121,9 +121,42 @@ export function reducer(state = initialState, action) {
             return newState;
         }
 
-        case SORT_BY_ALPHABET:
-            //sort alphabetically
-            return state;
+        case SORT_BY_ALPHABET: {
+            console.log("SORT_BY_ALPHABET [action.payload]", action.payload);
+
+            function sortAsc(arr, field) {
+                return arr.sort(function (a, b) {
+                    if (a[field] > b[field]) {
+                        return 1;
+                    }
+                    if (b[field] > a[field]) {
+                        return -1;
+                    }
+                    return 0;
+                });
+            }
+            function sortDesc(arr, field) {
+                return arr.sort(function (a, b) {
+                    if (a[field] > b[field]) {
+                        return -1;
+                    }
+                    if (b[field] > a[field]) {
+                        return 1;
+                    }
+                    return 0;
+                });
+            }
+
+            let sortedArr =
+                action.payload.value === "asc"
+                    ? sortAsc(state.filteredProducts, "name")
+                    : sortDesc(state.filteredProducts, "name");
+
+            return {
+                ...state,
+                filteredProducts: sortedArr,
+            };
+        }
         case SORT_BY_PRICE:
             //sort by price
             return state;

@@ -5,6 +5,7 @@ import {
     filterByValue,
     filterByCategory,
     filterByPrice,
+    sortByAlphabet,
 } from "../../redux/actions";
 
 import Product from "./product/Product";
@@ -53,6 +54,7 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
                     maxPrice: filters.priceMax,
                 })
             );
+            dispatch(sortByAlphabet({ value: filters.order }));
             console.log("state after filters: ", state);
         }
     }, [filters]);
