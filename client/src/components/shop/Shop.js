@@ -43,7 +43,7 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
     });
 
     useEffect(() => {
-        if (filters) {
+        if (state.allStore && filters) {
             console.log("filters in useEffect[filters]: ", filters);
             dispatch(filterByValue({ value: filters.name }));
             dispatch(filterByCategory({ value: filters.category }));
@@ -75,11 +75,7 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
         <div className={"shop"}>
             <h1>Shop</h1>
             <h3>Filtra risultati</h3>
-            <Filter
-                categories={categories}
-                userFilters={userFilters}
-                filters={filters}
-            />
+            <Filter categories={categories} userFilters={userFilters} />
             <div className={"products"}>
                 {results ? (
                     results.length < 1 ? (

@@ -1,69 +1,66 @@
 import React, { useState, useEffect } from "react";
+import InputRange from "react-input-range";
+import "react-input-range/lib/css/index.css";
 
-export default function Filter({ categories, userFilters, filters }) {
-    const [minValue, setMinValue] = useState(0);
-    const [maxValue, setMaxValue] = useState(1000);
+export default function Filter({ categories, userFilters }) {
+    const [priceRange, setPriceRange] = useState({ min: 0, max: 1000 });
+    const [filters, setFilters] = useState({
+        name: "",
+        priceMin: priceRange.min,
+        priceMax: priceRange.max,
+        category: "",
+        order: "new",
+    });
 
-    const inputLeft = document.getElementById("priceMin");
-    const inputRight = document.getElementById("priceMax");
-    const thumbLeft = document.querySelector(".rangeslider > .thumb.left");
-    const thumbRight = document.querySelector(".rangeslider > .thumb.right");
-    const range = document.querySelector(".rangeslider > .range");
-
-    function setLeftValue() {
-        let _this = inputLeft;
-        let min = parseInt(_this.min);
-        let max = parseInt(_this.max);
-
-        _this.value = Math.min(
-            parseInt(_this.value),
-            parseInt(inputRight.value) - 1
-        );
-
-        let percent = ((_this.value - min) / (max - min)) * 100;
-
-        thumbLeft.style.left = percent + "%";
-        range.style.left = percent + "%";
-
-        setMinValue(_this.value);
-        console.log("MinValue: ", minValue);
-    }
-
-    function setRightValue() {
-        let _this = inputRight;
-        let min = parseInt(_this.min);
-        let max = parseInt(_this.max);
-
-        _this.value = Math.max(
-            parseInt(_this.value),
-            parseInt(inputLeft.value) + 1
-        );
-
-        let percent = ((_this.value - min) / (max - min)) * 100;
-
-        thumbRight.style.right = 100 - percent + "%";
-        range.style.right = 100 - percent + "%";
-
-        setMaxValue(_this.value);
-        console.log("MaxValue: ", maxValue);
-    }
+    // console.log("filters!!!: ", filters);
 
     const handleForm = (e) => {
         // console.log("e in form", e);
         e.preventDefault(); // mi serve?
         const form = e.target.form;
 
-        if (Number(form[1].value) >= Number(form[4].value)) {
-            form[4].value = form[1].value;
-        }
-        // Number() per convertire da numero a string
+        setTimeout(() => {
+            if (Number(form[1].value) >= Number(form[2].value)) {
+                form[2].value = form[1].value;
+            }
+            setPriceRange({
+                min: Number(form[1].value),
+                max: Number(form[2].value),
+            });
+
+            // Number() per convertire da numero a string
+        }, 700);
 
         const data = new FormData(form);
         const allValues = Object.fromEntries(data.entries());
 
-        // setFilters(allValues);
-        userFilters(allValues);
+        setFilters(allValues);
     };
+
+    const handlePriceRange = (value) => {
+        // console.log("value in handlePriceRange: ", value);
+        setPriceRange(value);
+        console.log("priceRange: ", priceRange);
+    };
+
+    const handleRangeSlider = () => {
+        // console.log("value in handlePriceRange: ", value);
+        let minInput = document.querySelector("#priceMin");
+        let maxInput = document.querySelector("#priceMax");
+        minInput.value = priceRange.min;
+        maxInput.value = priceRange.max;
+        setFilters({
+            name: filters.name,
+            priceMin: priceRange.min,
+            priceMax: priceRange.max,
+            category: filters.category,
+            order: filters.order,
+        });
+    };
+
+    useEffect(() => {
+        userFilters(filters);
+    }, [filters]);
 
     return (
         <div className={"filter-bar"}>
@@ -80,58 +77,46 @@ export default function Filter({ categories, userFilters, filters }) {
                 </label>
                 <br />
 
-                {/* <input
+                <input
                     type="number"
                     min="0"
                     max="1000"
-                    defaultValue="0"
+                    defaultValue={priceRange.min}
                     name="priceMin"
                     id="priceMin"
-                    onChange={(e) => handleForm(e)}
-                /> */}
+                    onChange={(e) =>
+                        handlePriceRange({
+                            min: Number(e.target.value),
+                            max: priceRange.max,
+                        })
+                    }
+                    onInput={(e) => handleForm(e)}
+                />
 
-                <div className={"multi-range-slider"}>
-                    <label>
-                        Prezzo minimo - max.
-                        <input
-                            type="range"
-                            min="0"
-                            max="1000"
-                            defaultValue="0"
-                            name="priceMin"
-                            id="priceMin"
-                            onChange={() => setLeftValue()}
-                            onInput={(e) => handleForm(e)}
-                        />
-                        <input
-                            type="range"
-                            min={filters && filters.priceMin}
-                            max="1000"
-                            defaultValue="1000"
-                            name="priceMax"
-                            id="priceMax"
-                            onChange={() => setRightValue()}
-                            onInput={(e) => handleForm(e)}
-                        />
-                    </label>
-
-                    <div className={"rangeslider"}>
-                        <div className={"track"}></div>
-                        <div className={"range"}></div>
-                        <div className={"thumb left"}></div>
-                        <div className={"thumb right"}></div>
-                    </div>
-                </div>
-
-                {/* <input
+                <input
                     type="number"
-                    min={filters && filters.priceMin}
+                    min={priceRange.min}
                     max="1000"
-                    defaultValue="1000"
+                    defaultValue={priceRange.max}
                     name="priceMax"
                     id="priceMax"
-                    onChange={(e) => handleForm(e)}
-                /> */}
+                    onChange={(e) =>
+                        handlePriceRange({
+                            min: priceRange.min,
+                            max: Number(e.target.value),
+                        })
+                    }
+                    onInput={(e) => handleForm(e)}
+                />
+
+                <InputRange
+                    maxValue={1000}
+                    minValue={0}
+                    value={priceRange}
+                    formatLabel={(value) => `${value} €`}
+                    onChange={(value) => setPriceRange(value)}
+                    onChangeComplete={() => handleRangeSlider()}
+                />
                 <br />
 
                 <label>
