@@ -20,7 +20,7 @@ import { commerce } from "../../lib/commerce";
 export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
     const dispatch = useDispatch();
     let state = useSelector((state) => state);
-    console.log("products in Shop.js: ", state);
+    console.log("state from REDUX in Shop.js: ", state);
 
     const [categories, setCategories] = useState([]);
     const [filters, setFilters] = useState(null);
@@ -35,13 +35,13 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
     const fetchCategories = async () => {
         const { data } = await commerce.categories.list();
 
-        console.log("fetched categories: ", data);
+        // console.log("fetched categories: ", data);
         setCategories(data);
     };
 
     useEffect(() => {
         if (!filters) {
-            setResults(state.allStore);
+            setResults(state.filteredProducts);
         }
         document.querySelectorAll(".product-box").forEach((el) => {
             el.classList.add("fade-in");
@@ -49,8 +49,8 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
     });
 
     useEffect(() => {
-        if (state.allStore && filters) {
-            console.log("filters in useEffect[filters]: ", filters);
+        if (state.filteredProducts && filters) {
+            // console.log("filters in useEffect[filters]: ", filters);
             dispatch(filterByValue({ value: filters.name }));
             dispatch(filterByCategory({ value: filters.category }));
             dispatch(
@@ -94,17 +94,17 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
         fetchCategories();
     }, []);
 
-    useEffect(() => {
-        setResults(state.allStore);
-    }, [state.allStore]);
+    // useEffect(() => {
+    //     setResults(state.allStore);
+    // }, [state.allStore]);
 
     useEffect(() => {
-        setResults(state.filteredProducts);
-    }, [state.filteredProducts]);
+        setResults(state.displayedProducts);
+    }, [state.displayedProducts]);
 
-    useEffect(() => {
-        setResults(state.filteredProductsPage);
-    }, [state.filteredProductsPage]);
+    // useEffect(() => {
+    //     setResults(state.filteredProductsPage);
+    // }, [state.filteredProductsPage]);
 
     // aggiungere caso anche per tags 🐔
 

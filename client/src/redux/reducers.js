@@ -45,7 +45,7 @@ export function reducer(state = initialState, action) {
     switch (action.type) {
         case LOAD_DATA: {
             let allStore = action.payload.allStore;
-            console.log("LOAD_DATA: ", allStore);
+            // console.log("LOAD_DATA: ", allStore);
 
             let count = action.payload.allStore.length + 1;
             let countPerPage = 9; //We need the total number of pages. This is used in rendering the pagination component. //round up
@@ -55,6 +55,7 @@ export function reducer(state = initialState, action) {
                 allStore,
                 //all of this is for NavPage component
                 filteredProducts: allStore,
+                displayedProducts: allStore.slice(0, countPerPage),
                 currentCount: countPerPage,
                 countPerPage,
                 totalCount: count,
@@ -77,8 +78,8 @@ export function reducer(state = initialState, action) {
                 );
             });
             let appliedFilters = state.appliedFilters;
-            console.log("FILTER_BY_VALUE [filteredValues]: ", filteredValues);
-            console.log("FILTER_BY_VALUE [appliedFilters]: ", appliedFilters);
+            // console.log("FILTER_BY_VALUE [filteredValues]: ", filteredValues);
+            // console.log("FILTER_BY_VALUE [appliedFilters]: ", appliedFilters);
             //if the value from the input box is not empty
             if (value) {
                 //check if the filter already exists in the tracking array
@@ -88,6 +89,10 @@ export function reducer(state = initialState, action) {
                     appliedFilters.push(FILTER_BY_VALUE);
                 //change the filtered products to reflect the change
                 newState.filteredProducts = filteredValues;
+                newState.displayedProducts = newState.filteredProducts.slice(
+                    0,
+                    state.countPerPage
+                );
             } else {
                 //if the value is empty, we can assume everything has been erased
                 let index = appliedFilters.indexOf(FILTER_BY_VALUE);
@@ -96,6 +101,10 @@ export function reducer(state = initialState, action) {
                 if (appliedFilters.length === 0) {
                     //if there are no filters applied, reset the products to normal.
                     newState.filteredProducts = newState.allStore;
+                    newState.displayedProducts = newState.filteredProducts.slice(
+                        0,
+                        state.countPerPage
+                    );
                 }
             }
 
@@ -103,11 +112,12 @@ export function reducer(state = initialState, action) {
             let count = newState.filteredProducts.length + 1;
             let totalPages = Math.ceil(count / state.countPerPage);
             newState.totalCount = count;
-            newState.currentPage = 1;
+            (newState.currentCount = state.countPerPage),
+                (newState.currentPage = 1);
             newState.totalPages = totalPages;
             newState.filteredPages = totalPages;
 
-            console.log("FILTER_BY_VALUE newState: ", newState);
+            // console.log("FILTER_BY_VALUE newState: ", newState);
 
             window.history.pushState(
                 { page: 1 },
@@ -119,22 +129,31 @@ export function reducer(state = initialState, action) {
         }
 
         case FILTER_BY_CATEGORY: {
-            console.log("FILTER_BY_CATEGORY: ", state);
+            // console.log("FILTER_BY_CATEGORY: ", state);
             let newState = Object.assign({}, state);
             let value = action.payload.value;
             if (value === "") {
                 newState.filteredProducts = state.filteredProducts;
+                newState.displayedProducts = newState.filteredProducts.slice(
+                    0,
+                    state.countPerPage
+                );
             } else {
                 let filteredValues = state.filteredProducts.filter(
                     (product) => product.categories[0].id === value
                 );
                 newState.filteredProducts = filteredValues;
+                newState.displayedProducts = newState.filteredProducts.slice(
+                    0,
+                    state.countPerPage
+                );
             }
 
             //all of this is for NavPage component
             let count = newState.filteredProducts.length + 1;
             let totalPages = Math.ceil(count / state.countPerPage);
             newState.totalCount = count;
+            newState.currentCount = state.countPerPage;
             newState.currentPage = 1;
             newState.totalPages = totalPages;
             newState.filteredPages = totalPages;
@@ -151,7 +170,7 @@ export function reducer(state = initialState, action) {
         //devo capire bene come usare newState -> ora se cambio categoria mi torna tutti i prodotti
 
         case FILTER_BY_PRICE: {
-            console.log("FILTER_BY_PRICE [action.payload", action.payload);
+            // console.log("FILTER_BY_PRICE [action.payload", action.payload);
             let newState = Object.assign({}, state);
             let minPrice = action.payload.minPrice;
             let maxPrice = action.payload.maxPrice;
@@ -162,12 +181,17 @@ export function reducer(state = initialState, action) {
                         product.price.raw <= maxPrice
                 );
                 newState.filteredProducts = filteredValues;
+                newState.displayedProducts = newState.filteredProducts.slice(
+                    0,
+                    state.countPerPage
+                );
             }
 
             //all of this is for NavPage component
             let count = newState.filteredProducts.length + 1;
             let totalPages = Math.ceil(count / state.countPerPage);
             newState.totalCount = count;
+            newState.currentCount = state.countPerPage;
             newState.currentPage = 1;
             newState.totalPages = totalPages;
             newState.filteredPages = totalPages;
@@ -182,7 +206,7 @@ export function reducer(state = initialState, action) {
         }
 
         case SORT_BY_NEW: {
-            console.log("SORT_BY_NEW [action.payload]", action.payload);
+            // console.log("SORT_BY_NEW [action.payload]", action.payload);
 
             function sortNew(arr, field) {
                 return arr.sort(function (a, b) {
@@ -205,7 +229,7 @@ export function reducer(state = initialState, action) {
         }
 
         case SORT_BY_ALPHABET: {
-            console.log("SORT_BY_ALPHABET [action.payload]", action.payload);
+            // console.log("SORT_BY_ALPHABET [action.payload]", action.payload);
 
             function sortAsc(arr, field) {
                 return arr.sort(function (a, b) {
@@ -242,11 +266,11 @@ export function reducer(state = initialState, action) {
         }
 
         case SORT_BY_PRICE: {
-            console.log("SORT_BY_PRICE [action.payload]", action.payload);
-            console.log(
-                "SORT_BY_PRICE [state.filteredProducts]",
-                state.filteredProducts
-            );
+            // console.log("SORT_BY_PRICE [action.payload]", action.payload);
+            // console.log(
+            // "SORT_BY_PRICE [state.filteredProducts]",
+            // state.filteredProducts
+            // );
 
             function sortLowPrice(arr, field) {
                 return arr.sort(function (a, b) {
@@ -305,9 +329,6 @@ export function reducer(state = initialState, action) {
                 //at any point after this line
                 loadNewPageState.currentCount += loadNewPageState.countPerPage;
                 //Only retrieve products within the (9,18) range (for page 2)
-                //Also, notice that we use ‘products’ rather than ‘filteredProducts.’ This is by design.
-                //Using the latter would result in an empty array because we only have 20 documents there when
-                //the page first loads.
                 nextProducts = state.filteredProducts.slice(
                     lowerCount,
                     upperCount
@@ -326,7 +347,7 @@ export function reducer(state = initialState, action) {
                 );
             }
 
-            loadNewPageState.filteredProductsPage = nextProducts;
+            loadNewPageState.displayedProducts = nextProducts;
             window.history.pushState(
                 { page: 1 },
                 "title 1",

@@ -25,8 +25,8 @@ export default function AddToCartBtn({
         } else {
             setItemId(results[0].item_id);
             setIsAvailable(false);
-            console.log("results.item_id: ", results[0].item_id);
-            console.log("isAvailable: ", isAvailable);
+            // console.log("results.item_id: ", results[0].item_id);
+            // console.log("isAvailable: ", isAvailable);
         }
 
         // if (notAvailables.hasOwnProperty(product_id))

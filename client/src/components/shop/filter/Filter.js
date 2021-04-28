@@ -40,7 +40,7 @@ export default function Filter({ categories, userFilters }) {
     const handlePriceRange = (value) => {
         // console.log("value in handlePriceRange: ", value);
         setPriceRange(value);
-        console.log("priceRange: ", priceRange);
+        // console.log("priceRange: ", priceRange);
     };
 
     const handleRangeSlider = () => {

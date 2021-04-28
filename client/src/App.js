@@ -29,7 +29,7 @@ class App extends Component {
     }
 
     async componentDidMount() {
-        console.log("App component did mount");
+        // console.log("App component did mount");
 
         try {
             const { data } = await commerce.products.list();
@@ -38,9 +38,9 @@ class App extends Component {
                 item_id: obj.id,
                 product_id: obj.product_id,
             })); //scriverla una sola volta con componentDidUpdate ?
-            console.log("products: ", data);
-            console.log("cart: ", cart);
-            console.log("addedItems: ", addedItems); // array con tutti i product_id ed item_id in cart
+            // console.log("products: ", data);
+            // console.log("cart: ", cart);
+            // console.log("addedItems: ", addedItems); // array con tutti i product_id ed item_id in cart
 
             this.setState({
                 products: data,
@@ -109,26 +109,26 @@ class App extends Component {
     }
 
     async handleCaptureCheckout(checkoutTokenId, newOrder) {
-        console.log("checkoutTokenId: ", checkoutTokenId);
-        console.log("newOrder: ", newOrder);
+        // console.log("checkoutTokenId: ", checkoutTokenId);
+        // console.log("newOrder: ", newOrder);
         try {
             const incomingOrder = await commerce.checkout.capture(
                 checkoutTokenId,
                 newOrder
             );
-            console.log("order: ", incomingOrder);
+            // console.log("order: ", incomingOrder);
             this.setState({
                 order: incomingOrder,
             });
             this.refreshCart();
         } catch (err) {
-            console.log("error in handleCaptureCheckout: ", err);
+            // console.log("error in handleCaptureCheckout: ", err);
             this.setState({ errorMessage: err.data.error.message });
         }
     }
 
     render() {
-        console.log("this.state in app: ", this.state);
+        // console.log("this.state in app: ", this.state);
 
         return (
             <BrowserRouter>
