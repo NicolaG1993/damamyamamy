@@ -8,10 +8,13 @@ import {
     sortByAlphabet,
     sortByPrice,
     sortByNew,
+    loadNewPage,
+    loadExactPage,
 } from "../../redux/actions";
 
 import Product from "./product/Product";
 import Filter from "./filter/Filter";
+import PageNav from "./pageNav/PageNav";
 import { commerce } from "../../lib/commerce";
 
 export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
@@ -101,11 +104,28 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
 
     // aggiungere caso anche per tags 🐔
 
+    const nextPage = () => {
+        this.props.dispatch(loadNewPage({ page: 1 }));
+    };
+
+    const previousPage = () => {
+        this.props.dispatch(loadNewPage({ page: -1 }));
+    };
+
+    const goToPage = (page) => {
+        this.props.dispatch(loadExactPage({ page }));
+    };
+
     return (
         <div className={"shop"}>
             <h1>Shop</h1>
             <h3>Filtra risultati</h3>
             <Filter categories={categories} userFilters={userFilters} />
+            <PageNav
+                nextPage={nextPage}
+                previousPage={previousPage}
+                goToPage={goToPage}
+            />
             <div className={"products"}>
                 {results ? (
                     results.length < 1 ? (

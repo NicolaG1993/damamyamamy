@@ -38,6 +38,8 @@ const FILTER_BY_PRICE = "FILTER_BY_PRICE";
 const SORT_BY_NEW = "SORT_BY_NEW";
 const SORT_BY_ALPHABET = "SORT_BY_ALPHABET";
 const SORT_BY_PRICE = "SORT_BY_PRICE";
+const LOAD_NEW_PAGE = "LOAD_NEW_PAGE";
+const LOAD_EXACT_PAGE = "SORT_EXACT_PRICE";
 
 export function reducer(state = initialState, action) {
     switch (action.type) {
@@ -221,6 +223,15 @@ export function reducer(state = initialState, action) {
                 ...state,
                 filteredProducts: sortedArr,
             };
+        }
+
+        case LOAD_NEW_PAGE: {
+            console.log("LOAD_NEW_PAGE [action.payload]", action.payload);
+            break;
+        }
+        case LOAD_EXACT_PAGE: {
+            console.log("LOAD_EXACT_PAGE [action.payload]", action.payload);
+            break;
         }
 
         default:

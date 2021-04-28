@@ -58,3 +58,16 @@ export function sortByPrice(payload) {
         payload,
     };
 }
+
+export function loadNewPage(payload) {
+    return {
+        type: "LOAD_NEW_PAGE",
+        payload,
+    };
+}
+export function loadExactPage(payload) {
+    return {
+        type: "LOAD_EXACT_PAGE",
+        payload,
+    };
+}
