@@ -14,7 +14,7 @@ import {
 
 import Product from "./product/Product";
 import Filter from "./filter/Filter";
-import PageNav from "./pageNav/PageNav";
+import PageNav from "./page-nav/PageNav";
 import { commerce } from "../../lib/commerce";
 
 export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
@@ -125,6 +125,7 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
                 nextPage={nextPage}
                 previousPage={previousPage}
                 goToPage={goToPage}
+                filteredPages={""}
             />
             <div className={"products"}>
                 {results ? (

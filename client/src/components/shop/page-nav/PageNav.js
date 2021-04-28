@@ -1,4 +1,9 @@
+// import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+
 export default function PageNav({ nextPage, previousPage, goToPage }) {
+    let state = useSelector((state) => state);
+
     return (
         <section className="section">
             <div className="container">
@@ -26,6 +31,7 @@ export default function PageNav({ nextPage, previousPage, goToPage }) {
                     <ul className="pagination-list">
                         {[...Array(state.filteredPages)].map((value, index) => (
                             <button
+                                key={index}
                                 className={`button pagination-link ${
                                     state.currentPage === index + 1
                                         ? "is-current"

@@ -166,7 +166,6 @@ class App extends Component {
                             path="/shop"
                             render={() => (
                                 <Shop
-                                    products={this.state.products}
                                     notAvailables={this.state.notAvailables}
                                     onAddToCart={this.handleAddToCart}
                                     removeFromCart={this.handleRemoveFromCart}
