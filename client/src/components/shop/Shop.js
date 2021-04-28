@@ -102,6 +102,10 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
         setResults(state.filteredProducts);
     }, [state.filteredProducts]);
 
+    useEffect(() => {
+        setResults(state.filteredProductsPage);
+    }, [state.filteredProductsPage]);
+
     // aggiungere caso anche per tags 🐔
 
     const nextPage = () => {

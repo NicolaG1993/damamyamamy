@@ -54,7 +54,7 @@ export function reducer(state = initialState, action) {
                 ...state,
                 allStore,
                 //all of this is for NavPage component
-                // filteredProducts: allStore.slice(0, countPerPage),
+                filteredProducts: allStore,
                 currentCount: countPerPage,
                 countPerPage,
                 totalCount: count,
@@ -108,6 +108,13 @@ export function reducer(state = initialState, action) {
             newState.filteredPages = totalPages;
 
             console.log("FILTER_BY_VALUE newState: ", newState);
+
+            window.history.pushState(
+                { page: 1 },
+                "title 1",
+                `?page=${newState.currentPage}`
+            );
+
             return newState;
         }
 
@@ -131,6 +138,12 @@ export function reducer(state = initialState, action) {
             newState.currentPage = 1;
             newState.totalPages = totalPages;
             newState.filteredPages = totalPages;
+
+            window.history.pushState(
+                { page: 1 },
+                "title 1",
+                `?page=${newState.currentPage}`
+            );
 
             return newState;
         }
@@ -158,6 +171,12 @@ export function reducer(state = initialState, action) {
             newState.currentPage = 1;
             newState.totalPages = totalPages;
             newState.filteredPages = totalPages;
+
+            window.history.pushState(
+                { page: 1 },
+                "title 1",
+                `?page=${newState.currentPage}`
+            );
 
             return newState;
         }
@@ -264,8 +283,56 @@ export function reducer(state = initialState, action) {
         }
 
         case LOAD_NEW_PAGE: {
-            console.log("LOAD_NEW_PAGE [action.payload]", action.payload);
-            break;
+            console.log(
+                "LOAD_NEW_PAGE [state.filteredProducts]",
+                state.filteredProducts
+            );
+            //Clone the previous state
+            let loadNewPageState = Object.assign({}, state);
+            //How many pages should be added. Will always be 1 or -1
+            let addPages = action.payload.page;
+            //add it to the current
+            loadNewPageState.currentPage += addPages;
+
+            let perPage = loadNewPageState.countPerPage; //9 by default
+
+            let nextProducts;
+            if (addPages === 1) {
+                //Moving from page 1 to 2 will cause ‘upperCount’ to be 18
+                let upperCount = loadNewPageState.currentCount + perPage;
+                let lowerCount = loadNewPageState.currentCount; //This hasn’t been changed. It will remain 20.
+                //Now, we change the currentCount to match ‘upperCount.’ It’ll be used as such
+                //at any point after this line
+                loadNewPageState.currentCount += loadNewPageState.countPerPage;
+                //Only retrieve products within the (9,18) range (for page 2)
+                //Also, notice that we use ‘products’ rather than ‘filteredProducts.’ This is by design.
+                //Using the latter would result in an empty array because we only have 20 documents there when
+                //the page first loads.
+                nextProducts = state.filteredProducts.slice(
+                    lowerCount,
+                    upperCount
+                );
+            }
+
+            if (addPages === -1) {
+                //’currentCount’ has changed roles. Now it serves as the upperCount.
+                let upperCount = loadNewPageState.currentCount; //18
+                let lowerCount = loadNewPageState.currentCount - perPage; //9
+                //Then it’s reset. This way, the first if statement will always treat it as the ‘upperCount’
+                loadNewPageState.currentCount = lowerCount;
+                nextProducts = state.filteredProducts.slice(
+                    lowerCount - perPage,
+                    upperCount - perPage
+                );
+            }
+
+            loadNewPageState.filteredProductsPage = nextProducts;
+            window.history.pushState(
+                { page: 1 },
+                "title 1",
+                `?page=${loadNewPageState.currentPage}`
+            );
+            return loadNewPageState;
         }
         case LOAD_EXACT_PAGE: {
             console.log("LOAD_EXACT_PAGE [action.payload]", action.payload);
