@@ -1,4 +1,4 @@
-import axios from "./axios";
+// import axios from "./axios";
 import { Component } from "react";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 
@@ -32,7 +32,8 @@ class App extends Component {
         // console.log("App component did mount");
 
         try {
-            const { data } = await commerce.products.list();
+            this.props.dispatch(loadData());
+
             const cart = await commerce.cart.retrieve();
             const addedItems = cart.line_items.map((obj) => ({
                 item_id: obj.id,
@@ -43,12 +44,9 @@ class App extends Component {
             // console.log("addedItems: ", addedItems); // array con tutti i product_id ed item_id in cart
 
             this.setState({
-                products: data,
                 cart: cart,
                 notAvailables: addedItems,
             });
-
-            this.props.dispatch(loadData({ allStore: this.state.products }));
         } catch (err) {
             console.log("err in app-->componentDidMount: ", err);
         }
@@ -129,6 +127,8 @@ class App extends Component {
 
     render() {
         // console.log("this.state in app: ", this.state);
+        // console.log("redux state in app: ", this.props.state);
+        let reduxState = this.props.state;
 
         return (
             <BrowserRouter>
@@ -152,7 +152,7 @@ class App extends Component {
                             path="/"
                             render={() => (
                                 <Home
-                                    products={this.state.products}
+                                    products={reduxState.allStore}
                                     notAvailables={this.state.notAvailables}
                                     onAddToCart={this.handleAddToCart}
                                     removeFromCart={this.handleRemoveFromCart}

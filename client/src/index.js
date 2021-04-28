@@ -5,12 +5,12 @@ import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import reduxPromise from "redux-promise";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { reducer } from "./redux/reducers";
+import reducers from "./redux/reducers";
 
 import App from "./App";
 
 const store = createStore(
-    reducer,
+    reducers,
     composeWithDevTools(applyMiddleware(reduxPromise))
 );
 

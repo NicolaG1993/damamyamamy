@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { loadData } from "../../redux/actions";
+
 import {
     filterByValue,
     filterByCategory,
@@ -94,19 +94,13 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
         fetchCategories();
     }, []);
 
-    // useEffect(() => {
-    //     setResults(state.allStore);
-    // }, [state.allStore]);
+    useEffect(() => {
+        setResults(state.displayedProducts);
+    }, [state.order]);
 
     useEffect(() => {
         setResults(state.displayedProducts);
     }, [state.displayedProducts]);
-
-    // useEffect(() => {
-    //     setResults(state.filteredProductsPage);
-    // }, [state.filteredProductsPage]);
-
-    // aggiungere caso anche per tags 🐔
 
     const nextPage = () => {
         dispatch(loadNewPage({ page: 1 }));
@@ -157,6 +151,8 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
 }
 
 // devo creare una fn da passare a Filter 🐲
+// aggiungere caso anche per tags 🐔
+// quando faccio il reload di shop il pageCount in url bar non cambia (anche se shop funziona lo stesso) 🐔
 
 // **************** COME FAR FUNZIONARE PIU FILTRI INSIEME !!!!!!!! **************s
 /* 

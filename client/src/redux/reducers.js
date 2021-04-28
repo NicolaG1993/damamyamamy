@@ -14,13 +14,15 @@ const SORT_BY_PRICE = "SORT_BY_PRICE";
 const LOAD_NEW_PAGE = "LOAD_NEW_PAGE";
 const LOAD_EXACT_PAGE = "LOAD_EXACT_PAGE";
 
-export function reducer(state = initialState, action) {
+//separare i vari reducers [load data, cart, filter, order]
+
+export default function filterStore(state = initialState, action) {
     switch (action.type) {
         case LOAD_DATA: {
-            let allStore = action.payload.allStore;
-            // console.log("LOAD_DATA: ", allStore);
+            let allStore = action.payload;
+            console.log("LOAD_DATA: ", allStore);
 
-            let count = action.payload.allStore.length + 1;
+            let count = action.payload.length + 1;
             let countPerPage = 9; //We need the total number of pages. This is used in rendering the pagination component. //round up
             let totalPages = Math.ceil(count / countPerPage);
             return {
@@ -180,62 +182,38 @@ export function reducer(state = initialState, action) {
 
         case SORT_BY_NEW: {
             // console.log("SORT_BY_NEW [action.payload]", action.payload);
+            let newState = Object.assign({}, state);
 
-            function sortNew(arr, field) {
-                return arr.sort(function (a, b) {
-                    if (a[field] > b[field]) {
-                        return 1;
-                    }
-                    if (b[field] > a[field]) {
-                        return -1;
-                    }
-                    return 0;
-                });
-            }
+            newState.filteredProducts = sortAsc(
+                state.filteredProducts,
+                "created"
+            );
+            newState.displayedProducts = newState.filteredProducts.slice(
+                0,
+                state.countPerPage
+            );
+            newState.order = action.payload.value;
 
-            let sortedArr = sortNew(state.filteredProducts, "created");
-
-            return {
-                ...state,
-                filteredProducts: sortedArr,
-            };
+            return newState;
         }
 
         case SORT_BY_ALPHABET: {
             // console.log("SORT_BY_ALPHABET [action.payload]", action.payload);
-
-            function sortAsc(arr, field) {
-                return arr.sort(function (a, b) {
-                    if (a[field] > b[field]) {
-                        return 1;
-                    }
-                    if (b[field] > a[field]) {
-                        return -1;
-                    }
-                    return 0;
-                });
-            }
-            function sortDesc(arr, field) {
-                return arr.sort(function (a, b) {
-                    if (a[field] > b[field]) {
-                        return -1;
-                    }
-                    if (b[field] > a[field]) {
-                        return 1;
-                    }
-                    return 0;
-                });
-            }
+            let newState = Object.assign({}, state);
 
             let sortedArr =
                 action.payload.value === "asc"
                     ? sortAsc(state.filteredProducts, "name")
                     : sortDesc(state.filteredProducts, "name");
 
-            return {
-                ...state,
-                filteredProducts: sortedArr,
-            };
+            newState.filteredProducts = sortedArr;
+            newState.displayedProducts = newState.filteredProducts.slice(
+                0,
+                state.countPerPage
+            );
+            newState.order = action.payload.value;
+
+            return newState;
         }
 
         case SORT_BY_PRICE: {
@@ -244,39 +222,21 @@ export function reducer(state = initialState, action) {
             // "SORT_BY_PRICE [state.filteredProducts]",
             // state.filteredProducts
             // );
-
-            function sortLowPrice(arr, field) {
-                return arr.sort(function (a, b) {
-                    if (a[field].raw > b[field].raw) {
-                        return 1;
-                    }
-                    if (b[field].raw > a[field].raw) {
-                        return -1;
-                    }
-                    return 0;
-                });
-            }
-            function sortHighPrice(arr, field) {
-                return arr.sort(function (a, b) {
-                    if (a[field].raw > b[field].raw) {
-                        return -1;
-                    }
-                    if (b[field].raw > a[field].raw) {
-                        return 1;
-                    }
-                    return 0;
-                });
-            }
+            let newState = Object.assign({}, state);
 
             let sortedArr =
                 action.payload.value === "lowPrice"
-                    ? sortLowPrice(state.filteredProducts, "price")
-                    : sortHighPrice(state.filteredProducts, "price");
+                    ? sortAsc(state.filteredProducts, "price.raw")
+                    : sortDesc(state.filteredProducts, "price.raw");
 
-            return {
-                ...state,
-                filteredProducts: sortedArr,
-            };
+            newState.filteredProducts = sortedArr;
+            newState.displayedProducts = newState.filteredProducts.slice(
+                0,
+                state.countPerPage
+            );
+            newState.order = action.payload.value;
+
+            return newState;
         }
 
         case LOAD_NEW_PAGE: {
@@ -355,4 +315,68 @@ export function reducer(state = initialState, action) {
         default:
             return state;
     }
+}
+
+function sortAsc(arr, field) {
+    return arr.sort(function (a, b) {
+        if (get(a, field) > get(b, field)) {
+            return 1;
+        }
+        if (get(b, field) > get(a, field)) {
+            return -1;
+        }
+        return 0;
+    });
+}
+function sortDesc(arr, field) {
+    return arr.sort(function (a, b) {
+        if (get(a, field) > get(b, field)) {
+            return -1;
+        }
+        if (get(b, field) > get(a, field)) {
+            return 1;
+        }
+        return 0;
+    });
+}
+
+function get(obj, path, def) {
+    //questa funzione serve per passare deep path come stringhe, es: "price.raw"
+    function stringToPath(path) {
+        // If the path isn't a string, return it
+        if (typeof path !== "string") return path;
+
+        // Create new array
+        var output = [];
+
+        // Split to an array with dot notation
+        path.split(".").forEach(function (item, index) {
+            // Split to an array with bracket notation
+            item.split(/\[([^}]+)\]/g).forEach(function (key) {
+                // Push to the new array
+                if (key.length > 0) {
+                    output.push(key);
+                }
+            });
+        });
+
+        return output;
+    }
+
+    // Get the path as an array
+    path = stringToPath(path);
+
+    // Cache the current object
+    var current = obj;
+
+    // For each item in the path, dig into the object
+    for (var i = 0; i < path.length; i++) {
+        // If the item isn't found, return the default (or null)
+        if (!current[path[i]]) return def;
+
+        // Otherwise, update the current  value
+        current = current[path[i]];
+    }
+
+    return current;
 }
