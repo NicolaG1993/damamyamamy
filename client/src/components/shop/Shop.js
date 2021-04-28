@@ -105,15 +105,15 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
     // aggiungere caso anche per tags 🐔
 
     const nextPage = () => {
-        this.props.dispatch(loadNewPage({ page: 1 }));
+        dispatch(loadNewPage({ page: 1 }));
     };
 
     const previousPage = () => {
-        this.props.dispatch(loadNewPage({ page: -1 }));
+        dispatch(loadNewPage({ page: -1 }));
     };
 
     const goToPage = (page) => {
-        this.props.dispatch(loadExactPage({ page }));
+        dispatch(loadExactPage({ page }));
     };
 
     return (

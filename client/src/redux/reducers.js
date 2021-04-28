@@ -46,9 +46,21 @@ export function reducer(state = initialState, action) {
         case LOAD_DATA: {
             let allStore = action.payload.allStore;
             console.log("LOAD_DATA: ", allStore);
+
+            let count = action.payload.allStore.length + 1;
+            let countPerPage = 9; //We need the total number of pages. This is used in rendering the pagination component. //round up
+            let totalPages = Math.ceil(count / countPerPage);
             return {
                 ...state,
                 allStore,
+                //all of this is for NavPage component
+                // filteredProducts: allStore.slice(0, countPerPage),
+                currentCount: countPerPage,
+                countPerPage,
+                totalCount: count,
+                currentPage: 1,
+                totalPages: totalPages,
+                filteredPages: totalPages,
             };
         }
 
@@ -87,6 +99,14 @@ export function reducer(state = initialState, action) {
                 }
             }
 
+            //all of this is for NavPage component
+            let count = newState.filteredProducts.length + 1;
+            let totalPages = Math.ceil(count / state.countPerPage);
+            newState.totalCount = count;
+            newState.currentPage = 1;
+            newState.totalPages = totalPages;
+            newState.filteredPages = totalPages;
+
             console.log("FILTER_BY_VALUE newState: ", newState);
             return newState;
         }
@@ -103,6 +123,15 @@ export function reducer(state = initialState, action) {
                 );
                 newState.filteredProducts = filteredValues;
             }
+
+            //all of this is for NavPage component
+            let count = newState.filteredProducts.length + 1;
+            let totalPages = Math.ceil(count / state.countPerPage);
+            newState.totalCount = count;
+            newState.currentPage = 1;
+            newState.totalPages = totalPages;
+            newState.filteredPages = totalPages;
+
             return newState;
         }
 
@@ -121,6 +150,15 @@ export function reducer(state = initialState, action) {
                 );
                 newState.filteredProducts = filteredValues;
             }
+
+            //all of this is for NavPage component
+            let count = newState.filteredProducts.length + 1;
+            let totalPages = Math.ceil(count / state.countPerPage);
+            newState.totalCount = count;
+            newState.currentPage = 1;
+            newState.totalPages = totalPages;
+            newState.filteredPages = totalPages;
+
             return newState;
         }
 
