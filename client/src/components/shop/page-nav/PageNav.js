@@ -7,11 +7,7 @@ export default function PageNav({ nextPage, previousPage, goToPage }) {
     return (
         <section className="section">
             <div className="container">
-                <nav
-                    className="pagination"
-                    role="navigation"
-                    aria-label="pagination"
-                >
+                <nav className="pagination">
                     <button
                         className="button pagination-previous"
                         onClick={() => {
@@ -37,9 +33,7 @@ export default function PageNav({ nextPage, previousPage, goToPage }) {
                                         ? "is-current"
                                         : ""
                                 }`}
-                                aria-label="Page 1"
                                 onClick={() => goToPage(index + 1)}
-                                aria-current="page"
                             >
                                 {index + 1}
                             </button>

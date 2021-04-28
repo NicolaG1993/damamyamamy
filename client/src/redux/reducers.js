@@ -1,31 +1,4 @@
 /* eslint-disable indent */
-// export function reducer(state = {}, action) {}
-
-// const initialState = {};
-// const filterStore = (state = initialState, action) => {
-//     switch (action.type) {
-//                     case SORT_BY_ALPHABET:
-//                         //sort alphabetically
-//                         return state;
-//                     case SORT_BY_PRICE:
-//                         //sort by price
-//                         return state;
-//                     case FILTER_BY_PRICE:
-//                         //filter by price
-//                         return state;
-//                     case LOAD_DATA:
-//                         let allStore = action.payload.allStore;
-//                         let products = generate(allStore);
-//                         console.log("LOAD_DATA: ", allStore);
-//                         return {
-//                             ...state,
-//                             products,
-//                         };
-//                     default:
-//                         return state;
-//     }
-// };
-// export default filterStore;
 
 const initialState = {
     appliedFilters: [],
@@ -39,7 +12,7 @@ const SORT_BY_NEW = "SORT_BY_NEW";
 const SORT_BY_ALPHABET = "SORT_BY_ALPHABET";
 const SORT_BY_PRICE = "SORT_BY_PRICE";
 const LOAD_NEW_PAGE = "LOAD_NEW_PAGE";
-const LOAD_EXACT_PAGE = "SORT_EXACT_PRICE";
+const LOAD_EXACT_PAGE = "LOAD_EXACT_PAGE";
 
 export function reducer(state = initialState, action) {
     switch (action.type) {
@@ -357,7 +330,26 @@ export function reducer(state = initialState, action) {
         }
         case LOAD_EXACT_PAGE: {
             console.log("LOAD_EXACT_PAGE [action.payload]", action.payload);
-            break;
+
+            const exactPageState = Object.assign({}, state);
+            const exactPage = action.payload.page;
+            let upperCountExact = exactPageState.countPerPage * exactPage;
+            let lowerCountExact = upperCountExact - exactPageState.countPerPage;
+
+            let exactProducts = exactPageState.filteredProducts.slice(
+                lowerCountExact,
+                upperCountExact
+            );
+            exactPageState.displayedProducts = exactProducts;
+            exactPageState.currentCount = upperCountExact;
+            exactPageState.currentPage = exactPage;
+            window.history.pushState(
+                { page: 1 },
+                "title 1",
+                `?page=${exactPageState.currentPage}`
+            );
+
+            return exactPageState;
         }
 
         default:
