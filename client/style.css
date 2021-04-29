@@ -419,6 +419,22 @@ a:hover {
 }
 
 /*************************************
+************ CART *************
+*************************************/
+
+.cart-comp {
+    padding: 20px;
+}
+
+/*************************************
+************ CHECKOUT *************
+*************************************/
+
+.checkout-container {
+    padding: 20px;
+}
+
+/*************************************
 ************ ABOUT US *************
 *************************************/
 .aboutus-comp {
@@ -440,15 +456,21 @@ a:hover {
     width: 33%;
     height: 200px;
 }
+.aboutus-box3-pic {
+    margin-top: 60px;
+    background-color: burlywood;
+    width: 100%;
+    height: 200px;
+}
 
 /*************************************
 ************ FOOTER *************
 *************************************/
-/* .footer-comp {
-    clear: both;
-    position: sticky;
-    bottom: 0;
-} */
+.footer-comp {
+    margin-top: 60px;
+    /* position: sticky;
+    bottom: 0; */
+}
 
 .footer {
     background-color: rgb(241, 241, 241);

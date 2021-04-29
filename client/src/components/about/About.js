@@ -26,6 +26,7 @@ export default function About(props) {
                         solution, I think that's as short as it gets. (Now I've
                         gone and tempted fate.)`}</p>
                 </div>
+                <div className="aboutus-box3-pic"></div>
             </div>
         </div>
     );
