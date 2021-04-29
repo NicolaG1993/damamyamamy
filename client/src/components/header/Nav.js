@@ -23,7 +23,9 @@ export default function Nav({ navIsActive, toggleNav }) {
                     </Link>
                 </p>
                 <p>
-                    <Link to={"/contact"}>Contatto</Link>
+                    <Link to={"/contact"} onClick={toggleNav}>
+                        Contatto
+                    </Link>
                 </p>
                 <p>
                     <a href="/?">Vendi</a>

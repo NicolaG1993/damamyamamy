@@ -123,7 +123,6 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
                 nextPage={nextPage}
                 previousPage={previousPage}
                 goToPage={goToPage}
-                filteredPages={""}
             />
             <div className={"products"}>
                 {results ? (
@@ -146,6 +145,12 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
                     <h4>Loading...</h4>
                 )}
             </div>
+
+            <PageNav
+                nextPage={nextPage}
+                previousPage={previousPage}
+                goToPage={goToPage}
+            />
         </div>
     );
 }

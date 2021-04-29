@@ -6,9 +6,11 @@ import CartIcon from "../cart/CartIcon";
 export default function Header({ navIsActive, closeNav, toggleNav, cart }) {
     return (
         <div className={"header"}>
-            <Link to={"/"} onClick={closeNav}>
-                <Logo />
-            </Link>
+            <div className={"header-logo-box"}>
+                <Link to={"/"} onClick={closeNav}>
+                    <Logo />
+                </Link>
+            </div>
 
             <CartIcon cart={cart} />
 

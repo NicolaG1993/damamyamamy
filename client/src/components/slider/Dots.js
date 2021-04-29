@@ -9,7 +9,6 @@ const Dot = ({ active }) => {
             css={css`
                 padding: 6px;
                 margin-right: 5px;
-                cursor: pointer;
                 border-radius: 50%;
                 background: ${active
                     ? "rgba(250,250,250, 0.8)"
