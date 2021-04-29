@@ -8,7 +8,7 @@ import { loadData } from "./redux/actions";
 import { commerce } from "./lib/commerce";
 
 import { Header, Nav, Footer } from "./components";
-import { Home, About, Shop, Item, Cart, Checkout } from "./components";
+import { Home, About, Contact, Shop, Item, Cart, Checkout } from "./components";
 
 class App extends Component {
     constructor(props) {
@@ -161,6 +161,11 @@ class App extends Component {
                         />
 
                         <Route exact path="/about" render={() => <About />} />
+                        <Route
+                            exact
+                            path="/contact"
+                            render={() => <Contact />}
+                        />
                         <Route
                             exact
                             path="/shop"

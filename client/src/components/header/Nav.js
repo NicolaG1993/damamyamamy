@@ -23,7 +23,7 @@ export default function Nav({ navIsActive, toggleNav }) {
                     </Link>
                 </p>
                 <p>
-                    <a href="/contatto">Contatto</a>
+                    <Link to={"/contact"}>Contatto</Link>
                 </p>
                 <p>
                     <a href="/?">Vendi</a>
