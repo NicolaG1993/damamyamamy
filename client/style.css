@@ -421,21 +421,33 @@ a:hover {
 /*************************************
 ************ FOOTER *************
 *************************************/
-footer {
+/* .footer-comp {
     clear: both;
     position: sticky;
     bottom: 0;
+} */
+
+.footer {
     background-color: rgb(241, 241, 241);
-    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    padding: 10px 20px;
+    box-shadow: 0px 0px 10px #00000025;
+    z-index: 2;
 }
 
-#contact-footer {
-    padding: 10px 20px;
+/* .footer * a {
+    color: rgb(204, 108, 207);
+} */
+.website-footer > p > a {
+    color: rgb(204, 108, 207);
 }
 
 .copyrights {
-    background-color: rgb(223, 223, 223);
-    padding: 0px 20px;
+    /* background-color: rgb(223, 223, 223); */
+    padding: 10px 20px 5px 20px;
+    z-index: 1;
 }
 
 /*************************************

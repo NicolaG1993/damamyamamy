@@ -14,7 +14,8 @@ const SORT_BY_PRICE = "SORT_BY_PRICE";
 const LOAD_NEW_PAGE = "LOAD_NEW_PAGE";
 const LOAD_EXACT_PAGE = "LOAD_EXACT_PAGE";
 
-//separare i vari reducers [load data, cart, filter, order]
+//separare i vari reducers [load data, cart, filter, order] 🐔
+//cé molto codice che si ripete, vedere se si puo unire in fn 🐔
 
 export default function filterStore(state = initialState, action) {
     switch (action.type) {
