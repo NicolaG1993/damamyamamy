@@ -48,7 +48,16 @@ export default function Item({
                                 __html: item.description,
                             }}
                         ></p>
-                        <h5>Prezzo: {item.price.raw}€</h5>
+                        <div className="item-right-side-conditions">
+                            <span>Condizioni:</span>
+                            <h5>nuovo</h5>
+                            <div className="circle"></div>
+                        </div>
+                        <div className="item-right-side-price">
+                            <span>Prezzo:</span>
+                            <h5>{item.price.raw}€</h5>
+                        </div>
+
                         <AddToCartBtn
                             product_id={item.id}
                             notAvailables={notAvailables}

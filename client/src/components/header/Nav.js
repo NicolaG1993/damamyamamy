@@ -14,21 +14,21 @@ export default function Nav({ navIsActive, toggleNav }) {
             <nav id="nav" className={`${navIsActive ? "on" : ""}`}>
                 <p>
                     <Link to={"/about"} onClick={toggleNav}>
-                        Chi siamo
+                        CHI SIAMO
                     </Link>
                 </p>
                 <p>
                     <Link to={"/shop"} onClick={toggleNav}>
-                        Prodotti
+                        IN NEGOZIO
                     </Link>
                 </p>
                 <p>
                     <Link to={"/contact"} onClick={toggleNav}>
-                        Contatto
+                        CONTATTO
                     </Link>
                 </p>
                 <p>
-                    <a href="/?">Vendi</a>
+                    <a href="/?">VENDI</a>
                 </p>
             </nav>
         </>

@@ -53,7 +53,7 @@ export default class Home extends Component {
                         notAvailables={this.props.notAvailables}
                         onAddToCart={this.props.onAddToCart}
                         removeFromCart={this.props.removeFromCart}
-                        listTitle={"Giocattoli"}
+                        listTitle={"Neonati"}
                     />
                 </div>
             </div>

@@ -52,11 +52,9 @@ body {
 *************************************/
 
 h1 {
-    line-height: 80px;
     letter-spacing: 1px;
 }
 h2 {
-    line-height: 80px;
     letter-spacing: 2px;
 }
 h3,
@@ -108,6 +106,13 @@ a:hover {
     background-color: rgb(231, 134, 235);
     color: white;
     box-shadow: 0px 3px 4px #00000048;
+}
+
+.circle {
+    border-radius: 50%;
+    background-color: greenyellow;
+    height: 15px;
+    width: 15px;
 }
 
 /*************************************
@@ -300,7 +305,7 @@ a:hover {
 
 .sliderBox {
     position: relative;
-    height: 60vh;
+    height: 70vh;
     width: 100%;
     margin: 0 auto 0 auto;
 }
@@ -320,6 +325,9 @@ a:hover {
 
 #home > .shortlist {
     padding: 90px 20px;
+}
+#home > .shortlist > h2 {
+    margin: 20px 0 30px 0;
 }
 
 .items-shortlist-container {
@@ -469,6 +477,23 @@ a:hover {
     max-width: 400px;
 }
 
+.item-right-side * span {
+    margin-right: 10px;
+}
+.item-right-side * h5,
+.item-right-side * p {
+    margin-right: 5px;
+}
+
+.item-right-side-conditions {
+    display: flex;
+    align-items: center;
+}
+.item-right-side-price {
+    display: flex;
+    align-items: center;
+}
+
 /*************************************
 ************ CART *************
 *************************************/
@@ -483,8 +508,45 @@ a:hover {
 
 .checkout-container {
     padding: 20px;
+    display: flex;
+    justify-content: center;
 }
 
+.checkout-box {
+    padding: 40px 20px;
+    width: 66%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(209, 209, 209);
+}
+.step-status-box {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.step {
+}
+
+.step-dot {
+    border-radius: 50%;
+    background-color: darkgray;
+    height: 20px;
+    width: 20px;
+}
+.step-dot-active {
+    border-radius: 50%;
+    background-color: blue;
+    height: 20px;
+    width: 20px;
+}
+.step-line {
+    background-color: darkgray;
+    height: 3px;
+    width: 60px;
+}
 /*************************************
 ************ CONTACT *************
 *************************************/
