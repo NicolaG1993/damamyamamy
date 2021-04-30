@@ -7,23 +7,26 @@ export default function Footer() {
         <div className={"footer-comp"}>
             <div className={"footer"}>
                 <div className="website-footer">
-                    <h4>Naviga</h4>
+                    <h4>Links</h4>
                     <p>
                         <Link to={"/about"}>Chi siamo</Link>
                     </p>
                     <p>
                         <Link to={"/shop"}>Prodotti</Link>
                     </p>
+                    <p>Domande frequenti</p>
+                    <p>Vendi</p>
                     <p>
                         <Link to={"/contact"}>Contattaci / Assistenza</Link>
                     </p>
                 </div>
 
-                <div className="smt-footer">
-                    <h4>Column 2</h4>
-                    <p>link</p>
-                    <p>link</p>
-                    <p>link</p>
+                <div className="legal-footer">
+                    <h4>Informazioni</h4>
+                    <p>Note legali</p>
+                    <p>Cookies policy</p>
+                    <p>Termini e condizioni</p>
+                    {/* <p>Metodi di pagamento / Spedizione</p> */}
                 </div>
 
                 <div className="contact-footer">
@@ -38,6 +41,9 @@ export default function Footer() {
                             damamyamamy@gmail.com
                         </a>
                     </p>
+                    <div>
+                        <p>Icone Social</p>
+                    </div>
                 </div>
             </div>
 
