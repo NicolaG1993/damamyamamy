@@ -17,7 +17,7 @@ export default function Contact() {
     return (
         <div className="contact-comp">
             <h1>Contatta da Mamy a Mamy</h1>
-            <div className="">
+            <div className="contact-form">
                 <form>
                     <label>
                         Nome
@@ -42,17 +42,6 @@ export default function Contact() {
                     </label>
                     <br />
                     <label>
-                        Oggetto
-                        <input
-                            type="text"
-                            placeholder="Il titolo del messaggio"
-                            name="title"
-                            id="title"
-                            onChange={(e) => handleForm(e)}
-                        />
-                    </label>
-                    <br />
-                    <label>
                         Messaggio
                         <textarea
                             placeholder="Scrivi qui il tuo messaggio"
@@ -63,6 +52,20 @@ export default function Contact() {
                     </label>
                     <br />
                 </form>
+            </div>
+
+            <div className="contact-list">
+                <h4>Contatto</h4>
+                <p>Vicolo Teatro, 4, 37010</p>
+                <p>Cavaion, Verona, IT</p>
+                <p>
+                    <a href="tel:+393479792644">(+39) 347 9792 644</a>
+                </p>
+                <p>
+                    <a href="mailto:damamyamamy@gmail.com">
+                        damamyamamy@gmail.com
+                    </a>
+                </p>
             </div>
         </div>
     );

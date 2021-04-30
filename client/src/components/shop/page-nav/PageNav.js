@@ -44,3 +44,13 @@ export default function PageNav({ nextPage, previousPage, goToPage }) {
         </section>
     );
 }
+
+/*
+
+• Once you play around with the project a little, you might notice a glaring bug – pagination doesn’t work properly with filters applied. In the interest of keeping this article brief and engaging, that’s been left out.
+• Despite using query parameters throughout the project, they aren’t relied on too extensively. In a production app, they should be referenced every time a page is loaded before serving up the documents.
+• ‘window.history.pushState’ is called within the main state container. This is an antipattern. Anything that changes the view directly should not be called outside actual components. This would normally be done with ‘redux-thunk’ but, again, this guide would be too long otherwise.
+• Nothing restricts users from browsing all the way past the currently available pages – both in the positive and negative directions.
+
+
+*/

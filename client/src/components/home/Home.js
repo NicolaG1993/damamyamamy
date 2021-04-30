@@ -26,9 +26,11 @@ export default class Home extends Component {
             <div id="home">
                 <Slider slides={images} autoPlay={7} />
 
-                <div className={"shop-items shortlist"}>
-                    <h2>In negozio</h2>
-                    <Link to={"/shop"}>Vedi tutti gli articoli</Link>
+                <div className={"shortlist"}>
+                    <h2>IN NEGOZIO</h2>
+                    <Link to={"/shop"} className={"fake-btn inverted-btn"}>
+                        Vedi tutti gli articoli
+                    </Link>
 
                     <ItemsListShort
                         products={this.props.products}

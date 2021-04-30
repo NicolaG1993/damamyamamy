@@ -51,6 +51,16 @@ body {
 ************ GENERAL *************
 *************************************/
 
+h1,
+h2 {
+    line-height: 80px;
+    letter-spacing: 2px;
+}
+h3,
+h4 {
+    letter-spacing: 1px;
+}
+
 a {
     text-decoration: none;
     color: black;
@@ -62,17 +72,39 @@ a:hover {
 }
 
 .layout-button {
-    background-color: rgb(231, 134, 235);
-    color: white;
-    border: none;
     border-radius: 25px;
     padding: 5px 15px;
     cursor: pointer;
     min-width: 70px;
+    background-color: rgb(231, 134, 235);
+    color: white;
+    border: none;
+    letter-spacing: 1px;
 }
 
 .layout-button:hover {
     background-color: rgb(204, 108, 207);
+}
+
+.fake-btn {
+    border-radius: 25px;
+    padding: 2px 13px;
+    cursor: pointer;
+    min-width: 70px;
+    letter-spacing: 1px;
+}
+
+.inverted-btn {
+    border: solid 2px rgb(204, 108, 207);
+    color: rgb(204, 108, 207);
+    background-color: transparent;
+    font-weight: bold;
+}
+.inverted-btn:hover {
+    border: solid 2px rgb(231, 134, 235);
+    background-color: rgb(231, 134, 235);
+    color: white;
+    box-shadow: 0px 3px 4px #00000048;
 }
 
 /*************************************
@@ -267,7 +299,7 @@ a:hover {
     position: relative;
     height: 60vh;
     width: 100%;
-    margin: 0 auto 80px auto;
+    margin: 0 auto 0 auto;
 }
 
 /*************************************
@@ -280,11 +312,15 @@ a:hover {
     margin-bottom: 20px;
     padding: 20px;
     border-radius: 8px;
+    text-align: center;
 }
 
-.product-box {
-    opacity: 0;
-    transition: opacity 0.5s ease-in;
+#home > .shortlist {
+    padding: 80px 20px;
+}
+
+.items-shortlist-container {
+    margin-top: 40px;
 }
 
 .products-small {
@@ -294,6 +330,12 @@ a:hover {
     column-gap: 10px;
     row-gap: 15px;
     margin-top: 30px;
+    margin-bottom: 40px;
+    min-height: 180px;
+}
+
+.items-shortlist-container > button {
+    margin: 0 20px;
 }
 
 /*************************************
@@ -326,11 +368,17 @@ a:hover {
 *************************************/
 
 .product-box {
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
     background-color: rgb(240, 240, 240);
-    /* background-color: aquamarine; */
-    border-radius: 8px;
+    /* border-radius: 8px; */
     overflow: hidden;
-    height: 260px;
+    border: 2px solid darkgray;
+    aspect-ratio: 1; /* pseudo something ?? check pls!*/
+}
+
+.product-box-shortlist {
+    width: auto;
 }
 
 .product-content {
@@ -339,7 +387,7 @@ a:hover {
 }
 
 .product-content > a > img {
-    height: 140px;
+    height: 66%;
     width: 100%;
     object-fit: cover;
     object-position: center;
@@ -482,22 +530,27 @@ a:hover {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: auto;
-    padding: 10px 20px;
+    padding: 10px 20px 20px 20px;
     box-shadow: 0px 0px 10px #00000025;
     z-index: 2;
 }
 
-/* .footer * a {
-    color: rgb(204, 108, 207);
-} */
-.website-footer > p > a {
+.footer * h4 {
+    line-height: 30px;
+    margin-bottom: 5px;
+}
+.footer * a {
     color: rgb(204, 108, 207);
 }
+/* .website-footer > p > a {
+    color: rgb(204, 108, 207);
+} */
 
 .copyrights {
     /* background-color: rgb(223, 223, 223); */
     padding: 10px 20px 5px 20px;
     z-index: 1;
+    text-align: center;
 }
 
 /*************************************

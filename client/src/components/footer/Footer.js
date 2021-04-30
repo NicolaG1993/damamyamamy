@@ -15,7 +15,7 @@ export default function Footer() {
                         <Link to={"/shop"}>Prodotti</Link>
                     </p>
                     <p>
-                        <Link to={"/contact"}>Contattaci</Link>
+                        <Link to={"/contact"}>Contattaci / Assistenza</Link>
                     </p>
                 </div>
 

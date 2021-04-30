@@ -57,7 +57,7 @@ export default function Item({
                         />
                     </div>
                 </div>
-                <div className={"shop-items shortlist"}>
+                <div className={"shortlist"}>
                     <h2>Articoli simili</h2>
                     <Link to={"/shop"}>Vedi tutti gli articoli</Link>
 

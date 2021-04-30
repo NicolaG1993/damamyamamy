@@ -39,7 +39,10 @@ export default function ItemsListShort({
                     products
                         .slice(sliceStart, sliceStart + 5)
                         .map((product) => (
-                            <div className={"product-box"} key={product.id}>
+                            <div
+                                className={"product-box product-box-shortlist"}
+                                key={product.id}
+                            >
                                 <Product
                                     product={product}
                                     notAvailables={notAvailables}
