@@ -8,11 +8,11 @@ const Dot = ({ active }) => {
         <span
             css={css`
                 padding: 6px;
-                margin-right: 5px;
+                margin: 5px;
                 border-radius: 50%;
                 background: ${active
-                    ? "rgba(250,250,250, 0.8)"
-                    : "rgba(232,232,232, 0.3)"};
+                    ? "rgb(231, 134, 235)"
+                    : "rgb(205,205,205)"};
             `}
         />
     );
@@ -25,7 +25,7 @@ const Dots = ({ slides, activeSlide }) => {
         <div
             css={css`
                 position: absolute;
-                bottom: 5px;
+                bottom: -60px;
                 width: 100%;
                 display: flex;
                 justify-content: center;

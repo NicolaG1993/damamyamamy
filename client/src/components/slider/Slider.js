@@ -36,13 +36,7 @@ const Slider = (props) => {
     const resizeRef = useRef();
     const sliderRef = useRef();
 
-    useEffect(() => {
-        autoPlayRef.current = nextSlide;
-        transitionRef.current = smoothTransition;
-        resizeRef.current = handleResize;
-    });
-
-    useEffect(() => {
+    const startAutoplay = () => {
         const slider = sliderRef.current;
 
         const play = () => {
@@ -76,6 +70,16 @@ const Slider = (props) => {
                 clearInterval(interval);
             }
         };
+    };
+
+    useEffect(() => {
+        autoPlayRef.current = nextSlide;
+        transitionRef.current = smoothTransition;
+        resizeRef.current = handleResize;
+    });
+
+    useEffect(() => {
+        startAutoplay();
     }, []);
 
     useEffect(() => {

@@ -7,6 +7,7 @@ export default function ItemsListShort({
     notAvailables,
     onAddToCart,
     removeFromCart,
+    listTitle,
 }) {
     const [sliceStart, setSliceStart] = useState(0);
 
@@ -34,6 +35,7 @@ export default function ItemsListShort({
 
     return (
         <div className="items-shortlist-container">
+            <h3>{listTitle}</h3>
             <div className={"products-small"}>
                 {products &&
                     products
