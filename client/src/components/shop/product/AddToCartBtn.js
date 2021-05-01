@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 export default function AddToCartBtn({
+    cardSize,
     product_id,
     notAvailables,
     onAddToCart,
@@ -35,12 +36,20 @@ export default function AddToCartBtn({
     let Button = () =>
         isAvailable ? (
             <button
-                className={"add-cart"}
+                className={`add-cart ${
+                    cardSize === "small"
+                        ? "add-cart-for-small"
+                        : "add-cart-for-medium"
+                }`}
                 onClick={() => onAddToCart(product_id, 1)}
             ></button>
         ) : (
             <button
-                className={"remove-cart"}
+                className={`remove-cart ${
+                    cardSize === "small"
+                        ? "remove-cart-for-small"
+                        : "remove-cart-for-medium"
+                }`}
                 onClick={() => removeFromCart(itemId)}
             >
                 X

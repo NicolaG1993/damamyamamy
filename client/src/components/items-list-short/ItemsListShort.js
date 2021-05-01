@@ -13,17 +13,17 @@ export default function ItemsListShort({
 
     const seeNext = () => {
         setSliceStart((startingPoint) =>
-            startingPoint < products.length - 1
-                ? startingPoint + 5
+            startingPoint < products.length - 4
+                ? startingPoint + 4
                 : (startingPoint = 0)
         );
     };
 
     const seePrev = () => {
         setSliceStart((startingPoint) =>
-            startingPoint < 5
-                ? products.length - (products.length % 5)
-                : startingPoint - 5
+            startingPoint < 4
+                ? products.length - (products.length % 4)
+                : startingPoint - 4
         );
     };
 
@@ -39,7 +39,7 @@ export default function ItemsListShort({
             <div className={"products-small"}>
                 {products &&
                     products
-                        .slice(sliceStart, sliceStart + 5)
+                        .slice(sliceStart, sliceStart + 4)
                         .map((product) => (
                             <div
                                 className={"product-box product-box-shortlist"}

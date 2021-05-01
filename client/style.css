@@ -339,7 +339,7 @@ a:hover {
 
 .products-small {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: auto;
     column-gap: 10px;
     row-gap: 15px;
@@ -408,35 +408,43 @@ a:hover {
 }
 /* questo sará un component forse, uno slider */
 
-.product-content > button {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    z-index: 3;
-}
-
 .product-info {
-    padding: 10px;
+    padding: 5px 10px;
 }
 
+.product-info > h4 {
+    margin-bottom: 5px;
+}
+
+.price-for-small-card {
+    font-weight: normal;
+}
+
+.add-cart,
 .remove-cart {
+    z-index: 3;
     height: 40px;
     width: 40px;
     border-radius: 50%;
     cursor: pointer;
     transition: 0.3s ease;
+    border-color: transparent;
 }
 
 .add-cart {
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: 0.3s ease;
     background-image: url(shopping-cart-empty-side-view.svg);
     background-size: 75%;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+.add-cart-for-small,
+.remove-cart-for-small {
+    position: absolute;
+    display: hidden;
+    opacity: 0;
+    top: -5px;
+    right: 8px;
 }
 
 /* .add-cart > img {
@@ -445,10 +453,21 @@ a:hover {
     width: 100%;
 } */
 
+.product-content:hover .add-cart-for-small,
+.product-content:hover .remove-cart-for-small {
+    display: visible;
+    opacity: 1;
+    top: 8px;
+}
+
+.product-content:hover a {
+    color: black;
+}
+
 .add-cart:hover,
-.add-cart-on:hover {
-    background-color: transparent;
-    border-color: white;
+.remove-cart:hover {
+    background-color: rgb(231, 134, 235);
+    color: white;
 }
 
 /*************************************
