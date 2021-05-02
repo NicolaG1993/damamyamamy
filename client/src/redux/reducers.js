@@ -26,6 +26,14 @@ export default function filterStore(state = initialState, action) {
             let count = action.payload.length + 1;
             let countPerPage = 9; //We need the total number of pages. This is used in rendering the pagination component. //round up
             let totalPages = Math.ceil(count / countPerPage);
+
+            let topValue = Math.max.apply(
+                Math,
+                allStore.map(function (o) {
+                    return o.price.raw;
+                })
+            );
+
             return {
                 ...state,
                 allStore,
@@ -38,6 +46,7 @@ export default function filterStore(state = initialState, action) {
                 currentPage: 1,
                 totalPages: totalPages,
                 filteredPages: totalPages,
+                highestPrice: topValue,
             };
         }
 

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import InputRange from "react-input-range";
 import "react-input-range/lib/css/index.css";
 
-export default function Filter({ categories, userFilters }) {
-    const [priceRange, setPriceRange] = useState({ min: 0, max: 1000 });
+export default function Filter({ categories, userFilters, highestPrice }) {
+    const [priceRange, setPriceRange] = useState({ min: 0, max: highestPrice });
     const [filters, setFilters] = useState({
         name: "",
         priceMin: priceRange.min,
@@ -11,8 +11,12 @@ export default function Filter({ categories, userFilters }) {
         category: "",
         order: "new",
     });
+    console.log("filters!!!: ", filters);
+    console.log("highestPrice: ", highestPrice);
 
-    // console.log("filters!!!: ", filters);
+    useEffect(() => {
+        setPriceRange({ min: 0, max: highestPrice });
+    }, [highestPrice]);
 
     const handleForm = (e) => {
         // console.log("e in form", e);
@@ -76,11 +80,10 @@ export default function Filter({ categories, userFilters }) {
                     />
                 </label>
                 <br />
-
                 <input
                     type="number"
                     min="0"
-                    max="1000"
+                    max={highestPrice}
                     defaultValue={priceRange.min}
                     name="priceMin"
                     id="priceMin"
@@ -92,11 +95,10 @@ export default function Filter({ categories, userFilters }) {
                     }
                     onInput={(e) => handleForm(e)}
                 />
-
                 <input
                     type="number"
                     min={priceRange.min}
-                    max="1000"
+                    max={priceRange.max}
                     defaultValue={priceRange.max}
                     name="priceMax"
                     id="priceMax"
@@ -108,9 +110,8 @@ export default function Filter({ categories, userFilters }) {
                     }
                     onInput={(e) => handleForm(e)}
                 />
-
                 <InputRange
-                    maxValue={1000}
+                    maxValue={highestPrice}
                     minValue={0}
                     value={
                         priceRange.max < priceRange.min
@@ -121,8 +122,8 @@ export default function Filter({ categories, userFilters }) {
                     onChange={(value) => setPriceRange(value)}
                     onChangeComplete={() => handleRangeSlider()}
                 />
-                <br />
 
+                <br />
                 <label>
                     Categorie
                     <select
@@ -140,7 +141,6 @@ export default function Filter({ categories, userFilters }) {
                     </select>
                 </label>
                 <br />
-
                 <label>
                     Ordina per
                     <select

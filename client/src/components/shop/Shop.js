@@ -100,6 +100,7 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
     }, [state.order]);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         setResults(state.displayedProducts);
     }, [state.displayedProducts]);
 
@@ -117,9 +118,19 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
 
     return (
         <div className={"shop"}>
-            <h1>Shop</h1>
-            <h3>Filtra risultati</h3>
-            <Filter categories={categories} userFilters={userFilters} />
+            <h1>In negozio</h1>
+            <h4>Filtra risultati</h4>
+
+            {state.highestPrice ? (
+                <Filter
+                    categories={categories}
+                    userFilters={userFilters}
+                    highestPrice={state.highestPrice}
+                />
+            ) : (
+                <div>Waiting</div>
+            )}
+
             <PageNav
                 nextPage={nextPage}
                 previousPage={previousPage}

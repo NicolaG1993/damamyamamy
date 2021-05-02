@@ -14,18 +14,18 @@ export default class Home extends Component {
         };
     }
 
-    async componentDidMount() {
-        console.log("Home component did mount");
-        console.log("this.props: ", this.props);
+    componentDidMount() {
+        // console.log("Home component did mount");
+        // console.log("this.props: ", this.props);
         window.scrollTo(0, 0);
     }
 
     render() {
-        console.log("this.state in home: ", this.state);
+        // console.log("this.state in home: ", this.state);
 
         return (
             <div id="home">
-                <Slider slides={images} autoPlay={10} />
+                <Slider slides={images} autoPlay={4} />
 
                 <div className={"shortlist"}>
                     <h2>IN NEGOZIO</h2>
