@@ -80,48 +80,56 @@ export default function Filter({ categories, userFilters, highestPrice }) {
                     />
                 </label>
                 <br />
-                <input
-                    type="number"
-                    min="0"
-                    max={highestPrice}
-                    defaultValue={priceRange.min}
-                    name="priceMin"
-                    id="priceMin"
-                    onChange={(e) =>
-                        handlePriceRange({
-                            min: Number(e.target.value),
-                            max: priceRange.max,
-                        })
-                    }
-                    onInput={(e) => handleForm(e)}
-                />
-                <input
-                    type="number"
-                    min={priceRange.min}
-                    max={priceRange.max}
-                    defaultValue={priceRange.max}
-                    name="priceMax"
-                    id="priceMax"
-                    onChange={(e) =>
-                        handlePriceRange({
-                            min: priceRange.min,
-                            max: Number(e.target.value),
-                        })
-                    }
-                    onInput={(e) => handleForm(e)}
-                />
-                <InputRange
-                    maxValue={highestPrice}
-                    minValue={0}
-                    value={
-                        priceRange.max < priceRange.min
-                            ? { min: priceRange.min, max: priceRange.min }
-                            : priceRange
-                    }
-                    formatLabel={(value) => `${value} €`}
-                    onChange={(value) => setPriceRange(value)}
-                    onChangeComplete={() => handleRangeSlider()}
-                />
+                <div className={"price-filter-bar"}>
+                    <label>
+                        Ricerca per prezzo
+                        <input
+                            type="number"
+                            min="0"
+                            max={highestPrice}
+                            defaultValue={priceRange.min}
+                            name="priceMin"
+                            id="priceMin"
+                            onChange={(e) =>
+                                handlePriceRange({
+                                    min: Number(e.target.value),
+                                    max: priceRange.max,
+                                })
+                            }
+                            onInput={(e) => handleForm(e)}
+                        />
+                    </label>
+                    <InputRange
+                        maxValue={highestPrice}
+                        minValue={0}
+                        value={
+                            priceRange.max < priceRange.min
+                                ? {
+                                      min: priceRange.min,
+                                      max: priceRange.min,
+                                  }
+                                : priceRange
+                        }
+                        formatLabel={(value) => `${value} €`}
+                        onChange={(value) => setPriceRange(value)}
+                        onChangeComplete={() => handleRangeSlider()}
+                    />
+                    <input
+                        type="number"
+                        min={priceRange.min}
+                        max={priceRange.max}
+                        defaultValue={priceRange.max}
+                        name="priceMax"
+                        id="priceMax"
+                        onChange={(e) =>
+                            handlePriceRange({
+                                min: priceRange.min,
+                                max: Number(e.target.value),
+                            })
+                        }
+                        onInput={(e) => handleForm(e)}
+                    />
+                </div>
 
                 <br />
                 <label>
@@ -140,7 +148,7 @@ export default function Filter({ categories, userFilters, highestPrice }) {
                         ))}
                     </select>
                 </label>
-                <br />
+
                 <label>
                     Ordina per
                     <select
