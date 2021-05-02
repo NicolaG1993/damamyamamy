@@ -36,6 +36,12 @@ export default function ItemsListShort({
     return (
         <div className="items-shortlist-container">
             <h3>{listTitle}</h3>
+            <button className={"layout-button"} onClick={() => seePrev()}>
+                Prev
+            </button>
+            <button className={"layout-button"} onClick={() => seeNext()}>
+                Next
+            </button>
             <div className={"products-small"}>
                 {products &&
                     products
@@ -55,12 +61,6 @@ export default function ItemsListShort({
                             </div>
                         ))}
             </div>
-            <button className={"layout-button"} onClick={() => seePrev()}>
-                Prev
-            </button>
-            <button className={"layout-button"} onClick={() => seeNext()}>
-                Next
-            </button>
         </div>
     );
 }

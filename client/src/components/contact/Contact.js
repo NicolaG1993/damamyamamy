@@ -4,6 +4,10 @@ export default function Contact() {
     const [contactReq, setContactReq] = useState({});
     console.log("contactReq: ", contactReq);
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     const handleForm = (e) => {
         e.preventDefault();
         const form = e.target.form;

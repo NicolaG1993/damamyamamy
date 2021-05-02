@@ -91,6 +91,7 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
     }, [filters]);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         fetchCategories();
     }, []);
 

@@ -17,6 +17,10 @@ export default function Item({
     const [item, setItem] = useState(null);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    useEffect(() => {
         (async () => {
             const itemInfos = await commerce.products.retrieve(key);
             setItem(itemInfos);

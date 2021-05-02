@@ -17,6 +17,7 @@ export default class Home extends Component {
     async componentDidMount() {
         console.log("Home component did mount");
         console.log("this.props: ", this.props);
+        window.scrollTo(0, 0);
     }
 
     render() {
