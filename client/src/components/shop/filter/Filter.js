@@ -70,7 +70,7 @@ export default function Filter({ categories, userFilters, highestPrice }) {
         <div className={"filter-bar"}>
             <form>
                 <label>
-                    Ricerca per nome
+                    <span>Ricerca per nome</span>
                     <input
                         type="text"
                         placeholder="Cerca..."
@@ -82,7 +82,7 @@ export default function Filter({ categories, userFilters, highestPrice }) {
                 <br />
                 <div className={"price-filter-bar"}>
                     <label>
-                        Ricerca per prezzo
+                        <span>Ricerca per prezzo</span>
                         <input
                             type="number"
                             min="0"
@@ -133,7 +133,7 @@ export default function Filter({ categories, userFilters, highestPrice }) {
 
                 <br />
                 <label>
-                    Categorie
+                    <span>Categorie</span>
                     <select
                         name="category"
                         id="category"
@@ -150,7 +150,7 @@ export default function Filter({ categories, userFilters, highestPrice }) {
                 </label>
 
                 <label>
-                    Ordina per
+                    <span>Ordina per</span>
                     <select
                         name="order"
                         id="order"

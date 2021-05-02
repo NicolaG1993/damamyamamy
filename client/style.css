@@ -394,6 +394,16 @@ a:hover {
     margin-top: 20px;
 }
 
+/* .filter-bar > form > label,
+.price-filter-bar > label {
+    width: 100%;
+} */
+
+.filter-bar > form > label > span,
+.price-filter-bar > label > span {
+    margin-right: 20px;
+}
+
 /* .input-range {
     
 } */

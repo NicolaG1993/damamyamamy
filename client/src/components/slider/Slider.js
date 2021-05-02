@@ -16,7 +16,6 @@ const getWidth = () => window.innerWidth;
  * @function Slider
  */
 const Slider = (props) => {
-    console.log("props.isMounted: ", props.isMounted);
     const { slides } = props;
 
     const firstSlide = slides[0];
