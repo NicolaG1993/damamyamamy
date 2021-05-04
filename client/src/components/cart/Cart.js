@@ -11,30 +11,45 @@ export default function Cart({ cart, removeFromCart, emptyCart }) {
         });
     });
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     const EmptyCart = () => <p>Nessun prodotto nel tuo carrello</p>;
 
     const FilledCart = () => (
         <div className={"cart-container"}>
-            <div className={"products"}>
+            <div className={"cart-products"}>
                 {cart.line_items.map((item) => (
-                    <div className={"product-box"} key={item.id}>
+                    <div className={"cart-product-box"} key={item.id}>
                         <CartItem item={item} removeFromCart={removeFromCart} />
                     </div>
                 ))}
             </div>
             <div className={"cart-interact"}>
-                <h3>Importo: {cart.subtotal.formatted_with_symbol}</h3>
-                <button
-                    className={"empty-btn layout-button"}
-                    onClick={emptyCart}
-                >
-                    Svuota il carrello
-                </button>
-                <Link to="/checkout">
-                    <button className={"checkout-btn layout-button"}>
-                        Alla cassa
+                <div className="cart-total">
+                    <span></span>
+                    <h3>
+                        Totale: <br />
+                        {cart.subtotal.formatted_with_symbol}
+                    </h3>
+                </div>
+
+                <span></span>
+
+                <div>
+                    <button
+                        className={"empty-btn layout-button"}
+                        onClick={emptyCart}
+                    >
+                        Svuota il carrello
                     </button>
-                </Link>
+                    <Link to="/checkout">
+                        <button className={"checkout-btn layout-button"}>
+                            Vai alla cassa
+                        </button>
+                    </Link>
+                </div>
             </div>
         </div>
     );

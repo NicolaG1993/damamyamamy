@@ -57,6 +57,10 @@ export default class Home extends Component {
                         listTitle={"Neonati"}
                     />
                 </div>
+
+                <div className={"iconslist"}>
+                    Some icons here (affidabilitá, qualitá, etc..)
+                </div>
             </div>
         );
     }
