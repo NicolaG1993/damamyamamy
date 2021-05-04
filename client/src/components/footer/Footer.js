@@ -41,9 +41,10 @@ export default function Footer() {
                             damamyamamy@gmail.com
                         </a>
                     </p>
-                    <div>
-                        <p>Icone Social</p>
-                    </div>
+                </div>
+
+                <div>
+                    <p>Icone Social</p>
                 </div>
             </div>
 

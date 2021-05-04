@@ -131,6 +131,13 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
                 <div>Waiting</div>
             )}
 
+            {state.filteredProducts && state.filteredProducts.length === 1 && (
+                <h5>{state.filteredProducts.length} risultato</h5>
+            )}
+            {state.filteredProducts && state.filteredProducts.length > 1 && (
+                <h5>{state.filteredProducts.length} risultati</h5>
+            )}
+
             <PageNav
                 nextPage={nextPage}
                 previousPage={previousPage}

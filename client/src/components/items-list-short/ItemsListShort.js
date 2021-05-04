@@ -37,14 +37,22 @@ export default function ItemsListShort({
         <div className="items-shortlist-container">
             <div className="items-shortlist-topbar">
                 <h3>{listTitle}</h3>
-                <div className="items-shortlist-btns">
-                    <button className={"small-arrow"} onClick={() => seePrev()}>
-                        <div className="small-arrow-left"></div>
-                    </button>
-                    <button className={"small-arrow"} onClick={() => seeNext()}>
-                        <div className="small-arrow-right"></div>
-                    </button>
-                </div>
+                {products && (
+                    <div className="items-shortlist-btns">
+                        <button
+                            className={"small-arrow"}
+                            onClick={() => seePrev()}
+                        >
+                            <div className="small-arrow-left"></div>
+                        </button>
+                        <button
+                            className={"small-arrow"}
+                            onClick={() => seeNext()}
+                        >
+                            <div className="small-arrow-right"></div>
+                        </button>
+                    </div>
+                )}
             </div>
             <div className={"products-small"}>
                 {products ? (
