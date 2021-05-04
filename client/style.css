@@ -381,11 +381,11 @@ a:hover {
 }
 
 .small-arrow-left {
-    background-image: url(left-arrow.png);
+    background-image: url(left-arrow-white.png);
     margin-right: 2px;
 }
 .small-arrow-right {
-    background-image: url(right-arrow.png);
+    background-image: url(right-arrow-white.png);
     margin-left: 2px;
 }
 
@@ -416,12 +416,7 @@ a:hover {
     grid-template-rows: auto;
     column-gap: 10px;
     row-gap: 15px;
-    margin-top: 30px;
-}
-
-.is-current {
-    background-color: rgb(231, 134, 235);
-    color: white;
+    margin: 30px 0;
 }
 
 /*************************************
@@ -443,6 +438,21 @@ a:hover {
     margin-top: 20px;
 }
 
+#name {
+    width: 80%;
+}
+#priceMin,
+#priceMax {
+    width: 55px;
+}
+#category,
+#order {
+    width: 30%;
+}
+#category {
+    margin-right: 40px;
+}
+
 /* .filter-bar > form > label,
 .price-filter-bar > label {
     width: 100%;
@@ -457,6 +467,50 @@ a:hover {
     
 } */
 
+/*************************************
+************ PAGE NAV *************
+*************************************/
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination-list {
+    padding-inline-start: 0;
+}
+
+.pagination-previous,
+.pagination-next {
+    margin: 5px;
+}
+
+.pagination-link {
+    border-radius: 25px;
+    width: 25px;
+    height: 25px;
+    margin: 3px;
+    cursor: pointer;
+
+    background-color: rgb(231, 134, 235);
+    color: white;
+    border: none;
+    letter-spacing: 1px;
+}
+
+.pagination-link:hover {
+    background-color: rgb(204, 108, 207);
+}
+
+.is-current {
+    color: rgb(231, 134, 235);
+    box-shadow: 0 0 0 2px rgb(231, 134, 235);
+    /* outline: 2px solid rgb(231, 134, 235); */
+    background-color: white;
+    width: 22px;
+    height: 22px;
+}
 /*************************************
 ************ PRODUCT *************
 *************************************/
@@ -529,6 +583,7 @@ a:hover {
     cursor: pointer;
     transition: 0.3s ease;
     border-color: transparent;
+    border: 2px solid darkgray;
 }
 
 .add-cart {
@@ -570,10 +625,16 @@ a:hover {
     transform: scale(1.05, 1.05);
 }
 
-.add-cart:hover,
+.add-cart:hover {
+    background-color: rgb(231, 134, 235);
+    background-image: url(shopping-cart-empty-side-view-white.svg);
+
+    border-color: transparent;
+}
 .remove-cart:hover {
     background-color: rgb(231, 134, 235);
     color: white;
+    border-color: transparent;
 }
 
 /*************************************

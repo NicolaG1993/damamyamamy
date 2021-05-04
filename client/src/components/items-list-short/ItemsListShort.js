@@ -47,7 +47,7 @@ export default function ItemsListShort({
                 </div>
             </div>
             <div className={"products-small"}>
-                {products &&
+                {products ? (
                     products
                         .slice(sliceStart, sliceStart + 4)
                         .map((product) => (
@@ -63,7 +63,12 @@ export default function ItemsListShort({
                                     cardSize={"small"}
                                 />
                             </div>
-                        ))}
+                        ))
+                ) : (
+                    <div>
+                        <p>Nessun risultato</p>
+                    </div>
+                )}
             </div>
         </div>
     );

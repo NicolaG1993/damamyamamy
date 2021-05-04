@@ -8,22 +8,17 @@ export default function PageNav({ nextPage, previousPage, goToPage }) {
         <section className="section">
             <div className="container">
                 <nav className="pagination">
-                    <button
-                        className="button pagination-previous"
-                        onClick={() => {
-                            previousPage();
-                        }}
-                    >
-                        Previous
-                    </button>
-                    <button
-                        className="button pagination-next"
-                        onClick={() => {
-                            nextPage();
-                        }}
-                    >
-                        Next page
-                    </button>
+                    {state.currentPage > 1 && (
+                        <button
+                            className="small-arrow pagination-previous"
+                            onClick={() => {
+                                previousPage();
+                            }}
+                        >
+                            <div className="small-arrow-left"></div>
+                        </button>
+                    )}
+
                     <ul className="pagination-list">
                         {[...Array(state.filteredPages)].map((value, index) => (
                             <button
@@ -39,6 +34,16 @@ export default function PageNav({ nextPage, previousPage, goToPage }) {
                             </button>
                         ))}
                     </ul>
+                    {state.currentPage !== state.totalPages && (
+                        <button
+                            className="small-arrow pagination-next"
+                            onClick={() => {
+                                nextPage();
+                            }}
+                        >
+                            <div className="small-arrow-right"></div>
+                        </button>
+                    )}
                 </nav>
             </div>
         </section>
