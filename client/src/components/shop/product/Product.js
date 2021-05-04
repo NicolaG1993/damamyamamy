@@ -15,7 +15,9 @@ export default function Product({
         return (
             <div className={"product-content"}>
                 <Link to={`/item/${product.id}`}>
-                    <img src={product.media.source || "test1.jpg"} />
+                    <div className={"product-img"}>
+                        <img src={product.media.source || "test1.jpg"} />
+                    </div>
 
                     <div className={"product-info"}>
                         <h2>{product.name}</h2>
@@ -43,7 +45,10 @@ export default function Product({
         return (
             <div className={"product-content"}>
                 <Link to={`/item/${product.id}`}>
-                    <img src={product.media.source || "test1.jpg"} />
+                    <div className={"product-img"}>
+                        <img src={product.media.source || "test1.jpg"} />
+                    </div>
+                    <div className={"product-divider"}> </div>
 
                     <div className={"product-info"}>
                         <h4>{product.name}</h4>

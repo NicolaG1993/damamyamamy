@@ -333,8 +333,60 @@ a:hover {
 .items-shortlist-container {
     margin-top: 50px;
 }
-.items-shortlist-container > h3 {
+
+.items-shortlist-topbar {
+    position: relative;
     text-align: left;
+}
+
+.items-shortlist-topbar > h3 {
+    display: inline-block;
+    /* position: absolute;
+    left: 0;
+    top: 0; */
+}
+
+.items-shortlist-btns {
+    /* float: right; */
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.items-shortlist-btns > button {
+    margin-left: 15px;
+}
+
+.small-arrow {
+    border-radius: 50%;
+    padding: 5px;
+    cursor: pointer;
+    background-color: rgb(231, 134, 235);
+    border: none;
+    height: 25px;
+    width: 25px;
+}
+
+.small-arrow:hover {
+    background-color: rgb(204, 108, 207);
+}
+
+.small-arrow-left,
+.small-arrow-right {
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 100%;
+    position: relative;
+}
+
+.small-arrow-left {
+    background-image: url(left-arrow.png);
+    margin-right: 2px;
+}
+.small-arrow-right {
+    background-image: url(right-arrow.png);
+    margin-left: 2px;
 }
 
 .products-small {
@@ -346,10 +398,7 @@ a:hover {
     margin-top: 20px;
     margin-bottom: 40px;
     min-height: 180px;
-}
-
-.items-shortlist-container > button {
-    margin: 0 20px;
+    clear: both;
 }
 
 /*************************************
@@ -415,7 +464,8 @@ a:hover {
 .product-box {
     opacity: 0;
     transition: opacity 0.5s ease-in;
-    background-color: rgb(240, 240, 240);
+    background-color: white;
+    /* background-color: rgb(240, 240, 240); */
     /* border-radius: 8px; */
     overflow: hidden;
     border: 1px solid darkgray;
@@ -429,18 +479,37 @@ a:hover {
 .product-content {
     position: relative;
     height: 100%;
+    transition: 0.2s ease-in;
+}
+.product-content > a {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 70% 1px auto;
 }
 
-.product-content > a > img {
-    height: 66%;
+.product-divider {
+    height: 1px;
+    width: 100%;
+    background-color: darkgray;
+}
+.product-img {
+    display: inline-block;
+    overflow: hidden;
+    text-align: center;
+}
+.product-img > img {
+    height: 100%;
     width: 100%;
     object-fit: cover;
     object-position: center;
+    transition: 0.5s ease;
+    vertical-align: middle;
 }
 /* questo sará un component forse, uno slider */
 
 .product-info {
-    padding: 5px 10px;
+    padding: 10px;
 }
 
 .product-info > h4 {
@@ -491,9 +560,14 @@ a:hover {
     opacity: 1;
     top: 8px;
 }
-
+.product-content:hover {
+    background-color: rgb(240, 240, 240);
+}
 .product-content:hover a {
     color: black;
+}
+.product-content:hover img {
+    transform: scale(1.05, 1.05);
 }
 
 .add-cart:hover,
