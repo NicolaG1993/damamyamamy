@@ -109,46 +109,60 @@ export default function AddressForm({ checkoutToken, next }) {
     }, [values]);
 
     return (
-        <div className={"address-form-box"}>
+        <div className="address-form-box">
             <h3>Address Form Comp</h3>
             <form onChange={(e) => handleForm(e)} onSubmit={() => next(values)}>
-                <label>
-                    First name *
+                <div className="form-col-left">
+                    <label>First name *</label>
+                </div>
+                <div className="form-col-right">
                     <input
                         required
                         type="text"
                         name="firstName"
                         id="firstName"
                     />
-                </label>
-                <br />
-                <label>
-                    Last name *
+                </div>
+
+                <div className="form-col-left">
+                    <label>Last name *</label>
+                </div>
+                <div className="form-col-right">
                     <input required type="text" name="lastName" id="lastName" />
-                </label>
-                <br />
-                <label>
-                    Address *
+                </div>
+
+                <div className="form-col-left">
+                    <label>Address *</label>
+                </div>
+                <div className="form-col-right">
                     <input required type="text" name="address1" id="address1" />
-                </label>
-                <br />
-                <label>
-                    Email *
+                </div>
+
+                <div className="form-col-left">
+                    <label>Email *</label>
+                </div>
+                <div className="form-col-right">
                     <input required type="text" name="email" id="email" />
-                </label>
-                <br />
-                <label>
-                    City *
+                </div>
+
+                <div className="form-col-left">
+                    <label>City *</label>
+                </div>
+                <div className="form-col-right">
                     <input required type="text" name="city" id="city" />
-                </label>
-                <br />
-                <label>
-                    CAP *
+                </div>
+
+                <div className="form-col-left">
+                    <label>CAP *</label>
+                </div>
+                <div className="form-col-right">
                     <input required type="text" name="zip" id="zip" />
-                </label>
-                <br />
-                <label>
-                    Choose a coutry *
+                </div>
+
+                <div className="form-col-left">
+                    <label>Choose a coutry</label>
+                </div>
+                <div className="form-col-right">
                     <select
                         required
                         name="country"
@@ -162,10 +176,12 @@ export default function AddressForm({ checkoutToken, next }) {
                             </option>
                         ))}
                     </select>
-                </label>
-                <br />
-                <label>
-                    Choose a region *
+                </div>
+
+                <div className="form-col-left">
+                    <label>Choose a region</label>
+                </div>
+                <div className="form-col-right">
                     <select
                         required
                         name="region"
@@ -179,10 +195,12 @@ export default function AddressForm({ checkoutToken, next }) {
                             </option>
                         ))}
                     </select>
-                </label>
-                <br />
-                <label>
-                    Shipping options *
+                </div>
+
+                <div className="form-col-left">
+                    <label>Shipping options</label>
+                </div>
+                <div className="form-col-right">
                     <select
                         required
                         name="shipping"
@@ -196,16 +214,19 @@ export default function AddressForm({ checkoutToken, next }) {
                             </option>
                         ))}
                     </select>
-                </label>
-                <div>
-                    <Link to="/cart">
-                        <button className={"layout-button"}>
-                            Torna al carrello
+                </div>
+
+                <div className="row">
+                    <div className="row-submit">
+                        <Link to="/cart">
+                            <button className={"layout-button"}>
+                                Torna al carrello
+                            </button>
+                        </Link>
+                        <button className={"layout-button"} type="submit">
+                            Prosegui
                         </button>
-                    </Link>
-                    <button className={"layout-button"} type="submit">
-                        Prosegui
-                    </button>
+                    </div>
                 </div>
             </form>
         </div>
