@@ -220,9 +220,9 @@ class App extends Component {
                                 />
                             )}
                         />
-                    </div>
 
-                    <Footer />
+                        <Footer />
+                    </div>
                 </div>
             </BrowserRouter>
         );

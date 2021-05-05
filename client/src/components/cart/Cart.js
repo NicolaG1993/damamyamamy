@@ -37,15 +37,16 @@ export default function Cart({ cart, removeFromCart, emptyCart }) {
 
                 <span></span>
 
-                <div>
+                <div className="cart-btns">
                     <button
-                        className={"empty-btn layout-button"}
+                        className={"empty-btn layout-button-dark"}
                         onClick={emptyCart}
                     >
                         Svuota il carrello
                     </button>
+
                     <Link to="/checkout">
-                        <button className={"checkout-btn layout-button"}>
+                        <button className={"checkout-btn layout-button-dark"}>
                             Vai alla cassa
                         </button>
                     </Link>

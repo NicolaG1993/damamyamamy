@@ -43,8 +43,11 @@ export default function Footer() {
                     </p>
                 </div>
 
-                <div>
-                    <p>Icone Social</p>
+                <div className="social-footer">
+                    <a href="http://www.instagram.com/"></a>
+                    <a href="http://www.facebook.com/"></a>
+                    <a href="http://www.facebook.com/"></a>
+                    <a href="http://www.facebook.com/"></a>
                 </div>
             </div>
 

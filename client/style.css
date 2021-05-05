@@ -87,6 +87,26 @@ a:hover {
     background-color: rgb(204, 108, 207);
 }
 
+.layout-button-dark {
+    border-radius: 25px;
+    padding: 5px 15px;
+    cursor: pointer;
+    min-width: 155px;
+    color: rgb(204, 108, 207);
+    /* color: rgb(231, 134, 235); */
+    background-color: white;
+    /* border: 2px solid rgb(204, 108, 207); */
+
+    border: none;
+    letter-spacing: 1px;
+    margin: 10px 20px 10px 5px;
+}
+
+.layout-button-dark:hover {
+    color: white;
+    background-color: rgb(204, 108, 207);
+}
+
 .fake-btn {
     border-radius: 25px;
     padding: 2px 13px;
@@ -692,7 +712,7 @@ a:hover {
     padding: 20px;
     background-color: rgb(231, 134, 235);
     color: white;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .cart-products {
@@ -706,7 +726,6 @@ a:hover {
     /* 
     opacity: 0;
     transition: opacity 0.5s ease-in; */
-
     margin: 5px 0;
 }
 
@@ -797,6 +816,10 @@ a:hover {
     text-align: right;
     margin: 0 50px;
 }
+/* 
+.cart-btns {
+    justify-self: center;
+} */
 
 /*************************************
 ************ CHECKOUT *************
@@ -884,7 +907,7 @@ a:hover {
 ************ FOOTER *************
 *************************************/
 .footer-comp {
-    margin-top: 60px;
+    /* margin-top: 60px; */
     /* position: sticky;
     bottom: 0; */
 }
@@ -892,7 +915,7 @@ a:hover {
 .footer {
     background-color: rgb(241, 241, 241);
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 50px;
+    grid-template-columns: 1fr 1fr 1fr 30px;
     grid-template-rows: auto;
     padding: 25px;
     box-shadow: 0px 0px 10px #00000025;
@@ -920,6 +943,33 @@ a:hover {
 /* .website-footer > p > a {
     color: rgb(204, 108, 207);
 } */
+
+.social-footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 150px;
+}
+
+.social-footer > a {
+    height: 30px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* margin-bottom: 8px; */
+}
+.social-footer > a:nth-child(1) {
+    background-image: url(social/instagram.png);
+}
+.social-footer > a:nth-child(2) {
+    background-image: url(social/facebook.png);
+}
+.social-footer > a:nth-child(3) {
+    background-image: url(social/whatsapp.png);
+}
+.social-footer > a:nth-child(4) {
+    background-image: url(social/like.png);
+}
 
 .copyrights {
     /* background-color: rgb(223, 223, 223); */
