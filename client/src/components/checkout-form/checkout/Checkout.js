@@ -110,15 +110,18 @@ export default function Checkout({ cart, order, onCaptureCheckout, error }) {
             <div className={"checkout-box"}>
                 <div className={"step-status-box"}>
                     <div className={"step"}>
-                        <p>Shipping address</p>
-                        <div className={"step-dot-active"}></div>
+                        <p>Indirizzo</p>
+                        <div className={"step-dot step-dot-active"}></div>
                     </div>
-
                     <div className={"step-line"}></div>
-
                     <div className={"step"}>
-                        <p>Payment details</p>
-                        <div className={"step-dot"}></div>
+                        <p>Metodo di pagamento</p>
+
+                        <div
+                            className={`step-dot ${
+                                activeStep === 1 ? "step-dot-active" : ""
+                            }`}
+                        ></div>
                     </div>
                 </div>
                 {/* {steps.map((step) => (

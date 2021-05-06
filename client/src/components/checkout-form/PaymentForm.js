@@ -88,7 +88,7 @@ export default function PaymentForm({
 
     return (
         <div className={""}>
-            <h3></h3>Payment Form Component
+            <h3>Pagamento</h3>
             <Review checkoutToken={checkoutToken} />
             <h6>Metodi di pagamento</h6>
             <Elements stripe={stripePromise}>

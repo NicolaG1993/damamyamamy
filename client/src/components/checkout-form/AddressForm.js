@@ -110,10 +110,10 @@ export default function AddressForm({ checkoutToken, next }) {
 
     return (
         <div className="address-form-box">
-            <h3>Address Form Comp</h3>
+            <h3>I vostri dati</h3>
             <form onChange={(e) => handleForm(e)} onSubmit={() => next(values)}>
                 <div className="form-col-left">
-                    <label>First name *</label>
+                    <label>Nome *</label>
                 </div>
                 <div className="form-col-right">
                     <input
@@ -125,14 +125,14 @@ export default function AddressForm({ checkoutToken, next }) {
                 </div>
 
                 <div className="form-col-left">
-                    <label>Last name *</label>
+                    <label>Cognome *</label>
                 </div>
                 <div className="form-col-right">
                     <input required type="text" name="lastName" id="lastName" />
                 </div>
 
                 <div className="form-col-left">
-                    <label>Address *</label>
+                    <label>Indirizzo *</label>
                 </div>
                 <div className="form-col-right">
                     <input required type="text" name="address1" id="address1" />
@@ -146,7 +146,7 @@ export default function AddressForm({ checkoutToken, next }) {
                 </div>
 
                 <div className="form-col-left">
-                    <label>City *</label>
+                    <label>Città *</label>
                 </div>
                 <div className="form-col-right">
                     <input required type="text" name="city" id="city" />
@@ -160,7 +160,7 @@ export default function AddressForm({ checkoutToken, next }) {
                 </div>
 
                 <div className="form-col-left">
-                    <label>Choose a coutry</label>
+                    <label>Stato</label>
                 </div>
                 <div className="form-col-right">
                     <select
@@ -179,7 +179,7 @@ export default function AddressForm({ checkoutToken, next }) {
                 </div>
 
                 <div className="form-col-left">
-                    <label>Choose a region</label>
+                    <label>Provincia</label>
                 </div>
                 <div className="form-col-right">
                     <select
@@ -198,7 +198,7 @@ export default function AddressForm({ checkoutToken, next }) {
                 </div>
 
                 <div className="form-col-left">
-                    <label>Shipping options</label>
+                    <label>Metodi di spedizione</label>
                 </div>
                 <div className="form-col-right">
                     <select
