@@ -110,7 +110,8 @@ export default function AddressForm({ checkoutToken, next }) {
 
     return (
         <div className="address-form-box">
-            <h3>I vostri dati</h3>
+            <h3>I vostri dati:</h3>
+
             <form onChange={(e) => handleForm(e)} onSubmit={() => next(values)}>
                 <div className="form-col-left">
                     <label>Nome *</label>
@@ -219,11 +220,11 @@ export default function AddressForm({ checkoutToken, next }) {
                 <div className="row">
                     <div className="row-submit">
                         <Link to="/cart">
-                            <button className={"layout-button"}>
+                            <button className={"layout-button-dark"}>
                                 Torna al carrello
                             </button>
                         </Link>
-                        <button className={"layout-button"} type="submit">
+                        <button className={"layout-button-dark"} type="submit">
                             Prosegui
                         </button>
                     </div>
