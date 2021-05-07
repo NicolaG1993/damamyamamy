@@ -199,7 +199,7 @@ export default function AddressForm({ checkoutToken, next }) {
                 </div>
 
                 <div className="form-col-left">
-                    <label>Metodi di spedizione</label>
+                    <label>Metodo di spedizione</label>
                 </div>
                 <div className="form-col-right">
                     <select
