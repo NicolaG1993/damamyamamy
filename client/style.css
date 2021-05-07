@@ -76,7 +76,7 @@ a:hover {
     border-radius: 25px;
     padding: 5px 15px;
     cursor: pointer;
-    min-width: 155px;
+    min-width: 170px;
     background-color: rgb(231, 134, 235);
     color: white;
     border: none;
@@ -91,7 +91,7 @@ a:hover {
     border-radius: 25px;
     padding: 5px 15px;
     cursor: pointer;
-    min-width: 155px;
+    min-width: 170px;
     color: rgb(204, 108, 207);
     /* color: rgb(231, 134, 235); */
     background-color: white;
@@ -519,7 +519,7 @@ label {
 
 .shop {
     width: 100%;
-    padding: 20px;
+    padding: 20px 20px 60px 20px;
 }
 
 .shop > h4 {
@@ -913,6 +913,10 @@ label {
     justify-self: center;
 } */
 
+.cart-btns > button:nth-child(1) {
+    margin: 20px 20px 20px 5px;
+}
+
 /*************************************
 ************ CHECKOUT *************
 *************************************/
@@ -934,6 +938,7 @@ label {
     color: white;
     border-radius: 8px;
     min-height: 300px;
+    box-shadow: 0px 0px 10px #00000025;
 }
 
 .checkout-title-box {
@@ -1024,16 +1029,41 @@ label {
     z-index: -1;
 }
 
-.address-form-box {
+.checkout-form-box {
     padding: 30px 80px 20px 80px;
+    width: 100%;
 }
 
-.address-form-box > h3 {
+.checkout-form-box > h3 {
     width: 115px;
     border-bottom-width: 2px;
     border-bottom-style: solid;
     margin-bottom: 20px;
     padding-bottom: 5px;
+}
+
+.checkout-form-box > h5:nth-child(2) {
+    margin: 16px 0 0 0;
+}
+
+.review-row {
+    display: grid;
+    grid-template-columns: 1fr 100px;
+    align-items: flex-end;
+    padding: 15px 0;
+    border-bottom: 2px solid white;
+}
+
+.review-product-infos {
+}
+
+.review-product-price {
+    text-align: end;
+}
+
+.review-final-price {
+    text-align: end;
+    margin: 30px 0;
 }
 
 /*************************************

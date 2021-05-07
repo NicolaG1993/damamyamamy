@@ -71,7 +71,7 @@ export default class Home extends Component {
                         <div className="iconslist-icon"></div>
                         <h3>Qualità</h3>
                         <p>
-                            Da noi puoi aspettarti solo prodotti in ottime
+                            Da noi puoi aspettarti solo articoli in ottime
                             condizioni
                         </p>
                     </div>

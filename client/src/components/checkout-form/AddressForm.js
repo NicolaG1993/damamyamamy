@@ -109,8 +109,8 @@ export default function AddressForm({ checkoutToken, next }) {
     }, [values]);
 
     return (
-        <div className="address-form-box">
-            <h3>I vostri dati:</h3>
+        <div className="checkout-form-box">
+            <h3>I vostri dati</h3>
 
             <form onChange={(e) => handleForm(e)} onSubmit={() => next(values)}>
                 <div className="form-col-left">

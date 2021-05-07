@@ -87,10 +87,10 @@ export default function PaymentForm({
     // };
 
     return (
-        <div className={""}>
+        <div className="checkout-form-box">
             <h3>Pagamento</h3>
             <Review checkoutToken={checkoutToken} />
-            <h6>Metodi di pagamento</h6>
+            <h5>Metodi di pagamento:</h5>
             <Elements stripe={stripePromise}>
                 <ElementsConsumer>
                     {({ elements, stripe }) => (
@@ -98,26 +98,27 @@ export default function PaymentForm({
                             onSubmit={(e) => handleSubmit(e, elements, stripe)}
                         >
                             <CardElement />
-                            <br /> <br />
-                            <div>
-                                <button
-                                    className={"layout-button"}
-                                    type="button"
-                                    onClick={backStep}
-                                >
-                                    Torna indietro
-                                </button>
-                                <button
-                                    className={"layout-button"}
-                                    type="submit"
-                                    disabled={!stripe}
-                                >
-                                    Conferma
-                                    {
-                                        checkoutToken.live.subtotal
-                                            .formatted_with_symbol
-                                    }
-                                </button>
+
+                            <div className="row">
+                                <div className="row-submit">
+                                    <button
+                                        className={"layout-button-dark"}
+                                        type="button"
+                                        onClick={backStep}
+                                    >
+                                        Torna indietro
+                                    </button>
+                                    <button
+                                        className={"layout-button-dark"}
+                                        type="submit"
+                                        disabled={!stripe}
+                                    >
+                                        Conferma
+                                        {" " +
+                                            checkoutToken.live.subtotal
+                                                .formatted_with_symbol}
+                                    </button>
+                                </div>
                             </div>
                         </form>
                     )}
