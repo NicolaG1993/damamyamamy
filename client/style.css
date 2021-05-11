@@ -205,7 +205,7 @@ label {
 .main {
     padding: 68px 0 0 0;
     /* background-color: rgb(45, 48, 70); */
-    min-height: 80vh;
+    /* min-height: 80vh; */
 }
 
 /*************************************
@@ -436,10 +436,14 @@ label {
 .iconslist {
     display: flex;
     justify-content: space-around;
-    align-items: center;
     background-color: rgb(231, 134, 235);
     padding: 20px;
     min-height: 400px;
+}
+.iconslist-wrap {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 .iconslist-icon-box {
     display: flex;
@@ -1156,18 +1160,21 @@ label {
 .footer-comp {
     /* margin-top: 60px; */
     width: 100%;
+    background-color: rgb(241, 241, 241);
     position: relative;
     bottom: 0;
 }
 
+.footer-wrap {
+    z-index: 2;
+    box-shadow: 0px 0px 10px #00000025;
+}
+
 .footer {
-    background-color: rgb(241, 241, 241);
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 30px;
     grid-template-rows: auto;
     padding: 25px;
-    box-shadow: 0px 0px 10px #00000025;
-    z-index: 2;
 }
 
 .footer * h4 {
@@ -1221,10 +1228,11 @@ label {
 
 .copyrights {
     /* background-color: rgb(223, 223, 223); */
+    width: 100%;
     padding: 5px 20px 5px 20px;
-    z-index: -1;
     text-align: center;
     background-color: rgb(235, 235, 235);
+    z-index: 1;
 }
 
 /*************************************
@@ -1241,3 +1249,63 @@ label {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+/*************************************
+************ MEDIA QUERY *************
+*************************************/
+@media screen and (min-width: 1110px) {
+    .main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .main > div {
+        width: 1110px;
+    }
+    /*
+    .shortlist {
+        width: 66%;
+        align-self: center;
+    }
+
+    .sliderBox {
+        width: 100vw;
+        position: absolute;
+        left: 0;
+    }  */
+
+    #nav {
+        width: 17vw;
+        transition: transform 0.7s;
+    }
+
+    #home {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        width: 100vw;
+    }
+    .shortlist {
+        width: 1110px;
+    }
+    .iconslist {
+        width: 100vw;
+    }
+
+    .iconslist-wrap {
+        width: 1110px;
+    }
+    .footer {
+        width: 1110px;
+    }
+    .footer-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+}
+
+/* guardare best screen sizes */
