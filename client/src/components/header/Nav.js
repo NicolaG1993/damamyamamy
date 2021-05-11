@@ -12,24 +12,25 @@ export default function Nav({ navIsActive, toggleNav }) {
             ></div>
 
             <nav id="nav" className={`${navIsActive ? "on" : ""}`}>
-                <p>
-                    <Link to={"/about"} onClick={toggleNav}>
-                        CHI SIAMO
-                    </Link>
-                </p>
-                <p>
-                    <Link to={"/shop"} onClick={toggleNav}>
-                        IN NEGOZIO
-                    </Link>
-                </p>
-                <p>
-                    <Link to={"/contact"} onClick={toggleNav}>
-                        CONTATTO
-                    </Link>
-                </p>
-                <p>
-                    <a href="/?">VENDI</a>
-                </p>
+                <Link to={"/"} onClick={toggleNav}>
+                    <p>Home</p>
+                </Link>
+
+                <Link to={"/about"} onClick={toggleNav}>
+                    <p>Chi siamo</p>
+                </Link>
+
+                <Link to={"/shop"} onClick={toggleNav}>
+                    <p>In negozio</p>
+                </Link>
+
+                <Link to={"/contact"} onClick={toggleNav}>
+                    <p>Contatto</p>
+                </Link>
+
+                <a href="/?">
+                    <p>Vendi</p>
+                </a>
             </nav>
         </>
     );

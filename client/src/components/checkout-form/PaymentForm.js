@@ -91,6 +91,10 @@ export default function PaymentForm({
             <h3>Pagamento</h3>
             <Review checkoutToken={checkoutToken} />
             <h5>Metodi di pagamento:</h5>
+            <select className="payment-mode">
+                <option>Carta di credito</option>
+                <option>Paypal</option>
+            </select>
             <Elements stripe={stripePromise}>
                 <ElementsConsumer>
                     {({ elements, stripe }) => (
@@ -100,6 +104,10 @@ export default function PaymentForm({
                             <CardElement />
 
                             <div className="row">
+                                <input type="checkbox" name="accept" />
+                                <label htmlFor="accept">
+                                    Dichiaro di aver letto bla bla bla
+                                </label>
                                 <div className="row-submit">
                                     <button
                                         className={"layout-button-dark"}

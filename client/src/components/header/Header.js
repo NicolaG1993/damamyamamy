@@ -12,7 +12,7 @@ export default function Header({ navIsActive, closeNav, toggleNav, cart }) {
                 </Link>
             </div>
 
-            <CartIcon cart={cart} />
+            <CartIcon cart={cart} closeNav={closeNav} />
 
             <div
                 id="hamBtn"

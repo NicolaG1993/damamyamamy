@@ -64,13 +64,13 @@ h4 {
 
 a {
     text-decoration: none;
-    color: black;
+    color: #414141;
     transition: 0.5s ease;
 }
 
-a:hover {
+/* a:hover {
     color: rgb(204, 108, 207);
-}
+} */
 
 .layout-button {
     border-radius: 25px;
@@ -344,19 +344,54 @@ label {
     position: fixed;
     background-color: rgb(233, 233, 233);
     height: 100vh;
-    width: 33vw;
-    padding: 125px 60px 50px 60px;
+    width: 230px;
+    padding: 130px 0 50px 0;
+
     right: 0;
     z-index: 19;
     /* transform: translateX(100%); */
     left: 100%;
-    transition: transform 1.5s;
+    transition: transform 0.8s;
 }
 
-#nav > p {
+#nav > a {
+    height: 60px;
     display: block;
-    font-size: 25pt;
-    padding-bottom: 20px;
+    /* padding: 0 45px; */
+}
+
+#nav > a > p {
+    border-bottom: 1px solid rgb(199, 199, 199);
+}
+#nav > a:nth-child(1) > p {
+    /* border-top: 1px solid rgb(199, 199, 199); */
+}
+/* #nav > a:nth-child(5) > p {
+    border-bottom: none;
+} */
+
+#nav > a > p {
+    /* text-align: center; */
+    padding: 0 35px;
+    font-size: 15pt;
+    line-height: 60px;
+    transition: 0.2s ease;
+    /* font-weight: bold; */
+    letter-spacing: 3px;
+    /* text-transform: uppercase; */
+}
+
+#nav > a:hover {
+    background-color: rgb(224, 224, 224);
+}
+
+#nav > a:hover > p {
+    font-size: 16pt;
+
+    /* color: rgb(204, 108, 207); */
+    /* color: #3b3b3b; */
+    /* background-color: rgb(231, 134, 235); */
+    /* color: white; */
 }
 
 /* SCRIPT.JS STYLES */
@@ -1064,6 +1099,18 @@ label {
 .review-final-price {
     text-align: end;
     margin: 30px 0;
+}
+
+.payment-mode {
+    margin-top: 16px;
+}
+
+.StripeElement {
+    margin-top: 16px;
+    background-color: white;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 /*************************************
