@@ -51,10 +51,10 @@ export default function Footer() {
                         <a href="http://www.facebook.com/"></a>
                     </div>
                 </div>
-            </div>
 
-            <div className={"copyrights"}>
-                <h5>Da Mamy a Mamy, © {currentYear}</h5>
+                <div className={"copyrights"}>
+                    <h5>Da Mamy a Mamy, © {currentYear}</h5>
+                </div>
             </div>
         </div>
     );
