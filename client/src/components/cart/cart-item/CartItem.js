@@ -10,7 +10,7 @@ export default function CartItem({ item, removeFromCart }) {
                     <img src={item.media.source} alt={item.name} />
                     <div className="cart-product-info">
                         <h4>{item.name}</h4>
-                        <h5>{item.line_total.formatted_with_symbol}</h5>
+                        <h5>€ {item.price.raw}</h5>
                     </div>
                 </Link>
                 <button

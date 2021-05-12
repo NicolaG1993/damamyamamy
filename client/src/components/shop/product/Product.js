@@ -48,13 +48,18 @@ export default function Product({
                     <div className={"product-img"}>
                         <img src={product.media.source || "test1.jpg"} />
                     </div>
-                    <div className={"product-divider"}> </div>
+                    {/* <div className={"product-divider"}> </div> */}
 
                     <div className={"product-info"}>
                         <h4>{product.name}</h4>
-                        <h4 className={"price-for-small-card"}>
+                        <div className={"product-divider-small"}> </div>
+
+                        <p className={"price-for-small-card"}>
+                            <span className={"price-for-small-card-tag"}>
+                                Prezzo:{" "}
+                            </span>
                             {product.price.raw}€
-                        </h4>
+                        </p>
                     </div>
                 </Link>
                 <AddToCartBtn
