@@ -11,12 +11,18 @@ export default function Filter({ categories, userFilters, highestPrice }) {
         category: "",
         order: "new",
     });
-    console.log("filters!!!: ", filters);
-    console.log("highestPrice: ", highestPrice);
+    // console.log("filters!!!: ", filters);
+    // console.log("highestPrice: ", highestPrice);
+
+    const [filtersBar, setFiltersBarBar] = useState(true);
 
     useEffect(() => {
         setPriceRange({ min: 0, max: highestPrice });
     }, [highestPrice]);
+
+    const toggleBar = async () => {
+        setFiltersBarBar(!filtersBar);
+    };
 
     const handleForm = (e) => {
         // console.log("e in form", e);
@@ -68,8 +74,14 @@ export default function Filter({ categories, userFilters, highestPrice }) {
 
     return (
         <div className={"filter-bar"}>
-            <h3>Filtra risultati</h3>
-            <form>
+            <h3>
+                Filtra risultati{" "}
+                <span onClick={() => toggleBar()}>
+                    {filtersBar ? "X" : "O"}
+                </span>
+            </h3>
+
+            <form className={filtersBar ? "" : "hidden"}>
                 <label>
                     <span>Ricerca per nome</span>
                     <input
