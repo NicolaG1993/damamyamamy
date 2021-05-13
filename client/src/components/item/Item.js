@@ -46,25 +46,38 @@ export default function Item({
 
                     <div className="item-right-side">
                         <h1>{item.name}</h1>
-                        {/* <div className={"product-divider-small"}> </div> */}
-                        <div className="item-right-side-infos">
-                            <span>Prezzo:</span>
-                            <h5>{item.price.raw}€</h5>
+                        <div className="item-right-side-price">
+                            <h2 className="second-font dark-tone">
+                                {item.price.raw}€
+                            </h2>
+                            <p>IVA inclusa</p>
                         </div>
-                        <div className="item-right-side-infos">
-                            <span>Condizioni:</span>
-                            <h5>nuovo</h5>
-                            <div className="circle"></div>
-                        </div>
-                        <div className="item-right-side-infos">
-                            <span>Categoria:</span>
-                        </div>
-                        <div className="item-right-side-infos">
-                            <span>Tags:</span>
-                        </div>
-                        <div className="item-right-side-infos">
-                            <span>Disponibilitá:</span>
-                            <p>Pezzo unico</p>
+                        <div className={"product-divider-small"}> </div>
+                        <div className={"item-right-side-infos-box"}>
+                            <div className="item-right-side-conditions">
+                                <span>Condizioni:</span>
+                                <h5>come nuovo</h5>
+                                <div className="circle"></div>
+                            </div>
+                            {/* <div className="item-right-side-infos">
+                            <span>Descrizione:</span>
+                            <p
+                                dangerouslySetInnerHTML={{
+                                    __html: item.description,
+                                }}
+                            ></p>
+                        </div> */}
+
+                            <div className="item-right-side-infos">
+                                <span>Categoria:</span>
+                            </div>
+                            <div className="item-right-side-infos">
+                                <span>Tags:</span>
+                            </div>
+                            <div className="item-right-side-infos">
+                                <span>Disponibilitá:</span>
+                                <p>Pezzo unico</p>
+                            </div>
                         </div>
 
                         <AddToCartBtn
@@ -84,6 +97,9 @@ export default function Item({
                             __html: item.description,
                         }}
                     ></p>
+
+                    <span>Informazioni:</span>
+                    <p>Prodotto mai utilizzato</p>
                 </div>
 
                 <div className={"shortlist"}>
