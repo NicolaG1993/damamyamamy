@@ -39,7 +39,9 @@ export default function AddToCartBtn({
                 className={`add-cart ${
                     cardSize === "small"
                         ? "add-cart-for-small"
-                        : "add-cart-for-medium"
+                        : cardSize === "medium"
+                        ? "add-cart-for-medium"
+                        : "add-cart-for-item"
                 }`}
                 onClick={() => onAddToCart(product_id, 1)}
             ></button>
@@ -48,7 +50,9 @@ export default function AddToCartBtn({
                 className={`remove-cart ${
                     cardSize === "small"
                         ? "remove-cart-for-small"
-                        : "remove-cart-for-medium"
+                        : cardSize === "medium"
+                        ? "remove-cart-for-medium"
+                        : "remove-cart-for-item"
                 }`}
                 onClick={() => removeFromCart(itemId)}
             >

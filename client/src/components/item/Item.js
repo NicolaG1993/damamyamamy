@@ -41,28 +41,34 @@ export default function Item({
             <>
                 <div className="item-card">
                     <div className="item-left-side">
-                        <h2>{item.name}</h2>
                         <img src={item.media.source || "test1.jpg"} />
                     </div>
 
                     <div className="item-right-side">
-                        <span>Descrizione:</span>
-                        <p
-                            dangerouslySetInnerHTML={{
-                                __html: item.description,
-                            }}
-                        ></p>
-                        <div className="item-right-side-conditions">
+                        <h1>{item.name}</h1>
+                        {/* <div className={"product-divider-small"}> </div> */}
+                        <div className="item-right-side-infos">
+                            <span>Prezzo:</span>
+                            <h5>{item.price.raw}€</h5>
+                        </div>
+                        <div className="item-right-side-infos">
                             <span>Condizioni:</span>
                             <h5>nuovo</h5>
                             <div className="circle"></div>
                         </div>
-                        <div className="item-right-side-price">
-                            <span>Prezzo:</span>
-                            <h5>{item.price.raw}€</h5>
+                        <div className="item-right-side-infos">
+                            <span>Categoria:</span>
+                        </div>
+                        <div className="item-right-side-infos">
+                            <span>Tags:</span>
+                        </div>
+                        <div className="item-right-side-infos">
+                            <span>Disponibilitá:</span>
+                            <p>Pezzo unico</p>
                         </div>
 
                         <AddToCartBtn
+                            cardSize={"shop-item"}
                             product_id={item.id}
                             notAvailables={notAvailables}
                             onAddToCart={onAddToCart}
@@ -70,6 +76,16 @@ export default function Item({
                         />
                     </div>
                 </div>
+
+                <div className="item-description">
+                    <span>Descrizione:</span>
+                    <p
+                        dangerouslySetInnerHTML={{
+                            __html: item.description,
+                        }}
+                    ></p>
+                </div>
+
                 <div className={"shortlist"}>
                     <h2>Articoli simili</h2>
                     <Link to={"/shop"}>Vedi tutti gli articoli</Link>

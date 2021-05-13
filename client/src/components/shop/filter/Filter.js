@@ -84,6 +84,7 @@ export default function Filter({ categories, userFilters, highestPrice }) {
                 <div className={"price-filter-bar"}>
                     <label>
                         <span>Ricerca per prezzo</span>
+                        <br />
                         <input
                             type="number"
                             min="0"

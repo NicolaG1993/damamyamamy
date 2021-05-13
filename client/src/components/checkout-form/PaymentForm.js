@@ -106,7 +106,8 @@ export default function PaymentForm({
                             <div className="row">
                                 <input type="checkbox" name="accept" />
                                 <label htmlFor="accept">
-                                    Dichiaro di aver letto bla bla bla
+                                    Dichiaro di aver letto{" "}
+                                    <a>Termini e Condizioni</a>
                                 </label>
                                 <div className="row-submit">
                                     <button

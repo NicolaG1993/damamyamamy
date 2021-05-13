@@ -11,23 +11,37 @@ export default function Product({
 }) {
     // console.log("props in Product.js: ", product);
 
+    function createMarkup() {
+        return { __html: product.description };
+    }
+
     if (cardSize === "medium")
         return (
             <div className={"product-content"}>
-                <Link to={`/item/${product.id}`}>
+                <Link
+                    to={`/item/${product.id}`}
+                    className={"product-content-medium"}
+                >
                     <div className={"product-img"}>
                         <img src={product.media.source || "test1.jpg"} />
                     </div>
 
                     <div className={"product-info"}>
-                        <h2>{product.name}</h2>
-                        <span
+                        <h3>{product.name}</h3>
+
+                        <div className={"product-divider-small"}> </div>
+                        <div
                             className={"product-description"}
-                            dangerouslySetInnerHTML={{
-                                __html: product.description,
-                            }}
-                        ></span>
-                        <h5>{product.price.raw}€</h5>
+                            dangerouslySetInnerHTML={createMarkup()}
+                        ></div>
+
+                        <h5>
+                            <span className={"price-for-small-card-tag"}>
+                                Prezzo:{" "}
+                            </span>
+                            {product.price.raw}€
+                        </h5>
+                        <br />
                     </div>
                 </Link>
                 {/* {notAvailables && notAvailables.filter} */}
@@ -44,7 +58,10 @@ export default function Product({
     if (cardSize === "small")
         return (
             <div className={"product-content"}>
-                <Link to={`/item/${product.id}`}>
+                <Link
+                    to={`/item/${product.id}`}
+                    className={"product-content-small"}
+                >
                     <div className={"product-img"}>
                         <img src={product.media.source || "test1.jpg"} />
                     </div>
@@ -54,12 +71,12 @@ export default function Product({
                         <h4>{product.name}</h4>
                         <div className={"product-divider-small"}> </div>
 
-                        <p className={"price-for-small-card"}>
+                        <h5>
                             <span className={"price-for-small-card-tag"}>
                                 Prezzo:{" "}
                             </span>
                             {product.price.raw}€
-                        </p>
+                        </h5>
                     </div>
                 </Link>
                 <AddToCartBtn
