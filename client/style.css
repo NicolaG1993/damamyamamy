@@ -618,6 +618,7 @@ label {
 
 .filter-bar > h3 > span {
     float: right;
+    cursor: pointer;
 }
 
 .filter-bar > form {
@@ -950,6 +951,14 @@ label {
     background-color: rgb(244, 244, 244);
     margin: 20px 0 40px 0;
     padding: 20px;
+}
+
+.item-description-selector {
+    margin-bottom: 20px;
+}
+.item-description-selector > span {
+    margin-right: 30px;
+    cursor: pointer;
 }
 
 /*************************************

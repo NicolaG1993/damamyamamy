@@ -15,6 +15,11 @@ export default function Item({
 }) {
     let key = match.params.id;
     const [item, setItem] = useState(null);
+    const [infoDisplay, setInfoDisplay] = useState("description");
+
+    const toggleInfoDisplay = (val) => {
+        setInfoDisplay(val);
+    };
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -91,15 +96,27 @@ export default function Item({
                 </div>
 
                 <div className="item-description">
-                    <span>Descrizione:</span>
-                    <p
-                        dangerouslySetInnerHTML={{
-                            __html: item.description,
-                        }}
-                    ></p>
+                    <div className="item-description-selector">
+                        <span onClick={() => toggleInfoDisplay("description")}>
+                            Descrizione
+                        </span>
 
-                    <span>Informazioni:</span>
-                    <p>Prodotto mai utilizzato</p>
+                        <span onClick={() => toggleInfoDisplay("infos")}>
+                            Informazioni
+                        </span>
+                    </div>
+
+                    <div className="item-description-display">
+                        {infoDisplay === "description" ? (
+                            <p
+                                dangerouslySetInnerHTML={{
+                                    __html: item.description,
+                                }}
+                            ></p>
+                        ) : (
+                            <p>Prodotto mai utilizzato</p>
+                        )}
+                    </div>
                 </div>
 
                 <div className={"shortlist"}>
