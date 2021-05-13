@@ -88,7 +88,7 @@ export default function PaymentForm({
 
     return (
         <div className="checkout-form-box">
-            <h3>Pagamento</h3>
+            <h3 className="second-font">Pagamento</h3>
             <Review checkoutToken={checkoutToken} />
             <h5>Metodi di pagamento:</h5>
             <select className="payment-mode">

@@ -18,9 +18,17 @@ html {
 
 body {
     background-color: ghostwhite;
-    color: rgb(204, 108, 207);
+    color: rgb(231, 134, 235);
     font-family: "Nunito Sans";
     overflow-x: hidden;
+}
+
+.second-font {
+    font-family: "Nunito Sans";
+    font-weight: 900;
+}
+.darker-tone {
+    color: rgb(204, 108, 207);
 }
 
 ::selection {
@@ -88,6 +96,7 @@ a {
     color: white;
     border: none;
     letter-spacing: 1px;
+    transition: 0.2s ease;
 }
 
 .layout-button:hover {
@@ -106,12 +115,13 @@ a {
 
     border: 2px solid transparent;
     letter-spacing: 1px;
+    transition: 0.2s ease;
     /* margin: 10px 20px 10px 5px; */
 }
 
 .layout-button-dark:hover {
     color: white;
-    background-color: rgb(204, 108, 207);
+    background-color: rgb(231, 134, 235);
     border: 2px solid white;
 }
 
@@ -124,8 +134,8 @@ a {
 }
 
 .inverted-btn {
-    border: solid 2px rgb(204, 108, 207);
-    color: rgb(204, 108, 207);
+    border: solid 2px rgb(231, 134, 235);
+    color: rgb(231, 134, 235);
     background-color: transparent;
     font-weight: bold;
 }
@@ -133,7 +143,7 @@ a {
     border: solid 2px rgb(231, 134, 235);
     background-color: rgb(231, 134, 235);
     color: white;
-    box-shadow: 0px 3px 4px #00000048;
+    /* box-shadow: 0px 3px 4px #00000048; */
 }
 
 .circle {
@@ -502,8 +512,6 @@ label {
 
 .items-shortlist-topbar > h3 {
     display: inline-block;
-    font-family: "Nunito Sans";
-    font-weight: bold;
     /* position: absolute;
     left: 0;
     top: 0; */
@@ -594,8 +602,12 @@ label {
     background-color: rgb(231, 134, 235);
     color: white;
     padding: 15px 8px;
-    margin: 5px 0 30px 0;
-    border-radius: 5px;
+    margin: 15px 0 30px 0;
+    border-radius: 15px;
+}
+
+.filter-bar > h3 {
+    margin-bottom: 10px;
 }
 
 .price-filter-bar {
@@ -693,7 +705,7 @@ label {
     overflow: hidden;
     /* border: 1px solid darkgray; */
     /* aspect-ratio: 1; pseudo something ?? check pls! */
-    min-height: 320px;
+    min-height: 275px;
     text-align: left;
 }
 
@@ -705,13 +717,13 @@ label {
     position: relative;
     height: 100%;
     transition: 0.2s ease-in;
-    padding-bottom: 15px;
+    /* padding-bottom: 15px; */
 }
 .product-content > a {
     height: 100%;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 70% 1px auto;
+    grid-template-rows: 180px auto;
 }
 
 .product-divider {
@@ -809,7 +821,7 @@ label {
     top: 8px;
 }
 .product-content:hover {
-    background-color: rgb(240, 240, 240);
+    /* background-color: rgb(230, 230, 230); */
 }
 .product-content:hover a {
     color: black;
@@ -882,13 +894,6 @@ label {
     background-color: rgb(231, 134, 235);
     color: white;
     min-height: 100vh;
-}
-
-.cart-comp > h3,
-.cart-comp * h3,
-.cart-comp * h4 {
-    font-family: "Nunito Sans";
-    font-weight: bold;
 }
 
 .cart-products {
@@ -1231,8 +1236,11 @@ label {
 .footer * a,
 .footer * p {
     color: rgb(204, 108, 207);
-    font-size: 15px;
+    font-size: 12px;
     line-height: 25px;
+}
+.footer * a:hover {
+    color: rgb(231, 134, 235);
 }
 
 /* .website-footer {

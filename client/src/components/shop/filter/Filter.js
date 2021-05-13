@@ -68,6 +68,7 @@ export default function Filter({ categories, userFilters, highestPrice }) {
 
     return (
         <div className={"filter-bar"}>
+            <h3>Filtra risultati</h3>
             <form>
                 <label>
                     <span>Ricerca per nome</span>

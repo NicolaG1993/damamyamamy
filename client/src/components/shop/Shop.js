@@ -119,7 +119,6 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
     return (
         <div className={"shop"}>
             <h1>In negozio</h1>
-            <h4>Filtra risultati</h4>
 
             {state.highestPrice ? (
                 <Filter

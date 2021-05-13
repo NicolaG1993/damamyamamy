@@ -109,7 +109,7 @@ export default function Checkout({ cart, order, onCaptureCheckout, error }) {
         <div className={"checkout-container"}>
             <div className={"checkout-box"}>
                 <div className={"checkout-title-box"}>
-                    <h1>Checkout</h1>
+                    <h1 className="second-font">Checkout</h1>
                 </div>
                 <div className={"step-status-box"}>
                     <ul className="progressbar">

@@ -52,7 +52,7 @@ export default function Footer() {
                     </div>
                 </div>
 
-                <div className={"copyrights"}>
+                <div className={"copyrights darker-tone"}>
                     <h5>Da Mamy a Mamy, © {currentYear}</h5>
                 </div>
             </div>

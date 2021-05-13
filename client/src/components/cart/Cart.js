@@ -29,7 +29,7 @@ export default function Cart({ cart, removeFromCart, emptyCart }) {
             <div className={"cart-interact"}>
                 <div className="cart-total">
                     <span></span>
-                    <h3>
+                    <h3 className="second-font">
                         Totale: <br />
                         {cart.subtotal.formatted_with_symbol}
                     </h3>
@@ -59,7 +59,7 @@ export default function Cart({ cart, removeFromCart, emptyCart }) {
 
     return (
         <div className={"cart-comp"}>
-            <h3>Il tuo carrello</h3>
+            <h3 className="second-font">Il tuo carrello</h3>
 
             {!cart.line_items.length ? <EmptyCart /> : <FilledCart />}
         </div>

@@ -32,11 +32,10 @@ export default function AddressForm({ checkoutToken, next }) {
     console.log("options: ", options);
 
     const fetchShippingCountries = async (checkoutTokenId) => {
-        const {
-            countries,
-        } = await commerce.services.localeListShippingCountries(
-            checkoutTokenId
-        );
+        const { countries } =
+            await commerce.services.localeListShippingCountries(
+                checkoutTokenId
+            );
 
         // console.log("fetched countries: ", countries);
         setShippingCountries(countries);
@@ -110,7 +109,7 @@ export default function AddressForm({ checkoutToken, next }) {
 
     return (
         <div className="checkout-form-box">
-            <h3>I vostri dati</h3>
+            <h3 className="second-font">I vostri dati</h3>
 
             <form onChange={(e) => handleForm(e)} onSubmit={() => next(values)}>
                 <div className="form-col-left">
