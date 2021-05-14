@@ -97,13 +97,29 @@ export default function Item({
 
                 <div className="item-description">
                     <div className="item-description-selector">
-                        <span onClick={() => toggleInfoDisplay("description")}>
+                        <span
+                            onClick={() => toggleInfoDisplay("description")}
+                            className={
+                                infoDisplay === "description"
+                                    ? "active-selector"
+                                    : "not-active-selector"
+                            }
+                        >
                             Descrizione
                         </span>
 
-                        <span onClick={() => toggleInfoDisplay("infos")}>
+                        <span
+                            onClick={() => toggleInfoDisplay("infos")}
+                            className={
+                                infoDisplay === "infos"
+                                    ? "active-selector"
+                                    : "not-active-selector"
+                            }
+                        >
                             Informazioni
                         </span>
+
+                        {/* <span></span> */}
                     </div>
 
                     <div className="item-description-display">
@@ -117,6 +133,12 @@ export default function Item({
                             <p>Prodotto mai utilizzato</p>
                         )}
                     </div>
+
+                    {/* <div className="item-description-selector-shadow">
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div className="item-description-display-shadow"></div> */}
                 </div>
 
                 <div className={"shortlist"}>
