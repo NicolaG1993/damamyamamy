@@ -501,7 +501,7 @@ label {
 
 .shortlist {
     min-height: 300px;
-    background-color: rgb(244, 244, 244);
+    /* background-color: rgb(244, 244, 244); */
     /* margin-bottom: 20px; */
     padding: 20px;
     border-radius: 12px;
@@ -597,7 +597,7 @@ label {
 
 .shop {
     width: 100%;
-    padding: 40px 20px 120px 20px;
+    padding: 40px 20px 100px 20px;
 }
 
 .shop > h4 {
@@ -614,7 +614,7 @@ label {
     grid-template-rows: auto;
     column-gap: 40px;
     row-gap: 60px;
-    margin: 30px 0;
+    margin: 50px 0;
 }
 
 /*************************************
@@ -962,6 +962,12 @@ label {
     /* margin-top: 20px; */
     margin-bottom: 15px;
 }
+.item-tag {
+    background-color: rgb(230, 230, 230);
+    border-radius: 15px;
+    padding: 4px 10px;
+    font-size: 0.83em;
+}
 
 .add-cart-for-item,
 .remove-cart-for-item {
@@ -990,7 +996,7 @@ label {
 
 .not-active-selector {
     border-bottom: 1px solid darkgray;
-    background-color: rgb(214, 214, 214);
+    background-color: rgb(230, 230, 230);
     z-index: 1;
 }
 
@@ -1155,7 +1161,7 @@ label {
 *************************************/
 
 .checkout-container {
-    padding: 50px;
+    padding: 50px 50px 80px 50px;
     display: flex;
     justify-content: center;
     /* min-height: 50vh; */
