@@ -14,7 +14,7 @@ export default function Filter({ categories, userFilters, highestPrice }) {
     // console.log("filters!!!: ", filters);
     // console.log("highestPrice: ", highestPrice);
 
-    const [filtersBar, setFiltersBarBar] = useState(true);
+    const [filtersBar, setFiltersBarBar] = useState(false);
 
     useEffect(() => {
         setPriceRange({ min: 0, max: highestPrice });
