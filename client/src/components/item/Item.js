@@ -75,9 +75,12 @@ export default function Item({
 
                             <div className="item-right-side-infos">
                                 <span>Categoria:</span>
+                                <p>{item.categories[0].name}</p>
                             </div>
                             <div className="item-right-side-infos">
                                 <span>Tags:</span>
+                                <p>{item.categories[0].name}</p>
+                                <p>3/5 anni</p>
                             </div>
                             <div className="item-right-side-infos">
                                 <span>Disponibilitá:</span>
