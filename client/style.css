@@ -1039,11 +1039,18 @@ label {
 ************ CART *************
 *************************************/
 
-.cart-comp {
-    padding: 20px;
+#cart-comp {
+    padding: 60px 20px;
     background-color: rgb(231, 134, 235);
     color: white;
     min-height: 100vh;
+}
+
+.cart-comp-wrapper {
+}
+.cart-comp-wrapper > h2 {
+    margin-bottom: 30px;
+    /* text-align: center; */
 }
 
 .cart-products {
@@ -1517,8 +1524,15 @@ label {
         flex-direction: column;
     }
 
-    .cart-comp {
+    #cart-comp {
+        width: 100vw;
+        position: relative;
+        display: flex;
+        justify-content: center;
         min-height: 80vh;
+    }
+    .cart-comp-wrapper {
+        width: 1110px;
     }
 }
 

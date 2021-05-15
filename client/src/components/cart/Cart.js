@@ -58,10 +58,12 @@ export default function Cart({ cart, removeFromCart, emptyCart }) {
     if (!cart) return <p>Loading...</p>;
 
     return (
-        <div className={"cart-comp"}>
-            <h3 className="second-font">Il tuo carrello</h3>
+        <div id="cart-comp">
+            <div className={"cart-comp-wrapper"}>
+                <h2 className="second-font">Il tuo carrello</h2>
 
-            {!cart.line_items.length ? <EmptyCart /> : <FilledCart />}
+                {!cart.line_items.length ? <EmptyCart /> : <FilledCart />}
+            </div>
         </div>
     );
 }
