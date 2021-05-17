@@ -15,8 +15,12 @@ export default function Footer() {
                         <p>
                             <Link to={"/shop"}>Prodotti</Link>
                         </p>
-                        <p>Domande frequenti</p>
-                        <p>Vendi</p>
+                        <p>
+                            <Link to={"/example-doc"}>Domande frequenti</Link>
+                        </p>
+                        <p>
+                            <Link to={"/example-doc"}>Vendi</Link>
+                        </p>
                         <p>
                             <Link to={"/contact"}>Contattaci / Assistenza</Link>
                         </p>
@@ -24,9 +28,17 @@ export default function Footer() {
 
                     <div className="legal-footer">
                         <h4>Informazioni</h4>
-                        <p>Note legali</p>
-                        <p>Cookies policy</p>
-                        <p>Termini e condizioni</p>
+                        <p>
+                            <Link to={"/example-doc"}>Note legali</Link>
+                        </p>
+                        <p>
+                            <Link to={"/example-doc"}>Cookies policy</Link>
+                        </p>
+                        <p>
+                            <Link to={"/example-doc"}>
+                                Termini e condizioni
+                            </Link>
+                        </p>
                         {/* <p>Metodi di pagamento / Spedizione</p> */}
                     </div>
 

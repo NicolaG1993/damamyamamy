@@ -9,6 +9,7 @@ import { commerce } from "./lib/commerce";
 
 import { Header, Nav, Footer } from "./components";
 import { Home, About, Contact, Shop, Item, Cart, Checkout } from "./components";
+import DocExample from "./components/docs/DocExample";
 
 class App extends Component {
     constructor(props) {
@@ -219,6 +220,12 @@ class App extends Component {
                                     error={this.state.errorMessage}
                                 />
                             )}
+                        />
+
+                        <Route
+                            exact
+                            path="/example-doc"
+                            render={() => <DocExample />}
                         />
                     </div>
                     <Footer />
