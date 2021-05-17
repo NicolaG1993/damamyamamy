@@ -1331,14 +1331,36 @@ label {
 *************************************/
 
 .contact-comp {
-    padding: 20px;
+    padding: 40px 20px;
 }
 
+.contact-comp > h1 {
+    margin-bottom: 50px;
+}
+
+.contact-form {
+    margin-bottom: 50px;
+}
+
+.contact-list > h4 {
+    line-height: 30px;
+    margin-bottom: 10px;
+}
+.contact-list > p {
+    line-height: 28px;
+    padding-left: 8px;
+}
+
+.contact-map > iframe {
+    width: 100%;
+    height: 200px;
+    border: none;
+}
 /*************************************
 ************ ABOUT US *************
 *************************************/
 .aboutus-comp {
-    padding: 20px;
+    padding: 40px 20px;
 }
 
 .aboutus-comp-div {

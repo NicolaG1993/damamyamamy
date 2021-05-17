@@ -71,6 +71,14 @@ export default function Contact() {
                     </a>
                 </p>
             </div>
+
+            <div className="contact-map">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11178.56867680073!2d10.7683657!3d45.5374059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x49eb521541b62a58!2sDa%20Mamy%20a%20Mamy!5e0!3m2!1sit!2sde!4v1621274725301!5m2!1sit!2sde"
+                    allowFullScreen=""
+                    loading="lazy"
+                ></iframe>
+            </div>
         </div>
     );
 }
