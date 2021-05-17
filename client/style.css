@@ -673,9 +673,9 @@ label {
 }
 
 .filter-form-col-full {
-    grid-column-start: 1;
+    grid-column-start: 2;
     grid-column-end: 5;
-    padding: 0 20px;
+    padding: 0 20px 0 10px;
     margin-bottom: 20px;
 }
 
@@ -1343,19 +1343,26 @@ label {
 
 .aboutus-comp-div {
     padding: 20px 0;
+    margin-top: 20px;
 }
 
 .aboutus-box1 {
     display: flex;
-    justify-content: space-evenly;
+    /* justify-content: space-evenly; */
     align-items: center;
+    margin-top: 30px;
 }
 
 .aboutus-box1-pic {
     background-color: burlywood;
     width: 33%;
     height: 200px;
+    margin-right: 80px;
 }
+.aboutus-box1-text {
+    max-width: 510px;
+}
+
 .aboutus-box3-pic {
     margin-top: 60px;
     background-color: burlywood;
