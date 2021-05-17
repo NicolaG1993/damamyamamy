@@ -74,16 +74,17 @@ export default function Filter({ categories, userFilters, highestPrice }) {
 
     return (
         <div className={"filter-bar"}>
-            <h3>
-                Filtra risultati{" "}
-                <span onClick={() => toggleBar()}>
-                    {filtersBar ? "X" : "O"}
-                </span>
+            <h3 onClick={() => toggleBar()}>
+                Filtra risultati <span>{filtersBar ? "X" : "O"}</span>
             </h3>
 
-            <form className={filtersBar ? "" : "hidden"}>
-                <label>
-                    <span>Ricerca per nome</span>
+            <form className={filtersBar ? "filter-form" : "hidden"}>
+                <div className="filter-form-col-left">
+                    <label>
+                        <span>Ricerca per nome</span>
+                    </label>
+                </div>
+                <div className="filter-form-col-right">
                     <input
                         type="text"
                         placeholder="Cerca..."
@@ -91,12 +92,16 @@ export default function Filter({ categories, userFilters, highestPrice }) {
                         id="name"
                         onChange={(e) => handleForm(e)}
                     />
-                </label>
-                <br />
-                <div className={"price-filter-bar"}>
+                </div>
+
+                <div className="filter-form-col-left">
                     <label>
                         <span>Ricerca per prezzo</span>
-                        <br />
+                    </label>
+                </div>
+
+                <div className="filter-form-col-right">
+                    <div className="filter-form-prices">
                         <input
                             type="number"
                             min="0"
@@ -112,7 +117,25 @@ export default function Filter({ categories, userFilters, highestPrice }) {
                             }
                             onInput={(e) => handleForm(e)}
                         />
-                    </label>
+                        <input
+                            type="number"
+                            min={priceRange.min}
+                            max={priceRange.max}
+                            defaultValue={priceRange.max}
+                            name="priceMax"
+                            id="priceMax"
+                            onChange={(e) =>
+                                handlePriceRange({
+                                    min: priceRange.min,
+                                    max: Number(e.target.value),
+                                })
+                            }
+                            onInput={(e) => handleForm(e)}
+                        />
+                    </div>
+                </div>
+
+                <div className="filter-form-col-full">
                     <InputRange
                         maxValue={highestPrice}
                         minValue={0}
@@ -128,26 +151,14 @@ export default function Filter({ categories, userFilters, highestPrice }) {
                         onChange={(value) => setPriceRange(value)}
                         onChangeComplete={() => handleRangeSlider()}
                     />
-                    <input
-                        type="number"
-                        min={priceRange.min}
-                        max={priceRange.max}
-                        defaultValue={priceRange.max}
-                        name="priceMax"
-                        id="priceMax"
-                        onChange={(e) =>
-                            handlePriceRange({
-                                min: priceRange.min,
-                                max: Number(e.target.value),
-                            })
-                        }
-                        onInput={(e) => handleForm(e)}
-                    />
                 </div>
 
-                <br />
-                <label>
-                    <span>Categorie</span>
+                <div className="filter-form-col-left">
+                    <label>
+                        <span>Categorie</span>
+                    </label>
+                </div>
+                <div className="filter-form-col-right">
                     <select
                         name="category"
                         id="category"
@@ -161,10 +172,14 @@ export default function Filter({ categories, userFilters, highestPrice }) {
                             </option>
                         ))}
                     </select>
-                </label>
+                </div>
 
-                <label>
-                    <span>Ordina per</span>
+                <div className="filter-form-col-left">
+                    <label>
+                        <span>Ordina per</span>
+                    </label>
+                </div>
+                <div className="filter-form-col-right">
                     <select
                         name="order"
                         id="order"
@@ -177,7 +192,7 @@ export default function Filter({ categories, userFilters, highestPrice }) {
                         <option value="lowPrice">Prezzo piú basso</option>
                         <option value="highPrice">Prezzo piú alto</option>
                     </select>
-                </label>
+                </div>
             </form>
         </div>
     );

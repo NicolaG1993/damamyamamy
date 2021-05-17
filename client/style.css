@@ -630,52 +630,54 @@ label {
 }
 
 .filter-bar > h3 {
+    cursor: pointer;
 }
 
 .filter-bar > h3 > span {
     float: right;
-    cursor: pointer;
 }
 
-.filter-bar > form {
-    margin-top: 10px;
+/* SHOP FILTER */
+.filter-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 50px auto 50px 50px;
+    row-gap: 15px;
+    margin-top: 25px;
+}
+.filter-form-col-left {
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+.filter-form-col-right {
+    grid-column-start: 2;
+    grid-column-end: five;
 }
 
-.price-filter-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
+.filter-form > .filter-form-col-left:nth-child(1),
+.filter-form > .filter-form-col-right:nth-child(2) {
+    grid-row-start: 0;
+    grid-row-end: 1;
 }
-
-#name {
-    width: 80%;
+.filter-form > .filter-form-col-left:nth-child(3),
+.filter-form > .filter-form-col-right:nth-child(4) {
+    grid-row-start: 1;
+    grid-row-end: 2;
 }
-#priceMin,
-#priceMax {
-    width: 75px;
+.filter-form-prices {
+    display: inline-block;
 }
-#category,
-#order {
-    /* width: 50%; */
-}
-#category {
-    margin-right: 40px;
-}
-
-/* .filter-bar > form > label,
-.price-filter-bar > label {
-    width: 100%;
-} */
-
-.filter-bar > form > label > span,
-.price-filter-bar > label > span {
+.filter-form-prices > input {
+    width: 80px;
     margin-right: 20px;
 }
 
-/* .input-range {
-    
-} */
+.filter-form-col-full {
+    grid-column-start: 1;
+    grid-column-end: 5;
+    padding: 0 20px;
+    margin-bottom: 20px;
+}
 
 /*************************************
 ************ PAGE NAV *************
