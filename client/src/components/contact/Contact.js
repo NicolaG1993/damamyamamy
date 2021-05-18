@@ -21,42 +21,61 @@ export default function Contact() {
     return (
         <div className="contact-comp">
             <h1>Contatta da Mamy a Mamy</h1>
-            <div className="contact-form">
-                <form>
-                    <label>
-                        Nome
-                        <input
-                            type="text"
-                            placeholder="Il tuo indirizzo nome"
-                            name="contactname"
-                            id="contactname"
-                            onChange={(e) => handleForm(e)}
-                        />
-                    </label>
-                    <br />
-                    <label>
-                        E-mail
-                        <input
-                            type="text"
-                            placeholder="Il tuo indirizzo email"
-                            name="email"
-                            id="email"
-                            onChange={(e) => handleForm(e)}
-                        />
-                    </label>
-                    <br />
-                    <label>
-                        Messaggio
-                        <textarea
-                            placeholder="Scrivi qui il tuo messaggio"
-                            name="message"
-                            id="message"
-                            onChange={(e) => handleForm(e)}
-                        />
-                    </label>
-                    <br />
-                </form>
-            </div>
+
+            <form className="contact-form">
+                <div className="contact-form-col-left">
+                    <input
+                        type="text"
+                        placeholder="Nome*"
+                        name="contactname"
+                        id="contactname"
+                        onChange={(e) => handleForm(e)}
+                    />
+                </div>
+
+                <div className="contact-form-col-right">
+                    <input
+                        type="text"
+                        placeholder="Cognome*"
+                        name="contactlast"
+                        id="contactlast"
+                        onChange={(e) => handleForm(e)}
+                    />
+                </div>
+
+                <div className="contact-form-col-left">
+                    <input
+                        type="text"
+                        placeholder="Email*"
+                        name="email"
+                        id="email"
+                        onChange={(e) => handleForm(e)}
+                    />
+                </div>
+
+                <div className="contact-form-col-right">
+                    <input
+                        type="text"
+                        placeholder="Numero di telefono"
+                        name="phone"
+                        id="phone"
+                        onChange={(e) => handleForm(e)}
+                    />
+                </div>
+
+                <div className="contact-form-col-full">
+                    <textarea
+                        placeholder="Messaggio"
+                        name="message"
+                        id="message"
+                        onChange={(e) => handleForm(e)}
+                    />
+                </div>
+
+                <div className="contact-form-col-full">
+                    <button>Invia</button>
+                </div>
+            </form>
 
             <div className="contact-list">
                 <h4>Contatto</h4>

@@ -45,11 +45,11 @@ export default function About(props) {
                     </p>
                     <br />
                     <p>
-                        Il negozio infatti nasce dall'idea di Sara Gagliardi,
-                        due volte mamma, che sa quindi riconoscere al meglio le
-                        esigenze delle proprie clienti, sempre disponibile a
-                        dare consiglio sul prossimo acquisto per i vostri
-                        bambini e nipotini
+                        Da Mamy a Mamy infatti nasce dall'idea di Sara
+                        Gagliardi, due volte mamma, che sa quindi riconoscere al
+                        meglio le esigenze delle proprie clienti, sempre
+                        disponibile a dare consiglio sul prossimo acquisto per i
+                        piú piccoli
                     </p>
                 </div>
             </div>
