@@ -1331,7 +1331,7 @@ label {
 *************************************/
 
 .contact-comp {
-    padding: 40px 20px;
+    padding: 125px 20px 40px 20px;
     width: 100%;
 }
 
@@ -1339,26 +1339,50 @@ label {
     margin-bottom: 50px;
 }
 
+.contact-wrap {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 150px 0;
+}
+
 .contact-list {
-    margin-bottom: 50px;
-    padding: 25px 0 0 100px;
+    /* margin: 0 0 0 100px; */
     width: 50%;
-    float: left;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-.contact-list > h4 {
-    line-height: 30px;
-    margin-bottom: 10px;
+.contact-list-wrap h3 {
+    /* line-height: 40px; */
+    margin-bottom: 30px;
 }
-.contact-list > p {
-    line-height: 28px;
+.contact-list-box {
+    margin-bottom: 20px;
+}
+.contact-list-wrap > .contact-list-box:nth-child(4) {
+    margin-bottom: 65px;
+}
+.contact-list-wrap p {
+    /* line-height: 28px; */
     padding-left: 8px;
+    color: #414141;
+}
+
+.contact-list-socials {
+    display: flex;
+    column-gap: 40px;
+    font-weight: bold;
+}
+
+.contact-list-socials > p {
 }
 
 #contact-map {
     /* display: flex; */
-    clear: both;
+
     background-color: rgb(231, 134, 235);
     padding-top: 200px;
+    height: 600px;
 }
 
 #contact-map > iframe {
@@ -1373,10 +1397,9 @@ label {
     float: left;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto 200px auto;
+    grid-template-rows: 40px 40px 200px 40px;
     row-gap: 15px;
     column-gap: 15px;
-    margin: 0 0 150px 0;
     width: 50%;
 }
 .contact-form-col-left {
@@ -1393,6 +1416,22 @@ label {
 }
 .contact-form-col-full > textarea {
     height: 100%;
+}
+.contact-form-col-full > button {
+    height: 100%;
+    border-radius: 25px;
+    width: 150px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: rgb(231, 134, 235);
+    color: white;
+    border: solid 2px white;
+    transition: 0.2s ease;
+}
+.contact-form-col-full > button:hover {
+    background-color: rgba(255, 255, 255, 0);
+    color: rgb(231, 134, 235);
+    border: solid 2px rgb(231, 134, 235);
 }
 .contact-form * input,
 .contact-form * textarea {
