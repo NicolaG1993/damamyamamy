@@ -95,32 +95,34 @@ a {
 } */
 
 .layout-button {
+    height: 40px;
     border-radius: 25px;
-    padding: 5px 15px;
+    padding: 10px 15px;
     cursor: pointer;
     min-width: 170px;
     background-color: rgb(231, 134, 235);
     color: white;
-    border: none;
+    border: solid 2px ghostwhite;
     letter-spacing: 1px;
     transition: 0.2s ease;
 }
 
 .layout-button:hover {
-    background-color: rgb(204, 108, 207);
+    background-color: rgba(255, 255, 255, 0);
+    color: rgb(231, 134, 235);
+    border: solid 2px rgb(231, 134, 235);
 }
 
 .layout-button-dark {
+    height: 40px;
     border-radius: 25px;
-    padding: 5px 15px;
+    padding: 10px 15px;
     cursor: pointer;
     min-width: 170px;
     color: rgb(204, 108, 207);
     /* color: rgb(231, 134, 235); */
     background-color: white;
-    /* border: 2px solid rgb(204, 108, 207); */
-
-    border: 2px solid transparent;
+    border: 2px solid rgb(231, 134, 235);
     letter-spacing: 1px;
     transition: 0.2s ease;
     /* margin: 10px 20px 10px 5px; */
@@ -134,7 +136,7 @@ a {
 
 .fake-btn {
     border-radius: 25px;
-    padding: 2px 13px;
+    padding: 7px 13px;
     cursor: pointer;
     min-width: 70px;
     letter-spacing: 1px;
@@ -145,6 +147,7 @@ a {
     color: rgb(231, 134, 235);
     background-color: transparent;
     font-weight: bold;
+    transition: 0.2s ease;
 }
 .inverted-btn:hover {
     border: solid 2px rgb(231, 134, 235);
@@ -515,7 +518,7 @@ label {
     /* box-shadow: 0px 0px 10px #00000025; */
 }
 #home > .shortlist > h2 {
-    margin: 0 0 30px 0;
+    margin: 0 0 55px 0;
 }
 
 .items-shortlist-container {
@@ -1043,6 +1046,7 @@ label {
 
 #cart-comp {
     padding: 60px 20px;
+    /* background-color: rgb(223, 139, 226); */
     background-color: rgb(231, 134, 235);
     color: white;
     min-height: 100vh;
@@ -1182,7 +1186,8 @@ label {
     display: flex;
     align-items: center;
     flex-direction: column;
-    background-color: rgb(223, 139, 226);
+    /* background-color: rgb(223, 139, 226); */
+    background-color: rgb(231, 134, 235);
     color: white;
     border-radius: 8px;
     min-height: 300px;
@@ -1425,7 +1430,7 @@ label {
     cursor: pointer;
     background-color: rgb(231, 134, 235);
     color: white;
-    border: solid 2px white;
+    border: solid 2px ghostwhite;
     transition: 0.2s ease;
 }
 .contact-form-col-full > button:hover {
@@ -1674,3 +1679,8 @@ label {
 }
 
 /* guardare best screen sizes */
+
+/*
+rgb(45, 48, 70)
+colore bg dark-mode
+*/
