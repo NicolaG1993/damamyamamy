@@ -21,10 +21,11 @@ export default function Contact() {
     return (
         <>
             <div className="contact-comp">
-                <h1>Contatta da Mamy a Mamy</h1>
-
                 <div className="contact-wrap">
                     <form className="contact-form">
+                        <h1 className="contact-form-col-full">
+                            Contatta da Mamy a Mamy
+                        </h1>
                         <div className="contact-form-col-left">
                             <input
                                 type="text"
@@ -81,7 +82,7 @@ export default function Contact() {
 
                     <div className="contact-list">
                         <div className="contact-list-wrap">
-                            <h3>Contatto</h3>
+                            <h2>Contatto</h2>
                             <div className="contact-list-box">
                                 <p>Vicolo Teatro, 4, 37010</p>
                                 <p>Cavaion, Verona, IT</p>
@@ -106,7 +107,7 @@ export default function Contact() {
                                 <p>dalle 09:00 alle 16:00</p>
                             </div>
 
-                            <h3>Seguici</h3>
+                            <h2>Seguici</h2>
                             <div className="contact-list-socials">
                                 <p>
                                     <a href="http://www.facebook.com/">
@@ -125,11 +126,19 @@ export default function Contact() {
             </div>
 
             <div id="contact-map">
+                <div className="contact-map-div">
+                    <h2>Some text here...</h2>
+                </div>
+
                 <iframe
                     src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11178.56867680073!2d10.7683657!3d45.5374059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x49eb521541b62a58!2sDa%20Mamy%20a%20Mamy!5e0!3m2!1sit!2sde!4v1621274725301!5m2!1sit!2sde"
                     allowFullScreen=""
                     loading="lazy"
                 ></iframe>
+
+                <div className="contact-map-div">
+                    <h2>Some text here...</h2>
+                </div>
             </div>
         </>
     );

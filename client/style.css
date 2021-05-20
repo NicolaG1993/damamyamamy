@@ -99,6 +99,7 @@ a {
     border-radius: 25px;
     padding: 10px 15px;
     cursor: pointer;
+    font-weight: bold;
     min-width: 170px;
     background-color: rgb(231, 134, 235);
     color: white;
@@ -1339,25 +1340,25 @@ label {
     padding: 125px 20px 40px 20px;
     width: 100%;
 }
-
-.contact-comp > h1 {
+/* 
+.contact-form > h1 {
     margin-bottom: 50px;
-}
+} */
 
 .contact-wrap {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     margin: 0 0 150px 0;
 }
 
 .contact-list {
     /* margin: 0 0 0 100px; */
-    width: 50%;
+    /* width: 50%; */
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* justify-content: center; */
 }
-.contact-list-wrap h3 {
+.contact-list-wrap h2 {
     /* line-height: 40px; */
     margin-bottom: 30px;
 }
@@ -1386,14 +1387,26 @@ label {
     /* display: flex; */
 
     background-color: rgb(231, 134, 235);
-    padding-top: 200px;
-    height: 600px;
+    /* padding-top: 200px; */
+
+    /* height: 600px; */
 }
 
 #contact-map > iframe {
     width: 100%;
-    height: 400px;
+    height: 500px;
     border: none;
+}
+
+.contact-map-div {
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-map-div > h2 {
+    color: white;
 }
 
 /* Contact form */
@@ -1402,7 +1415,7 @@ label {
     float: left;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 40px 40px 200px 40px;
+    grid-template-rows: 70px 40px 40px 200px 40px;
     row-gap: 15px;
     column-gap: 15px;
     width: 50%;
