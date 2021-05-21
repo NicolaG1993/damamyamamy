@@ -103,12 +103,15 @@ export default function PaymentForm({
                         >
                             <CardElement />
 
-                            <div className="row">
+                            <div className="check-terms">
                                 <input type="checkbox" name="accept" />
                                 <label htmlFor="accept">
                                     Dichiaro di aver letto{" "}
                                     <a>Termini e Condizioni</a>
                                 </label>
+                            </div>
+
+                            <div className="row2">
                                 <div className="row-submit">
                                     <button
                                         className={"layout-button-dark"}

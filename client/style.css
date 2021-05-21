@@ -209,7 +209,7 @@ label {
 /* Clear floats after the columns */
 .row {
     clear: both;
-    padding: 60px 20px 10px 20px;
+    padding: 60px 20px 20px 20px;
 }
 
 /* Submit */
@@ -1196,7 +1196,7 @@ label {
 }
 
 .checkout-title-box {
-    padding: 15px 80px;
+    padding: 20px 80px 15px 80px;
     width: 100%;
     border-bottom-width: 2px;
     border-bottom-style: solid;
@@ -1297,14 +1297,14 @@ label {
 }
 
 .checkout-form-box > h5:nth-child(2) {
-    margin: 16px 0 0 0;
+    margin: 40px 0 0 0;
 }
 
 .review-row {
     display: grid;
     grid-template-columns: 1fr 100px;
     align-items: flex-end;
-    padding: 15px 0;
+    padding: 20px 0 15px 0;
     border-bottom: 2px solid white;
 }
 
@@ -1321,7 +1321,7 @@ label {
 }
 
 .payment-mode {
-    margin-top: 16px;
+    margin-top: 20px;
 }
 
 .StripeElement {
@@ -1330,6 +1330,24 @@ label {
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+.check-terms {
+    clear: both;
+    padding: 45px 20px 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.check-terms > input {
+    margin-right: 8px;
+    height: 15px;
+}
+
+.row2 {
+    clear: both;
+    padding: 25px 20px 20px 20px;
 }
 
 /*************************************
