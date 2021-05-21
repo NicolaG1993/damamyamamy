@@ -762,7 +762,7 @@ label {
 .product-content > a {
     /* height: 100%; */
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 100%;
     grid-template-rows: 180px auto;
 }
 
@@ -775,7 +775,7 @@ label {
     /* display: inline-block; */
     overflow: hidden;
     /* text-align: center; */
-    max-width: 276.44px;
+    /* max-width: 276.44px; */
 }
 .product-img > img {
     height: 100%;
@@ -1641,6 +1641,7 @@ label {
 /*************************************
 ************ MEDIA QUERY *************
 *************************************/
+
 @media screen and (min-width: 1110px) {
     .main {
         display: flex;
