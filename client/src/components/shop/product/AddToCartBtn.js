@@ -35,24 +35,36 @@ export default function AddToCartBtn({
 
     let Button = () =>
         isAvailable ? (
+            cardSize === "shop-item" ? (
+                <button
+                    className="layout-button"
+                    onClick={() => onAddToCart(product_id, 1)}
+                >
+                    Aggiungi al carrello
+                </button>
+            ) : (
+                <button
+                    className={`add-cart ${
+                        cardSize === "small"
+                            ? "add-cart-for-small"
+                            : "add-cart-for-medium"
+                    }`}
+                    onClick={() => onAddToCart(product_id, 1)}
+                ></button>
+            )
+        ) : cardSize === "shop-item" ? (
             <button
-                className={`add-cart ${
-                    cardSize === "small"
-                        ? "add-cart-for-small"
-                        : cardSize === "medium"
-                        ? "add-cart-for-medium"
-                        : "add-cart-for-item"
-                }`}
-                onClick={() => onAddToCart(product_id, 1)}
-            ></button>
+                className="layout-button-dark"
+                onClick={() => removeFromCart(itemId)}
+            >
+                Rimuovi dal carrello
+            </button>
         ) : (
             <button
                 className={`remove-cart ${
                     cardSize === "small"
                         ? "remove-cart-for-small"
-                        : cardSize === "medium"
-                        ? "remove-cart-for-medium"
-                        : "remove-cart-for-item"
+                        : "remove-cart-for-medium"
                 }`}
                 onClick={() => removeFromCart(itemId)}
             >
