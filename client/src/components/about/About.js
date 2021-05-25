@@ -9,10 +9,10 @@ export default function About(props) {
 
     return (
         <div className="aboutus-comp">
-            <h1>Benvenuti da Mamy a Mamy</h1>
             <div className="aboutus-comp-div aboutus-box1">
                 <div className="aboutus-box1-pic"></div>
                 <div className="aboutus-box1-text">
+                    <h1>Benvenuti da Mamy a Mamy</h1>
                     <p>
                         Volevi vendere dei giocattoli mai usati di tuo figlio, o
                         quel vestitino ancora nuovo che ormai non gli va piú
@@ -22,7 +22,7 @@ export default function About(props) {
                     <p>
                         Oppure stai facendo acquisti per il tuo bambino ma
                         vorresti anche risparmiare in sicurezza? Niente di piú
-                        facile...
+                        facile!
                     </p>
                 </div>
             </div>
