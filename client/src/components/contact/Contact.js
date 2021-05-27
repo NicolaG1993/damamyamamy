@@ -5,8 +5,24 @@ export default function Contact() {
     console.log("contactReq: ", contactReq);
 
     useEffect(() => {
+        // component did mount
         window.scrollTo(0, 0);
+        window.addEventListener("scroll", this.handleScroll);
+
+        // returned function will be called on component unmount
+        return () => {
+            window.removeEventListener("scroll", this.handleScroll);
+        };
     }, []);
+
+    // $(window).on("scroll", function () {
+    //     var scrollTop = $(window).scrollTop();
+    //     if (scrollTop > 50) {
+    //         $("contact-comp").stop().animate({ height: "50%" }, 200);
+    //     } else {
+    //         $("contact-comp").stop().animate({ height: "100%" }, 200);
+    //     }
+    // });
 
     const handleForm = (e) => {
         e.preventDefault();

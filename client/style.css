@@ -1723,8 +1723,8 @@ label {
     }
 
     .contact-comp {
-        width: 1110px;
-        position: relative;
+        /* width: 1110px;
+        position: relative; */
         /* display: flex;
         justify-content: center; */
     }

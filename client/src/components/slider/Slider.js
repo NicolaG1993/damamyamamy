@@ -72,6 +72,10 @@ const Slider = (props) => {
         };
     };
 
+    const stopAutoplay = () => {
+        //questa é la cleanup function per annullare il timer sullo slider
+    };
+
     useEffect(() => {
         autoPlayRef.current = nextSlide;
         transitionRef.current = smoothTransition;
@@ -80,6 +84,11 @@ const Slider = (props) => {
 
     useEffect(() => {
         startAutoplay();
+
+        // returned function will be called on component unmount
+        return () => {
+            stopAutoplay();
+        };
     }, []);
 
     useEffect(() => {
