@@ -74,6 +74,7 @@ const Slider = (props) => {
 
     const stopAutoplay = () => {
         //questa é la cleanup function per annullare il timer sullo slider
+        // autoPlayRef ???
     };
 
     useEffect(() => {

@@ -1,19 +1,43 @@
-import { useState, useEffect } from "react";
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { css, jsx } from "@emotion/react";
+import React, { useState, useEffect } from "react";
 
 export default function Contact() {
+    const [parallaxHeight, setParallaxHeight] = useState();
+    const [scrollTop, setScrollTop] = useState();
+
     const [contactReq, setContactReq] = useState({});
     console.log("contactReq: ", contactReq);
+    console.log("scrollTop: ", scrollTop);
 
     useEffect(() => {
         // component did mount
         window.scrollTo(0, 0);
-        window.addEventListener("scroll", this.handleScroll);
+        window.addEventListener("scroll", handleScroll);
 
         // returned function will be called on component unmount
         return () => {
-            window.removeEventListener("scroll", this.handleScroll);
+            window.removeEventListener("scroll", handleScroll);
         };
     }, []);
+
+    useEffect(() => {
+        if (scrollTop > 250) {
+            setParallaxHeight(`0px 20px 0px 20px`);
+        } else {
+            setParallaxHeight(`125px 20px 160px 20px`);
+        }
+
+        console.log("parallaxHeight: ", parallaxHeight);
+    }, [scrollTop]);
+
+    const handleScroll = () => {
+        setScrollTop(window.scrollY);
+
+        // let scrollTop = window.scrollY;
+        // scrollTopRef.current = window.scrollY;
+    };
 
     // $(window).on("scroll", function () {
     //     var scrollTop = $(window).scrollTop();
@@ -36,7 +60,13 @@ export default function Contact() {
 
     return (
         <>
-            <div className="contact-comp">
+            <div
+                className="contact-comp"
+                css={css`
+                    padding: ${parallaxHeight};
+                    transition: 0.8s ease;
+                `}
+            >
                 <div className="contact-wrap">
                     <form className="contact-form">
                         <h1 className="contact-form-col-full">
