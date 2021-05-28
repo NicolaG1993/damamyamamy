@@ -16,6 +16,9 @@ const getWidth = () => window.innerWidth;
  * @function Slider
  */
 const Slider = (props) => {
+    const [parallaxHeight, setParallaxHeight] = useState();
+    const [scrollTop, setScrollTop] = useState();
+
     const { slides } = props;
 
     const firstSlide = slides[0];
@@ -85,16 +88,29 @@ const Slider = (props) => {
 
     useEffect(() => {
         startAutoplay();
+        window.addEventListener("scroll", handleScroll);
 
         // returned function will be called on component unmount
         return () => {
             stopAutoplay();
+            window.removeEventListener("scroll", handleScroll);
         };
     }, []);
 
     useEffect(() => {
         if (transition === 0) setState({ ...state, transition: 0.45 });
     }, [transition]);
+
+    useEffect(() => {
+        if (scrollTop > 150) {
+            setParallaxHeight(`35vh`);
+        } else {
+            setParallaxHeight(`70vh`);
+        }
+    }, [scrollTop]);
+    const handleScroll = () => {
+        setScrollTop(window.scrollY);
+    };
 
     const handleResize = () => {
         setState({ ...state, translate: getWidth(), transition: 0 });
@@ -137,7 +153,13 @@ const Slider = (props) => {
         });
 
     return (
-        <div className={"sliderBox"}>
+        <div
+            className={"sliderBox"}
+            css={css`
+                height: ${parallaxHeight};
+                transition: 0.8s ease;
+            `}
+        >
             <div css={SliderCSS} ref={sliderRef}>
                 <SliderContent
                     translate={translate}

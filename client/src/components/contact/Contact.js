@@ -165,7 +165,7 @@ export default function Contact() {
 
             <div id="contact-map">
                 <div className="contact-map-div">
-                    <h2>Come venire a trovarci</h2>
+                    <h2>Come venire a trovarci...</h2>
                 </div>
 
                 <iframe
