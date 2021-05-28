@@ -23,8 +23,12 @@ export default function Contact() {
     }, []);
 
     useEffect(() => {
-        if (scrollTop > 250) {
-            setParallaxHeight(`0px 20px 0px 20px`);
+        if (scrollTop > 70) {
+            if (scrollTop > 250) {
+                setParallaxHeight(`0px 20px 0px 20px`);
+            } else {
+                setParallaxHeight(`10px 20px 50px 20px`);
+            }
         } else {
             setParallaxHeight(`125px 20px 160px 20px`);
         }
