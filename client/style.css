@@ -94,46 +94,65 @@ a {
     color: rgb(204, 108, 207);
 } */
 
+/*NEW BUTTON STYLE*/
+
 .layout-button {
     height: 40px;
     border-radius: 25px;
     padding: 10px 15px;
     cursor: pointer;
-    font-weight: bold;
     min-width: 170px;
-    background-color: rgb(231, 134, 235);
-    color: white;
-    border: solid 2px ghostwhite;
     letter-spacing: 1px;
     transition: 0.2s ease;
 }
 
-.layout-button:hover {
+.btn1 {
+    background-color: rgb(231, 134, 235);
+    color: white;
+    border: solid 2px ghostwhite;
+    font-weight: bold;
+}
+.btn1:hover {
     background-color: rgba(255, 255, 255, 0);
     color: rgb(231, 134, 235);
     border: solid 2px rgb(231, 134, 235);
 }
 
-.layout-button-dark {
-    height: 40px;
-    border-radius: 25px;
-    padding: 10px 15px;
-    cursor: pointer;
-    min-width: 170px;
-    color: rgb(204, 108, 207);
-    /* color: rgb(231, 134, 235); */
-    background-color: white;
-    border: 2px solid rgb(231, 134, 235);
-    letter-spacing: 1px;
-    transition: 0.2s ease;
-    /* margin: 10px 20px 10px 5px; */
+.btn2 {
+    background-color: rgb(231, 134, 235);
+    color: white;
+    border: solid 2px rgb(244, 244, 244);
+    font-weight: bold;
+}
+.btn2:hover {
+    background-color: rgba(255, 255, 255, 0);
+    color: rgb(231, 134, 235);
+    border: solid 2px rgb(231, 134, 235);
 }
 
-.layout-button-dark:hover {
+.btn-dark1 {
+    color: rgb(204, 108, 207);
+    background-color: white;
+    border: 2px solid rgb(231, 134, 235);
+}
+.btn-dark1:hover {
     color: white;
     background-color: rgb(231, 134, 235);
     border: 2px solid white;
 }
+
+.btn-dark2 {
+    color: rgb(204, 108, 207);
+    background-color: transparent;
+    border: 2px solid rgb(231, 134, 235);
+    font-weight: bold;
+}
+.btn-dark2:hover {
+    color: white;
+    background-color: rgb(231, 134, 235);
+}
+
+/*OLD BUTTON STYLE*/
 
 .fake-btn {
     border-radius: 25px;
@@ -631,6 +650,7 @@ label {
     padding: 15px;
     margin: 25px 0 40px 0;
     border-radius: 12px;
+    transition: 0.5s ease;
 }
 
 .filter-bar > h3 {
@@ -1366,6 +1386,7 @@ label {
 .contact-comp {
     /* padding: 125px 20px 160px 20px; */
     width: 100%;
+    z-index: -1;
 }
 /* 
 .contact-form > h1 {
@@ -1417,6 +1438,7 @@ label {
     /* padding-top: 200px; */
 
     /* height: 600px; */
+    z-index: 2;
 }
 
 #contact-map > iframe {

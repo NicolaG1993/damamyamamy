@@ -8,8 +8,8 @@ export default function Contact() {
     const [scrollTop, setScrollTop] = useState();
 
     const [contactReq, setContactReq] = useState({});
-    console.log("contactReq: ", contactReq);
-    console.log("scrollTop: ", scrollTop);
+    // console.log("contactReq: ", contactReq);
+    // console.log("scrollTop: ", scrollTop);
 
     useEffect(() => {
         // component did mount
@@ -33,24 +33,12 @@ export default function Contact() {
             setParallaxHeight(`125px 20px 160px 20px`);
         }
 
-        console.log("parallaxHeight: ", parallaxHeight);
+        // console.log("parallaxHeight: ", parallaxHeight);
     }, [scrollTop]);
 
     const handleScroll = () => {
         setScrollTop(window.scrollY);
-
-        // let scrollTop = window.scrollY;
-        // scrollTopRef.current = window.scrollY;
     };
-
-    // $(window).on("scroll", function () {
-    //     var scrollTop = $(window).scrollTop();
-    //     if (scrollTop > 50) {
-    //         $("contact-comp").stop().animate({ height: "50%" }, 200);
-    //     } else {
-    //         $("contact-comp").stop().animate({ height: "100%" }, 200);
-    //     }
-    // });
 
     const handleForm = (e) => {
         e.preventDefault();
@@ -177,7 +165,7 @@ export default function Contact() {
 
             <div id="contact-map">
                 <div className="contact-map-div">
-                    <h2>Some text here...</h2>
+                    <h2>Come venire a trovarci</h2>
                 </div>
 
                 <iframe

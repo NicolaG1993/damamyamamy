@@ -37,7 +37,7 @@ export default function AddToCartBtn({
         isAvailable ? (
             cardSize === "shop-item" ? (
                 <button
-                    className="layout-button"
+                    className="layout-button btn2"
                     onClick={() => onAddToCart(product_id, 1)}
                 >
                     Aggiungi al carrello
@@ -54,7 +54,7 @@ export default function AddToCartBtn({
             )
         ) : cardSize === "shop-item" ? (
             <button
-                className="layout-button-dark"
+                className="layout-button btn-dark2"
                 onClick={() => removeFromCart(itemId)}
             >
                 Rimuovi dal carrello

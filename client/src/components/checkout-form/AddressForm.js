@@ -219,11 +219,14 @@ export default function AddressForm({ checkoutToken, next }) {
                 <div className="row">
                     <div className="row-submit">
                         <Link to="/cart">
-                            <button className={"layout-button-dark"}>
+                            <button className={"layout-button btn-dark1"}>
                                 Torna al carrello
                             </button>
                         </Link>
-                        <button className={"layout-button-dark"} type="submit">
+                        <button
+                            className={"layout-button btn-dark1"}
+                            type="submit"
+                        >
                             Prosegui
                         </button>
                     </div>

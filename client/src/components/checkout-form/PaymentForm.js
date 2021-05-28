@@ -114,14 +114,14 @@ export default function PaymentForm({
                             <div className="row2">
                                 <div className="row-submit">
                                     <button
-                                        className={"layout-button-dark"}
+                                        className={"layout-button btn-dark1"}
                                         type="button"
                                         onClick={backStep}
                                     >
                                         Torna indietro
                                     </button>
                                     <button
-                                        className={"layout-button-dark"}
+                                        className={"layout-button btn-dark1"}
                                         type="submit"
                                         disabled={!stripe}
                                     >

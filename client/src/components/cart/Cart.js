@@ -39,14 +39,16 @@ export default function Cart({ cart, removeFromCart, emptyCart }) {
 
                 <div className="cart-btns">
                     <button
-                        className={"empty-btn layout-button-dark"}
+                        className={"empty-btn layout-button btn-dark1"}
                         onClick={emptyCart}
                     >
                         Svuota il carrello
                     </button>
 
                     <Link to="/checkout">
-                        <button className={"checkout-btn layout-button-dark"}>
+                        <button
+                            className={"checkout-btn layout-button btn-dark1"}
+                        >
                             Vai alla cassa
                         </button>
                     </Link>
