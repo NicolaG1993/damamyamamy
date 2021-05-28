@@ -66,6 +66,7 @@ const Slider = (props) => {
         }
 
         return () => {
+            //ma questa é la cleanup fn?!?!
             slider.removeEventListener("transitionend", transitionEnd);
             window.removeEventListener("resize", onResize);
 
@@ -76,7 +77,7 @@ const Slider = (props) => {
     };
 
     const stopAutoplay = () => {
-        //questa é la cleanup function per annullare il timer sullo slider
+        //cleanup fn per annullare il timer sullo slider
         // autoPlayRef ???
     };
 

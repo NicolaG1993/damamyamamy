@@ -11,13 +11,45 @@ export default class Home extends Component {
         super(props);
         this.state = {
             error: false,
+            style: {
+                iconslistHeight: `800px`,
+                shortlistPadding: `100px 40px 90px 40px`,
+            },
         };
+
+        this.handleScroll = this.handleScroll.bind(this);
     }
 
     componentDidMount() {
         // console.log("Home component did mount");
         // console.log("this.props: ", this.props);
         window.scrollTo(0, 0);
+        window.addEventListener("scroll", this.handleScroll);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("scroll", this.handleScroll);
+    }
+
+    async handleScroll(e) {
+        console.log("e", e);
+        let scrollTop = window.scrollY;
+
+        if (scrollTop > 1400) {
+            this.setState({
+                style: {
+                    iconslistHeight: `400px`,
+                    shortlistPadding: `100px 40px 90px 40px`,
+                },
+            });
+        } else {
+            this.setState({
+                style: {
+                    iconslistHeight: `800px`,
+                    shortlistPadding: `100px 40px 300px 40px`,
+                },
+            });
+        }
     }
 
     render() {
@@ -27,7 +59,10 @@ export default class Home extends Component {
             <div id="home">
                 <Slider slides={images} autoPlay={10} />
 
-                <div className={"shortlist"}>
+                <div
+                    className={"shortlist"}
+                    style={{ padding: this.state.style.shortlistPadding }}
+                >
                     <h2>IN NEGOZIO</h2>
                     <Link to={"/shop"} className={"fake-btn inverted-btn"}>
                         Vedi tutti gli articoli
@@ -58,7 +93,10 @@ export default class Home extends Component {
                     />
                 </div>
 
-                <div className="iconslist">
+                <div
+                    className="iconslist"
+                    style={{ height: this.state.style.iconslistHeight }}
+                >
                     <div className="iconslist-wrap">
                         <div className="iconslist-icon-box">
                             <div className="iconslist-icon"></div>
