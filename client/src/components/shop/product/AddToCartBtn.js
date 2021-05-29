@@ -67,9 +67,7 @@ export default function AddToCartBtn({
                         : "remove-cart-for-medium"
                 }`}
                 onClick={() => removeFromCart(itemId)}
-            >
-                X
-            </button>
+            ></button>
         );
 
     return <Button />;

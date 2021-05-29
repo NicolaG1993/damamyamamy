@@ -291,12 +291,13 @@ label {
     position: relative;
     justify-self: center;
     align-self: center;
+    margin-bottom: 5px;
 }
 
 .cart-icon {
     height: 30px;
     width: 30px;
-    background-image: url(shopping-cart-empty-side-view.svg);
+    background-image: url(icons/shopping-cart-gray.png);
     background-size: contain;
 }
 
@@ -496,7 +497,7 @@ label {
     padding: 20px;
     /* height: 400px; */
     box-shadow: 0px 0px 10px #00000025;
-    transition: 1.5s ease;
+    transition: 1.6s ease;
 }
 .iconslist-wrap {
     display: flex;
@@ -515,8 +516,30 @@ label {
 .iconslist-icon {
     width: 50px;
     height: 50px;
-    background-color: white;
-    margin-bottom: 15px;
+    /* background-color: white; */
+    margin-bottom: 20px;
+    background-position: center;
+    background-size: cover;
+}
+
+.iconslist-wrap > .iconslist-icon-box:nth-child(1) > .iconslist-icon {
+    background-image: url(icons/label.png);
+}
+.iconslist-wrap > .iconslist-icon-box:nth-child(2) > .iconslist-icon {
+    background-image: url(icons/loving-heart-shape.png);
+}
+.iconslist-wrap > .iconslist-icon-box:nth-child(3) > .iconslist-icon {
+    background-image: url(icons/computer-security-shield.png);
+}
+.iconslist-wrap > .iconslist-icon-box:nth-child(4) > .iconslist-icon {
+    background-image: url(icons/house-with-chimney.png);
+}
+
+.iconslist-icon-box > h3 {
+    line-height: 40px;
+}
+.iconslist-icon-box > p {
+    line-height: 22px;
 }
 
 /*************************************
@@ -862,8 +885,16 @@ label {
 }
 
 .add-cart {
-    background-image: url(shopping-cart-empty-side-view.svg);
-    background-size: 75%;
+    background-image: url(icons/shopping-cart-black.png);
+
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.remove-cart {
+    background-image: url(icons/x-black.png);
+    background-size: 33%;
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -923,13 +954,12 @@ label {
 
 .add-cart:hover {
     background-color: rgb(231, 134, 235);
-    background-image: url(shopping-cart-empty-side-view-white.svg);
-
+    background-image: url(icons/shopping-cart-white.png);
     border-color: transparent;
 }
 .remove-cart:hover {
     background-color: rgb(231, 134, 235);
-    color: white;
+    background-image: url(icons/x-white.png);
     border-color: transparent;
 }
 
@@ -1389,7 +1419,6 @@ label {
 .contact-comp {
     /* padding: 125px 20px 160px 20px; */
     width: 100%;
-    z-index: -1;
 }
 /* 
 .contact-form > h1 {
