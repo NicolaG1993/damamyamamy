@@ -54,6 +54,7 @@ export default class Home extends Component {
 
     render() {
         // console.log("this.state in home: ", this.state);
+        console.log("this.props: ", this.props);
 
         return (
             <div id="home">
@@ -77,7 +78,7 @@ export default class Home extends Component {
                     />
 
                     <ItemsListShort
-                        products={this.props.products}
+                        products={this.props.cat1}
                         notAvailables={this.props.notAvailables}
                         onAddToCart={this.props.onAddToCart}
                         removeFromCart={this.props.removeFromCart}
@@ -85,7 +86,7 @@ export default class Home extends Component {
                     />
 
                     <ItemsListShort
-                        products={this.props.products}
+                        products={this.props.cat2}
                         notAvailables={this.props.notAvailables}
                         onAddToCart={this.props.onAddToCart}
                         removeFromCart={this.props.removeFromCart}

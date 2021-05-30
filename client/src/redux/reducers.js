@@ -21,6 +21,14 @@ export default function filterStore(state = initialState, action) {
     switch (action.type) {
         case LOAD_DATA: {
             let allStore = action.payload;
+            let cat1 = allStore.filter(
+                (product) => product.categories[0].slug === "giochi"
+            );
+            let cat2 = allStore.filter(
+                (product) =>
+                    product.categories[0].slug === "passeggini-e-trasporto"
+            );
+
             console.log("LOAD_DATA: ", allStore);
 
             let count = action.payload.length + 1;
@@ -37,6 +45,8 @@ export default function filterStore(state = initialState, action) {
             return {
                 ...state,
                 allStore,
+                cat1,
+                cat2,
                 //all of this is for NavPage component
                 filteredProducts: allStore,
                 displayedProducts: allStore.slice(0, countPerPage),
@@ -86,10 +96,8 @@ export default function filterStore(state = initialState, action) {
                 if (appliedFilters.length === 0) {
                     //if there are no filters applied, reset the products to normal.
                     newState.filteredProducts = newState.allStore;
-                    newState.displayedProducts = newState.filteredProducts.slice(
-                        0,
-                        state.countPerPage
-                    );
+                    newState.displayedProducts =
+                        newState.filteredProducts.slice(0, state.countPerPage);
                 }
             }
 

@@ -154,6 +154,8 @@ class App extends Component {
                             render={() => (
                                 <Home
                                     products={reduxState.allStore}
+                                    cat1={reduxState.cat1}
+                                    cat2={reduxState.cat2}
                                     notAvailables={this.state.notAvailables}
                                     onAddToCart={this.handleAddToCart}
                                     removeFromCart={this.handleRemoveFromCart}
