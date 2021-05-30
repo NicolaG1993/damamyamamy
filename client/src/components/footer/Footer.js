@@ -1,13 +1,50 @@
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { css, jsx } from "@emotion/react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function Footer() {
+    const [parallaxHeight, setParallaxHeight] = useState();
+    const [scrollTop, setScrollTop] = useState();
     const currentYear = new Date().getFullYear();
+
+    useEffect(() => {
+        // component did mount
+        window.addEventListener("scroll", handleScroll);
+
+        // returned function will be called on component unmount
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
+    const handleScroll = () => {
+        setScrollTop(window.scrollY);
+    };
+
+    useEffect(() => {
+        if (
+            window.scrollY + window.innerHeight + 100 >=
+            document.documentElement.offsetHeight
+        ) {
+            setParallaxHeight(`0`);
+        } else {
+            setParallaxHeight(`190px`);
+        }
+    }, [scrollTop]);
 
     return (
         <div className={"footer-comp"}>
             <div className={"footer-wrap"}>
                 <div className={"footer"}>
-                    <div className="website-footer">
+                    <div
+                        className="website-footer"
+                        css={css`
+                            margin-top: ${parallaxHeight};
+                            transition: 1.1s ease;
+                        `}
+                    >
                         <h4>Links</h4>
                         <p>
                             <Link to={"/about"}>Chi siamo</Link>
@@ -26,7 +63,13 @@ export default function Footer() {
                         </p>
                     </div>
 
-                    <div className="legal-footer">
+                    <div
+                        className="legal-footer"
+                        css={css`
+                            margin-top: ${parallaxHeight};
+                            transition: 1.1s ease;
+                        `}
+                    >
                         <h4>Informazioni</h4>
                         <p>
                             <Link to={"/example-doc"}>Note legali</Link>
@@ -42,7 +85,13 @@ export default function Footer() {
                         {/* <p>Metodi di pagamento / Spedizione</p> */}
                     </div>
 
-                    <div className="contact-footer">
+                    <div
+                        className="contact-footer"
+                        css={css`
+                            margin-top: ${parallaxHeight};
+                            transition: 1.1s ease;
+                        `}
+                    >
                         <h4>Contatto</h4>
                         <p>Vicolo Teatro, 4, 37010</p>
                         <p>Cavaion, Verona, IT</p>
@@ -56,7 +105,13 @@ export default function Footer() {
                         </p>
                     </div>
 
-                    <div className="social-footer">
+                    <div
+                        className="social-footer"
+                        css={css`
+                            margin-top: ${parallaxHeight};
+                            transition: 1.1s ease;
+                        `}
+                    >
                         <a href="http://www.instagram.com/">
                             <svg
                                 id="Livello_1"

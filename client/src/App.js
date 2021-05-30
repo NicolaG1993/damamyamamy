@@ -255,6 +255,7 @@ fare funzioni async, ma quali e come? 🐔
 dovrei fare solo fn components? app incluso ed usare hooks (informarsi) 🐔
 https://www.youtube.com/watch?v=377AQ0y6LPA -> per rifare con hooks la parte relative a commerce.js
 
+dovrei usare l'eventlistener per scroll in App? 🐔
 
 NEXT STEPS:
 🐲 🐔
@@ -263,11 +264,15 @@ come fare suggested items in list comp 🐔
 
 completare slider 🐲
 
-styling 🐔
+styling 🐲
 ritocchi finali in react ai vari components 🐔
 
 fare "/about" 🐔
-fare "/contacts" 🐔
+fare "/contacts" 🐲
+
+aggiungere parallax effect 🐔
+migliorare style di filterbar in Shop 🐔
+attivare modulo in Contact 🐔
 
 BACKEND:
 🐲 🐔
