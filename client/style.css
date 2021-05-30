@@ -87,7 +87,7 @@ h4 {
 a {
     text-decoration: none;
     color: #414141;
-    transition: 0.5s ease;
+    transition: 0.2s ease;
 }
 
 /* a:hover {
@@ -1668,17 +1668,13 @@ label {
     background-repeat: no-repeat;
     /* margin-bottom: 8px; */
 }
-.social-footer > a:nth-child(1) {
-    background-image: url(social/instagram.png);
+
+.social-footer * svg {
+    fill: rgb(231, 134, 235);
+    transition: 0.2s ease;
 }
-.social-footer > a:nth-child(2) {
-    background-image: url(social/facebook.png);
-}
-.social-footer > a:nth-child(3) {
-    background-image: url(social/whatsapp.png);
-}
-.social-footer > a:nth-child(4) {
-    background-image: url(social/like.png);
+.social-footer * svg:hover {
+    fill: rgb(204, 108, 207);
 }
 
 .copyrights {
