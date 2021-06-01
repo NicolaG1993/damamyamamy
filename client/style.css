@@ -12,6 +12,20 @@ html {
     scroll-behavior: smooth;
 }
 
+.CoLoRs {
+    color: white;
+    color: ghostwhite;
+    color: rgb(172, 172, 172);
+    color: #414141;
+    color: rgb(231, 134, 235);
+    color: rgb(204, 108, 207);
+    color: #35b2de;
+    color: cornflowerblue;
+    /*LOGO*/
+    color: #73c2c5;
+    color: #e38699;
+}
+
 /*************************************
 ************ BODY *************
 *************************************/
@@ -1543,39 +1557,67 @@ label {
 ************ ABOUT US *************
 *************************************/
 .aboutus-comp {
-    padding: 40px 20px;
 }
 
 .aboutus-comp-div {
-    padding: 20px 0;
-    margin-top: 20px;
+    padding: 40px;
+    /* margin-top: 20px; */
 }
 
 .aboutus-box1 {
     display: flex;
-    /* justify-content: space-evenly; */
-    /* align-items: center; */
-    margin-top: 30px;
-}
-
-.aboutus-box1-pic {
-    width: 33%;
-    height: 250px;
-    margin-right: 80px;
-    background-image: url(pics/pic2a.jpg);
-    /* 
-    background-repeat: no-repeat;
-    background-attachment: fixed; */
+    justify-content: center;
+    align-items: center;
+    /* margin-top: 30px; */
+    background-image: url(pics/pic1.jpg);
     background-position: center;
 
     background-size: cover;
+    height: 50vh;
 }
+
 .aboutus-box1-text {
     max-width: 510px;
+    text-align: center;
 }
 
 .aboutus-box1-text > h1 {
     margin-bottom: 30px;
+}
+
+.aboutus-box2 {
+    margin: 40px 0;
+    display: grid;
+    grid-template-columns: 60% 40%;
+}
+
+.aboutus-box2-text {
+}
+.aboutus-box2-text > h2 {
+    /* margin-bottom: 30px; */
+}
+.aboutus-box2-text p {
+    color: rgb(140, 140, 140);
+}
+
+.aboutus-box2-pic {
+    justify-self: end;
+    align-self: center;
+}
+
+.aboutus-box2-pic > div {
+    background-image: url(pics/pic2a.jpg);
+    background-position: center;
+    background-size: cover;
+
+    border-radius: 50%;
+    height: 250px;
+    width: 250px;
+    margin-right: 20px;
+}
+
+.aboutus-box3 {
+    background-color: rgb(231, 134, 235);
 }
 
 .aboutus-box3-pic {
@@ -1588,6 +1630,10 @@ label {
     background-position: top;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.aboutus-box3-text {
+    color: white;
 }
 
 /*************************************

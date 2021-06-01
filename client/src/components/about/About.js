@@ -10,7 +10,6 @@ export default function About(props) {
     return (
         <div className="aboutus-comp">
             <div className="aboutus-comp-div aboutus-box1">
-                <div className="aboutus-box1-pic"></div>
                 <div className="aboutus-box1-text">
                     <h1>Benvenuti da Mamy a Mamy</h1>
                     <p>
@@ -28,11 +27,14 @@ export default function About(props) {
             </div>
             <div className="aboutus-comp-div aboutus-box2">
                 <div className="aboutus-box2-text">
+                    <h2>Chi siamo</h2>
+                    <br />
+                    <br />
                     <p>
                         Nasce Da Mamy a Mamy, il mercatino dell'usato dei
                         genitori, per gli acquisti per i vostri bambini.
                     </p>
-
+                    <br />
                     <p>
                         Il nostro negozio ha aperto nel 2019 a Cavaion Veronese,
                         ed ha subito attirato l'attenzione di genitori e
@@ -51,6 +53,12 @@ export default function About(props) {
                         disponibile a dare consiglio sul prossimo acquisto per i
                         piú piccoli
                     </p>
+                    <br />
+                    <br />
+                    <h4>Contattaci! →</h4>
+                </div>
+                <div className="aboutus-box2-pic">
+                    <div></div>
                 </div>
             </div>
             <div className="aboutus-comp-div aboutus-box3">
