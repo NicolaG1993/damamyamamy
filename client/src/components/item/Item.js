@@ -148,7 +148,7 @@ export default function Item({
 
                 <div className={"shortlist"}>
                     <h2>Articoli simili</h2>
-                    <Link to={"/shop"}>Vedi tutti gli articoli</Link>
+                    {/* <Link to={"/shop"}>Vedi tutti gli articoli</Link> */}
 
                     <ItemsListShort
                         products={item.related_products}
