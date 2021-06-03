@@ -151,7 +151,7 @@ export default function Item({
                     <Link to={"/shop"}>Vedi tutti gli articoli</Link>
 
                     <ItemsListShort
-                        products={products}
+                        products={item.related_products}
                         notAvailables={notAvailables}
                         onAddToCart={onAddToCart}
                         removeFromCart={removeFromCart}

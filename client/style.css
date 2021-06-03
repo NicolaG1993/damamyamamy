@@ -52,6 +52,10 @@ body {
     display: none;
 }
 
+.center-text {
+    text-align: center;
+}
+
 ::selection {
     color: ghostwhite;
     background-color: rgb(231, 134, 235);
@@ -1573,12 +1577,13 @@ label {
     background-position: center;
 
     background-size: cover;
-    height: 50vh;
+    height: 400px;
 }
 
 .aboutus-box1-text {
     max-width: 510px;
     text-align: center;
+    color: white;
 }
 
 .aboutus-box1-text > h1 {

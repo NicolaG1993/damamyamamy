@@ -31,53 +31,61 @@ export default function ItemsListShort({
         document.querySelectorAll(".product-box").forEach((el) => {
             el.classList.add("fade-in");
         });
+        console.log("products: ", products);
     });
 
     return (
         <div className="items-shortlist-container">
             <div className="items-shortlist-topbar">
                 <h3>{listTitle}</h3>
-                {products && (
-                    <div className="items-shortlist-btns">
-                        <button
-                            className={"small-arrow"}
-                            onClick={() => seePrev()}
-                        >
-                            <div className="small-arrow-left"></div>
-                        </button>
-                        <button
-                            className={"small-arrow"}
-                            onClick={() => seeNext()}
-                        >
-                            <div className="small-arrow-right"></div>
-                        </button>
-                    </div>
-                )}
-            </div>
-            <div className={"products-small"}>
-                {products ? (
-                    products
-                        .slice(sliceStart, sliceStart + 4)
-                        .map((product) => (
-                            <div
-                                className={"product-box product-box-shortlist"}
-                                key={product.id}
+                {products &&
+                    (products.length ? (
+                        <div className="items-shortlist-btns">
+                            <button
+                                className={"small-arrow"}
+                                onClick={() => seePrev()}
                             >
-                                <Product
-                                    product={product}
-                                    notAvailables={notAvailables}
-                                    onAddToCart={onAddToCart}
-                                    removeFromCart={removeFromCart}
-                                    cardSize={"small"}
-                                />
-                            </div>
-                        ))
+                                <div className="small-arrow-left"></div>
+                            </button>
+                            <button
+                                className={"small-arrow"}
+                                onClick={() => seeNext()}
+                            >
+                                <div className="small-arrow-right"></div>
+                            </button>
+                        </div>
+                    ) : (
+                        <></>
+                    ))}
+            </div>
+
+            {products &&
+                (products.length ? (
+                    <div className={"products-small"}>
+                        {products
+                            .slice(sliceStart, sliceStart + 4)
+                            .map((product) => (
+                                <div
+                                    className={
+                                        "product-box product-box-shortlist"
+                                    }
+                                    key={product.id}
+                                >
+                                    <Product
+                                        product={product}
+                                        notAvailables={notAvailables}
+                                        onAddToCart={onAddToCart}
+                                        removeFromCart={removeFromCart}
+                                        cardSize={"small"}
+                                    />
+                                </div>
+                            ))}
+                    </div>
                 ) : (
-                    <div>
+                    <div className="center-text">
                         <p>Nessun risultato</p>
                     </div>
-                )}
-            </div>
+                ))}
         </div>
     );
 }
