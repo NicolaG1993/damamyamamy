@@ -8,7 +8,7 @@ export default function About(props) {
     }, []);
 
     return (
-        <div className="aboutus-comp">
+        <div id="aboutus-comp">
             <div className="aboutus-comp-div aboutus-box1">
                 <div className="aboutus-box1-text">
                     <h1>Benvenuti da Mamy a Mamy</h1>

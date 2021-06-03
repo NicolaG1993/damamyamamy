@@ -1571,7 +1571,10 @@ label {
 /*************************************
 ************ ABOUT US *************
 *************************************/
-.aboutus-comp {
+#aboutus-comp {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .aboutus-comp-div {
@@ -1584,15 +1587,20 @@ label {
     justify-content: center;
     align-items: center;
     /* margin-top: 30px; */
-    background-image: url(pics/pic1.jpg);
-    background-position: center;
+    background: linear-gradient(
+            to bottom,
+            rgba(232, 134, 235, 0.85),
+            rgba(204, 108, 207, 0.85)
+        ),
+        url(pics/pic1.jpg) no-repeat center center;
 
     background-size: cover;
     height: 400px;
+    width: 100%;
 }
 
 .aboutus-box1-text {
-    max-width: 510px;
+    max-width: 550px;
     text-align: center;
     color: white;
 }
@@ -1601,10 +1609,15 @@ label {
     margin-bottom: 30px;
 }
 
+.aboutus-box1-text > p {
+    font-size: 13.5pt;
+}
+
 .aboutus-box2 {
-    margin: 40px 0;
+    margin: 70px 0;
     display: grid;
     grid-template-columns: 60% 40%;
+    max-width: 1110px;
 }
 
 .aboutus-box2-text {
@@ -1634,6 +1647,10 @@ label {
 
 .aboutus-box3 {
     background-color: rgb(231, 134, 235);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .aboutus-box3-pic {
@@ -1650,6 +1667,8 @@ label {
 
 .aboutus-box3-text {
     color: white;
+    max-width: 1110px;
+    margin-top: 70px;
 }
 
 /*************************************
@@ -1683,8 +1702,8 @@ label {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 30px;
     grid-template-rows: auto;
-    padding: 25px;
-    height: 210px;
+    padding: 50px 25px 25px 25px;
+    height: 235px;
     overflow: hidden;
     /* z-index: 2;
     box-shadow: 0px 0px 10px #00000025; */
@@ -1722,7 +1741,7 @@ label {
 .social-footer {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    /* justify-content: flex-end; */
     row-gap: 12px;
 }
 
@@ -1804,6 +1823,9 @@ label {
         display: flex;
         align-items: center;
         flex-direction: column;
+        width: 100vw;
+    }
+    #aboutus-comp {
         width: 100vw;
     }
     .shortlist {
