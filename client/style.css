@@ -1671,7 +1671,7 @@ label {
         url(pics/pic1.jpg) no-repeat center center;
 
     background-size: cover;
-    height: 400px;
+    height: 450px;
     width: 100%;
 }
 
@@ -1690,7 +1690,7 @@ label {
 }
 
 .aboutus-box2 {
-    margin: 70px 0;
+    margin: 90px 0 110px 0;
     display: grid;
     grid-template-columns: 60% 40%;
     max-width: 1110px;
@@ -1727,20 +1727,59 @@ label {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 100px 0 10px 0;
 }
 
 .aboutus-box3-text {
     color: white;
     max-width: 1110px;
     margin-top: 60px;
+    padding: 0 40px;
+}
+
+.aboutus-box3-text > div {
+    height: 100px;
+    margin-bottom: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.aboutus-box3-text > div:nth-child(2) {
+    text-align: end;
+}
+
+.aboutus-box3-text > div > div {
+    height: 100px;
+    width: 100px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.aboutus-box3-text > div:nth-child(1) > div {
+    background-image: url(icons/loving-heart-shape.png);
+}
+.aboutus-box3-text > div:nth-child(2) > div {
+    background-image: url(icons/leaf.png);
+}
+.aboutus-box3-text > div:nth-child(3) > div {
+    background-image: url(icons/label.png);
+}
+
+.aboutus-box3-text > div > p {
+    width: 75%;
 }
 
 .aboutus-box3-pic {
     margin: 80px 0 50px 0;
     width: 100%;
+    max-width: 1110px;
     height: 200px;
+    padding: 0 40px;
+}
+.aboutus-box3-pic > div {
     background-image: url(pics/pic5.jpg);
-
+    height: 100%;
     /* background-attachment: fixed; */
     background-position: top;
     background-repeat: no-repeat;

@@ -63,20 +63,40 @@ export default function About(props) {
             </div>
             <div className="aboutus-comp-div aboutus-box3">
                 <div className="aboutus-box3-text">
-                    <p>
-                        I prodotti in vendita sono sicuri al 100% per i bambini,
-                        ogni articolo viene controllato ed approvato
-                        singolarmente prima di essere messo in vendita; Inoltre
-                        offriamo un servizio di spedizione dei prodotti,
-                        disponibile in tutta Italia
-                    </p>
+                    <div>
+                        <div></div>
+                        <p>
+                            I prodotti in vendita sono sicuri al 100% per i
+                            bambini, ogni articolo viene controllato ed
+                            approvato singolarmente prima di essere messo in
+                            vendita; Inoltre offriamo un servizio di spedizione
+                            dei prodotti, disponibile in tutta Italia
+                        </p>
+                    </div>
 
-                    <p>
-                        Venite a trovarci in negozio, aperto dal lunedí al
-                        venerdi, dalle 9:00 alle 16:00
-                    </p>
+                    <div>
+                        <p>
+                            Per noi é importante il pianeta, comprare articoli
+                            di seconda mano aiuta a sensibilizzare alla
+                            sostenibilitá ed al riutilizzo di oggetti. Educando
+                            inoltre i piú piccoli al riutilizzo, che saranno il
+                            nostro futuro, bla bla sistemare
+                        </p>
+                        <div></div>
+                    </div>
+
+                    <div>
+                        <div></div>
+                        <p>
+                            1 Qualitá 2 Pianeta 3 Servizio Accessori
+                            Abbigliamento e Giocattoli di seconda mano Bambini
+                            0-10 Anni
+                        </p>
+                    </div>
                 </div>
-                <div className="aboutus-box3-pic"></div>
+                {/* <div className="aboutus-box3-pic">
+                    <div></div>
+                </div> */}
             </div>
         </div>
     );
