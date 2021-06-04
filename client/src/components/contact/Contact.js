@@ -174,8 +174,33 @@ export default function Contact() {
                     loading="lazy"
                 ></iframe>
 
-                <div className="contact-map-div">
-                    <h2>Some text here...</h2>
+                <div className="contact-icons-div">
+                    <div>
+                        <div className="contact-icons"></div>
+                        <div className="contact-icons-text">
+                            <h3>Orario negozio</h3>
+                            <p>Lunedí - Venerdí</p>
+                            <p>09:00 - 16:00</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div className="contact-icons"></div>
+                        <div className="contact-icons-text">
+                            <h3>Spedizioni</h3>
+                            <p>
+                                Servizio di spedizione disponibile in tutta
+                                Italia
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <div className="contact-icons"></div>
+                        <div className="contact-icons-text">
+                            <h3>Assistenza</h3>
+                            <p>Sempre disponibili ad</p>
+                            <p>assistere i nostri clienti</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </>
