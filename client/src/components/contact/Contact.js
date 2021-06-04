@@ -31,6 +31,7 @@ export default function Contact() {
             }
         } else {
             setParallaxHeight(`125px 20px 160px 20px`);
+            // per screen > 1110px = 160px 20px 160px 20px
         }
 
         // console.log("parallaxHeight: ", parallaxHeight);
@@ -122,27 +123,42 @@ export default function Contact() {
                         <div className="contact-list-wrap">
                             <h2>Contatto</h2>
                             <div className="contact-list-box">
-                                <p>Vicolo Teatro, 4, 37010</p>
-                                <p>Cavaion, Verona, IT</p>
+                                <div className="contact-address-small-icon contact-address-small-icon1"></div>
+                                <div className="contact-address-text contact-address-text1">
+                                    <p>Vicolo Teatro, 4, 37010</p>
+                                    <p>Cavaion, Verona, IT</p>
+                                </div>
                             </div>
 
                             <div className="contact-list-box">
-                                <p>
-                                    <a href="tel:+393479792644">
-                                        (+39) 347 9792 644
-                                    </a>{" "}
-                                    (anche WhatsApp)
-                                </p>
-                                <p>
-                                    <a href="mailto:damamyamamy@gmail.com">
-                                        damamyamamy@gmail.com
-                                    </a>
-                                </p>
+                                <div className="contact-address-small-icon contact-address-small-icon2"></div>
+                                <div className="contact-address-text contact-address-text2">
+                                    <p>
+                                        <a href="tel:+393479792644">
+                                            (+39) 347 9792 644
+                                        </a>{" "}
+                                        (anche WhatsApp)
+                                    </p>
+                                </div>
                             </div>
 
                             <div className="contact-list-box">
-                                <p>Siamo aperti dal lunedí al venerdí</p>
-                                <p>dalle 09:00 alle 16:00</p>
+                                <div className="contact-address-small-icon contact-address-small-icon3"></div>
+                                <div className="contact-address-text contact-address-text3">
+                                    <p>
+                                        <a href="mailto:damamyamamy@gmail.com">
+                                            damamyamamy@gmail.com
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="contact-list-box">
+                                <div className="contact-address-small-icon contact-address-small-icon4"></div>
+                                <div className="contact-address-text contact-address-text4">
+                                    <p>Siamo aperti dal lunedí al venerdí</p>
+                                    <p>dalle 09:00 alle 16:00</p>
+                                </div>
                             </div>
 
                             <h2>Seguici</h2>
