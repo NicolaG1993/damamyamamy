@@ -1778,8 +1778,8 @@ label {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 30px;
     grid-template-rows: auto;
-    padding: 50px 25px 35px 25px;
-    height: 245px;
+    padding: 90px 25px 30px 25px;
+    height: 280px;
     overflow: hidden;
     /* z-index: 2;
     box-shadow: 0px 0px 10px #00000025; */

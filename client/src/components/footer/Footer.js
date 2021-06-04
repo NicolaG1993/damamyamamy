@@ -25,13 +25,14 @@ export default function Footer() {
 
     useEffect(() => {
         if (
-            window.scrollY + window.innerHeight + 100 >=
+            window.scrollY + window.innerHeight + 200 >=
             document.documentElement.offsetHeight
         ) {
             setParallaxHeight(`0`);
         } else {
             setParallaxHeight(`190px`);
         }
+        // un altro caso per if: se l'altezza della pagina é quasi uguale all'altezza dello schermo
     }, [scrollTop]);
 
     return (
