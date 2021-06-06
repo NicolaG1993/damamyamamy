@@ -59,8 +59,8 @@ export default function ItemsListShort({
                     ))}
             </div>
 
-            {products &&
-                (products.length ? (
+            {products ? (
+                products.length ? (
                     <div className={"products-small"}>
                         {products
                             .slice(sliceStart, sliceStart + 4)
@@ -85,7 +85,10 @@ export default function ItemsListShort({
                     <div className="center-text">
                         <p>Nessun risultato</p>
                     </div>
-                ))}
+                )
+            ) : (
+                <div className="loader"></div>
+            )}
         </div>
     );
 }

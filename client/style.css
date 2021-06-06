@@ -15,6 +15,7 @@ html {
 .CoLoRs {
     color: white;
     color: ghostwhite;
+    color: rgb(244, 244, 244);
     color: rgb(172, 172, 172);
     color: #414141;
     color: rgb(231, 134, 235);
@@ -1468,42 +1469,32 @@ label {
 }
 .contact-list-wrap h2 {
     /* line-height: 40px; */
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 .contact-list-box {
     margin-bottom: 20px;
     padding-left: 12px;
-}
-.contact-list-wrap > .contact-list-box:nth-child(1) {
-    display: inline-block;
-    margin-bottom: 65px;
+    display: flex;
+    align-items: center;
 }
 .contact-list-wrap > .contact-list-box:nth-child(5) {
     margin-bottom: 65px;
 }
 .contact-address-small-icon {
-    width: 17px;
-    height: 17px;
     background-size: contain;
     background-position: center;
-    display: inline-block;
-    vertical-align: top;
-    margin-right: 12px;
+    margin-right: 20px;
+    height: 17px;
 }
-.contact-address-small-icon1 {
-    background-image: url(icons/x-pink.png);
+.contact-address-small-icon > svg {
+    /* background-image: url(icons/x-pink.png); */
+    fill: rgb(231, 134, 235);
+    /* fill: #626262; */
+    width: 17px;
+    height: 17px;
 }
-.contact-address-small-icon2 {
-    background-image: url(icons/x-pink.png);
-}
-.contact-address-small-icon3 {
-    background-image: url(icons/x-pink.png);
-}
-.contact-address-small-icon4 {
-    background-image: url(icons/x-pink.png);
-}
+
 .contact-address-text {
-    display: inline-block;
 }
 
 .contact-list-wrap p {
@@ -1519,7 +1510,8 @@ label {
     padding-left: 12px;
 }
 
-.contact-list-socials > p {
+.contact-list-wrap * a:hover {
+    color: rgb(231, 134, 235);
 }
 
 #contact-map {
@@ -1900,6 +1892,139 @@ label {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+/*************************************
+************ LOADER *************
+*************************************/
+.centerer-div {
+    /* width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column; */
+    position: relative;
+    left: 100%;
+    margin-left: 4.5em;
+}
+
+.loader {
+    font-size: 10px;
+    margin: 50px auto;
+    text-indent: -9999em;
+    width: 8em;
+    height: 8em;
+    border-radius: 50%;
+    background: rgb(231, 134, 235);
+    background: -moz-linear-gradient(
+        left,
+        rgb(231, 134, 235) 10%,
+        rgba(255, 255, 255, 0) 42%
+    );
+    background: -webkit-linear-gradient(
+        left,
+        rgb(231, 134, 235) 10%,
+        rgba(255, 255, 255, 0) 42%
+    );
+    background: -o-linear-gradient(
+        left,
+        rgb(231, 134, 235) 10%,
+        rgba(255, 255, 255, 0) 42%
+    );
+    background: -ms-linear-gradient(
+        left,
+        rgb(231, 134, 235) 10%,
+        rgba(255, 255, 255, 0) 42%
+    );
+    background: linear-gradient(
+        to right,
+        rgb(231, 134, 235) 10%,
+        rgba(255, 255, 255, 0) 42%
+    );
+    position: relative;
+    -webkit-animation: load3 1.4s infinite linear;
+    animation: load3 1.4s infinite linear;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+}
+.loader:before {
+    width: 50%;
+    height: 50%;
+    background: rgb(231, 134, 235);
+    border-radius: 100% 0 0 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "";
+}
+.loader:after {
+    background: ghostwhite;
+    width: 75%;
+    height: 75%;
+    border-radius: 50%;
+    content: "";
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+.loader-alternative1:after {
+    background: rgb(244, 244, 244);
+}
+
+.loader-inverted {
+    background: ghostwhite;
+    background: -moz-linear-gradient(
+        left,
+        ghostwhite 10%,
+        rgba(255, 255, 255, 0) 42%
+    );
+    background: -webkit-linear-gradient(
+        left,
+        ghostwhite 10%,
+        rgba(255, 255, 255, 0) 42%
+    );
+    background: -o-linear-gradient(
+        left,
+        ghostwhite 10%,
+        rgba(255, 255, 255, 0) 42%
+    );
+    background: -ms-linear-gradient(
+        left,
+        ghostwhite 10%,
+        rgba(255, 255, 255, 0) 42%
+    );
+    background: linear-gradient(to right, ghostwhite 10%);
+}
+.loader-inverted:before {
+    background: ghostwhite;
+}
+.loader-inverted:after {
+    background: rgb(231, 134, 235);
+}
+
+@-webkit-keyframes load3 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@keyframes load3 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
 }
 
 /*************************************

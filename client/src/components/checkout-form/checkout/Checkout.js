@@ -81,7 +81,7 @@ export default function Checkout({ cart, order, onCaptureCheckout, error }) {
                 <Link to="/">Torna al sito</Link>
             </>
         ) : (
-            <div className={"spinner"}>Loading</div>
+            <div className="loader"></div>
         );
 
     // : isFinished ? (
@@ -126,8 +126,10 @@ export default function Checkout({ cart, order, onCaptureCheckout, error }) {
                 ))} */}
                 {activeStep === steps.length ? (
                     <Confirmation />
+                ) : checkoutToken ? (
+                    <Form />
                 ) : (
-                    checkoutToken && <Form />
+                    <div className="loader loader-inverted"></div>
                 )}
             </div>
         </div>

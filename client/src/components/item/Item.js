@@ -36,10 +36,10 @@ export default function Item({
     if (!item) {
         return (
             <div className="item-card">
-                <h3>Loading...</h3>
+                <div className="loader loader-alternative1"></div>
             </div>
         );
-    } //spinner 🐔
+    } //spinner 🐲
 
     if (item) {
         return (

@@ -160,7 +160,9 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
                         ))
                     )
                 ) : (
-                    <h4>Loading...</h4>
+                    <div className="centerer-div">
+                        <div className="loader"></div>
+                    </div>
                 )}
             </div>
 
