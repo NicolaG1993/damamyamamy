@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { commerce } from "../../lib/commerce";
 
-import { useDispatch, useSelector } from "react-redux";
-
 import ItemsListShort from "../items-list-short/ItemsListShort";
 import AddToCartBtn from "../shop/product/AddToCartBtn";
 
@@ -21,12 +19,6 @@ export default function Item({
 
     const toggleInfoDisplay = (val) => {
         setInfoDisplay(val);
-    };
-
-    const dispatch = useDispatch();
-    const handleResearch = (val) => {
-        // fn(val);
-        // devo cambiare lo stato in redux
     };
 
     useEffect(() => {

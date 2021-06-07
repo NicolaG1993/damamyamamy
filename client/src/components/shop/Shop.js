@@ -58,7 +58,7 @@ export default function Shop({
     useEffect(() => {
         if (state.filteredProducts && filters) {
             // console.log("filters in useEffect[filters]: ", filters);
-            dispatch(filterByValue({ value: filters.name }));
+            dispatch(filterByValue({ value: filters.name.toLowerCase() }));
             dispatch(filterByCategory({ value: filters.category }));
             dispatch(
                 filterByPrice({
