@@ -52,6 +52,9 @@ body {
 .hidden {
     display: none;
 }
+.hidden2 {
+    opacity: 0;
+}
 
 .center-text {
     text-align: center;
@@ -316,8 +319,14 @@ label {
 .cart-icon {
     height: 30px;
     width: 30px;
-    background-image: url(icons/shopping-cart-gray.png);
-    background-size: contain;
+}
+
+.cart-icon > svg {
+    fill: #acacac;
+    transition: 0.2s ease;
+}
+.cart-icon > svg:hover {
+    fill: #929292;
 }
 
 #cartCounter {
@@ -336,7 +345,8 @@ label {
 }
 
 /* BUTTON */
-#hamBtn {
+
+.hamBtn {
     width: 25px;
     height: 35px;
     position: relative;
@@ -347,6 +357,9 @@ label {
     align-items: center;
     justify-content: space-between; */
     cursor: pointer;
+}
+
+#hamBtn1 {
 }
 
 .stick {
@@ -380,19 +393,19 @@ label {
     top: 8px;
 }
 
-#hamBtn.active .stick {
+.hamBtn.active .stick {
     background: rgba(0, 0, 0, 0);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0);
     right: 250px;
 }
 
-#hamBtn.active .stick:before {
+.hamBtn.active .stick:before {
     background: rgb(172, 172, 172);
     top: 0;
     transform: rotate(45deg);
 }
 
-#hamBtn.active .stick:after {
+.hamBtn.active .stick:after {
     background: rgb(172, 172, 172);
     top: 0;
     transform: rotate(135deg);
@@ -709,12 +722,59 @@ label {
     transition: 0.5s ease;
 }
 
-.filter-bar > h3 {
+.filter-bar-active {
+    height: 365px;
+}
+.filter-bar-inactive {
+    height: 52.6px;
+}
+
+.filter-bar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filter-bar-header > h3 {
     cursor: pointer;
 }
 
-.filter-bar > h3 > span {
-    float: right;
+/* SHOP HAMBURGER BUTTON */
+#hamBtn2 {
+    width: 22.5px;
+    height: 22.5px;
+}
+
+#hamBtn2 > .stick {
+    width: 22.5px;
+    height: 3.7px;
+    background-color: white;
+    left: 45%;
+}
+
+#hamBtn2 > .stick:before,
+#hamBtn2 > .stick:after {
+    width: 22.5px;
+    height: 3.7px;
+    background-color: white;
+}
+
+#hamBtn2.active .stick {
+    background: rgba(0, 0, 0, 0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0);
+    right: 250px;
+}
+
+#hamBtn2.active .stick:before {
+    background: white;
+    top: 0;
+    transform: rotate(45deg);
+}
+
+#hamBtn2.active .stick:after {
+    background: white;
+    top: 0;
+    transform: rotate(135deg);
 }
 
 /* SHOP FILTER */
@@ -724,6 +784,8 @@ label {
     grid-template-rows: 50px auto 50px 50px;
     row-gap: 15px;
     margin-top: 25px;
+    opacity: 1;
+    transition: 0.7s ease-in-out;
 }
 .filter-form-col-left {
     grid-column-start: 1;
@@ -912,21 +974,37 @@ label {
     transition: 0.3s ease;
     border-color: transparent;
     border: 1px solid darkgray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.add-cart {
-    background-image: url(icons/shopping-cart-black.png);
-
-    background-size: 60%;
-    background-repeat: no-repeat;
-    background-position: center;
+.add-cart > svg {
+    fill: #414141;
+    transition: 0.2s ease;
+    width: 88%;
 }
 
-.remove-cart {
-    background-image: url(icons/x-black.png);
-    background-size: 33%;
-    background-repeat: no-repeat;
-    background-position: center;
+.add-cart:hover {
+    background-color: rgb(231, 134, 235);
+    border-color: transparent;
+}
+.add-cart:hover > svg {
+    fill: white;
+}
+
+.remove-cart > svg {
+    fill: #414141;
+    transition: 0.2s ease;
+    width: 55%;
+}
+
+.remove-cart:hover {
+    background-color: rgb(231, 134, 235);
+    border-color: transparent;
+}
+.remove-cart:hover > svg {
+    fill: white;
 }
 
 .add-cart-for-small,
@@ -980,17 +1058,6 @@ label {
 
 .product-content:hover .product-box {
     box-shadow: 0px 0px 10px #00000025;
-}
-
-.add-cart:hover {
-    background-color: rgb(231, 134, 235);
-    background-image: url(icons/shopping-cart-white.png);
-    border-color: transparent;
-}
-.remove-cart:hover {
-    background-color: rgb(231, 134, 235);
-    background-image: url(icons/x-white.png);
-    border-color: transparent;
 }
 
 /*************************************

@@ -127,7 +127,7 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
                     highestPrice={state.highestPrice}
                 />
             ) : (
-                <div>Waiting</div>
+                <div>Caricamento</div>
             )}
 
             {state.filteredProducts && state.filteredProducts.length === 1 && (

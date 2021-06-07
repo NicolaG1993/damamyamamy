@@ -73,12 +73,23 @@ export default function Filter({ categories, userFilters, highestPrice }) {
     }, [filters]);
 
     return (
-        <div className={"filter-bar"}>
-            <h3 onClick={() => toggleBar()}>
-                Filtra risultati <span>{filtersBar ? "X" : "O"}</span>
-            </h3>
+        <div
+            className={`filter-bar ${
+                filtersBar ? "filter-bar-active" : "filter-bar-inactive"
+            }`}
+        >
+            <div className="filter-bar-header" onClick={() => toggleBar()}>
+                <h3>Filtra risultati</h3>
 
-            <form className={filtersBar ? "filter-form" : "hidden"}>
+                <div
+                    id="hamBtn2"
+                    className={filtersBar ? "hamBtn active" : "hamBtn"}
+                >
+                    <div className={"stick"}></div>
+                </div>
+            </div>
+
+            <form className={filtersBar ? "filter-form" : "hidden2"}>
                 <div className="filter-form-col-left">
                     <label>
                         <span>Ricerca per nome</span>

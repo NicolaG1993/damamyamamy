@@ -16,7 +16,7 @@ export default function Header({ navIsActive, closeNav, toggleNav, cart }) {
 
             <div
                 id="hamBtn"
-                className={navIsActive ? "active" : ""}
+                className={navIsActive ? "hamBtn active" : "hamBtn"}
                 onClick={toggleNav}
             >
                 <div className={"stick"}></div>
@@ -24,3 +24,4 @@ export default function Header({ navIsActive, closeNav, toggleNav, cart }) {
         </div>
     );
 }
+//Ho dovuto aggiungere la classe hamBtn perché uso una variante in filter-bar di Shop
