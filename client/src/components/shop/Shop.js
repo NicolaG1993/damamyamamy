@@ -31,9 +31,7 @@ export default function Shop({
     const [filters, setFilters] = useState(null);
     const [results, setResults] = useState(null);
 
-    console.log("results: ", results);
-    console.log("research: ", research);
-    // console.log("location.state: ", location.state);
+    // console.log("results: ", results);
 
     const userFilters = (obj) => {
         setFilters(obj);

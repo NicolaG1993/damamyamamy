@@ -84,6 +84,26 @@ app.get("/user", async (req, res) => {
     }
 });
 
+/////*****CONTACT*****/////
+
+app.post("/contact-us", (req, res) => {
+    console.log("POST req to route /contact-us", req.body);
+    const fname = req.body.contactname;
+    const lname = req.body.contactlast;
+    const email = req.body.email;
+    const phone = req.body.phone || "";
+    const message = req.body.message;
+
+    ses.contactUs(fname, lname, email, phone, message)
+        .then(res.json({ emailSended: true }))
+        .catch((err) => {
+            console.log("ERR in ses.sendEmail: ", err);
+            res.json({ error: true });
+        });
+
+    //posso farla con try {} catch() {} ??? 🐔
+});
+
 /////*****OTHER REQ*****/////
 app.get("/logout", requireLoggedInUser, (req, res) => {
     req.session = null;
