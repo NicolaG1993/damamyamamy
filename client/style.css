@@ -16,6 +16,7 @@ html {
     color: white;
     color: ghostwhite;
     color: rgb(244, 244, 244);
+    color: rgb(230, 230, 230);
     color: rgb(172, 172, 172);
     color: #414141;
     color: rgb(231, 134, 235);
@@ -733,9 +734,6 @@ label {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.filter-bar-header > h3 {
     cursor: pointer;
 }
 
@@ -746,7 +744,7 @@ label {
 }
 
 #hamBtn2 > .stick {
-    width: 22.5px;
+    width: 22px;
     height: 3.7px;
     background-color: white;
     left: 45%;
@@ -754,7 +752,7 @@ label {
 
 #hamBtn2 > .stick:before,
 #hamBtn2 > .stick:after {
-    width: 22.5px;
+    width: 22px;
     height: 3.7px;
     background-color: white;
 }
@@ -1113,7 +1111,8 @@ label {
     margin-right: 10px;
 }
 .item-right-side-infos-box * h5,
-.item-right-side-infos-box * p {
+.item-right-side-infos-box * p,
+.item-right-side-infos-box * a {
     margin-right: 5px;
     color: #414141;
 }
@@ -1132,6 +1131,11 @@ label {
     border-radius: 15px;
     padding: 4px 10px;
     font-size: 0.83em;
+    transition: 0.2s ease;
+}
+.item-tag:hover {
+    background-color: rgb(231, 134, 235);
+    color: white;
 }
 
 .add-cart-for-item,

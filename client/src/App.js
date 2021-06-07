@@ -172,11 +172,13 @@ class App extends Component {
                         <Route
                             exact
                             path="/shop"
-                            render={() => (
+                            tag=""
+                            render={(props) => (
                                 <Shop
                                     notAvailables={this.state.notAvailables}
                                     onAddToCart={this.handleAddToCart}
                                     removeFromCart={this.handleRemoveFromCart}
+                                    research={props.location.tag}
                                 />
                             )}
                         />
@@ -273,6 +275,8 @@ fare "/contacts" 🐲
 aggiungere parallax effect 🐲
 migliorare style di filterbar in Shop 🐔
 attivare modulo in Contact 🐔
+
+form in filter-bar diventa 0 opacitá ma non é display hidden, trovare il modo di dargli la classe dopo 1s, con js? 🐔
 
 BACKEND:
 🐲 🐔

@@ -32,7 +32,7 @@ export default class Home extends Component {
     }
 
     async handleScroll(e) {
-        console.log("e", e);
+        // console.log("e", e);
         let scrollTop = window.scrollY;
 
         if (scrollTop > 1400) {
@@ -54,7 +54,7 @@ export default class Home extends Component {
 
     render() {
         // console.log("this.state in home: ", this.state);
-        console.log("this.props: ", this.props);
+        // console.log("this.props: ", this.props);
 
         return (
             <div id="home">

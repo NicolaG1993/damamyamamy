@@ -17,7 +17,12 @@ import Filter from "./filter/Filter";
 import PageNav from "./page-nav/PageNav";
 import { commerce } from "../../lib/commerce";
 
-export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
+export default function Shop({
+    notAvailables,
+    onAddToCart,
+    removeFromCart,
+    research,
+}) {
     const dispatch = useDispatch();
     let state = useSelector((state) => state);
     console.log("state from REDUX in Shop.js: ", state);
@@ -27,6 +32,8 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
     const [results, setResults] = useState(null);
 
     console.log("results: ", results);
+    console.log("research: ", research);
+    // console.log("location.state: ", location.state);
 
     const userFilters = (obj) => {
         setFilters(obj);
@@ -125,6 +132,7 @@ export default function Shop({ notAvailables, onAddToCart, removeFromCart }) {
                     categories={categories}
                     userFilters={userFilters}
                     highestPrice={state.highestPrice}
+                    research={research}
                 />
             ) : (
                 <div>Caricamento</div>

@@ -2,10 +2,15 @@ import React, { useState, useEffect } from "react";
 import InputRange from "react-input-range";
 import "react-input-range/lib/css/index.css";
 
-export default function Filter({ categories, userFilters, highestPrice }) {
+export default function Filter({
+    categories,
+    userFilters,
+    highestPrice,
+    research,
+}) {
     const [priceRange, setPriceRange] = useState({ min: 0, max: highestPrice });
     const [filters, setFilters] = useState({
-        name: "",
+        name: research || "",
         priceMin: priceRange.min,
         priceMax: priceRange.max,
         category: "",
@@ -99,6 +104,7 @@ export default function Filter({ categories, userFilters, highestPrice }) {
                     <input
                         type="text"
                         placeholder="Cerca..."
+                        defaultValue={research || ""}
                         name="name"
                         id="name"
                         onChange={(e) => handleForm(e)}

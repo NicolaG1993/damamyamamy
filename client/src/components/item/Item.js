@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { commerce } from "../../lib/commerce";
 
+import { useDispatch, useSelector } from "react-redux";
+
 import ItemsListShort from "../items-list-short/ItemsListShort";
 import AddToCartBtn from "../shop/product/AddToCartBtn";
 
@@ -19,6 +21,12 @@ export default function Item({
 
     const toggleInfoDisplay = (val) => {
         setInfoDisplay(val);
+    };
+
+    const dispatch = useDispatch();
+    const handleResearch = (val) => {
+        // fn(val);
+        // devo cambiare lo stato in redux
     };
 
     useEffect(() => {
@@ -79,10 +87,26 @@ export default function Item({
                             </div>
                             <div className="item-right-side-infos">
                                 <span>Tags:</span>
-                                <p className="item-tag">
+
+                                <Link
+                                    to={{
+                                        pathname: "/shop",
+                                        tag: item.categories[0].name,
+                                    }}
+                                    className="item-tag"
+                                >
                                     {item.categories[0].name}
-                                </p>
-                                <p className="item-tag">3/5 anni</p>
+                                </Link>
+
+                                <Link
+                                    to={{
+                                        pathname: "/shop",
+                                        tag: "3/5 anni",
+                                    }}
+                                    className="item-tag"
+                                >
+                                    3/5 anni
+                                </Link>
                             </div>
                             <div className="item-right-side-infos">
                                 <span>Disponibilitá:</span>
