@@ -2,7 +2,6 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
 import React, { useState, useEffect } from "react";
-import axios from "../../axios";
 
 import ContactForm from "./contact-form/ContactForm";
 
@@ -10,8 +9,6 @@ export default function Contact() {
     const [parallaxHeight, setParallaxHeight] = useState();
     const [scrollTop, setScrollTop] = useState();
 
-    const [contactReqSended, setContactReqSended] = useState(false);
-    // console.log("contactReq: ", contactReq);
     // console.log("contactReqSended: ", contactReqSended);
     // console.log("scrollTop: ", scrollTop);
 
@@ -44,18 +41,6 @@ export default function Contact() {
     const handleScroll = () => {
         setScrollTop(window.scrollY);
     };
-
-    // const send = (e) => {
-    //     e.preventDefault();
-
-    //     axios
-    //         .post("/contact-us", {
-    //             contactReq,
-    //         })
-    //         .then((res) => {
-    //             console.log(res);
-    //         });
-    // };
 
     return (
         <>

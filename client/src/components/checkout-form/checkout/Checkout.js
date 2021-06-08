@@ -58,7 +58,7 @@ export default function Checkout({ cart, order, onCaptureCheckout, error }) {
             <PaymentForm
                 checkoutToken={checkoutToken}
                 shippingData={shippingData}
-                activeStep={activeStep}
+                // activeStep={activeStep}
                 nextStep={nextStep}
                 backStep={backStep}
                 onCaptureCheckout={onCaptureCheckout}

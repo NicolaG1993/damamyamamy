@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 import axios from "../../../axios";
 
+import StepA from "./steps/StepA";
+import StepB from "./steps/StepB";
+import StepC from "./steps/StepC";
+
 const steps = ["Contact", "Robot Check"];
 
 export default function ContactForm() {
     const [activeStep, setActiveStep] = useState(0);
     const [isFinished, setIsFinished] = useState(false);
+    const [isFailed, setIsFailed] = useState(false);
     const [contactReq, setContactReq] = useState({});
+    const [error, setError] = useState();
+
+    console.log("contactReq: ", contactReq);
 
     const nextStep = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -14,137 +22,46 @@ export default function ContactForm() {
     const backStep = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
-    // const next = (data) => {
-    //     setShippingData(data);
-    //     nextStep();
-    // };
-
-    const Form = () =>
-        activeStep === 0 ? (
-            <StepA />
-        ) : (
-            <StepB
-                activeStep={activeStep}
-                nextStep={nextStep}
-                backStep={backStep}
-            />
-        );
-
-    let Confirmation = () => {
-        isFinished ? <StepC /> : <div className="loader"></div>;
+    const next = (data) => {
+        setContactReq(data);
+        nextStep();
     };
-
-    // if (error) {
-    //     Confirmation = () => (
-    //         <>
-    //             <h5>Errore: {error}</h5>
-    //             <br />
-    //             <Link to="/">Torna al sito</Link>
-    //         </>
-    //     );
-    // } dovrei ricevere error da App per farla funzionare
-
-    const handleForm = (e) => {
-        e.preventDefault();
-        const form = e.target.form;
-        const data = new FormData(form);
-        const allValues = Object.fromEntries(data.entries());
-        setContactReq(allValues);
-    };
-
-    const handleSubmit = async (contactReq) => {
-        console.log("contactReq: ", contactReq);
-
+    const confirmAndSend = async () => {
+        nextStep();
         try {
-            if (
-                !contactReq.email ||
-                !contactReq.contactname ||
-                !contactReq.contactlast ||
-                !contactReq.message
-            )
-                return; //return error? 🐔
-
             const resp = await axios.post("/contact-us", contactReq);
             console.log("resp: ", resp);
-            resp.emailSended && nextStep(); //non so se é scritta giusta ancora 🐔
+
+            if (resp.emailSended) {
+                setIsFinished(true);
+            } else {
+                setIsFailed(true);
+            }
+            //non so se é scritta giusta ancora 🐔
         } catch (err) {
-            console.log("err in getFollowers(actions): ", err); //handle error 🐔
+            console.log("err in contact-us: ", err); //handle error 🐔
+            setError(err);
         }
     };
 
-    const handleRobotCheck = () => {};
-    const handleSubmitRobotCheck = () => {};
+    const Form = () =>
+        activeStep === 0 ? (
+            <StepA next={next} nextStep={nextStep} />
+        ) : (
+            <StepB backStep={backStep} confirmAndSend={confirmAndSend} />
+        );
 
-    const StepA = () => (
-        <form
-            className="contact-form"
-            onChange={(e) => handleForm(e)}
-            onSubmit={() => handleSubmit(contactReq)}
-        >
-            {/* <form className="contact-form" onSubmit={(e) => send(e)}> */}
-            <h1 className="contact-form-col-full">Contatta da Mamy a Mamy</h1>
-
-            <div className="contact-form-col-left">
-                <input
-                    type="text"
-                    placeholder="Nome*"
-                    name="contactname"
-                    id="contactname"
-                />
-            </div>
-            <div className="contact-form-col-right">
-                <input
-                    type="text"
-                    placeholder="Cognome*"
-                    name="contactlast"
-                    id="contactlast"
-                />
-            </div>
-            <div className="contact-form-col-left">
-                <input
-                    type="text"
-                    placeholder="Email*"
-                    name="email"
-                    id="email"
-                />
-            </div>
-            <div className="contact-form-col-right">
-                <input
-                    type="text"
-                    placeholder="Numero di telefono"
-                    name="phone"
-                    id="phone"
-                />
-            </div>
-            <div className="contact-form-col-full">
-                <textarea placeholder="Messaggio" name="message" id="message" />
-            </div>
-            <div className="contact-form-col-full">
-                <button type="submit">Invia</button>
-            </div>
-        </form>
-    );
-
-    const StepB = () => (
-        <div>
-            <input
-                type="number"
-                placeholder="Risposta..."
-                name="robotcheck"
-                id="robotcheck"
-                onChange={(e) => handleRobotCheck(e)}
-            />
-            <button
-                onClick={() => handleSubmitRobotCheck("inserisci val di input")}
-            >
-                Invia
-            </button>
-        </div>
-    );
-
-    const StepC = () => (
-        <div>Messaggio inviato! Ti risponderemo al piú presto</div>
-    );
+    let Confirmation = () => {
+        isFinished || isFailed ? (
+            <StepC isFailed={isFailed} isFinished={isFinished} error={error} />
+        ) : (
+            <div className="loader"></div>
+        );
+    };
 
     return <>{activeStep === steps.length ? <Confirmation /> : <Form />}</>;
 }
+
+// ho provato ad unire tutto in questo component, ma su ogni input nel form mi si resettava lo state o il component, why?
+//sembrava come un reload
+//adesso che é diviso per steps in altri files sembra funzionare
