@@ -4,11 +4,12 @@ import { css, jsx } from "@emotion/react";
 import React, { useState, useEffect } from "react";
 import axios from "../../axios";
 
+import ContactForm from "./contact-form/ContactForm";
+
 export default function Contact() {
     const [parallaxHeight, setParallaxHeight] = useState();
     const [scrollTop, setScrollTop] = useState();
 
-    const [contactReq, setContactReq] = useState({});
     const [contactReqSended, setContactReqSended] = useState(false);
     // console.log("contactReq: ", contactReq);
     // console.log("contactReqSended: ", contactReqSended);
@@ -44,36 +45,6 @@ export default function Contact() {
         setScrollTop(window.scrollY);
     };
 
-    const handleForm = (e) => {
-        e.preventDefault();
-        const form = e.target.form;
-
-        const data = new FormData(form);
-        const allValues = Object.fromEntries(data.entries());
-
-        setContactReq(allValues);
-    };
-
-    const handleSubmit = async (contactReq) => {
-        console.log("contactReq: ", contactReq);
-
-        try {
-            if (
-                !contactReq.email ||
-                !contactReq.contactname ||
-                !contactReq.contactlast ||
-                !contactReq.message
-            )
-                return; //return error? 🐔
-
-            const resp = await axios.post("/contact-us", contactReq);
-            console.log("resp: ", resp);
-            resp.emailSended && setContactReqSended(true); //non so se é scritta giusta ancora 🐔
-        } catch (err) {
-            console.log("err in getFollowers(actions): ", err); //handle error 🐔
-        }
-    };
-
     // const send = (e) => {
     //     e.preventDefault();
 
@@ -96,73 +67,7 @@ export default function Contact() {
                 `}
             >
                 <div className="contact-wrap">
-                    {/* <form className="contact-form" onSubmit={(e) => send(e)}> */}
-                    <form className="contact-form">
-                        <h1 className="contact-form-col-full">
-                            Contatta da Mamy a Mamy
-                        </h1>
-
-                        {!contactReqSended ? (
-                            <>
-                                <div className="contact-form-col-left">
-                                    <input
-                                        type="text"
-                                        placeholder="Nome*"
-                                        name="contactname"
-                                        id="contactname"
-                                        onChange={(e) => handleForm(e)}
-                                    />
-                                </div>
-                                <div className="contact-form-col-right">
-                                    <input
-                                        type="text"
-                                        placeholder="Cognome*"
-                                        name="contactlast"
-                                        id="contactlast"
-                                        onChange={(e) => handleForm(e)}
-                                    />
-                                </div>
-                                <div className="contact-form-col-left">
-                                    <input
-                                        type="text"
-                                        placeholder="Email*"
-                                        name="email"
-                                        id="email"
-                                        onChange={(e) => handleForm(e)}
-                                    />
-                                </div>
-                                <div className="contact-form-col-right">
-                                    <input
-                                        type="text"
-                                        placeholder="Numero di telefono"
-                                        name="phone"
-                                        id="phone"
-                                        onChange={(e) => handleForm(e)}
-                                    />
-                                </div>
-                                <div className="contact-form-col-full">
-                                    <textarea
-                                        placeholder="Messaggio"
-                                        name="message"
-                                        id="message"
-                                        onChange={(e) => handleForm(e)}
-                                    />
-                                </div>
-                                <div className="contact-form-col-full">
-                                    <button
-                                        onClick={() => handleSubmit(contactReq)}
-                                    >
-                                        Invia
-                                    </button>
-                                </div>
-                            </>
-                        ) : (
-                            <div>
-                                Messaggio inviato! Ti risponderemo al piú presto
-                            </div>
-                        )}
-                    </form>
-
+                    <ContactForm />
                     <div className="contact-list">
                         <div className="contact-list-wrap">
                             <h2>Contatto</h2>
