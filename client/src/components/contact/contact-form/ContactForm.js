@@ -14,7 +14,7 @@ export default function ContactForm() {
     const [contactReq, setContactReq] = useState({});
     const [error, setError] = useState();
 
-    console.log("contactReq: ", contactReq);
+    // console.log("contactReq: ", contactReq);
 
     const nextStep = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -32,7 +32,7 @@ export default function ContactForm() {
             const resp = await axios.post("/contact-us", contactReq);
             console.log("resp: ", resp);
 
-            if (resp.emailSended) {
+            if (resp.data.emailSended) {
                 setIsFinished(true);
             } else {
                 setIsFailed(true);
@@ -46,18 +46,29 @@ export default function ContactForm() {
 
     const Form = () =>
         activeStep === 0 ? (
-            <StepA next={next} nextStep={nextStep} />
+            <StepA
+                next={next}
+                nextStep={nextStep}
+                setContactReq={setContactReq}
+                contactReq={contactReq}
+            />
         ) : (
             <StepB backStep={backStep} confirmAndSend={confirmAndSend} />
         );
 
     let Confirmation = () => {
-        isFinished || isFailed ? (
-            <StepC isFailed={isFailed} isFinished={isFinished} error={error} />
-        ) : (
-            <div className="loader"></div>
-        );
+        if (isFinished) {
+            return <StepC isFinished={isFinished} />;
+        } else {
+            return <div className="loader"></div>;
+        }
     };
+
+    if (error) {
+        Confirmation = () => {
+            return <StepC isFailed={isFailed} error={error} />;
+        };
+    }
 
     return <>{activeStep === steps.length ? <Confirmation /> : <Form />}</>;
 }

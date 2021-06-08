@@ -19,6 +19,7 @@ export default function Contact() {
 
         // returned function will be called on component unmount
         return () => {
+            console.log("component will unmount");
             window.removeEventListener("scroll", handleScroll);
         };
     }, []);

@@ -20,11 +20,12 @@ export default function StepB({ backStep, confirmAndSend }) {
     const handleChange = (e) => {
         e.preventDefault();
         console.log("e in handleChange: ", e);
-        setAnswer(e);
+        setAnswer(e.target.valueAsNumber);
     };
 
     const handleSubmit = () => {
         if (rightAnswer === answer) {
+            console.log("right answer: ", answer);
             confirmAndSend();
         } else {
             console.log("wrong answer: ", answer);
