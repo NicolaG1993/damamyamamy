@@ -72,7 +72,9 @@ export default function StepA({ next }) {
                 <textarea placeholder="Messaggio" name="message" id="message" />
             </div>
             <div className="contact-form-col-full">
-                <button type="submit">Invia</button>
+                <button type="submit" className="btn2">
+                    Invia
+                </button>
             </div>
         </form>
     );

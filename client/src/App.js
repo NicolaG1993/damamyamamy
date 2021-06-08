@@ -280,7 +280,7 @@ fixare bug -> useEffect in Contact per scroll ri-rendera il form 🐲
     (usare localStorage?)
     (soluzione: React.memo per annullare il re-render di ContactForm ) 
 gestione degli errori e dei messaggi (input obbligatori mancanti, errore da SES) 🐔
-design delle varie view in ContactForm 🐔
+design delle varie view in ContactForm 🐲
 
 form in filter-bar diventa 0 opacitá ma non é display hidden? 🐲
     (overflow is the answer) 

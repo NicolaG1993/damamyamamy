@@ -183,9 +183,10 @@ a {
     cursor: pointer;
     min-width: 70px;
     letter-spacing: 1px;
+    transition: 0.2s ease;
 }
 
-.inverted-btn {
+/* .inverted-btn {
     border: solid 2px rgb(231, 134, 235);
     color: rgb(231, 134, 235);
     background-color: transparent;
@@ -196,8 +197,7 @@ a {
     border: solid 2px rgb(231, 134, 235);
     background-color: rgb(231, 134, 235);
     color: white;
-    /* box-shadow: 0px 3px 4px #00000048; */
-}
+} */
 
 .circle {
     border-radius: 50%;
@@ -1692,25 +1692,44 @@ label {
 }
 .contact-form-col-full > button {
     height: 100%;
-    border-radius: 25px;
     width: 150px;
-    font-weight: bold;
+    border-radius: 25px;
     cursor: pointer;
-    background-color: rgb(231, 134, 235);
-    color: white;
-    border: solid 2px ghostwhite;
     transition: 0.2s ease;
 }
-.contact-form-col-full > button:hover {
+/* .contact-form-col-full > button:hover {
     background-color: rgba(255, 255, 255, 0);
     color: rgb(231, 134, 235);
     border: solid 2px rgb(231, 134, 235);
-}
+} */
 .contact-form * input,
 .contact-form * textarea {
     border-radius: 10px;
     background-color: rgba(232, 134, 235, 0.315);
     border: none;
+}
+
+/* STEPS */
+
+.stepB > div:nth-child(1) {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 30px;
+}
+.stepB > div:nth-child(1) > label {
+    width: 200px;
+    padding-left: 15px;
+    color: #414141;
+}
+
+.stepB > div:nth-child(1) > input {
+    width: 300px;
+}
+
+.stepB > div:nth-child(2) {
+    display: flex;
+    column-gap: 15px;
 }
 
 /*************************************

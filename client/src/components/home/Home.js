@@ -65,7 +65,7 @@ export default class Home extends Component {
                     style={{ padding: this.state.style.shortlistPadding }}
                 >
                     <h2>IN NEGOZIO</h2>
-                    <Link to={"/shop"} className={"fake-btn inverted-btn"}>
+                    <Link to={"/shop"} className={"fake-btn btn-dark2"}>
                         Vedi tutti gli articoli
                     </Link>
 

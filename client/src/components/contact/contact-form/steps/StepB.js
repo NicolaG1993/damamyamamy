@@ -33,17 +33,29 @@ export default function StepB({ backStep, confirmAndSend }) {
     };
 
     return (
-        <div>
-            <span>Quanto fa 2 + 3?</span>
-            <input
-                type="number"
-                placeholder="Risposta..."
-                name="robotcheck"
-                id="robotcheck"
-                onChange={(e) => handleChange(e)}
-            />
-            <button onClick={backStep}>Torna indietro</button>
-            <button onClick={() => handleSubmit(answer)}>Invia</button>
+        <div className="stepB">
+            <div>
+                <label>Quanto fa 2 + 3?</label>
+                <input
+                    type="number"
+                    placeholder="Risposta..."
+                    name="robotcheck"
+                    id="robotcheck"
+                    onChange={(e) => handleChange(e)}
+                />
+            </div>
+
+            <div>
+                <button className={"layout-button btn2"} onClick={backStep}>
+                    Torna indietro
+                </button>
+                <button
+                    className={"layout-button btn2"}
+                    onClick={() => handleSubmit(answer)}
+                >
+                    Invia
+                </button>
+            </div>
         </div>
     );
 }
