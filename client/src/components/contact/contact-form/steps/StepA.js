@@ -1,16 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 export default function StepA({ next }) {
     const [values, setValues] = useState({});
     console.log("values: ", values);
-
-    useEffect(() => {
-        setValues(JSON.parse(window.localStorage.getItem("values")) || {});
-    }, []);
-
-    useEffect(() => {
-        window.localStorage.setItem("values", JSON.stringify(values));
-    }, [values]);
 
     const handleForm = (e) => {
         // console.log("e: ", e);
@@ -50,7 +42,6 @@ export default function StepA({ next }) {
                     placeholder="Nome*"
                     name="contactname"
                     id="contactname"
-                    defaultValue={values.contactname || ""}
                 />
             </div>
             <div className="contact-form-col-right">
@@ -59,7 +50,6 @@ export default function StepA({ next }) {
                     placeholder="Cognome*"
                     name="contactlast"
                     id="contactlast"
-                    defaultValue={values.contactlast || ""}
                 />
             </div>
             <div className="contact-form-col-left">
@@ -68,7 +58,6 @@ export default function StepA({ next }) {
                     placeholder="Email*"
                     name="email"
                     id="email"
-                    defaultValue={values.email || ""}
                 />
             </div>
             <div className="contact-form-col-right">
@@ -77,16 +66,10 @@ export default function StepA({ next }) {
                     placeholder="Numero di telefono"
                     name="phone"
                     id="phone"
-                    defaultValue={values.phone || ""}
                 />
             </div>
             <div className="contact-form-col-full">
-                <textarea
-                    placeholder="Messaggio"
-                    name="message"
-                    id="message"
-                    defaultValue={values.message || ""}
-                />
+                <textarea placeholder="Messaggio" name="message" id="message" />
             </div>
             <div className="contact-form-col-full">
                 <button type="submit">Invia</button>
