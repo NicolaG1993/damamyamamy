@@ -7,7 +7,7 @@ import StepC from "./steps/StepC";
 
 const steps = ["Contact", "Robot Check"];
 
-export default function ContactForm() {
+function ContactForm() {
     const [activeStep, setActiveStep] = useState(0);
     const [isFinished, setIsFinished] = useState(false);
     const [isFailed, setIsFailed] = useState(false);
@@ -37,10 +37,10 @@ export default function ContactForm() {
             } else {
                 setIsFailed(true);
             }
-            //non so se é scritta giusta ancora 🐔
         } catch (err) {
             console.log("err in contact-us: ", err); //handle error 🐔
             setError(err);
+            setIsFailed(true);
         }
     };
 
@@ -64,14 +64,21 @@ export default function ContactForm() {
         }
     };
 
-    if (error) {
+    if (error || isFailed) {
         Confirmation = () => {
             return <StepC isFailed={isFailed} error={error} />;
         };
     }
 
-    return <>{activeStep === steps.length ? <Confirmation /> : <Form />}</>;
+    return (
+        <div className="contact-form-wrap">
+            <h1 className="contact-form-col-full">Contatta da Mamy a Mamy</h1>
+            {activeStep === steps.length ? <Confirmation /> : <Form />}
+        </div>
+    );
 }
+
+export const MemoizedContactForm = React.memo(ContactForm);
 
 // ho provato ad unire tutto in questo component, ma su ogni input nel form mi si resettava lo state o il component, why?
 //sembrava come un reload

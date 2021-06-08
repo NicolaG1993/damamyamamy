@@ -57,6 +57,7 @@ exports.sendEmail = function (fname, lname, email, phone, message) {
             //questa parte dello status code devo ancora capirla
             //come lo uso?
             //poi devo prendere il body ed portarlo front end per renderizzarlo?
+
             return {
                 statusCode: 200,
                 body: `Message sent`,
@@ -68,6 +69,7 @@ exports.sendEmail = function (fname, lname, email, phone, message) {
                 //ricevo 200 anche se catch si attiva, why?
                 statusCode: 500,
                 body: `Message unsuccesfully sent, error: ${err}`,
+                error: err,
             };
         });
 };

@@ -262,7 +262,7 @@ dovrei usare l'eventlistener per scroll in App? 🐲
 NEXT STEPS:
 🐲 🐔
 filtra/ricerca in shop 🐲
-come fare suggested items in list comp 🐔
+come fare suggested items in list comp 🐲
 
 completare slider 🐲
 
@@ -274,14 +274,23 @@ fare "/contacts" 🐲
 
 aggiungere parallax effect 🐲
 migliorare style di filterbar in Shop 🐔
-attivare modulo in Contact 🐔
 
-form in filter-bar diventa 0 opacitá ma non é display hidden, trovare il modo di dargli la classe dopo 1s, con js? 🐔
+attivare modulo in Contact 🐲
+fixare bug -> useEffect in Contact per scroll ri-rendera il form 🐔
+    (usare localStorage?)
+    (soluzione: React.memo per annullare il re-render di ContactForm ) 
+gestione degli errori e dei messaggi (input obbligatori mancanti, errore da SES) 🐔
+design delle varie view in ContactForm 🐔
+
+form in filter-bar diventa 0 opacitá ma non é display hidden? 🐲
+    (overflow is the answer) 
 
 BACKEND:
 🐲 🐔
 creare le varie lists in psql 🐔
 fare tutta parte di commerce.js (server side e react requests) 🐔
 fare tutta parte di stripe (?) 🐔
+corretta gestione generale degli errori, compresa di messaggi 🐔
+    (sia per post requests tipo forms o inputs, sia per le varie risposte da servers o api)
 
 */

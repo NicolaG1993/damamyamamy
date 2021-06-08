@@ -3,7 +3,7 @@
 import { css, jsx } from "@emotion/react";
 import React, { useState, useEffect } from "react";
 
-import ContactForm from "./contact-form/ContactForm";
+import { MemoizedContactForm } from "./contact-form/ContactForm";
 
 export default function Contact() {
     const [parallaxHeight, setParallaxHeight] = useState();
@@ -53,7 +53,7 @@ export default function Contact() {
                 `}
             >
                 <div className="contact-wrap">
-                    <ContactForm />
+                    <MemoizedContactForm />
                     <div className="contact-list">
                         <div className="contact-list-wrap">
                             <h2>Contatto</h2>

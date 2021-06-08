@@ -1540,7 +1540,7 @@ label {
     /* justify-content: center; */
 }
 .contact-list-wrap h2 {
-    /* line-height: 40px; */
+    line-height: 40px;
     margin-bottom: 40px;
 }
 .contact-list-box {
@@ -1660,15 +1660,20 @@ label {
     line-height: 30px;
 }
 /* Contact form */
-
-.contact-form {
+.contact-form-wrap {
     float: left;
+    width: 50%;
+}
+.contact-form-wrap > h1 {
+    height: 70px;
+    margin-bottom: 15px;
+}
+.contact-form {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 70px 40px 40px 200px 40px;
+    grid-template-rows: 40px 40px 200px 40px;
     row-gap: 15px;
     column-gap: 15px;
-    width: 50%;
 }
 .contact-form-col-left {
     grid-column-start: 1;
