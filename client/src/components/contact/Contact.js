@@ -66,13 +66,25 @@ export default function Contact() {
             )
                 return; //return error? 🐔
 
-            const { data } = await axios.post("/contact-us", contactReq);
-            console.log("data: ", data);
-            data.emailSended && setContactReqSended(true); //non so se é scritta giusta ancora 🐔
+            const resp = await axios.post("/contact-us", contactReq);
+            console.log("resp: ", resp);
+            resp.emailSended && setContactReqSended(true); //non so se é scritta giusta ancora 🐔
         } catch (err) {
             console.log("err in getFollowers(actions): ", err); //handle error 🐔
         }
     };
+
+    // const send = (e) => {
+    //     e.preventDefault();
+
+    //     axios
+    //         .post("/contact-us", {
+    //             contactReq,
+    //         })
+    //         .then((res) => {
+    //             console.log(res);
+    //         });
+    // };
 
     return (
         <>
@@ -84,6 +96,7 @@ export default function Contact() {
                 `}
             >
                 <div className="contact-wrap">
+                    {/* <form className="contact-form" onSubmit={(e) => send(e)}> */}
                     <form className="contact-form">
                         <h1 className="contact-form-col-full">
                             Contatta da Mamy a Mamy

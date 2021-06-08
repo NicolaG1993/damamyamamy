@@ -28,6 +28,7 @@ const {
 const db = require("./db");
 const bc = require("./bc");
 const ses = require("./ses");
+const sesContactUs = require("./ses-contact-us");
 const s3 = require("./s3");
 const { uploader } = require("./upload");
 
@@ -94,7 +95,8 @@ app.post("/contact-us", (req, res) => {
     const phone = req.body.phone || "";
     const message = req.body.message;
 
-    ses.contactUs(fname, lname, email, phone, message)
+    sesContactUs
+        .sendEmail(fname, lname, email, phone, message)
         .then(res.json({ emailSended: true }))
         .catch((err) => {
             console.log("ERR in ses.sendEmail: ", err);

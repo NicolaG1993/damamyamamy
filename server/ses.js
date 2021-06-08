@@ -37,28 +37,3 @@ exports.sendEmail = function (recipient, message, subject) {
         .then(() => console.log("ses.sendEmail worked!"))
         .catch((err) => console.log(err));
 };
-
-exports.contactUs = function (fname, lname, email, phone, message) {
-    return ses
-        .contactUs({
-            // whatever email address you verified should go here!
-            Source: `${lname} ${fname} <${email}>`,
-            Destination: {
-                ToAddresses: "nicog.designer@gmail.com",
-            },
-            Message: {
-                Body: {
-                    Text: {
-                        Data: message,
-                        Phone: phone,
-                    },
-                },
-                Subject: {
-                    Data: "Contatto via Sito",
-                },
-            },
-        })
-        .promise()
-        .then(() => console.log("ses.contactUs worked!"))
-        .catch((err) => console.log(err));
-};
