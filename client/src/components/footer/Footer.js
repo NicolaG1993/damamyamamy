@@ -20,6 +20,7 @@ export default function Footer() {
     }, []);
 
     const handleScroll = () => {
+        //if window.width > ?px
         setScrollTop(window.scrollY);
     };
 

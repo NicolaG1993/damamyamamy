@@ -18,6 +18,8 @@ class App extends Component {
         this.state = {
             navIsActive: false,
             notAvailables: [],
+            windowWidth: 0,
+            windowHeight: 0,
         };
 
         this.toggleNav = this.toggleNav.bind(this);
@@ -27,10 +29,13 @@ class App extends Component {
         this.handleEmptyCart = this.handleEmptyCart.bind(this);
         this.handleCaptureCheckout = this.handleCaptureCheckout.bind(this);
         this.refreshCart = this.refreshCart.bind(this);
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     }
 
     async componentDidMount() {
         // console.log("App component did mount");
+        this.updateWindowDimensions();
+        window.addEventListener("resize", this.updateWindowDimensions);
 
         try {
             this.props.dispatch(loadData());
@@ -51,6 +56,10 @@ class App extends Component {
         } catch (err) {
             console.log("err in app-->componentDidMount: ", err);
         }
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updateWindowDimensions);
     }
 
     toggleNav() {
@@ -126,8 +135,15 @@ class App extends Component {
         }
     }
 
+    updateWindowDimensions() {
+        this.setState({
+            windowWidth: window.innerWidth,
+            windowHeight: window.innerHeight,
+        });
+    }
+
     render() {
-        // console.log("this.state in app: ", this.state);
+        console.log("this.state in app: ", this.state);
         // console.log("redux state in app: ", this.props.state);
         let reduxState = this.props.state;
 

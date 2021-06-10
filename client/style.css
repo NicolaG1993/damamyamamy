@@ -2347,12 +2347,17 @@ RESPONSIVENESS:
     HOME:
         ...
     FOOTER:
-        creare nuovo layout (centrale, unica colonna) 🐔
+        creare nuovo layout (<720px) (centrale, unica colonna) 🐔
         layout per social icons (direi sotto a tutto, in griglia) 🐔
+        rimuovere animazione su scroll per telefoni 🐔
 
+
+    guardare best screen sizes 
+    guardare best break points
+    guardare se cé modo di vedere il dispositivo
 */
 
-/* guardare best screen sizes */
+/*  */
 
 /*
 rgb(45, 48, 70)
