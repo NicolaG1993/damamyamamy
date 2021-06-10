@@ -4,10 +4,12 @@ import { css, jsx } from "@emotion/react";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-export default function Footer() {
+export default function Footer({ windowWidth }) {
     const [parallaxHeight, setParallaxHeight] = useState();
     const [scrollTop, setScrollTop] = useState();
     const currentYear = new Date().getFullYear();
+    // console.log("scrollTop: ", scrollTop);
+    // console.log("windowWidth: ", windowWidth);
 
     useEffect(() => {
         // component did mount
@@ -19,9 +21,10 @@ export default function Footer() {
         };
     }, []);
 
-    const handleScroll = () => {
-        //if window.width > ?px
+    let handleScroll = () => {
         setScrollTop(window.scrollY);
+        //if window.width > ?px
+        //oppure vedere se trovo width passando event
     };
 
     useEffect(() => {
@@ -31,8 +34,11 @@ export default function Footer() {
         ) {
             setParallaxHeight(`0`);
         } else {
-            setParallaxHeight(`190px`);
+            if (windowWidth <= 720) {
+                setParallaxHeight(`0`);
+            } else setParallaxHeight(`190px`);
         }
+
         // un altro caso per if: se l'altezza della pagina é quasi uguale all'altezza dello schermo
     }, [scrollTop]);
 

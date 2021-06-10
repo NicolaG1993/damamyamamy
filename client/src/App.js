@@ -18,8 +18,8 @@ class App extends Component {
         this.state = {
             navIsActive: false,
             notAvailables: [],
-            windowWidth: 0,
-            windowHeight: 0,
+            windowWidth: window.innerWidth,
+            windowHeight: window.innerHeight,
         };
 
         this.toggleNav = this.toggleNav.bind(this);
@@ -143,7 +143,7 @@ class App extends Component {
     }
 
     render() {
-        console.log("this.state in app: ", this.state);
+        // console.log("this.state in app: ", this.state);
         // console.log("redux state in app: ", this.props.state);
         let reduxState = this.props.state;
 
@@ -248,7 +248,7 @@ class App extends Component {
                             render={() => <DocExample />}
                         />
                     </div>
-                    <Footer />
+                    <Footer windowWidth={this.state.windowWidth} />
                 </div>
             </BrowserRouter>
         );
@@ -290,6 +290,9 @@ fare "/contacts" 🐲
 
 aggiungere parallax effect 🐲
 migliorare style di filterbar in Shop 🐔
+
+si puo scrivere handleScroll dei vari parallax in App? 🐔
+    come con updateWindowDimensions
 
 attivare modulo in Contact 🐲
 fixare bug -> useEffect in Contact per scroll ri-rendera il form 🐲

@@ -2299,6 +2299,69 @@ label {
     }
 }
 
+@media screen and (max-width: 720px) {
+    .footer {
+        grid-template-columns: 1fr;
+        height: auto;
+        text-align: center;
+        row-gap: 30px;
+    }
+
+    .legal-footer,
+    .contact-footer,
+    .social-footer {
+        padding-top: 30px;
+        border-top: 1px solid #c3c3c3;
+    }
+
+    .footer * h4 {
+        font-size: 22px;
+        margin-bottom: 15px;
+    }
+
+    .footer * a,
+    .footer * p {
+        margin-bottom: 8px;
+    }
+    /* 
+    .social-footer {
+        flex-wrap: wrap;
+        flex-direction: row;
+        align-content: center;
+        justify-content: space-between;
+    } */
+    .social-footer {
+        padding-top: 40px;
+        padding-bottom: 10px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 90px 90px;
+        column-gap: 35px;
+        row-gap: 30px;
+        align-items: center;
+    }
+
+    .social-footer > a:nth-child(1) {
+        justify-self: end;
+    }
+    .social-footer > a:nth-child(2) {
+        justify-self: start;
+    }
+    .social-footer > a:nth-child(3) {
+        justify-self: end;
+    }
+    .social-footer > a:nth-child(4) {
+        justify-self: start;
+        height: 90px;
+    }
+
+    .social-footer > a {
+        height: 80px;
+        width: 80px;
+        margin: 0;
+    }
+}
+
 @media screen and (max-width: 650px) {
     .contact-wrap {
         row-gap: 150px;
@@ -2346,10 +2409,15 @@ RESPONSIVENESS:
         ...
     HOME:
         ...
+    HEADER:
+        aumentare in nav il padding top (in generale, non é mai in linea)
+        per mobile nav width 100%
+        sistemare logo (svg?) (width e margin sballati)
+
     FOOTER:
-        creare nuovo layout (<720px) (centrale, unica colonna) 🐔
-        layout per social icons (direi sotto a tutto, in griglia) 🐔
-        rimuovere animazione su scroll per telefoni 🐔
+        creare nuovo layout (<720px) (centrale, unica colonna) 🐲
+        layout per social icons (direi sotto a tutto, in griglia) 🐲
+        rimuovere animazione su scroll per telefoni 🐲
 
 
     guardare best screen sizes 
