@@ -34,21 +34,42 @@ export default class Home extends Component {
     async handleScroll(e) {
         // console.log("e", e);
         let scrollTop = window.scrollY;
+        let windowWidth = this.props.windowWidth;
+        console.log("scrollTop: ", scrollTop);
+        console.log("windowWidth: ", windowWidth);
 
-        if (scrollTop > 1400) {
-            this.setState({
-                style: {
-                    iconslistHeight: `400px`,
-                    shortlistPadding: `100px 40px 90px 40px`,
-                },
-            });
+        if (scrollTop > 1380) {
+            if (windowWidth <= 720) {
+                this.setState({
+                    style: {
+                        iconslistHeight: `1000px`,
+                        shortlistPadding: `100px 20px 120px 20px`,
+                    },
+                });
+            } else {
+                this.setState({
+                    style: {
+                        iconslistHeight: `400px`,
+                        shortlistPadding: `100px 40px 90px 40px`,
+                    },
+                });
+            }
         } else {
-            this.setState({
-                style: {
-                    iconslistHeight: `800px`,
-                    shortlistPadding: `100px 40px 300px 40px`,
-                },
-            });
+            if (windowWidth <= 720) {
+                this.setState({
+                    style: {
+                        iconslistHeight: `800px`,
+                        shortlistPadding: `100px 20px 120px 20px`,
+                    },
+                });
+            } else {
+                this.setState({
+                    style: {
+                        iconslistHeight: `800px`,
+                        shortlistPadding: `100px 40px 300px 40px`,
+                    },
+                });
+            }
         }
     }
 
@@ -75,6 +96,7 @@ export default class Home extends Component {
                         onAddToCart={this.props.onAddToCart}
                         removeFromCart={this.props.removeFromCart}
                         listTitle={"Ultimi arrivi"}
+                        windowWidth={this.props.windowWidth}
                     />
 
                     <ItemsListShort
@@ -83,6 +105,7 @@ export default class Home extends Component {
                         onAddToCart={this.props.onAddToCart}
                         removeFromCart={this.props.removeFromCart}
                         listTitle={"Abbigliamento"}
+                        windowWidth={this.props.windowWidth}
                     />
 
                     <ItemsListShort
@@ -91,6 +114,7 @@ export default class Home extends Component {
                         onAddToCart={this.props.onAddToCart}
                         removeFromCart={this.props.removeFromCart}
                         listTitle={"Neonati"}
+                        windowWidth={this.props.windowWidth}
                     />
                 </div>
 

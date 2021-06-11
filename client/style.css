@@ -2235,6 +2235,10 @@ label {
 }
 
 @media screen and (max-width: 900px) {
+    .products-small {
+        grid-template-columns: 1fr 1fr;
+    }
+
     .contact-wrap {
         flex-direction: column;
         justify-content: center;
@@ -2300,6 +2304,13 @@ label {
 }
 
 @media screen and (max-width: 720px) {
+    .iconslist {
+        padding: 90px 40px;
+    }
+    .iconslist-wrap {
+        flex-direction: column;
+    }
+
     .footer {
         grid-template-columns: 1fr;
         height: auto;
@@ -2363,6 +2374,11 @@ label {
 }
 
 @media screen and (max-width: 650px) {
+    .products-small {
+        grid-template-columns: 1fr;
+        row-gap: 30px;
+    }
+
     .contact-wrap {
         row-gap: 150px;
     }
@@ -2402,18 +2418,22 @@ RESPONSIVENESS:
         creare flex box per contact-list 🐲
         dargli un aspetto di due colonne per tablet, non modificare per telefono 🐲
         sistemare scroll value per tablet e telefono 🐔
-        fixare margini qua e la, su telefono sembra abb. ok 🐔
+        fixare margini qua e la, su telefono sembra abb. ok 🐲
         volendo si puo guardare per dare un break point a h1 🐔
-
     ABOUT:
         ...
     HOME:
-        ...
+        sistemare grid shortlist: x2 (iPad) x1 (telefono) 🐲
+        sistemare grid iconlist: x1 (telefono) 🐲
+        per phone il map di shortlist deve essere di 2 products, non 4 🐲
+        sistemare scroll in base alle varie width -> spesso sballato 🐲
+        sistema margini di conseguenza 🐲
+        in caso fixare anche addToCartBtn visto che hover non é possibile sui products 🐔
+        slide funziona su slider? in caso rimuovere frecce 🐔
     HEADER:
-        aumentare in nav il padding top (in generale, non é mai in linea)
-        per mobile nav width 100%
-        sistemare logo (svg?) (width e margin sballati)
-
+        aumentare in nav il padding top (in generale, non é mai in linea) 🐔
+        per mobile nav width 100% 🐔
+        sistemare logo (svg?) (width e margin sballati) 🐔
     FOOTER:
         creare nuovo layout (<720px) (centrale, unica colonna) 🐲
         layout per social icons (direi sotto a tutto, in griglia) 🐲

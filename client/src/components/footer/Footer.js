@@ -21,7 +21,7 @@ export default function Footer({ windowWidth }) {
         };
     }, []);
 
-    let handleScroll = () => {
+    const handleScroll = () => {
         setScrollTop(window.scrollY);
         //if window.width > ?px
         //oppure vedere se trovo width passando event

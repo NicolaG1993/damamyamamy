@@ -175,6 +175,7 @@ class App extends Component {
                                     notAvailables={this.state.notAvailables}
                                     onAddToCart={this.handleAddToCart}
                                     removeFromCart={this.handleRemoveFromCart}
+                                    windowWidth={this.state.windowWidth}
                                 />
                             )}
                         />
@@ -211,6 +212,7 @@ class App extends Component {
                                     notAvailables={this.state.notAvailables}
                                     onAddToCart={this.handleAddToCart}
                                     removeFromCart={this.handleRemoveFromCart}
+                                    windowWidth={this.state.windowWidth}
                                 />
                             )}
                         />
@@ -293,6 +295,8 @@ migliorare style di filterbar in Shop 🐔
 
 si puo scrivere handleScroll dei vari parallax in App? 🐔
     come con updateWindowDimensions
+é il caso di settare windowWidth windowHeight in redux state? 🐔
+    visto che le passo in vari components
 
 attivare modulo in Contact 🐲
 fixare bug -> useEffect in Contact per scroll ri-rendera il form 🐲

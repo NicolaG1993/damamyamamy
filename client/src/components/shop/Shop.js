@@ -10,6 +10,7 @@ import {
     sortByNew,
     loadNewPage,
     loadExactPage,
+    windowWidth,
 } from "../../redux/actions";
 
 import Product from "./product/Product";

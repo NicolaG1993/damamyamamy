@@ -8,23 +8,44 @@ export default function ItemsListShort({
     onAddToCart,
     removeFromCart,
     listTitle,
+    windowWidth,
 }) {
     const [sliceStart, setSliceStart] = useState(0);
+    const [step, setStep] = useState(4);
 
     const seeNext = () => {
-        setSliceStart((startingPoint) =>
-            startingPoint < products.length - 4
-                ? startingPoint + 4
-                : (startingPoint = 0)
-        );
+        if (windowWidth <= 720) {
+            setSliceStart((startingPoint) =>
+                startingPoint < products.length - 2
+                    ? startingPoint + 2
+                    : (startingPoint = 0)
+            );
+        } else {
+            setSliceStart((startingPoint) =>
+                startingPoint < products.length - 4
+                    ? startingPoint + 4
+                    : (startingPoint = 0)
+            );
+        }
     };
 
     const seePrev = () => {
-        setSliceStart((startingPoint) =>
-            startingPoint < 4
-                ? products.length - (products.length % 4)
-                : startingPoint - 4
-        );
+        if (windowWidth <= 720) {
+            setSliceStart(
+                (startingPoint) =>
+                    startingPoint < 2
+                        ? products.length - (products.length % 2)
+                        : startingPoint - 2
+                //cé un piccolo bug qua
+                //se vado indietro dalla prima non compare nulla (non sempre) 🐔
+            );
+        } else {
+            setSliceStart((startingPoint) =>
+                startingPoint < 4
+                    ? products.length - (products.length % 4)
+                    : startingPoint - 4
+            );
+        }
     };
 
     useEffect(() => {
@@ -33,6 +54,14 @@ export default function ItemsListShort({
         });
         // console.log("products: ", products);
     });
+
+    useEffect(() => {
+        if (windowWidth <= 720) {
+            setStep(2);
+        } else {
+            setStep(4);
+        }
+    }, [windowWidth]);
 
     return (
         <div className="items-shortlist-container">
@@ -63,7 +92,7 @@ export default function ItemsListShort({
                 products.length ? (
                     <div className={"products-small"}>
                         {products
-                            .slice(sliceStart, sliceStart + 4)
+                            .slice(sliceStart, sliceStart + step)
                             .map((product) => (
                                 <div
                                     className={

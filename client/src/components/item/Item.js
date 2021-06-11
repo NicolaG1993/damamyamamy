@@ -12,6 +12,7 @@ export default function Item({
     notAvailables,
     onAddToCart,
     removeFromCart,
+    windowWidth,
 }) {
     let key = match.params.id;
     const [item, setItem] = useState(null);
@@ -171,6 +172,7 @@ export default function Item({
                         notAvailables={notAvailables}
                         onAddToCart={onAddToCart}
                         removeFromCart={removeFromCart}
+                        windowWidth={windowWidth}
                     />
                 </div>
             </>
