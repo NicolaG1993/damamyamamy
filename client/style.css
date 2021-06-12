@@ -305,6 +305,7 @@ label {
 .header-logo-box > a > .logo > img {
     height: 65px;
     float: left;
+    margin-left: -5px;
 }
 
 /*************************************
@@ -2433,9 +2434,9 @@ RESPONSIVENESS:
         fixare margini qua e la, su telefono sembra abb. ok 🐲
         volendo si puo guardare per dare un break point a h1 🐔
     ABOUT:
-        testo che contorna immagine (tablet e telefono)
-        fixare link per contatto
-        dimensioni icons/testo (tablet e telefono)
+        testo che contorna immagine (tablet e telefono) 🐔
+        fixare link per contatto 🐔
+        dimensioni icons/testo (tablet e telefono) 🐔
     HOME:
         sistemare grid shortlist: x2 (iPad) x1 (telefono) 🐲
         sistemare grid iconlist: x1 (telefono) 🐲
@@ -2452,6 +2453,10 @@ RESPONSIVENESS:
         creare nuovo layout (<720px) (centrale, unica colonna) 🐲
         layout per social icons (direi sotto a tutto, in griglia) 🐲
         rimuovere animazione su scroll per telefoni 🐲
+    CART:
+        fixare btn width -> 100% per telefono🐔
+    ITEM:
+        fixare layout di pic e infos (tel: 100% width img e info sotto; tablet: ?) 🐔
 
 
     guardare best screen sizes 
