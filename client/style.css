@@ -2526,9 +2526,72 @@ label {
         grid-row-end: 5;
         margin: 10px 0 30px 0;
     }
-
     .filter-bar-active {
         height: 565px;
+    }
+
+    .cart-comp-wrapper > h2 {
+        margin-bottom: 40px;
+    }
+    .cart-product-info {
+        display: grid;
+        grid-template-columns: 165px 40px;
+        align-items: center;
+        margin: 0 25px;
+    }
+    .cart-total > h3 {
+        margin: 0 25px;
+    }
+    .cart-interact {
+        row-gap: 50px;
+    }
+    .cart-btns {
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
+    .cart-btns > button:nth-child(1) {
+        margin: 0 0 20px 0;
+    }
+    .layout-button {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .cart-product-info {
+        margin: 0 15px;
+    }
+    .cart-total > h3 {
+        margin: 0 15px;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .cart-product-content {
+        grid-template-columns: 1fr 45px;
+    }
+    .cart-remove-button {
+        height: 35px;
+    }
+    .cart-total > h3 {
+        margin: 0;
+    }
+}
+@media screen and (max-width: 340px) {
+    .cart-product-content {
+        grid-template-columns: 1fr 40px;
+    }
+    .cart-remove-button {
+        height: 30px;
+        display: none;
+    }
+    .cart-total {
+        margin: 0 10px;
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
+    .cart-interact > span {
+        display: none;
     }
 }
 
@@ -2567,8 +2630,10 @@ RESPONSIVENESS:
     SHOP:
         fixare column gap (tablet) 🐲
         fixare grid prodotti (phone -> 1 column) 🐲
-        input e label in filter non devono essere in linea (telefono) 🐔
+        input e label in filter non devono essere in linea (telefono) 🐲
         forse bisognerá fixare pag nav se ci sono troppe pagine ? 🐔
+        volendo si possono sistemare margin e size di pag nav (telefono) 🐔
+        spinner troppo grande (telefono) 🐔
     ITEM:
         fixare layout di pic e infos (tel: 100% width img e info sotto; tablet: ?) 🐔
 
