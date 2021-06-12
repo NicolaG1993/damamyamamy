@@ -2576,7 +2576,19 @@ label {
     .cart-total > h3 {
         margin: 0;
     }
+
+    .aboutus-box2-pic > div {
+        height: 240px;
+        width: 240px;
+    }
 }
+@media screen and (max-width: 370px) {
+    .cart-product-info {
+        grid-template-columns: 155px 40px;
+        margin: 0 15px;
+    }
+}
+
 @media screen and (max-width: 340px) {
     .cart-product-content {
         grid-template-columns: 1fr 40px;
@@ -2592,6 +2604,11 @@ label {
     }
     .cart-interact > span {
         display: none;
+    }
+
+    .contact-map-div > h2 {
+        padding: 0 20px;
+        text-align: center;
     }
 }
 
@@ -2620,13 +2637,14 @@ RESPONSIVENESS:
         aumentare in nav il padding top (in generale, non é mai in linea) 🐲
         per mobile nav width 100% 🐲
         sistemare logo (svg?) (width e margin sballati) 🐲
+        logo a volte un po troppo alto ? 🐔
     FOOTER:
         creare nuovo layout (<720px) (centrale, unica colonna) 🐲
         layout per social icons (direi sotto a tutto, in griglia) 🐲
         rimuovere animazione su scroll per telefoni 🐲
     CART:
-        fixare btn width -> 100% per telefono 🐔
-        creare row layout da 2 righe di testo, anche se solo 1 (es. titolo) 🐔
+        fixare btn width -> 100% per telefono 🐲
+        creare row layout da 2 righe di testo, anche se solo 1 (es. titolo) 🐲
     SHOP:
         fixare column gap (tablet) 🐲
         fixare grid prodotti (phone -> 1 column) 🐲
