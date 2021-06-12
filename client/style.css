@@ -432,7 +432,7 @@ label {
     background-color: rgb(233, 233, 233);
     height: 100vh;
     width: 230px;
-    padding: 130px 0 50px 0;
+    padding: 150px 0 50px 0;
 
     right: 0;
     z-index: 19;
@@ -2304,6 +2304,18 @@ label {
 }
 
 @media screen and (max-width: 720px) {
+    #nav {
+        /* padding: 130px 0 50px 0; */
+        width: 100%;
+    }
+    #nav > a {
+        height: 65px;
+    }
+    #nav > a > p {
+        text-align: center;
+        border-bottom: none;
+    }
+
     .iconslist {
         padding: 90px 40px;
     }
@@ -2421,7 +2433,9 @@ RESPONSIVENESS:
         fixare margini qua e la, su telefono sembra abb. ok 🐲
         volendo si puo guardare per dare un break point a h1 🐔
     ABOUT:
-        ...
+        testo che contorna immagine (tablet e telefono)
+        fixare link per contatto
+        dimensioni icons/testo (tablet e telefono)
     HOME:
         sistemare grid shortlist: x2 (iPad) x1 (telefono) 🐲
         sistemare grid iconlist: x1 (telefono) 🐲
@@ -2431,8 +2445,8 @@ RESPONSIVENESS:
         in caso fixare anche addToCartBtn visto che hover non é possibile sui products 🐔
         slide funziona su slider? in caso rimuovere frecce 🐔
     HEADER:
-        aumentare in nav il padding top (in generale, non é mai in linea) 🐔
-        per mobile nav width 100% 🐔
+        aumentare in nav il padding top (in generale, non é mai in linea) 🐲
+        per mobile nav width 100% 🐲
         sistemare logo (svg?) (width e margin sballati) 🐔
     FOOTER:
         creare nuovo layout (<720px) (centrale, unica colonna) 🐲
