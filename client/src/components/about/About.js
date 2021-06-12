@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export default function About(props) {
     console.log("props in About.js: ", props);
@@ -55,7 +56,9 @@ export default function About(props) {
                     </p>
                     <br />
                     <br />
-                    <h4>Contattaci! →</h4>
+                    <h4>
+                        <Link to={"/contact"}>Contattaci!</Link>
+                    </h4>
                 </div>
                 <div className="aboutus-box2-pic">
                     <div></div>

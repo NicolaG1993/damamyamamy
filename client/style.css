@@ -1807,6 +1807,27 @@ label {
     color: rgb(140, 140, 140);
 }
 
+.aboutus-box2-text > h4 {
+    max-width: 150px;
+}
+.aboutus-box2-text > h4 > a {
+    display: flex;
+    align-items: center;
+    color: rgb(231, 134, 235);
+    line-height: 20px;
+}
+.aboutus-box2-text > h4 > a::after {
+    content: "";
+    background-image: url(arrow2.png);
+    background-size: 16px 16px;
+    background-size: cover;
+    display: inline-block;
+
+    width: 16px;
+    height: 16px;
+    margin-left: 14px;
+}
+
 .aboutus-box2-pic {
     justify-self: end;
     align-self: center;
@@ -2324,6 +2345,23 @@ label {
         flex-direction: column;
     }
 
+    .aboutus-box1 {
+        height: 500px;
+    }
+    .aboutus-box2 {
+        grid-template-columns: 1fr;
+        row-gap: 100px;
+    }
+    .aboutus-box2-pic {
+        justify-self: center;
+        align-self: center;
+        grid-column-start: 1;
+        grid-row-start: 1;
+    }
+    .aboutus-box2-pic > div {
+        margin: 0;
+    }
+
     .footer {
         grid-template-columns: 1fr;
         height: auto;
@@ -2422,6 +2460,24 @@ label {
         width: 25px;
         height: 25px;
     }
+
+    .aboutus-box3-text {
+        margin-top: 30px;
+    }
+    .aboutus-box3-text > div {
+        /* justify-content: space-between;
+        column-gap: 25px; */
+        flex-direction: column;
+        row-gap: 40px;
+        height: auto;
+        margin-bottom: 110px;
+    }
+    .aboutus-box3-text > div > p {
+        text-align: center;
+    }
+    .aboutus-box3-text > div:nth-child(2) {
+        flex-direction: column-reverse;
+    }
 }
 
 /*
@@ -2434,9 +2490,9 @@ RESPONSIVENESS:
         fixare margini qua e la, su telefono sembra abb. ok 🐲
         volendo si puo guardare per dare un break point a h1 🐔
     ABOUT:
-        testo che contorna immagine (tablet e telefono) 🐔
-        fixare link per contatto 🐔
-        dimensioni icons/testo (tablet e telefono) 🐔
+        fixare chi siamo (telefono) 🐲
+        fixare link per contatto 🐲
+        dimensioni icons/testo (<600px) 🐔
     HOME:
         sistemare grid shortlist: x2 (iPad) x1 (telefono) 🐲
         sistemare grid iconlist: x1 (telefono) 🐲
@@ -2448,7 +2504,7 @@ RESPONSIVENESS:
     HEADER:
         aumentare in nav il padding top (in generale, non é mai in linea) 🐲
         per mobile nav width 100% 🐲
-        sistemare logo (svg?) (width e margin sballati) 🐔
+        sistemare logo (svg?) (width e margin sballati) 🐲
     FOOTER:
         creare nuovo layout (<720px) (centrale, unica colonna) 🐲
         layout per social icons (direi sotto a tutto, in griglia) 🐲
