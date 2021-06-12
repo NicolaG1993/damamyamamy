@@ -2248,6 +2248,11 @@ label {
 }
 
 @media screen and (max-width: 950px) {
+    .products {
+        column-gap: 30px;
+        row-gap: 40px;
+    }
+
     .contact-form-wrap {
         width: 51%;
     }
@@ -2474,9 +2479,56 @@ label {
     }
     .aboutus-box3-text > div > p {
         text-align: center;
+        width: 100%;
     }
     .aboutus-box3-text > div:nth-child(2) {
         flex-direction: column-reverse;
+    }
+
+    .products {
+        grid-template-columns: 1fr;
+        row-gap: 55px;
+    }
+    .product-content > a {
+        grid-template-rows: 200px auto;
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .filter-form {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: auto;
+        row-gap: 15px;
+    }
+    .filter-form-col-left,
+    .filter-form-col-right,
+    .filter-form-col-full {
+        grid-column-start: 1;
+        grid-column-end: 5;
+    }
+    .filter-form-col-right {
+        margin-bottom: 15px;
+    }
+    .filter-form > .filter-form-col-right:nth-child(2) {
+        grid-row-start: 1;
+        grid-row-end: 2;
+    }
+    .filter-form > .filter-form-col-left:nth-child(3) {
+        grid-row-start: 2;
+        grid-row-end: 3;
+    }
+    .filter-form > .filter-form-col-right:nth-child(4) {
+        grid-row-start: 3;
+        grid-row-end: 4;
+    }
+    .filter-form > .filter-form-col-full {
+        grid-row-start: 4;
+        grid-row-end: 5;
+        margin: 10px 0 30px 0;
+    }
+
+    .filter-bar-active {
+        height: 565px;
     }
 }
 
@@ -2510,7 +2562,13 @@ RESPONSIVENESS:
         layout per social icons (direi sotto a tutto, in griglia) 🐲
         rimuovere animazione su scroll per telefoni 🐲
     CART:
-        fixare btn width -> 100% per telefono🐔
+        fixare btn width -> 100% per telefono 🐔
+        creare row layout da 2 righe di testo, anche se solo 1 (es. titolo) 🐔
+    SHOP:
+        fixare column gap (tablet) 🐲
+        fixare grid prodotti (phone -> 1 column) 🐲
+        input e label in filter non devono essere in linea (telefono) 🐔
+        forse bisognerá fixare pag nav se ci sono troppe pagine ? 🐔
     ITEM:
         fixare layout di pic e infos (tel: 100% width img e info sotto; tablet: ?) 🐔
 
@@ -2518,6 +2576,8 @@ RESPONSIVENESS:
     guardare best screen sizes 
     guardare best break points
     guardare se cé modo di vedere il dispositivo
+
+    controllare i vari loaders(spinner) su telefono 🐔
 */
 
 /*  */
