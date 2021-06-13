@@ -308,6 +308,9 @@ design delle varie view in ContactForm 🐲
 form in filter-bar diventa 0 opacitá ma non é display hidden? 🐲
     (overflow is the answer) 
 
+aggiunge funzionalitá in Item -> galleria immagini in overlay 🐔
+aggiunge funzionalitá in Item -> anteprima galleria immagini 🐔
+
 BACKEND:
 🐲 🐔
 creare le varie lists in psql 🐔

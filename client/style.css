@@ -1077,7 +1077,8 @@ label {
     box-shadow: 0px 0px 10px #00000025;
     margin: 40px 20px 40px 20px;
     padding: 20px;
-    height: 440px;
+    min-height: 430px;
+    max-height: 500px;
     border-radius: 12px;
 }
 
@@ -1094,11 +1095,13 @@ label {
 .item-right-side {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    row-gap: 14px;
 }
 
 .item-right-side > h1 {
     /* line-height: 50px; */
+}
+.item-right-side > button {
 }
 
 .item-right-side-price {
@@ -1132,6 +1135,15 @@ label {
     align-items: center;
     /* margin-top: 20px; */
     margin-bottom: 15px;
+}
+.item-right-side-infos-inner-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 10px;
+}
+.item-right-side-conditions-wrap {
+    display: flex;
+    align-items: center;
 }
 .item-tag {
     background-color: rgb(230, 230, 230);
@@ -2253,6 +2265,21 @@ label {
         row-gap: 40px;
     }
 
+    .item-card {
+        justify-content: space-between;
+    }
+    .item-left-side {
+        margin-right: 15px;
+        width: 55%;
+    }
+    .item-left-side > img {
+        width: 100%;
+    }
+    .item-right-side {
+        max-width: 41%;
+        min-width: 37%;
+    }
+
     .contact-form-wrap {
         width: 51%;
     }
@@ -2327,6 +2354,77 @@ label {
     .contact-icons-div > div:nth-child(3) > .contact-icons {
         height: 70px;
         width: 70px;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .item-card {
+        flex-direction: column;
+        max-height: none;
+        row-gap: 30px;
+        /* justify-content: center;
+        align-items: center; */
+        padding: 25px 20px;
+    }
+    .item-left-side {
+        margin-right: 0;
+        width: 100%;
+    }
+    .item-left-side > img {
+        max-height: 50vh;
+    }
+    .item-right-side {
+        min-width: none;
+        max-width: none;
+    }
+    .item-right-side-price h2 {
+        /* text-align: end; */
+    }
+    .product-divider-small {
+        width: 100%;
+    }
+    .item-right-side-infos-box {
+        margin-top: 10px;
+    }
+    .item-right-side-infos,
+    .item-right-side-conditions {
+        margin-bottom: 20px;
+        /* justify-content: space-between; */
+        flex-direction: column;
+        align-items: flex-start;
+        /* align-items: center; */
+        row-gap: 10px;
+    }
+    .item-right-side-infos span,
+    .item-right-side-conditions span {
+        /* width: 95px; */
+        margin: 0;
+    }
+    .item-right-side-infos-box > div:nth-child(3) > span {
+        width: auto;
+        margin-right: 20px;
+    }
+    /* .items-shortlist-topbar {
+        text-align: center;
+    } */
+    .item-comp
+        > .shortlist
+        > .items-shortlist-container
+        > .items-shortlist-topbar {
+        display: flex;
+        justify-content: center;
+    }
+    .item-comp
+        > .shortlist
+        > .items-shortlist-container
+        > .items-shortlist-topbar
+        > .items-shortlist-btns {
+        display: flex;
+        justify-content: center;
+    }
+
+    .items-shortlist-btns > button {
+        margin: 10px 20px;
     }
 }
 
@@ -2421,7 +2519,6 @@ label {
         justify-self: start;
         height: 90px;
     }
-
     .social-footer > a {
         height: 80px;
         width: 80px;
@@ -2581,6 +2678,11 @@ label {
         height: 240px;
         width: 240px;
     }
+
+    .contact-map-div {
+        padding: 0 20px;
+        text-align: center;
+    }
 }
 @media screen and (max-width: 370px) {
     .cart-product-info {
@@ -2604,11 +2706,6 @@ label {
     }
     .cart-interact > span {
         display: none;
-    }
-
-    .contact-map-div > h2 {
-        padding: 0 20px;
-        text-align: center;
     }
 }
 
@@ -2653,7 +2750,12 @@ RESPONSIVENESS:
         volendo si possono sistemare margin e size di pag nav (telefono) 🐔
         spinner troppo grande (telefono) 🐔
     ITEM:
-        fixare layout di pic e infos (tel: 100% width img e info sotto; tablet: ?) 🐔
+        fixare layout di pic e infos (tel: 100% width img e info sotto; tablet: ?) 🐲
+        se <1000px iniziare a scalare immagine  🐲
+        trovare soluzione per width eccessivo di h1 quando va a capo 🐲
+        nuovo layout frecce di related items per telefono 🐲
+        fixare width text in infos per small devices 🐔
+        fixare tags: non tengono la loro forma quando non cé spazio (si schiacciano invece di andare a capo) 🐔 
 
 
     guardare best screen sizes 

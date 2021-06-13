@@ -44,7 +44,7 @@ export default function Item({
 
     if (item) {
         return (
-            <>
+            <div className="item-comp">
                 <div className="item-card">
                     <div className="item-left-side">
                         <img src={item.media.source || "test1.jpg"} />
@@ -62,8 +62,10 @@ export default function Item({
                         <div className={"item-right-side-infos-box"}>
                             <div className="item-right-side-conditions">
                                 <span>Condizioni:</span>
-                                <h5>come nuovo</h5>
-                                <div className="circle"></div>
+                                <div className="item-right-side-conditions-wrap">
+                                    <h5>come nuovo</h5>
+                                    <div className="circle"></div>
+                                </div>
                             </div>
                             {/* <div className="item-right-side-infos">
                             <span>Descrizione:</span>
@@ -80,26 +82,27 @@ export default function Item({
                             </div>
                             <div className="item-right-side-infos">
                                 <span>Tags:</span>
+                                <div className="item-right-side-infos-inner-wrap">
+                                    <Link
+                                        to={{
+                                            pathname: "/shop",
+                                            tag: item.categories[0].name,
+                                        }}
+                                        className="item-tag"
+                                    >
+                                        {item.categories[0].name}
+                                    </Link>
 
-                                <Link
-                                    to={{
-                                        pathname: "/shop",
-                                        tag: item.categories[0].name,
-                                    }}
-                                    className="item-tag"
-                                >
-                                    {item.categories[0].name}
-                                </Link>
-
-                                <Link
-                                    to={{
-                                        pathname: "/shop",
-                                        tag: "3/5 anni",
-                                    }}
-                                    className="item-tag"
-                                >
-                                    3/5 anni
-                                </Link>
+                                    <Link
+                                        to={{
+                                            pathname: "/shop",
+                                            tag: "3/5 anni",
+                                        }}
+                                        className="item-tag"
+                                    >
+                                        3/5 anni
+                                    </Link>
+                                </div>
                             </div>
                             <div className="item-right-side-infos">
                                 <span>Disponibilitá:</span>
@@ -175,7 +178,7 @@ export default function Item({
                         windowWidth={windowWidth}
                     />
                 </div>
-            </>
+            </div>
         );
     }
 }
