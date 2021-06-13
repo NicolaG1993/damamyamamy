@@ -2407,24 +2407,38 @@ label {
     /* .items-shortlist-topbar {
         text-align: center;
     } */
-    .item-comp
-        > .shortlist
-        > .items-shortlist-container
-        > .items-shortlist-topbar {
-        display: flex;
-        justify-content: center;
-    }
-    .item-comp
-        > .shortlist
-        > .items-shortlist-container
-        > .items-shortlist-topbar
-        > .items-shortlist-btns {
-        display: flex;
-        justify-content: center;
+    .item-right-side-conditions-wrap,
+    .item-right-side-infos-inner-wrap,
+    .item-right-side-infos > p {
+        margin-left: 10px;
     }
 
-    .items-shortlist-btns > button {
+    #item-comp > div.shortlist > div > div.items-shortlist-topbar {
+        display: flex;
+        justify-content: center;
+    }
+    #item-comp
+        > div.shortlist
+        > div
+        > div.items-shortlist-topbar
+        > .items-shortlist-btns {
+        position: relative;
+    }
+    #item-comp
+        > div.shortlist
+        > div
+        > div.items-shortlist-topbar
+        > .items-shortlist-btns
+        > button {
         margin: 10px 20px;
+    }
+    .item-description {
+        padding-top: 30px;
+        margin-bottom: 50px;
+    }
+
+    .item-description-display > div > p {
+        line-height: 25px;
     }
 }
 
@@ -2604,7 +2618,7 @@ label {
         grid-column-end: 5;
     }
     .filter-form-col-right {
-        margin-bottom: 15px;
+        margin-bottom: 5px;
     }
     .filter-form > .filter-form-col-right:nth-child(2) {
         grid-row-start: 1;
@@ -2617,6 +2631,7 @@ label {
     .filter-form > .filter-form-col-right:nth-child(4) {
         grid-row-start: 3;
         grid-row-end: 4;
+        margin-bottom: 15px;
     }
     .filter-form > .filter-form-col-full {
         grid-row-start: 4;
@@ -2624,7 +2639,7 @@ label {
         margin: 10px 0 30px 0;
     }
     .filter-bar-active {
-        height: 565px;
+        height: 540px;
     }
 
     .cart-comp-wrapper > h2 {

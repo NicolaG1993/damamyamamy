@@ -44,7 +44,7 @@ export default function Item({
 
     if (item) {
         return (
-            <div className="item-comp">
+            <div id="item-comp">
                 <div className="item-card">
                     <div className="item-left-side">
                         <img src={item.media.source || "test1.jpg"} />
@@ -149,11 +149,15 @@ export default function Item({
 
                     <div className="item-description-display">
                         {infoDisplay === "description" ? (
-                            <p
+                            <div
+                                className="dangerHTML-box"
                                 dangerouslySetInnerHTML={{
-                                    __html: item.description,
+                                    __html: item.description.replace(
+                                        /\u00a0/g,
+                                        " "
+                                    ),
                                 }}
-                            ></p>
+                            ></div>
                         ) : (
                             <p>Prodotto mai utilizzato</p>
                         )}

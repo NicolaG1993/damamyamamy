@@ -311,6 +311,8 @@ form in filter-bar diventa 0 opacitá ma non é display hidden? 🐲
 aggiunge funzionalitá in Item -> galleria immagini in overlay 🐔
 aggiunge funzionalitá in Item -> anteprima galleria immagini 🐔
 
+attivare slides per telefono in shortlists e slider invece di frecce 🐔
+
 BACKEND:
 🐲 🐔
 creare le varie lists in psql 🐔
