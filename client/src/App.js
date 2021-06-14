@@ -9,6 +9,7 @@ import { commerce } from "./lib/commerce";
 
 import { Header, Nav, Footer } from "./components";
 import { Home, About, Contact, Shop, Item, Cart, Checkout } from "./components";
+import { PrivacyAndCookiePolicy } from "./components";
 import DocExample from "./components/docs/DocExample";
 
 class App extends Component {
@@ -248,6 +249,11 @@ class App extends Component {
                             exact
                             path="/example-doc"
                             render={() => <DocExample />}
+                        />
+                        <Route
+                            exact
+                            path="/privacy-and-cookie-policy"
+                            render={() => <PrivacyAndCookiePolicy />}
                         />
                     </div>
                     <Footer windowWidth={this.state.windowWidth} />

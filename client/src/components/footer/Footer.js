@@ -61,10 +61,14 @@ export default function Footer({ windowWidth }) {
                             <Link to={"/shop"}>Prodotti</Link>
                         </p>
                         <p>
-                            <Link to={"/example-doc"}>Domande frequenti</Link>
+                            <Link to={"/example-doc"} document="">
+                                Domande frequenti
+                            </Link>
                         </p>
                         <p>
-                            <Link to={"/example-doc"}>Vendi</Link>
+                            <Link to={"/example-doc"} document="">
+                                Vendi
+                            </Link>
                         </p>
                         <p>
                             <Link to={"/contact"}>Contattaci / Assistenza</Link>
@@ -80,13 +84,17 @@ export default function Footer({ windowWidth }) {
                     >
                         <h4>Informazioni</h4>
                         <p>
-                            <Link to={"/example-doc"}>Note legali</Link>
+                            <Link to={"/example-doc"} document="">
+                                Note legali
+                            </Link>
                         </p>
                         <p>
-                            <Link to={"/example-doc"}>Cookies policy</Link>
+                            <Link to={"/privacy-and-cookie-policy"}>
+                                Cookies policy
+                            </Link>
                         </p>
                         <p>
-                            <Link to={"/example-doc"}>
+                            <Link to={"/example-doc"} document="">
                                 Termini e condizioni
                             </Link>
                         </p>

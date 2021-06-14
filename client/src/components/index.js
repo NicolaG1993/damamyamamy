@@ -11,3 +11,6 @@ export { default as Shop } from "./shop/Shop";
 export { default as Item } from "./item/Item";
 export { default as Cart } from "./cart/Cart";
 export { default as Checkout } from "./checkout-form/checkout/Checkout";
+
+//docs
+export { default as PrivacyAndCookiePolicy } from "./docs/PrivacyAndCookiePolicy";
