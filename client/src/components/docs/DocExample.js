@@ -27,4 +27,11 @@ export default function DocExample({ document }) {
     );
 }
 
-// solo per test , poi eliminare file
+/*
+
+solo per test , poi eliminare file
+
+vedere qual'é il modo migliore per render ogni doc,
+    sarebbe bello un component dinamico, ma ha senso? 🐔
+
+*/
