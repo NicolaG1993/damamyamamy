@@ -252,7 +252,7 @@ class App extends Component {
                         />
                         <Route
                             exact
-                            path="/privacy-and-cookie-policy"
+                            path="/cookie-policy"
                             render={() => <PrivacyAndCookiePolicy />}
                         />
                     </div>

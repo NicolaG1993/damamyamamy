@@ -1925,13 +1925,32 @@ label {
 ************ DOCS *************
 *************************************/
 .document-comp {
-    padding: 40px 20px;
+    padding: 80px 60px;
+    text-align: justify;
 }
 
 .document-comp > h1 {
     margin-bottom: 50px;
 }
+.document-comp > div:nth-child(2) {
+    margin-left: 20px;
+}
 
+.document-comp * h2,
+.document-comp * h3 {
+    margin-bottom: 0.5rem;
+}
+.document-comp * p,
+.document-comp * address,
+.document-comp * ul {
+    margin-bottom: 1rem;
+    color: #414141;
+}
+.end-paragraph {
+    margin-bottom: 20px;
+    width: 100%;
+    height: 10px;
+}
 /*************************************
 ************ FOOTER *************
 *************************************/
@@ -2667,6 +2686,13 @@ label {
     .layout-button {
         width: 100%;
     }
+
+    .document-comp {
+        padding: 60px 20px;
+    }
+    .document-comp > div:nth-child(2) {
+        margin: 0 10px;
+    }
 }
 
 @media screen and (max-width: 400px) {
@@ -2778,6 +2804,8 @@ RESPONSIVENESS:
     guardare se cé modo di vedere il dispositivo
 
     controllare i vari loaders(spinner) su telefono 🐔
+
+    vedere quando usare rem, em, %, pt, px, etc ... 🐔
 */
 
 /*  */
