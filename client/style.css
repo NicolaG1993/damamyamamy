@@ -2854,7 +2854,15 @@ RESPONSIVENESS:
     vedere quando usare rem, em, %, pt, px, etc ... 🐔
 */
 
-/*  */
+/* DARK COLOR SCHEME */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: rgb(45, 48, 70);
+    }
+    .header {
+        background-color: rgb(40, 44, 71);
+    }
+}
 
 /*
 rgb(45, 48, 70)
