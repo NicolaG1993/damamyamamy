@@ -14,8 +14,17 @@ html {
 
 .CoLoRs {
     color: white;
+    /*body bg*/
     color: ghostwhite;
+    /*cards bg*/
     color: rgb(244, 244, 244);
+    /*header/footer bg*/
+    color: rgb(241, 241, 241);
+    /*nav bg*/
+    color: rgb(233, 233, 233);
+    /*copyrights bar bg*/
+    color: rgb(230, 230, 230);
+    /*product:hover bg + non active selector in item*/
     color: rgb(230, 230, 230);
     color: rgb(172, 172, 172);
     color: #414141;
@@ -2859,8 +2868,142 @@ RESPONSIVENESS:
     body {
         background-color: rgb(45, 48, 70);
     }
-    .header {
+    .header,
+    .footer-comp {
         background-color: rgb(40, 44, 71);
+    }
+    .copyrights {
+        background-color: rgb(26, 29, 44);
+    }
+    #nav {
+        background-color: rgb(37, 41, 65);
+    }
+    #nav > a > p {
+        color: ghostwhite;
+        border-bottom: 1px solid rgb(199, 199, 199);
+        /* border-bottom: 1px solid rgb(26, 29, 44); */
+    }
+    #nav > a:hover {
+        background-color: rgb(26, 29, 44);
+    }
+    .overlay {
+        background: rgb(45, 48, 70);
+    }
+    .cart-icon > svg {
+        fill: ghostwhite;
+    }
+    .cart-icon > svg:hover {
+        fill: rgb(199, 199, 199);
+    }
+    .stick,
+    .stick:before,
+    .stick:after,
+    .hamBtn.active .stick:before,
+    .hamBtn.active .stick:after {
+        background-color: ghostwhite;
+    }
+    .footer * a:hover {
+        color: ghostwhite;
+    }
+    .social-footer * svg:hover {
+        fill: ghostwhite;
+    }
+    .product-content:hover {
+        background-color: rgb(37, 41, 65);
+        border: 1px solid rgb(26, 29, 44);
+    }
+    .product-divider-small {
+        background-color: rgba(169, 169, 169, 0.5);
+    }
+    .add-cart > svg {
+        fill: rgb(45, 48, 70);
+    }
+    .product-info > h3,
+    .product-info > h4,
+    .product-info > h5,
+    .product-description > p {
+        color: ghostwhite;
+    }
+
+    .aboutus-box1-text {
+        color: ghostwhite;
+    }
+    .aboutus-box2-text p {
+        color: ghostwhite;
+    }
+    .item-card,
+    .item-description-display,
+    .active-selector {
+        background-color: rgb(34, 38, 63);
+        color: ghostwhite;
+    }
+    .not-active-selector {
+        background-color: rgb(26, 29, 44);
+        color: ghostwhite;
+    }
+    .item-right-side > h1 {
+        color: rgb(231, 134, 235);
+    }
+    .item-right-side-infos-box * h5,
+    .item-right-side-infos-box * p,
+    .item-right-side-infos-box * a,
+    .item-description-display,
+    .dark-tone {
+        color: ghostwhite;
+    }
+    .item-tag {
+        background-color: rgb(231, 134, 235);
+    }
+    .item-tag:hover {
+        background-color: rgb(230, 230, 230);
+        color: rgb(45, 48, 70);
+    }
+    .document-comp * p,
+    .document-comp * address,
+    .document-comp * ul,
+    .document-comp * a {
+        color: ghostwhite;
+    }
+    .btn-dark1 {
+        color: white;
+        background-color: rgb(45, 48, 70);
+        border: 2px solid rgb(45, 48, 70);
+    }
+    .btn-dark1:hover {
+        color: rgb(204, 108, 207);
+        background-color: rgb(45, 48, 70);
+        border: 2px solid rgb(231, 134, 235);
+    }
+    .btn2 {
+        background-color: rgba(255, 255, 255, 0);
+        color: rgb(231, 134, 235);
+        border: solid 2px rgb(231, 134, 235);
+    }
+    .btn2:hover {
+        background-color: rgb(231, 134, 235);
+        color: rgb(45, 48, 70);
+        /* border: solid 2px rgb(244, 244, 244); */
+    }
+    ::placeholder {
+        /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: ghostwhite;
+        opacity: 1; /* Firefox */
+    }
+    .contact-list-wrap p,
+    .contact-list-wrap a {
+        color: ghostwhite;
+    }
+    .stepB > div:nth-child(1) > label {
+        color: ghostwhite;
+    }
+    .loader:after {
+        background: rgb(45, 48, 70);
+    }
+    .loader-alternative1:after {
+        background: rgb(34, 38, 63);
+    }
+    .loader-inverted:after {
+        background: rgb(231, 134, 235);
     }
 }
 
