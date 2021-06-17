@@ -317,6 +317,16 @@ label {
     margin-left: -5px;
 }
 
+.header-buttons-box-right {
+    position: relative;
+    justify-self: end;
+    align-self: center;
+
+    display: flex;
+    align-items: center;
+    column-gap: 30px;
+}
+
 /*************************************
 ************ NAV *************
 *************************************/
@@ -451,23 +461,23 @@ label {
     transition: transform 0.8s;
 }
 
-#nav > a {
+#nav > div > a {
     height: 60px;
     display: block;
     /* padding: 0 45px; */
 }
 
-#nav > a > p {
+#nav > div > a > p {
     border-bottom: 1px solid rgb(199, 199, 199);
 }
-#nav > a:nth-child(1) > p {
+#nav > div > a:nth-child(1) > p {
     /* border-top: 1px solid rgb(199, 199, 199); */
 }
-/* #nav > a:nth-child(5) > p {
+/* #nav > div > a:nth-child(5) > p {
     border-bottom: none;
 } */
 
-#nav > a > p {
+#nav > div > a > p {
     /* text-align: center; */
     padding: 0 35px;
     font-size: 15pt;
@@ -478,11 +488,11 @@ label {
     /* text-transform: uppercase; */
 }
 
-#nav > a:hover {
+#nav > div > a:hover {
     background-color: rgb(224, 224, 224);
 }
 
-#nav > a:hover > p {
+#nav > div > a:hover > p {
     font-size: 16pt;
 
     /* color: rgb(204, 108, 207); */
@@ -513,6 +523,24 @@ label {
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s ease-in-out 0.5s, opacity 1s;
+}
+
+/* COLOR MODE BUTTON */
+
+.color-mode-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#color-mode-btn {
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+#color-mode-btn:hover {
+    background-color: darkgray;
 }
 
 /*************************************
@@ -2475,11 +2503,14 @@ label {
     #nav {
         /* padding: 130px 0 50px 0; */
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
-    #nav > a {
+    #nav > div > a {
         height: 65px;
     }
-    #nav > a > p {
+    #nav > div > a > p {
         text-align: center;
         border-bottom: none;
     }
@@ -2788,6 +2819,10 @@ label {
 }
 
 @media screen and (max-width: 340px) {
+    #nav {
+        padding-top: 130px;
+        padding-bottom: 40px;
+    }
     .cart-product-content {
         grid-template-columns: 1fr 40px;
     }
@@ -2861,6 +2896,8 @@ RESPONSIVENESS:
     controllare i vari loaders(spinner) su telefono 🐔
 
     vedere quando usare rem, em, %, pt, px, etc ... 🐔
+
+    devo fixare visioni larghe su telefono (es #nav) 🐔
 */
 
 /* DARK COLOR SCHEME */
@@ -2878,12 +2915,12 @@ RESPONSIVENESS:
     #nav {
         background-color: rgb(37, 41, 65);
     }
-    #nav > a > p {
+    #nav > div > a > p {
         color: ghostwhite;
         border-bottom: 1px solid rgb(199, 199, 199);
         /* border-bottom: 1px solid rgb(26, 29, 44); */
     }
-    #nav > a:hover {
+    #nav > div > a:hover {
         background-color: rgb(26, 29, 44);
     }
     .overlay {
@@ -2984,7 +3021,7 @@ RESPONSIVENESS:
         color: rgb(45, 48, 70);
         /* border: solid 2px rgb(244, 244, 244); */
     }
-    ::placeholder {
+    .contact-form * ::placeholder {
         /* Chrome, Firefox, Opera, Safari 10.1+ */
         color: ghostwhite;
         opacity: 1; /* Firefox */

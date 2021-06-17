@@ -156,10 +156,12 @@ class App extends Component {
                         closeNav={this.closeNav}
                         toggleNav={this.toggleNav}
                         cart={this.state.cart}
+                        windowWidth={this.state.windowWidth}
                     />
                     <Nav
                         navIsActive={this.state.navIsActive}
                         toggleNav={this.toggleNav}
+                        windowWidth={this.state.windowWidth}
                     />
 
                     <div className={"main"}>
