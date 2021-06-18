@@ -12,6 +12,8 @@ import { Home, About, Contact, Shop, Item, Cart, Checkout } from "./components";
 import { PrivacyAndCookiePolicy } from "./components";
 import DocExample from "./components/docs/DocExample";
 
+import { keepTheme } from "./utils/themes";
+
 class App extends Component {
     constructor(props) {
         super(props);
@@ -37,6 +39,8 @@ class App extends Component {
         // console.log("App component did mount");
         this.updateWindowDimensions();
         window.addEventListener("resize", this.updateWindowDimensions);
+
+        keepTheme(); //non so se va qua?
 
         try {
             this.props.dispatch(loadData());

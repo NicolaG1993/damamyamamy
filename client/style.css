@@ -12,31 +12,6 @@ html {
     scroll-behavior: smooth;
 }
 
-.CoLoRs {
-    color: white;
-    /*body bg*/
-    color: ghostwhite;
-    /*cards bg*/
-    color: rgb(244, 244, 244);
-    /*header/footer bg*/
-    color: rgb(241, 241, 241);
-    /*nav bg*/
-    color: rgb(233, 233, 233);
-    /*copyrights bar bg*/
-    color: rgb(230, 230, 230);
-    /*product:hover bg + non active selector in item*/
-    color: rgb(230, 230, 230);
-    color: rgb(172, 172, 172);
-    color: #414141;
-    color: rgb(231, 134, 235);
-    color: rgb(204, 108, 207);
-    color: #35b2de;
-    color: cornflowerblue;
-    /*LOGO*/
-    color: #73c2c5;
-    color: #e38699;
-}
-
 /*************************************
 ************ BODY *************
 *************************************/
@@ -47,10 +22,11 @@ html {
 } mi serve qualcosa del genere? 🐔 */
 
 body {
-    background-color: ghostwhite;
+    background-color: var(--body-bg);
     color: rgb(231, 134, 235);
     font-family: "Nunito Sans";
     overflow-x: hidden;
+    transition: 0.2s ease;
 }
 
 .second-font {
@@ -61,7 +37,7 @@ body {
     color: rgb(204, 108, 207);
 }
 .dark-tone {
-    color: #414141;
+    color: var(--dark-text);
 }
 
 .hidden {
@@ -123,7 +99,7 @@ h4 {
 
 a {
     text-decoration: none;
-    color: #414141;
+    color: var(--dark-text);
     transition: 0.2s ease;
 }
 
@@ -156,26 +132,26 @@ a {
 }
 
 .btn2 {
-    background-color: rgb(231, 134, 235);
-    color: white;
-    border: solid 2px rgb(244, 244, 244);
+    background-color: var(--btn2-bg);
+    color: var(--btn2);
+    border: solid 2px var(--btn2-border);
     font-weight: bold;
 }
 .btn2:hover {
-    background-color: rgba(255, 255, 255, 0);
-    color: rgb(231, 134, 235);
+    background-color: var(--btn2-bg-hover);
+    color: var(--btn2-hover);
     border: solid 2px rgb(231, 134, 235);
 }
 
 .btn-dark1 {
-    color: rgb(204, 108, 207);
-    background-color: white;
+    color: var(--btn-dark1);
+    background-color: var(--btn-dark1-bg);
     border: 2px solid rgb(231, 134, 235);
 }
 .btn-dark1:hover {
-    color: white;
-    background-color: rgb(231, 134, 235);
-    border: 2px solid white;
+    color: var(--btn-dark1-hover);
+    background-color: transparent;
+    border: 2px solid var(--btn-dark1-border-hover);
 }
 
 .btn-dark2 {
@@ -300,7 +276,7 @@ label {
     position: fixed;
     top: 0;
     width: 100%;
-    background-color: rgb(241, 241, 241);
+    background-color: var(--header-bg);
     z-index: 20;
     padding: 3px 20px 0 20px;
     display: grid;
@@ -309,6 +285,7 @@ label {
     align-items: center;
     justify-content: space-between; */
     box-shadow: 0px 5px 10px #00000048;
+    transition: 0.2s ease;
 }
 
 .header-logo-box > a > .logo > img {
@@ -348,11 +325,11 @@ label {
 }
 
 .cart-icon > svg {
-    fill: #acacac;
+    fill: var(--header-icons);
     transition: 0.2s ease;
 }
 .cart-icon > svg:hover {
-    fill: #929292;
+    fill: var(--header-icons-hover);
 }
 
 #cartCounter {
@@ -384,14 +361,10 @@ label {
     justify-content: space-between; */
     cursor: pointer;
 }
-
-#hamBtn1 {
-}
-
 .stick {
     width: 25px;
     height: 4.5px;
-    background-color: rgb(172, 172, 172);
+    background-color: var(--header-icons);
     border-radius: 20px;
     position: absolute;
     top: 50%;
@@ -399,22 +372,19 @@ label {
     transform: translate(-50%, -50%);
     transition: 0.5s;
 }
-
 .stick:before,
 .stick:after {
     content: "";
     position: absolute;
     width: 25px;
     height: 4.5px;
-    background-color: rgb(172, 172, 172);
+    background-color: var(--header-icons);
     transition: 0.5s;
     border-radius: 20px;
 }
-
 .stick:before {
     top: -8px;
 }
-
 .stick:after {
     top: 8px;
 }
@@ -424,17 +394,28 @@ label {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0);
     right: 250px;
 }
-
 .hamBtn.active .stick:before {
-    background: rgb(172, 172, 172);
+    background: var(--header-icons);
     top: 0;
     transform: rotate(45deg);
 }
-
 .hamBtn.active .stick:after {
-    background: rgb(172, 172, 172);
+    background: var(--header-icons);
     top: 0;
     transform: rotate(135deg);
+}
+
+.hamBtn:hover > .stick,
+.hamBtn:hover > .stick:before,
+.hamBtn:hover > .stick:after {
+    background: var(--header-icons-hover);
+}
+.hamBtn.active:hover > .stick:before,
+.hamBtn.active:hover > .stick:after {
+    background: var(--header-icons-hover);
+}
+.hamBtn.active:hover > .stick {
+    background: rgba(0, 0, 0, 0);
 }
 
 /* OVERLAY & MENU */
@@ -442,14 +423,14 @@ label {
     position: fixed;
     height: 100vh;
     width: 100vw;
-    background: rgb(255, 255, 255);
+    background: var(--nav-overlay);
     opacity: 0;
     z-index: 18;
 }
 
 #nav {
     position: fixed;
-    background-color: rgb(233, 233, 233);
+    background-color: var(--nav-bg);
     height: 100vh;
     width: 230px;
     padding: 150px 0 50px 0;
@@ -468,7 +449,7 @@ label {
 }
 
 #nav > div > a > p {
-    border-bottom: 1px solid rgb(199, 199, 199);
+    border-bottom: 1px solid var(--nav-link-border);
 }
 #nav > div > a:nth-child(1) > p {
     /* border-top: 1px solid rgb(199, 199, 199); */
@@ -489,7 +470,7 @@ label {
 }
 
 #nav > div > a:hover {
-    background-color: rgb(224, 224, 224);
+    background-color: var(--nav-link-hover);
 }
 
 #nav > div > a:hover > p {
@@ -897,13 +878,14 @@ label {
 
 .pagination-link:hover {
     background-color: rgb(204, 108, 207);
+    color: white;
 }
 
 .is-current {
     color: rgb(231, 134, 235);
     box-shadow: 0 0 0 2px rgb(231, 134, 235);
     /* outline: 2px solid rgb(231, 134, 235); */
-    background-color: white;
+    background-color: transparent;
     width: 22px;
     height: 22px;
 }
@@ -974,6 +956,7 @@ label {
 .product-info > h3,
 .product-info > h4 {
     margin: 15px 0 0 0;
+    color: var(--dark-text);
 }
 
 .product-info > h4:nth-child(1) {
@@ -998,7 +981,7 @@ label {
 .product-divider-small {
     height: 3px;
     width: 66%;
-    background-color: rgba(169, 169, 169, 0.329);
+    background-color: var(--product-divider-small);
     margin-top: 10px;
     margin-bottom: 10px;
     /* position: relative;
@@ -1022,7 +1005,7 @@ label {
 }
 
 .add-cart > svg {
-    fill: #414141;
+    fill: var(--add-cart-icon);
     transition: 0.2s ease;
     width: 88%;
 }
@@ -1036,7 +1019,7 @@ label {
 }
 
 .remove-cart > svg {
-    fill: #414141;
+    fill: var(--add-cart-icon);
     transition: 0.2s ease;
     width: 55%;
 }
@@ -1088,11 +1071,11 @@ label {
 } */
 
 .product-content:hover {
-    background-color: rgb(244, 244, 244);
-    border: 1px solid darkgray;
+    background-color: var(--product-hover);
+    border: 1px solid var(--product-hover-border);
 }
 .product-content:hover a {
-    color: black;
+    color: var(--black);
 }
 .product-content:hover img {
     transform: scale(1.05, 1.05);
@@ -1109,7 +1092,7 @@ label {
 .item-card {
     display: flex;
     /* align-items: center; */
-    background-color: rgb(244, 244, 244);
+    background-color: var(--div1-bg);
     /* background-color: rgb(231, 134, 235); */
     box-shadow: 0px 0px 10px #00000025;
     margin: 40px 20px 40px 20px;
@@ -1117,6 +1100,8 @@ label {
     min-height: 430px;
     max-height: 500px;
     border-radius: 12px;
+    color: var(--dark-text);
+    transition: 0.2s ease;
 }
 
 .item-left-side {
@@ -1136,6 +1121,7 @@ label {
 }
 
 .item-right-side > h1 {
+    color: rgb(231, 134, 235);
     /* line-height: 50px; */
 }
 .item-right-side > button {
@@ -1161,7 +1147,8 @@ label {
 .item-right-side-infos-box * p,
 .item-right-side-infos-box * a {
     margin-right: 5px;
-    color: #414141;
+    color: var(--dark-text);
+    transition: 0.2s ease;
 }
 .item-right-side-infos {
     display: flex;
@@ -1183,15 +1170,15 @@ label {
     align-items: center;
 }
 .item-tag {
-    background-color: rgb(230, 230, 230);
+    background-color: var(--item-tag-bg);
     border-radius: 15px;
     padding: 4px 10px;
     font-size: 0.83em;
     transition: 0.2s ease;
 }
 .item-tag:hover {
-    background-color: rgb(231, 134, 235);
-    color: white;
+    background-color: var(--item-tag-bg-hover);
+    color: var(--item-tag-hover);
 }
 
 .add-cart-for-item,
@@ -1202,7 +1189,7 @@ label {
     /* background-color: rgb(244, 244, 244); */
     /* margin: 20px 0 40px 0; */
     margin: 0 20px 70px 20px;
-    color: #414141;
+    color: var(--dark-text);
     /* padding: 20px; */
     /* box-shadow: 0px -2px 6px #00000025; */
 }
@@ -1213,16 +1200,18 @@ label {
 }
 
 .active-selector {
-    background-color: rgb(244, 244, 244);
+    background-color: var(--div1-bg);
     border-bottom: none;
     z-index: 3;
-    color: black;
+    color: var(--black);
+    transition: 0.2s ease;
 }
 
 .not-active-selector {
     border-bottom: 1px solid darkgray;
-    background-color: rgb(230, 230, 230);
+    background-color: var(--div2-bg);
     z-index: 1;
+    transition: 0.2s ease;
 }
 
 .item-description-selector > span {
@@ -1252,7 +1241,7 @@ label {
 }
 
 .item-description-display {
-    background-color: rgb(244, 244, 244);
+    background-color: var(--div1-bg);
     box-shadow: 0px 0px 10px #00000025;
     padding: 30px 20px;
     border-radius: 0 12px 12px 12px;
@@ -1581,6 +1570,15 @@ label {
 .contact-form > h1 {
     margin-bottom: 50px;
 } */
+.contact-form * ::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: var(--placeholder-text);
+    opacity: 1; /* Firefox */
+}
+
+.contact-form * input {
+    color: var(--dark-text);
+}
 
 .contact-wrap {
     display: flex;
@@ -1629,10 +1627,12 @@ label {
 .contact-address-text {
 }
 
-.contact-list-wrap p {
+.contact-list-wrap p,
+.contact-list-wrap a {
     /* line-height: 28px; */
     /* padding-left: 8px; */
-    color: #414141;
+    color: var(--dark-text);
+    transition: 0.2s ease;
 }
 
 .contact-list-socials {
@@ -1784,7 +1784,7 @@ label {
 .stepB > div:nth-child(1) > label {
     width: 200px;
     padding-left: 15px;
-    color: #414141;
+    color: var(--dark-text);
 }
 
 .stepB > div:nth-child(1) > input {
@@ -1854,7 +1854,7 @@ label {
     /* margin-bottom: 30px; */
 }
 .aboutus-box2-text p {
-    color: rgb(140, 140, 140);
+    color: var(--dark-text);
 }
 
 .aboutus-box2-text > h4 {
@@ -1982,7 +1982,7 @@ label {
 .document-comp * address,
 .document-comp * ul {
     margin-bottom: 1rem;
-    color: #414141;
+    color: var(--dark-text);
 }
 .end-paragraph {
     margin-bottom: 20px;
@@ -1995,7 +1995,8 @@ label {
 .footer-comp {
     /* margin-top: 60px; */
     width: 100%;
-    background-color: rgb(241, 241, 241);
+    background-color: var(--header-bg);
+    transition: 0.2s ease;
     position: relative;
     bottom: 0;
 }
@@ -2022,12 +2023,12 @@ label {
 }
 .footer * a,
 .footer * p {
-    color: rgb(231, 134, 235);
+    color: var(--footer-link);
     font-size: 14px;
     line-height: 25px;
 }
 .footer * a:hover {
-    color: rgb(204, 108, 207);
+    color: var(--footer-link-hover);
 }
 
 .website-footer {
@@ -2061,11 +2062,11 @@ label {
 }
 
 .social-footer * svg {
-    fill: rgb(231, 134, 235);
+    fill: var(--footer-link);
     transition: 0.2s ease;
 }
 .social-footer * svg:hover {
-    fill: rgb(204, 108, 207);
+    fill: var(--footer-link-hover);
 }
 
 .copyrights {
@@ -2073,7 +2074,8 @@ label {
     width: 100%;
     padding: 5px 20px 5px 20px;
     text-align: center;
-    background-color: rgb(235, 235, 235);
+    background-color: var(--div2-bg);
+    transition: 0.2s ease;
     z-index: 1;
 }
 
@@ -2092,6 +2094,7 @@ label {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: var(--dark-text);
 }
 
 /*************************************
@@ -2159,7 +2162,7 @@ label {
     content: "";
 }
 .loader:after {
-    background: ghostwhite;
+    background: var(--loader-bg);
     width: 75%;
     height: 75%;
     border-radius: 50%;
@@ -2172,7 +2175,7 @@ label {
     right: 0;
 }
 .loader-alternative1:after {
-    background: rgb(244, 244, 244);
+    background: var(--loader-alternative1-bg);
 }
 
 .loader-inverted {
@@ -2900,151 +2903,116 @@ RESPONSIVENESS:
     devo fixare visioni larghe su telefono (es #nav) 🐔
 */
 
-/* DARK COLOR SCHEME */
-@media (prefers-color-scheme: dark) {
-    body {
-        background-color: rgb(45, 48, 70);
-    }
-    .header,
-    .footer-comp {
-        background-color: rgb(40, 44, 71);
-    }
-    .copyrights {
-        background-color: rgb(26, 29, 44);
-    }
-    #nav {
-        background-color: rgb(37, 41, 65);
-    }
-    #nav > div > a > p {
-        color: ghostwhite;
-        border-bottom: 1px solid rgb(199, 199, 199);
-        /* border-bottom: 1px solid rgb(26, 29, 44); */
-    }
-    #nav > div > a:hover {
-        background-color: rgb(26, 29, 44);
-    }
-    .overlay {
-        background: rgb(45, 48, 70);
-    }
-    .cart-icon > svg {
-        fill: ghostwhite;
-    }
-    .cart-icon > svg:hover {
-        fill: rgb(199, 199, 199);
-    }
-    .stick,
-    .stick:before,
-    .stick:after,
-    .hamBtn.active .stick:before,
-    .hamBtn.active .stick:after {
-        background-color: ghostwhite;
-    }
-    .footer * a:hover {
-        color: ghostwhite;
-    }
-    .social-footer * svg:hover {
-        fill: ghostwhite;
-    }
-    .product-content:hover {
-        background-color: rgb(37, 41, 65);
-        border: 1px solid rgb(26, 29, 44);
-    }
-    .product-divider-small {
-        background-color: rgba(169, 169, 169, 0.5);
-    }
-    .add-cart > svg {
-        fill: rgb(45, 48, 70);
-    }
-    .product-info > h3,
-    .product-info > h4,
-    .product-info > h5,
-    .product-description > p {
-        color: ghostwhite;
-    }
-
-    .aboutus-box1-text {
-        color: ghostwhite;
-    }
-    .aboutus-box2-text p {
-        color: ghostwhite;
-    }
-    .item-card,
-    .item-description-display,
-    .active-selector {
-        background-color: rgb(34, 38, 63);
-        color: ghostwhite;
-    }
-    .not-active-selector {
-        background-color: rgb(26, 29, 44);
-        color: ghostwhite;
-    }
-    .item-right-side > h1 {
-        color: rgb(231, 134, 235);
-    }
-    .item-right-side-infos-box * h5,
-    .item-right-side-infos-box * p,
-    .item-right-side-infos-box * a,
-    .item-description-display,
-    .dark-tone {
-        color: ghostwhite;
-    }
-    .item-tag {
-        background-color: rgb(231, 134, 235);
-    }
-    .item-tag:hover {
-        background-color: rgb(230, 230, 230);
-        color: rgb(45, 48, 70);
-    }
-    .document-comp * p,
-    .document-comp * address,
-    .document-comp * ul,
-    .document-comp * a {
-        color: ghostwhite;
-    }
-    .btn-dark1 {
-        color: white;
-        background-color: rgb(45, 48, 70);
-        border: 2px solid rgb(45, 48, 70);
-    }
-    .btn-dark1:hover {
-        color: rgb(204, 108, 207);
-        background-color: rgb(45, 48, 70);
-        border: 2px solid rgb(231, 134, 235);
-    }
-    .btn2 {
-        background-color: rgba(255, 255, 255, 0);
-        color: rgb(231, 134, 235);
-        border: solid 2px rgb(231, 134, 235);
-    }
-    .btn2:hover {
-        background-color: rgb(231, 134, 235);
-        color: rgb(45, 48, 70);
-        /* border: solid 2px rgb(244, 244, 244); */
-    }
-    .contact-form * ::placeholder {
-        /* Chrome, Firefox, Opera, Safari 10.1+ */
-        color: ghostwhite;
-        opacity: 1; /* Firefox */
-    }
-    .contact-list-wrap p,
-    .contact-list-wrap a {
-        color: ghostwhite;
-    }
-    .stepB > div:nth-child(1) > label {
-        color: ghostwhite;
-    }
-    .loader:after {
-        background: rgb(45, 48, 70);
-    }
-    .loader-alternative1:after {
-        background: rgb(34, 38, 63);
-    }
-    .loader-inverted:after {
-        background: rgb(231, 134, 235);
-    }
-}
-
 /*
 rgb(45, 48, 70)
 colore bg dark-mode
 */
+
+/* DARK COLOR SCHEME */
+.theme-light {
+    --body-bg: ghostwhite;
+    --header-bg: rgb(241, 241, 241);
+    --header-icons: #acacac;
+    --header-icons-hover: #929292;
+    --nav-bg: rgb(233, 233, 233);
+    --nav-link-border: rgb(199, 199, 199);
+    --nav-link-hover: rgb(224, 224, 224);
+    --nav-overlay: rgb(255, 255, 255);
+    --footer-link: rgb(231, 134, 235);
+    --footer-link-hover: rgb(204, 108, 207);
+    --div1-bg: rgb(244, 244, 244);
+    --div2-bg: rgb(230, 230, 230);
+    --product-hover: rgb(244, 244, 244);
+    --product-hover-border: darkgray;
+    --product-divider-small: rgba(169, 169, 169, 0.329);
+    --item-tag-bg: rgb(230, 230, 230);
+    --item-tag-hover: white;
+    --item-tag-bg-hover: rgb(231, 134, 235);
+
+    --black: black;
+    --dark-text: #414141;
+    --dark2-text: rgb(140, 140, 140);
+    --placeholder-text: rgb(140, 140, 140);
+
+    --btn2: white;
+    --btn2-bg: rgb(231, 134, 235);
+    --btn2-border: rgb(244, 244, 244);
+    --btn2-hover: rgb(231, 134, 235);
+    --btn2-bg-hover: transparent;
+
+    --btn-dark1: rgb(204, 108, 207);
+    --btn-dark1-bg: white;
+    --btn-dark1-hover: white;
+    --btn-dark1-border-hover: white;
+
+    --add-cart-icon: #414141;
+    --loader-bg: ghostwhite;
+    --loader-alternative1-bg: rgb(244, 244, 244);
+}
+
+.theme-dark {
+    --body-bg: rgb(45, 48, 70);
+    --header-bg: rgb(40, 44, 71);
+    --header-icons: ghostwhite;
+    --header-icons-hover: rgb(199, 199, 199);
+    --nav-bg: rgb(37, 41, 65);
+    --nav-link-border: rgb(199, 199, 199);
+    --nav-link-hover: rgb(26, 29, 44);
+    --nav-overlay: rgb(45, 48, 70);
+    --footer-link: rgb(231, 134, 235);
+    --footer-link-hover: ghostwhite;
+    --div1-bg: rgb(34, 38, 63);
+    --div2-bg: rgb(26, 29, 44);
+    --product-hover: rgb(37, 41, 65);
+    --product-hover-border: rgb(26, 29, 44);
+    --product-divider-small: rgba(169, 169, 169, 0.5);
+    --item-tag-bg: rgb(231, 134, 235);
+    --item-tag-hover: rgb(45, 48, 70);
+    --item-tag-bg-hover: rgb(230, 230, 230);
+
+    --black: white;
+    --dark-text: ghostwhite;
+    --dark2-text: ghostwhite;
+    --placeholder-text: rgba(230, 230, 230, 0.82);
+
+    --btn2: rgb(231, 134, 235);
+    --btn2-bg: transparent;
+    --btn2-border: rgb(231, 134, 235);
+    --btn2-hover: rgb(45, 48, 70);
+    --btn2-bg-hover: rgb(231, 134, 235);
+
+    --btn-dark1: white;
+    --btn-dark1-bg: rgb(45, 48, 70);
+    --btn-dark1-hover: rgb(45, 48, 70);
+    --btn-dark1-border-hover: rgb(45, 48, 70);
+
+    --add-cart-icon: rgb(37, 41, 65);
+    --loader-bg: rgb(45, 48, 70);
+    --loader-alternative1-bg: rgb(34, 38, 63);
+}
+
+.CoLoRs {
+    color: white;
+    /*body bg*/
+    color: ghostwhite;
+    /*cards bg*/
+    color: rgb(244, 244, 244);
+    /*header/footer bg*/
+    color: rgb(241, 241, 241);
+    /*nav bg*/
+    color: rgb(233, 233, 233);
+    /*copyrights bar bg*/
+    color: rgb(230, 230, 230);
+    /*product:hover bg + non active selector in item*/
+    color: rgb(230, 230, 230);
+    color: rgb(172, 172, 172);
+    /* text dark */
+    color: #414141;
+    color: rgb(231, 134, 235);
+    color: rgb(204, 108, 207);
+    color: #35b2de;
+    color: cornflowerblue;
+    /*LOGO*/
+    color: #73c2c5;
+    color: #e38699;
+}
