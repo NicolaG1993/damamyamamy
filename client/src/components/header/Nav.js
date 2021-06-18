@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import ColorModeButton from "./ColorModeButton";
+import "../../styles/Nav.css";
 
 export default function Nav({ navIsActive, toggleNav, windowWidth }) {
     return (

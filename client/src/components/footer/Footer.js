@@ -3,6 +3,7 @@
 import { css, jsx } from "@emotion/react";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import "../../styles/Footer.css";
 
 export default function Footer({ windowWidth }) {
     const [parallaxHeight, setParallaxHeight] = useState();

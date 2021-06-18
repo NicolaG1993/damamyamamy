@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import AddressForm from "../AddressForm";
 import PaymentForm from "../PaymentForm";
 import { commerce } from "../../../lib/commerce";
+import "../../../styles/Checkout.css";
 
 const steps = ["Shipping address", "Payment details"];
 

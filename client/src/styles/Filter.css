@@ -1,0 +1,109 @@
+/*************************************
+************ FILTERS *************
+*************************************/
+
+.filter-bar {
+    background-color: rgb(231, 134, 235);
+    color: white;
+    padding: 15px;
+    margin: 25px 0 30px 0;
+    border-radius: 12px;
+    transition: 0.5s ease;
+    overflow: hidden;
+}
+
+.filter-bar-active {
+    height: 365px;
+}
+.filter-bar-inactive {
+    height: 52.6px;
+}
+
+.filter-bar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* SHOP HAMBURGER BUTTON */
+#hamBtn2 {
+    width: 22.5px;
+    height: 22.5px;
+}
+
+#hamBtn2 > .stick {
+    width: 22px;
+    height: 3.7px;
+    background-color: white;
+    left: 45%;
+}
+
+#hamBtn2 > .stick:before,
+#hamBtn2 > .stick:after {
+    width: 22px;
+    height: 3.7px;
+    background-color: white;
+}
+
+#hamBtn2.active .stick {
+    background: rgba(0, 0, 0, 0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0);
+    right: 250px;
+}
+
+#hamBtn2.active .stick:before {
+    background: white;
+    top: 0;
+    transform: rotate(45deg);
+}
+
+#hamBtn2.active .stick:after {
+    background: white;
+    top: 0;
+    transform: rotate(135deg);
+}
+
+/* SHOP FILTER */
+.filter-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 50px auto 50px 50px;
+    row-gap: 15px;
+    margin-top: 25px;
+    opacity: 1;
+    transition: 0.7s ease-in-out;
+}
+.filter-form-col-left {
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+.filter-form-col-right {
+    grid-column-start: 2;
+    grid-column-end: five;
+}
+
+.filter-form > .filter-form-col-left:nth-child(1),
+.filter-form > .filter-form-col-right:nth-child(2) {
+    grid-row-start: 0;
+    grid-row-end: 1;
+}
+.filter-form > .filter-form-col-left:nth-child(3),
+.filter-form > .filter-form-col-right:nth-child(4) {
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+.filter-form-prices {
+    display: inline-block;
+}
+.filter-form-prices > input {
+    width: 80px;
+    margin-right: 20px;
+}
+
+.filter-form-col-full {
+    grid-column-start: 2;
+    grid-column-end: 5;
+    padding: 0 20px 0 10px;
+    margin-bottom: 20px;
+}

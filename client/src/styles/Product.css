@@ -1,0 +1,114 @@
+/*************************************
+************ PRODUCT *************
+*************************************/
+
+.product-box {
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
+    /* background-color: white; */
+    /* padding: 15px; */
+
+    /* background-color: rgb(240, 240, 240); */
+    /* border-radius: 8px; */
+    overflow: hidden;
+    /* border: 1px solid darkgray; */
+    /* aspect-ratio: 1; pseudo something ?? check pls! */
+    min-height: 275px;
+    text-align: left;
+}
+
+.product-box-shortlist {
+    width: auto;
+}
+
+.product-content {
+    position: relative;
+    height: 100%;
+    transition: 0.2s ease-in;
+    padding: 10px;
+    border-radius: 15px;
+    /* padding-bottom: 15px; */
+    border: 1px solid rgba(255, 255, 255, 0);
+}
+.product-content > a {
+    /* height: 100%; */
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 180px auto;
+}
+
+.product-divider {
+    height: 1px;
+    width: 100%;
+    background-color: darkgray;
+}
+.product-img {
+    /* display: inline-block; */
+    overflow: hidden;
+    /* text-align: center; */
+    /* max-width: 276.44px; */
+}
+.product-img > img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: 0.5s ease;
+    vertical-align: middle;
+}
+/* questo sará un component forse, uno slider */
+
+.product-info {
+    /* padding: 15px; */
+}
+
+.product-info > h3,
+.product-info > h4 {
+    margin: 15px 0 0 0;
+    color: var(--dark-text);
+}
+
+.product-info > h4:nth-child(1) {
+    /* font-weight: normal; */
+    font-size: 16px;
+}
+
+.product-description {
+    max-width: 290px;
+    margin: 10px 0 5px 0;
+}
+
+.price-for-small-card {
+    font-weight: normal;
+
+    /* font-size: 14px; */
+}
+.price-for-small-card-tag {
+    color: violet;
+}
+
+.product-divider-small {
+    height: 3px;
+    width: 66%;
+    background-color: var(--product-divider-small);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    /* position: relative;
+  
+    margin: 10px auto; */
+}
+
+.product-content:hover {
+    background-color: var(--product-hover);
+    border: 1px solid var(--product-hover-border);
+}
+.product-content:hover a {
+    color: var(--black);
+}
+.product-content:hover img {
+    transform: scale(1.05, 1.05);
+}
+
+.product-content:hover .product-box {
+    box-shadow: 0px 0px 10px #00000025;
+}

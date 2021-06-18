@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "../../styles/ItemsListShort.css";
 
 import Product from "../shop/product/Product";
 

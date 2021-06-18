@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { setTheme } from "../../utils/themes";
+import "../../styles/ColorModeButton.css";
 
 export default function ColorModeButton() {
     const [togClass, setTogClass] = useState("light");

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Logo from "../logo/Logo";
 import CartIcon from "../cart/CartIcon";
 import ColorModeButton from "./ColorModeButton";
+import "../../styles/Header.css";
 
 export default function Header({
     navIsActive,

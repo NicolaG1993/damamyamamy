@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import AddToCartBtn from "./AddToCartBtn";
+import "../../../styles/Product.css";
 
 export default function Product({
     product,

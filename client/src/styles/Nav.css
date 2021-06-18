@@ -1,0 +1,87 @@
+/* OVERLAY & MENU */
+.overlay {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background: var(--nav-overlay);
+    opacity: 0;
+    z-index: 18;
+}
+
+#nav {
+    position: fixed;
+    background-color: var(--nav-bg);
+    height: 100vh;
+    width: 230px;
+    padding: 150px 0 50px 0;
+
+    right: 0;
+    z-index: 19;
+    /* transform: translateX(100%); */
+    left: 100%;
+    transition: transform 0.8s;
+}
+
+#nav > div > a {
+    height: 60px;
+    display: block;
+    /* padding: 0 45px; */
+}
+
+#nav > div > a > p {
+    border-bottom: 1px solid var(--nav-link-border);
+}
+#nav > div > a:nth-child(1) > p {
+    /* border-top: 1px solid rgb(199, 199, 199); */
+}
+/* #nav > div > a:nth-child(5) > p {
+    border-bottom: none;
+} */
+
+#nav > div > a > p {
+    /* text-align: center; */
+    padding: 0 35px;
+    font-size: 15pt;
+    line-height: 60px;
+    transition: 0.2s ease;
+    /* font-weight: bold; */
+    letter-spacing: 3px;
+    /* text-transform: uppercase; */
+}
+
+#nav > div > a:hover {
+    background-color: var(--nav-link-hover);
+}
+
+#nav > div > a:hover > p {
+    font-size: 16pt;
+
+    /* color: rgb(204, 108, 207); */
+    /* color: #3b3b3b; */
+    /* background-color: rgb(231, 134, 235); */
+    /* color: white; */
+}
+
+/* SCRIPT.JS STYLES */
+
+/* .startingHidden {
+    visibility: hidden;
+    opacity: 0;
+} */
+
+.on {
+    opacity: 1;
+    transform: translateX(-100%);
+}
+
+.overlayIn {
+    visibility: visible;
+    opacity: 33%;
+    transition: visibility 0s ease-in-out 0s, opacity 1.5s;
+}
+
+.overlayOut {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s ease-in-out 0.5s, opacity 1s;
+}

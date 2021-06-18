@@ -1,5 +1,6 @@
 // import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import "../../../styles/PageNav.css";
 
 export default function PageNav({ nextPage, previousPage, goToPage }) {
     let state = useSelector((state) => state);

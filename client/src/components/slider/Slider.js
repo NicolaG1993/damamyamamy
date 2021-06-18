@@ -2,6 +2,7 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import "../../styles/Slider.css";
 
 import SliderContent from "./SliderContent";
 import Slide from "./Slide";

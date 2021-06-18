@@ -1,0 +1,84 @@
+/*************************************
+********** ADD TO CART BTN ***********
+*************************************/
+
+.add-cart,
+.remove-cart {
+    z-index: 3;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s ease;
+    border-color: transparent;
+    border: 1px solid darkgray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-cart > svg {
+    fill: var(--add-cart-icon);
+    transition: 0.2s ease;
+    width: 88%;
+}
+
+.add-cart:hover {
+    background-color: rgb(231, 134, 235);
+    border-color: transparent;
+}
+.add-cart:hover > svg {
+    fill: white;
+}
+
+.remove-cart > svg {
+    fill: var(--add-cart-icon);
+    transition: 0.2s ease;
+    width: 55%;
+}
+
+.remove-cart:hover {
+    background-color: rgb(231, 134, 235);
+    border-color: transparent;
+}
+.remove-cart:hover > svg {
+    fill: white;
+}
+
+.add-cart-for-small,
+.remove-cart-for-small {
+    position: absolute;
+    display: hidden;
+    opacity: 0;
+    top: -5px;
+    right: 8px;
+    box-shadow: 1px 3px 4px #00000025;
+}
+.product-content:hover .add-cart-for-small,
+.product-content:hover .remove-cart-for-small {
+    display: visible;
+    opacity: 1;
+    top: 8px;
+}
+
+.add-cart-for-medium,
+.remove-cart-for-medium {
+    position: absolute;
+    display: hidden;
+    opacity: 0;
+    top: -5px;
+    right: 8px;
+    box-shadow: 1px 3px 4px #00000025;
+}
+.product-content:hover .add-cart-for-medium,
+.product-content:hover .remove-cart-for-medium {
+    display: visible;
+    opacity: 1;
+    top: 8px;
+}
+
+/* .add-cart > img {
+    display: block;
+    height: 100%;
+    width: 100%;
+} */

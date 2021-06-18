@@ -1,6 +1,7 @@
 import axios from "/client/src/axios";
 import { Component } from "react";
 import { Link } from "react-router-dom";
+import "../../styles/Home.css";
 
 import Slider from "../slider/Slider";
 import images from "../slider/img/images";

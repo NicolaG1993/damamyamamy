@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { commerce } from "../../lib/commerce";
+import "../../styles/Item.css";
 
 import ItemsListShort from "../items-list-short/ItemsListShort";
 import AddToCartBtn from "../shop/product/AddToCartBtn";

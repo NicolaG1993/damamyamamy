@@ -1,0 +1,107 @@
+/*************************************
+************ SHORTLISTS *************
+*************************************/
+
+.shortlist {
+    min-height: 300px;
+    /* background-color: rgb(244, 244, 244); */
+    /* margin-bottom: 20px; */
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    /* margin: 0 20px; */
+}
+
+#home > .shortlist {
+    /* padding: 100px 40px 90px 40px; */
+    transition: 0.8s ease;
+    margin: 100px 0 0 0;
+    /* box-shadow: 0px 0px 10px #00000025; */
+}
+.shortlist > h2 {
+    margin: 0 0 25px 0;
+}
+#home > .shortlist > h2 {
+    margin: 0 0 55px 0;
+}
+
+.items-shortlist-container {
+    margin-bottom: 100px;
+}
+
+#home > .shortlist > div:nth-child(3) {
+    margin-top: 80px;
+}
+#home > div.shortlist > div:nth-child(5) {
+    margin-bottom: 0;
+}
+
+.items-shortlist-topbar {
+    position: relative;
+    text-align: left;
+    /* padding-bottom: 10px;
+     border-bottom: 4px solid rgba(204, 108, 207, 0.377); */
+}
+
+.items-shortlist-topbar > h3 {
+    display: inline-block;
+    /* position: absolute;
+    left: 0;
+    top: 0; */
+}
+
+.items-shortlist-btns {
+    /* float: right; */
+    position: absolute;
+    right: 0;
+    /* right: 10px; */
+    top: -2px;
+}
+
+.items-shortlist-btns > button {
+    margin-left: 15px;
+}
+
+.small-arrow {
+    border-radius: 50%;
+    padding: 4px;
+    cursor: pointer;
+    background-color: rgb(231, 134, 235);
+    border: none;
+    height: 24px;
+    width: 24px;
+}
+
+.small-arrow:hover {
+    background-color: rgb(204, 108, 207);
+}
+
+.small-arrow-left,
+.small-arrow-right {
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 100%;
+    position: relative;
+}
+
+.small-arrow-left {
+    background-image: url(left-arrow-white.png);
+    margin-right: 2px;
+}
+.small-arrow-right {
+    background-image: url(right-arrow-white.png);
+    margin-left: 2px;
+}
+
+.products-small {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    column-gap: 20px;
+    row-gap: 15px;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    min-height: 180px;
+    clear: both;
+}

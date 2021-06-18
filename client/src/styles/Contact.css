@@ -1,0 +1,163 @@
+/*************************************
+************ CONTACT *************
+*************************************/
+
+.contact-comp {
+    width: 100%;
+}
+/* 
+.contact-form > h1 {
+    margin-bottom: 50px;
+} */
+.contact-form * ::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: var(--placeholder-text);
+    opacity: 1; /* Firefox */
+}
+
+.contact-form * input {
+    color: var(--dark-text);
+}
+
+.contact-wrap {
+    display: flex;
+    justify-content: space-around;
+    margin: 0 0 30px 0;
+}
+
+.contact-list {
+    /* margin: 0 0 0 100px; */
+    /* width: 50%; */
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+}
+.contact-list-wrap {
+    display: flex;
+    flex-direction: column;
+}
+.contact-list-wrap > div > h2 {
+    line-height: 40px;
+    margin-bottom: 40px;
+}
+.contact-list-box {
+    margin-bottom: 20px;
+    padding-left: 12px;
+    display: flex;
+    align-items: center;
+}
+.contact-list-wrap > div:nth-child(1) > .contact-list-box:nth-child(5) {
+    margin-bottom: 65px;
+}
+.contact-address-small-icon {
+    background-size: contain;
+    background-position: center;
+    margin-right: 20px;
+    height: 17px;
+}
+.contact-address-small-icon > svg {
+    /* background-image: url(icons/x-pink.png); */
+    fill: rgb(231, 134, 235);
+    /* fill: #626262; */
+    width: 17px;
+    height: 17px;
+}
+
+.contact-address-text {
+}
+
+.contact-list-wrap p,
+.contact-list-wrap a {
+    /* line-height: 28px; */
+    /* padding-left: 8px; */
+    color: var(--dark-text);
+    transition: 0.2s ease;
+}
+
+.contact-list-socials {
+    display: flex;
+    column-gap: 40px;
+    font-weight: bold;
+    padding-left: 12px;
+}
+
+.contact-list-wrap * a:hover {
+    color: rgb(231, 134, 235);
+}
+
+#contact-map {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: rgb(231, 134, 235);
+    /* padding-top: 200px; */
+
+    /* height: 600px; */
+    z-index: 2;
+}
+
+#contact-map > iframe {
+    width: 100%;
+    height: 500px;
+    border: none;
+}
+
+.contact-map-div {
+    height: 280px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-map-div > h2 {
+    color: white;
+}
+
+.contact-icons-div {
+    height: 380px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 20px;
+}
+
+.contact-icons-div > div {
+    color: white;
+    justify-self: center;
+    align-self: center;
+    display: flex;
+    align-items: center;
+}
+
+.contact-icons-div > div:nth-child(1) > .contact-icons {
+    background-image: url(icons/shop-facade.png);
+    height: 60px;
+    width: 60px;
+}
+.contact-icons-div > div:nth-child(2) > .contact-icons {
+    background-image: url(icons/cargo-truck.png);
+    height: 80px;
+    width: 80px;
+}
+.contact-icons-div > div:nth-child(3) > .contact-icons {
+    background-image: url(icons/help-operator.png);
+    height: 60px;
+    width: 60px;
+}
+
+.contact-icons {
+    background-size: contain;
+    background-position: right;
+    background-repeat: no-repeat;
+    margin-right: 20px;
+    /* width: 80px; */
+}
+
+.contact-icons-text {
+    margin-left: 20px;
+    width: 170px;
+}
+.contact-icons-text > h3 {
+    line-height: 30px;
+}

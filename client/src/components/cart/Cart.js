@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import CartItem from "./cart-item/CartItem";
+import "../../styles/Cart.css";
 
 export default function Cart({ cart, removeFromCart, emptyCart }) {
     // console.log("cart in Cart.js: ", cart);

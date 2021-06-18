@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import "../../styles/About.css";
 
 export default function About(props) {
     console.log("props in About.js: ", props);

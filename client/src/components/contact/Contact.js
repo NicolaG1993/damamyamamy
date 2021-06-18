@@ -2,6 +2,7 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
 import React, { useState, useEffect } from "react";
+import "../../styles/Contact.css";
 
 import { MemoizedContactForm } from "./contact-form/ContactForm";
 

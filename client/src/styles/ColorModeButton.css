@@ -1,0 +1,17 @@
+/* COLOR MODE BUTTON */
+
+.color-mode-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#color-mode-btn {
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+#color-mode-btn:hover {
+    background-color: darkgray;
+}
