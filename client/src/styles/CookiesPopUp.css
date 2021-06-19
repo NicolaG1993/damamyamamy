@@ -1,0 +1,16 @@
+.bottom-alert-comp {
+    position: fixed;
+    z-index: 99;
+    bottom: 0;
+    width: 100vw;
+    background-color: var(--div2-bg);
+    padding: 40px 80px;
+}
+
+.bottom-alert-comp h3 {
+    margin-bottom: 1em;
+}
+.bottom-alert-comp p {
+    color: var(--dark-text);
+    margin-bottom: 2em;
+}

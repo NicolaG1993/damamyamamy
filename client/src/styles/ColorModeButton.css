@@ -31,7 +31,7 @@
 }
 
 .color-mode-toggle {
-    height: 35px;
+    height: 30px;
     width: 80px;
     background: var(--div2-bg);
     border-radius: 40px;
@@ -44,8 +44,8 @@
 .color-mode-toggle::before {
     content: "";
     display: block;
-    height: 26px;
-    width: 26px;
+    height: 24px;
+    width: 24px;
     border-radius: 30px;
     background: var(--scrollbar-thumb);
     /* background: var(--header-icons); */
@@ -53,13 +53,13 @@
     z-index: 2;
     transform: translate(0);
     transition: var(--transition);
-    top: 4.5px;
+    top: 3px;
     left: 8px;
     cursor: pointer;
 }
 
 .color-mode-toggle.sun::before {
-    transform: translateX(40px);
+    transform: translateX(41px);
 }
 
 .color-mode-toggle input {
@@ -68,7 +68,7 @@
     left: 0;
     opacity: 0;
     width: 80px;
-    height: 35px;
+    height: 30px;
     cursor: pointer;
 }
 
@@ -78,7 +78,7 @@
     align-items: center;
     height: 100%;
     width: 100%;
-    padding: 0 13px 0 10.5px;
+    padding: 0 11.5px 0 10.5px;
 }
 
 #Sun,
@@ -100,7 +100,7 @@
     width: 20px;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 720px) {
     .color-mode-wrap,
     .color-mode-toggle,
     .color-mode-toggle input {
@@ -111,5 +111,8 @@
     }
     .color-mode-toggle {
         background: var(--body-bg);
+    }
+    .color-mode-toggle .color-mode-icons {
+        padding: 0 11.5px 0 10px;
     }
 }

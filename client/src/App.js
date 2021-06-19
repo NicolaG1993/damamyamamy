@@ -11,6 +11,7 @@ import { Header, Nav, Footer } from "./components";
 import { Home, About, Contact, Shop, Item, Cart, Checkout } from "./components";
 import { PrivacyAndCookiePolicy } from "./components";
 import DocExample from "./components/docs/DocExample";
+import CookiesPopUp from "./components/alerts/CookiesPopUp";
 
 import { keepTheme } from "./utils/themes";
 
@@ -23,6 +24,7 @@ class App extends Component {
             notAvailables: [],
             windowWidth: window.innerWidth,
             windowHeight: window.innerHeight,
+            cookieAlertIsActive: true,
         };
 
         this.toggleNav = this.toggleNav.bind(this);
@@ -33,6 +35,7 @@ class App extends Component {
         this.handleCaptureCheckout = this.handleCaptureCheckout.bind(this);
         this.refreshCart = this.refreshCart.bind(this);
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+        this.toggleCookieAlert = this.toggleCookieAlert.bind(this);
     }
 
     async componentDidMount() {
@@ -147,6 +150,10 @@ class App extends Component {
         });
     }
 
+    toggleCookieAlert() {
+        this.setState({ cookieAlertIsActive: !this.state.cookieAlertIsActive });
+    }
+
     render() {
         // console.log("this.state in app: ", this.state);
         // console.log("redux state in app: ", this.props.state);
@@ -155,6 +162,12 @@ class App extends Component {
         return (
             <BrowserRouter>
                 <div className={"App"}>
+                    {this.state.cookieAlertIsActive && (
+                        <CookiesPopUp
+                            toggleCookieAlert={this.toggleCookieAlert}
+                        />
+                    )}
+
                     <Header
                         navIsActive={this.state.navIsActive}
                         closeNav={this.closeNav}
