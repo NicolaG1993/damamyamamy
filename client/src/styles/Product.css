@@ -112,3 +112,16 @@
 .product-content:hover .product-box {
     box-shadow: 0px 0px 10px #00000025;
 }
+
+@media screen and (max-width: 760px) {
+    /*forse va in Item.css*/
+    .product-divider-small {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .product-content > a {
+        grid-template-rows: 200px auto;
+    }
+}

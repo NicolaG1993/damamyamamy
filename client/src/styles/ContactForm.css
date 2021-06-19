@@ -71,3 +71,35 @@
     display: flex;
     column-gap: 15px;
 }
+
+@media screen and (max-width: 950px) {
+    .contact-form-wrap {
+        width: 51%;
+    }
+}
+@media screen and (max-width: 900px) {
+    .contact-form-wrap {
+        width: 75%;
+    }
+}
+@media screen and (max-width: 650px) {
+    .contact-form-wrap {
+        width: 95%;
+    }
+}
+@media screen and (max-width: 400px) {
+    .stepB > div:nth-child(1) {
+        flex-direction: column;
+        row-gap: 15px;
+        align-items: flex-start;
+        margin-bottom: 50px;
+    }
+    .stepB > div:nth-child(2) {
+        flex-direction: column;
+        row-gap: 15px;
+    }
+    .stepB > div:nth-child(1) > input {
+        margin: 0 15px;
+        width: auto;
+    }
+}

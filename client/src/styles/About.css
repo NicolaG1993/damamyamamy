@@ -160,3 +160,56 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+@media screen and (min-width: 1110px) {
+    #aboutus-comp {
+        width: 100vw;
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .aboutus-box1 {
+        height: 500px;
+    }
+    .aboutus-box2 {
+        grid-template-columns: 1fr;
+        row-gap: 100px;
+    }
+    .aboutus-box2-pic {
+        justify-self: center;
+        align-self: center;
+        grid-column-start: 1;
+        grid-row-start: 1;
+    }
+    .aboutus-box2-pic > div {
+        margin: 0;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .aboutus-box3-text {
+        margin-top: 30px;
+    }
+    .aboutus-box3-text > div {
+        /* justify-content: space-between;
+        column-gap: 25px; */
+        flex-direction: column;
+        row-gap: 40px;
+        height: auto;
+        margin-bottom: 110px;
+    }
+    .aboutus-box3-text > div > p {
+        text-align: center;
+        width: 100%;
+    }
+    .aboutus-box3-text > div:nth-child(2) {
+        flex-direction: column-reverse;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .aboutus-box2-pic > div {
+        height: 240px;
+        width: 240px;
+    }
+}

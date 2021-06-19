@@ -161,3 +161,127 @@
 .contact-icons-text > h3 {
     line-height: 30px;
 }
+
+@media screen and (min-width: 1110px) {
+    .contact-comp {
+        /* width: 1110px;
+        position: relative; */
+        /* display: flex;
+        justify-content: center; */
+    }
+
+    #contact-map {
+        width: 100vw;
+    }
+
+    .contact-icons-div {
+        max-width: 1200px;
+        padding: 20px 0;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    .contact-icons {
+        margin-right: 10px;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .contact-map-div {
+        padding: 0 20px;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .contact-wrap {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        row-gap: 175px;
+    }
+
+    .contact-list-wrap {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .contact-list {
+        width: 75%;
+    }
+
+    .contact-list-box p {
+        font-size: 15px;
+    }
+
+    .contact-icons {
+        margin-right: 0px;
+    }
+
+    .contact-icons-text p {
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .contact-icons-div {
+        height: 650px;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        padding: 40px 20px;
+    }
+    .contact-icons {
+        margin-right: 20px;
+    }
+    .contact-icons-text {
+        /* width: auto; */
+    }
+    .contact-icons-text p {
+        font-size: 16px;
+    }
+
+    .contact-icons-div > div:nth-child(1) > .contact-icons {
+        height: 70px;
+        width: 70px;
+    }
+    .contact-icons-div > div:nth-child(2) > .contact-icons {
+        height: 80px;
+        width: 80px;
+    }
+    .contact-icons-div > div:nth-child(3) > .contact-icons {
+        height: 70px;
+        width: 70px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .contact-wrap {
+        row-gap: 150px;
+    }
+
+    .contact-list {
+        width: 95%;
+    }
+    .contact-list-wrap {
+        flex-direction: column;
+        /* justify-content: center; */
+        align-items: center;
+    }
+    .contact-list-box {
+        margin-bottom: 30px;
+    }
+    .contact-list-wrap > div {
+        width: 290px;
+    }
+
+    .contact-address-small-icon {
+        height: 25px;
+        margin-right: 30px;
+    }
+
+    .contact-address-small-icon > svg {
+        width: 25px;
+        height: 25px;
+    }
+}

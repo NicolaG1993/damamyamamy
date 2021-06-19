@@ -61,3 +61,40 @@
 .iconslist-icon-box > p {
     line-height: 22px;
 }
+
+@media screen and (min-width: 1110px) {
+    #home {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        width: 100vw;
+    }
+
+    /*
+    .shortlist {
+        width: 66%;
+        align-self: center;
+    }
+
+    .sliderBox {
+        width: 100vw;
+        position: absolute;
+        left: 0;
+    }  */
+
+    .iconslist {
+        width: 100vw;
+    }
+
+    .iconslist-wrap {
+        width: 1110px;
+    }
+}
+@media screen and (max-width: 720px) {
+    .iconslist {
+        padding: 90px 40px;
+    }
+    .iconslist-wrap {
+        flex-direction: column;
+    }
+}
