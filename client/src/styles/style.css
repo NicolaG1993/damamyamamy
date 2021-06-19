@@ -526,7 +526,9 @@ body {
 /*************************************
 ************ SCRIPTS *************
 *************************************/
-
+.fade-in {
+    opacity: 1;
+}
 .longText,
 .product-description > p {
     /* word-wrap: break-word; */

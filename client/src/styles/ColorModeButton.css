@@ -1,11 +1,15 @@
 /* COLOR MODE BUTTON */
 
 .color-mode-wrap {
-    display: flex;
+    /* display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
+    width: 80px;
+    display: block;
+    --transition: 0.5s ease;
+    margin: auto;
 }
-#color-mode-btn {
+/* #color-mode-btn {
     height: 28px;
     width: 28px;
     border-radius: 50%;
@@ -14,4 +18,98 @@
 }
 #color-mode-btn:hover {
     background-color: darkgray;
+} */
+
+.color-mode-hidden {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
+.color-mode-toggle {
+    height: 35px;
+    width: 80px;
+    background: var(--div2-bg);
+    border-radius: 40px;
+    /* padding: 12px; */
+    position: relative;
+    transition: var(--transition);
+    /* border: 1.5px solid var(--header-icons); */
+}
+
+.color-mode-toggle::before {
+    content: "";
+    display: block;
+    height: 26px;
+    width: 26px;
+    border-radius: 30px;
+    background: var(--scrollbar-thumb);
+    /* background: var(--header-icons); */
+    position: absolute;
+    z-index: 2;
+    transform: translate(0);
+    transition: var(--transition);
+    top: 4.5px;
+    left: 8px;
+    cursor: pointer;
+}
+
+.color-mode-toggle.sun::before {
+    transform: translateX(40px);
+}
+
+.color-mode-toggle input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 80px;
+    height: 35px;
+    cursor: pointer;
+}
+
+.color-mode-toggle .color-mode-icons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding: 0 13px 0 10.5px;
+}
+
+#Sun,
+#Moon {
+    /* fill: var(--white); */
+    z-index: 0;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+#Sun {
+    background-image: url(icons/sun.png);
+    height: 22px;
+    width: 22px;
+}
+#Moon {
+    background-image: url(icons/moon.png);
+    height: 20px;
+    width: 20px;
+}
+
+@media screen and (max-width: 800px) {
+    .color-mode-wrap,
+    .color-mode-toggle,
+    .color-mode-toggle input {
+        width: 90px;
+    }
+    .color-mode-toggle.sun::before {
+        transform: translateX(50px);
+    }
+    .color-mode-toggle {
+        background: var(--body-bg);
+    }
 }

@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { setTheme } from "../../utils/themes";
 import "../../styles/ColorModeButton.css";
 
+// import { ReactComponent as MoonIcon } from "./assets/svg/moon.svg";
+// import { ReactComponent as SunIcon } from "./assets/svg/sun.svg";
+
 export default function ColorModeButton() {
     const [togClass, setTogClass] = useState("light");
     let theme = localStorage.getItem("theme");
@@ -27,9 +30,27 @@ export default function ColorModeButton() {
 
     return (
         <div className={"color-mode-wrap"}>
+            <div
+                onClick={toggleColors}
+                className={`color-mode-toggle ${
+                    togClass === "light" ? "sun" : "moon"
+                }`}
+            >
+                <div className="color-mode-icons">
+                    <div id="Sun" />
+                    <div id="Moon" />
+                </div>
+                <input
+                    id="toggleColorMode"
+                    name="toggleColorMode"
+                    type="checkbox"
+                    checked={togClass}
+                />
+            </div>
+
             {/* <button id="color-mode-btn">O</button> */}
 
-            {togClass === "light" ? (
+            {/* {togClass === "light" ? (
                 <input
                     type="checkbox"
                     id="color-mode-btn"
@@ -47,7 +68,7 @@ export default function ColorModeButton() {
             )}
             <label htmlFor="toggle" className="toggle--label">
                 <span className="toggle--label-background"></span>
-            </label>
+            </label> */}
         </div>
     );
 }
