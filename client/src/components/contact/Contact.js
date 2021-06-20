@@ -181,12 +181,20 @@ export default function Contact() {
                                 <h2>Seguici</h2>
                                 <div className="contact-list-socials">
                                     <p>
-                                        <a href="http://www.facebook.com/">
+                                        <a
+                                            href="https://www.facebook.com/Da-Mamy-A-Mamy-105663897718034/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
                                             Facebook
                                         </a>
                                     </p>
                                     <p>
-                                        <a href="http://www.instagram.com/">
+                                        <a
+                                            href="https://www.instagram.com/damamyamamy"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
                                             Instagram
                                         </a>
                                     </p>

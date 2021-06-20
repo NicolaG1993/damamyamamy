@@ -37,12 +37,9 @@
     display: grid;
     grid-template-columns: 1fr 50px;
     align-items: center;
+    transition: 0.1s ease-in;
 }
 
-.cart-product-content,
-.cart-remove-button {
-    transition: 0.2s ease-in;
-}
 .cart-product-content:hover {
     background-color: rgb(204, 108, 207);
 }
@@ -88,6 +85,7 @@
     letter-spacing: 1px;
     height: 40px;
     margin: 5px;
+    transition: 0.15s ease-in;
     /* margin-top: 5px; */
 }
 

@@ -14,3 +14,9 @@
     color: var(--dark-text);
     margin-bottom: 2em;
 }
+
+@media screen and (max-width: 720px) {
+    .bottom-alert-comp {
+        padding: 20px 20px;
+    }
+}

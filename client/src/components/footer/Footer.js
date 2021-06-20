@@ -127,7 +127,11 @@ export default function Footer({ windowWidth }) {
                             transition: 1.1s ease;
                         `}
                     >
-                        <a href="http://www.instagram.com/">
+                        <a
+                            href="https://www.instagram.com/damamyamamy"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             <svg
                                 id="Livello_1"
                                 data-name="Livello 1"
@@ -148,7 +152,11 @@ export default function Footer({ windowWidth }) {
                                 />
                             </svg>
                         </a>
-                        <a href="http://www.facebook.com/">
+                        <a
+                            href="https://www.facebook.com/Da-Mamy-A-Mamy-105663897718034/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             <svg
                                 id="Livello_1"
                                 data-name="Livello 1"
@@ -161,7 +169,11 @@ export default function Footer({ windowWidth }) {
                                 />
                             </svg>
                         </a>
-                        <a href="http://www.facebook.com/">
+                        <a
+                            href="https://wa.me/393479792644"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             <svg
                                 id="Livello_1"
                                 data-name="Livello 1"
@@ -178,7 +190,11 @@ export default function Footer({ windowWidth }) {
                                 />
                             </svg>
                         </a>
-                        <a href="http://www.facebook.com/">
+                        <a
+                            href="https://www.facebook.com/Da-Mamy-A-Mamy-105663897718034/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             <svg
                                 id="Livello_1"
                                 data-name="Livello 1"
