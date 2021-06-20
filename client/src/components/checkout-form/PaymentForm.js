@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 import {
     Elements,
@@ -7,9 +7,12 @@ import {
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 
+import ReactDOM from "react-dom";
+
 import Review from "./Review";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
+const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
 export default function PaymentForm({
     checkoutToken,
@@ -19,7 +22,17 @@ export default function PaymentForm({
     onCaptureCheckout,
 }) {
     // const [values, setValues] = useState({});
+    // console.log("checkoutToken.live.subtotal: ", checkoutToken.live.subtotal);
     console.log("shippingData: ", shippingData);
+    const [method, setMethod] = useState("cc");
+    const [paypalError, setPaypalError] = useState(null);
+    let paypalRef = useRef();
+
+    const handleSelection = (e) => {
+        console.log("e: ", e);
+        console.log("e.target.value: ", e.target.value);
+        setMethod(e.target.value);
+    };
 
     const handleSubmit = async (e, elements, stripe) => {
         e.preventDefault();
@@ -28,6 +41,7 @@ export default function PaymentForm({
         // console.log("e: ", e);
         // console.log("data: ", data);
         if (!stripe || !elements) return;
+
         const cardElement = elements.getElement(CardElement);
 
         const { error, paymentMethod } = await stripe.createPaymentMethod({
@@ -37,6 +51,7 @@ export default function PaymentForm({
 
         if (error) {
             console.log("[error]", error);
+            // devo provare a fare un mockup dell'errore 🐔
         } else {
             const orderData = {
                 line_items: checkoutToken.live.line_items,
@@ -72,6 +87,76 @@ export default function PaymentForm({
         }
     };
 
+    const handlePaypal = () => {
+        window.paypal
+            .Buttons({
+                createOrder: (data, actions) => {
+                    return actions.order.create({
+                        purchase_units: [
+                            {
+                                description: "Your Order",
+                                amount: {
+                                    currency_code: "USD",
+                                    value: checkoutToken.live.subtotal.raw,
+                                },
+                            },
+                        ],
+                    });
+                },
+                onApprove: async (data, actions) => {
+                    const order = await actions.order.capture();
+                    nextStep();
+                    console.log(order);
+                },
+                onError: (err) => {
+                    setPaypalError(err);
+                    console.error(err);
+                },
+            })
+            .render(paypalRef.current);
+    };
+
+    // useEffect(() => {
+    //     // Load PayPal Script at the end of our DOM
+    //     const script = document.createElement("script");
+    //     script.src =
+    //         "https://www.paypal.com/sdk/js?client-id=AZVz756sSn0AylZvDKjKGJnhJMGIw3JLV5crP_6igMFZhIOH00ReyNl4bo8GSKT7P0NkK5GEZUgULuin";
+    //     script.addEventListener("load", () => setLoaded(true));
+    //     document.body.appendChild(script);
+
+    //     if (loaded) {
+    //     }
+    // });
+
+    // useEffect(() => {
+    //     window.paypal
+    //         .Buttons({
+    //             createOrder: (data, actions) => {
+    //                 return actions.order.create({
+    //                     purchase_units: [
+    //                         {
+    //                             description: "Your order here",
+    //                             amount: {
+    //                                 currency_code: "USD",
+    //                                 value: checkoutToken.live.subtotal.raw,
+    //                             },
+    //                         },
+    //                     ],
+    //                 });
+    //             },
+    //             onApprove: async (data, actions) => {
+    //                 const order = await actions.order.capture();
+    //                 nextStep();
+    //                 console.log(order);
+    //             },
+    //             onError: (err) => {
+    //                 setPaypalError(err);
+    //                 console.error(err);
+    //             },
+    //         })
+    //         .render(paypalRef.current);
+    // }, []);
+
     // const handleForm = (e) => {
     //     e.preventDefault();
     //     const form = e.target.form;
@@ -91,51 +176,66 @@ export default function PaymentForm({
             <h3 className="second-font">Pagamento</h3>
             <Review checkoutToken={checkoutToken} />
             <h5>Metodi di pagamento:</h5>
-            <select className="payment-mode">
-                <option>Carta di credito</option>
-                <option>Paypal</option>
+            <select className="payment-mode" onChange={handleSelection}>
+                <option value="cc">Carta di credito</option>
+                <option value="pp">Paypal</option>
             </select>
-            <Elements stripe={stripePromise}>
-                <ElementsConsumer>
-                    {({ elements, stripe }) => (
-                        <form
-                            onSubmit={(e) => handleSubmit(e, elements, stripe)}
-                        >
-                            <CardElement />
 
-                            <div className="check-terms">
-                                <input type="checkbox" name="accept" />
-                                <label htmlFor="accept">
-                                    Dichiaro di aver letto{" "}
-                                    <a>Termini e Condizioni</a>
-                                </label>
-                            </div>
+            {method === "cc" ? (
+                <Elements stripe={stripePromise}>
+                    <ElementsConsumer>
+                        {({ elements, stripe }) => (
+                            <form
+                                onSubmit={(e) =>
+                                    handleSubmit(e, elements, stripe)
+                                }
+                            >
+                                <CardElement />
 
-                            <div className="row2">
-                                <div className="row-submit">
-                                    <button
-                                        className={"layout-button btn-dark1"}
-                                        type="button"
-                                        onClick={backStep}
-                                    >
-                                        Torna indietro
-                                    </button>
-                                    <button
-                                        className={"layout-button btn-dark1"}
-                                        type="submit"
-                                        disabled={!stripe}
-                                    >
-                                        Conferma
-                                        {" " +
-                                            checkoutToken.live.subtotal
-                                                .formatted_with_symbol}
-                                    </button>
+                                <div className="check-terms">
+                                    <input type="checkbox" name="accept" />
+                                    <label htmlFor="accept">
+                                        Dichiaro di aver letto{" "}
+                                        <a>Termini e Condizioni</a>
+                                    </label>
                                 </div>
-                            </div>
-                        </form>
-                    )}
-                </ElementsConsumer>
-            </Elements>
+
+                                <div className="row2">
+                                    <div className="row-submit">
+                                        <button
+                                            className={
+                                                "layout-button btn-dark1"
+                                            }
+                                            type="button"
+                                            onClick={backStep}
+                                        >
+                                            Torna indietro
+                                        </button>
+                                        <button
+                                            className={
+                                                "layout-button btn-dark1"
+                                            }
+                                            type="submit"
+                                            disabled={!stripe}
+                                        >
+                                            Conferma
+                                            {" " +
+                                                checkoutToken.live.subtotal
+                                                    .formatted_with_symbol}
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        )}
+                    </ElementsConsumer>
+                </Elements>
+            ) : (
+                <div>
+                    <h2>Paypal</h2>
+                    <PayPalButton />
+                    <div ref={paypalRef} />
+                </div>
+            )}
         </div>
     );
 }

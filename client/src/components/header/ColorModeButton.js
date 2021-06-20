@@ -8,7 +8,7 @@ import "../../styles/ColorModeButton.css";
 export default function ColorModeButton() {
     const [togClass, setTogClass] = useState("light");
     let theme = localStorage.getItem("theme");
-    console.log("theme", togClass);
+    // console.log("theme", togClass);
 
     const toggleColors = () => {
         if (localStorage.getItem("theme") === "theme-dark") {
@@ -44,7 +44,7 @@ export default function ColorModeButton() {
                     id="toggleColorMode"
                     name="toggleColorMode"
                     type="checkbox"
-                    checked={togClass}
+                    defaultChecked={togClass}
                 />
             </div>
 
