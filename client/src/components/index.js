@@ -13,5 +13,7 @@ export { default as Cart } from "./cart/Cart";
 export { default as Checkout } from "./checkout-form/checkout/Checkout";
 
 //docs
+export { default as FAQ } from "./docs/FAQ";
 export { default as PrivacyAndCookiePolicy } from "./docs/PrivacyAndCookiePolicy";
+export { default as Regolamento } from "./docs/Regolamento";
 export { default as TermsAndConditions } from "./docs/TermsAndConditions";

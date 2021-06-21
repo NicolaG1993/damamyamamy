@@ -9,7 +9,12 @@ import { commerce } from "./lib/commerce";
 
 import { Header, Nav, Footer } from "./components";
 import { Home, About, Contact, Shop, Item, Cart, Checkout } from "./components";
-import { PrivacyAndCookiePolicy, TermsAndConditions } from "./components";
+import {
+    FAQ,
+    PrivacyAndCookiePolicy,
+    Regolamento,
+    TermsAndConditions,
+} from "./components";
 import DocExample from "./components/docs/DocExample";
 import CookiesPopUp from "./components/alerts/CookiesPopUp";
 
@@ -271,10 +276,16 @@ class App extends Component {
                             path="/example-doc"
                             render={() => <DocExample />}
                         />
+                        <Route exact path="/FAQ" render={() => <FAQ />} />
                         <Route
                             exact
                             path="/cookie-policy"
                             render={() => <PrivacyAndCookiePolicy />}
+                        />
+                        <Route
+                            exact
+                            path="/regolamento"
+                            render={() => <Regolamento />}
                         />
                         <Route
                             exact

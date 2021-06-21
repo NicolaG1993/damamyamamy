@@ -30,9 +30,9 @@ export default function Nav({ navIsActive, toggleNav, windowWidth }) {
                         <p>Contatto</p>
                     </Link>
 
-                    <a href="/?">
+                    <Link to={"/regolamento"} onClick={toggleNav}>
                         <p>Vendi</p>
-                    </a>
+                    </Link>
                 </div>
 
                 {windowWidth <= 720 && (

@@ -62,14 +62,10 @@ export default function Footer({ windowWidth }) {
                             <Link to={"/shop"}>Prodotti</Link>
                         </p>
                         <p>
-                            <Link to={"/example-doc"} document="">
-                                Domande frequenti
-                            </Link>
+                            <Link to={"/FAQ"}>Domande frequenti</Link>
                         </p>
                         <p>
-                            <Link to={"/example-doc"} document="">
-                                Vendi
-                            </Link>
+                            <Link to={"/regolamento"}>Vendi</Link>
                         </p>
                         <p>
                             <Link to={"/contact"}>Contattaci / Assistenza</Link>
