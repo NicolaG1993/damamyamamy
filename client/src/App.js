@@ -140,6 +140,8 @@ class App extends Component {
         } catch (err) {
             // console.log("error in handleCaptureCheckout: ", err);
             this.setState({ errorMessage: err.data.error.message });
+            // errore da paypal, invalid data 🐔
+            //creare un if (pp, cc) e fare due capture diversi? 🐔
         }
     }
 

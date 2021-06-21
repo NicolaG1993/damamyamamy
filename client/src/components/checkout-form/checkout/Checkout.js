@@ -29,9 +29,10 @@ export default function Checkout({ cart, order, onCaptureCheckout, error }) {
     useEffect(() => {
         const generateToken = async () => {
             try {
-                const token = await commerce.checkout.generateToken(cart.id, {
-                    type: "cart",
-                });
+                const token = await commerce.checkout.generateTokenFrom(
+                    "cart",
+                    cart.id
+                );
                 console.log("token: ", token);
                 setCheckoutToken(token);
             } catch (err) {

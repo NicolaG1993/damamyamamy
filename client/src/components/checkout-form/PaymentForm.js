@@ -21,12 +21,10 @@ export default function PaymentForm({
     backStep,
     onCaptureCheckout,
 }) {
-    // const [values, setValues] = useState({});
-    // console.log("checkoutToken.live.subtotal: ", checkoutToken.live.subtotal);
     console.log("shippingData: ", shippingData);
+    console.log("paypal: ", window.paypal);
     const [method, setMethod] = useState("cc");
     const [paypalError, setPaypalError] = useState(null);
-    let paypalRef = useRef();
 
     const handleSelection = (e) => {
         console.log("e: ", e);
@@ -36,10 +34,7 @@ export default function PaymentForm({
 
     const handleSubmit = async (e, elements, stripe) => {
         e.preventDefault();
-        // const form = e.target.form;
-        // const data = new FormData(form);
-        // console.log("e: ", e);
-        // console.log("data: ", data);
+
         if (!stripe || !elements) return;
 
         const cardElement = elements.getElement(CardElement);
@@ -87,33 +82,57 @@ export default function PaymentForm({
         }
     };
 
-    const handlePaypal = () => {
-        window.paypal
-            .Buttons({
-                createOrder: (data, actions) => {
-                    return actions.order.create({
-                        purchase_units: [
-                            {
-                                description: "Your Order",
-                                amount: {
-                                    currency_code: "USD",
-                                    value: checkoutToken.live.subtotal.raw,
-                                },
-                            },
-                        ],
-                    });
+    const handlePaypalSubmit = async (data, actions) => {
+        return actions.order.create({
+            purchase_units: [
+                {
+                    description: "Your Order!",
+                    amount: {
+                        currency_code: "EUR",
+                        value: checkoutToken.live.subtotal.raw,
+                    },
                 },
-                onApprove: async (data, actions) => {
-                    const order = await actions.order.capture();
-                    nextStep();
-                    console.log(order);
+            ], //questa array verra mappata, devo mettere ogni elemento al suo interno 🐔
+        });
+    };
+    const handlePaypalError = (err) => {
+        setPaypalError(err);
+        console.error(err);
+    };
+    const handlePaypalApprove = async (data, actions) => {
+        const order = await actions.order.capture();
+        // devo vedere questo order e in caso modificarlo come orderData
+        const orderData = {
+            line_items: checkoutToken.live.line_items,
+            customer: {
+                firstname: shippingData.firstName,
+                lastname: shippingData.lastName,
+                email: shippingData.email,
+            },
+            shipping: {
+                name: "Domestico",
+                street: shippingData.address1,
+                town_city: shippingData.city,
+                county_state: shippingData.region,
+                postal_zip_code: shippingData.zip,
+                country: shippingData.country,
+            },
+            fulfillment: { shipping_method: shippingData.shipping },
+            payment: {
+                gateway: "paypal",
+                paypal: {
+                    action: "capture",
+                    payment_id: order.id,
+                    payer_id: order.payer.payer_id,
                 },
-                onError: (err) => {
-                    setPaypalError(err);
-                    console.error(err);
-                },
-            })
-            .render(paypalRef.current);
+            },
+        };
+
+        console.log("order", order);
+        console.log("orderData", orderData);
+        console.log("checkoutToken", checkoutToken);
+        onCaptureCheckout(checkoutToken.id, orderData);
+        nextStep();
     };
 
     // useEffect(() => {
@@ -127,49 +146,6 @@ export default function PaymentForm({
     //     if (loaded) {
     //     }
     // });
-
-    // useEffect(() => {
-    //     window.paypal
-    //         .Buttons({
-    //             createOrder: (data, actions) => {
-    //                 return actions.order.create({
-    //                     purchase_units: [
-    //                         {
-    //                             description: "Your order here",
-    //                             amount: {
-    //                                 currency_code: "USD",
-    //                                 value: checkoutToken.live.subtotal.raw,
-    //                             },
-    //                         },
-    //                     ],
-    //                 });
-    //             },
-    //             onApprove: async (data, actions) => {
-    //                 const order = await actions.order.capture();
-    //                 nextStep();
-    //                 console.log(order);
-    //             },
-    //             onError: (err) => {
-    //                 setPaypalError(err);
-    //                 console.error(err);
-    //             },
-    //         })
-    //         .render(paypalRef.current);
-    // }, []);
-
-    // const handleForm = (e) => {
-    //     e.preventDefault();
-    //     const form = e.target.form;
-    //     const data = new FormData(form);
-    //     const allValues = Object.fromEntries(data.entries());
-    //     // console.log("form data: ", allValues);
-
-    //     setValues(allValues);
-    // };
-
-    // const handleSubmit = (e) => {
-    //     console.log("handleSubmit: ", e);
-    // };
 
     return (
         <div className="checkout-form-box">
@@ -230,10 +206,21 @@ export default function PaymentForm({
                     </ElementsConsumer>
                 </Elements>
             ) : (
-                <div>
-                    <h2>Paypal</h2>
-                    <PayPalButton />
-                    <div ref={paypalRef} />
+                <div className="paypal-comp">
+                    {paypalError && (
+                        <div>
+                            Uh oh, an error occurred! {paypalError.message}
+                        </div>
+                    )}
+                    <PayPalButton
+                        createOrder={(data, actions) =>
+                            handlePaypalSubmit(data, actions)
+                        }
+                        onApprove={(data, actions) =>
+                            handlePaypalApprove(data, actions)
+                        }
+                        onError={(err) => handlePaypalError(err)}
+                    />
                 </div>
             )}
         </div>

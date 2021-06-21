@@ -179,6 +179,10 @@
     padding: 25px 20px 20px 20px;
 }
 
+.paypal-comp {
+    padding: 25px 20px 20px 20px;
+}
+
 @media screen and (max-width: 650px) {
     .checkout-container {
         padding: 0;
@@ -208,5 +212,8 @@
     .row-submit {
         flex-direction: column;
         row-gap: 30px;
+    }
+    .paypal-comp {
+        padding: 50px 20px 0px 20px;
     }
 }
