@@ -14,3 +14,4 @@ export { default as Checkout } from "./checkout-form/checkout/Checkout";
 
 //docs
 export { default as PrivacyAndCookiePolicy } from "./docs/PrivacyAndCookiePolicy";
+export { default as TermsAndConditions } from "./docs/TermsAndConditions";

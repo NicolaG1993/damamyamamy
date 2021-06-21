@@ -7,12 +7,13 @@ import {
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 
-import ReactDOM from "react-dom";
+// import ReactDOM from "react-dom";
 
 import Review from "./Review";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
-const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
+
+// const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
 export default function PaymentForm({
     checkoutToken,
@@ -24,7 +25,106 @@ export default function PaymentForm({
     console.log("shippingData: ", shippingData);
     console.log("paypal: ", window.paypal);
     const [method, setMethod] = useState("cc");
+    const [termsAccepted, setTermsAccepted] = useState(false);
     const [paypalError, setPaypalError] = useState(null);
+    const paypalRef = useRef(null);
+
+    useEffect(() => {
+        // check if PayPal JS SDK is already loaded
+        if (window.paypal) {
+            renderButtons();
+        } else {
+            const ppValues = {
+                currency: "EUR",
+                disablefunding: "card,giropay,sepa,sofort",
+                locale: "it_IT",
+            };
+            insertScriptElement({
+                url: `https://www.paypal.com/sdk/js?client-id=${process.env.REACT_APP_PAYPAL_CLIENT_ID}&currency=${ppValues.currency}&disable-funding=${ppValues.disablefunding}&locale=${ppValues.locale}`,
+                callback: () => {
+                    renderButtons();
+                },
+            });
+        }
+    }, []);
+
+    useEffect(() => {
+        renderButtons();
+    }, [method]);
+
+    const renderButtons = () => {
+        //codice necessario perché il div di useRef viene renderizzato if (method == pp)
+        if (method === "cc") {
+            return;
+        }
+
+        if (method === "pp") {
+            window.paypal
+                .Buttons({
+                    style: {
+                        color: "blue",
+                        shape: "pill",
+                        label: "paypal",
+                        tagline: false,
+                    },
+                    createOrder: (data, actions) => {
+                        return actions.order.create({
+                            purchase_units: [
+                                {
+                                    description: "Your Order!",
+                                    amount: {
+                                        currency_code: "EUR",
+                                        value: checkoutToken.live.subtotal.raw,
+                                    },
+                                },
+                            ], //questa array verra mappata, devo mettere ogni elemento al suo interno 🐔
+                        });
+                    },
+                    onApprove: async (data, actions) => {
+                        const order = await actions.order.capture();
+                        // devo vedere questo order e in caso modificarlo come orderData
+                        const orderData = {
+                            line_items: checkoutToken.live.line_items,
+                            customer: {
+                                firstname: shippingData.firstName,
+                                lastname: shippingData.lastName,
+                                email: shippingData.email,
+                            },
+                            shipping: {
+                                name: "Domestico",
+                                street: shippingData.address1,
+                                town_city: shippingData.city,
+                                county_state: shippingData.region,
+                                postal_zip_code: shippingData.zip,
+                                country: shippingData.country,
+                            },
+                            fulfillment: {
+                                shipping_method: shippingData.shipping,
+                            },
+                            payment: {
+                                gateway: "paypal",
+                                paypal: {
+                                    action: "capture",
+                                    payment_id: order.id,
+                                    payer_id: order.payer.payer_id,
+                                },
+                            },
+                        };
+
+                        console.log("order", order);
+                        console.log("orderData", orderData);
+                        console.log("checkoutToken", checkoutToken);
+                        onCaptureCheckout(checkoutToken.id, orderData);
+                        nextStep();
+                    },
+                    onError: (err) => {
+                        setPaypalError(err);
+                        console.error(err);
+                    },
+                })
+                .render(paypalRef.current);
+        }
+    };
 
     const handleSelection = (e) => {
         console.log("e: ", e);
@@ -32,10 +132,41 @@ export default function PaymentForm({
         setMethod(e.target.value);
     };
 
+    const acceptTerms = (e) => {
+        const checked = e.target.checked;
+
+        checked ? setTermsAccepted(true) : setTermsAccepted(false);
+    };
+
+    const TermsBox = () => (
+        <div className="check-terms">
+            <input
+                type="checkbox"
+                name="accept"
+                onChange={(e) => acceptTerms(e)}
+            />
+            <label htmlFor="accept">
+                Dichiaro di aver letto{" "}
+                <a
+                    href="/terms-conditions"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Termini e Condizioni
+                </a>
+            </label>
+        </div>
+    );
+
     const handleSubmit = async (e, elements, stripe) => {
         e.preventDefault();
 
         if (!stripe || !elements) return;
+
+        if (!termsAccepted) {
+            alert("Accettare termini e condizioni prima di proseguire");
+            return;
+        } //forse va nello step precedente? 🐔
 
         const cardElement = elements.getElement(CardElement);
 
@@ -82,66 +213,13 @@ export default function PaymentForm({
         }
     };
 
-    const handlePaypalSubmit = async (data, actions) => {
-        return actions.order.create({
-            purchase_units: [
-                {
-                    description: "Your Order!",
-                    amount: {
-                        currency_code: "EUR",
-                        value: checkoutToken.live.subtotal.raw,
-                    },
-                },
-            ], //questa array verra mappata, devo mettere ogni elemento al suo interno 🐔
-        });
-    };
-    const handlePaypalError = (err) => {
-        setPaypalError(err);
-        console.error(err);
-    };
-    const handlePaypalApprove = async (data, actions) => {
-        const order = await actions.order.capture();
-        // devo vedere questo order e in caso modificarlo come orderData
-        const orderData = {
-            line_items: checkoutToken.live.line_items,
-            customer: {
-                firstname: shippingData.firstName,
-                lastname: shippingData.lastName,
-                email: shippingData.email,
-            },
-            shipping: {
-                name: "Domestico",
-                street: shippingData.address1,
-                town_city: shippingData.city,
-                county_state: shippingData.region,
-                postal_zip_code: shippingData.zip,
-                country: shippingData.country,
-            },
-            fulfillment: { shipping_method: shippingData.shipping },
-            payment: {
-                gateway: "paypal",
-                paypal: {
-                    action: "capture",
-                    payment_id: order.id,
-                    payer_id: order.payer.payer_id,
-                },
-            },
-        };
-
-        console.log("order", order);
-        console.log("orderData", orderData);
-        console.log("checkoutToken", checkoutToken);
-        onCaptureCheckout(checkoutToken.id, orderData);
-        nextStep();
-    };
-
     // useEffect(() => {
     //     // Load PayPal Script at the end of our DOM
     //     const script = document.createElement("script");
     //     script.src =
     //         "https://www.paypal.com/sdk/js?client-id=AZVz756sSn0AylZvDKjKGJnhJMGIw3JLV5crP_6igMFZhIOH00ReyNl4bo8GSKT7P0NkK5GEZUgULuin";
     //     script.addEventListener("load", () => setLoaded(true));
-    //     document.body.appendChild(script);
+    //     document.main.appendChild(script);
 
     //     if (loaded) {
     //     }
@@ -168,13 +246,7 @@ export default function PaymentForm({
                             >
                                 <CardElement />
 
-                                <div className="check-terms">
-                                    <input type="checkbox" name="accept" />
-                                    <label htmlFor="accept">
-                                        Dichiaro di aver letto{" "}
-                                        <a>Termini e Condizioni</a>
-                                    </label>
-                                </div>
+                                <TermsBox />
 
                                 <div className="row2">
                                     <div className="row-submit">
@@ -212,15 +284,15 @@ export default function PaymentForm({
                             Uh oh, an error occurred! {paypalError.message}
                         </div>
                     )}
-                    <PayPalButton
-                        createOrder={(data, actions) =>
-                            handlePaypalSubmit(data, actions)
-                        }
-                        onApprove={(data, actions) =>
-                            handlePaypalApprove(data, actions)
-                        }
-                        onError={(err) => handlePaypalError(err)}
-                    />
+                    <TermsBox />
+                    <div className="checkout-paypal-btn" ref={paypalRef} />
+                    <button
+                        className={"layout-button btn-dark1 btn-long"}
+                        type="button"
+                        onClick={backStep}
+                    >
+                        Torna indietro
+                    </button>
                 </div>
             )}
         </div>
@@ -240,3 +312,22 @@ gateway: 'test_gateway',
       postal_zip_code: '94103',
     },
 */
+
+function insertScriptElement({
+    url,
+    attributes = {},
+    properties = {},
+    callback,
+}) {
+    const newScript = document.createElement("script");
+    newScript.onerror = (err) =>
+        console.error("An error occured while loading the PayPal JS SDK", err);
+    if (callback) newScript.onload = callback;
+
+    Object.keys(attributes).forEach((key) => {
+        newScript.setAttribute(key, attributes[key]);
+    });
+
+    document.body.appendChild(newScript);
+    newScript.src = url;
+}

@@ -93,7 +93,7 @@ export default function Footer({ windowWidth }) {
                             <Link to={"/cookie-policy"}>Cookies policy</Link>
                         </p>
                         <p>
-                            <Link to={"/example-doc"} document="">
+                            <Link to={"/terms-conditions"}>
                                 Termini e condizioni
                             </Link>
                         </p>
