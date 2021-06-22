@@ -55,13 +55,13 @@
 .display-dropdown {
     max-height: 100%;
     padding: 20px;
-    transition: 0.2s ease-out;
+    transition: 0.25s ease-out;
 }
 .hide-dropdown {
     overflow: hidden;
     max-height: 0;
     padding: 0 20px;
-    transition: 0.2s ease-out;
+    transition: 0.15s ease-in;
 }
 
 .dropdown-wrap > div:nth-child(2) > p {
@@ -70,13 +70,13 @@
     position: relative;
     top: 0;
     opacity: 1;
-    transition: 0.4s ease-out;
+    transition: 0.5s ease-in;
 }
 .hide-p {
     position: relative;
     top: -18px;
     opacity: 0;
-    transition: 0.4s ease-out;
+    transition: 0.4s ease-in;
 }
 
 @media screen and (max-width: 580px) {

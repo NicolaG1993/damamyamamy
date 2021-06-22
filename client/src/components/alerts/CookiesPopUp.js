@@ -1,4 +1,5 @@
 import "../../styles/CookiesPopUp.css";
+import { Link } from "react-router-dom";
 
 export default function CookiesPopUp({ toggleCookieAlert }) {
     return (
@@ -16,11 +17,19 @@ export default function CookiesPopUp({ toggleCookieAlert }) {
                 processing of your personal data may not require your consent,
                 but you have a right to object to such processing. You can
                 change your preferences at any time by returning to this site or
-                visit our privacy policy.
+                visit our privacy policy. <br />
             </p>
-            <button className="layout-button btn2" onClick={toggleCookieAlert}>
-                Conferma
-            </button>
+            <div>
+                <button
+                    className="layout-button btn2"
+                    onClick={toggleCookieAlert}
+                >
+                    Ho capito
+                </button>
+                <Link onClick={toggleCookieAlert} to="/cookie-policy">
+                    Maggiori informazioni
+                </Link>
+            </div>
         </div>
     );
 }

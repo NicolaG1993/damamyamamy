@@ -14,9 +14,26 @@
     color: var(--dark-text);
     margin-bottom: 2em;
 }
+.bottom-alert-comp > div {
+    display: flex;
+    column-gap: 40px;
+    align-items: center;
+}
+.bottom-alert-comp > div > a {
+    transition: 0.1s;
+}
+.bottom-alert-comp > div > a:hover {
+    color: rgb(231, 134, 235);
+}
 
 @media screen and (max-width: 720px) {
     .bottom-alert-comp {
         padding: 20px 20px;
+    }
+    .bottom-alert-comp > div {
+        flex-direction: column-reverse;
+
+        column-gap: 0;
+        row-gap: 20px;
     }
 }
