@@ -11,7 +11,7 @@ export default function TermsAndConditions() {
         <div className={"document-comp"}>
             <h1>Termini e condizioni</h1>
 
-            <div>
+            <div className={"document-text-wrap"}>
                 <h3>TERMINI LEGALI</h3>
                 <p>
                     Accedendo alla vetrina dei negozi Mercatino gli utenti si

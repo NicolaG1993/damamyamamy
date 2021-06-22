@@ -11,7 +11,7 @@ export default function Regolamento() {
         <div className={"document-comp"}>
             <h1>Regolamento</h1>
 
-            <div>
+            <div className={"document-text-wrap"}>
                 <h3>
                     Da Mamy A Mamy utilizza cookies per migliorare l’esperienza
                     dell’utente, raccomandiamo di accettarne l’utilizzo per

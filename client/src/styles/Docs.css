@@ -9,7 +9,7 @@
 .document-comp > h1 {
     margin-bottom: 50px;
 }
-.document-comp > div:nth-child(2) {
+.document-text-wrap {
     margin-left: 20px;
 }
 
@@ -29,11 +29,72 @@
     height: 10px;
 }
 
+/* FAQ */
+
+.dropdown-wrap {
+    margin: 0 20px;
+}
+
+.dropdown-wrap > div:nth-child(1) {
+    height: 50px;
+    background-color: var(--header-bg);
+    cursor: pointer;
+    padding-left: 10px;
+    transition: 0.2s ease;
+    border-bottom: 1px solid var(--product-divider-small);
+}
+.dropdown-wrap > div:nth-child(1):hover {
+    background-color: var(--nav-bg);
+}
+.dropdown-wrap > div:nth-child(1) > h3 {
+    line-height: 50px;
+}
+.dropdown-wrap > div:nth-child(2) {
+    background-color: var(--div1-bg);
+}
+.display-dropdown {
+    max-height: 100%;
+    padding: 20px;
+    transition: 0.2s ease-out;
+}
+.hide-dropdown {
+    overflow: hidden;
+    max-height: 0;
+    padding: 0 20px;
+    transition: 0.2s ease-out;
+}
+
+.dropdown-wrap > div:nth-child(2) > p {
+}
+.display-p {
+    position: relative;
+    top: 0;
+    opacity: 1;
+    transition: 0.4s ease-out;
+}
+.hide-p {
+    position: relative;
+    top: -18px;
+    opacity: 0;
+    transition: 0.4s ease-out;
+}
+
 @media screen and (max-width: 580px) {
     .document-comp {
         padding: 60px 20px;
     }
-    .document-comp > div:nth-child(2) {
+    .document-text-wrap {
         margin: 0 10px;
+    }
+
+    .dropdown-wrap {
+        /* margin: 0 10px; */
+        margin: 0 5px;
+    }
+    .display-dropdown {
+        padding: 20px 10px;
+    }
+    .hide-dropdown {
+        padding: 0px 10px;
     }
 }
