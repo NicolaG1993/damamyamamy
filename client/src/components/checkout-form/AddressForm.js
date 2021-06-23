@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { commerce } from "../../lib/commerce";
+import {
+    nameValidation,
+    emailValidation,
+    requestedValue,
+} from "../../utils/validate-forms";
 
 export default function AddressForm({ checkoutToken, next }) {
     const [shippingCountries, setShippingCountries] = useState([]);
@@ -11,7 +16,9 @@ export default function AddressForm({ checkoutToken, next }) {
     const [shippingOption, setShippingOption] = useState("");
     // const methods = useForm();
     const [values, setValues] = useState({});
-    // const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState({});
+
+    console.log("errors: ", errors);
 
     const countries = Object.entries(shippingCountries).map(([code, name]) => ({
         id: code,
@@ -107,11 +114,68 @@ export default function AddressForm({ checkoutToken, next }) {
         }
     }, [values]);
 
+    const handleBlur = (e) => {
+        const { name, value } = e.target;
+        //creo nuovo oggetto per rimuovere errore precedente
+        let newErrObj = { ...errors };
+
+        //validate
+        if (name === "firstName") {
+            const resp = nameValidation("first name", value);
+            if (resp) {
+                setErrors({ ...errors, [name]: resp });
+            } else {
+                delete newErrObj[name];
+                setErrors(newErrObj);
+            }
+        }
+        if (name === "lastName") {
+            const resp = nameValidation("last name", value);
+            if (resp) {
+                setErrors({ ...errors, [name]: resp });
+            } else {
+                delete newErrObj[name];
+                setErrors(newErrObj);
+            }
+        }
+        if (name === "email") {
+            const resp = emailValidation(value);
+            if (resp) {
+                setErrors({ ...errors, [name]: resp });
+            } else {
+                delete newErrObj[name];
+                setErrors(newErrObj);
+            }
+        }
+        if (name === "address1" || name === "city" || name === "zip") {
+            const resp = requestedValue(name, value);
+            if (resp) {
+                setErrors({ ...errors, [name]: resp });
+            } else {
+                delete newErrObj[name];
+                setErrors(newErrObj);
+            }
+        }
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (Object.keys(errors).length === 0) {
+            next(values);
+        } else {
+            console.log("INVALID INPUTS");
+            return;
+        }
+    };
+
     return (
         <div className="checkout-form-box">
             <h3 className="second-font">I vostri dati</h3>
 
-            <form onChange={(e) => handleForm(e)} onSubmit={() => next(values)}>
+            <form
+                onChange={(e) => handleForm(e)}
+                onSubmit={(e) => handleSubmit(e)}
+            >
                 <div className="form-col-left">
                     <label>Nome *</label>
                 </div>
@@ -121,6 +185,7 @@ export default function AddressForm({ checkoutToken, next }) {
                         type="text"
                         name="firstName"
                         id="firstName"
+                        onBlur={(e) => handleBlur(e)}
                     />
                 </div>
 
@@ -128,35 +193,65 @@ export default function AddressForm({ checkoutToken, next }) {
                     <label>Cognome *</label>
                 </div>
                 <div className="form-col-right">
-                    <input required type="text" name="lastName" id="lastName" />
+                    <input
+                        required
+                        type="text"
+                        name="lastName"
+                        id="lastName"
+                        onBlur={(e) => handleBlur(e)}
+                    />
                 </div>
 
                 <div className="form-col-left">
                     <label>Indirizzo *</label>
                 </div>
                 <div className="form-col-right">
-                    <input required type="text" name="address1" id="address1" />
+                    <input
+                        required
+                        type="text"
+                        name="address1"
+                        id="address1"
+                        onBlur={(e) => handleBlur(e)}
+                    />
                 </div>
 
                 <div className="form-col-left">
                     <label>Email *</label>
                 </div>
                 <div className="form-col-right">
-                    <input required type="text" name="email" id="email" />
+                    <input
+                        required
+                        type="text"
+                        name="email"
+                        id="email"
+                        onBlur={(e) => handleBlur(e)}
+                    />
                 </div>
 
                 <div className="form-col-left">
                     <label>Città *</label>
                 </div>
                 <div className="form-col-right">
-                    <input required type="text" name="city" id="city" />
+                    <input
+                        required
+                        type="text"
+                        name="city"
+                        id="city"
+                        onBlur={(e) => handleBlur(e)}
+                    />
                 </div>
 
                 <div className="form-col-left">
                     <label>CAP *</label>
                 </div>
                 <div className="form-col-right">
-                    <input required type="text" name="zip" id="zip" />
+                    <input
+                        required
+                        type="text"
+                        name="zip"
+                        id="zip"
+                        onBlur={(e) => handleBlur(e)}
+                    />
                 </div>
 
                 <div className="form-col-left">

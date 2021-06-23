@@ -19,9 +19,9 @@ export default function TermsAndConditions() {
                     di tutte le condizioni contenute nel sito
                     www.mercatinousato.com. Gli utenti che non accettino o non
                     intendano rispettare tali termini sono pregati di astenersi
-                    dall’utilizzo del sistema e-commerce. L'accesso al sito e ai
-                    relativi servizi è destinato esclusivamente all’utilizzo
-                    personale. La visualizzazione del sito
+                    dall’utilizzo del sistema e-commerce. L&apos;accesso al sito
+                    e ai relativi servizi è destinato esclusivamente
+                    all’utilizzo personale. La visualizzazione del sito
                     www.mercatinousato.com fornisce al cliente informazioni sui
                     prodotti proposti dai negozi Mercatino insieme alla
                     possibilità di acquisto degli stessi.
@@ -82,40 +82,40 @@ export default function TermsAndConditions() {
                     alcuno. Mercatino S.r.l. non offre garanzie sulla conformità
                     delle informazioni pubblicate sui propri siti e dei siti dei
                     propri Affiliati e declina ogni responsabilità relativa a
-                    eventuali problemi, danni o rischi che l'utente può
+                    eventuali problemi, danni o rischi che l&apos;utente può
                     incontrare durante l’utilizzo dei siti. Mercatino S.r.l.
                     garantisce che i propri siti sono protetti secondo gli
                     standard internazionali previsti per Internet: se li usa
                     correttamente, l’utente è protetto dal rischio di virus.
                     Mercatino S.r.l. declina ogni responsabilità relativa a
                     malfunzionamenti legati alla disattivazione dei cookies nel
-                    browser dell'utente. Mercatino S.r.l. si riserva il diritto
-                    di rettificare in forma scritta i termini e le condizioni
-                    contenute nel sito ogni qualvolta lo ritenga opportuno,
-                    senza obbligo di preavviso. L'utente è altresì tenuto ad
-                    attenersi ai termini contenuti nelle varie aree del sito,
-                    controllando periodicamente la presenza di eventuali
-                    aggiornamenti.
+                    browser dell&apos;utente. Mercatino S.r.l. si riserva il
+                    diritto di rettificare in forma scritta i termini e le
+                    condizioni contenute nel sito ogni qualvolta lo ritenga
+                    opportuno, senza obbligo di preavviso. L&apos;utente è
+                    altresì tenuto ad attenersi ai termini contenuti nelle varie
+                    aree del sito, controllando periodicamente la presenza di
+                    eventuali aggiornamenti.
                 </p>
                 <div className="end-paragraph"></div>
 
                 <h3>LEGISLAZIONE ITALIANA</h3>
                 <p>
                     Gli utenti che accedono al presente sito dichiarano di
-                    accettare che tutte le questioni relative all'utilizzo del
-                    sito web www.mercatinousato.com e dei suoi servizi siano
+                    accettare che tutte le questioni relative all&apos;utilizzo
+                    del sito web www.mercatinousato.com e dei suoi servizi siano
                     regolate dalla legislazione vigente dello Stato italiano.
                     Dichiarano inoltre di assoggettarsi esclusivamente alla
                     competenza del Foro di Verona per le questioni sopracitate.
                     Mercatino S.r.l. non garantisce in alcun modo che il
                     contenuto del sito sia conforme alle normative vigenti in
-                    altri paesi. L'accesso al sito www.mercatinousato.com da
-                    luoghi in cui i relativi contenuti sono considerati illegali
-                    è espressamente proibito: gli utenti che decidano di
-                    accedere al sito da tali paesi sono pienamente consapevoli
-                    delle conseguenze legali e delle sanzioni in cui rischiano
-                    di incorrere e saranno i soli responsabili del rispetto
-                    delle leggi locali.
+                    altri paesi. L&apos;accesso al sito www.mercatinousato.com
+                    da luoghi in cui i relativi contenuti sono considerati
+                    illegali è espressamente proibito: gli utenti che decidano
+                    di accedere al sito da tali paesi sono pienamente
+                    consapevoli delle conseguenze legali e delle sanzioni in cui
+                    rischiano di incorrere e saranno i soli responsabili del
+                    rispetto delle leggi locali.
                 </p>
                 <div className="end-paragraph"></div>
 
@@ -127,15 +127,16 @@ export default function TermsAndConditions() {
                     privati. Di conseguenza le cessioni degli oggetti avvengono
                     tra due consumatori finali, non sono soggette a
                     fatturazione, e saranno documentate tramite emissione di
-                    ricevuta che ne comprova l’acquisto. L'offerta e la vendita
-                    di prodotti sul nostro sito web www.mercatinousato.com sono
-                    regolate da queste Condizioni Generali di Vendita. I
-                    prodotti acquistati sul sito della Mercatino S.r.l. sono
-                    venduti direttamente dai negozi affiliati alla catena in
-                    franchising “Mercatino compra vendita usato” che agiscono in
-                    proprio. rif. ART 115 del R.D. 773/1931 ("MERCATINO S.r.l.
-                    via Messedaglia 8/c"), P.IVA 04021490232 REA 385074, Cap.
-                    Soc. 100.000,00 € i.v.)
+                    ricevuta che ne comprova l’acquisto. L&apos;offerta e la
+                    vendita di prodotti sul nostro sito web
+                    www.mercatinousato.com sono regolate da queste Condizioni
+                    Generali di Vendita. I prodotti acquistati sul sito della
+                    Mercatino S.r.l. sono venduti direttamente dai negozi
+                    affiliati alla catena in franchising “Mercatino compra
+                    vendita usato” che agiscono in proprio. rif. ART 115 del
+                    R.D. 773/1931 (&quot;MERCATINO S.r.l. via Messedaglia
+                    8/c&quot;), P.IVA 04021490232 REA 385074, Cap. Soc.
+                    100.000,00 € i.v &#41;
                 </p>
             </div>
         </div>
