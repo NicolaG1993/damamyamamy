@@ -40,48 +40,6 @@ const Slider = (props) => {
     const resizeRef = useRef();
     const sliderRef = useRef();
 
-    const startAutoplay = () => {
-        const slider = sliderRef.current;
-
-        const play = () => {
-            autoPlayRef.current();
-        };
-
-        const smooth = (e) => {
-            if (e.target.className.includes("SliderContent")) {
-                transitionRef.current();
-            }
-        };
-
-        const resize = () => {
-            resizeRef.current();
-        };
-
-        const transitionEnd = slider.addEventListener("transitionend", smooth);
-        const onResize = window.addEventListener("resize", resize);
-
-        let interval = null;
-
-        if (props.autoPlay) {
-            interval = setInterval(play, props.autoPlay * 1000);
-        }
-
-        return () => {
-            //ma questa é la cleanup fn?!?!
-            slider.removeEventListener("transitionend", transitionEnd);
-            window.removeEventListener("resize", onResize);
-
-            if (props.autoPlay) {
-                clearInterval(interval);
-            }
-        };
-    };
-
-    const stopAutoplay = () => {
-        //cleanup fn per annullare il timer sullo slider
-        // autoPlayRef ???
-    };
-
     useEffect(() => {
         autoPlayRef.current = nextSlide;
         transitionRef.current = smoothTransition;
@@ -89,13 +47,36 @@ const Slider = (props) => {
     });
 
     useEffect(() => {
-        startAutoplay();
         window.addEventListener("scroll", handleScroll);
+
+        const slider = sliderRef.current;
+        const play = () => {
+            autoPlayRef.current();
+        };
+        const smooth = (e) => {
+            if (e.target.className.includes("SliderContent")) {
+                transitionRef.current();
+            }
+        };
+        const resize = () => {
+            resizeRef.current();
+        };
+        const transitionEnd = slider.addEventListener("transitionend", smooth);
+        const onResize = window.addEventListener("resize", resize);
+        let interval = null;
+
+        if (props.autoPlay) {
+            interval = setInterval(play, props.autoPlay * 1000);
+        }
 
         // returned function will be called on component unmount
         return () => {
-            stopAutoplay();
+            slider.removeEventListener("transitionend", transitionEnd);
+            window.removeEventListener("resize", onResize);
             window.removeEventListener("scroll", handleScroll);
+            if (props.autoPlay) {
+                clearInterval(interval);
+            }
         };
     }, []);
 
