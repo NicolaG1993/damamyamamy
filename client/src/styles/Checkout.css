@@ -191,6 +191,20 @@
     padding: 25px 20px 20px 20px;
 }
 
+.payment-result-box {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 15px;
+    padding-bottom: 20px;
+}
+.payment-result-box * h3,
+.payment-result-box * h4 {
+    margin-bottom: 15px;
+}
+
 @media screen and (max-width: 650px) {
     .checkout-container {
         padding: 0;

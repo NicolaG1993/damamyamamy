@@ -31,6 +31,12 @@ const requestedValue = (fieldValue) => {
     }
     return null;
 };
+const textValidation = (fieldValue) => {
+    if (fieldValue.trim() === "") {
+        return `Devi scriverci qualcosa`;
+    }
+    return null;
+};
 
 const numberValidation = (fieldName, fieldValue) => {
     if (fieldValue.trim() === "") {
@@ -66,6 +72,7 @@ module.exports = {
     nameValidation,
     emailValidation,
     requestedValue,
+    textValidation,
     numberValidation,
 };
 

@@ -5,19 +5,6 @@
 .contact-comp {
     width: 100%;
 }
-/* 
-.contact-form > h1 {
-    margin-bottom: 50px;
-} */
-.contact-form * ::placeholder {
-    /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: var(--placeholder-text);
-    opacity: 1; /* Firefox */
-}
-
-.contact-form * input {
-    color: var(--dark-text);
-}
 
 .contact-wrap {
     display: flex;

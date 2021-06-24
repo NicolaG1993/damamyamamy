@@ -178,6 +178,14 @@ export default function AddressForm({ checkoutToken, next }) {
         }
     };
 
+    if (shippingOptions.length < 1)
+        return (
+            <>
+                <div className="loader loader-inverted"></div>
+                <p>in attesa di commerce.js</p>
+            </>
+        );
+
     return (
         <div className="checkout-form-box">
             <h3 className="second-font">I vostri dati</h3>

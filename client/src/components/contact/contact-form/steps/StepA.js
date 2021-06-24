@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
     nameValidation,
     emailValidation,
-    numberValidation,
-    requestedValue,
+    textValidation,
 } from "../../../../utils/validate-forms";
 
 export default function StepA({ next, contactReq }) {
@@ -33,7 +32,7 @@ export default function StepA({ next, contactReq }) {
             fnameCheck: nameValidation("nome", values.contactname),
             lnameCheck: nameValidation("cognome", values.contactlast),
             emailCheck: emailValidation(values.email),
-            textCheck: requestedValue(values.message),
+            textCheck: textValidation(values.message),
         };
 
         if (!newErrObj.fnameCheck) {

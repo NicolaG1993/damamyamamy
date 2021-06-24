@@ -16,7 +16,18 @@ export default function Cart({ cart, removeFromCart, emptyCart }) {
         window.scrollTo(0, 0);
     }, []);
 
-    const EmptyCart = () => <p>Nessun prodotto nel tuo carrello</p>;
+    const EmptyCart = () => (
+        <>
+            <p>Nessun prodotto nel tuo carrello</p>
+            <br />
+            <br />
+            <Link to="/shop">
+                <button className={"layout-button btn-dark1"}>
+                    Vai al negozio
+                </button>
+            </Link>
+        </>
+    );
 
     const FilledCart = () => (
         <div className={"cart-container"}>

@@ -42,11 +42,23 @@
     color: rgb(231, 134, 235);
     border: solid 2px rgb(231, 134, 235);
 } */
+
+/* 
+.contact-form > h1 {
+    margin-bottom: 50px;
+} */
+
 .contact-form * input,
 .contact-form * textarea {
     border-radius: 10px;
     background-color: rgba(232, 134, 235, 0.315);
+    color: var(--dark-text);
     border: none;
+}
+.contact-form * ::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: var(--placeholder-text);
+    opacity: 1; /* Firefox */
 }
 
 /* STEPS */
@@ -73,7 +85,7 @@
 }
 
 .contact-form-error-wrap {
-    background-color: rgb(204, 108, 207);
+    background-color: rgb(231, 134, 235);
     color: ghostwhite;
     padding: 12px;
     margin: -30px 0 10px 0px;

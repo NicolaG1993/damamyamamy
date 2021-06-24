@@ -70,20 +70,24 @@ export default function Checkout({ cart, order, onCaptureCheckout, error }) {
 
     let Confirmation = () =>
         order ? (
-            <>
+            <div className="checkout-form-box payment-result-box">
                 <div>
                     <h3>
                         Grazie per il tuo acquisto, {order.customer.firstname}{" "}
                         {order.customer.lastname}!
                     </h3>
 
-                    <h5>Order ref: {order.customer_reference}</h5>
+                    <p>Ordine: {order.customer_reference}</p>
                 </div>
-                <br />
-                <Link to="/">Torna al sito</Link>
-            </>
+
+                <Link to="/">
+                    <button className={"layout-button btn-dark1"}>
+                        Torna al carrello
+                    </button>
+                </Link>
+            </div>
         ) : (
-            <div className="loader"></div>
+            <div className="loader loader-inverted"></div>
         );
 
     // : isFinished ? (
@@ -99,11 +103,18 @@ export default function Checkout({ cart, order, onCaptureCheckout, error }) {
 
     if (error) {
         Confirmation = () => (
-            <>
-                <h5>Errore: {error}</h5>
-                <br />
-                <Link to="/">Torna al sito</Link>
-            </>
+            <div className="checkout-form-box payment-result-box">
+                <div>
+                    <h3>Errore:</h3>
+                    <p>{error}</p>
+                </div>
+
+                <Link to="/cart">
+                    <button className={"layout-button btn-dark1"}>
+                        Torna al carrello
+                    </button>
+                </Link>
+            </div>
         );
     }
 
