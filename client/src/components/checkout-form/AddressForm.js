@@ -4,6 +4,7 @@ import { commerce } from "../../lib/commerce";
 import {
     nameValidation,
     emailValidation,
+    numberValidation,
     requestedValue,
 } from "../../utils/validate-forms";
 
@@ -121,7 +122,7 @@ export default function AddressForm({ checkoutToken, next }) {
 
         //validate
         if (name === "firstName") {
-            const resp = nameValidation("first name", value);
+            const resp = nameValidation("nome", value);
             if (resp) {
                 setErrors({ ...errors, [name]: resp });
             } else {
@@ -130,7 +131,7 @@ export default function AddressForm({ checkoutToken, next }) {
             }
         }
         if (name === "lastName") {
-            const resp = nameValidation("last name", value);
+            const resp = nameValidation("cognome", value);
             if (resp) {
                 setErrors({ ...errors, [name]: resp });
             } else {
@@ -147,8 +148,17 @@ export default function AddressForm({ checkoutToken, next }) {
                 setErrors(newErrObj);
             }
         }
-        if (name === "address1" || name === "city" || name === "zip") {
-            const resp = requestedValue(name, value);
+        if (name === "address1" || name === "city") {
+            const resp = requestedValue(value);
+            if (resp) {
+                setErrors({ ...errors, [name]: resp });
+            } else {
+                delete newErrObj[name];
+                setErrors(newErrObj);
+            }
+        }
+        if (name === "zip") {
+            const resp = numberValidation("CAP", value);
             if (resp) {
                 setErrors({ ...errors, [name]: resp });
             } else {
@@ -187,6 +197,9 @@ export default function AddressForm({ checkoutToken, next }) {
                         id="firstName"
                         onBlur={(e) => handleBlur(e)}
                     />
+                    {errors.firstName && (
+                        <div className="form-error">{errors.firstName}</div>
+                    )}
                 </div>
 
                 <div className="form-col-left">
@@ -200,6 +213,9 @@ export default function AddressForm({ checkoutToken, next }) {
                         id="lastName"
                         onBlur={(e) => handleBlur(e)}
                     />
+                    {errors.lastName && (
+                        <div className="form-error">{errors.lastName}</div>
+                    )}
                 </div>
 
                 <div className="form-col-left">
@@ -213,6 +229,9 @@ export default function AddressForm({ checkoutToken, next }) {
                         id="address1"
                         onBlur={(e) => handleBlur(e)}
                     />
+                    {errors.address1 && (
+                        <div className="form-error">{errors.address1}</div>
+                    )}
                 </div>
 
                 <div className="form-col-left">
@@ -226,6 +245,9 @@ export default function AddressForm({ checkoutToken, next }) {
                         id="email"
                         onBlur={(e) => handleBlur(e)}
                     />
+                    {errors.email && (
+                        <div className="form-error">{errors.email}</div>
+                    )}
                 </div>
 
                 <div className="form-col-left">
@@ -239,6 +261,9 @@ export default function AddressForm({ checkoutToken, next }) {
                         id="city"
                         onBlur={(e) => handleBlur(e)}
                     />
+                    {errors.city && (
+                        <div className="form-error">{errors.city}</div>
+                    )}
                 </div>
 
                 <div className="form-col-left">
@@ -252,6 +277,9 @@ export default function AddressForm({ checkoutToken, next }) {
                         id="zip"
                         onBlur={(e) => handleBlur(e)}
                     />
+                    {errors.zip && (
+                        <div className="form-error">{errors.zip}</div>
+                    )}
                 </div>
 
                 <div className="form-col-left">

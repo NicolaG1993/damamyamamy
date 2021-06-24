@@ -47,12 +47,7 @@ function ContactForm() {
 
     const Form = () =>
         activeStep === 0 ? (
-            <StepA
-                next={next}
-                nextStep={nextStep}
-                setContactReq={setContactReq}
-                contactReq={contactReq}
-            />
+            <StepA next={next} contactReq={contactReq} />
         ) : (
             <StepB backStep={backStep} confirmAndSend={confirmAndSend} />
         );

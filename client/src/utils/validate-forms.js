@@ -1,12 +1,12 @@
 const nameValidation = (fieldName, fieldValue) => {
     if (fieldValue.trim() === "") {
-        return `${fieldName} is required`;
+        return `Il ${fieldName} è richiesto`;
     }
     if (/[^a-zA-Z -]/.test(fieldValue)) {
-        return "Invalid characters";
+        return "Caratteri non consentiti";
     }
     if (fieldValue.trim().length < 3) {
-        return `${fieldName} needs to be at least three characters`;
+        return `Il ${fieldName} deve contenere almeno 3 lettere`;
     }
     return null;
 };
@@ -20,17 +20,28 @@ const emailValidation = (email) => {
         return null;
     }
     if (email.trim() === "") {
-        return "Email is required";
+        return "È richiesta un'email";
     }
-    return "Please enter a valid email";
+    return "Perfavore inserisci un'email valida";
 };
 
-const requestedValue = (fieldName, fieldValue) => {
+const requestedValue = (fieldValue) => {
     if (fieldValue.trim() === "") {
-        return `${fieldName} is required`;
+        return `Devi inserire qualcosa`;
     }
     return null;
 };
+
+const numberValidation = (fieldName, fieldValue) => {
+    if (fieldValue.trim() === "") {
+        return `Il ${fieldName} è richiesto`;
+    }
+    if (/^\d+$/.test(fieldValue)) {
+        return null;
+    }
+    return `${fieldName} deve essere un numero`;
+};
+
 // const ageValidation = (age) => {
 //     if (!age) {
 //         return "Age is required";
@@ -55,6 +66,7 @@ module.exports = {
     nameValidation,
     emailValidation,
     requestedValue,
+    numberValidation,
 };
 
 /*
