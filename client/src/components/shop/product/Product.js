@@ -42,7 +42,6 @@ export default function Product({
                             </span>
                             {product.price.raw}€
                         </h5>
-                        <br />
                     </div>
                 </Link>
                 {/* {notAvailables && notAvailables.filter} */}
