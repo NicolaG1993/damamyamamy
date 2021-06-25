@@ -33,7 +33,7 @@ export default function filterStore(state = initialState, action) {
 
             let count = action.payload.length + 1;
             let countPerPage = 9; //We need the total number of pages. This is used in rendering the pagination component. //round up
-            let totalPages = Math.ceil(count / countPerPage);
+            let totalPages = Math.ceil((count - 1) / countPerPage);
 
             let topValue = Math.max.apply(
                 Math,
@@ -103,7 +103,7 @@ export default function filterStore(state = initialState, action) {
 
             //all of this is for NavPage component
             let count = newState.filteredProducts.length + 1;
-            let totalPages = Math.ceil(count / state.countPerPage);
+            let totalPages = Math.ceil((count - 1) / state.countPerPage);
             newState.totalCount = count;
             (newState.currentCount = state.countPerPage),
                 (newState.currentPage = 1);
@@ -144,7 +144,7 @@ export default function filterStore(state = initialState, action) {
 
             //all of this is for NavPage component
             let count = newState.filteredProducts.length + 1;
-            let totalPages = Math.ceil(count / state.countPerPage);
+            let totalPages = Math.ceil((count - 1) / state.countPerPage);
             newState.totalCount = count;
             newState.currentCount = state.countPerPage;
             newState.currentPage = 1;
@@ -182,12 +182,17 @@ export default function filterStore(state = initialState, action) {
 
             //all of this is for NavPage component
             let count = newState.filteredProducts.length + 1;
-            let totalPages = Math.ceil(count / state.countPerPage);
+            let totalPages = Math.ceil((count - 1) / state.countPerPage);
             newState.totalCount = count;
             newState.currentCount = state.countPerPage;
             newState.currentPage = 1;
             newState.totalPages = totalPages;
             newState.filteredPages = totalPages;
+
+            console.log(
+                "FILTER_BY_PRICE totalPages: ",
+                Math.ceil((count - 1) / state.countPerPage)
+            );
 
             window.history.pushState(
                 { page: 1 },
