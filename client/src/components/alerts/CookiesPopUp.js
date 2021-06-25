@@ -21,7 +21,7 @@ export default function CookiesPopUp({ toggleCookieAlert }) {
             </p>
             <div>
                 <button
-                    className="layout-button btn2"
+                    className="layout-button btn-dark2"
                     onClick={toggleCookieAlert}
                 >
                     Ho capito

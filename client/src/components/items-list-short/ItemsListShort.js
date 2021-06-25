@@ -53,7 +53,6 @@ export default function ItemsListShort({
         document.querySelectorAll(".product-box").forEach((el) => {
             el.classList.add("fade-in");
         });
-        // console.log("products: ", products);
     });
 
     useEffect(() => {

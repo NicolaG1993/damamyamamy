@@ -5,32 +5,15 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../../styles/Footer.css";
 
-export default function Footer({ windowWidth }) {
+export default function Footer({ scrollTop, windowWidth }) {
     const [parallaxHeight, setParallaxHeight] = useState();
-    const [scrollTop, setScrollTop] = useState();
     const currentYear = new Date().getFullYear();
     // console.log("scrollTop: ", scrollTop);
     // console.log("windowWidth: ", windowWidth);
 
     useEffect(() => {
-        // component did mount
-        window.addEventListener("scroll", handleScroll);
-
-        // returned function will be called on component unmount
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, []);
-
-    const handleScroll = () => {
-        setScrollTop(window.scrollY);
-        //if window.width > ?px
-        //oppure vedere se trovo width passando event
-    };
-
-    useEffect(() => {
         if (
-            window.scrollY + window.innerHeight + 200 >=
+            scrollTop + window.innerHeight + 200 >=
             document.documentElement.offsetHeight
         ) {
             setParallaxHeight(`0`);

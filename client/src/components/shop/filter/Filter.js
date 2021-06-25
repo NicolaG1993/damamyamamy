@@ -45,7 +45,7 @@ export default function Filter({
             });
 
             // Number() per convertire da numero a string
-        }, 300);
+        }, 3000);
 
         const data = new FormData(form);
         const allValues = Object.fromEntries(data.entries());

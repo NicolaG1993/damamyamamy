@@ -39,16 +39,17 @@ class App extends Component {
         this.handleEmptyCart = this.handleEmptyCart.bind(this);
         this.handleCaptureCheckout = this.handleCaptureCheckout.bind(this);
         this.refreshCart = this.refreshCart.bind(this);
+        this.updateScrollTop = this.updateScrollTop.bind(this);
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
         this.toggleCookieAlert = this.toggleCookieAlert.bind(this);
     }
 
     async componentDidMount() {
-        // console.log("App component did mount");
         this.updateWindowDimensions();
         window.addEventListener("resize", this.updateWindowDimensions);
+        window.addEventListener("scroll", this.updateScrollTop);
 
-        keepTheme(); //non so se va qua?
+        keepTheme(); // ?
 
         try {
             this.props.dispatch(loadData());
@@ -58,8 +59,6 @@ class App extends Component {
                 item_id: obj.id,
                 product_id: obj.product_id,
             })); //scriverla una sola volta con componentDidUpdate ?
-            // console.log("products: ", data);
-            // console.log("cart: ", cart);
             // console.log("addedItems: ", addedItems); // array con tutti i product_id ed item_id in cart
 
             this.setState({
@@ -73,6 +72,7 @@ class App extends Component {
 
     componentWillUnmount() {
         window.removeEventListener("resize", this.updateWindowDimensions);
+        window.removeEventListener("scroll", this.updateScrollTop);
     }
 
     toggleNav() {
@@ -130,26 +130,25 @@ class App extends Component {
     }
 
     async handleCaptureCheckout(checkoutTokenId, newOrder) {
-        // console.log("checkoutTokenId: ", checkoutTokenId);
-        // console.log("newOrder: ", newOrder);
         try {
             const incomingOrder = await commerce.checkout.capture(
                 checkoutTokenId,
                 newOrder
             );
-            // console.log("order: ", incomingOrder);
             this.setState({
                 order: incomingOrder,
             });
             this.refreshCart();
         } catch (err) {
-            // console.log("error in handleCaptureCheckout: ", err);
             this.setState({ errorMessage: err.data.error.message });
-            // errore da paypal, invalid data 🐔
-            //creare un if (pp, cc) e fare due capture diversi? 🐔
         }
     }
 
+    updateScrollTop() {
+        this.setState({
+            scrollTop: window.scrollY,
+        });
+    }
     updateWindowDimensions() {
         this.setState({
             windowWidth: window.innerWidth,
@@ -196,12 +195,10 @@ class App extends Component {
                             path="/"
                             render={() => (
                                 <Home
-                                    products={reduxState.allStore}
-                                    cat1={reduxState.cat1}
-                                    cat2={reduxState.cat2}
                                     notAvailables={this.state.notAvailables}
                                     onAddToCart={this.handleAddToCart}
                                     removeFromCart={this.handleRemoveFromCart}
+                                    scrollTop={this.state.scrollTop}
                                     windowWidth={this.state.windowWidth}
                                 />
                             )}
@@ -211,7 +208,9 @@ class App extends Component {
                         <Route
                             exact
                             path="/contact"
-                            render={() => <Contact />}
+                            render={() => (
+                                <Contact scrollTop={this.state.scrollTop} />
+                            )}
                         />
                         <Route
                             exact
@@ -227,7 +226,6 @@ class App extends Component {
                             )}
                         />
 
-                        {/* <Route path={`/item/${id}`} render={() => <Item />} /> */}
                         <Route
                             path="/item/:id"
                             render={(props) => (
@@ -293,7 +291,10 @@ class App extends Component {
                             render={() => <TermsAndConditions />}
                         />
                     </div>
-                    <Footer windowWidth={this.state.windowWidth} />
+                    <Footer
+                        scrollTop={this.state.scrollTop}
+                        windowWidth={this.state.windowWidth}
+                    />
                 </div>
             </BrowserRouter>
         );
@@ -307,28 +308,31 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps)(App); // ? redux
 
 /*
+🐲 COMPLETATO 
+🐔 DA RISOLVERE 
+🧠 DUBBI
 
 MIGLIORIE:
-🐲 🐔
+🐲🐔🧠
 creare un header component 🐲
 creare un footer component 🐲
 
-fare funzioni async, ma quali e come? 🐔
+fare funzioni async, ma quali e come? 🐲
 
-dovrei fare solo fn components? app incluso ed usare hooks (informarsi) 🐔
-https://www.youtube.com/watch?v=377AQ0y6LPA -> per rifare con hooks la parte relative a commerce.js
+dovrei fare solo fn components? app incluso ed usare hooks (informarsi) 🧠
+    https://www.youtube.com/watch?v=377AQ0y6LPA -> per rifare con hooks la parte relative a commerce.js
 
 dovrei usare l'eventlistener per scroll in App? 🐲
 
 NEXT STEPS:
-🐲 🐔
+🐲🐔🧠
 filtra/ricerca in shop 🐲
 come fare suggested items in list comp 🐲
 
 completare slider 🐲
 
 styling 🐲
-ritocchi finali in react ai vari components 🐔
+ritocchi finali in react ai vari components 🐲
 
 fare "/about" 🐲
 fare "/contacts" 🐲
@@ -336,16 +340,19 @@ fare "/contacts" 🐲
 aggiungere parallax effect 🐲
 migliorare style di filterbar in Shop 🐔
 
-si puo scrivere handleScroll dei vari parallax in App? 🐔
+si puo scrivere handleScroll dei vari parallax in App? 🐲
     come con updateWindowDimensions
-é il caso di settare windowWidth windowHeight in redux state? 🐔
+        Non del tutto, perché le condizioni dei vari handleScroll sui renders sono diverse
+        
+é il caso di settare scrollTop windowWidth windowHeight in redux state? 🧠
     visto che le passo in vari components
 
 attivare modulo in Contact 🐲
 fixare bug -> useEffect in Contact per scroll ri-rendera il form 🐲
     (usare localStorage?)
     (soluzione: React.memo per annullare il re-render di ContactForm ) 
-gestione degli errori e dei messaggi (input obbligatori mancanti, errore da SES) 🐔
+validate inputs / forms 🐲
+errore da SES 🐔 ???
 design delle varie view in ContactForm 🐲
 
 form in filter-bar diventa 0 opacitá ma non é display hidden? 🐲
@@ -357,7 +364,7 @@ aggiunge funzionalitá in Item -> anteprima galleria immagini 🐔
 attivare slides per telefono in shortlists e slider invece di frecce 🐔
 
 BACKEND:
-🐲 🐔
+🐲🐔🧠
 creare le varie lists in psql 🐔
 fare tutta parte di commerce.js (server side e react requests) 🐔
 fare tutta parte di stripe (?) 🐔
