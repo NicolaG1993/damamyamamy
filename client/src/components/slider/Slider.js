@@ -44,15 +44,13 @@ const Slider = (props) => {
         autoPlayRef.current = nextSlide;
         transitionRef.current = smoothTransition;
         resizeRef.current = handleResize;
-    });
+    }); // run on every render
 
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
 
         const slider = sliderRef.current;
-        const play = () => {
-            autoPlayRef.current();
-        };
+
         const smooth = (e) => {
             if (e.target.className.includes("SliderContent")) {
                 transitionRef.current();
@@ -63,26 +61,33 @@ const Slider = (props) => {
         };
         const transitionEnd = slider.addEventListener("transitionend", smooth);
         const onResize = window.addEventListener("resize", resize);
-        let interval = null;
-
-        if (props.autoPlay) {
-            interval = setInterval(play, props.autoPlay * 1000);
-        }
 
         // returned function will be called on component unmount
         return () => {
             slider.removeEventListener("transitionend", transitionEnd);
             window.removeEventListener("resize", onResize);
             window.removeEventListener("scroll", handleScroll);
-            if (props.autoPlay) {
-                clearInterval(interval);
-            }
         };
-    }, []);
+    }, []); // run only when component mount
 
     useEffect(() => {
         if (transition === 0) setState({ ...state, transition: 0.45 });
     }, [transition]);
+
+    useEffect(() => {
+        const play = () => {
+            autoPlayRef.current();
+        };
+        let interval = null;
+        if (props.autoPlay) {
+            interval = setInterval(play, props.autoPlay * 1000);
+        }
+        return () => {
+            if (props.autoPlay) {
+                clearInterval(interval);
+            }
+        };
+    }, [activeSlide]);
 
     useEffect(() => {
         if (scrollTop > 150) {
@@ -91,6 +96,7 @@ const Slider = (props) => {
             setParallaxHeight(`70vh`);
         }
     }, [scrollTop]);
+
     const handleScroll = () => {
         setScrollTop(window.scrollY);
     };
