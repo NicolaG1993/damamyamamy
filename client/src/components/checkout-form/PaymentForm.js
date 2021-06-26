@@ -21,6 +21,7 @@ export default function PaymentForm({
     nextStep,
     backStep,
     onCaptureCheckout,
+    timeout,
 }) {
     console.log("shippingData: ", shippingData);
     console.log("paypal: ", window.paypal);
@@ -213,6 +214,12 @@ export default function PaymentForm({
         }
     };
 
+    const handleFakeSubmit = async () => {
+        onCaptureCheckout("test", {});
+        timeout();
+        nextStep();
+    };
+
     // useEffect(() => {
     //     // Load PayPal Script at the end of our DOM
     //     const script = document.createElement("script");
@@ -233,9 +240,10 @@ export default function PaymentForm({
             <select className="payment-mode" onChange={handleSelection}>
                 <option value="cc">Carta di credito</option>
                 <option value="pp">Paypal</option>
+                <option value="test">Test</option>
             </select>
 
-            {method === "cc" ? (
+            {method === "cc" && (
                 <Elements stripe={stripePromise}>
                     <ElementsConsumer>
                         {({ elements, stripe }) => (
@@ -277,7 +285,8 @@ export default function PaymentForm({
                         )}
                     </ElementsConsumer>
                 </Elements>
-            ) : (
+            )}
+            {method === "pp" && (
                 <div className="paypal-comp">
                     {paypalError && (
                         <div>
@@ -295,23 +304,29 @@ export default function PaymentForm({
                     </button>
                 </div>
             )}
+            {method === "test" && (
+                <div className="test-payment-comp">
+                    <button
+                        className={"layout-button btn-dark1 btn-long"}
+                        type="button"
+                        onClick={handleFakeSubmit}
+                    >
+                        Conferma
+                        {" " +
+                            checkoutToken.live.subtotal.formatted_with_symbol}
+                    </button>
+                    <button
+                        className={"layout-button btn-dark1 btn-long"}
+                        type="button"
+                        onClick={backStep}
+                    >
+                        Torna indietro
+                    </button>
+                </div>
+            )}
         </div>
     );
 }
-
-// RIPULIRE FILE
-
-/*
-PER TESTARE PAGAMENTO 
-gateway: 'test_gateway',
-    card: {
-      number: '4242 4242 4242 4242',
-      expiry_month: '01',
-      expiry_year: '2023',
-      cvc: '123',
-      postal_zip_code: '94103',
-    },
-*/
 
 function insertScriptElement({
     url,
@@ -331,3 +346,30 @@ function insertScriptElement({
     document.body.appendChild(newScript);
     newScript.src = url;
 }
+
+/*
+
+CODICI PER TEST VERSION 🤖
+
+- aggiungere nuova opzione "test" per method
+- sostituire dati per checkout gateway
+- attivare timeout() (anche in Chekout.js)
+- attivare isfinished in Chekout.js
+- attivare handleFakeSubmit per fingere il pagamento
+- aggiungere allerts su checkout, per chiarire che non funziona veramente in test mode
+- aggiungere "test" condition in App in handleCaptureCheckout
+- modificare le varie keys da live a sandbox/test
+
+PER TESTARE PAGAMENTO 
+gateway: 'test_gateway',
+    card: {
+      number: '4242 4242 4242 4242',
+      expiry_month: '01',
+      expiry_year: '2023',
+      cvc: '123',
+      postal_zip_code: '94103',
+    },
+
+    
+    
+*/

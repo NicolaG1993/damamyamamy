@@ -12,17 +12,22 @@ export default function Home({
     notAvailables,
     onAddToCart,
     removeFromCart,
-    scrollTop,
     windowWidth,
 }) {
     let state = useSelector((state) => state);
     const [iconslistHeight, setIconslistHeight] = useState(`800px`);
     const [shortlistPadding, setShortlistPadding] =
         useState(`100px 40px 90px 40px`);
+    const [scrollTop, setScrollTop] = useState();
 
     useEffect(() => {
         // component did mount
         window.scrollTo(0, 0);
+        window.addEventListener("scroll", handleScroll);
+        // returned function will be called on component unmount
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
     }, []);
 
     useEffect(() => {
@@ -47,6 +52,10 @@ export default function Home({
 
     // console.log("this.state in home: ", this.state);
     // console.log("this.props: ", this.props);
+
+    const handleScroll = () => {
+        setScrollTop(window.scrollY);
+    };
 
     return (
         <div id="home">

@@ -12,7 +12,7 @@ export default function Checkout({ cart, order, onCaptureCheckout, error }) {
     const [checkoutToken, setCheckoutToken] = useState(null);
     const [shippingData, setShippingData] = useState({});
     const history = useHistory();
-    // const [isFinished, setIsFinished] = useState(false);
+    const [isFinished, setIsFinished] = useState(false);
 
     const nextStep = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -46,12 +46,12 @@ export default function Checkout({ cart, order, onCaptureCheckout, error }) {
     }, [cart]);
 
     // timeout -> mock up the transaction without using my card details on stripe
-    // const timeout = () => {
-    //     console.log("timeout activated!");
-    //     setTimeout(() => {
-    //         setIsFinished(true);
-    //     }, 3000);
-    // };
+    const timeout = () => {
+        console.log("timeout activated!");
+        setTimeout(() => {
+            setIsFinished(true);
+        }, 3000);
+    };
 
     const Form = () =>
         activeStep === 0 ? (
@@ -64,7 +64,7 @@ export default function Checkout({ cart, order, onCaptureCheckout, error }) {
                 nextStep={nextStep}
                 backStep={backStep}
                 onCaptureCheckout={onCaptureCheckout}
-                // timeout={timeout}
+                timeout={timeout}
             />
         );
 
@@ -73,7 +73,7 @@ export default function Checkout({ cart, order, onCaptureCheckout, error }) {
             <div className="checkout-form-box payment-result-box">
                 <div>
                     <h3>
-                        Grazie per il tuo acquisto, {order.customer.firstname}{" "}
+                        Grazie per il tuo acquisto {order.customer.firstname}{" "}
                         {order.customer.lastname}!
                     </h3>
 
@@ -86,19 +86,24 @@ export default function Checkout({ cart, order, onCaptureCheckout, error }) {
                     </button>
                 </Link>
             </div>
+        ) : isFinished ? (
+            <>
+                <div>
+                    <h3>
+                        Grazie per il tuo acquisto! {shippingData.firstName}{" "}
+                        {shippingData.lastName}!
+                    </h3>
+                </div>
+                <br />
+                <Link to="/">
+                    <button className={"layout-button btn-dark1"}>
+                        Torna al sito
+                    </button>
+                </Link>
+            </>
         ) : (
             <div className="loader loader-inverted"></div>
         );
-
-    // : isFinished ? (
-    //     <>
-    //         <div>
-    //             <h3>Grazie per il tuo acquisto!</h3>
-    //         </div>
-    //         <br />
-    //         <Link to="/">Torna al sito</Link>
-    //     </>
-    // )
     //  (after testing) remove the "isFinished" condition and leave only the spinner
 
     if (error) {

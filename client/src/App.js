@@ -39,7 +39,6 @@ class App extends Component {
         this.handleEmptyCart = this.handleEmptyCart.bind(this);
         this.handleCaptureCheckout = this.handleCaptureCheckout.bind(this);
         this.refreshCart = this.refreshCart.bind(this);
-        this.updateScrollTop = this.updateScrollTop.bind(this);
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
         this.toggleCookieAlert = this.toggleCookieAlert.bind(this);
     }
@@ -47,7 +46,6 @@ class App extends Component {
     async componentDidMount() {
         this.updateWindowDimensions();
         window.addEventListener("resize", this.updateWindowDimensions);
-        window.addEventListener("scroll", this.updateScrollTop);
 
         keepTheme(); // ?
 
@@ -72,7 +70,6 @@ class App extends Component {
 
     componentWillUnmount() {
         window.removeEventListener("resize", this.updateWindowDimensions);
-        window.removeEventListener("scroll", this.updateScrollTop);
     }
 
     toggleNav() {
@@ -130,25 +127,24 @@ class App extends Component {
     }
 
     async handleCaptureCheckout(checkoutTokenId, newOrder) {
-        try {
-            const incomingOrder = await commerce.checkout.capture(
-                checkoutTokenId,
-                newOrder
-            );
-            this.setState({
-                order: incomingOrder,
-            });
-            this.refreshCart();
-        } catch (err) {
-            this.setState({ errorMessage: err.data.error.message });
+        if (checkoutTokenId === "test") {
+            this.handleEmptyCart();
+        } else {
+            try {
+                const incomingOrder = await commerce.checkout.capture(
+                    checkoutTokenId,
+                    newOrder
+                );
+                this.setState({
+                    order: incomingOrder,
+                });
+                this.refreshCart();
+            } catch (err) {
+                this.setState({ errorMessage: err.data.error.message });
+            }
         }
     }
 
-    updateScrollTop() {
-        this.setState({
-            scrollTop: window.scrollY,
-        });
-    }
     updateWindowDimensions() {
         this.setState({
             windowWidth: window.innerWidth,
@@ -198,7 +194,6 @@ class App extends Component {
                                     notAvailables={this.state.notAvailables}
                                     onAddToCart={this.handleAddToCart}
                                     removeFromCart={this.handleRemoveFromCart}
-                                    scrollTop={this.state.scrollTop}
                                     windowWidth={this.state.windowWidth}
                                 />
                             )}
@@ -208,9 +203,7 @@ class App extends Component {
                         <Route
                             exact
                             path="/contact"
-                            render={() => (
-                                <Contact scrollTop={this.state.scrollTop} />
-                            )}
+                            render={() => <Contact />}
                         />
                         <Route
                             exact
@@ -291,10 +284,7 @@ class App extends Component {
                             render={() => <TermsAndConditions />}
                         />
                     </div>
-                    <Footer
-                        scrollTop={this.state.scrollTop}
-                        windowWidth={this.state.windowWidth}
-                    />
+                    <Footer windowWidth={this.state.windowWidth} />
                 </div>
             </BrowserRouter>
         );

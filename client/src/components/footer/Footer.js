@@ -5,11 +5,19 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../../styles/Footer.css";
 
-export default function Footer({ scrollTop, windowWidth }) {
+export default function Footer({ windowWidth }) {
     const [parallaxHeight, setParallaxHeight] = useState();
+    const [scrollTop, setScrollTop] = useState();
     const currentYear = new Date().getFullYear();
-    // console.log("scrollTop: ", scrollTop);
-    // console.log("windowWidth: ", windowWidth);
+
+    useEffect(() => {
+        // component did mount
+        window.addEventListener("scroll", handleScroll);
+        // returned function will be called on component unmount
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
 
     useEffect(() => {
         if (
@@ -25,6 +33,10 @@ export default function Footer({ scrollTop, windowWidth }) {
 
         // un altro caso per if: se l'altezza della pagina é quasi uguale all'altezza dello schermo
     }, [scrollTop]);
+
+    const handleScroll = () => {
+        setScrollTop(window.scrollY);
+    };
 
     return (
         <div className={"footer-comp"}>

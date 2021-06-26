@@ -6,12 +6,19 @@ import "../../styles/Contact.css";
 
 import { MemoizedContactForm } from "./contact-form/ContactForm";
 
-export default function Contact({ scrollTop }) {
+export default function Contact() {
     const [parallaxHeight, setParallaxHeight] = useState();
+    const [scrollTop, setScrollTop] = useState();
 
     useEffect(() => {
         // component did mount
         window.scrollTo(0, 0);
+        window.addEventListener("scroll", handleScroll);
+        // returned function will be called on component unmount
+        return () => {
+            console.log("component will unmount");
+            window.removeEventListener("scroll", handleScroll);
+        };
     }, []);
 
     useEffect(() => {
@@ -29,9 +36,9 @@ export default function Contact({ scrollTop }) {
         // console.log("parallaxHeight: ", parallaxHeight);
     }, [scrollTop]);
 
-    // const handleScroll = () => {
-    //     setScrollTop(window.scrollY);
-    // };
+    const handleScroll = () => {
+        setScrollTop(window.scrollY);
+    };
 
     return (
         <>
