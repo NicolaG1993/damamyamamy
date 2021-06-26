@@ -180,6 +180,7 @@ class App extends Component {
                     />
                     <Nav
                         navIsActive={this.state.navIsActive}
+                        closeNav={this.closeNav}
                         toggleNav={this.toggleNav}
                         windowWidth={this.state.windowWidth}
                     />

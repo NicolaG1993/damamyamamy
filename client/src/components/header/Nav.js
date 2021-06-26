@@ -2,14 +2,14 @@ import { Link } from "react-router-dom";
 import ColorModeButton from "./ColorModeButton";
 import "../../styles/Nav.css";
 
-export default function Nav({ navIsActive, toggleNav, windowWidth }) {
+export default function Nav({ navIsActive, toggleNav, closeNav, windowWidth }) {
     return (
         <>
             <div
                 className={`overlay ${
                     navIsActive ? "overlayIn" : "overlayOut"
                 }`}
-                onClick={toggleNav}
+                onClick={closeNav}
             ></div>
 
             <nav id="nav" className={`${navIsActive ? "on" : ""}`}>
