@@ -68,7 +68,7 @@ export default function Home({
                 </Link>
 
                 <ItemsListShort
-                    products={state.allStore}
+                    products={state.catNew}
                     notAvailables={notAvailables}
                     onAddToCart={onAddToCart}
                     removeFromCart={removeFromCart}

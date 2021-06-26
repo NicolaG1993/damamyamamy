@@ -128,6 +128,7 @@ class App extends Component {
 
     async handleCaptureCheckout(checkoutTokenId, newOrder) {
         if (checkoutTokenId === "test") {
+            //this is only for test
             this.handleEmptyCart();
         } else {
             try {

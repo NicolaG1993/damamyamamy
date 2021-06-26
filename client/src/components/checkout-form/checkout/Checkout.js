@@ -12,7 +12,7 @@ export default function Checkout({ cart, order, onCaptureCheckout, error }) {
     const [checkoutToken, setCheckoutToken] = useState(null);
     const [shippingData, setShippingData] = useState({});
     const history = useHistory();
-    const [isFinished, setIsFinished] = useState(false);
+    const [isFinished, setIsFinished] = useState(false); //this is only for test
 
     const nextStep = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -45,7 +45,7 @@ export default function Checkout({ cart, order, onCaptureCheckout, error }) {
         generateToken();
     }, [cart]);
 
-    // timeout -> mock up the transaction without using my card details on stripe
+    // timeout -> mock up the transaction without using card details on stripe
     const timeout = () => {
         console.log("timeout activated!");
         setTimeout(() => {

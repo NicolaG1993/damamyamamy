@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { commerce } from "../../lib/commerce";
 import "../../styles/Item.css";
 
 import ItemsListShort from "../items-list-short/ItemsListShort";
 import AddToCartBtn from "../shop/product/AddToCartBtn";
+import Gallery from "./Gallery";
 
 export default function Item({
     match,
@@ -18,9 +19,13 @@ export default function Item({
     let key = match.params.id;
     const [item, setItem] = useState(null);
     const [infoDisplay, setInfoDisplay] = useState("description");
+    const [galleryOpen, setGalleryOpen] = useState(false);
 
     const toggleInfoDisplay = (val) => {
         setInfoDisplay(val);
+    };
+    const toggleGallery = async (val) => {
+        setGalleryOpen(val);
     };
 
     useEffect(() => {
@@ -44,11 +49,15 @@ export default function Item({
     } //spinner 🐲
 
     if (item) {
+        console.log(item.name);
         return (
             <div id="item-comp">
                 <div className="item-card">
                     <div className="item-left-side">
-                        <img src={item.media.source || "test1.jpg"} />
+                        <img
+                            src={item.media.source || "test1.jpg"}
+                            onClick={() => toggleGallery(true)}
+                        />
                     </div>
 
                     <div className="item-right-side">
@@ -68,31 +77,28 @@ export default function Item({
                                     <div className="circle"></div>
                                 </div>
                             </div>
-                            {/* <div className="item-right-side-infos">
-                            <span>Descrizione:</span>
-                            <p
-                                dangerouslySetInnerHTML={{
-                                    __html: item.description,
-                                }}
-                            ></p>
-                        </div> */}
 
                             <div className="item-right-side-infos">
                                 <span>Categoria:</span>
-                                <p>{item.categories[0].name}</p>
+                                <p>
+                                    {item.categories[0] &&
+                                        item.categories[0].name}
+                                </p>
                             </div>
                             <div className="item-right-side-infos">
                                 <span>Tags:</span>
                                 <div className="item-right-side-infos-inner-wrap">
-                                    <Link
-                                        to={{
-                                            pathname: "/shop",
-                                            tag: item.categories[0].name,
-                                        }}
-                                        className="item-tag"
-                                    >
-                                        {item.categories[0].name}
-                                    </Link>
+                                    {item.categories[0] && (
+                                        <Link
+                                            to={{
+                                                pathname: "/shop",
+                                                tag: item.categories[0].name,
+                                            }}
+                                            className="item-tag"
+                                        >
+                                            {item.categories[0].name}
+                                        </Link>
+                                    )}
 
                                     <Link
                                         to={{
@@ -144,8 +150,6 @@ export default function Item({
                         >
                             Informazioni
                         </span>
-
-                        {/* <span></span> */}
                     </div>
 
                     <div className="item-description-display">
@@ -163,17 +167,10 @@ export default function Item({
                             <p>Prodotto mai utilizzato</p>
                         )}
                     </div>
-
-                    {/* <div className="item-description-selector-shadow">
-                        <span></span>
-                        <span></span>
-                    </div>
-                    <div className="item-description-display-shadow"></div> */}
                 </div>
 
                 <div className={"shortlist"}>
                     <h2>Articoli simili</h2>
-                    {/* <Link to={"/shop"}>Vedi tutti gli articoli</Link> */}
 
                     <ItemsListShort
                         products={item.related_products}
@@ -183,6 +180,10 @@ export default function Item({
                         windowWidth={windowWidth}
                     />
                 </div>
+
+                {galleryOpen && (
+                    <Gallery toggleGallery={toggleGallery} item={item} />
+                )}
             </div>
         );
     }

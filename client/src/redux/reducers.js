@@ -21,11 +21,15 @@ export default function filterStore(state = initialState, action) {
     switch (action.type) {
         case LOAD_DATA: {
             let allStore = action.payload;
+            let catNew = sortDesc(allStore, "created");
             let cat1 = allStore.filter(
-                (product) => product.categories[0].slug === "giochi"
+                (product) =>
+                    product.categories[0] &&
+                    product.categories[0].slug === "giochi"
             );
             let cat2 = allStore.filter(
                 (product) =>
+                    product.categories[0] &&
                     product.categories[0].slug === "passeggini-e-trasporto"
             );
 
@@ -45,6 +49,7 @@ export default function filterStore(state = initialState, action) {
             return {
                 ...state,
                 allStore,
+                catNew,
                 cat1,
                 cat2,
                 //all of this is for NavPage component
@@ -207,7 +212,7 @@ export default function filterStore(state = initialState, action) {
             // console.log("SORT_BY_NEW [action.payload]", action.payload);
             let newState = Object.assign({}, state);
 
-            newState.filteredProducts = sortAsc(
+            newState.filteredProducts = sortDesc(
                 state.filteredProducts,
                 "created"
             );

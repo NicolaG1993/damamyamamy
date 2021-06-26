@@ -110,7 +110,7 @@ export default function PaymentForm({
                                     payer_id: order.payer.payer_id,
                                 },
                             },
-                        };
+                        }; //devo vedere se action:capture é corretto
 
                         console.log("order", order);
                         console.log("orderData", orderData);
@@ -208,17 +208,15 @@ export default function PaymentForm({
             // console.log("orderData: ", orderData);
             onCaptureCheckout(checkoutToken.id, orderData);
 
-            // timeout(); // only for test // i need to pass it as a prop
-
             nextStep();
         }
     };
 
     const handleFakeSubmit = async () => {
-        onCaptureCheckout("test", {});
-        timeout();
+        onCaptureCheckout("test", {}); //this is for App, to empty the cart
+        timeout(); //this come as a prop from Checkout
         nextStep();
-    };
+    }; //this is only for test
 
     // useEffect(() => {
     //     // Load PayPal Script at the end of our DOM
@@ -352,13 +350,12 @@ function insertScriptElement({
 CODICI PER TEST VERSION 🤖
 
 - aggiungere nuova opzione "test" per method
-- sostituire dati per checkout gateway
 - attivare timeout() (anche in Chekout.js)
 - attivare isfinished in Chekout.js
 - attivare handleFakeSubmit per fingere il pagamento
 - aggiungere allerts su checkout, per chiarire che non funziona veramente in test mode
 - aggiungere "test" condition in App in handleCaptureCheckout
-- modificare le varie keys da live a sandbox/test
+- modificare le varie keys da live a sandbox/test (script url for paypal + dati per checkout stripe gateway)
 
 PER TESTARE PAGAMENTO 
 gateway: 'test_gateway',
