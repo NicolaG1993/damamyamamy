@@ -60,6 +60,7 @@
     /* line-height: 50px; */
 }
 .item-right-side > button {
+    margin: 10px 0;
 }
 
 .item-right-side-price {
@@ -194,6 +195,7 @@
     z-index: 25;
     background-color: rgba(0, 0, 0, 0.9);
     top: 0;
+    left: 0;
 }
 .gallery-close-wrap {
     position: absolute;

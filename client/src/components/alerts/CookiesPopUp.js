@@ -2,6 +2,10 @@ import "../../styles/CookiesPopUp.css";
 import { Link } from "react-router-dom";
 
 export default function CookiesPopUp({ toggleCookieAlert }) {
+    const handleClick = () => {
+        // console.log("HEYYY");
+        toggleCookieAlert();
+    };
     return (
         <div className="bottom-alert-comp">
             <h3>Questo sito utilizza cookies</h3>
@@ -22,11 +26,11 @@ export default function CookiesPopUp({ toggleCookieAlert }) {
             <div>
                 <button
                     className="layout-button btn-dark2"
-                    onClick={toggleCookieAlert}
+                    onClick={() => handleClick()}
                 >
                     Ho capito
                 </button>
-                <Link onClick={toggleCookieAlert} to="/cookie-policy">
+                <Link onClick={() => handleClick()} to="/cookie-policy">
                     Maggiori informazioni
                 </Link>
             </div>

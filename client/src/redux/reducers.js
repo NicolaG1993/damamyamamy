@@ -74,7 +74,10 @@ export default function filterStore(state = initialState, action) {
                 //look for objects with the received value in their ‘name’ or ‘categories’ fields
                 return (
                     product.name.toLowerCase().includes(value) ||
-                    product.categories[0].name.toLowerCase().includes(value)
+                    (product.categories[0] &&
+                        product.categories[0].name
+                            .toLowerCase()
+                            .includes(value))
                 );
             });
             let appliedFilters = state.appliedFilters;
@@ -138,7 +141,9 @@ export default function filterStore(state = initialState, action) {
                 );
             } else {
                 let filteredValues = state.filteredProducts.filter(
-                    (product) => product.categories[0].id === value
+                    (product) =>
+                        product.categories[0] &&
+                        product.categories[0].id === value
                 );
                 newState.filteredProducts = filteredValues;
                 newState.displayedProducts = newState.filteredProducts.slice(
