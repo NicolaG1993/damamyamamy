@@ -43,3 +43,5 @@ export default function Gallery({ toggleGallery, item, clickedPic }) {
         </div>
     );
 }
+
+// make it responsive 🐔
