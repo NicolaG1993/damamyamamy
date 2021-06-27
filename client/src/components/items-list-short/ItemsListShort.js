@@ -15,38 +15,26 @@ export default function ItemsListShort({
     const [step, setStep] = useState(4);
 
     const seeNext = () => {
-        if (windowWidth <= 720) {
-            setSliceStart((startingPoint) =>
-                startingPoint < products.length - 2
-                    ? startingPoint + 2
-                    : (startingPoint = 0)
-            );
-        } else {
-            setSliceStart((startingPoint) =>
-                startingPoint < products.length - 4
-                    ? startingPoint + 4
-                    : (startingPoint = 0)
-            );
-        }
+        setSliceStart((startingPoint) =>
+            startingPoint < products.length - step
+                ? startingPoint + step
+                : (startingPoint = 0)
+        );
     };
 
     const seePrev = () => {
-        if (windowWidth <= 720) {
-            setSliceStart(
-                (startingPoint) =>
-                    startingPoint < 2
-                        ? products.length - (products.length % 2)
-                        : startingPoint - 2
-                //cé un piccolo bug qua
-                //se vado indietro dalla prima non compare nulla (non sempre) 🐔
-            );
-        } else {
-            setSliceStart((startingPoint) =>
-                startingPoint < 4
-                    ? products.length - (products.length % 4)
-                    : startingPoint - 4
-            );
-        }
+        let formula = products.length - (products.length % step);
+        //il primo if serve per quando si va indietro dalla prima
+        //crea automaticamente i breaking point su gli steps esatti
+        setSliceStart((startingPoint) =>
+            startingPoint < step
+                ? formula === products.length
+                    ? formula - step
+                    : formula
+                : startingPoint - step
+        );
+        //il secondo serve per essere sicuri di non iniziare dall'ultima
+        //in quel caso sottrae step
     };
 
     useEffect(() => {
@@ -62,6 +50,13 @@ export default function ItemsListShort({
             setStep(4);
         }
     }, [windowWidth]);
+    useEffect(() => {
+        console.log("sliceStart: ", sliceStart);
+        console.log("products.length: ", products.length);
+        if (products.length === sliceStart) {
+            setSliceStart((startingPoint) => startingPoint - step);
+        }
+    }, [sliceStart]);
 
     return (
         <div className="items-shortlist-container">
