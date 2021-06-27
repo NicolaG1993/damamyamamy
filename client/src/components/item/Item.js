@@ -20,12 +20,15 @@ export default function Item({
     const [item, setItem] = useState(null);
     const [infoDisplay, setInfoDisplay] = useState("description");
     const [galleryOpen, setGalleryOpen] = useState(false);
+    const [clickedPic, setClickedPic] = useState(0);
+    console.log(item);
 
     const toggleInfoDisplay = (val) => {
         setInfoDisplay(val);
     };
-    const toggleGallery = async (val) => {
-        setGalleryOpen(val);
+    const toggleGallery = async (n, boo) => {
+        setClickedPic(n);
+        setGalleryOpen(boo);
     };
 
     useEffect(() => {
@@ -39,6 +42,31 @@ export default function Item({
             console.log("itemInfos: ", itemInfos);
         })(); //is this autoinvoking? 🐔
     }, [key]);
+
+    const PicDisplay = () =>
+        item.assets.length > 1 ? (
+            <div className="item-pictures-wrap">
+                <img
+                    src={item.media.source || "test1.jpg"}
+                    onClick={() => toggleGallery(0, true)}
+                />
+
+                <div className="item-pictures-small-wrap">
+                    {item.assets.map((el, i) => (
+                        <img
+                            key={el.id}
+                            src={el.url}
+                            onClick={() => toggleGallery(i, true)}
+                        />
+                    ))}
+                </div>
+            </div>
+        ) : (
+            <img
+                src={item.media.source || "test1.jpg"}
+                onClick={() => toggleGallery(0, true)}
+            />
+        );
 
     if (!item) {
         return (
@@ -54,10 +82,7 @@ export default function Item({
             <div id="item-comp">
                 <div className="item-card">
                     <div className="item-left-side">
-                        <img
-                            src={item.media.source || "test1.jpg"}
-                            onClick={() => toggleGallery(true)}
-                        />
+                        <PicDisplay />
                     </div>
 
                     <div className="item-right-side">
@@ -182,7 +207,11 @@ export default function Item({
                 </div>
 
                 {galleryOpen && (
-                    <Gallery toggleGallery={toggleGallery} item={item} />
+                    <Gallery
+                        toggleGallery={toggleGallery}
+                        item={item}
+                        clickedPic={clickedPic}
+                    />
                 )}
             </div>
         );

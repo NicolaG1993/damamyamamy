@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 
-export default function Gallery({ toggleGallery, item }) {
+export default function Gallery({ toggleGallery, item, clickedPic }) {
     console.log("item: ", item);
-    const [focus, setFocus] = useState(item.assets[0].url);
-    const [picId, setPicId] = useState(item.assets[0].id);
+    const [focus, setFocus] = useState(item.assets[clickedPic].url);
+    const [picId, setPicId] = useState(item.assets[clickedPic].id);
 
     const setFocusPic = (id, url) => {
         setFocus(url);
@@ -15,7 +15,7 @@ export default function Gallery({ toggleGallery, item }) {
             <div
                 id="hamBtn"
                 className={"gallery-close-wrap hamBtn active"}
-                onClick={() => toggleGallery(false)}
+                onClick={() => toggleGallery(null, false)}
             >
                 <div className={"stick"}></div>
             </div>
