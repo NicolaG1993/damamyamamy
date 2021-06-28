@@ -1,5 +1,5 @@
 const path = require("path");
-// const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const Dotenv = require("dotenv-webpack");
 
@@ -11,7 +11,7 @@ module.exports = () => ({
         path.join(__dirname, "client", "src", "index.js"),
     ],
     output: {
-        path: path.join(__dirname, "client", "public", "build"),
+        path: path.join(__dirname, "client", "public"),
         filename: "bundle.js",
     },
     performance: {

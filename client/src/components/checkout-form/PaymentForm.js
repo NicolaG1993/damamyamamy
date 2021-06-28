@@ -7,6 +7,8 @@ import {
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 
+// import { envs } from "../../../../config";
+
 // import ReactDOM from "react-dom";
 
 import Review from "./Review";

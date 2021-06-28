@@ -67,6 +67,8 @@ export default function Home({
                     Vedi tutti gli articoli
                 </Link>
 
+                {}
+
                 <ItemsListShort
                     products={state.catNew}
                     notAvailables={notAvailables}

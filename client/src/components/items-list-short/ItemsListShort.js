@@ -52,9 +52,11 @@ export default function ItemsListShort({
     }, [windowWidth]);
     useEffect(() => {
         console.log("sliceStart: ", sliceStart);
-        console.log("products.length: ", products.length);
-        if (products.length === sliceStart) {
-            setSliceStart((startingPoint) => startingPoint - step);
+        // console.log("products.length: ", products.length);
+        if (products) {
+            if (products.length === sliceStart) {
+                setSliceStart((startingPoint) => startingPoint - step);
+            }
         }
     }, [sliceStart]);
 
