@@ -40,21 +40,40 @@ oppure questa funzione va completata come in articolo 🧠
 altrimenti usare due webpack per prod o dev 🧠
 
 */
+// import _ from 'lodash';
 
-let env;
-if (process.env.NODE_ENV !== "production") {
-    require("dotenv").config();
-        env = {
-            REACT_APP_CHEC_PUBLIC_KEY: process.env.REACT_APP_CHEC_PUBLIC_KEY,
-            REACT_APP_STRIPE_PUBLIC_KEY:
-                process.env.REACT_APP_STRIPE_PUBLIC_KEY,
-            REACT_APP_PAYPAL_CLIENT_ID: process.env.REACT_APP_PAYPAL_CLIENT_ID,
-        },
-   
+// let env;
+// if (process.env.NODE_ENV !== "production") {
+//     require("dotenv").config();
+//         env = {
+//             REACT_APP_CHEC_PUBLIC_KEY: process.env.REACT_APP_CHEC_PUBLIC_KEY,
+//             REACT_APP_STRIPE_PUBLIC_KEY:
+//                 process.env.REACT_APP_STRIPE_PUBLIC_KEY,
+//             REACT_APP_PAYPAL_CLIENT_ID: process.env.REACT_APP_PAYPAL_CLIENT_ID,
+//         },
+
+// } else {
+//     env = {};
+//     _.each(process.env, (value, key) => env[key] = value);
+
+// }
+
+// module.exports = { env };
+
+////////////////////////////////////////////////////////////
+// V4
+import dotenv from "dotenv";
+import _ from "lodash";
+
+const result = dotenv.config();
+
+let envs;
+
+if (!("error" in result)) {
+    envs = result.parsed;
 } else {
-    env = {};
-    process.env.each(process.env, (value, key) => env[key] = value);
-
+    envs = {};
+    _.each(process.env, (value, key) => (envs[key] = value));
 }
 
-module.exports = { env };
+module.exports = envs;
