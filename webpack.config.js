@@ -1,10 +1,9 @@
 const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+// const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const Dotenv = require("dotenv-webpack");
 
 module.exports = () => ({
-    mode: "production",
     entry: [
         "@babel/polyfill",
         path.join(__dirname, "client/src/styles", "style.css"),
@@ -12,7 +11,7 @@ module.exports = () => ({
         path.join(__dirname, "client", "src", "index.js"),
     ],
     output: {
-        path: path.join(__dirname, "client", "public"),
+        path: path.join(__dirname, "build"),
         filename: "bundle.js",
     },
     performance: {
