@@ -9,7 +9,7 @@
 /coverage
 
 # production
-/build
+# /build
 
 # misc
 .DS_Store
@@ -26,8 +26,9 @@ yarn-error.log*
 node_modules
 .DS_Store
 secrets.json
-client/public/bundle.js
-client/public/bundle.js.LICENSE.txt
-bundle.css
+# client/public/bundle.js
+# client/public/bundle.js.LICENSE.txt
+# bundle.css
 .env
 todo
+/server
