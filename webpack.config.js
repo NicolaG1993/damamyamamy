@@ -11,7 +11,7 @@ module.exports = () => ({
         path.join(__dirname, "client", "src", "index.js"),
     ],
     output: {
-        path: path.join(__dirname, "client", "public"),
+        path: path.join(__dirname, "client", "public", "dist"),
         filename: "bundle.js",
     },
     performance: {
@@ -60,6 +60,7 @@ module.exports = () => ({
         ],
     },
     plugins: [
+        new HtmlWebpackPlugin(),
         new MiniCssExtractPlugin({
             filename: "bundle.css",
         }),
