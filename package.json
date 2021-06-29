@@ -1,6 +1,7 @@
 {
     "name": "damamyamamy-web",
     "version": "1.0.0",
+    "homepage": "/",
     "description": "",
     "main": "server/server.js",
     "scripts": {
