@@ -21,6 +21,7 @@ export default function Home({
     const [scrollTop, setScrollTop] = useState();
 
     useEffect(() => {
+        console.log("mounted");
         // component did mount
         window.scrollTo(0, 0);
         window.addEventListener("scroll", handleScroll);

@@ -13,6 +13,7 @@ export default function Cart({ cart, removeFromCart, emptyCart }) {
     });
 
     useEffect(() => {
+        console.log("mounted");
         window.scrollTo(0, 0);
     }, []);
 

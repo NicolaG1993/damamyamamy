@@ -47,6 +47,7 @@ const Slider = (props) => {
     }); // run on every render
 
     useEffect(() => {
+        console.log("mounted");
         window.addEventListener("scroll", handleScroll);
 
         const slider = sliderRef.current;

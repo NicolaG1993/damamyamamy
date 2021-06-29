@@ -11,6 +11,7 @@ export default function Footer({ windowWidth }) {
     const currentYear = new Date().getFullYear();
 
     useEffect(() => {
+        console.log("mounted");
         // component did mount
         window.addEventListener("scroll", handleScroll);
         // returned function will be called on component unmount

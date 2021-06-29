@@ -32,6 +32,7 @@ export default function Item({
     };
 
     useEffect(() => {
+        console.log("mounted");
         window.scrollTo(0, 0);
     }, []);
 

@@ -97,6 +97,7 @@ export default function Shop({
     }, [filters]);
 
     useEffect(() => {
+        console.log("mounted");
         window.scrollTo(0, 0);
         fetchCategories();
     }, []);

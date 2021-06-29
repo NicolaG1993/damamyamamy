@@ -24,8 +24,8 @@ function App(props) {
         notAvailables: [],
         windowWidth: window.innerWidth,
         windowHeight: window.innerHeight,
-        cookieAlertIsActive: true,
     });
+    const [cookieAlertIsActive, setCookieAlertIsActive] = useState(true);
 
     const fetchCart = async () => {
         try {
@@ -43,6 +43,7 @@ function App(props) {
     };
 
     useEffect(() => {
+        console.log("mounted");
         updateWindowDimensions();
         window.addEventListener("resize", updateWindowDimensions);
         keepTheme(); // ?
@@ -53,8 +54,8 @@ function App(props) {
     }, []);
 
     const toggleCookieAlert = async () => {
-        console.log("HEYYY", state.cookieAlertIsActive);
-        setState({ ...state, cookieAlertIsActive: !state.cookieAlertIsActive });
+        console.log("HEYYY", cookieAlertIsActive);
+        setCookieAlertIsActive(!cookieAlertIsActive);
     };
 
     const handleAddToCart = async (productId, quantity) => {
@@ -120,7 +121,7 @@ function App(props) {
     return (
         <BrowserRouter>
             <div className={"App"}>
-                {state.cookieAlertIsActive && (
+                {cookieAlertIsActive && (
                     <CookiesPopUp toggleCookieAlert={toggleCookieAlert} />
                 )}
 

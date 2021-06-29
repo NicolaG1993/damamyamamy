@@ -23,6 +23,9 @@ export default function Filter({
     const [filtersBar, setFiltersBarBar] = useState(false);
 
     useEffect(() => {
+        console.log("mounted");
+    }, []);
+    useEffect(() => {
         setPriceRange({ min: 0, max: highestPrice });
     }, [highestPrice]);
 
