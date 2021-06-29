@@ -145,3 +145,9 @@
         height: 540px;
     }
 }
+
+/* OVERWRITE */
+.input-range__label {
+    color: ghostwhite;
+    font-family: "Nunito Sans";
+}

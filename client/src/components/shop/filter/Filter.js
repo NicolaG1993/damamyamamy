@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import "../../../styles/Filter.css";
 import InputRange from "react-input-range";
 import "react-input-range/lib/css/index.css";
+import "../../../styles/Filter.css";
 
 export default function Filter({
     categories,

@@ -62,18 +62,20 @@ altrimenti usare due webpack per prod o dev 🧠
 
 ////////////////////////////////////////////////////////////
 // V4
-import dotenv from "dotenv";
-import _ from "lodash";
+// import dotenv from "dotenv";
+// import _ from "lodash";
 
-const result = dotenv.config();
+// const result = dotenv.config();
 
-let envs;
+// let envs;
 
-if (!("error" in result)) {
-    envs = result.parsed;
-} else {
-    envs = {};
-    _.each(process.env, (value, key) => (envs[key] = value));
-}
+// if (!("error" in result)) {
+//     envs = result.parsed;
+// } else {
+//     envs = {};
+//     _.each(process.env, (value, key) => (envs[key] = value));
+// }
 
-module.exports = envs;
+// module.exports = envs;
+
+//ELIMINARE FILE!!!
