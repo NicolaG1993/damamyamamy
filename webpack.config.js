@@ -13,6 +13,7 @@ module.exports = () => ({
     output: {
         path: path.join(__dirname, "client", "public", "dist"),
         filename: "bundle.js",
+        clean: true,
     },
     performance: {
         hints: false,

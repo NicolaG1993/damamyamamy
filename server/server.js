@@ -34,7 +34,8 @@ const { uploader } = require("./upload");
 
 /////*****MIDDLEWARES*****/////
 app.use(compression());
-app.use(express.static(path.join(__dirname, "..", "client", "public")));
+// app.use(express.static(path.join(__dirname, "..", "client", "public")));
+app.use(express.static(path.join(__dirname, "..", "client", "public", "dist")));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
