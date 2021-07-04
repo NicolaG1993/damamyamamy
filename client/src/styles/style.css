@@ -257,13 +257,6 @@ a {
     color: white;
 } */
 
-.circle {
-    border-radius: 50%;
-    background-color: greenyellow;
-    height: 15px;
-    width: 15px;
-}
-
 /* FORM */
 /* Style inputs, select elements and textareas */
 input[type="text"],

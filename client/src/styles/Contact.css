@@ -271,4 +271,8 @@
         width: 25px;
         height: 25px;
     }
+    .contact-list-socials {
+        flex-direction: column;
+        row-gap: 10px;
+    }
 }

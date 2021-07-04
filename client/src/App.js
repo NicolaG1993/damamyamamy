@@ -29,7 +29,7 @@ function App(props) {
 
     const fetchCart = async () => {
         try {
-            props.dispatch(loadData()); //da testare 🤞
+            props.dispatch(loadData()); //da testare 🤞 non so se questa sia la posizione corretta per caricare redux
 
             const cart = await commerce.cart.retrieve();
             const addedItems = cart.line_items.map((obj) => ({
