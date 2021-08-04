@@ -20,6 +20,7 @@ import CookiesPopUp from "./components/alerts/CookiesPopUp";
 import { keepTheme } from "./utils/themes";
 
 function App(props) {
+    console.log("App renders");
     const [state, setState] = useState({
         notAvailables: [],
         windowWidth: window.innerWidth,

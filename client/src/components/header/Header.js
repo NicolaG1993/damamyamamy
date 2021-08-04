@@ -10,6 +10,7 @@ export default function Header({ cart, windowWidth }) {
     const [navIsActive, setNavIsActive] = useState();
     const toggleNav = async () => setNavIsActive(!navIsActive);
     const closeNav = async () => setNavIsActive(false);
+    // console.log("Header renders");
 
     return (
         <>
