@@ -1,0 +1,289 @@
+@import url(https://fonts.googleapis.com/css?family=Nunito+Sans);
+@import url(https://fonts.googleapis.com/css?family=Fredoka+One);
+
+.theme-light {
+    /* --white: white; */
+    /* --black: rgb(11, 11, 12); */
+    --bg000: ghostwhite;
+    --bg100: rgb(255, 255, 255);
+    --bg200: rgb(241, 241, 241);
+    --bg300: rgb(233, 233, 233);
+    --bg350: rgb(224, 224, 224);
+    --bg400: rgb(199, 199, 199);
+    --bg500: #acacac; /*Header Icons*/
+    --bg600: #929292; /*Header Icons:hover*/
+    /* --color000: rgb(142, 202, 230); */
+    /* --color100: rgb(33, 158, 188); */
+    /* --color200: rgb(18, 130, 162); */
+    /* --color300: rgb(3, 64, 120); */
+    /* --color400: rgb(0, 31, 84); */
+    /* --color500: rgb(10, 17, 40); */
+    /* --color600: rgb(11, 11, 12); */
+    /* --color-b100: rgb(255, 183, 3); */
+    /* --color-b200: rgb(251, 133, 0); */
+    /* --text: rgb(11, 11, 12); */
+    --text-color: rgb(231, 134, 235);
+    --color000: rgb(231, 134, 235);
+    --color100: rgb(204, 108, 207);
+
+    /* --selection: rgba(142, 202, 230, 0.75); */
+}
+.theme-dark {
+    --white: white;
+    --black: rgb(11, 11, 12);
+    --bg000: rgb(0, 31, 84);
+    --bg100: rgb(10, 17, 40);
+    --bg200: rgb(11, 11, 12);
+    --bg300: rgb(3, 64, 120);
+    --bg400: rgb(18, 130, 162);
+    --bg500: rgb(33, 158, 188);
+    --bg600: rgb(142, 202, 230);
+    --color000: rgb(160, 160, 160);
+    --color100: rgb(187, 187, 187);
+    --color200: rgb(196, 196, 201);
+    --color300: rgb(212, 212, 219);
+    --color400: rgb(229, 229, 229);
+    --color500: ghostwhite;
+    --color600: white;
+    --color-b100: rgb(255, 183, 3);
+    --color-b200: rgb(251, 133, 0);
+    --text: white;
+    --text-color: ghostwhite;
+    --selection: rgba(160, 160, 160, 0.75);
+}
+
+/***************APP***************/
+.hello {
+    color: var(--color200);
+    background-image: url(./assets/logo192.png);
+    background-size: cover;
+    height: 30px;
+    width: 30px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    font-family: var(--fontA);
+    color: var(--text-color);
+    background: var(--bg000);
+    --fontA: "Nunito Sans";
+    --fontB: "Fredoka One";
+    --size-300: 0.42rem;
+    --size-200: 0.56rem;
+    --size-100: 0.75rem;
+    --size000: 1rem;
+    --size100: 1.33rem;
+    --size200: 1.77rem;
+    --size300: 2.37rem;
+    --size400: 3.16rem;
+    --size500: 4.21rem;
+    --size600: 5.61rem;
+    --size700: 7.48rem;
+    --left-indent: 1.33rem;
+    --transition: 0.2s ease;
+    --transition1: 0.1s ease;
+    --transition5: 0.5s ease;
+    --transition8: 0.8s ease;
+    --padding: var(--size-300) var(--size100);
+    --padding2: var(--size200) var(--size100);
+    --padding3: var(--size300);
+    --padding4: var(--size-100);
+    /* scrivere var anche per font sizes e piu cose possibili */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family: var(--fontB);
+    line-height: 1em;
+    font-weight: normal;
+}
+
+h3,
+h4,
+h5 {
+    margin-bottom: var(--size-200);
+}
+
+h1 {
+    font-size: 32px;
+}
+
+p {
+    margin-bottom: var(--size000);
+}
+
+a {
+    color: var(--text-color);
+    transition: var(--transition);
+    text-decoration: none;
+    cursor: pointer;
+}
+a:hover {
+    color: var(--color100);
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.App {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: background var(--transition);
+    margin-top: 70px;
+    /* overflow-x: hidden; */
+}
+.App > div:nth-child(2) {
+    /*Importante che App sia una classe, cosí id possono avere la prioritá*/
+    padding: var(--padding3);
+}
+
+::-webkit-scrollbar {
+    width: 15px;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--color000);
+    border-radius: 15px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color100);
+}
+::-webkit-scrollbar-track {
+    background: var(--bg200);
+}
+
+::selection {
+    background: var(--color000);
+    padding: var(--size-300);
+}
+
+/***************OVERLAY***************/
+.overlay {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background: var(--color000);
+    z-index: 18;
+    padding: var(--size-300) var(--size100);
+}
+.overlayIn {
+    visibility: visible;
+    opacity: 33%;
+    transition: visibility 0s ease-in-out 0s, opacity 1.5s;
+}
+.overlayOut {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s ease-in-out 0.5s, opacity 1s;
+}
+
+/***************LOADER***************/
+.loader {
+    font-size: 10px;
+    margin: 50px auto;
+    text-indent: -9999em;
+    width: 8em;
+    height: 8em;
+    border-radius: 50%;
+    background: rgb(231, 134, 235);
+    background: -moz-linear-gradient(
+        left,
+        rgb(231, 134, 235) 10%,
+        rgba(255, 255, 255, 0) 42%
+    );
+    background: -webkit-linear-gradient(
+        left,
+        rgb(231, 134, 235) 10%,
+        rgba(255, 255, 255, 0) 42%
+    );
+    background: -o-linear-gradient(
+        left,
+        rgb(231, 134, 235) 10%,
+        rgba(255, 255, 255, 0) 42%
+    );
+    background: -ms-linear-gradient(
+        left,
+        rgb(231, 134, 235) 10%,
+        rgba(255, 255, 255, 0) 42%
+    );
+    background: linear-gradient(
+        to right,
+        rgb(231, 134, 235) 10%,
+        rgba(255, 255, 255, 0) 42%
+    );
+    position: relative;
+    -webkit-animation: load3 1.4s infinite linear;
+    animation: load3 1.4s infinite linear;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+}
+.loader:before {
+    width: 50%;
+    height: 50%;
+    background: rgb(231, 134, 235);
+    border-radius: 100% 0 0 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "";
+}
+.loader:after {
+    background: white;
+    width: 75%;
+    height: 75%;
+    border-radius: 50%;
+    content: "";
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+@-webkit-keyframes load3 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@keyframes load3 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@media screen and (max-width: 900px) {
+    #tablet-line-breaker::after {
+        content: "\a";
+        white-space: pre;
+    }
+}
+@media screen and (max-width: 720px) {
+    #line-breaker::after {
+        content: "\a";
+        white-space: pre;
+    }
+}

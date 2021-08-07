@@ -1,0 +1,21 @@
+#Item {
+}
+
+#Item .item-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: var(--size200);
+    background-color: var(--bg200);
+    /* margin: var(--size100); */
+    padding: var(--size100);
+}
+
+#Item .item-pic {
+    width: 50%;
+    height: 400px;
+    background-color: var(--color200);
+}
+#Item .item-infos {
+    margin: var(--size100) var(--size300);
+}

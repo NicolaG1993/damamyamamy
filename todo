@@ -1,0 +1,97 @@
+🐲 COMPLETATO 
+🐔 DA RISOLVERE 
+🧠 DUBBI
+
+///////////////////////////// VERSION 1.0 /////////////////////////////
+
+
+MIGLIORIE:
+    🐲🐔🧠
+    creare un header component 🐲
+    creare un footer component 🐲
+    
+    fare funzioni async, ma quali e come? 🐲
+    
+    dovrei fare solo fn components? app incluso ed usare hooks (informarsi) 🧠
+        https://www.youtube.com/watch?v=377AQ0y6LPA -> per rifare con hooks la parte relative a commerce.js
+
+
+NEXT STEPS:
+    🐲🐔🧠
+    filtra/ricerca in shop 🐲
+    come fare suggested items in list comp 🐲
+
+    completare slider 🐲
+
+    styling 🐲
+    ritocchi finali in react ai vari components 🐲
+
+    fare "/about" 🐲
+    fare "/contacts" 🐲
+
+    aggiungere parallax effect 🐲
+
+    si puo scrivere handleScroll dei vari parallax in App? 🐲
+        come con updateWindowDimensions
+            Non del tutto, perché le condizioni dei vari handleScroll sui renders sono diverse     
+
+    attivare modulo in Contact 🐲
+    fixare bug -> useEffect in Contact per scroll ri-rendera il form 🐲
+        (usare localStorage?)
+        (soluzione: React.memo per annullare il re-render di ContactForm ) 
+    validate inputs / forms 🐲
+    
+    design delle varie view in ContactForm 🐲
+
+    form in filter-bar diventa 0 opacitá ma non é display hidden? 🐲
+        (overflow is the answer) 
+
+    aggiunge funzionalitá in Item -> galleria immagini in overlay 🐲
+    aggiunge funzionalitá in Item -> anteprima galleria immagini 🐲
+
+    rifare tutta App come functional component 🐲
+
+    SEO 🐔
+
+    scollegare completamente parte backend non in utilizzo, per ora 🐲
+
+EXTRA:
+    🧠🧠🧠
+    css Modules
+    performance test and speed improvement
+    slide features for mobile and tablet
+
+
+///////////////////////////// VERSION 2.0 /////////////////////////////
+
+
+FRONTEND:
+    migliorare style di filterbar in Shop 🐔
+    attivare slides per telefono in shortlists e slider invece di frecce 🐔
+
+    creare uploader 🐔
+    creare store management page 🐔
+    collegare a backend 🐔
+
+    quali stati dovrei fare con redux e quali no? 🧠
+    é il caso di settare windowWidth windowHeight in redux state? 🧠
+        visto che le passo in vari components
+    quali richieste vanno fatte con try catch, await, errori.. 🧠
+    chaptca per forms 🧠
+    hack and errors test 🧠
+
+BACKEND:
+    🐲🐔🧠
+    errore da SES 🐔 ???
+    creare db (le varie lists in psql) 🐔
+    fare tutta parte di commerce.js (server side e react requests) 🐔
+    fare tutta parte di stripe (?) 🐔
+    corretta gestione generale degli errori, compresa di messaggi 🐔
+        (sia per post requests tipo forms o inputs, sia per le varie risposte da servers o api)
+    dovrei usare socket.io per aggiornare prodotti in real time? 🧠
+
+EXTRA:
+    Capire bene webpack (ogni riga) 🐔
+    Capire come settare correttamente cartella /build o /dist 🐔
+
+    

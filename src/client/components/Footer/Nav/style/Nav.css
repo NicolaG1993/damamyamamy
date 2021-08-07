@@ -1,0 +1,17 @@
+.footer-nav {
+    padding-top: var(--size000);
+}
+
+.footer-nav li {
+    margin-bottom: var(--size-300);
+}
+
+@media screen and (max-width: 720px) {
+    .footer-nav {
+        padding-top: var(--size500);
+    }
+    .footer-nav li {
+        margin-bottom: var(--size400);
+        text-align: center;
+    }
+}

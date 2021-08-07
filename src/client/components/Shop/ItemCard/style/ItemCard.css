@@ -1,0 +1,12 @@
+.item-card {
+    height: 150px;
+    padding: var(--size-100);
+    background-color: var(--bg200);
+    transition: 0.15s ease-in-out;
+    /* transition: var(--transition); */
+}
+
+.item-card:hover {
+    background-color: var(--color100);
+    color: var(--bg100);
+}

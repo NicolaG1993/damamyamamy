@@ -1,0 +1,39 @@
+.sliderBox {
+    position: relative;
+    /* height: 70vh; */
+    width: 100%;
+    margin: 0 auto 0 auto;
+}
+.arrowWrap {
+    display: flex;
+    position: absolute;
+    top: 45%;
+    height: 50px;
+    width: 50px;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.055);
+    border-radius: 50%;
+    cursor: pointer;
+    align-items: center;
+    transition: ease-in 0.2s;
+}
+.arrowWrap:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.89);
+}
+
+.rightArrowStyle {
+    right: 25px;
+}
+.leftArrowStyle {
+    left: 25px;
+}
+.rightArrowStyle svg {
+    transform: translateX(2px);
+}
+.leftArrowStyle svg {
+    transform: translateX(-2px);
+}
+.arrowWrap svg:focus {
+    outline: 0;
+}

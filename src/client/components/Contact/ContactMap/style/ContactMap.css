@@ -1,0 +1,122 @@
+#contact-map {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--color200);
+    z-index: 2;
+}
+
+#contact-map > iframe {
+    width: 100%;
+    height: 500px;
+    border: none;
+}
+
+.contact-map-div {
+    height: 280px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--bg000);
+}
+
+.contact-icons-div {
+    height: 380px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: var(--size100);
+}
+
+.contact-icons-div > div {
+    justify-self: center;
+    align-self: center;
+    display: flex;
+    align-items: center;
+    color: var(--bg000);
+}
+
+.contact-icons-div svg {
+    margin-right: var(--size100);
+    height: 60px;
+    width: 60px;
+    fill: var(--bg000);
+}
+
+.contact-icons-text {
+    margin-left: var(--size100);
+    width: 170px;
+}
+.contact-icons-text > h3 {
+    line-height: var(--size200);
+}
+
+@media screen and (min-width: 1110px) {
+    .contact-icons-div {
+        max-width: 1110px;
+        padding: var(--size100) 0;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    .contact-icons {
+        margin-right: 10px;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .contact-icons {
+        margin-right: 0px;
+    }
+
+    .contact-icons-text p {
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .contact-icons-div {
+        height: 650px;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        padding: 40px var(--size100);
+    }
+    .contact-icons {
+        margin-right: var(--size100);
+    }
+    .contact-icons-text {
+        /* width: auto; */
+    }
+    .contact-icons-text p {
+        font-size: 16px;
+    }
+
+    .contact-icons-div > div:nth-child(1) > .contact-icons {
+        height: 70px;
+        width: 70px;
+    }
+    .contact-icons-div > div:nth-child(2) > .contact-icons {
+        height: 80px;
+        width: 80px;
+    }
+    .contact-icons-div > div:nth-child(3) > .contact-icons {
+        height: 70px;
+        width: 70px;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .contact-map-div {
+        padding: 0 var(--size100);
+        text-align: center;
+    }
+}
+
+/*
+sistemare svg in css (MAP)
+fixare css - not 100% working yet
+sistemare tutti paddings con var 
+sistemare svg in component
+*/

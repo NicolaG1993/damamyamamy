@@ -1,0 +1,13 @@
+.items-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    /* justify-content: center; */
+    /* width: 100%; */
+    min-height: 100%;
+    column-gap: var(--size000);
+    row-gap: var(--size000);
+}
+
+.item-wrap {
+    /* flex-basis: 80px; */
+}

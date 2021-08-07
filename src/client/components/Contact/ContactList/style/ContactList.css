@@ -1,0 +1,116 @@
+.contact-list {
+    display: flex;
+    flex-direction: column;
+}
+.contact-list-wrap {
+    display: flex;
+    flex-direction: column;
+    padding: var(--size-100);
+}
+.contact-list-wrap > div > h2 {
+    margin-bottom: var(--size300);
+}
+.contact-list-wrap p {
+    margin-bottom: auto;
+}
+.contact-list-box {
+    margin-bottom: var(--size100);
+    padding-left: var(--size-100);
+    display: flex;
+    align-items: center;
+}
+.contact-list-wrap > div:nth-child(1) > .contact-list-box:nth-child(5) {
+    margin-bottom: var(--size600);
+}
+.contact-address-small-icon {
+    background-size: contain;
+    background-position: center;
+    margin-right: var(--size100);
+    height: 19px;
+}
+.contact-address-small-icon > svg {
+    fill: var(--color200);
+    width: 19px;
+    height: 19px;
+}
+
+.contact-address-text {
+}
+
+.contact-list-wrap p,
+.contact-list-wrap a {
+    color: var(--text);
+    transition: var(--transition);
+}
+
+.contact-list-socials {
+    display: flex;
+    font-weight: bold;
+    padding-left: var(--size-100);
+    column-gap: var(--size300);
+    row-gap: var(--size300);
+}
+
+.contact-list-wrap * a:hover {
+    color: var(--color200);
+}
+
+@media screen and (max-width: 900px) {
+    .contact-list-wrap {
+        flex-direction: row;
+        justify-content: space-between;
+        column-gap: var(--size300);
+        row-gap: var(--size700);
+    }
+
+    .contact-list {
+        width: 100%;
+    }
+
+    .contact-list-box p {
+        font-size: 17px;
+    }
+
+    .contact-list-wrap > div:nth-child(1) {
+        max-width: 300px;
+    }
+
+    .contact-list-wrap > div:nth-child(1) > .contact-list-box:nth-child(5) {
+        margin-bottom: 0;
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .contact-list-wrap > div > h2 {
+        margin-bottom: var(--size500);
+    }
+}
+@media screen and (max-width: 650px) {
+    .contact-list {
+        width: 95%;
+    }
+    .contact-list-wrap {
+        flex-direction: column;
+        align-items: center;
+    }
+    .contact-list-box {
+        margin-bottom: var(--size300);
+    }
+    .contact-list-wrap > div {
+        width: 290px;
+    }
+
+    .contact-address-small-icon {
+        height: var(--size200);
+        margin-right: var(--size300);
+    }
+
+    .contact-address-small-icon > svg {
+        width: var(--size200);
+        height: var(--size200);
+    }
+    .contact-list-socials {
+        flex-direction: column;
+        margin-bottom: var(--size500);
+    }
+}

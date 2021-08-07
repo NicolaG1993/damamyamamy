@@ -1,0 +1,2 @@
+.item-card{background-color:var(--bg200);height:150px;padding:var(--size-100);transition:.15s ease-in-out}.item-card:hover{background-color:var(--color100);color:var(--bg100)}.items-list{column-gap:var(--size000);display:grid;grid-template-columns:1fr 1fr 1fr;min-height:100%;row-gap:var(--size000)}
+/*# sourceMappingURL=319.css.map*/

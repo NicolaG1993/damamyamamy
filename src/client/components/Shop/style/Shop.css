@@ -1,0 +1,7 @@
+#Shop {
+    min-height: 100vh;
+}
+
+#Shop h1 {
+    margin-bottom: var(--size400);
+}

@@ -1,0 +1,9 @@
+{
+    "testRegex": [
+        "((\\.|/*.)(spec))\\.js?$",
+        "((\\.|/*.)(spec))\\.jsx?$",
+        "((\\.|/*.)(test))\\.js?$",
+        "((\\.|/*.)(test))\\.jsx?$"
+    ],
+    "setupFilesAfterEnv": ["<rootDir>/enzyme.config.js"]
+}
