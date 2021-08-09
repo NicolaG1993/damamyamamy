@@ -80,7 +80,10 @@ function ContactMap() {
           })]
         })]
       }), /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
-        children: [/*#__PURE__*/(0,jsx_runtime.jsx)(help_operator, {}), /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
+        children: [/*#__PURE__*/(0,jsx_runtime.jsx)("img", {
+          className: "not-svg-small",
+          src: cargo_truck
+        }), /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
           className: "contact-icons-text",
           children: [/*#__PURE__*/(0,jsx_runtime.jsx)("h3", {
             children: "Spedizioni"
@@ -91,7 +94,10 @@ function ContactMap() {
           })]
         })]
       }), /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
-        children: [/*#__PURE__*/(0,jsx_runtime.jsx)(cargo_truck, {}), /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
+        children: [/*#__PURE__*/(0,jsx_runtime.jsx)("img", {
+          className: "not-svg",
+          src: help_operator
+        }), /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
           className: "contact-icons-text",
           children: [/*#__PURE__*/(0,jsx_runtime.jsx)("h3", {
             children: "Assistenza"
