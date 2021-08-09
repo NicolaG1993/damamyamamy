@@ -20,7 +20,7 @@
     align-items: center;
 }
 .contact-list-wrap > div:nth-child(1) > .contact-list-box:nth-child(5) {
-    margin-bottom: var(--size600);
+    margin-bottom: var(--size500);
 }
 .contact-address-small-icon {
     background-size: contain;
@@ -29,7 +29,7 @@
     height: 19px;
 }
 .contact-address-small-icon > svg {
-    fill: var(--color200);
+    fill: var(--color000);
     width: 19px;
     height: 19px;
 }
@@ -52,7 +52,7 @@
 }
 
 .contact-list-wrap * a:hover {
-    color: var(--color200);
+    color: var(--color100);
 }
 
 @media screen and (max-width: 900px) {

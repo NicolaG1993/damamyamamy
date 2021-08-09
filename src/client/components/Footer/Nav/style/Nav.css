@@ -3,7 +3,8 @@
 }
 
 .footer-nav li {
-    margin-bottom: var(--size-300);
+    line-height: 1em;
+    margin-bottom: var(--size-200);
 }
 
 @media screen and (max-width: 720px) {
@@ -11,7 +12,7 @@
         padding-top: var(--size500);
     }
     .footer-nav li {
-        margin-bottom: var(--size400);
+        margin-bottom: var(--size100);
         text-align: center;
     }
 }

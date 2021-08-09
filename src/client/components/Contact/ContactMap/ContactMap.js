@@ -1,7 +1,9 @@
 import "./style/ContactMap.css";
 import ShopFacade from "./assets/shop-facade.svg";
-import Phone from "./assets/phone.svg";
-import Clock from "./assets/clock.svg";
+// import HelpOperator from "./assets/help-operator.svg";
+// import CargoTruck from "./assets/cargo-truck.svg";
+import HelpOperator from "./assets/help-operator.png"; // convert to svg
+import CargoTruck from "./assets/cargo-truck.png"; // convert to svg
 
 export default function ContactMap() {
     return (
@@ -26,7 +28,8 @@ export default function ContactMap() {
                     </div>
                 </div>
                 <div>
-                    <Phone />
+                    <img className="not-svg-small" src={CargoTruck}></img>
+                    {/* <CargoTruck /> */}
                     <div className="contact-icons-text">
                         <h3>Spedizioni</h3>
                         <p>Servizio di spedizione </p>
@@ -34,7 +37,8 @@ export default function ContactMap() {
                     </div>
                 </div>
                 <div>
-                    <Clock />
+                    <img className="not-svg" src={HelpOperator}></img>
+                    {/* <HelpOperator /> */}
                     <div className="contact-icons-text">
                         <h3>Assistenza</h3>
                         <p>Sempre disponibili ad</p>

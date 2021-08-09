@@ -38,11 +38,13 @@ export default function Footer() {
 
     return (
         <div id="Footer">
-            <div className="footer-wraper" style={parallaxHeight}>
-                <Nav fallback={<div className="loader" />} />
-                <LegalInfos fallback={<div className="loader" />} />
-                <ContactCard fallback={<div className="loader" />} />
-                <SocialsIcons fallback={<div className="loader" />} />
+            <div className="footer-wraper">
+                <div className="footer-parallax-wraper" style={parallaxHeight}>
+                    <Nav fallback={<div className="loader" />} />
+                    <LegalInfos fallback={<div className="loader" />} />
+                    <ContactCard fallback={<div className="loader" />} />
+                    <SocialsIcons fallback={<div className="loader" />} />
+                </div>
             </div>
             <Copyrights />
         </div>
@@ -52,7 +54,7 @@ export default function Footer() {
 function Copyrights() {
     const currentYear = new Date().getFullYear();
     return (
-        <div className={"copyrights darker-tone"}>
+        <div className={"copyrights"}>
             <h5>Da Mamy a Mamy, © {currentYear}</h5>
         </div>
     );

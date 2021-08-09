@@ -4,6 +4,7 @@
 .theme-light {
     /* --white: white; */
     /* --black: rgb(11, 11, 12); */
+    --black-white: black;
     --bg000: ghostwhite;
     --bg100: rgb(255, 255, 255);
     --bg200: rgb(241, 241, 241);
@@ -21,10 +22,22 @@
     /* --color600: rgb(11, 11, 12); */
     /* --color-b100: rgb(255, 183, 3); */
     /* --color-b200: rgb(251, 133, 0); */
-    /* --text: rgb(11, 11, 12); */
-    --text-color: rgb(231, 134, 235);
+    --text: #414141;
+    --text-color: rgb(
+        231,
+        134,
+        235
+    ); /*Questo non deve cambiare in dark mode  */
+    --text-color-darker: rgb(
+        204,
+        108,
+        207
+    ); /*Questo non deve cambiare in dark mode - copyrights*/
+    --placeholder-text: rgb(140, 140, 140); /*Contact Form, Filters?*/
+    --divider: rgba(169, 169, 169, 0.329);
     --color000: rgb(231, 134, 235);
     --color100: rgb(204, 108, 207);
+    --color-opacity: rgba(232, 134, 235, 0.315);
 
     /* --selection: rgba(142, 202, 230, 0.75); */
 }
@@ -50,6 +63,8 @@
     --text: white;
     --text-color: ghostwhite;
     --selection: rgba(160, 160, 160, 0.75);
+
+    --placeholder-text: rgba(230, 230, 230, 0.82); /*Corretto*/
 }
 
 /***************APP***************/
@@ -104,19 +119,38 @@ h2,
 h3,
 h4,
 h5 {
-    font-family: var(--fontB);
-    line-height: 1em;
     font-weight: normal;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: var(--fontB);
 }
 
 h3,
 h4,
 h5 {
+    line-height: 1em;
     margin-bottom: var(--size-200);
+}
+
+h1,
+h3,
+h4,
+h5 {
+    letter-spacing: 1px;
+}
+h2 {
+    letter-spacing: 2px;
 }
 
 h1 {
     font-size: 32px;
+}
+h5 {
+    font-weight: bold;
 }
 
 p {

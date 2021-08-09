@@ -75,10 +75,10 @@ var Home = (0,_loadable_component__WEBPACK_IMPORTED_MODULE_0__/* .default */ .ZP
   return __webpack_require__.e(/* import() */ 713).then(__webpack_require__.bind(__webpack_require__, 4713));
 });
 var About = (0,_loadable_component__WEBPACK_IMPORTED_MODULE_0__/* .default */ .ZP)(function () {
-  return __webpack_require__.e(/* import() */ 959).then(__webpack_require__.t.bind(__webpack_require__, 2959, 23));
+  return __webpack_require__.e(/* import() */ 959).then(__webpack_require__.bind(__webpack_require__, 2959));
 });
 var Contact = (0,_loadable_component__WEBPACK_IMPORTED_MODULE_0__/* .default */ .ZP)(function () {
-  return __webpack_require__.e(/* import() */ 237).then(__webpack_require__.bind(__webpack_require__, 4237));
+  return __webpack_require__.e(/* import() */ 779).then(__webpack_require__.bind(__webpack_require__, 6779));
 });
 var Shop = (0,_loadable_component__WEBPACK_IMPORTED_MODULE_0__/* .default */ .ZP)(function () {
   return __webpack_require__.e(/* import() */ 825).then(__webpack_require__.bind(__webpack_require__, 2233));
@@ -118,10 +118,13 @@ function App() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__/* .useDispatch */ .I0)();
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     (0,_client_src_utils_themes__WEBPACK_IMPORTED_MODULE_4__.keepTheme)();
-    dispatch((0,_redux_LoadData_loadData_actions__WEBPACK_IMPORTED_MODULE_3__/* .loadData */ .mu)()); // dispatch(fetchCategories());
-    // dispatch(fetchSpecificCategories());
+    dispatch((0,_redux_LoadData_loadData_actions__WEBPACK_IMPORTED_MODULE_3__/* .loadData */ .mu)());
+    dispatch((0,_redux_LoadData_loadData_actions__WEBPACK_IMPORTED_MODULE_3__/* .fetchCategories */ .pE)()); // dispatch(fetchSpecificCategories());
     // dispatch(fetchHighestValue());
   }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    dispatch((0,_redux_LoadData_loadData_actions__WEBPACK_IMPORTED_MODULE_3__/* .fetchSpecificCategories */ .ou)());
+  }, [data.data]);
   var routes = [{
     path: "/",
     exact: true,
@@ -205,11 +208,13 @@ function RouteWithSubRoutes(route) {
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
+  "pE": () => (/* binding */ fetchCategories),
+  "ou": () => (/* binding */ fetchSpecificCategories),
   "rV": () => (/* binding */ getItem),
   "mu": () => (/* binding */ loadData)
 });
 
-// UNUSED EXPORTS: fetchCategories, fetchHighestValue, fetchSpecificCategories
+// UNUSED EXPORTS: fetchHighestValue
 
 // EXTERNAL MODULE: ./src/client/redux/LoadData/loadData.types.js
 var loadData_types = __webpack_require__(6570);
@@ -218,7 +223,7 @@ var lib = __webpack_require__(172);
 var lib_default = /*#__PURE__*/__webpack_require__.n(lib);
 ;// CONCATENATED MODULE: ./src/client/lib/commerce.js
 
-var commerce_commerce = new (lib_default())("pk_test_256064749a77acef81f7f565517eb1be2138151d5380f", true);
+var commerce = new (lib_default())("pk_test_256064749a77acef81f7f565517eb1be2138151d5380f", true);
 ;// CONCATENATED MODULE: ./src/client/redux/LoadData/loadData.actions.js
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -229,12 +234,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 // Molte delle funzioni che fará il reducer si potranno eliminare se si lavora con server o api, vedi sotto
 
 function loadData() {
-  return _loadData.apply(this, arguments);
+  return function (dispatch) {
+    dispatch({
+      type: loadData_types/* LOAD_DATA */.Uy
+    });
+    getSomeAsyncData(dispatch, commerce.products.list(), loadData_types/* LOAD_DATA */.Uy);
+  };
+} // This is how we do async actions with redux-thunk
+
+function fetchCategories() {
+  return function (dispatch) {
+    dispatch({
+      type: loadData_types/* FETCH_CATEGORIES */.Hw
+    });
+    getSomeAsyncData(dispatch, commerce.categories.list(), loadData_types/* FETCH_CATEGORIES */.Hw);
+  };
+} // This is how we do async actions with redux-thunk
+
+function getSomeAsyncData(_x, _x2, _x3) {
+  return _getSomeAsyncData.apply(this, arguments);
 }
 
-function _loadData() {
-  _loadData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-    var _yield$commerce$produ, data;
+function _getSomeAsyncData() {
+  _getSomeAsyncData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch, url, type) {
+    var _yield$url, data;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -242,20 +265,22 @@ function _loadData() {
           case 0:
             _context.prev = 0;
             _context.next = 3;
-            return commerce_commerce.products.list();
+            return url;
 
           case 3:
-            _yield$commerce$produ = _context.sent;
-            data = _yield$commerce$produ.data;
-            return _context.abrupt("return", {
-              type: loadData_types/* LOAD_DATA */.Uy,
+            _yield$url = _context.sent;
+            data = _yield$url.data;
+            dispatch({
+              type: type,
               payload: data
             });
+            _context.next = 11;
+            break;
 
           case 8:
             _context.prev = 8;
             _context.t0 = _context["catch"](0);
-            console.log("err in loadData(actions): ", _context.t0);
+            console.log("err in ".concat(type, " action: "), _context.t0);
 
           case 11:
           case "end":
@@ -264,51 +289,12 @@ function _loadData() {
       }
     }, _callee, null, [[0, 8]]);
   }));
-  return _loadData.apply(this, arguments);
-}
-
-function fetchCategories() {
-  return _fetchCategories.apply(this, arguments);
-} // richiesta a server o API da redux
-
-function _fetchCategories() {
-  _fetchCategories = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-    var _yield$commerce$categ, data;
-
-    return regeneratorRuntime.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            _context2.prev = 0;
-            _context2.next = 3;
-            return commerce.categories.list();
-
-          case 3:
-            _yield$commerce$categ = _context2.sent;
-            data = _yield$commerce$categ.data;
-            return _context2.abrupt("return", {
-              type: FETCH_CATEGORIES,
-              payload: data
-            });
-
-          case 8:
-            _context2.prev = 8;
-            _context2.t0 = _context2["catch"](0);
-            console.log("err in fetchCategories(actions): ", _context2.t0);
-
-          case 11:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2, null, [[0, 8]]);
-  }));
-  return _fetchCategories.apply(this, arguments);
+  return _getSomeAsyncData.apply(this, arguments);
 }
 
 function fetchSpecificCategories() {
   return {
-    type: FETCH_SPECIFIC_CATEGORIES
+    type: loadData_types/* FETCH_SPECIFIC_CATEGORIES */.q
   };
 }
 function fetchHighestValue() {

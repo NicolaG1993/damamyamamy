@@ -2,40 +2,32 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import "./style/Slider.css";
 import slides from "./assets/images";
 
+import useScrollPosition from "../../../utils/useScrollPosition";
+// import useWindowDimensions from "../../../utils/useWindowDimensions";
+
 import SliderContent from "./SliderContent";
 import Slide from "./Slide";
 import Arrow from "./Arrow";
 import Dots from "./Dots";
 
-const getWidth = () => window.innerWidth;
-// console.log("window: ", document.body.clientWidth);
-// window.document.width();
+export default function Slider({ width }) {
+    const { scrollTop } = useScrollPosition();
+    // const { width } = useWindowDimensions();
 
-export default function Slider() {
     const [parallaxHeight, setParallaxHeight] = useState();
-    const [scrollTop, setScrollTop] = useState();
     const autoPlay = 10;
-
-    // const { slides } = images;
-
-    console.log("slides:", slides);
-    console.log("slides.length:", slides.length);
 
     const firstSlide = slides[0];
     const secondSlide = slides[1];
-    // const thirdSlide = slides[2];
     const lastSlide = slides[slides.length - 1];
 
     const [state, setState] = useState({
         activeSlide: 0,
-        translate: getWidth(),
+        translate: width,
         transition: 0.45,
         _slides: [lastSlide, firstSlide, secondSlide],
     });
     const { activeSlide, translate, _slides, transition } = state;
-
-    console.log("activeSlide:", activeSlide);
-    console.log("_slides:", _slides);
 
     const autoPlayRef = useRef();
     const transitionRef = useRef();
@@ -49,28 +41,19 @@ export default function Slider() {
     }); // run on every render
 
     useEffect(() => {
-        console.log("mounted");
-        window.addEventListener("scroll", handleScroll);
-
         const slider = sliderRef.current;
 
         const smooth = (e) => {
             if (e.target.className.includes("SliderContent")) {
-                console.log("smooth activated 🐸🐸🐸🐸🐸🐸🐸🐸");
                 transitionRef.current();
             }
         };
-        const resize = () => {
-            resizeRef.current();
-        };
+
         const transitionEnd = slider.addEventListener("transitionend", smooth);
-        const onResize = window.addEventListener("resize", resize);
 
         // returned function will be called on component unmount
         return () => {
             slider.removeEventListener("transitionend", transitionEnd);
-            window.removeEventListener("resize", onResize);
-            window.removeEventListener("scroll", handleScroll);
         };
     }, []); // run only when component mount
 
@@ -101,16 +84,15 @@ export default function Slider() {
         }
     }, [scrollTop]);
 
-    const handleScroll = () => {
-        setScrollTop(window.scrollY);
-    };
+    const handleResize = () =>
+        setState({ ...state, translate: width, transition: 0 });
 
-    const handleResize = () => {
-        setState({ ...state, translate: getWidth(), transition: 0 });
-    };
+    useEffect(() => {
+        console.log("width changed!", width);
+        handleResize();
+    }, [width]);
 
     const smoothTransition = () => {
-        console.log("smoothTransition activated 🐸🐸🐸🐸🐸🐸🐸🐸");
         let _slides = [];
 
         // We're at the last slide.
@@ -126,14 +108,14 @@ export default function Slider() {
             ...state,
             _slides,
             transition: 0,
-            translate: getWidth(),
+            translate: width,
         });
     };
 
     const nextSlide = () =>
         setState({
             ...state,
-            translate: translate + getWidth(),
+            translate: translate + width,
             activeSlide:
                 activeSlide === slides.length - 1 ? 0 : activeSlide + 1,
         });
@@ -155,11 +137,11 @@ export default function Slider() {
                 <SliderContent
                     translate={translate}
                     transition={transition}
-                    width={getWidth() * _slides.length}
+                    width={width * _slides.length}
                 >
                     {_slides.map((_slide, i) => (
                         <Slide
-                            width={getWidth()}
+                            width={width}
                             key={_slide + i}
                             content={_slide}
                         />

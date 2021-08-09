@@ -1,12 +1,14 @@
 button {
-    padding: var(--size-200) var(--size100);
-    width: 200px;
+    padding: var(--size-200) var(--size-100);
+    min-width: 200px;
     border-radius: 35px;
     cursor: pointer;
     transition: var(--transition);
     font-weight: bold;
-    font-family: var(--fontB);
+    font-size: 1rem;
+    font-family: var(--fontA);
     border: 3px solid var(--text-color);
+    letter-spacing: 1px;
 }
 
 .normal {

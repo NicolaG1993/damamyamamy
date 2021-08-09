@@ -1,1 +1,0 @@
-{"version":3,"file":"820.css","mappings":"AAAA,UAEI,aAAc,CADd,WAEJ","sources":["webpack://damamyamamy/./src/client/components/Logo/style/Logo.css"],"sourcesContent":[".logo > img {\n    height: 45px;\n    display: block;\n}\n"],"names":[],"sourceRoot":""}

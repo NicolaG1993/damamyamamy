@@ -34,6 +34,6 @@
 @media screen and (max-width: 650px) {
     .contact-wrap {
         row-gap: 150px;
-        width: 90%;
+        width: 100%;
     }
 }

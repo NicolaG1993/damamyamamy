@@ -3,26 +3,20 @@ import "./style/LegalInfos.css";
 
 export default function LegalInfos() {
     return (
-        <div
-            className="legal-footer"
-            // css={css`
-            //     margin-top: ${parallaxHeight};
-            //     transition: 1.1s ease;
-            // `}
-        >
+        <nav className="legal-footer">
             <h4>Informazioni</h4>
-            <p>
-                <Link to={"/example-doc"} document="">
-                    Note legali
-                </Link>
-            </p>
-            <p>
-                <Link to={"/cookie-policy"}>Cookies policy</Link>
-            </p>
-            <p>
-                <Link to={"/terms-conditions"}>Termini e condizioni</Link>
-            </p>
-            {/* <p>Metodi di pagamento / Spedizione</p> */}
-        </div>
+            <ul>
+                <li>
+                    <Link to={"/example-doc"}>Note legali</Link>
+                </li>
+                <li>
+                    <Link to={"/cookie-policy"}>Cookies policy</Link>
+                </li>
+                <li>
+                    <Link to={"/terms-conditions"}>Termini e condizioni</Link>
+                </li>
+                {/* <p>Metodi di pagamento / Spedizione</p> */}
+            </ul>
+        </nav>
     );
 }

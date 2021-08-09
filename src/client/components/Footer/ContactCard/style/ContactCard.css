@@ -2,18 +2,17 @@
     padding-top: var(--size000);
 }
 
-.contact-wraper {
-    /* padding-top: var(--size000); */
-    display: flex;
-    flex-direction: column;
-    row-gap: var(--size-300);
+.contact-footer li {
+    line-height: 1em;
+    margin-bottom: var(--size-200);
 }
 
 @media screen and (max-width: 720px) {
     .contact-footer {
         padding-top: var(--size500);
     }
-    .contact-wraper {
-        row-gap: 0;
+    .contact-footer li {
+        margin-bottom: var(--size100);
+        text-align: center;
     }
 }

@@ -53,9 +53,12 @@ export default function App() {
         keepTheme();
         dispatch(loadData());
         dispatch(fetchCategories());
-        dispatch(fetchSpecificCategories());
+        // dispatch(fetchSpecificCategories());
         // dispatch(fetchHighestValue());
     }, []);
+    useEffect(() => {
+        dispatch(fetchSpecificCategories());
+    }, [data.data]);
 
     const routes = [
         {

@@ -1,0 +1,217 @@
+#About {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+}
+
+#About * p {
+    margin-bottom: var(--size100);
+}
+
+.aboutus-comp-div {
+    padding: 40px;
+    /* margin-top: 20px; */
+}
+
+.aboutus-box1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin-top: 30px; */
+    background: linear-gradient(
+            to bottom,
+            rgba(232, 134, 235, 0.85),
+            rgba(204, 108, 207, 0.85)
+        ),
+        url(../assets/pic1.jpg) no-repeat center center;
+
+    background-size: cover;
+    height: 450px;
+    width: 100%;
+}
+
+.aboutus-box1-text {
+    max-width: 550px;
+    text-align: center;
+    color: white;
+}
+
+.aboutus-box1-text > h1 {
+    margin-bottom: 30px;
+}
+
+.aboutus-box1-text > p {
+    font-size: 13.5pt;
+}
+
+.aboutus-box2 {
+    margin: 90px 0 110px 0;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    max-width: 1110px;
+}
+
+.aboutus-box2-text {
+}
+.aboutus-box2-text > h2 {
+    /* margin-bottom: 30px; */
+}
+.aboutus-box2-text p {
+    color: var(--text);
+}
+
+.aboutus-box2-text > h4 {
+    max-width: 150px;
+}
+.aboutus-box2-text > h4 > a {
+    display: flex;
+    align-items: center;
+    color: rgb(231, 134, 235);
+    line-height: 20px;
+}
+.aboutus-box2-text > h4 > a::after {
+    content: "";
+    background-image: url(../assets/arrow2.png);
+    background-size: 16px 16px;
+    background-size: cover;
+    display: inline-block;
+
+    width: 16px;
+    height: 16px;
+    margin-left: 14px;
+}
+
+.aboutus-box2-pic {
+    justify-self: end;
+    align-self: center;
+}
+
+.aboutus-box2-pic > div {
+    background-image: url(../assets/pic2a.jpg);
+    background-position: center;
+    background-size: cover;
+
+    border-radius: 50%;
+    height: 250px;
+    width: 250px;
+    margin-right: 20px;
+}
+
+.aboutus-box3 {
+    background-color: rgb(231, 134, 235);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 100px 0 10px 0;
+}
+
+.aboutus-box3-text {
+    color: white;
+    max-width: 1110px;
+    margin-top: 60px;
+    padding: 0 40px;
+}
+
+.aboutus-box3-text > div {
+    height: 100px;
+    margin-bottom: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.aboutus-box3-text > div:nth-child(2) {
+    text-align: end;
+}
+
+.aboutus-box3-text > div > div {
+    height: 100px;
+    width: 100px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.aboutus-box3-text > div:nth-child(1) > div {
+    background-image: url(../assets/loving-heart-shape.png);
+}
+.aboutus-box3-text > div:nth-child(2) > div {
+    background-image: url(../assets/leaf.png);
+}
+.aboutus-box3-text > div:nth-child(3) > div {
+    background-image: url(../assets/label.png);
+}
+
+.aboutus-box3-text > div > p {
+    width: 75%;
+}
+
+.aboutus-box3-pic {
+    margin: 80px 0 50px 0;
+    width: 100%;
+    max-width: 1110px;
+    height: 200px;
+    padding: 0 40px;
+}
+.aboutus-box3-pic > div {
+    background-image: url(../assets/pic5.jpg);
+    height: 100%;
+    /* background-attachment: fixed; */
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+@media screen and (min-width: 1110px) {
+    #About {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .aboutus-box1 {
+        height: 500px;
+    }
+    .aboutus-box2 {
+        grid-template-columns: 1fr;
+        row-gap: 100px;
+    }
+    .aboutus-box2-pic {
+        justify-self: center;
+        align-self: center;
+        grid-column-start: 1;
+        grid-row-start: 1;
+    }
+    .aboutus-box2-pic > div {
+        margin: 0;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .aboutus-box3-text {
+        margin-top: 30px;
+    }
+    .aboutus-box3-text > div {
+        /* justify-content: space-between;
+        column-gap: 25px; */
+        flex-direction: column;
+        row-gap: 40px;
+        height: auto;
+        margin-bottom: 110px;
+    }
+    .aboutus-box3-text > div > p {
+        text-align: center;
+        width: 100%;
+    }
+    .aboutus-box3-text > div:nth-child(2) {
+        flex-direction: column-reverse;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .aboutus-box2-pic > div {
+        height: 240px;
+        width: 240px;
+    }
+}

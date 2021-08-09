@@ -16,6 +16,7 @@
     line-height: 60px;
     transition: var(--transition);
     letter-spacing: 3px;
+    color: var(--text);
 }
 .nav-on {
     opacity: 1;

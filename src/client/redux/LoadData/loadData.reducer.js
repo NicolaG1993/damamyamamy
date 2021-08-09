@@ -54,6 +54,12 @@ export default function reducer(state = INITIAL_STATE, action) {
                         product.categories[0].slug === "passeggini-e-trasporto"
                 ); // FIXARE? 🧨
 
+            console.log("FETCH_SPECIFIC_CATEGORIES: ", {
+                ...state,
+                catNewItems,
+                cat1,
+                cat2,
+            });
             return {
                 ...state,
                 catNewItems,
