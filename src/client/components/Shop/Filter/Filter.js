@@ -11,26 +11,35 @@ import {
     sortByAlphabet,
     sortByNew,
 } from "../../../redux/FilterStore/filterStore.actions";
+import { fetchHighestValue } from "../../../redux/LoadData/loadData.actions";
+import HamburgerButton from "./HamburgerButton/HamburgerButton";
 const getCategories = (state) => state.loadData.categories;
 const getTopValue = (state) => state.loadData.topValue;
 const getFilteredItems = (state) => state.filterStore.filteredItems;
 const getAppliedFilters = (state) => state.filterStore.appliedFilters;
 
 export default function Filter() {
+    //TOGGLE FILTER BAR
+    const [filtersBar, setFiltersBarBar] = useState(false);
+    const toggleBar = async () => {
+        setFiltersBarBar(!filtersBar);
+    };
+
+    //REDUX
     let categories = useSelector(getCategories, shallowEqual);
     let topValue = useSelector(getTopValue, shallowEqual);
     let filteredItems = useSelector(getFilteredItems, shallowEqual);
     let appliedFilters = useSelector(getAppliedFilters, shallowEqual);
 
     const dispatch = useDispatch();
+    useEffect(() => categories && dispatch(fetchHighestValue()), [categories]);
 
+    //FILTERS STATE
     let research = ""; //forse posso eliminare
-
     const [priceRange, setPriceRange] = useState({
         min: 0,
         max: Number(topValue) || 10,
     });
-
     const [filters, setFilters] = useState({
         name: research || "",
         priceMin: priceRange.min,
@@ -53,7 +62,7 @@ export default function Filter() {
         [appliedFilters]
     );
 
-    //////////////////////////////////////////
+    ////////////////////////////////////////////HANDLE FORM
 
     const handleForm = (e) => {
         e.preventDefault();
@@ -99,8 +108,6 @@ export default function Filter() {
         console.log("handleForm activated", allValues);
     };
 
-    //////////////////////////////////////////
-
     const handleFormOrder = (e) => {
         e.preventDefault();
         const value = e.target.value;
@@ -111,8 +118,6 @@ export default function Filter() {
         }));
         console.log("handleFormOrder activated", value);
     };
-
-    //////////////////////////////////////////
 
     const handlePriceRange = (value) => setPriceRange(value);
     const handleRangeSlider = () => {
@@ -128,7 +133,7 @@ export default function Filter() {
         }));
     };
 
-    //////////////////////////////////////////
+    ////////////////////////////////////////////HANDLE FILTERS
 
     useEffect(() => handleFilters(), [filters]);
 
@@ -182,20 +187,33 @@ export default function Filter() {
     };
 
     return (
-        <div className="filter-wrap">
-            <h4>Filters:</h4>
-            <FilterForm
-                filters={filters}
-                categories={categories}
-                research={research}
-                topValue={Number(topValue)}
-                priceRange={priceRange}
-                setPriceRange={setPriceRange}
-                handleForm={handleForm}
-                handleFormOrder={handleFormOrder}
-                handlePriceRange={handlePriceRange}
-                handleRangeSlider={handleRangeSlider}
-            />
+        <div
+            className={`filter-wrap ${
+                filtersBar ? "filter-wrap-active" : "filter-wrap-inactive"
+            }`}
+        >
+            <div className="filter-wrap-header" onClick={toggleBar}>
+                <h3>Filtra risultati</h3>
+                <HamburgerButton
+                    navIsActive={filtersBar}
+                    toggleNav={toggleBar}
+                />
+            </div>
+            {topValue && (
+                <FilterForm
+                    filters={filters}
+                    categories={categories}
+                    research={research}
+                    topValue={Number(topValue)}
+                    priceRange={priceRange}
+                    setPriceRange={setPriceRange}
+                    handleForm={handleForm}
+                    handleFormOrder={handleFormOrder}
+                    handlePriceRange={handlePriceRange}
+                    handleRangeSlider={handleRangeSlider}
+                    filtersBar={filtersBar}
+                />
+            )}
         </div>
     );
 }

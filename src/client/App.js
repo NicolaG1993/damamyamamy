@@ -49,6 +49,7 @@ export default function App() {
     console.log("data changed:", data);
 
     const dispatch = useDispatch();
+
     useEffect(() => {
         keepTheme();
         dispatch(loadData());
@@ -57,6 +58,7 @@ export default function App() {
         // dispatch(fetchHighestValue());
     }, []);
     useEffect(() => {
+        // dispatch(loadData());
         dispatch(fetchSpecificCategories());
     }, [data.data]);
 

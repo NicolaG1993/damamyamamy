@@ -20,25 +20,43 @@ var react = __webpack_require__(7294);
 var jsx_runtime = __webpack_require__(5893);
 ;// CONCATENATED MODULE: ./src/client/components/Shop/ItemCard/ItemCard.js
 
+ // not loading right
+
 
 
 function ItemCard(_ref) {
   var item = _ref.item;
-  // console.log("item in ItemCard.js: ", item);
+  console.log("🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️item in ItemCard.js: ", item);
+
+  function createMarkup() {
+    return {
+      __html: item.description
+    };
+  }
+
   return /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
     className: "item-card",
-    children: [/*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
-      className: "ItemHeading",
-      children: ["My name is ", item.name]
+    children: [/*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+      className: "item-card-img",
+      children: /*#__PURE__*/(0,jsx_runtime.jsx)("img", {
+        src: item.media.source || "test1.jpg"
+      })
     }), /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
-      className: "ItemText",
-      children: ["I'm a ", item.animal, " and my breed is ", item.breed]
-    }), /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
-      className: "ItemText",
-      children: ["My mantle is ", item.skinTexture, " ", item.color]
-    }), /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
-      className: "ItemNumber",
-      children: ["and i'm ", item.age, " years old"]
+      className: "item-card-info",
+      children: [/*#__PURE__*/(0,jsx_runtime.jsx)("h3", {
+        children: item.name
+      }), /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+        className: "item-card-divider-small",
+        children: " "
+      }), /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+        className: "item-card-description",
+        dangerouslySetInnerHTML: createMarkup()
+      }), /*#__PURE__*/(0,jsx_runtime.jsxs)("h5", {
+        children: [/*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+          className: "price-for-item-card",
+          children: "Prezzo: "
+        }), item.price.raw, "\u20AC"]
+      })]
     })]
   });
 }
@@ -94,11 +112,16 @@ function ItemsList() {
   var dispatch = (0,es/* useDispatch */.I0)();
 
   var setPageState = function setPageState(arg) {
-    return dispatch((0,pageNav_actions/* setPageNav */.Po)({
+    return filteredItems && dispatch((0,pageNav_actions/* setPageNav */.Po)({
       ItemsList: arg
     }));
   };
 
+  (0,react.useEffect)(function () {
+    return document.querySelectorAll(".item-wrap").forEach(function (el) {
+      el.classList.add("fade-in");
+    });
+  });
   (0,react.useEffect)(function () {
     return setPageState(filteredItems);
   }, []); // settiamo PageNav
@@ -117,8 +140,8 @@ function ItemsList() {
   // non filteredItems
   // console.log("🍄🍄🍄 filteredItems -> ", filteredItems);
   // console.log("🍄🍄🍄 results -> ", results);
-  // console.log("🍄🍄🍄 onPage -> ", onPage);
 
+  console.log("🍄🍄🍄 onPage -> ", onPage);
   return /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
     className: "items-list",
     children: onPage ? onPage.length < 1 ? /*#__PURE__*/(0,jsx_runtime.jsx)("h4", {

@@ -123,6 +123,7 @@ function App() {
     // dispatch(fetchHighestValue());
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    // dispatch(loadData());
     dispatch((0,_redux_LoadData_loadData_actions__WEBPACK_IMPORTED_MODULE_3__/* .fetchSpecificCategories */ .ou)());
   }, [data.data]);
   var routes = [{
@@ -209,12 +210,11 @@ function RouteWithSubRoutes(route) {
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
   "pE": () => (/* binding */ fetchCategories),
+  "Aj": () => (/* binding */ fetchHighestValue),
   "ou": () => (/* binding */ fetchSpecificCategories),
   "rV": () => (/* binding */ getItem),
   "mu": () => (/* binding */ loadData)
 });
-
-// UNUSED EXPORTS: fetchHighestValue
 
 // EXTERNAL MODULE: ./src/client/redux/LoadData/loadData.types.js
 var loadData_types = __webpack_require__(6570);
@@ -299,7 +299,7 @@ function fetchSpecificCategories() {
 }
 function fetchHighestValue() {
   return {
-    type: FETCH_HIGHEST_VALUE
+    type: loadData_types/* FETCH_HIGHEST_VALUE */.MD
   };
 }
 function getItem(payload) {

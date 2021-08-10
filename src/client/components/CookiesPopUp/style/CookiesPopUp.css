@@ -4,8 +4,8 @@
     bottom: 0;
     width: 100%;
     /* min-height: 20vh; */
-    background: var(--bg500);
-    padding: var(--padding);
+    background: var(--bg300);
+    padding: var(--size-100) var(--size300);
 }
 
 .alert-text-wrap,
@@ -19,6 +19,9 @@
 }
 
 @media screen and (max-width: 720px) {
+    .alert {
+        padding: var(--size-100) var(--size100);
+    }
     .alert-buttons-wrap {
         flex-direction: column;
         row-gap: var(--size-200);

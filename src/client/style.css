@@ -42,6 +42,35 @@
     /* --selection: rgba(142, 202, 230, 0.75); */
 }
 .theme-dark {
+    --black-white: white;
+    --bg000: rgb(45, 48, 70);
+    --bg100: rgb(255, 255, 255);
+    --bg200: rgb(40, 44, 71);
+    --bg300: rgb(233, 233, 233);
+    --bg350: rgb(224, 224, 224);
+    --bg400: rgb(199, 199, 199);
+    --bg500: #acacac; /*Header Icons*/
+    --bg600: #929292; /*Header Icons:hover*/
+
+    --text: ghostwhite;
+    --text-color: rgb(
+        231,
+        134,
+        235
+    ); /*Questo non deve cambiare in dark mode  */
+    --text-color-darker: rgb(
+        204,
+        108,
+        207
+    ); /*Questo non deve cambiare in dark mode - copyrights*/
+    --placeholder-text: rgb(140, 140, 140); /*Contact Form, Filters?*/
+    --divider: rgba(169, 169, 169, 0.329);
+    --color000: rgb(231, 134, 235);
+    --color100: rgb(204, 108, 207);
+    --color-opacity: rgba(232, 134, 235, 0.315);
+}
+
+.theme-dark copy {
     --white: white;
     --black: rgb(11, 11, 12);
     --bg000: rgb(0, 31, 84);
@@ -320,4 +349,8 @@ ul {
         content: "\a";
         white-space: pre;
     }
+}
+
+.hidden {
+    opacity: 0;
 }

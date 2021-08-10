@@ -187,9 +187,9 @@ function SelectCat(_ref2) {
     },
     children: [categories && categories.map(function (category) {
       return /*#__PURE__*/(0,jsx_runtime.jsx)("option", {
-        value: category.animalID,
-        label: category.animal
-      }, category.animalID);
+        value: category.id,
+        label: category.name
+      }, category.id);
     }), /*#__PURE__*/(0,jsx_runtime.jsx)("option", {
       value: "",
       label: "--Tutte"
@@ -229,6 +229,8 @@ function SelectOrder(_ref3) {
 var es = __webpack_require__(1372);
 // EXTERNAL MODULE: ./src/client/redux/FilterStore/filterStore.actions.js
 var filterStore_actions = __webpack_require__(7646);
+// EXTERNAL MODULE: ./src/client/redux/LoadData/loadData.actions.js + 1 modules
+var loadData_actions = __webpack_require__(3702);
 ;// CONCATENATED MODULE: ./src/client/components/Shop/Filter/Filter.js
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
@@ -247,6 +249,7 @@ function Filter_arrayLikeToArray(arr, len) { if (len == null || len > arr.length
 function Filter_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function Filter_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -278,6 +281,9 @@ function Filter() {
   var filteredItems = (0,es/* useSelector */.v9)(getFilteredItems, es/* shallowEqual */.wU);
   var appliedFilters = (0,es/* useSelector */.v9)(getAppliedFilters, es/* shallowEqual */.wU);
   var dispatch = (0,es/* useDispatch */.I0)();
+  (0,react.useEffect)(function () {
+    return categories && dispatch((0,loadData_actions/* fetchHighestValue */.Aj)());
+  }, [categories]);
   var research = ""; //forse posso eliminare
 
   var _useState = (0,react.useState)({
@@ -461,7 +467,7 @@ function Filter() {
     className: "filter-wrap",
     children: [/*#__PURE__*/(0,jsx_runtime.jsx)("h4", {
       children: "Filters:"
-    }), /*#__PURE__*/(0,jsx_runtime.jsx)(FilterForm, {
+    }), topValue && /*#__PURE__*/(0,jsx_runtime.jsx)(FilterForm, {
       filters: filters,
       categories: categories,
       research: research,

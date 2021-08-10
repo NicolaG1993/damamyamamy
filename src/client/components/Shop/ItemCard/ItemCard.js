@@ -1,19 +1,43 @@
 import { Link } from "react-router-dom";
-import "./style/ItemCard.css";
+import "./style/ItemCard.css"; // not loading right
 
 export default function ItemCard({ item }) {
-    // console.log("item in ItemCard.js: ", item);
+    console.log("🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️item in ItemCard.js: ", item);
+
+    function createMarkup() {
+        return { __html: item.description };
+    }
 
     return (
-        <div className="item-card">
-            <div className="ItemHeading">My name is {item.name}</div>
-            <div className="ItemText">
-                I'm a {item.animal} and my breed is {item.breed}
+        <div className={"item-card"}>
+            {/* <Link to={`/item/${item.id}`} className={"product-content-medium"}> */}
+            <div className={"item-card-img"}>
+                <img src={item.media.source || "test1.jpg"} />
             </div>
-            <div className="ItemText">
-                My mantle is {item.skinTexture} {item.color}
+
+            <div className={"item-card-info"}>
+                <h3>{item.name}</h3>
+
+                <div className={"item-card-divider-small"}> </div>
+                <div
+                    className={"item-card-description"}
+                    dangerouslySetInnerHTML={createMarkup()}
+                ></div>
+
+                <h5>
+                    <span className={"price-for-item-card"}>Prezzo: </span>
+                    {item.price.raw}€
+                </h5>
             </div>
-            <div className="ItemNumber">and i'm {item.age} years old</div>
+            {/* </Link> */}
+            {/* {notAvailables && notAvailables.filter} */}
+            {/* <AddToCartBtn
+                cardSize={cardSize}
+                item_id={item.id}
+                notAvailables={notAvailables}
+                onAddToCart={onAddToCart}
+                removeFromCart={removeFromCart}
+            /> */}
         </div>
     );
 }

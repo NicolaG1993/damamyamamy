@@ -93,7 +93,8 @@ export default function reducer(state = INITIAL_STATE, action) {
             if (minPrice || maxPrice) {
                 let filteredValues = state.filteredItems.filter(
                     (product) =>
-                        product.age >= minPrice && product.age <= maxPrice
+                        product.price.raw >= minPrice &&
+                        product.price.raw <= maxPrice
                 ); // NB: io uso originalState
                 newState.filteredItems = filteredValues;
             }
@@ -139,8 +140,8 @@ export default function reducer(state = INITIAL_STATE, action) {
 
             let sortedArr =
                 value === "lowPrice"
-                    ? sortArrayAsc(state.filteredItems, "age")
-                    : sortArrayDesc(state.filteredItems, "age");
+                    ? sortArrayAsc(state.filteredItems, "price.raw")
+                    : sortArrayDesc(state.filteredItems, "price.raw");
 
             newState.filteredItems = sortedArr;
             newState.appliedFilters = {

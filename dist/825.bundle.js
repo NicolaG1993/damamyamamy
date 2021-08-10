@@ -20,6 +20,8 @@ var react = __webpack_require__(7294);
 var es = __webpack_require__(1372);
 // EXTERNAL MODULE: ./src/client/redux/FilterStore/filterStore.actions.js
 var filterStore_actions = __webpack_require__(7646);
+// EXTERNAL MODULE: ./src/client/redux/LoadData/loadData.actions.js + 1 modules
+var loadData_actions = __webpack_require__(3702);
 // EXTERNAL MODULE: ./src/client/redux/PageNav/pageNav.actions.js
 var pageNav_actions = __webpack_require__(5168);
 // EXTERNAL MODULE: ./node_modules/react/jsx-runtime.js
@@ -81,19 +83,18 @@ function PageNav() {
       children: /*#__PURE__*/(0,jsx_runtime.jsxs)("nav", {
         className: "pagination",
         children: [pageNav.currentPage > 1 && /*#__PURE__*/(0,jsx_runtime.jsx)("button", {
-          className: "small-arrow pagination-previous",
+          className: "pagenav-arrow pagination-previous",
           onClick: function onClick() {
             previousPage();
           },
           children: /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
-            className: "small-arrow-left",
-            children: "Prev"
+            className: "pagenav-prev"
           })
         }), /*#__PURE__*/(0,jsx_runtime.jsx)("ul", {
           className: "pagination-list",
           children: _toConsumableArray(Array(pageNav.filteredPages)).map(function (value, index) {
             return /*#__PURE__*/(0,jsx_runtime.jsx)("button", {
-              className: "button pagination-link ".concat(pageNav.currentPage === index + 1 ? "is-current" : ""),
+              className: "pagenav-button pagination-link ".concat(pageNav.currentPage === index + 1 ? "is-current" : ""),
               onClick: function onClick() {
                 return goToPage(index + 1);
               },
@@ -101,23 +102,20 @@ function PageNav() {
             }, index);
           })
         }), pageNav.currentPage !== pageNav.totalPages && /*#__PURE__*/(0,jsx_runtime.jsx)("button", {
-          className: "small-arrow pagination-next",
+          className: "pagenav-arrow pagination-next",
           onClick: function onClick() {
             nextPage();
           },
           children: /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
-            className: "small-arrow-right",
-            children: "Next"
+            className: "pagenav-next"
           })
         })]
       })
     })
   });
 }
-// EXTERNAL MODULE: ./src/client/redux/LoadData/loadData.actions.js + 1 modules
-var loadData_actions = __webpack_require__(3702);
 // EXTERNAL MODULE: ./src/client/utils/useWindowDimensions.js
-var useWindowDimensions = __webpack_require__(1970);
+var utils_useWindowDimensions = __webpack_require__(1970);
 ;// CONCATENATED MODULE: ./src/client/components/Shop/CategoriesMenu/CategoriesMenu.js
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -149,21 +147,21 @@ var getCategories = function getCategories(state) {
 
 
 function CategoriesMenu() {
-  var _useWindowDimensions = (0,useWindowDimensions/* default */.Z)(),
+  var _useWindowDimensions = useWindowDimensions(),
       width = _useWindowDimensions.width;
 
-  var _useState = (0,react.useState)(0),
+  var _useState = useState(0),
       _useState2 = _slicedToArray(_useState, 2),
       sliceStart = _useState2[0],
       setSliceStart = _useState2[1];
 
-  var _useState3 = (0,react.useState)(7),
+  var _useState3 = useState(7),
       _useState4 = _slicedToArray(_useState3, 2),
       step = _useState4[0],
       setStep = _useState4[1];
 
-  var categories = (0,es/* useSelector */.v9)(getCategories, es/* shallowEqual */.wU);
-  var dispatch = (0,es/* useDispatch */.I0)();
+  var categories = useSelector(getCategories, shallowEqual);
+  var dispatch = useDispatch();
 
   var handleSelectCategory = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(arg, argID) {
@@ -178,7 +176,7 @@ function CategoriesMenu() {
               // categoryID: argID,
               // })); // forse non servirá setFilters
               // pure qui passiamo arg perché setState é async //dovremmo usare un useEffect in alternativa //il valore di state non ancora settato
-              dispatch((0,filterStore_actions/* filterByCategory */.Q6)({
+              dispatch(filterByCategory({
                 value: arg,
                 valueID: argID
               })); // filterByCategory({ value: arg, valueID: argID });
@@ -214,14 +212,14 @@ function CategoriesMenu() {
     //in quel caso sottrae step
   };
 
-  (0,react.useEffect)(function () {
+  useEffect(function () {
     if (width <= 720) {
       setStep(2);
     } else {
       setStep(7);
     }
   }, [width]);
-  (0,react.useEffect)(function () {
+  useEffect(function () {
     console.log("sliceStart: ", sliceStart); // console.log("categories.length: ", categories.length);
 
     if (categories) {
@@ -232,35 +230,35 @@ function CategoriesMenu() {
       }
     }
   }, [sliceStart]);
-  return /*#__PURE__*/(0,jsx_runtime.jsxs)("nav", {
+  return /*#__PURE__*/_jsxs("nav", {
     className: "categories-nav",
-    children: [/*#__PURE__*/(0,jsx_runtime.jsx)("button", {
+    children: [/*#__PURE__*/_jsx("button", {
       className: "categories-btn",
       onClick: function onClick() {
         return seePrev();
       },
       children: "prev"
-    }), categories.length ? /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
+    }), categories ? /*#__PURE__*/_jsxs("div", {
       className: "categories-wrap",
-      children: [/*#__PURE__*/(0,jsx_runtime.jsx)("p", {
+      children: [/*#__PURE__*/_jsx("p", {
         onClick: function onClick() {
           return handleSelectCategory("", "");
         },
         children: "All"
       }), categories.slice(sliceStart, sliceStart + step).map(function (category) {
-        return /*#__PURE__*/(0,jsx_runtime.jsx)("p", {
+        return /*#__PURE__*/_jsx("p", {
           onClick: function onClick() {
-            return handleSelectCategory(category.animal, category.animalID);
+            return handleSelectCategory(category.name, category.id);
           },
-          children: category.animal
-        }, category.animalID);
+          children: category.name
+        }, category.id);
       })]
-    }) : /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+    }) : /*#__PURE__*/_jsx("div", {
       className: "center-text",
-      children: /*#__PURE__*/(0,jsx_runtime.jsx)("p", {
+      children: /*#__PURE__*/_jsx("p", {
         children: "Nessun risultato"
       })
-    }), /*#__PURE__*/(0,jsx_runtime.jsx)("button", {
+    }), /*#__PURE__*/_jsx("button", {
       className: "categories-btn",
       onClick: function onClick() {
         return seeNext();
@@ -274,6 +272,7 @@ function CategoriesMenu() {
 
  // REDUX
 // import { connect } from "react-redux";
+
 
 
 
@@ -298,24 +297,24 @@ function Shop() {
   var dispatch = (0,es/* useDispatch */.I0)();
   (0,react.useEffect)(function () {
     return dispatch((0,filterStore_actions/* setupStore */.zn)());
-  }, []);
+  }, []); // useEffect(
+  //     () => storeState.data && dispatch(fetchHighestValue()),
+  //     [storeState.data]
+  // );
+
   return /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
     id: "Shop",
     children: [/*#__PURE__*/(0,jsx_runtime.jsx)("h1", {
-      children: "In negozio Test"
-    }), /*#__PURE__*/(0,jsx_runtime.jsx)(ItemsList, {
-      fallback: /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
-        className: "loader"
-      })
-    }), /*#__PURE__*/(0,jsx_runtime.jsx)(PageNav, {}), /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
-      children: [/*#__PURE__*/(0,jsx_runtime.jsx)("h4", {
-        children: "Categories:"
-      }), /*#__PURE__*/(0,jsx_runtime.jsx)(CategoriesMenu, {})]
+      children: "In negozio"
     }), /*#__PURE__*/(0,jsx_runtime.jsx)(Filter, {
       fallback: /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
         className: "loader"
       })
-    })]
+    }), /*#__PURE__*/(0,jsx_runtime.jsx)(PageNav, {}), /*#__PURE__*/(0,jsx_runtime.jsx)(ItemsList, {
+      fallback: /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+        className: "loader"
+      })
+    }), /*#__PURE__*/(0,jsx_runtime.jsx)(PageNav, {})]
   });
 }
 

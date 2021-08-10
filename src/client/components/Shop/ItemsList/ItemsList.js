@@ -19,7 +19,14 @@ export default function ItemsList() {
     console.log("🧠🧠🧠PAGINATION!!!!!", pagination.displayedItems);
 
     const dispatch = useDispatch();
-    const setPageState = (arg) => dispatch(setPageNav({ ItemsList: arg }));
+    const setPageState = (arg) =>
+        filteredItems && dispatch(setPageNav({ ItemsList: arg }));
+
+    useEffect(() =>
+        document.querySelectorAll(".item-wrap").forEach((el) => {
+            el.classList.add("fade-in");
+        })
+    );
 
     useEffect(() => setPageState(filteredItems), []); // settiamo PageNav
 
@@ -40,7 +47,7 @@ export default function ItemsList() {
 
     // console.log("🍄🍄🍄 filteredItems -> ", filteredItems);
     // console.log("🍄🍄🍄 results -> ", results);
-    // console.log("🍄🍄🍄 onPage -> ", onPage);
+    console.log("🍄🍄🍄 onPage -> ", onPage);
     return (
         <div className="items-list">
             {onPage ? (

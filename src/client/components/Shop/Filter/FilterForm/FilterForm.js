@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import InputRange from "react-input-range";
 import "react-input-range/lib/css/index.css";
+import "./style/FilterForm.css";
 
 export default function FilterForm({
     research,
@@ -13,13 +14,14 @@ export default function FilterForm({
     categories,
     filters,
     topValue,
+    filtersBar,
 }) {
     const [appliedFilters, setAppliedFilters] = useState(filters);
     useEffect(() => setAppliedFilters(filters), [filters]);
 
     console.log("appliedFilters", appliedFilters);
     return (
-        <form className="filter-form">
+        <form className={filtersBar ? "filter-form" : "hidden"}>
             <div className="filter-form-col-left">
                 <label>
                     <span>Ricerca per nome</span>
@@ -74,6 +76,7 @@ export default function FilterForm({
                         }
                         onInput={(e) => handleForm(e)}
                     />
+                    {/* 🐞 BUG: incrementa via click non funziona */}
                 </div>
             </div>
 
@@ -132,9 +135,9 @@ function SelectCat({ defaultValue, handleForm, categories }) {
             {categories &&
                 categories.map((category) => (
                     <option
-                        key={category.animalID}
-                        value={category.animalID}
-                        label={category.animal}
+                        key={category.id}
+                        value={category.id}
+                        label={category.name}
                     ></option>
                 ))}
             <option value="" label="--Tutte"></option>

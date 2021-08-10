@@ -26,12 +26,12 @@ export default function PageNav() {
                 <nav className="pagination">
                     {pageNav.currentPage > 1 && (
                         <button
-                            className="small-arrow pagination-previous"
+                            className="pagenav-arrow pagination-previous"
                             onClick={() => {
                                 previousPage();
                             }}
                         >
-                            <div className="small-arrow-left">Prev</div>
+                            <div className="pagenav-prev"></div>
                         </button>
                     )}
 
@@ -40,7 +40,7 @@ export default function PageNav() {
                             (value, index) => (
                                 <button
                                     key={index}
-                                    className={`button pagination-link ${
+                                    className={`pagenav-button pagination-link ${
                                         pageNav.currentPage === index + 1
                                             ? "is-current"
                                             : ""
@@ -55,12 +55,12 @@ export default function PageNav() {
 
                     {pageNav.currentPage !== pageNav.totalPages && (
                         <button
-                            className="small-arrow pagination-next"
+                            className="pagenav-arrow pagination-next"
                             onClick={() => {
                                 nextPage();
                             }}
                         >
-                            <div className="small-arrow-right">Next</div>
+                            <div className="pagenav-next"></div>
                         </button>
                     )}
                 </nav>

@@ -154,9 +154,12 @@ function reducer() {
     case loadData_types/* FETCH_HIGHEST_VALUE */.MD:
       {
         var _data2 = state.data;
-        var topValue = Math.max.apply(Math, _data2.map(function (element) {
+        console.log("FETCH_HIGHEST_VALUE data: ", _data2);
+        var topValue;
+        _data2 ? topValue = Math.max.apply(Math, _data2.map(function (element) {
           return element.price.raw; // FIXARE ? 🧨
-        }));
+        })) : topValue = 10;
+        console.log("FETCH_HIGHEST_VALUE topValue: ", topValue);
         return _objectSpread(_objectSpread({}, state), {}, {
           topValue: topValue
         });
@@ -274,7 +277,7 @@ function filterStore_reducer_reducer() {
 
         if (minPrice || maxPrice) {
           var _filteredValues = state.filteredItems.filter(function (product) {
-            return product.age >= minPrice && product.age <= maxPrice;
+            return product.price.raw >= minPrice && product.price.raw <= maxPrice;
           }); // NB: io uso originalState
 
 
@@ -314,7 +317,7 @@ function filterStore_reducer_reducer() {
 
         var _newState5 = Object.assign({}, state);
 
-        var _sortedArr = _value2 === "lowPrice" ? sortArrayAsc(state.filteredItems, "age") : sortArrayDesc(state.filteredItems, "age");
+        var _sortedArr = _value2 === "lowPrice" ? sortArrayAsc(state.filteredItems, "price.raw") : sortArrayDesc(state.filteredItems, "price.raw");
 
         _newState5.filteredItems = _sortedArr;
         _newState5.appliedFilters = filterStore_reducer_objectSpread(filterStore_reducer_objectSpread({}, state.appliedFilters), {}, {
@@ -668,4 +671,4 @@ var CLOSE = "CLOSE";
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=index.710ac0ff7247f449f935.js.map
+//# sourceMappingURL=index.9a430bd78a814cfe8586.js.map

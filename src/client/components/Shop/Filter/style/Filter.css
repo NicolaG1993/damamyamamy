@@ -1,0 +1,27 @@
+.filter-wrap {
+    background-color: var(--color000);
+    color: white;
+    padding: var(--size000);
+    margin: var(--size200) 0;
+    border-radius: var(--size-100);
+    transition: 0.5s ease;
+    overflow: hidden;
+}
+
+.filter-wrap-active {
+    height: 416px;
+}
+.filter-wrap-inactive {
+    height: 54px;
+}
+
+.filter-wrap-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.filter-wrap-header h3 {
+    margin: 0;
+}

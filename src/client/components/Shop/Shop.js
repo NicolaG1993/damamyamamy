@@ -9,6 +9,7 @@ import {
     setupStore,
     filterByCategory,
 } from "../../redux/FilterStore/filterStore.actions";
+import { fetchHighestValue } from "../../redux/LoadData/loadData.actions";
 const filterStore = (state) => state.filterStore;
 
 const ItemsList = loadable(() => import("./ItemsList/ItemsList"));
@@ -22,26 +23,32 @@ export default function Shop() {
 
     const dispatch = useDispatch();
     useEffect(() => dispatch(setupStore()), []);
+    // useEffect(
+    //     () => storeState.data && dispatch(fetchHighestValue()),
+    //     [storeState.data]
+    // );
 
     return (
         <div id="Shop">
-            <h1>In negozio Test</h1>
+            <h1>In negozio</h1>
 
-            {/* {state.filteredProducts && state.filteredProducts.length === 1 && (
-                <h5>{state.filteredProducts.length} risultato</h5>
-            )}
-            {state.filteredProducts && state.filteredProducts.length > 1 && (
-                <h5>{state.filteredProducts.length} risultati</h5>
-            )} */}
+            <Filter fallback={<div className="loader" />} />
+            {storeState.filteredItems &&
+                storeState.filteredItems.length === 1 && (
+                    <h5>{storeState.filteredItems.length} risultato</h5>
+                )}
+            {storeState.filteredItems &&
+                storeState.filteredItems.length > 1 && (
+                    <h5>{storeState.filteredItems.length} risultati</h5>
+                )}
 
-            {/* <PageNav /> */}
+            <PageNav />
             <ItemsList fallback={<div className="loader" />} />
             <PageNav />
-            <div>
+            {/* <div>
                 <h4>Categories:</h4>
                 <CategoriesMenu />
-            </div>
-            <Filter fallback={<div className="loader" />} />
+            </div> */}
         </div>
     );
 }

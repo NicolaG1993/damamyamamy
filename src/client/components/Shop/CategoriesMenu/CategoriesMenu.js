@@ -74,22 +74,22 @@ export default function CategoriesMenu() {
                 prev
             </button>
 
-            {categories.length ? (
+            {categories ? (
                 <div className={"categories-wrap"}>
                     <p onClick={() => handleSelectCategory("", "")}>All</p>
                     {categories
                         .slice(sliceStart, sliceStart + step)
                         .map((category) => (
                             <p
-                                key={category.animalID}
+                                key={category.id}
                                 onClick={() =>
                                     handleSelectCategory(
-                                        category.animal,
-                                        category.animalID
+                                        category.name,
+                                        category.id
                                     )
                                 }
                             >
-                                {category.animal}
+                                {category.name}
                             </p>
                         ))}
                 </div>

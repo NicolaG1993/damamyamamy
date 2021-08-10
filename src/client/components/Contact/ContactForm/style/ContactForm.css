@@ -26,9 +26,9 @@
     grid-column-end: 3;
 }
 
-input[type="text"],
-select,
-textarea {
+.contact-form input[type="text"],
+.contact-form select,
+.contact-form textarea {
     width: 100%;
     height: 100%;
     padding: var(--padding4);
@@ -37,7 +37,7 @@ textarea {
     color: var(--text);
     border: none;
 }
-textarea {
+.contact-form textarea {
     resize: none;
 }
 

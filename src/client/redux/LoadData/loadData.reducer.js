@@ -70,12 +70,18 @@ export default function reducer(state = INITIAL_STATE, action) {
 
         case FETCH_HIGHEST_VALUE: {
             let { data } = state;
-            let topValue = Math.max.apply(
-                Math,
-                data.map(function (element) {
-                    return element.price.raw; // FIXARE ? 🧨
-                })
-            );
+            console.log("FETCH_HIGHEST_VALUE data: ", data);
+            let topValue;
+            data
+                ? (topValue = Math.max.apply(
+                      Math,
+                      data.map(function (element) {
+                          return element.price.raw; // FIXARE ? 🧨
+                      })
+                  ))
+                : (topValue = 10);
+
+            console.log("FETCH_HIGHEST_VALUE topValue: ", topValue);
 
             return {
                 ...state,

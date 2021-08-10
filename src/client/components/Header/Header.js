@@ -12,7 +12,7 @@ import { toggleLayout } from "../../redux/ToggleLayout/toggleLayout.actions";
 // COMPONENTS
 const Logo = loadable(() => import("../Logo/Logo"));
 const HamburgerButton = loadable(() =>
-    import("../HamburgerButton/HamburgerButton")
+    import("./HamburgerButton/HamburgerButton")
 );
 const ColorModeButton = loadable(() =>
     import("../ColorModeButton/ColorModeButton")
