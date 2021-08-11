@@ -23,7 +23,7 @@ export default function ItemsList() {
         filteredItems && dispatch(setPageNav({ ItemsList: arg }));
 
     useEffect(() =>
-        document.querySelectorAll(".item-wrap").forEach((el) => {
+        document.querySelectorAll(".shop-item-wrap").forEach((el) => {
             el.classList.add("fade-in");
         })
     );
@@ -57,7 +57,7 @@ export default function ItemsList() {
                     onPage.map((item) => (
                         <Link
                             to={`/item/${item.id}`}
-                            className="item-wrap"
+                            className="shop-item-wrap"
                             key={item.id}
                         >
                             <ItemCard item={item} />

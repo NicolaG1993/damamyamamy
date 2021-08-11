@@ -124,7 +124,7 @@ function App() {
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     // dispatch(loadData());
-    dispatch((0,_redux_LoadData_loadData_actions__WEBPACK_IMPORTED_MODULE_3__/* .fetchSpecificCategories */ .ou)());
+    dispatch((0,_redux_LoadData_loadData_actions__WEBPACK_IMPORTED_MODULE_3__/* .fetchSpecificCategories */ .ou)()); // dispatch(fetchHighestValue());
   }, [data.data]);
   var routes = [{
     path: "/",
@@ -251,43 +251,75 @@ function fetchCategories() {
   };
 } // This is how we do async actions with redux-thunk
 
+function getItem(payload) {
+  // una cosa come questa é meglio farla via request server side se possibile
+  console.log("😶😶😶😶😶😶", payload.key);
+  var key = payload.key;
+  return function (dispatch) {
+    dispatch({
+      type: loadData_types/* GET_ITEM */.rt
+    });
+    getSomeAsyncData(dispatch, commerce.products.retrieve(key), loadData_types/* GET_ITEM */.rt);
+  };
+}
+
 function getSomeAsyncData(_x, _x2, _x3) {
   return _getSomeAsyncData.apply(this, arguments);
 }
 
 function _getSomeAsyncData() {
   _getSomeAsyncData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch, url, type) {
-    var _yield$url, data;
+    var result, data, _yield$url, _data;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             _context.prev = 0;
-            _context.next = 3;
+
+            if (!(type === loadData_types/* GET_ITEM */.rt)) {
+              _context.next = 8;
+              break;
+            }
+
+            _context.next = 4;
             return url;
 
-          case 3:
-            _yield$url = _context.sent;
-            data = _yield$url.data;
-            dispatch({
-              type: type,
-              payload: data
-            });
-            _context.next = 11;
+          case 4:
+            data = _context.sent;
+            result = data;
+            _context.next = 13;
             break;
 
           case 8:
-            _context.prev = 8;
+            _context.next = 10;
+            return url;
+
+          case 10:
+            _yield$url = _context.sent;
+            _data = _yield$url.data;
+            result = _data;
+
+          case 13:
+            dispatch({
+              type: type,
+              payload: result
+            });
+            console.log("😶😶😶😶😶😶datadatadata", result);
+            _context.next = 20;
+            break;
+
+          case 17:
+            _context.prev = 17;
             _context.t0 = _context["catch"](0);
             console.log("err in ".concat(type, " action: "), _context.t0);
 
-          case 11:
+          case 20:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[0, 8]]);
+    }, _callee, null, [[0, 17]]);
   }));
   return _getSomeAsyncData.apply(this, arguments);
 }
@@ -301,12 +333,6 @@ function fetchHighestValue() {
   return {
     type: loadData_types/* FETCH_HIGHEST_VALUE */.MD
   };
-}
-function getItem(payload) {
-  return {
-    type: loadData_types/* GET_ITEM */.rt,
-    payload: payload
-  }; // una cosa come questa é meglio farla via request server side se possibile
 }
 
 /***/ })

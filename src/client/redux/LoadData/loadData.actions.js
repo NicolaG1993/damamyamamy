@@ -31,14 +31,34 @@ export function fetchCategories() {
     };
 } // This is how we do async actions with redux-thunk
 
+export function getItem(payload) {
+    // una cosa come questa é meglio farla via request server side se possibile
+    console.log("😶😶😶😶😶😶", payload.key);
+    let { key } = payload;
+    return (dispatch) => {
+        dispatch({
+            type: GET_ITEM,
+        });
+        getSomeAsyncData(dispatch, commerce.products.retrieve(key), GET_ITEM);
+    };
+}
+
 async function getSomeAsyncData(dispatch, url, type) {
+    let result;
     try {
-        const { data } = await url;
+        if (type === GET_ITEM) {
+            const data = await url;
+            result = data;
+        } else {
+            const { data } = await url;
+            result = data;
+        }
 
         dispatch({
             type: type,
-            payload: data,
+            payload: result,
         });
+        console.log("😶😶😶😶😶😶datadatadata", result);
     } catch (err) {
         console.log(`err in ${type} action: `, err);
     }
@@ -53,10 +73,4 @@ export function fetchHighestValue() {
     return {
         type: FETCH_HIGHEST_VALUE,
     };
-}
-export function getItem(payload) {
-    return {
-        type: GET_ITEM,
-        payload,
-    }; // una cosa come questa é meglio farla via request server side se possibile
 }

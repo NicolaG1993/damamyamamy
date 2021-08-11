@@ -68,6 +68,17 @@ export default function reducer(state = INITIAL_STATE, action) {
             };
         }
 
+        case GET_ITEM: {
+            let selectedItem = action.payload;
+            // let key = Number(action.payload.key);
+            // let selectedItem = data.find((item) => item.id === key); // FIXARE ? 🧨
+            console.log("GET_ITEM: ", action);
+            return {
+                ...state,
+                selectedItem,
+            };
+        }
+
         case FETCH_HIGHEST_VALUE: {
             let { data } = state;
             console.log("FETCH_HIGHEST_VALUE data: ", data);
@@ -86,18 +97,6 @@ export default function reducer(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 topValue,
-            };
-        }
-
-        case GET_ITEM: {
-            let { data } = state;
-            let key = Number(action.payload.key);
-            let selectedItem = data.find((item) => item.id === key); // FIXARE ? 🧨
-            console.log("GET_ITEM: ", selectedItem);
-
-            return {
-                ...state,
-                selectedItem,
             };
         }
 

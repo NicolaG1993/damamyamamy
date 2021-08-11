@@ -9,7 +9,7 @@ import {
     setupStore,
     filterByCategory,
 } from "../../redux/FilterStore/filterStore.actions";
-import { fetchHighestValue } from "../../redux/LoadData/loadData.actions";
+// import { fetchHighestValue } from "../../redux/LoadData/loadData.actions";
 const filterStore = (state) => state.filterStore;
 
 const ItemsList = loadable(() => import("./ItemsList/ItemsList"));

@@ -354,3 +354,19 @@ ul {
 .hidden {
     opacity: 0;
 }
+
+/* Questo va qua perché viene usato da piu components in App */
+.product-divider-small {
+    height: 3px;
+    width: 66%;
+    background-color: var(--divider);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    /* position: relative;
+    margin: 10px auto; */
+}
+@media screen and (max-width: 760px) {
+    .product-divider-small {
+        width: 100%;
+    }
+}

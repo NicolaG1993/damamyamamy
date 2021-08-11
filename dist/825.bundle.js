@@ -20,8 +20,6 @@ var react = __webpack_require__(7294);
 var es = __webpack_require__(1372);
 // EXTERNAL MODULE: ./src/client/redux/FilterStore/filterStore.actions.js
 var filterStore_actions = __webpack_require__(7646);
-// EXTERNAL MODULE: ./src/client/redux/LoadData/loadData.actions.js + 1 modules
-var loadData_actions = __webpack_require__(3702);
 // EXTERNAL MODULE: ./src/client/redux/PageNav/pageNav.actions.js
 var pageNav_actions = __webpack_require__(5168);
 // EXTERNAL MODULE: ./node_modules/react/jsx-runtime.js
@@ -114,6 +112,8 @@ function PageNav() {
     })
   });
 }
+// EXTERNAL MODULE: ./src/client/redux/LoadData/loadData.actions.js + 1 modules
+var loadData_actions = __webpack_require__(3702);
 // EXTERNAL MODULE: ./src/client/utils/useWindowDimensions.js
 var utils_useWindowDimensions = __webpack_require__(1970);
 ;// CONCATENATED MODULE: ./src/client/components/Shop/CategoriesMenu/CategoriesMenu.js
@@ -274,8 +274,7 @@ function CategoriesMenu() {
 // import { connect } from "react-redux";
 
 
-
-
+ // import { fetchHighestValue } from "../../redux/LoadData/loadData.actions";
 
 var filterStore = function filterStore(state) {
   return state.filterStore;
@@ -285,7 +284,7 @@ var ItemsList = (0,loadable_esm/* default */.ZP)(function () {
   return __webpack_require__.e(/* import() */ 319).then(__webpack_require__.bind(__webpack_require__, 7319));
 });
 var Filter = (0,loadable_esm/* default */.ZP)(function () {
-  return Promise.all(/* import() */[__webpack_require__.e(216), __webpack_require__.e(32)]).then(__webpack_require__.bind(__webpack_require__, 8032));
+  return Promise.all(/* import() */[__webpack_require__.e(216), __webpack_require__.e(678)]).then(__webpack_require__.bind(__webpack_require__, 2678));
 });
 
 
@@ -310,6 +309,10 @@ function Shop() {
       fallback: /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
         className: "loader"
       })
+    }), storeState.filteredItems && storeState.filteredItems.length === 1 && /*#__PURE__*/(0,jsx_runtime.jsxs)("h5", {
+      children: [storeState.filteredItems.length, " risultato"]
+    }), storeState.filteredItems && storeState.filteredItems.length > 1 && /*#__PURE__*/(0,jsx_runtime.jsxs)("h5", {
+      children: [storeState.filteredItems.length, " risultati"]
     }), /*#__PURE__*/(0,jsx_runtime.jsx)(PageNav, {}), /*#__PURE__*/(0,jsx_runtime.jsx)(ItemsList, {
       fallback: /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
         className: "loader"

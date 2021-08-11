@@ -118,7 +118,7 @@ function ItemsList() {
   };
 
   (0,react.useEffect)(function () {
-    return document.querySelectorAll(".item-wrap").forEach(function (el) {
+    return document.querySelectorAll(".shop-item-wrap").forEach(function (el) {
       el.classList.add("fade-in");
     });
   });
@@ -149,7 +149,7 @@ function ItemsList() {
     }) : onPage.map(function (item) {
       return /*#__PURE__*/(0,jsx_runtime.jsx)(react_router_dom/* Link */.rU, {
         to: "/item/".concat(item.id),
-        className: "item-wrap",
+        className: "shop-item-wrap",
         children: /*#__PURE__*/(0,jsx_runtime.jsx)(ItemCard, {
           item: item
         })

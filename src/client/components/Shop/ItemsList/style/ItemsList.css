@@ -8,7 +8,7 @@
     row-gap: var(--size300);
 }
 
-.item-wrap {
+.shop-item-wrap {
     /* flex-basis: 80px; */
     opacity: 0;
     transition: opacity 0.5s ease-in;

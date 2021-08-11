@@ -6,4 +6,4 @@ package-lock.json
 secrets.json
 
 # queste folder vanno ignorate di solito, essendo un setup project le lascio
-# dist
+dist

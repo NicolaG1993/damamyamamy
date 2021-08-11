@@ -4,6 +4,7 @@ import "./style/Item.css";
 
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { getItem } from "../../../redux/LoadData/loadData.actions";
+import Button from "../../Button/Button";
 
 const loadItem = (state) => state.loadData.selectedItem;
 
@@ -17,7 +18,7 @@ export default function Item() {
     const [item, setItem] = useState(null);
 
     // console.log("🐔 state in Item.js: ", state);
-    console.log("🐔 item in Item.js: ", item);
+    // console.log("🐔 item in Item.js: ", item);
 
     useEffect(() => {
         dispatch(getItem({ key: key }));
@@ -31,30 +32,99 @@ export default function Item() {
     useEffect(() => {
         setItem(selectedItem);
     }, [selectedItem]);
+    // useEffect(() => {
+    //     console.log("🐔 item in Item.js: ", item);
+    // }, [item]);
+
+    const ItemWrap = () => (
+        <div id="Item">
+            <div className="item-wrap">
+                <div className="item-pic"></div>
+                <div className="item-infos">
+                    <h1>{item.name}</h1>
+                    <div className="item-infos-price">
+                        <h2>{item.price.raw}€</h2>
+                        <p>IVA inclusa</p>
+                    </div>
+                    <div className={"product-divider-small"}> </div>
+                    <div className={"item-infos-infos-box"}>
+                        <div className="item-infos-conditions">
+                            <span>Condizioni:</span>
+                            <div className="item-infos-conditions-wrap">
+                                <h5>come nuovo</h5>
+                                <div className="circle"></div>
+                            </div>
+                        </div>
+
+                        <div className="item-infos-infos">
+                            <span>Categoria:</span>
+                            <p>
+                                {item.categories[0] && item.categories[0].name}
+                            </p>
+                        </div>
+
+                        <div className="item-infos-infos">
+                            <span>Tags:</span>
+                            <div className="item-infos-infos-inner-wrap">
+                                {item.categories[0] && (
+                                    <Link
+                                        to={{
+                                            pathname: "/shop",
+                                            tag: item.categories[0].name,
+                                        }}
+                                        className="item-tag"
+                                    >
+                                        {item.categories[0].name}
+                                    </Link>
+                                )}
+
+                                <Link
+                                    to={{
+                                        pathname: "/shop",
+                                        tag: "3/5 anni",
+                                    }}
+                                    className="item-tag"
+                                >
+                                    3/5 anni
+                                </Link>
+                            </div>
+                        </div>
+
+                        <div className="item-infos-infos">
+                            <span>Disponibilitá:</span>
+                            <p>Pezzo unico</p>
+                        </div>
+                    </div>
+                    <Button
+                        page="/"
+                        text="Aggiungi al carrello"
+                        type="internal"
+                    />
+                </div>
+            </div>
+        </div>
+    );
+
+    const ShortlistWrap = () => (
+        <section className="item-shortlist-wrap">
+            <h2>Shortlist</h2>
+            <p>Fullwidth, ma con stessa ombra di Footer?</p>
+        </section>
+    );
+    const ItemDescriptionWrap = () => (
+        <section className="item-description-wrap">
+            <h2>Descrizione</h2>
+            <p>Fullwidth con stessa ombra di Footer!</p>
+        </section>
+    );
 
     if (item) {
         return (
             <Switch>
                 <Route path={match.path}>
-                    <div id="Item">
-                        <div className="item-wrap">
-                            <div className="item-infos">
-                                <p>Name: {item.name}</p>
-                                <p>
-                                    Animal: {item.animal} animalID#
-                                    {item.animalID}
-                                </p>
-                                <p>Breed: {item.breed}</p>
-                                <p>Breed ID: #{item.breedID}</p>
-                                <p>Age: {item.age} y.o.</p>
-                                <p>Color: {item.color}</p>
-                                {item.skinTexture && (
-                                    <p>Skin texture: {item.skinTexture}</p>
-                                )}
-                            </div>
-                            <div className="item-pic"></div>
-                        </div>
-                    </div>
+                    <ItemWrap />
+                    <ShortlistWrap />
+                    <ItemDescriptionWrap />
                 </Route>
             </Switch>
         );
@@ -63,7 +133,7 @@ export default function Item() {
     if (!item) {
         return (
             <div className="item-wrap">
-                <div className="loader loader-alternative1"></div>
+                <div className="loader"></div>
             </div>
         );
     }

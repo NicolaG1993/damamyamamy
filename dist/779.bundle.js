@@ -63,7 +63,7 @@ function Button(_ref) {
       return handleFunction();
     } //activate fn here! 🧨
     ,
-    className: status,
+    className: "btn ".concat(status),
     onMouseEnter: onMouseEnter,
     onMouseLeave: onMouseLeave,
     children: text
@@ -75,7 +75,7 @@ function Button(_ref) {
     },
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
       type: "button",
-      className: status,
+      className: "btn ".concat(status),
       onMouseEnter: onMouseEnter,
       onMouseLeave: onMouseLeave,
       children: text
@@ -90,7 +90,7 @@ function Button(_ref) {
     },
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
       type: "button",
-      className: status,
+      className: "btn ".concat(status),
       onMouseEnter: onMouseEnter,
       onMouseLeave: onMouseLeave,
       children: text
@@ -98,7 +98,7 @@ function Button(_ref) {
   });
   if (type === "submit") return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
     type: "submit",
-    className: status,
+    className: "btn ".concat(status),
     onMouseEnter: onMouseEnter,
     onMouseLeave: onMouseLeave,
     onClick: function onClick() {

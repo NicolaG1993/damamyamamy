@@ -60,6 +60,7 @@ export default function App() {
     useEffect(() => {
         // dispatch(loadData());
         dispatch(fetchSpecificCategories());
+        // dispatch(fetchHighestValue());
     }, [data.data]);
 
     const routes = [
