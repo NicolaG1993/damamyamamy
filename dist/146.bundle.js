@@ -265,7 +265,7 @@ function Item() {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
         children: "Shortlist"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-        children: "Fullwidth, ma con stessa ombra di Footer?"
+        children: "Fullwidth con stessa ombra di Footer!"
       })]
     });
   };
@@ -276,7 +276,7 @@ function Item() {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
         children: "Descrizione"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-        children: "Fullwidth con stessa ombra di Footer!"
+        children: "Fullwidth, ma con stessa ombra di Footer?"
       })]
     });
   };

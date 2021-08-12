@@ -1,3 +1,4 @@
+import loadable from "@loadable/component";
 import { useState, useEffect } from "react";
 import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
 import "./style/Item.css";
@@ -5,6 +6,7 @@ import "./style/Item.css";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { getItem } from "../../../redux/LoadData/loadData.actions";
 import Button from "../../Button/Button";
+const Shortlist = loadable(() => import("../../Shortlist/Shortlist"));
 
 const loadItem = (state) => state.loadData.selectedItem;
 
@@ -36,10 +38,37 @@ export default function Item() {
     //     console.log("🐔 item in Item.js: ", item);
     // }, [item]);
 
+    const PicDisplay = () =>
+        item.assets.length > 1 ? (
+            <div className="item-pictures-wrap">
+                <img
+                    src={item.media.source || "test1.jpg"}
+                    onClick={() => toggleGallery(0, true)}
+                />
+
+                <div className="item-pictures-small-wrap">
+                    {item.assets.map((el, i) => (
+                        <img
+                            key={el.id}
+                            src={el.url}
+                            onClick={() => toggleGallery(i, true)}
+                        />
+                    ))}
+                </div>
+            </div>
+        ) : (
+            <img
+                src={item.media.source || "test1.jpg"}
+                onClick={() => toggleGallery(0, true)}
+            />
+        );
+
     const ItemWrap = () => (
         <div id="Item">
             <div className="item-wrap">
-                <div className="item-pic"></div>
+                <div className="item-pic">
+                    <PicDisplay />
+                </div>
                 <div className="item-infos">
                     <h1>{item.name}</h1>
                     <div className="item-infos-price">
@@ -105,16 +134,66 @@ export default function Item() {
         </div>
     );
 
+    const ItemDescriptionWrap = () => {
+        const [infoDisplay, setInfoDisplay] = useState("description");
+        const toggleInfoDisplay = (val) => {
+            setInfoDisplay(val);
+        }; //posso farlo?
+        return (
+            <section className="item-description-wrap">
+                <div className="item-description">
+                    <div className="item-description-selector">
+                        <h3
+                            onClick={() => toggleInfoDisplay("description")}
+                            className={
+                                infoDisplay === "description"
+                                    ? "active-selector"
+                                    : "not-active-selector"
+                            }
+                        >
+                            Descrizione
+                        </h3>
+
+                        <h3
+                            onClick={() => toggleInfoDisplay("infos")}
+                            className={
+                                infoDisplay === "infos"
+                                    ? "active-selector"
+                                    : "not-active-selector"
+                            }
+                        >
+                            Informazioni
+                        </h3>
+                    </div>
+
+                    <div className="item-description-display">
+                        {infoDisplay === "description" ? (
+                            <div
+                                className="dangerHTML-box"
+                                dangerouslySetInnerHTML={{
+                                    __html: item.description.replace(
+                                        /\u00a0/g,
+                                        " "
+                                    ),
+                                }}
+                            ></div>
+                        ) : (
+                            <p>Prodotto mai utilizzato</p>
+                        )}
+                    </div>
+                </div>
+            </section>
+        );
+    };
+
     const ShortlistWrap = () => (
         <section className="item-shortlist-wrap">
-            <h2>Shortlist</h2>
-            <p>Fullwidth, ma con stessa ombra di Footer?</p>
-        </section>
-    );
-    const ItemDescriptionWrap = () => (
-        <section className="item-description-wrap">
-            <h2>Descrizione</h2>
-            <p>Fullwidth con stessa ombra di Footer!</p>
+            {/* <h2>Articoli simili</h2> */}
+
+            <Shortlist
+                products={item.related_products}
+                listTitle="Articoli simili"
+            />
         </section>
     );
 
@@ -123,8 +202,8 @@ export default function Item() {
             <Switch>
                 <Route path={match.path}>
                     <ItemWrap />
-                    <ShortlistWrap />
                     <ItemDescriptionWrap />
+                    <ShortlistWrap />
                 </Route>
             </Switch>
         );
