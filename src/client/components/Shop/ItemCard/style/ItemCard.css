@@ -85,3 +85,9 @@
 .price-for-item-card {
     color: var(--color000);
 }
+
+@media screen and (max-width: 720px) {
+    .item-card-divider-small {
+        width: 100%;
+    }
+}

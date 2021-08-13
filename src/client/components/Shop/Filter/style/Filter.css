@@ -25,3 +25,9 @@
 .filter-wrap-header h3 {
     margin: 0;
 }
+
+@media screen and (max-width: 720px) {
+    .filter-wrap-active {
+        height: 565px;
+    }
+}

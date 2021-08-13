@@ -1,5 +1,5 @@
 #PageNav {
-    margin: var(--size200);
+    margin: var(--size400) var(--size200);
 }
 
 .pagination {

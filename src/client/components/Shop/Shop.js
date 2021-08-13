@@ -30,25 +30,27 @@ export default function Shop() {
 
     return (
         <div id="Shop">
-            <h1>In negozio</h1>
+            <div className="shop-wrap">
+                <h1>In negozio</h1>
 
-            <Filter fallback={<div className="loader" />} />
-            {storeState.filteredItems &&
-                storeState.filteredItems.length === 1 && (
-                    <h5>{storeState.filteredItems.length} risultato</h5>
-                )}
-            {storeState.filteredItems &&
-                storeState.filteredItems.length > 1 && (
-                    <h5>{storeState.filteredItems.length} risultati</h5>
-                )}
+                <Filter fallback={<div className="loader" />} />
+                {storeState.filteredItems &&
+                    storeState.filteredItems.length === 1 && (
+                        <h5>{storeState.filteredItems.length} risultato</h5>
+                    )}
+                {storeState.filteredItems &&
+                    storeState.filteredItems.length > 1 && (
+                        <h5>{storeState.filteredItems.length} risultati</h5>
+                    )}
 
-            <PageNav />
-            <ItemsList fallback={<div className="loader" />} />
-            <PageNav />
-            {/* <div>
+                <PageNav />
+                <ItemsList fallback={<div className="loader" />} />
+                <PageNav />
+                {/* <div>
                 <h4>Categories:</h4>
                 <CategoriesMenu />
             </div> */}
+            </div>
         </div>
     );
 }

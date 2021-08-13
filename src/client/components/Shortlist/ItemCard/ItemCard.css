@@ -14,11 +14,11 @@
     grid-template-rows: 180px auto;
 }
 
-.product-divider {
+/* .product-divider {
     height: 1px;
     width: 100%;
     background-color: darkgray;
-}
+} */
 .product-img {
     /* display: inline-block; */
     overflow: hidden;

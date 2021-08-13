@@ -3,7 +3,7 @@
     grid-template-columns: 1fr 1fr 1fr;
     /* justify-content: center; */
     /* width: 100%; */
-    min-height: 100%;
+    /* min-height: 100%; */
     column-gap: var(--size300);
     row-gap: var(--size300);
 }
@@ -25,4 +25,18 @@
 
 .fade-in {
     opacity: 1;
+}
+
+@media screen and (max-width: 950px) {
+    .items-list {
+        column-gap: var(--size200);
+        row-gap: var(--size200);
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .items-list {
+        grid-template-columns: 1fr;
+        row-gap: var(--size400);
+    }
 }
