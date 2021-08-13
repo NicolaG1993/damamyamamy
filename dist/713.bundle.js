@@ -151,7 +151,7 @@ var Slider = (0,_loadable_component__WEBPACK_IMPORTED_MODULE_0__/* .default */ .
   return __webpack_require__.e(/* import() */ 434).then(__webpack_require__.bind(__webpack_require__, 2434));
 });
 var Shortlist = (0,_loadable_component__WEBPACK_IMPORTED_MODULE_0__/* .default */ .ZP)(function () {
-  return __webpack_require__.e(/* import() */ 743).then(__webpack_require__.bind(__webpack_require__, 1743));
+  return __webpack_require__.e(/* import() */ 839).then(__webpack_require__.bind(__webpack_require__, 1743));
 });
 var IconsList = (0,_loadable_component__WEBPACK_IMPORTED_MODULE_0__/* .default */ .ZP)(function () {
   return __webpack_require__.e(/* import() */ 611).then(__webpack_require__.bind(__webpack_require__, 611));

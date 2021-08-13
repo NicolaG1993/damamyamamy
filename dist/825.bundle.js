@@ -301,23 +301,26 @@ function Shop() {
   //     [storeState.data]
   // );
 
-  return /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
+  return /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
     id: "Shop",
-    children: [/*#__PURE__*/(0,jsx_runtime.jsx)("h1", {
-      children: "In negozio"
-    }), /*#__PURE__*/(0,jsx_runtime.jsx)(Filter, {
-      fallback: /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
-        className: "loader"
-      })
-    }), storeState.filteredItems && storeState.filteredItems.length === 1 && /*#__PURE__*/(0,jsx_runtime.jsxs)("h5", {
-      children: [storeState.filteredItems.length, " risultato"]
-    }), storeState.filteredItems && storeState.filteredItems.length > 1 && /*#__PURE__*/(0,jsx_runtime.jsxs)("h5", {
-      children: [storeState.filteredItems.length, " risultati"]
-    }), /*#__PURE__*/(0,jsx_runtime.jsx)(PageNav, {}), /*#__PURE__*/(0,jsx_runtime.jsx)(ItemsList, {
-      fallback: /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
-        className: "loader"
-      })
-    }), /*#__PURE__*/(0,jsx_runtime.jsx)(PageNav, {})]
+    children: /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
+      className: "shop-wrap",
+      children: [/*#__PURE__*/(0,jsx_runtime.jsx)("h1", {
+        children: "In negozio"
+      }), /*#__PURE__*/(0,jsx_runtime.jsx)(Filter, {
+        fallback: /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+          className: "loader"
+        })
+      }), storeState.filteredItems && storeState.filteredItems.length === 1 && /*#__PURE__*/(0,jsx_runtime.jsxs)("h5", {
+        children: [storeState.filteredItems.length, " risultato"]
+      }), storeState.filteredItems && storeState.filteredItems.length > 1 && /*#__PURE__*/(0,jsx_runtime.jsxs)("h5", {
+        children: [storeState.filteredItems.length, " risultati"]
+      }), /*#__PURE__*/(0,jsx_runtime.jsx)(PageNav, {}), /*#__PURE__*/(0,jsx_runtime.jsx)(ItemsList, {
+        fallback: /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+          className: "loader"
+        })
+      }), /*#__PURE__*/(0,jsx_runtime.jsx)(PageNav, {})]
+    })
   });
 }
 

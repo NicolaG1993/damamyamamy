@@ -7,6 +7,7 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { getItem } from "../../../redux/LoadData/loadData.actions";
 import Button from "../../Button/Button";
 const Shortlist = loadable(() => import("../../Shortlist/Shortlist"));
+const Gallery = loadable(() => import("./Gallery/Gallery"));
 
 const loadItem = (state) => state.loadData.selectedItem;
 
@@ -18,6 +19,8 @@ export default function Item() {
     let selectedItem = useSelector(loadItem, shallowEqual);
 
     const [item, setItem] = useState(null);
+    const [galleryOpen, setGalleryOpen] = useState(false);
+    const [clickedPic, setClickedPic] = useState(0);
 
     // console.log("🐔 state in Item.js: ", state);
     // console.log("🐔 item in Item.js: ", item);
@@ -37,6 +40,11 @@ export default function Item() {
     // useEffect(() => {
     //     console.log("🐔 item in Item.js: ", item);
     // }, [item]);
+
+    const toggleGallery = async (n, boo) => {
+        setClickedPic(n);
+        setGalleryOpen(boo);
+    };
 
     const PicDisplay = () =>
         item.assets.length > 1 ? (
@@ -204,6 +212,13 @@ export default function Item() {
                     <ItemWrap />
                     <ItemDescriptionWrap />
                     <ShortlistWrap />
+                    {galleryOpen && (
+                        <Gallery
+                            toggleGallery={toggleGallery}
+                            item={item}
+                            clickedPic={clickedPic}
+                        />
+                    )}
                 </Route>
             </Switch>
         );
