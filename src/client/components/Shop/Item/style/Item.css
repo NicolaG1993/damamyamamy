@@ -305,6 +305,7 @@
     #Item .item-infos {
         max-width: none;
         width: 100%;
+        margin: 0;
     }
     .item-infos-price h2 {
         /* text-align: end; */

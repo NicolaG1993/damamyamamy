@@ -6,13 +6,13 @@
     /* transition: var(--transition); */
 /*}*/
 
-.item-card:hover {
+.shop-item-wrap:hover .item-card {
     background-color: var(--bg200);
     border: 1px solid var(--bg600);
     color: var(--black-white);
 }
 
-.item-card:hover img {
+.shop-item-wrap:hover .item-card img {
     transform: scale(1.05, 1.05);
 }
 
