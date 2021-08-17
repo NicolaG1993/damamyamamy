@@ -11,6 +11,7 @@ import { toggleLayout } from "../../redux/ToggleLayout/toggleLayout.actions";
 
 // COMPONENTS
 const Logo = loadable(() => import("../Logo/Logo"));
+import CartIcon from "../Cart/CartIcon/CartIcon";
 const HamburgerButton = loadable(() =>
     import("./HamburgerButton/HamburgerButton")
 );
@@ -51,7 +52,8 @@ export default function Header() {
     const DesktopHeader = () => (
         <div className="header-wrap">
             <LogoLink />
-            <h3 className="cart-btn">CART</h3>
+            <CartIcon />
+            {/* <h3 className="cart-btn">CART</h3> */}
             <div className="header-buttons-box-right">
                 <ColorModeButton fallback={<div className="loader" />} />
                 <HamburgerButton toggleNav={toggle} />

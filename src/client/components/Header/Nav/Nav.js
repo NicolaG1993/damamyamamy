@@ -5,6 +5,7 @@ const ColorModeButton = loadable(() =>
     import("../../ColorModeButton/ColorModeButton")
 );
 
+// REDUX
 import { useSelector, shallowEqual } from "react-redux";
 const selectLayouts = (state) => state.toggleLayout.layouts[1];
 

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ItemCard from "../ItemCard/ItemCard";
 import "./style/ItemsList.css";
+import CartButton from "../../CartButton/CartButton";
 
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { setPageNav } from "../../../redux/PageNav/pageNav.actions";
@@ -55,13 +56,12 @@ export default function ItemsList() {
                     <h4>No results</h4>
                 ) : (
                     onPage.map((item) => (
-                        <Link
-                            to={`/item/${item.id}`}
-                            className="shop-item-wrap"
-                            key={item.id}
-                        >
-                            <ItemCard item={item} />
-                        </Link>
+                        <div className="shop-item-wrap" key={item.id}>
+                            <Link to={`/item/${item.id}`}>
+                                <ItemCard item={item} />
+                            </Link>
+                            <CartButton wrapSize="small" product_id={item.id} />
+                        </div>
                     ))
                 )
             ) : (

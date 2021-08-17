@@ -1,0 +1,14 @@
+.cart-icon-box {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 2px;
+}
+
+.cart-icon-box svg {
+    transition: var(--transition);
+    fill: var(--bg500);
+    vertical-align: middle;
+}
+.cart-icon-box svg:hover {
+    fill: var(--bg600);
+}

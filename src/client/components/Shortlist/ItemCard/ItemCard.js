@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "./ItemCard.css";
+import CartButton from "../../CartButton/CartButton";
 
 export default function ItemCard({ product }) {
     return (
@@ -25,6 +26,7 @@ export default function ItemCard({ product }) {
                     </h5>
                 </div>
             </Link>
+            <CartButton wrapSize="small" product_id={product.id} />
         </div>
     );
 }

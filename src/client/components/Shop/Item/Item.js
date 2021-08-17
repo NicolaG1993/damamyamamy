@@ -6,6 +6,7 @@ import "./style/Item.css";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { getItem } from "../../../redux/LoadData/loadData.actions";
 import Button from "../../Button/Button";
+import CartButton from "../../CartButton/CartButton";
 const Shortlist = loadable(() => import("../../Shortlist/Shortlist"));
 const Gallery = loadable(() => import("./Gallery/Gallery"));
 
@@ -132,11 +133,7 @@ export default function Item() {
                             <p>Pezzo unico</p>
                         </div>
                     </div>
-                    <Button
-                        page="/"
-                        text="Aggiungi al carrello"
-                        type="internal"
-                    />
+                    <CartButton wrapSize="large" product_id={item.id} />
                 </div>
             </div>
         </div>

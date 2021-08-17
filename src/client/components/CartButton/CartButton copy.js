@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import "../../../styles/AddToCartBtn.css";
+import "./style/CartButton.css";
 
-export default function AddToCartBtn({
+export default function CartButton({
     cardSize,
     product_id,
     notAvailables,
