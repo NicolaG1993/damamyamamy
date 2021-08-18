@@ -4,10 +4,12 @@ import CartItem from "./CartItem/CartItem";
 import "./style/Cart.css";
 
 // REDUX
-import { useSelector, shallowEqual } from "react-redux";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { emptyCart } from "../../redux/LoadCart/loadCart.actions";
 const selectCart = (state) => state.loadCart.cart;
 
-export default function Cart({ removeFromCart, emptyCart }) {
+export default function Cart() {
+    const dispatch = useDispatch();
     let cart = useSelector(selectCart, shallowEqual);
     console.log("cart in Cart.js: ", cart);
 
@@ -35,14 +37,14 @@ export default function Cart({ removeFromCart, emptyCart }) {
             <div className={"cart-products"}>
                 {cart.line_items.map((item) => (
                     <div className={"cart-product-box"} key={item.id}>
-                        <CartItem item={item} removeFromCart={removeFromCart} />
+                        <CartItem item={item} />
                     </div>
                 ))}
             </div>
             <div className={"cart-interact"}>
                 <div className="cart-total">
                     <span></span>
-                    <h3 className="second-font">
+                    <h3>
                         Totale: <br />
                         {cart.subtotal.formatted_with_symbol}
                     </h3>
@@ -53,7 +55,7 @@ export default function Cart({ removeFromCart, emptyCart }) {
                 <div className="cart-btns">
                     <button
                         className={"empty-btn layout-button btn-dark1"}
-                        onClick={emptyCart}
+                        onClick={() => dispatch(emptyCart())}
                     >
                         Svuota il carrello
                     </button>
@@ -75,7 +77,7 @@ export default function Cart({ removeFromCart, emptyCart }) {
     return (
         <div id="cart-comp">
             <div className={"cart-comp-wrapper"}>
-                <h2 className="second-font">Il tuo carrello</h2>
+                <h2>Il tuo carrello</h2>
 
                 {!cart.line_items.length ? <EmptyCart /> : <FilledCart />}
             </div>

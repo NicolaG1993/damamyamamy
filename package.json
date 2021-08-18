@@ -29,6 +29,8 @@
     "dependencies": {
         "@chec/commerce.js": "^2.7.2",
         "@loadable/component": "latest",
+        "@stripe/react-stripe-js": "^1.4.1",
+        "@stripe/stripe-js": "^1.17.0",
         "concurrently": "latest",
         "lodash": "latest",
         "react": "latest",

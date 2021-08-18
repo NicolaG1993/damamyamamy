@@ -1,5 +1,11 @@
 /* eslint-disable indent */
-import { FETCH_CART, HANDLE_CART } from "./loadCart.types";
+import {
+    FETCH_CART,
+    HANDLE_CART,
+    HANDLE_NEW_CART,
+    CAPTURE_CHECKOUT,
+    HANDLE_ERROR,
+} from "./loadCart.types";
 
 const INITIAL_STATE = { notAvailables: [] };
 
@@ -25,7 +31,7 @@ export default function reducer(state = INITIAL_STATE, action) {
 
         case HANDLE_CART: {
             let { cart } = action.payload;
-            console.log("HANDLE_CART: ", cart);
+            console.log("HANDLE_CART cart: ", cart);
 
             let addedItems;
             if (cart) {
@@ -36,6 +42,28 @@ export default function reducer(state = INITIAL_STATE, action) {
             }
             //  console.log("HANDLE_CART: ", addedItems);
             return { ...state, cart: cart, notAvailables: addedItems };
+        }
+        case HANDLE_NEW_CART: {
+            let newCart = action.payload;
+            console.log("HANDLE_NEW_CART newCart: ", newCart);
+            return { ...state, cart: newCart, notAvailables: [] };
+        }
+
+        case CAPTURE_CHECKOUT: {
+            let incomingOrder = action.payload;
+            console.log("CAPTURE_CHECKOUT: ", incomingOrder);
+            return { ...state, order: incomingOrder };
+        }
+
+        case HANDLE_ERROR: {
+            let { error } = action.payload;
+            let { actionType } = action.payload;
+
+            // console.log("HANDLE_ERROR: ", action.payload);
+            console.log("HANDLE_ERROR error: ", error);
+            console.log("HANDLE_ERROR action: ", actionType);
+
+            return { ...state, error: { actionType: actionType, err: error } };
         }
 
         default:

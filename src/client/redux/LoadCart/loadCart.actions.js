@@ -1,4 +1,10 @@
-import { FETCH_CART, HANDLE_CART } from "./loadCart.types";
+import {
+    FETCH_CART,
+    HANDLE_CART,
+    HANDLE_NEW_CART,
+    CAPTURE_CHECKOUT,
+    HANDLE_ERROR,
+} from "./loadCart.types";
 
 import { commerce } from "../../lib/commerce";
 
@@ -26,9 +32,29 @@ export function removeFromCart(payload) {
             HANDLE_CART
         );
 }
+export function emptyCart() {
+    return (dispatch) =>
+        getSomeAsyncData(dispatch, commerce.cart.empty(), HANDLE_CART);
+}
+export function refreshCart() {
+    return (dispatch) =>
+        getSomeAsyncData(dispatch, commerce.cart.refresh(), HANDLE_NEW_CART);
+}
+
+export function captureCheckout(payload) {
+    return (dispatch) =>
+        getSomeAsyncData(
+            dispatch,
+            commerce.checkout.capture(
+                payload.checkoutTokenId,
+                payload.newOrder
+            ),
+            CAPTURE_CHECKOUT
+        );
+}
 
 async function getSomeAsyncData(dispatch, url, type) {
-    // console.log(`👮‍♀️👮‍♂️👮‍♀️: `, type);
+    console.log(`👮‍♀️👮‍♂️👮‍♀️: `, type);
     // console.log(`😎😋😋url in ${type}: `, url);
     try {
         const data = await url;
@@ -39,5 +65,9 @@ async function getSomeAsyncData(dispatch, url, type) {
         });
     } catch (err) {
         console.log(`err in ${type} action: `, err);
+        dispatch({
+            type: HANDLE_ERROR,
+            payload: { actionType: type, error: err },
+        });
     }
 }

@@ -13,7 +13,7 @@ import {
 } from "./redux/LoadData/loadData.actions";
 import { fetchCart } from "./redux/LoadCart/loadCart.actions";
 const fetchData = (state) => state.loadData;
-const fetchState = (state) => state;
+// const fetchState = (state) => state;
 
 // COMPONENTS
 const Header = loadable(() => import("./components/Header/Header"));
