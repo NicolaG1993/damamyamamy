@@ -1,0 +1,3 @@
+export const LOAD_CHECKOUT = "LOAD CHECKOUT";
+export const CAPTURE_CHECKOUT = "CAPTURE CHECKOUT";
+export const HANDLE_ERROR = "HANDLE ERROR";

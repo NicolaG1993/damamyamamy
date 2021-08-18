@@ -2,7 +2,6 @@ import {
     FETCH_CART,
     HANDLE_CART,
     HANDLE_NEW_CART,
-    CAPTURE_CHECKOUT,
     HANDLE_ERROR,
 } from "./loadCart.types";
 
@@ -39,18 +38,6 @@ export function emptyCart() {
 export function refreshCart() {
     return (dispatch) =>
         getSomeAsyncData(dispatch, commerce.cart.refresh(), HANDLE_NEW_CART);
-}
-
-export function captureCheckout(payload) {
-    return (dispatch) =>
-        getSomeAsyncData(
-            dispatch,
-            commerce.checkout.capture(
-                payload.checkoutTokenId,
-                payload.newOrder
-            ),
-            CAPTURE_CHECKOUT
-        );
 }
 
 async function getSomeAsyncData(dispatch, url, type) {

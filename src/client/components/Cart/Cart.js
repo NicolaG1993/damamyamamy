@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import CartItem from "./CartItem/CartItem";
+import Button from "../Button/Button";
 import "./style/Cart.css";
 
 // REDUX
@@ -24,11 +25,12 @@ export default function Cart() {
             <p>Nessun prodotto nel tuo carrello</p>
             <br />
             <br />
-            <Link to="/shop">
-                <button className={"layout-button btn-dark1"}>
-                    Vai al negozio
-                </button>
-            </Link>
+            <Button
+                page="/shop"
+                text="Vai al negozio"
+                type="internal"
+                style="inverted-btn"
+            />
         </>
     );
 
@@ -53,20 +55,18 @@ export default function Cart() {
                 <span></span>
 
                 <div className="cart-btns">
-                    <button
-                        className={"empty-btn layout-button btn-dark1"}
-                        onClick={() => dispatch(emptyCart())}
-                    >
-                        Svuota il carrello
-                    </button>
-
-                    <Link to="/checkout">
-                        <button
-                            className={"checkout-btn layout-button btn-dark1"}
-                        >
-                            Vai alla cassa
-                        </button>
-                    </Link>
+                    <Button
+                        text="Svuota il carrello"
+                        type="function"
+                        fn={() => dispatch(emptyCart())}
+                        style="inverted-btn"
+                    />
+                    <Button
+                        page="/checkout"
+                        text="Vai alla cassa"
+                        type="internal"
+                        style="inverted-btn"
+                    />
                 </div>
             </div>
         </div>

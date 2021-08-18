@@ -8,14 +8,14 @@ import "./style/Checkout.css";
 
 // REDUX
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { refreshCart } from "../../redux/LoadCart/loadCart.actions";
 import {
-    emptyCart,
-    refreshCart,
+    loadCheckout,
     captureCheckout,
-} from "../../redux/LoadCart/loadCart.actions";
+} from "../../redux/Checkout/checkout.actions";
 const selectCart = (state) => state.loadCart.cart;
-const selectOrder = (state) => state.loadCart.order;
-const selectError = (state) => state.loadCart.error;
+const selectOrder = (state) => state.checkout.order;
+const selectError = (state) => state.checkout.error;
 
 const steps = ["Shipping address", "Payment details"];
 
@@ -31,6 +31,8 @@ export default function Checkout() {
     const [shippingData, setShippingData] = useState({});
     const history = useHistory();
     const [isFinished, setIsFinished] = useState(false); //this is only for test
+
+    useEffect(() => dispatch(loadCheckout()), []);
 
     //STEPS FUNCTIONS
     const nextStep = () => {
@@ -50,7 +52,13 @@ export default function Checkout() {
         console.log("handleCaptureCheckout activated! 🥶🧨🎅");
         if (checkoutTokenId === "test") {
             //this is only for test
-            dispatch(emptyCart());
+            // dispatch(emptyCart());
+            dispatch(
+                captureCheckout({
+                    checkoutTokenId: "aaa",
+                    newOrder: 0,
+                })
+            );
         } else {
             dispatch(
                 captureCheckout({
@@ -125,11 +133,7 @@ export default function Checkout() {
                     <p>Ordine: {order.customer_reference}</p>
                 </div>
 
-                <Link to="/cart">
-                    <button className={"layout-button btn-dark1"}>
-                        Torna al carrello
-                    </button>
-                </Link>
+                <Button page="/cart" text="Torna al carrello" type="internal" />
             </div>
         ) : isFinished ? (
             <div className="confirmation-wrap">
@@ -140,11 +144,7 @@ export default function Checkout() {
                     </h3>
                 </div>
                 <br />
-                <Link to="/">
-                    <button className={"layout-button btn-dark1"}>
-                        Torna al sito
-                    </button>
-                </Link>
+                <Button page="/" text="Torna al sito" type="internal" />
             </div>
         ) : (
             <div className="loader loader-inverted"></div>

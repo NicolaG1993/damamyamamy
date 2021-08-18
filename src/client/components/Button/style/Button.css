@@ -21,6 +21,16 @@
     color: var(--bg000);
 }
 
+/* questo stile va a sovrascrivere gli altri quando presente, ma gli altri rimangono attivi */
+.inverted-btn {
+    background: var(--bg000);
+    border: 3px solid var(--bg000);
+}
+.inverted-btn:hover {
+    color: var(--bg000);
+    background: var(--text-color);
+}
+
 @media screen and (max-width: 720px) {
     button {
         width: 100%;

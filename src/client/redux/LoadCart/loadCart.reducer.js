@@ -49,20 +49,11 @@ export default function reducer(state = INITIAL_STATE, action) {
             return { ...state, cart: newCart, notAvailables: [] };
         }
 
-        case CAPTURE_CHECKOUT: {
-            let incomingOrder = action.payload;
-            console.log("CAPTURE_CHECKOUT: ", incomingOrder);
-            return { ...state, order: incomingOrder };
-        }
-
         case HANDLE_ERROR: {
             let { error } = action.payload;
             let { actionType } = action.payload;
-
-            // console.log("HANDLE_ERROR: ", action.payload);
             console.log("HANDLE_ERROR error: ", error);
             console.log("HANDLE_ERROR action: ", actionType);
-
             return { ...state, error: { actionType: actionType, err: error } };
         }
 

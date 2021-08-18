@@ -7,7 +7,7 @@ const STATUS = {
     NORMAL: "normal",
 };
 
-export default function Button({ page, text, type, fn }) {
+export default function Button({ page, text, type, fn, style }) {
     const [status, setStatus] = useState(STATUS.NORMAL);
 
     const onMouseEnter = () => {
@@ -31,7 +31,7 @@ export default function Button({ page, text, type, fn }) {
             <button
                 type="button"
                 onClick={() => handleFunction()} //activate fn here! 🧨
-                className={`btn ${status}`}
+                className={`btn ${status} ${style}`}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
             >
@@ -44,7 +44,7 @@ export default function Button({ page, text, type, fn }) {
             <Link to={page || "#"} onClick={() => handleFunction()}>
                 <button
                     type="button"
-                    className={`btn ${status}`}
+                    className={`btn ${status} ${style}`}
                     onMouseEnter={onMouseEnter}
                     onMouseLeave={onMouseLeave}
                 >
@@ -63,7 +63,7 @@ export default function Button({ page, text, type, fn }) {
             >
                 <button
                     type="button"
-                    className={`btn ${status}`}
+                    className={`btn ${status} ${style}`}
                     onMouseEnter={onMouseEnter}
                     onMouseLeave={onMouseLeave}
                 >
@@ -76,7 +76,7 @@ export default function Button({ page, text, type, fn }) {
         return (
             <button
                 type="submit"
-                className={`btn ${status}`}
+                className={`btn ${status} ${style}`}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
                 onClick={() => handleFunction()}
