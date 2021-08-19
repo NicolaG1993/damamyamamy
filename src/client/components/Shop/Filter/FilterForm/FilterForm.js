@@ -20,6 +20,7 @@ export default function FilterForm({
     useEffect(() => setAppliedFilters(filters), [filters]);
 
     console.log("appliedFilters", appliedFilters);
+    // console.log("✨✨categories", categories);
     return (
         <form className={filtersBar ? "filter-form" : "hidden"}>
             <div className="filter-form-col-left">
@@ -124,7 +125,7 @@ export default function FilterForm({
 }
 
 function SelectCat({ defaultValue, handleForm, categories }) {
-    console.log("FilterForm Select: ", defaultValue);
+    // console.log("FilterForm Select: ", defaultValue);
     return (
         <select
             name="category"

@@ -17,7 +17,7 @@ export default function ItemsList() {
     const [results, setResults] = useState(filteredItems); //prendiamo lo state settato da Filter component
     const [onPage, setOnPage] = useState([]);
 
-    console.log("🧠🧠🧠PAGINATION!!!!!", pagination.displayedItems);
+    // console.log("🧠🧠🧠PAGINATION!!!!!", pagination.displayedItems);
 
     const dispatch = useDispatch();
     const setPageState = (arg) =>
@@ -32,7 +32,7 @@ export default function ItemsList() {
     useEffect(() => setPageState(filteredItems), []); // settiamo PageNav
 
     useEffect(() => {
-        console.log("🧠ItemsList updates results with: ", filteredItems);
+        // console.log("🧠ItemsList updates results with: ", filteredItems);
         setResults(filteredItems);
         setPageState(filteredItems || results);
     }, [filteredItems]); // settiamo state e PageNav quando cambiano filteredItems
@@ -48,7 +48,7 @@ export default function ItemsList() {
 
     // console.log("🍄🍄🍄 filteredItems -> ", filteredItems);
     // console.log("🍄🍄🍄 results -> ", results);
-    console.log("🍄🍄🍄 onPage -> ", onPage);
+    // console.log("🍄🍄🍄 onPage -> ", onPage);
     return (
         <div className="items-list">
             {onPage ? (

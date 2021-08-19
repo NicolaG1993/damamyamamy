@@ -41,11 +41,11 @@ export function refreshCart() {
 }
 
 async function getSomeAsyncData(dispatch, url, type) {
-    console.log(`👮‍♀️👮‍♂️👮‍♀️: `, type);
+    // console.log(`👮‍♀️👮‍♂️👮‍♀️: `, type);
     // console.log(`😎😋😋url in ${type}: `, url);
     try {
         const data = await url;
-        console.log(`😎😋😋data in ${type}: `, data);
+        // console.log(`😎😋😋data in ${type}: `, data);
         dispatch({
             type: type,
             payload: data,

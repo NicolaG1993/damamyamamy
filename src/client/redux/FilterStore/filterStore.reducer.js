@@ -19,8 +19,6 @@ export default function reducer(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 appliedFilters: {
-                    name: "",
-                    priceMin: 0,
                     category: "",
                     categoryID: "",
                     order: "new",
@@ -40,10 +38,12 @@ export default function reducer(state = INITIAL_STATE, action) {
 
                 return (
                     product.name.toLowerCase().includes(value) ||
-                    (product.animal &&
-                        product.animal.toLowerCase().includes(value))
+                    (product.categories[0] &&
+                        product.categories[0].name
+                            .toLowerCase()
+                            .includes(value))
                 );
-            }); //look for objects with the received value in their ‘name’ or animal fields
+            }); //look for objects with the received value in their ‘name’ or category fields
 
             if (value === "") {
                 newState.filteredItems = state.originalState;
@@ -60,15 +60,19 @@ export default function reducer(state = INITIAL_STATE, action) {
         }
 
         case FILTER_BY_CATEGORY: {
-            let { value } = action.payload;
-            let { valueID } = action.payload;
             let newState = Object.assign({}, state);
+            let value = action.payload.value;
+            let valueID = action.payload.valueID;
+            console.log("FILTER_BY_CATEGORY", state.filteredItems);
 
             if (value === "") {
                 newState.filteredItems = state.filteredItems;
             } else {
                 newState.filteredItems = state.filteredItems.filter(
-                    (item) => item.animal === value && item.animalID === valueID
+                    (item) =>
+                        item.categories[0] &&
+                        item.categories[0].name === value &&
+                        item.categories[0].id === valueID
                 ); // NB: io uso originalState
             }
             newState.appliedFilters = {
@@ -81,7 +85,7 @@ export default function reducer(state = INITIAL_STATE, action) {
             //State viene passato da comp? /o preso da redux state direttamente?
             //Salvare il nuovo state e usarlo in ItemsList
 
-            console.log("FILTER_BY_CATEGORY", newState);
+            // console.log("FILTER_BY_CATEGORY", newState);
 
             return newState;
         }
@@ -90,6 +94,7 @@ export default function reducer(state = INITIAL_STATE, action) {
             let newState = Object.assign({}, state);
             let minPrice = action.payload.minPrice;
             let maxPrice = action.payload.maxPrice;
+
             if (minPrice || maxPrice) {
                 let filteredValues = state.filteredItems.filter(
                     (product) =>
@@ -97,6 +102,11 @@ export default function reducer(state = INITIAL_STATE, action) {
                         product.price.raw <= maxPrice
                 ); // NB: io uso originalState
                 newState.filteredItems = filteredValues;
+                // newState.appliedFilters = {
+                //     ...state.appliedFilters,
+                //     priceMin: minPrice,
+                //     priceMax: maxPrice,
+                // };
             }
 
             return newState;

@@ -18,11 +18,11 @@ const getTopValue = (state) => state.loadData.topValue;
 const getFilteredItems = (state) => state.filterStore.filteredItems;
 const getAppliedFilters = (state) => state.filterStore.appliedFilters;
 
-export default function Filter() {
+export default function Filter({ research }) {
     //TOGGLE FILTER BAR
-    const [filtersBar, setFiltersBarBar] = useState(false);
+    const [filtersBar, setFiltersBar] = useState(false);
     const toggleBar = async () => {
-        setFiltersBarBar(!filtersBar);
+        setFiltersBar(!filtersBar);
     };
 
     //REDUX
@@ -35,11 +35,10 @@ export default function Filter() {
     useEffect(() => categories && dispatch(fetchHighestValue()), [categories]);
 
     //FILTERS STATE
-    let research = ""; //forse posso eliminare
     const [priceRange, setPriceRange] = useState({
         min: 0,
         max: Number(topValue) || 10,
-    });
+    }); //questo é il range, non il valore degli input (solo iniziale se mai)
     const [filters, setFilters] = useState({
         name: research || "",
         priceMin: priceRange.min,
@@ -57,14 +56,15 @@ export default function Filter() {
             }),
         [topValue]
     );
-    useEffect(
-        () => setFilters((prevState) => ({ ...prevState, ...appliedFilters })),
-        [appliedFilters]
-    );
+    useEffect(() => {
+        console.log("🐲🐲🐲");
+        setFilters((prevState) => ({ ...prevState, ...appliedFilters }));
+    }, [appliedFilters]);
 
     ////////////////////////////////////////////HANDLE FORM
 
     const handleForm = (e) => {
+        // console.log("handleForm activated 🏰🏰🛸");
         e.preventDefault();
         const form = e.target.form;
         // Price range
@@ -79,14 +79,13 @@ export default function Filter() {
         }, 3000);
 
         // Categories ptI
-        let selectedCat = categories.find(
-            (cat) => cat.animalID === Number(form[3].value)
-        );
+        // console.log("🐢🐔✔: ", form[3].value);
+        let selectedCat = categories.find((cat) => cat.id === form[3].value);
         !selectedCat
             ? (selectedCat = { category: "", categoryID: "" })
             : (selectedCat = {
-                  category: selectedCat.animal,
-                  categoryID: selectedCat.animalID,
+                  category: selectedCat.name,
+                  categoryID: selectedCat.id,
               });
 
         // New State
@@ -97,7 +96,7 @@ export default function Filter() {
         allValues.category = selectedCat.category;
         allValues.categoryID = selectedCat.categoryID;
         // console.log("handleForm activated", form[4].value);
-        // questo value crea bug perché passa solo animalID 🧨
+        // questo value crea bug perché passa solo categoryID 🧨
         // preveniamo questo value da cambiare liberamente, questo input value va in conflitto con handleFormCategory // perché utilizzo ricerca category a due fattori
 
         setFilters((prevState) => ({
@@ -138,9 +137,8 @@ export default function Filter() {
     useEffect(() => handleFilters(), [filters]);
 
     const handleFilters = () => {
-        console.log("🐸🐸🐸handleFilters activated", filters);
         if (filteredItems && filters) {
-            console.log("filters in useEffect[filters]: ", filters);
+            // console.log("🐸🐸🐸handleFilters activated", filters);
             dispatch(filterByValue({ value: filters.name.toLowerCase() }));
             dispatch(
                 filterByCategory({
@@ -182,7 +180,11 @@ export default function Filter() {
                     break;
             }
         } else {
-            console.log("🐸🐸🐸handleOrder activated but no filters! :(");
+            console.log(
+                "🐸🐸🐸handleFilters activated but no filters! 🤔",
+                filters
+            );
+            return;
         }
     };
 

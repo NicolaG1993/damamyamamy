@@ -17,9 +17,9 @@ const Filter = loadable(() => import("./Filter/Filter"));
 import PageNav from "./PageNav/PageNav";
 import CategoriesMenu from "./CategoriesMenu/CategoriesMenu";
 
-export default function Shop() {
+export default function Shop({ research }) {
     let storeState = useSelector(filterStore, shallowEqual);
-    console.log("storeState changed:", storeState);
+    // console.log("storeState changed:", storeState);
 
     const dispatch = useDispatch();
     useEffect(() => dispatch(setupStore()), []);
@@ -33,7 +33,10 @@ export default function Shop() {
             <div className="shop-wrap">
                 <h1>In negozio</h1>
 
-                <Filter fallback={<div className="loader" />} />
+                <Filter
+                    research={research}
+                    fallback={<div className="loader" />}
+                />
                 {storeState.filteredItems &&
                     storeState.filteredItems.length === 1 && (
                         <h5>{storeState.filteredItems.length} risultato</h5>

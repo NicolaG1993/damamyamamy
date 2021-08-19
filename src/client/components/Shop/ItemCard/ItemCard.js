@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import "./style/ItemCard.css"; // not loading right
 
 export default function ItemCard({ item }) {
-    console.log("🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️item in ItemCard.js: ", item);
+    // console.log("🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️item in ItemCard.js: ", item);
 
     function createMarkup() {
         return { __html: item.description };

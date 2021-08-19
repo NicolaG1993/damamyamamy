@@ -17,7 +17,7 @@ export default function reducer(state = INITIAL_STATE, action) {
     switch (action.type) {
         case LOAD_DATA: {
             let data = action.payload;
-            console.log("LOAD_DATA: ", action.payload);
+            // console.log("LOAD_DATA: ", action.payload);
 
             return {
                 ...state,
@@ -26,7 +26,7 @@ export default function reducer(state = INITIAL_STATE, action) {
         }
 
         case FETCH_CATEGORIES: {
-            console.log("FETCH_CATEGORIES: ", action.payload);
+            // console.log("FETCH_CATEGORIES: ", action.payload);
             let categories = action.payload;
 
             return {
@@ -54,12 +54,12 @@ export default function reducer(state = INITIAL_STATE, action) {
                         product.categories[0].slug === "passeggini-e-trasporto"
                 ); // FIXARE? 🧨
 
-            console.log("FETCH_SPECIFIC_CATEGORIES: ", {
-                ...state,
-                catNewItems,
-                cat1,
-                cat2,
-            });
+            // console.log("FETCH_SPECIFIC_CATEGORIES: ", {
+            //     ...state,
+            //     catNewItems,
+            //     cat1,
+            //     cat2,
+            // });
             return {
                 ...state,
                 catNewItems,
@@ -72,7 +72,7 @@ export default function reducer(state = INITIAL_STATE, action) {
             let selectedItem = action.payload;
             // let key = Number(action.payload.key);
             // let selectedItem = data.find((item) => item.id === key); // FIXARE ? 🧨
-            console.log("GET_ITEM: ", action);
+            // console.log("GET_ITEM: ", action);
             return {
                 ...state,
                 selectedItem,
@@ -81,7 +81,7 @@ export default function reducer(state = INITIAL_STATE, action) {
 
         case FETCH_HIGHEST_VALUE: {
             let { data } = state;
-            console.log("FETCH_HIGHEST_VALUE data: ", data);
+            // console.log("FETCH_HIGHEST_VALUE data: ", data);
             let topValue;
             data
                 ? (topValue = Math.max.apply(
@@ -92,7 +92,7 @@ export default function reducer(state = INITIAL_STATE, action) {
                   ))
                 : (topValue = 10);
 
-            console.log("FETCH_HIGHEST_VALUE topValue: ", topValue);
+            // console.log("FETCH_HIGHEST_VALUE topValue: ", topValue);
 
             return {
                 ...state,

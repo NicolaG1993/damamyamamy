@@ -3,7 +3,6 @@ import {
     FETCH_CART,
     HANDLE_CART,
     HANDLE_NEW_CART,
-    CAPTURE_CHECKOUT,
     HANDLE_ERROR,
 } from "./loadCart.types";
 
@@ -13,7 +12,7 @@ export default function reducer(state = INITIAL_STATE, action) {
     switch (action.type) {
         case FETCH_CART: {
             let cart = action.payload;
-            console.log("FETCH_CART: ", action.payload);
+            // console.log("FETCH_CART: ", action.payload);
 
             const addedItems =
                 cart &&
@@ -31,7 +30,7 @@ export default function reducer(state = INITIAL_STATE, action) {
 
         case HANDLE_CART: {
             let { cart } = action.payload;
-            console.log("HANDLE_CART cart: ", cart);
+            // console.log("HANDLE_CART cart: ", cart);
 
             let addedItems;
             if (cart) {
@@ -45,15 +44,15 @@ export default function reducer(state = INITIAL_STATE, action) {
         }
         case HANDLE_NEW_CART: {
             let newCart = action.payload;
-            console.log("HANDLE_NEW_CART newCart: ", newCart);
+            // console.log("HANDLE_NEW_CART newCart: ", newCart);
             return { ...state, cart: newCart, notAvailables: [] };
         }
 
         case HANDLE_ERROR: {
             let { error } = action.payload;
             let { actionType } = action.payload;
-            console.log("HANDLE_ERROR error: ", error);
-            console.log("HANDLE_ERROR action: ", actionType);
+            // console.log("HANDLE_ERROR error: ", error);
+            // console.log("HANDLE_ERROR action: ", actionType);
             return { ...state, error: { actionType: actionType, err: error } };
         }
 

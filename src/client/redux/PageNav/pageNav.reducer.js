@@ -6,7 +6,7 @@ const INITIAL_STATE = { countPerPage: 9 }; // countPerPage: We need the total nu
 export default function reducer(state = INITIAL_STATE, action) {
     switch (action.type) {
         case SETUP: {
-            console.log("🍄SETUP: ", action.payload);
+            // console.log("🍄SETUP: ", action.payload);
             let data = action.payload.ItemsList;
             let { countPerPage } = state;
             let count = data.length + 1;

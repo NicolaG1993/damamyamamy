@@ -48,7 +48,7 @@ import { keepTheme } from "../../client/src/utils/themes";
 // APP
 export default function App() {
     let data = useSelector(fetchData, shallowEqual);
-    console.log("data changed:", data);
+    // console.log("data changed:", data);
     // let state = useSelector(fetchState, shallowEqual); // only for development //crashes Shop
     // console.log("🍟REDUX store: ", state);
 
@@ -69,7 +69,7 @@ export default function App() {
         {
             path: "/",
             exact: true,
-            component: () => <Home props={""} />,
+            component: Home,
         },
         {
             path: "/about",
@@ -77,7 +77,7 @@ export default function App() {
         },
         {
             path: "/shop",
-            component: () => <Shop />,
+            component: (props) => <Shop research={props.location.tag} />,
         },
         {
             path: "/item/:id",
@@ -131,7 +131,7 @@ export default function App() {
 
 // SINGLE ROUTE COMPONENT
 function RouteWithSubRoutes(route) {
-    console.log("route", route);
+    // console.log("route", route);
     return (
         <Route
             path={route.path}

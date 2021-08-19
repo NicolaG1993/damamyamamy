@@ -33,7 +33,7 @@ export function fetchCategories() {
 
 export function getItem(payload) {
     // una cosa come questa é meglio farla via request server side se possibile
-    console.log("😶😶😶😶😶😶", payload.key);
+    // console.log("😶😶😶😶😶😶", payload.key);
     let { key } = payload;
     return (dispatch) => {
         dispatch({
@@ -58,7 +58,7 @@ async function getSomeAsyncData(dispatch, url, type) {
             type: type,
             payload: result,
         });
-        console.log("😶😶😶😶😶😶datadatadata", result);
+        // console.log("😶😶😶😶😶😶datadatadata", result);
     } catch (err) {
         console.log(`err in ${type} action: `, err);
     }
