@@ -1,5 +1,5 @@
 "use strict";
-(self["webpackChunkdamamyamamy"] = self["webpackChunkdamamyamamy"] || []).push([[743,839],{
+(self["webpackChunkdamamyamamy"] = self["webpackChunkdamamyamamy"] || []).push([[743],{
 
 /***/ 1743:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -18,6 +18,8 @@ var react = __webpack_require__(7294);
 var useWindowDimensions = __webpack_require__(1970);
 // EXTERNAL MODULE: ./node_modules/react-router-dom/esm/react-router-dom.js
 var react_router_dom = __webpack_require__(3727);
+// EXTERNAL MODULE: ./src/client/components/CartButton/CartButton.js + 2 modules
+var CartButton = __webpack_require__(2735);
 // EXTERNAL MODULE: ./node_modules/react/jsx-runtime.js
 var jsx_runtime = __webpack_require__(5893);
 ;// CONCATENATED MODULE: ./src/client/components/Shortlist/ItemCard/ItemCard.js
@@ -25,11 +27,12 @@ var jsx_runtime = __webpack_require__(5893);
 
 
 
+
 function ItemCard(_ref) {
   var product = _ref.product;
-  return /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+  return /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
     className: "product-content",
-    children: /*#__PURE__*/(0,jsx_runtime.jsxs)(react_router_dom/* Link */.rU, {
+    children: [/*#__PURE__*/(0,jsx_runtime.jsxs)(react_router_dom/* Link */.rU, {
       to: "/item/".concat(product.id),
       className: "product-content-small",
       children: [/*#__PURE__*/(0,jsx_runtime.jsx)("div", {
@@ -51,7 +54,10 @@ function ItemCard(_ref) {
           }), product.price.raw, "\u20AC"]
         })]
       })]
-    })
+    }), /*#__PURE__*/(0,jsx_runtime.jsx)(CartButton/* default */.Z, {
+      wrapSize: "small",
+      product_id: product.id
+    })]
   });
 }
 ;// CONCATENATED MODULE: ./src/client/components/Shortlist/Shortlist.js

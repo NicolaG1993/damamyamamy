@@ -34,7 +34,8 @@ function Button(_ref) {
   var page = _ref.page,
       text = _ref.text,
       type = _ref.type,
-      fn = _ref.fn;
+      fn = _ref.fn,
+      style = _ref.style;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(STATUS.NORMAL),
       _useState2 = _slicedToArray(_useState, 2),
@@ -63,7 +64,7 @@ function Button(_ref) {
       return handleFunction();
     } //activate fn here! 🧨
     ,
-    className: "btn ".concat(status),
+    className: "btn ".concat(status, " ").concat(style),
     onMouseEnter: onMouseEnter,
     onMouseLeave: onMouseLeave,
     children: text
@@ -75,7 +76,7 @@ function Button(_ref) {
     },
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
       type: "button",
-      className: "btn ".concat(status),
+      className: "btn ".concat(status, " ").concat(style),
       onMouseEnter: onMouseEnter,
       onMouseLeave: onMouseLeave,
       children: text
@@ -90,7 +91,7 @@ function Button(_ref) {
     },
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
       type: "button",
-      className: "btn ".concat(status),
+      className: "btn ".concat(status, " ").concat(style),
       onMouseEnter: onMouseEnter,
       onMouseLeave: onMouseLeave,
       children: text
@@ -98,7 +99,7 @@ function Button(_ref) {
   });
   if (type === "submit") return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
     type: "submit",
-    className: "btn ".concat(status),
+    className: "btn ".concat(status, " ").concat(style),
     onMouseEnter: onMouseEnter,
     onMouseLeave: onMouseLeave,
     onClick: function onClick() {

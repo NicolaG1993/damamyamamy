@@ -112,8 +112,8 @@ function PageNav() {
     })
   });
 }
-// EXTERNAL MODULE: ./src/client/redux/LoadData/loadData.actions.js + 1 modules
-var loadData_actions = __webpack_require__(3702);
+// EXTERNAL MODULE: ./src/client/redux/LoadData/loadData.actions.js
+var loadData_actions = __webpack_require__(3689);
 // EXTERNAL MODULE: ./src/client/utils/useWindowDimensions.js
 var utils_useWindowDimensions = __webpack_require__(1970);
 ;// CONCATENATED MODULE: ./src/client/components/Shop/CategoriesMenu/CategoriesMenu.js

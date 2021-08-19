@@ -38,6 +38,6 @@
 
 @media screen and (max-width: 720px) {
     .header-wrap {
-        grid-template-columns: 1fr 1fr;
+        /* grid-template-columns: 1fr 1fr; */
     }
 }

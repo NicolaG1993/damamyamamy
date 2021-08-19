@@ -46,6 +46,7 @@ export default function Header() {
     const MobileHeader = () => (
         <div className="header-wrap">
             <LogoLink />
+            <CartIcon />
             <HamburgerButton toggleNav={toggle} />
         </div>
     );

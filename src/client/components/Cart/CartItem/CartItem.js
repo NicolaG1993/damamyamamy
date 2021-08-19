@@ -11,7 +11,7 @@ export default function CartItem({ item }) {
                 <Link to={`/item/${item.product_id}`}>
                     <img src={item.media.source} alt={item.name} />
                     <div className="cart-product-info">
-                        <h4 className="second-font">{item.name}</h4>
+                        <h4>{item.name}</h4>
                         <h5>€ {item.price.raw}</h5>
                     </div>
                 </Link>

@@ -1,0 +1,296 @@
+#Checkout {
+    padding: 50px 50px 80px 50px;
+    display: flex;
+    justify-content: center;
+    /* min-height: 50vh; */
+}
+
+.checkout-wrap {
+    /* padding: 10px 80px; */
+    width: 66%;
+    min-width: 600px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    /* background-color: rgb(223, 139, 226); */
+    background-color: var(--color000);
+    color: white;
+    border-radius: 8px;
+    min-height: 300px;
+    box-shadow: 0px 0px 10px #00000025;
+}
+
+.checkout-title {
+    /* padding: 20px 80px 15px 80px; */
+    padding: var(--size200) var(--size500) var(--size200) var(--size500);
+
+    width: 100%;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+}
+
+/* PROGRESS BAR */
+.progressbar-wrap {
+    /* background-color: rgb(230, 144, 233); */
+    padding: 40px 0 30px 0;
+    width: 100%;
+    min-width: 600px;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+}
+
+.progressbar {
+    counter-reset: step;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+.progressbar li {
+    list-style-type: none;
+    width: 35%;
+    float: left;
+    font-size: 12px;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    /* color: #7d7d7d; */
+    color: white;
+    z-index: 3;
+}
+.progressbar li:before {
+    width: 30px;
+    height: 30px;
+    content: counter(step);
+    counter-increment: step;
+    line-height: 30px;
+    /* border: 2px solid #7d7d7d; */
+    border: 2px solid #55b776;
+    color: #55b776;
+    line-height: 20pt;
+    display: block;
+    text-align: center;
+    margin: 0 auto 10px auto;
+    border-radius: 50%;
+    background-color: white;
+    z-index: 4;
+}
+.progressbar li:after {
+    width: 100%;
+    height: 2px;
+    content: "";
+    position: absolute;
+    /* background-color: #7d7d7d; */
+    background-color: white;
+    top: 15px;
+    left: -50%;
+    z-index: -1;
+}
+.progressbar li:first-child:after {
+    content: none;
+    z-index: -1;
+}
+.progressbar li.active {
+    /* color: #55b776; */
+    color: white;
+    z-index: 5;
+}
+
+.progressbar li.active:nth-child(2) {
+    z-index: 4;
+}
+.progressbar li.active:before {
+    background-color: #6edf94;
+    color: white;
+    border-color: #55b776;
+    font-weight: bold;
+    line-height: 20pt;
+    z-index: 5;
+}
+.progressbar li.active + li:after {
+    background-color: #55b776;
+    z-index: -1;
+}
+
+/* FORM WRAP */
+.checkout-form-box {
+    padding: var(--size400) var(--size500) var(--size100) var(--size500);
+    width: 100%;
+}
+
+.checkout-form-box > h3 {
+    width: 125px;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    margin-bottom: 30px;
+    padding-bottom: 5px;
+}
+
+.checkout-form-box > h5:nth-child(2) {
+    margin: 40px 0 0 0;
+}
+
+.form-col-left {
+    float: left;
+    width: 33%;
+    margin-top: 16px;
+    padding-left: var(--left-indent);
+}
+.form-col-right {
+    float: left;
+    width: 67%;
+    margin-top: 16px;
+}
+.row {
+    clear: both;
+    padding: var(--size400) var(--size100) var(--size100) var(--size100);
+    display: flex;
+    justify-content: space-between;
+}
+.row2 {
+    clear: both;
+    padding: var(--size-100) var(--size100) var(--size100) var(--size100);
+    display: flex;
+    justify-content: space-between;
+}
+
+#Checkout input[type="text"],
+#Checkout select {
+    padding: var(--size000);
+    border-radius: var(--size-100);
+    background-color: ghostwhite;
+    color: var(--text);
+    border: none;
+    width: 100%;
+}
+
+/* REVIEW */
+.review-row {
+    display: grid;
+    grid-template-columns: 1fr 100px;
+    align-items: flex-end;
+    padding: 20px 0 15px 0;
+    border-bottom: 2px solid white;
+}
+
+.review-product-infos > p:nth-child(1) {
+    font-weight: bold;
+}
+
+.review-product-price {
+    text-align: end;
+}
+
+.review-final-price {
+    text-align: end;
+    margin: 30px 0;
+}
+
+/* PAYMENT MODE & CONFIRMATION */
+.payment-mode {
+    margin-top: 20px;
+}
+
+.StripeElement {
+    margin: 16px 0 15px 0;
+    background-color: white;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.check-terms {
+    clear: both;
+    padding: 0 20px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.check-terms > input {
+    margin-right: 8px;
+    height: 15px;
+}
+
+.check-terms a {
+    color: #414141;
+}
+.check-terms a:hover {
+    color: black;
+}
+
+.paypal-comp,
+.test-payment-comp {
+    padding: 25px 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.payment-result-box {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 15px;
+    padding-bottom: 20px;
+}
+.payment-result-box * h3,
+.payment-result-box * h4 {
+    margin-bottom: 15px;
+}
+
+.confirmation-wrap {
+    /* padding: var(--size400) var(--size100) var(--size200) var(--size100); */
+    padding: var(--size200) var(--size500) var(--size200) var(--size500);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media screen and (max-width: 720px) {
+    #Checkout {
+        padding: 0;
+        background-color: var(--color000);
+    }
+    .checkout-wrap {
+        width: 100%;
+        min-width: auto;
+        border-radius: 0;
+        min-height: 95vh;
+        box-shadow: none;
+    }
+    .checkout-title {
+        padding: 40px;
+    }
+    .progressbar-wrap {
+        min-width: auto;
+        padding: 40px;
+    }
+    .progressbar li {
+        width: 40%;
+    }
+    .checkout-form-box {
+        padding: 60px 40px;
+    }
+    .row,
+    .row2 {
+        /* padding: 60px 0 20px 0; */
+        padding: var(--size400) 0 var(--size100) 0;
+        flex-direction: column;
+        row-gap: 30px;
+    }
+    .paypal-comp {
+        /* padding: 50px 20px 0px 20px; */
+        padding: var(--size300) 0 0 0;
+    }
+    .form-col-left {
+        padding-left: 0;
+    }
+    .form-col-left,
+    .form-col-right {
+        width: 100%;
+        margin-top: 16px;
+    }
+}

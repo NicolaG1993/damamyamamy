@@ -23,6 +23,7 @@
 
 /* questo stile va a sovrascrivere gli altri quando presente, ma gli altri rimangono attivi */
 .inverted-btn {
+    color: var(--text-color);
     background: var(--bg000);
     border: 3px solid var(--bg000);
 }

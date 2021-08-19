@@ -188,7 +188,7 @@ export default function AddressForm({ checkoutToken, next }) {
 
     return (
         <div className="checkout-form-box">
-            <h3 className="second-font">I vostri dati</h3>
+            <h3 className="">I vostri dati</h3>
 
             <form
                 onChange={(e) => handleForm(e)}
@@ -348,15 +348,18 @@ export default function AddressForm({ checkoutToken, next }) {
                 </div>
 
                 <div className="row">
-                    <div className="row-submit">
-                        <Button
-                            page="/cart"
-                            text="Torna al carrello"
-                            type="internal"
-                        />
+                    <Button
+                        page="/cart"
+                        text="Torna al carrello"
+                        type="internal"
+                        style="inverted-btn"
+                    />
 
-                        <Button text="Prosegui" type="submit" />
-                    </div>
+                    <Button
+                        text="Prosegui"
+                        type="submit"
+                        style="inverted-btn"
+                    />
                 </div>
             </form>
         </div>

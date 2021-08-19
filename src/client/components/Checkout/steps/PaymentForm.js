@@ -12,6 +12,7 @@ import { loadStripe } from "@stripe/stripe-js";
 // import ReactDOM from "react-dom";
 
 import Review from "./Review";
+import Button from "../../Button/Button";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
@@ -136,6 +137,8 @@ export default function PaymentForm({
     };
 
     const acceptTerms = (e) => {
+        // e.preventDefault();
+        e.persist();
         const checked = e.target.checked;
 
         checked ? setTermsAccepted(true) : setTermsAccepted(false);
@@ -147,6 +150,7 @@ export default function PaymentForm({
                 type="checkbox"
                 name="accept"
                 onChange={(e) => acceptTerms(e)}
+                checked={termsAccepted}
             />
             <label htmlFor="accept">
                 Dichiaro di aver letto{" "}
@@ -234,7 +238,7 @@ export default function PaymentForm({
 
     return (
         <div className="checkout-form-box">
-            <h3 className="second-font">Pagamento</h3>
+            <h3 className="">Pagamento</h3>
             <Review checkoutToken={checkoutToken} />
             <h5>Metodi di pagamento:</h5>
             <select className="payment-mode" onChange={handleSelection}>
@@ -257,29 +261,22 @@ export default function PaymentForm({
                                 <TermsBox />
 
                                 <div className="row2">
-                                    <div className="row-submit">
-                                        <button
-                                            className={
-                                                "layout-button btn-dark1"
-                                            }
-                                            type="button"
-                                            onClick={backStep}
-                                        >
-                                            Torna indietro
-                                        </button>
-                                        <button
-                                            className={
-                                                "layout-button btn-dark1"
-                                            }
-                                            type="submit"
-                                            disabled={!stripe}
-                                        >
-                                            Conferma
-                                            {" " +
-                                                checkoutToken.live.subtotal
-                                                    .formatted_with_symbol}
-                                        </button>
-                                    </div>
+                                    <Button
+                                        fn={backStep}
+                                        text="Torna indietro"
+                                        type="function"
+                                        style="inverted-btn"
+                                    />
+                                    <button
+                                        className={"btn inverted-btn"}
+                                        type="submit"
+                                        disabled={!stripe}
+                                    >
+                                        Conferma
+                                        {" " +
+                                            checkoutToken.live.subtotal
+                                                .formatted_with_symbol}
+                                    </button>
                                 </div>
                             </form>
                         )}
@@ -295,33 +292,28 @@ export default function PaymentForm({
                     )}
                     <TermsBox />
                     <div className="checkout-paypal-btn" ref={paypalRef} />
-                    <button
-                        className={"layout-button btn-dark1 btn-long"}
-                        type="button"
-                        onClick={backStep}
-                    >
-                        Torna indietro
-                    </button>
+                    <Button
+                        fn={backStep}
+                        text="Torna indietro"
+                        type="function"
+                        style="inverted-btn"
+                    />
                 </div>
             )}
             {method === "test" && (
-                <div className="test-payment-comp">
-                    <button
-                        className={"layout-button btn-dark1 btn-long"}
-                        type="button"
-                        onClick={handleFakeSubmit}
-                    >
-                        Conferma
-                        {" " +
-                            checkoutToken.live.subtotal.formatted_with_symbol}
-                    </button>
-                    <button
-                        className={"layout-button btn-dark1 btn-long"}
-                        type="button"
-                        onClick={backStep}
-                    >
-                        Torna indietro
-                    </button>
+                <div className="row">
+                    <Button
+                        fn={backStep}
+                        text="Torna indietro"
+                        type="function"
+                        style="inverted-btn"
+                    />
+                    <Button
+                        fn={handleFakeSubmit}
+                        text={`Conferma ${checkoutToken.live.subtotal.formatted_with_symbol}`}
+                        type="function"
+                        style="inverted-btn"
+                    />
                 </div>
             )}
         </div>

@@ -17,7 +17,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var ColorModeButton = (0,_loadable_component__WEBPACK_IMPORTED_MODULE_0__/* .default */ .ZP)(function () {
   return __webpack_require__.e(/* import() */ 694).then(__webpack_require__.bind(__webpack_require__, 8694));
-});
+}); // REDUX
+
 
 
 

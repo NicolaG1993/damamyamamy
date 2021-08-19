@@ -8,7 +8,7 @@ import "./style/Checkout.css";
 
 // REDUX
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { refreshCart } from "../../redux/LoadCart/loadCart.actions";
+import { emptyCart, refreshCart } from "../../redux/LoadCart/loadCart.actions";
 import {
     loadCheckout,
     captureCheckout,
@@ -52,13 +52,7 @@ export default function Checkout() {
         console.log("handleCaptureCheckout activated! 🥶🧨🎅");
         if (checkoutTokenId === "test") {
             //this is only for test
-            // dispatch(emptyCart());
-            dispatch(
-                captureCheckout({
-                    checkoutTokenId: "aaa",
-                    newOrder: 0,
-                })
-            );
+            dispatch(emptyCart());
         } else {
             dispatch(
                 captureCheckout({
@@ -100,7 +94,7 @@ export default function Checkout() {
     const ProgressBar = () => (
         <ul className="progressbar">
             <li className="active">Indirizzo</li>
-            <li className={`${activeStep === 1 ? "active" : ""}`}>
+            <li className={`${activeStep > 0 ? "active" : ""}`}>
                 Metodo di pagamento
             </li>
         </ul>
@@ -133,7 +127,12 @@ export default function Checkout() {
                     <p>Ordine: {order.customer_reference}</p>
                 </div>
 
-                <Button page="/cart" text="Torna al carrello" type="internal" />
+                <Button
+                    page="/cart"
+                    text="Torna al carrello"
+                    type="internal"
+                    style="inverted-btn"
+                />
             </div>
         ) : isFinished ? (
             <div className="confirmation-wrap">
@@ -144,7 +143,12 @@ export default function Checkout() {
                     </h3>
                 </div>
                 <br />
-                <Button page="/" text="Torna al sito" type="internal" />
+                <Button
+                    page="/"
+                    text="Torna al sito"
+                    type="internal"
+                    style="inverted-btn"
+                />
             </div>
         ) : (
             <div className="loader loader-inverted"></div>
@@ -165,24 +169,24 @@ export default function Checkout() {
     }
 
     return (
-        <div id="checkout">
+        <div id="Checkout">
             <div className={"checkout-wrap"}>
                 <div className={"checkout-title"}>
                     <h1>Checkout</h1>
                 </div>
-            </div>
 
-            <div className={"progressbar-wrap"}>
-                <ProgressBar />
-            </div>
+                <div className={"progressbar-wrap"}>
+                    <ProgressBar />
+                </div>
 
-            {activeStep === steps.length ? (
-                <Confirmation />
-            ) : checkoutToken ? (
-                <Form />
-            ) : (
-                <div className="loader loader-inverted"></div>
-            )}
+                {activeStep === steps.length ? (
+                    <Confirmation />
+                ) : checkoutToken ? (
+                    <Form />
+                ) : (
+                    <div className="loader loader-inverted"></div>
+                )}
+            </div>
         </div>
     );
 }
