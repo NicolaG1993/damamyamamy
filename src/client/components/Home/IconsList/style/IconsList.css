@@ -1,13 +1,18 @@
 .iconslist {
     display: flex;
     justify-content: space-around;
-    background-color: rgb(231, 134, 235);
+    background-color: var(--color000);
     /* padding: 20px; */
     /* height: 400px; */
     box-shadow: 0px 0px 10px #00000025;
     transition: 1.6s ease;
     width: 100%;
 }
+.iconslist ::selection {
+    color: var(--color000);
+    background: var(--bg000);
+}
+
 .iconslist-wrap {
     display: flex;
     justify-content: space-around;

@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import "./style/IconsList.css";
 
 export default function IconsList({ iconslistHeight }) {

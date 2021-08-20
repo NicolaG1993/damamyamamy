@@ -21,7 +21,7 @@
     line-height: 50px;
 }
 .dropdown-wrap > div:nth-child(2) {
-    background-color: var(--bg100);
+    background-color: var(--bg000);
 }
 .display-dropdown {
     max-height: 100%;

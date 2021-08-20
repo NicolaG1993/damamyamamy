@@ -6,8 +6,11 @@
     min-height: 100vh;
 }
 
-.cart-comp-wrapper {
+.cart-comp-wrapper ::selection {
+    color: var(--color000);
+    background: var(--bg000);
 }
+
 .cart-comp-wrapper > h2 {
     margin-bottom: 30px;
     /* text-align: center; */

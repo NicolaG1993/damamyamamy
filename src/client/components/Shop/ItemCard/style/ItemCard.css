@@ -8,7 +8,7 @@
 
 .shop-item-wrap:hover .item-card {
     background-color: var(--bg200);
-    border: 1px solid var(--bg600);
+    border: 1px solid var(--bg400);
     color: var(--black-white);
 }
 

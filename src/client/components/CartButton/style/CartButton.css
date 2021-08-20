@@ -14,13 +14,13 @@
 }
 
 .add-cart > svg {
-    fill: var(--text);
+    fill: #414141;
     transition: 0.2s ease;
     width: 88%;
 }
 
 .remove-cart > svg {
-    fill: var(--text);
+    fill: #414141;
     transition: 0.2s ease;
     width: 55%;
 }

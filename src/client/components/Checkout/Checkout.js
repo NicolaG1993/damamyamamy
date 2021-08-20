@@ -151,7 +151,7 @@ export default function Checkout() {
                 />
             </div>
         ) : (
-            <div className="loader loader-inverted"></div>
+            <div className="loader-inverted"></div>
         );
     //  (after testing) remove the "isFinished" condition and leave only the spinner
 
@@ -184,7 +184,7 @@ export default function Checkout() {
                 ) : checkoutToken ? (
                     <Form />
                 ) : (
-                    <div className="loader loader-inverted"></div>
+                    <div className="loader-inverted"></div>
                 )}
             </div>
         </div>

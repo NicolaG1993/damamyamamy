@@ -73,7 +73,7 @@
 
 .product-content:hover {
     background-color: var(--bg200);
-    border: 1px solid var(--bg500);
+    border: 1px solid var(--bg400);
 }
 .product-content:hover a {
     color: var(--black-white);

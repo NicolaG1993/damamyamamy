@@ -13,7 +13,7 @@
 .stick {
     width: 25px;
     height: 4.5px;
-    background-color: var(--bg500);
+    background-color: var(--header-icon);
     border-radius: 20px;
     position: absolute;
     top: 50%;
@@ -27,7 +27,7 @@
     position: absolute;
     width: 25px;
     height: 4.5px;
-    background-color: var(--bg500);
+    background-color: var(--header-icon);
     transition: 0.5s;
     border-radius: 20px;
 }
@@ -44,12 +44,12 @@
     right: 250px;
 }
 .hamBtn.active .stick:before {
-    background: var(--bg500);
+    background: var(--header-icon);
     top: 0;
     transform: rotate(45deg);
 }
 .hamBtn.active .stick:after {
-    background: var(--bg500);
+    background: var(--header-icon);
     top: 0;
     transform: rotate(135deg);
 }
@@ -57,11 +57,11 @@
 .hamBtn:hover > .stick,
 .hamBtn:hover > .stick:before,
 .hamBtn:hover > .stick:after {
-    background: var(--bg600);
+    background: var(--header-icon-hover);
 }
 .hamBtn.active:hover > .stick:before,
 .hamBtn.active:hover > .stick:after {
-    background: var(--bg600);
+    background: var(--header-icon-hover);
 }
 .hamBtn.active:hover > .stick {
     background: rgba(0, 0, 0, 0);

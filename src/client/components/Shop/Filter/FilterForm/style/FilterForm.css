@@ -27,7 +27,7 @@
     padding: var(--size000);
     border-radius: var(--size-100);
     background-color: ghostwhite;
-    color: var(--text);
+    /* color: var(--text); */
     border: none;
 }
 

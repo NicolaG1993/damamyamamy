@@ -7,11 +7,11 @@
 
 .cart-icon-box svg {
     transition: var(--transition);
-    fill: var(--bg500);
+    fill: var(--header-icon);
     vertical-align: middle;
 }
 .cart-icon-box svg:hover {
-    fill: var(--bg600);
+    fill: var(--header-icon-hover);
 }
 
 #cartCounter {
