@@ -118,11 +118,11 @@ export default function App() {
             path: "/terms-conditions",
             component: TermsAndConditions,
         },
-        // {
-        //     path: "/404",
-        //     exact: true,
-        //     component: NotFound,
-        // },
+        {
+            path: "/404",
+            exact: true,
+            component: NotFound,
+        },
     ];
 
     return (
@@ -133,10 +133,7 @@ export default function App() {
                     <RouteWithSubRoutes key={i + 1} {...route} />
                 ))}
                 {/* mappiamo l'array creando una Route per ogni route che abbiamo dichiarato, la passiamo come prop: vedi prossima fn */}
-
-                <Route path="/404" component={() => NotFound} />
                 <Redirect to="/404" />
-                {/* <Route component={() => NotFound} /> */}
             </Switch>
             <Footer fallback={<div className="loader" />} />
             <Overlay />

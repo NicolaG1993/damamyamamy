@@ -9,11 +9,11 @@
         "test:watch": "npm run test -- --watch",
         "build": "BABEL_ENV=prod webpack --config webpack.prod.js",
         "start": "BABEL_ENV=dev webpack serve --open --config webpack.dev.js",
+        "serve": "serve -s ./dist",
         "dev:client": "BABEL_ENV=dev webpack serve --open --config webpack.dev.js",
-        "MAYBE-dev:client": "webpack-dev-server --port 3001",
         "dev:server": "BABEL_ENV=dev node src/server/server.js --config webpack.dev.js",
         "dev": "concurrently \"npm:dev:*\" --kill-others",
-        "serve": "serve -s ./dist"
+        "MAYBE-dev:client": "webpack-dev-server --port 3001"
     },
     "engines": {
         "node": "14"

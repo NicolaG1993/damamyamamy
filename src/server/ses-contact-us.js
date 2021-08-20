@@ -14,9 +14,6 @@ exports.sendEmail = function (fname, lname, email, phone, message) {
         region: "eu-central-1",
     });
 
-    console.log("sendEmail activated! ", secrets.AWS_KEY);
-    console.log("sendEmail activatedB! ", process.env.AWS_KEY);
-
     return ses
         .sendEmail({
             // whatever email address you verified should go here!

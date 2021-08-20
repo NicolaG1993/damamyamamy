@@ -1,5 +1,5 @@
 const express = require("express");
-const path = require("path"); // mi serve?
+const path = require("path");
 
 const PORT = process.env.PORT || 3001;
 
@@ -11,19 +11,27 @@ const sesContactUs = require("./ses-contact-us");
 
 /////*****MIDDLEWARES*****/////
 app.use(compression());
-app.use(express.static(path.join(__dirname, "..", "client", "public"))); // mi serve?
+app.use(express.static(path.resolve(__dirname, "../../dist"))); // Have Node serve the files for our built React app
+// app.use(express.static(path.join(__dirname, "..", "client", "assets"))); // mi serve?
 app.use(express.urlencoded({ extended: false })); // cosa fa?
 app.use(express.json()); // cosa fa?
-// app.use((req, res) => {
-//     res.status(404).redirect("/404");
-// });
 
 /////*****REQUESTS*****/////
-app.get("*", function (req, res) {
-    res.sendFile(path.join(__dirname, "..", "client", "assets", "index.html"));
+
+// Handle GET requests to /api route
+app.get("/api", (req, res) => {
+    res.json({ message: "Hello from server!" });
 });
 
-app.post("/contact", (req, res) => {
+// All other GET requests not handled before will return our React app
+app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "../../dist", "index.html"));
+});
+// app.get("*", function (req, res) {
+//     res.sendFile(path.join(__dirname, "..", "client", "assets", "index.html"));
+// });
+
+app.post("/api/contact", (req, res) => {
     console.log("POST req to route /contact", req.body);
     const fname = req.body.contactname;
     const lname = req.body.contactlast;
@@ -39,7 +47,7 @@ app.post("/contact", (req, res) => {
             res.json({ error: true });
         });
 });
-app.get("/test", (req, res) => {
+app.get("/api/test", (req, res) => {
     console.log("GET req to route /test");
     res.json({ message: "Hello from server test!" });
 });

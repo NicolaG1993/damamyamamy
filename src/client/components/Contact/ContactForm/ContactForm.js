@@ -29,7 +29,7 @@ export default function ContactForm() {
         nextStep();
         //here -> using try catch and axios
         try {
-            const resp = await axios.post("/contact", contactReq);
+            const resp = await axios.post("/api/contact", contactReq);
             console.log("resp: ", resp);
             if (resp.data.emailSended) {
                 setIsFinished(true);

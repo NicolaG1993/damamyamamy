@@ -181,12 +181,11 @@ function App() {
   }, {
     path: "/terms-conditions",
     component: TermsAndConditions
-  } // {
-  //     path: "/404",
-  //     exact: true,
-  //     component: NotFound,
-  // },
-  ];
+  }, {
+    path: "/404",
+    exact: true,
+    component: NotFound
+  }];
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
     className: "App",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Header, {
@@ -196,11 +195,6 @@ function App() {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__/* .Switch */ .rs, {
       children: [routes.map(function (route, i) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(RouteWithSubRoutes, _objectSpread({}, route), i + 1);
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__/* .Route */ .AW, {
-        path: "/404",
-        component: function component() {
-          return NotFound;
-        }
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__/* .Redirect */ .l_, {
         to: "/404"
       })]
