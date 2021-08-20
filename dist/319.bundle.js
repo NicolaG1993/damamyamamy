@@ -219,8 +219,8 @@ var jsx_runtime = __webpack_require__(5893);
 
 function ItemCard(_ref) {
   var item = _ref.item;
-  console.log("🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️item in ItemCard.js: ", item);
 
+  // console.log("🤷‍♂️🤷‍♂️🤷‍♂️🤷‍♂️item in ItemCard.js: ", item);
   function createMarkup() {
     return {
       __html: item.description
@@ -303,9 +303,9 @@ function ItemsList() {
   var _useState3 = (0,react.useState)([]),
       _useState4 = _slicedToArray(_useState3, 2),
       onPage = _useState4[0],
-      setOnPage = _useState4[1];
+      setOnPage = _useState4[1]; // console.log("🧠🧠🧠PAGINATION!!!!!", pagination.displayedItems);
 
-  console.log("🧠🧠🧠PAGINATION!!!!!", pagination.displayedItems);
+
   var dispatch = (0,es/* useDispatch */.I0)();
 
   var setPageState = function setPageState(arg) {
@@ -324,7 +324,7 @@ function ItemsList() {
   }, []); // settiamo PageNav
 
   (0,react.useEffect)(function () {
-    console.log("🧠ItemsList updates results with: ", filteredItems);
+    // console.log("🧠ItemsList updates results with: ", filteredItems);
     setResults(filteredItems);
     setPageState(filteredItems || results);
   }, [filteredItems]); // settiamo state e PageNav quando cambiano filteredItems
@@ -337,8 +337,8 @@ function ItemsList() {
   // non filteredItems
   // console.log("🍄🍄🍄 filteredItems -> ", filteredItems);
   // console.log("🍄🍄🍄 results -> ", results);
+  // console.log("🍄🍄🍄 onPage -> ", onPage);
 
-  console.log("🍄🍄🍄 onPage -> ", onPage);
   return /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
     className: "items-list",
     children: onPage ? onPage.length < 1 ? /*#__PURE__*/(0,jsx_runtime.jsx)("h4", {

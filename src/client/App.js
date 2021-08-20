@@ -1,7 +1,7 @@
 // REACT
 import loadable from "@loadable/component";
 import { useState, useEffect, useRef } from "react";
-import { Switch, Route, Link } from "react-router-dom";
+import { Switch, Route, Link, Redirect } from "react-router-dom";
 
 // REDUX
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
@@ -65,6 +65,13 @@ export default function App() {
         dispatch(fetchSpecificCategories());
     }, [data.data]);
 
+    const NotFound = () => (
+        <div>
+            <h1>404 - Not Found!</h1>
+            <Link to="/">Go Home</Link>
+        </div>
+    );
+
     const routes = [
         {
             path: "/",
@@ -111,6 +118,11 @@ export default function App() {
             path: "/terms-conditions",
             component: TermsAndConditions,
         },
+        // {
+        //     path: "/404",
+        //     exact: true,
+        //     component: NotFound,
+        // },
     ];
 
     return (
@@ -121,6 +133,10 @@ export default function App() {
                     <RouteWithSubRoutes key={i + 1} {...route} />
                 ))}
                 {/* mappiamo l'array creando una Route per ogni route che abbiamo dichiarato, la passiamo come prop: vedi prossima fn */}
+
+                <Route path="/404" component={() => NotFound} />
+                <Redirect to="/404" />
+                {/* <Route component={() => NotFound} /> */}
             </Switch>
             <Footer fallback={<div className="loader" />} />
             <Overlay />

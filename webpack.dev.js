@@ -7,6 +7,12 @@ module.exports = merge(common, {
     devServer: {
         historyApiFallback: true,
         contentBase: "./dist",
+        proxy: {
+            "/": {
+                target: "http://localhost:3001",
+            },
+        },
+        port: "3000",
     },
 
     module: {

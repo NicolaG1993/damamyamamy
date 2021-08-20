@@ -290,9 +290,10 @@ var Filter = (0,loadable_esm/* default */.ZP)(function () {
 
 
 
-function Shop() {
-  var storeState = (0,es/* useSelector */.v9)(filterStore, es/* shallowEqual */.wU);
-  console.log("storeState changed:", storeState);
+function Shop(_ref) {
+  var research = _ref.research;
+  var storeState = (0,es/* useSelector */.v9)(filterStore, es/* shallowEqual */.wU); // console.log("storeState changed:", storeState);
+
   var dispatch = (0,es/* useDispatch */.I0)();
   (0,react.useEffect)(function () {
     return dispatch((0,filterStore_actions/* setupStore */.zn)());
@@ -308,6 +309,7 @@ function Shop() {
       children: [/*#__PURE__*/(0,jsx_runtime.jsx)("h1", {
         children: "In negozio"
       }), /*#__PURE__*/(0,jsx_runtime.jsx)(Filter, {
+        research: research,
         fallback: /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
           className: "loader"
         })

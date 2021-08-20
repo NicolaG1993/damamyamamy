@@ -37,7 +37,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _loadable_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7617);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7294);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(5977);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(3727);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(5977);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1372);
 /* harmony import */ var _redux_LoadData_loadData_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(3689);
 /* harmony import */ var _redux_LoadCart_loadCart_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(136);
@@ -81,7 +82,7 @@ var About = (0,_loadable_component__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z
   return __webpack_require__.e(/* import() */ 959).then(__webpack_require__.bind(__webpack_require__, 2959));
 });
 var Contact = (0,_loadable_component__WEBPACK_IMPORTED_MODULE_0__/* .default */ .ZP)(function () {
-  return __webpack_require__.e(/* import() */ 779).then(__webpack_require__.bind(__webpack_require__, 6779));
+  return __webpack_require__.e(/* import() */ 921).then(__webpack_require__.bind(__webpack_require__, 4921));
 });
 var Shop = (0,_loadable_component__WEBPACK_IMPORTED_MODULE_0__/* .default */ .ZP)(function () {
   return __webpack_require__.e(/* import() */ 825).then(__webpack_require__.bind(__webpack_require__, 2233));
@@ -116,8 +117,8 @@ var CookiesPopUp = (0,_loadable_component__WEBPACK_IMPORTED_MODULE_0__/* .defaul
 
 
 function App() {
-  var data = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__/* .useSelector */ .v9)(fetchData, react_redux__WEBPACK_IMPORTED_MODULE_2__/* .shallowEqual */ .wU);
-  console.log("data changed:", data); // let state = useSelector(fetchState, shallowEqual); // only for development //crashes Shop
+  var data = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__/* .useSelector */ .v9)(fetchData, react_redux__WEBPACK_IMPORTED_MODULE_2__/* .shallowEqual */ .wU); // console.log("data changed:", data);
+  // let state = useSelector(fetchState, shallowEqual); // only for development //crashes Shop
   // console.log("🍟REDUX store: ", state);
 
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__/* .useDispatch */ .I0)();
@@ -130,21 +131,31 @@ function App() {
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     dispatch((0,_redux_LoadData_loadData_actions__WEBPACK_IMPORTED_MODULE_3__/* .fetchSpecificCategories */ .ou)());
   }, [data.data]);
+
+  var NotFound = function NotFound() {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h1", {
+        children: "404 - Not Found!"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__/* .Link */ .rU, {
+        to: "/",
+        children: "Go Home"
+      })]
+    });
+  };
+
   var routes = [{
     path: "/",
     exact: true,
-    component: function component() {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Home, {
-        props: ""
-      });
-    }
+    component: Home
   }, {
     path: "/about",
     component: About
   }, {
     path: "/shop",
-    component: function component() {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Shop, {});
+    component: function component(props) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Shop, {
+        research: props.location.tag
+      });
     }
   }, {
     path: "/item/:id",
@@ -170,17 +181,29 @@ function App() {
   }, {
     path: "/terms-conditions",
     component: TermsAndConditions
-  }];
+  } // {
+  //     path: "/404",
+  //     exact: true,
+  //     component: NotFound,
+  // },
+  ];
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
     className: "App",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Header, {
       fallback: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
         className: "loader"
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__/* .Switch */ .rs, {
-      children: routes.map(function (route, i) {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__/* .Switch */ .rs, {
+      children: [routes.map(function (route, i) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(RouteWithSubRoutes, _objectSpread({}, route), i + 1);
-      })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__/* .Route */ .AW, {
+        path: "/404",
+        component: function component() {
+          return NotFound;
+        }
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__/* .Redirect */ .l_, {
+        to: "/404"
+      })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Footer, {
       fallback: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
         className: "loader"
@@ -190,8 +213,8 @@ function App() {
 } // SINGLE ROUTE COMPONENT
 
 function RouteWithSubRoutes(route) {
-  console.log("route", route);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__/* .Route */ .AW, {
+  // console.log("route", route);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__/* .Route */ .AW, {
     path: route.path,
     render: function render(props) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(route.component, _objectSpread(_objectSpread({}, props), {}, {
@@ -327,25 +350,23 @@ function _getSomeAsyncData() {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            console.log("\uD83D\uDC6E\u200D\u2640\uFE0F\uD83D\uDC6E\u200D\u2642\uFE0F\uD83D\uDC6E\u200D\u2640\uFE0F: ", type); // console.log(`😎😋😋url in ${type}: `, url);
-
-            _context.prev = 1;
-            _context.next = 4;
+            _context.prev = 0;
+            _context.next = 3;
             return url;
 
-          case 4:
+          case 3:
             data = _context.sent;
-            console.log("\uD83D\uDE0E\uD83D\uDE0B\uD83D\uDE0Bdata in ".concat(type, ": "), data);
+            // console.log(`😎😋😋data in ${type}: `, data);
             dispatch({
               type: type,
               payload: data
             });
-            _context.next = 13;
+            _context.next = 11;
             break;
 
-          case 9:
-            _context.prev = 9;
-            _context.t0 = _context["catch"](1);
+          case 7:
+            _context.prev = 7;
+            _context.t0 = _context["catch"](0);
             console.log("err in ".concat(type, " action: "), _context.t0);
             dispatch({
               type: _loadCart_types__WEBPACK_IMPORTED_MODULE_1__/* .HANDLE_ERROR */ .yA,
@@ -355,12 +376,12 @@ function _getSomeAsyncData() {
               }
             });
 
-          case 13:
+          case 11:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[1, 9]]);
+    }, _callee, null, [[0, 7]]);
   }));
   return _getSomeAsyncData.apply(this, arguments);
 }
@@ -408,7 +429,7 @@ function fetchCategories() {
 
 function getItem(payload) {
   // una cosa come questa é meglio farla via request server side se possibile
-  console.log("😶😶😶😶😶😶", payload.key);
+  // console.log("😶😶😶😶😶😶", payload.key);
   var key = payload.key;
   return function (dispatch) {
     dispatch({
@@ -459,22 +480,22 @@ function _getSomeAsyncData() {
             dispatch({
               type: type,
               payload: result
-            });
-            console.log("😶😶😶😶😶😶datadatadata", result);
-            _context.next = 20;
+            }); // console.log("😶😶😶😶😶😶datadatadata", result);
+
+            _context.next = 19;
             break;
 
-          case 17:
-            _context.prev = 17;
+          case 16:
+            _context.prev = 16;
             _context.t0 = _context["catch"](0);
             console.log("err in ".concat(type, " action: "), _context.t0);
 
-          case 20:
+          case 19:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[0, 17]]);
+    }, _callee, null, [[0, 16]]);
   }));
   return _getSomeAsyncData.apply(this, arguments);
 }

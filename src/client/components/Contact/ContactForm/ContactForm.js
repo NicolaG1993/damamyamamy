@@ -1,4 +1,5 @@
 import { useState, memo } from "react";
+import axios from "../../../lib/axios";
 import "./style/ContactForm.css";
 
 import StepA from "./steps/StepA";
@@ -26,7 +27,20 @@ export default function ContactForm() {
     };
     const confirmAndSend = async () => {
         nextStep();
-        //more code here -> using try catch and axios
+        //here -> using try catch and axios
+        try {
+            const resp = await axios.post("/contact", contactReq);
+            console.log("resp: ", resp);
+            if (resp.data.emailSended) {
+                setIsFinished(true);
+            } else {
+                setIsFailed(true);
+            }
+        } catch (err) {
+            console.log("err in /contact: ", err); //handle error
+            setError(err);
+            setIsFailed(true);
+        }
     };
 
     const Form = () =>
