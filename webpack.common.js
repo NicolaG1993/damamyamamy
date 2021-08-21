@@ -3,7 +3,6 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 const HtmlWebpackPartialsPlugin = require("html-webpack-partials-plugin");
-const Dotenv = require("dotenv-webpack");
 
 module.exports = {
     entry: {
@@ -95,6 +94,5 @@ module.exports = {
         new HtmlWebpackPartialsPlugin({
             path: "./src/client/partials/root.html",
         }),
-        new Dotenv({ systemvars: true }),
     ],
 };

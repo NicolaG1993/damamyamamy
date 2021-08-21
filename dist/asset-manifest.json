@@ -1,7 +1,7 @@
 {
   "index.css": "/index.css",
-  "index.js": "/index.b4110fdccf10266f9277.js",
-  "runtime.js": "/runtime.7fad615c258370baafd1.js",
+  "index.js": "/index.3375c3264bc2fc5cea85.js",
+  "runtime.js": "/runtime.0e18510ae56fc5edc911.js",
   "660.bundle.js": "/660.bundle.js",
   "296.css": "/296.css",
   "296.bundle.js": "/296.bundle.js",
@@ -66,7 +66,7 @@
   "743.bundle.js": "/743.bundle.js",
   "172.css": "/172.css",
   "172.bundle.js": "/172.bundle.js",
-  "vendors.js": "/vendors.42830cfe7a058f552c0c.js",
+  "vendors.js": "/vendors.24ec81903cb54f055085.js",
   "test4.jpg": "/d44f52750243475e0e32.jpg",
   "pic3.jpg": "/15eadfcdc240a5614575.jpg",
   "pic5.jpg": "/ec1dec130cba5bfa8b66.jpg",
@@ -91,8 +91,8 @@
   "index.html": "/index.html",
   "manifest.json": "/manifest.json",
   "index.css.map": "/index.css.map",
-  "index.js.map": "/index.b4110fdccf10266f9277.js.map",
-  "runtime.js.map": "/runtime.7fad615c258370baafd1.js.map",
+  "index.js.map": "/index.3375c3264bc2fc5cea85.js.map",
+  "runtime.js.map": "/runtime.0e18510ae56fc5edc911.js.map",
   "660.bundle.js.map": "/660.bundle.js.map",
   "296.css.map": "/296.css.map",
   "296.bundle.js.map": "/296.bundle.js.map",
@@ -157,5 +157,5 @@
   "743.bundle.js.map": "/743.bundle.js.map",
   "172.css.map": "/172.css.map",
   "172.bundle.js.map": "/172.bundle.js.map",
-  "vendors.js.map": "/vendors.42830cfe7a058f552c0c.js.map"
+  "vendors.js.map": "/vendors.24ec81903cb54f055085.js.map"
 }

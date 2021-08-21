@@ -730,7 +730,7 @@ function PaymentForm_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var stripePromise = (0,stripe_esm/* loadStripe */.J)("pk_test_51IeyVQDhvZh2Tfco8sQW90qdWGh1gHcrFppkEoGKQ74ISWujDTy2C86oixsRf396tt1DCmz0VOViPUv4eNg2TvCF00f8Cgjd7p"); // const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
+var stripePromise = (0,stripe_esm/* loadStripe */.J)(process.env.REACT_APP_STRIPE_PUBLIC_KEY); // const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
 function PaymentForm(_ref) {
   var checkoutToken = _ref.checkoutToken,
@@ -769,7 +769,7 @@ function PaymentForm(_ref) {
         locale: "it_IT"
       };
       insertScriptElement({
-        url: "https://www.paypal.com/sdk/js?client-id=".concat("AZVz756sSn0AylZvDKjKGJnhJMGIw3JLV5crP_6igMFZhIOH00ReyNl4bo8GSKT7P0NkK5GEZUgULuin", "&currency=").concat(ppValues.currency, "&disable-funding=").concat(ppValues.disablefunding, "&locale=").concat(ppValues.locale),
+        url: "https://www.paypal.com/sdk/js?client-id=".concat(process.env.REACT_APP_PAYPAL_CLIENT_ID, "&currency=").concat(ppValues.currency, "&disable-funding=").concat(ppValues.disablefunding, "&locale=").concat(ppValues.locale),
         callback: function callback() {
           renderButtons();
         }

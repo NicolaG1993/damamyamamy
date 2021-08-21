@@ -8,13 +8,13 @@
 // EXTERNAL MODULE: ./node_modules/react-dom/index.js
 var react_dom = __webpack_require__(3935);
 // EXTERNAL MODULE: ./node_modules/@loadable/component/dist/loadable.esm.js + 1 modules
-var loadable_esm = __webpack_require__(7617);
+var loadable_esm = __webpack_require__(3810);
 // EXTERNAL MODULE: ./node_modules/react-router-dom/esm/react-router-dom.js
 var react_router_dom = __webpack_require__(3727);
 // EXTERNAL MODULE: ./node_modules/react-redux/es/index.js + 18 modules
 var es = __webpack_require__(1372);
 // EXTERNAL MODULE: ./node_modules/redux/es/redux.js + 2 modules
-var redux = __webpack_require__(1330);
+var redux = __webpack_require__(5857);
 // EXTERNAL MODULE: ./node_modules/redux-thunk/es/index.js
 var redux_thunk_es = __webpack_require__(3894);
 // EXTERNAL MODULE: ./node_modules/redux-devtools-extension/index.js
@@ -841,4 +841,4 @@ var CLOSE = "CLOSE";
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=index.b4110fdccf10266f9277.js.map
+//# sourceMappingURL=index.3375c3264bc2fc5cea85.js.map
