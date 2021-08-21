@@ -17,7 +17,8 @@
         "heroku-prebuild": "npm install --only=dev"
     },
     "engines": {
-        "node": "14"
+        "node": "14",
+        "npm": "7.19.0"
     },
     "keywords": [],
     "author": "Nicola Gaioni",
