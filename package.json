@@ -13,7 +13,8 @@
         "dev:client": "BABEL_ENV=dev webpack serve --open --config webpack.dev.js",
         "dev:server": "BABEL_ENV=dev node src/server/server.js --config webpack.dev.js",
         "dev": "concurrently \"npm:dev:*\" --kill-others",
-        "MAYBE-dev:client": "webpack-dev-server --port 3001"
+        "MAYBE-dev:client": "webpack-dev-server --port 3001",
+        "heroku-prebuild": "npm install --only=dev"
     },
     "engines": {
         "node": "14"
