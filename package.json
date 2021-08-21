@@ -14,8 +14,8 @@
         "dev:server": "BABEL_ENV=dev node src/server/server.js --config webpack.dev.js",
         "dev": "concurrently \"npm:dev:*\" --kill-others",
         "MAYBE-dev:client": "webpack-dev-server --port 3001",
-        "build:client": "BABEL_ENV=prod webpack --config webpack.prod.js",
-        "build:server": "BABEL_ENV=prod webpack --config webpack.server.js"
+        "heroku-prebuild": "export NPM_CONFIG_PRODUCTION=false; export NODE_ENV=; NPM_CONFIG_PRODUCTION=false NODE_ENV=development npm install --only=dev --dev",
+        "heroku-postbuild": "export NPM_CONFIG_PRODUCTION=true; export NODE_ENV=production;"
     },
     "engines": {
         "node": "14"
