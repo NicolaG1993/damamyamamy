@@ -15,10 +15,6 @@
         "dev": "concurrently \"npm:dev:*\" --kill-others",
         "MAYBE-dev:client": "webpack-dev-server --port 3001"
     },
-    "engines": {
-        "node": "14",
-        "npm": "7.19.0"
-    },
     "keywords": [],
     "author": "Nicola Gaioni",
     "license": "ISC",
