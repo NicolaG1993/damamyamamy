@@ -8,7 +8,7 @@ module.exports = merge(common, {
     devServer: {
         historyApiFallback: true,
         static: {
-            directory: "./public",
+            directory: "./dist",
         }, //content base is deprecated in v4 of webpack-dev-server, use static instead
         proxy: {
             "/": {
