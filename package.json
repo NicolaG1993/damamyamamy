@@ -41,8 +41,7 @@
         "react-redux": "latest",
         "react-router-dom": "latest",
         "redux-devtools-extension": "latest",
-        "redux-thunk": "latest",
-        "webpack": "^5.51.1"
+        "redux-thunk": "latest"
     },
     "devDependencies": {
         "@babel/core": "latest",
@@ -69,6 +68,7 @@
         "mini-css-extract-plugin": "latest",
         "react-test-renderer": "latest",
         "style-loader": "latest",
+        "webpack": "^5.51.1",
         "webpack-cli": "^4.7.2",
         "webpack-dev-server": "^3.11.2",
         "webpack-manifest-plugin": "latest",
