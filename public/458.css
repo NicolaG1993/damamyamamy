@@ -1,0 +1,2 @@
+#Document h1,#Document h2{margin-bottom:var(--size300)}.document-text-wrap{margin:0 var(--left-indent)}.document-text-wrap p{margin-bottom:var(--size300)}@media screen and (min-width:1110px){#Document{margin:auto;width:1110px}}@media screen and (max-width:720px){#Document{text-align:justify}}@media screen and (max-width:550px){.document-text-wrap{margin:0}}
+/*# sourceMappingURL=458.css.map*/

@@ -11,7 +11,7 @@ const sesContactUs = require("./ses-contact-us");
 
 /////*****MIDDLEWARES*****/////
 app.use(compression());
-app.use(express.static(path.resolve(__dirname, "../../dist"))); // Have Node serve the files for our built React app
+app.use(express.static(path.resolve(__dirname, "../../public"))); // Have Node serve the files for our built React app
 app.use(express.urlencoded({ extended: false })); // cosa fa?
 app.use(express.json()); // cosa fa?
 
@@ -51,11 +51,11 @@ app.get("/api/test", (req, res) => {
 // All other GET requests not handled before will return our React app
 //Serving React
 app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../../dist", "index.html"));
+    res.sendFile(path.resolve(__dirname, "../../public", "index.html"));
 });
 
 server.listen(PORT, () => {
     console.log(`I'm listening on port ${PORT}`);
 });
 
-//NB che server fa riferimento al contenuto di dist folder
+//NB che server fa riferimento al contenuto di public folder

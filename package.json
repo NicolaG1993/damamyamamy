@@ -9,7 +9,7 @@
         "test:watch": "npm run test -- --watch",
         "build": "BABEL_ENV=prod webpack --config webpack.prod.js",
         "start": "BABEL_ENV=dev webpack serve --open --config webpack.dev.js",
-        "serve": "serve -s ./dist",
+        "serve": "serve -s ./public",
         "dev:client": "BABEL_ENV=dev webpack serve --open --config webpack.dev.js",
         "dev:server": "BABEL_ENV=dev node src/server/server.js --config webpack.dev.js",
         "dev": "concurrently \"npm:dev:*\" --kill-others",

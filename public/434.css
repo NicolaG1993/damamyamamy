@@ -1,0 +1,2 @@
+.sliderBox{margin:0 auto;position:relative;width:100%}.arrowWrap{align-items:center;background:hsla(0,0%,100%,.055);border-radius:50%;cursor:pointer;display:flex;height:50px;justify-content:center;position:absolute;top:45%;transition:.2s ease-in;width:50px}.arrowWrap:hover{background:hsla(0,0%,100%,.89);transform:scale(1.1)}.rightArrowStyle{right:25px}.leftArrowStyle{left:25px}.rightArrowStyle svg{transform:translateX(2px)}.leftArrowStyle svg{transform:translateX(-2px)}.arrowWrap svg:focus{outline:0}
+/*# sourceMappingURL=434.css.map*/

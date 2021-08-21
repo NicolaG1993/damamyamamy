@@ -7,7 +7,9 @@ module.exports = merge(common, {
     devtool: "inline-source-map",
     devServer: {
         historyApiFallback: true,
-        contentBase: "./dist",
+        static: {
+            directory: "./public",
+        }, //content base is deprecated in v4 of webpack-dev-server, use static instead
         proxy: {
             "/": {
                 target: "http://localhost:3001",
