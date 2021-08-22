@@ -19,7 +19,8 @@ export default function AddressForm({ checkoutToken, next }) {
     const [values, setValues] = useState({});
     const [errors, setErrors] = useState({});
 
-    console.log("errors: ", errors);
+    // console.log("checkoutToken: ", checkoutToken);
+    // console.log("errors: ", errors);
 
     const countries = Object.entries(shippingCountries).map(([code, name]) => ({
         id: code,
@@ -37,17 +38,21 @@ export default function AddressForm({ checkoutToken, next }) {
         id: sO.id,
         label: `${sO.description} - (${sO.price.formatted_with_symbol})`,
     }));
-    console.log("options: ", options);
+    // console.log("options: ", options);
 
     const fetchShippingCountries = async (checkoutTokenId) => {
-        const { countries } =
-            await commerce.services.localeListShippingCountries(
-                checkoutTokenId
-            );
+        try {
+            const { countries } =
+                await commerce.services.localeListShippingCountries(
+                    checkoutTokenId
+                );
 
-        // console.log("fetched countries: ", countries);
-        setShippingCountries(countries);
-        setShippingCountry(Object.keys(countries)[0]); //questo mi serve perché ricevo un oggetto invece di array (da commerce), e voglio solo i keys "countries" al suo interno // [0] é per avere il primo di questi
+            // console.log("fetched countries: ", countries);
+            setShippingCountries(countries);
+            setShippingCountry(Object.keys(countries)[0]); //questo mi serve perché ricevo un oggetto invece di array (da commerce), e voglio solo i keys "countries" al suo interno // [0] é per avere il primo di questi
+        } catch (err) {
+            console.log("fetchShippingCountries ERROR!", err);
+        }
     };
 
     const fetchSubdivisions = async (countryCode) => {
