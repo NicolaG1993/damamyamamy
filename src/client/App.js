@@ -43,7 +43,7 @@ const CookiesPopUp = loadable(() =>
 );
 
 // CUSTOM HOOKS
-import { keepTheme } from "../../client/src/utils/themes";
+import { keepTheme } from "./utils/themes";
 
 // APP
 export default function App() {
