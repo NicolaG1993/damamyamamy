@@ -28,8 +28,8 @@ export default function StepA({ next, contactReq }) {
         }
 
         let newErrObj = {
-            fnameCheck: nameValidation("nome", values.contactname),
-            lnameCheck: nameValidation("cognome", values.contactlast),
+            fnameCheck: nameValidation("nome", values.name),
+            lnameCheck: nameValidation("cognome", values.last),
             emailCheck: emailValidation(values.email),
             textCheck: textValidation(values.message),
         };
@@ -79,18 +79,18 @@ export default function StepA({ next, contactReq }) {
                     <input
                         type="text"
                         placeholder="Nome*"
-                        defaultValue={contactReq.contactname || ""}
-                        name="contactname"
-                        id="contactname"
+                        defaultValue={contactReq.name || ""}
+                        name="name"
+                        id="name"
                     />
                 </div>
                 <div className="contact-form-col-right">
                     <input
                         type="text"
                         placeholder="Cognome*"
-                        defaultValue={contactReq.contactlast || ""}
-                        name="contactlast"
-                        id="contactlast"
+                        defaultValue={contactReq.last || ""}
+                        name="last"
+                        id="last"
                     />
                 </div>
                 <div className="contact-form-col-left">

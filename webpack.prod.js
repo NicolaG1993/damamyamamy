@@ -34,7 +34,10 @@ module.exports = merge(common, {
                 REACT_APP_PAYPAL_CLIENT_ID: JSON.stringify(
                     process.env.REACT_APP_PAYPAL_CLIENT_ID
                 ),
+                secretCookie: JSON.stringify(process.env.secretCookie),
+                REACT_AWS_KEY: JSON.stringify(process.env.REACT_AWS_KEY),
+                REACT_AWS_SECRET: JSON.stringify(process.env.REACT_AWS_SECRET),
             },
-        }),
+        }), //eliminare quando si usa App local
     ],
 });

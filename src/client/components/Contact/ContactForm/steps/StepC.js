@@ -10,6 +10,7 @@ export default function StepC({ isFailed, isFinished, error }) {
         return (
             <div>
                 <p>Messaggio non inviato! Cé stato un errore</p>
+                <p>{error && error}</p>
                 <Button page="/" text="Torna al sito" type="internal" />
             </div>
         );

@@ -9,8 +9,8 @@ exports.sendEmail = function (fname, lname, email, phone, message) {
     }
 
     const ses = new aws.SES({
-        accessKeyId: secrets.AWS_KEY,
-        secretAccessKey: secrets.AWS_SECRET,
+        accessKeyId: secrets.REACT_AWS_KEY,
+        secretAccessKey: secrets.REACT_AWS_SECRET,
         region: "eu-central-1",
     });
 

@@ -28,10 +28,12 @@
         ]
     },
     "dependencies": {
+        "@aws-amplify/ui-react": "^1.2.10",
         "@chec/commerce.js": "^2.7.2",
         "@loadable/component": "latest",
         "@stripe/react-stripe-js": "^1.4.1",
         "@stripe/stripe-js": "^1.17.0",
+        "aws-amplify": "^4.2.4",
         "aws-sdk": "^2.972.0",
         "axios": "^0.21.1",
         "concurrently": "latest",

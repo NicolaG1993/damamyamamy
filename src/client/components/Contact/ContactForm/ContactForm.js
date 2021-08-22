@@ -27,14 +27,19 @@ export default function ContactForm() {
     };
     const confirmAndSend = async () => {
         nextStep();
+
+        const endpoint =
+            "https://2e2918qjnk.execute-api.eu-central-1.amazonaws.com/dev/contact-us";
+
         //here -> using try catch and axios
         try {
-            const resp = await axios.post("/api/contact", contactReq);
+            const resp = await axios.post(endpoint, contactReq);
             console.log("resp: ", resp);
             if (resp.data.emailSended) {
                 setIsFinished(true);
             } else {
                 setIsFailed(true);
+                setError(resp.data.body);
             }
         } catch (err) {
             console.log("err in /contact: ", err); //handle error
