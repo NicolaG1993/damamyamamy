@@ -1,1 +1,0 @@
-{"version":3,"file":"64.css","mappings":"AAEA,UAGI,UAAW,CAFX,WAAY,CACZ,YAEJ","sources":["webpack://damamyamamy/./src/client/components/Logo/style/Logo.css"],"sourcesContent":["/* .logo {} */\n\n.logo > svg {\n    height: 45px;\n    margin: 5px 0;\n    float: left;\n}\n"],"names":[],"sourceRoot":""}
