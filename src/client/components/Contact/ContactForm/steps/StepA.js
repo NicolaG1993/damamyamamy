@@ -16,6 +16,8 @@ export default function StepA({ next, contactReq }) {
         const form = e.target.form;
         const data = new FormData(form);
         const allValues = Object.fromEntries(data.entries());
+        allValues.sender = "Da Mamy a Mamy - Contattaci";
+        allValues.domain = "damamyamamy.com";
         setValues(allValues);
     };
 
