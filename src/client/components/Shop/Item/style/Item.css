@@ -298,7 +298,7 @@
     #Item .item-pictures-wrap > img {
         height: auto;
         /* max-height: 50vh; */
-        max-height: 300px;
+        /* max-height: 300px; */
     }
     .gallery-pics-wrap > div > img {
         height: 70px;
