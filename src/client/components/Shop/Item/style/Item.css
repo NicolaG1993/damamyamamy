@@ -287,13 +287,13 @@
         padding: 25px 20px;
     }
     #Item .item-pic {
-        margin-right: 0;
+        margin: 0;
         width: 100%;
     }
-    #Item .item-pic > img,
+    /* #Item .item-pic > img,
     #Item .item-pictures-wrap > img {
         max-height: 50vh;
-    }
+    }*/
     .gallery-pics-wrap > div > img {
         height: 70px;
         width: 70px;
