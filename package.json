@@ -39,6 +39,7 @@
         "@loadable/component": "latest",
         "@stripe/react-stripe-js": "^1.4.1",
         "@stripe/stripe-js": "^1.17.0",
+        "autoprefixer": "^10.3.4",
         "aws-amplify": "^4.2.4",
         "aws-sdk": "^2.972.0",
         "axios": "^0.21.1",
@@ -81,6 +82,8 @@
         "express": "latest",
         "jest": "latest",
         "mini-css-extract-plugin": "latest",
+        "postcss": "^8.3.6",
+        "postcss-loader": "^6.1.1",
         "react-test-renderer": "latest",
         "style-loader": "latest",
         "webpack-merge": "latest"
