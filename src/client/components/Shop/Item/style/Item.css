@@ -281,7 +281,7 @@
     #Item .item-wrap {
         flex-direction: column;
         max-height: none;
-        row-gap: 30px;
+        /* row-gap: 30px; */
         justify-content: start;
         /* align-items: center; */
         padding: 25px 20px;
