@@ -10,6 +10,7 @@
 @media screen and (max-width: 720px) {
     .contact-footer {
         padding-top: var(--size500);
+        padding-bottom: var(--size400);
     }
     .contact-footer li {
         margin-bottom: var(--size100);

@@ -60,7 +60,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        row-gap: var(--size400);
+        /* row-gap: var(--size400); non funziona con ioS, uso padding*/
     }
 
     .footer-wraper * h4 {

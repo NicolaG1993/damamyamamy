@@ -10,6 +10,7 @@
 @media screen and (max-width: 720px) {
     .legal-footer {
         padding-top: var(--size500);
+        padding-bottom: var(--size400);
     }
     .legal-footer li {
         margin-bottom: var(--size100);
