@@ -6,6 +6,14 @@
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" sizes="192x192" href="/logo192.png" />
         <link rel="apple-touch-icon" sizes="512x512" href="/logo512.png" />
+        <!-- questo script serve per abilitare css var ed altre funzionalitá in IE e altri browsers -->
+        <script>
+            window.MSInputMethodContext &&
+                document.documentMode &&
+                document.write(
+                    '<script src="https://cdn.jsdelivr.net/gh/nuxodin/ie11CustomProperties@4.1.0/ie11CustomProperties.min.js"><\/script>'
+                );
+        </script>
     </head>
     <body></body>
 </html>

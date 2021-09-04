@@ -29,5 +29,5 @@ module.exports = merge(common, {
             },
         ],
     },
-    plugins: [new Dotenv({ systemvars: true })], //spostare in common quando si usa App local
+    // plugins: [new Dotenv({ systemvars: true })], //spostare in common quando si usa App local
 });

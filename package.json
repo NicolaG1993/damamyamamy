@@ -19,6 +19,11 @@
         "node": "14",
         "npm": "7.19.0"
     },
+    "browserslist": [
+        ">0.2%",
+        "not dead",
+        "ie >= 9"
+    ],
     "keywords": [],
     "author": "Nicola Gaioni",
     "license": "ISC",
@@ -29,6 +34,7 @@
     },
     "dependencies": {
         "@aws-amplify/ui-react": "^1.2.10",
+        "@babel/polyfill": "^7.12.1",
         "@chec/commerce.js": "^2.7.2",
         "@loadable/component": "latest",
         "@stripe/react-stripe-js": "^1.4.1",
@@ -38,17 +44,20 @@
         "axios": "^0.21.1",
         "concurrently": "latest",
         "copy-webpack-plugin": "^9.0.1",
+        "core-js": "^2.6.12",
         "dotenv-webpack": "^7.0.3",
         "html-webpack-partials-plugin": "^0.8.0",
         "html-webpack-plugin": "^5.3.2",
         "lodash": "latest",
         "react": "latest",
+        "react-app-polyfill": "^2.0.0",
         "react-dom": "latest",
         "react-input-range": "^1.3.0",
         "react-redux": "latest",
         "react-router-dom": "latest",
         "redux-devtools-extension": "latest",
         "redux-thunk": "latest",
+        "regenerator-runtime": "^0.13.9",
         "webpack": "^5.51.1",
         "webpack-cli": "^4.8.0",
         "webpack-dev-server": "^4.0.0",
@@ -57,14 +66,12 @@
     "devDependencies": {
         "@babel/core": "latest",
         "@babel/plugin-syntax-dynamic-import": "latest",
-        "@babel/polyfill": "latest",
         "@babel/preset-env": "latest",
         "@babel/preset-react": "latest",
         "@svgr/webpack": "latest",
         "@wojtekmaj/enzyme-adapter-react-17": "latest",
         "babel-jest": "latest",
         "babel-loader": "latest",
-        "core-js": "^2.6.12",
         "css-loader": "latest",
         "css-minimizer-webpack-plugin": "latest",
         "enzyme": "latest",
@@ -75,7 +82,6 @@
         "jest": "latest",
         "mini-css-extract-plugin": "latest",
         "react-test-renderer": "latest",
-        "regenerator-runtime": "^0.13.9",
         "style-loader": "latest",
         "webpack-merge": "latest"
     }
