@@ -292,7 +292,7 @@
     #Item .item-pic {
         margin: 0;
         width: 100%;
-        margin-bottom: 30px;
+        /* margin-bottom: 30px; */
     }
     #Item .item-pic > img,
     #Item .item-pictures-wrap > img {
