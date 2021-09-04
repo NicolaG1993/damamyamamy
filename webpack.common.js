@@ -61,13 +61,14 @@ module.exports = {
 
     plugins: [
         new HtmlWebpackPlugin({
-            title: "React App Setup",
+            title: "Da Mamy a Mamy",
             favicon: "./src/client/assets/favicon.ico",
             template: "src/client/assets/index.html",
             meta: {
                 viewport: "width=device-width, initial-scale=1.0",
-                description: "How to setup a React.js fullstack App",
-                keywords: "React, Fullstack, Development, JavaScript",
+                description: "Articoli usati per bambini da 0 a 10 anni",
+                keywords:
+                    "Articoli, Usato, Bambini, Infanzia, Cavaion, Affi, Verona, Negozio, Compravendita, Neonati",
                 author: "Nicola Gaioni",
                 "theme-color": "#000000",
             },
