@@ -10,6 +10,7 @@
 @media screen and (max-width: 720px) {
     .footer-nav {
         padding-top: var(--size500);
+        padding-bottom: var(--size400);
     }
     .footer-nav li {
         margin-bottom: var(--size100);
