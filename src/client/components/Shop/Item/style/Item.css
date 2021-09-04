@@ -280,8 +280,11 @@
 
     #Item .item-wrap {
         flex-direction: column;
+        max-width: none;
         max-height: none;
-        /* row-gap: 30px; */
+        min-height: none;
+        height: auto;
+        row-gap: 30px;
         justify-content: start;
         /* align-items: center; */
         padding: 25px 20px;
@@ -303,6 +306,9 @@
     }
     #Item .item-infos {
         max-width: none;
+        max-height: none;
+        min-height: none;
+        height: auto;
         width: 100%;
         margin: 0;
     }
