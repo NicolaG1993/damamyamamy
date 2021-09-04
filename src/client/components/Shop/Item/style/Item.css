@@ -282,7 +282,7 @@
         flex-direction: column;
         max-width: none;
         max-height: none;
-        min-height: none;
+        min-height: auto;
         height: auto;
         row-gap: 30px;
         justify-content: start;
@@ -295,6 +295,7 @@
     }
     #Item .item-pic > img,
     #Item .item-pictures-wrap > img {
+        height: auto;
         max-height: 50vh;
     }
     .gallery-pics-wrap > div > img {
@@ -307,7 +308,7 @@
     #Item .item-infos {
         max-width: none;
         max-height: none;
-        min-height: none;
+        min-height: auto;
         height: auto;
         width: 100%;
         margin: 0;
