@@ -285,7 +285,7 @@
         max-height: none;
         min-height: auto;
         height: auto;
-        row-gap: 30px;
+        /* row-gap: 30px; */
         justify-content: start;
         /* align-items: center; */
         padding: 25px 20px;
