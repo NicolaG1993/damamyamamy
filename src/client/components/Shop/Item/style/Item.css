@@ -279,6 +279,7 @@
     }
 
     #Item .item-wrap {
+        display: block;
         flex-direction: column;
         max-width: none;
         max-height: none;
