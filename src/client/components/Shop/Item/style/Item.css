@@ -279,13 +279,13 @@
     }
 
     #Item .item-wrap {
-        display: block;
+        /* display: block; */
         flex-direction: column;
         max-width: none;
         max-height: none;
         min-height: auto;
         height: auto;
-        /* row-gap: 30px; */
+        row-gap: 30px;
         justify-content: start;
         /* align-items: center; */
         padding: 25px 20px;
@@ -293,6 +293,7 @@
     #Item .item-pic {
         margin: 0;
         width: 100%;
+        height: auto;
         /* margin-bottom: 30px; */
     }
     #Item .item-pic > img,
