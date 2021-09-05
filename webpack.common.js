@@ -12,7 +12,6 @@ module.exports = {
             "react-app-polyfill/ie11",
             "react-app-polyfill/stable",
             "./src/client/index.js",
-            "./robots.txt",
         ],
     },
 
