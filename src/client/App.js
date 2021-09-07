@@ -127,7 +127,7 @@ export default function App() {
 
     return (
         <div className="App">
-            <Header fallback={<div className="loader" />} />
+            <Header fallback={<div className="loader from-header-comp" />} />
             <Switch>
                 {routes.map((route, i) => (
                     <RouteWithSubRoutes key={i + 1} {...route} />
@@ -135,7 +135,7 @@ export default function App() {
                 {/* mappiamo l'array creando una Route per ogni route che abbiamo dichiarato, la passiamo come prop: vedi prossima fn */}
                 <Redirect to="/404" />
             </Switch>
-            <Footer fallback={<div className="loader" />} />
+            <Footer fallback={<div className="loader from-footer-comp" />} />
             <Overlay />
             <CookiesPopUp />
         </div>
@@ -152,7 +152,7 @@ function RouteWithSubRoutes(route) {
                 <route.component
                     {...props}
                     routes={route.routes}
-                    fallback={<div className="loader" />}
+                    fallback={<div className="loader from-route-comp" />}
                 />
             )}
         />

@@ -1,0 +1,49 @@
+.sliderBox {
+    position: relative;
+    /* height: 70vh; */
+    width: 100%;
+    margin: 0 auto 0 auto;
+}
+.arrowWrap {
+    display: -ms-flexbox;
+    display: flex;
+    position: absolute;
+    top: 45%;
+    height: 50px;
+    width: 50px;
+    -ms-flex-pack: center;
+        justify-content: center;
+    background: rgba(255, 255, 255, 0.055);
+    border-radius: 50%;
+    cursor: pointer;
+    -ms-flex-align: center;
+        align-items: center;
+    transition: ease-in 0.2s;
+}
+.arrowWrap:hover {
+    -webkit-transform: scale(1.1);
+        -ms-transform: scale(1.1);
+            transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.89);
+}
+
+.rightArrowStyle {
+    right: 25px;
+}
+.leftArrowStyle {
+    left: 25px;
+}
+.rightArrowStyle svg {
+    -webkit-transform: translateX(2px);
+        -ms-transform: translateX(2px);
+            transform: translateX(2px);
+}
+.leftArrowStyle svg {
+    -webkit-transform: translateX(-2px);
+        -ms-transform: translateX(-2px);
+            transform: translateX(-2px);
+}
+.arrowWrap svg:focus {
+    outline: 0;
+}
+

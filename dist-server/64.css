@@ -1,0 +1,8 @@
+/* .logo {} */
+
+.logo > svg {
+    height: 45px;
+    margin: 5px 0;
+    float: left;
+}
+
