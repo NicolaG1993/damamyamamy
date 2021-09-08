@@ -4,6 +4,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 const HtmlWebpackPartialsPlugin = require("html-webpack-partials-plugin");
 const Dotenv = require("dotenv-webpack");
+const { DefinePlugin } = require("webpack");
 
 module.exports = {
     entry: {
@@ -18,9 +19,11 @@ module.exports = {
     output: {
         filename: "[name].[contenthash].js",
         path: path.resolve(__dirname, "dist"),
-        clean: true,
+        // clean: true,
         publicPath: "/",
         chunkFilename: "[name].bundle.js",
+
+        // filename: "bundle.js",
     },
 
     module: {
@@ -94,13 +97,30 @@ module.exports = {
                 },
             ],
         }),
-        new WebpackManifestPlugin({
-            fileName: "asset-manifest.json",
-            // fileName: "./src/client/assets/manifest.json",
-        }),
+        // new WebpackManifestPlugin({
+        //     fileName: "manifest.json",
+        // }),
         new HtmlWebpackPartialsPlugin({
             path: "./src/client/partials/root.html",
         }),
         new Dotenv({ systemvars: true }),
+        new DefinePlugin({
+            __isBrowser__: "true",
+        }),
     ],
 };
+
+/*
+STO PARTENDO PER L'ITALIA:
+ problemi attuali
+
+- la mia build risulta sempre con un sacco di bundle files, non capisco perché (forse per le rules che ho?)
+- non riesco ad utilizzare parti della config originale di webpack, come optimization o chunks
+- redux thunk non funziona come previsto, probabilmente non l'ho settato correttamente per SSR (oppure é perché sto usando delle async funtion da server?)
+- devo ancora capire bene quale parte di state e o data mi serve caricare inizialmente da server, ne se la sta passando correttamente
+- IN TEORIA non ci sono problemi con l'html ✌
+
+PS. questi sono i comandi che uso
+npm run prod:server -> fa la build e fa partire server da dist
+
+*/

@@ -1,8 +1,9 @@
 const { merge } = require("webpack-merge");
 const common = require("./webpack.common.js");
-
+const serverConfig = require("./webpack.server.js");
 const Dotenv = require("dotenv-webpack");
-module.exports = merge(common, {
+
+const browserConfig = merge(common, {
     mode: "development",
     devtool: "inline-source-map",
     devServer: {
@@ -31,3 +32,5 @@ module.exports = merge(common, {
     },
     // plugins: [new Dotenv({ systemvars: true })], //spostare in common quando si usa App local
 });
+
+module.exports = [browserConfig, serverConfig];

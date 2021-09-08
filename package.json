@@ -6,21 +6,20 @@
     "main": "index.js",
     "scripts": {
         "start": "BABEL_ENV=dev webpack serve --open --config webpack.dev.js",
-        "build": "concurrently \"npm:build:*\"",
-        "build:client": "BABEL_ENV=prod webpack --config webpack.prod.js",
-        "build:server": "BABEL_ENV=prod webpack --config webpack.server.js",
+        "build": "BABEL_ENV=prod webpack --config webpack.prod.js",
         "dev": "concurrently \"npm:dev:*\" --kill-others",
         "MAYBE-dev:client": "webpack-dev-server --port 3001",
         "dev:server": "BABEL_ENV=dev node src/server/server.js --config webpack.dev.js",
         "dev:client": "BABEL_ENV=dev webpack serve --open --config webpack.dev.js",
         "prod": "concurrently \"npm:prod:*\" --kill-others",
         "prod:client": "BABEL_ENV=prod webpack serve --open --config webpack.prod.js",
-        "prod:server": "BABEL_ENV=prod node dist-server/server.js --config webpack.prod.js",
-        "MAYBE-prod:server": "node ./dist-server/server.js",
+        "prod:server": "BABEL_ENV=dev webpack --config webpack.dev.js && node dist/server.js",
+        "MAYBE-prod:server": "node ./dist/server.js",
         "test": "BABEL_ENV=test jest --config ./jest.config.json",
         "test:watch": "npm run test -- --watch",
         "serve": "serve -s ./dist",
-        "ssr": "node src/server/server.js"
+        "ssr": "node src/server/server.js",
+        "server": "node dist/server.js"
     },
     "engines": {
         "node": "14",

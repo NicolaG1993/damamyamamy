@@ -1,10 +1,11 @@
 const { merge } = require("webpack-merge");
 const common = require("./webpack.common.js");
+const serverConfig = require("./webpack.server.js");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const { DefinePlugin } = require("webpack");
+// const { DefinePlugin } = require("webpack");
 
-module.exports = merge(common, {
+const browserConfig = merge(common, {
     mode: "production",
     devtool: "source-map",
 
@@ -45,3 +46,5 @@ module.exports = merge(common, {
         // }), //eliminare quando si usa App local
     ],
 });
+
+module.exports = [browserConfig, serverConfig];

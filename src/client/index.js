@@ -5,7 +5,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 // REDUX
 import { Provider } from "react-redux";
-import store from "./redux/store"; //Redux without SSR
+// import store from "./redux/store";
 
 // HOOKS
 import ScrollToTop from "./utils/scrollToTop";
@@ -24,14 +24,14 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 // Redux using SSR
-// import { createStore } from "redux";
-// import rootReducer from "./redux/rootReducer";
-// // Grab the state from a global variable injected into the server-generated HTML
-// const preloadedState = window.__PRELOADED_STATE__;
-// // Allow the passed state to be garbage-collected
-// delete window.__PRELOADED_STATE__;
-// // Create Redux store with initial state
-// const store = createStore(rootReducer, preloadedState);
+import { createStore } from "redux";
+import rootReducer from "./redux/rootReducer";
+// Grab the state from a global variable injected into the server-generated HTML
+const preloadedState = window.__PRELOADED_STATE__;
+// Allow the passed state to be garbage-collected
+delete window.__PRELOADED_STATE__;
+// Create Redux store with initial state
+const store = createStore(rootReducer, preloadedState); //va creato store una seconda volta?
 
 ReactDOM.hydrate(
     <Provider store={store}>

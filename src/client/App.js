@@ -19,31 +19,15 @@ const fetchData = (state) => state.loadData;
 const Header = loadable(() => import("./components/Header/Header"));
 const Footer = loadable(() => import("./components/Footer/Footer"));
 const Overlay = loadable(() => import("./components/Overlay/Overlay"));
+import NotFound from "./components/404/404";
 
-const Home = loadable(() => import("./components/Home/Home"));
-const About = loadable(() => import("./components/About/About"));
-const Contact = loadable(() => import("./components/Contact/Contact"));
-const Shop = loadable(() => import("./components/Shop/Shop"));
-const Item = loadable(() => import("./components/Shop/Item/Item"));
-const Cart = loadable(() => import("./components/Cart/Cart"));
-const Checkout = loadable(() => import("./components/Checkout/Checkout"));
-
-const FAQ = loadable(() => import("./components/Documents/FAQ/FAQ"));
-const PrivacyAndCookiePolicy = loadable(() =>
-    import("./components/Documents/PrivacyAndCookiePolicy")
-);
-const Regolamento = loadable(() =>
-    import("./components/Documents/Regolamento")
-);
-const TermsAndConditions = loadable(() =>
-    import("./components/Documents/TermsAndConditions")
-);
 const CookiesPopUp = loadable(() =>
     import("./components/CookiesPopUp/CookiesPopUp")
 );
 
 // CUSTOM HOOKS
 import { keepTheme } from "./utils/themes";
+import routes from "./routes";
 
 // APP
 export default function App() {
@@ -65,75 +49,25 @@ export default function App() {
         dispatch(fetchSpecificCategories());
     }, [data.data]);
 
-    const NotFound = () => (
-        <div>
-            <h1>404 - Not Found!</h1>
-            <Link to="/">Go Home</Link>
-        </div>
-    );
-
-    const routes = [
-        {
-            path: "/",
-            exact: true,
-            component: Home,
-        },
-        {
-            path: "/about",
-            component: About,
-        },
-        {
-            path: "/shop",
-            component: (props) => <Shop research={props.location.tag} />,
-        },
-        {
-            path: "/item/:id",
-            component: Item,
-        },
-        {
-            path: "/contact",
-            component: Contact,
-        },
-        {
-            path: "/checkout",
-            component: Checkout,
-        },
-        {
-            path: "/cart",
-            component: Cart,
-        },
-        {
-            path: "/cookie-policy",
-            component: PrivacyAndCookiePolicy,
-        },
-        {
-            path: "/FAQ",
-            component: FAQ,
-        },
-        {
-            path: "/regolamento",
-            component: Regolamento,
-        },
-        {
-            path: "/terms-conditions",
-            component: TermsAndConditions,
-        },
-        {
-            path: "/404",
-            exact: true,
-            component: NotFound,
-        },
-    ];
+    // const NotFound = () => (
+    //     <div>
+    //         <h1>404 - Not Found!</h1>
+    //         <Link to="/">Go Home</Link>
+    //     </div>
+    // );
 
     return (
         <div className="App">
             <Header fallback={<div className="loader from-header-comp" />} />
             <Switch>
-                {routes.map((route, i) => (
-                    <RouteWithSubRoutes key={i + 1} {...route} />
+                {routes.map((route) => (
+                    <RouteWithSubRoutes key={route.path} {...route} />
                 ))}
                 {/* mappiamo l'array creando una Route per ogni route che abbiamo dichiarato, la passiamo come prop: vedi prossima fn */}
-                <Redirect to="/404" />
+                {/* <Redirect to="/404" /> */}
+                <Route path="*">
+                    <NotFound />
+                </Route>
             </Switch>
             <Footer fallback={<div className="loader from-footer-comp" />} />
             <Overlay />
@@ -148,8 +82,10 @@ function RouteWithSubRoutes(route) {
     return (
         <Route
             path={route.path}
+            exact={route.exact}
             render={(props) => (
                 <route.component
+                    fetchInitialData={route.fetchInitialData}
                     {...props}
                     routes={route.routes}
                     fallback={<div className="loader from-route-comp" />}
