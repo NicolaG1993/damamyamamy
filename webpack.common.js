@@ -1,7 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
-const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
+// const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 const HtmlWebpackPartialsPlugin = require("html-webpack-partials-plugin");
 const Dotenv = require("dotenv-webpack");
 const { DefinePlugin } = require("webpack");
@@ -122,5 +122,13 @@ STO PARTENDO PER L'ITALIA:
 
 PS. questi sono i comandi che uso
 npm run prod:server -> fa la build e fa partire server da dist
+
+
+TORNATO DALL'ITALIA
+ Approccio
+
+ - eliminare funzioni async in redux: le faccio in App e passo le response a Redux (questo mi evita di dover usare redux thunk)
+ - se ci sono ancora problemi, provare a semplificare le config di webpack
+ - se ci sono ancora problemi, ridurre i vari bundle ad uno solo
 
 */

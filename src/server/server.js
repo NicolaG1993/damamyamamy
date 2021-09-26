@@ -37,9 +37,9 @@ app.use(express.json()); // cosa fa?
 
 /////*****REQUESTS*****/////
 
-app.get("/api", (req, res) => {
-    res.json({ message: "Hello from server!" });
-});
+// app.get("/api", (req, res) => {
+//     res.json({ message: "Hello from server!" });
+// });
 
 // app.post("/api/contact", (req, res) => {
 //     console.log("POST req to route /contact", req.body);
@@ -57,16 +57,20 @@ app.get("/api", (req, res) => {
 //             res.json({ error: true });
 //         });
 // });
-app.get("/api/test", (req, res) => {
-    console.log("GET req to route /test");
-    res.json({ message: "Hello from server test!" });
-});
+
+// app.get("/api/test", (req, res) => {
+//     console.log("GET req to route /test");
+//     res.json({ message: "Hello from server test!" });
+// });
 
 // All other GET requests not handled before will return our React app
 // Serving React
 app.get("*", (req, res, next) => {
     console.log("GET req to route * ✌", req.url);
+    handleRender(req, res, next);
+});
 
+function handleRender(req, res, next) {
     //il nostro html di riferimento é quello con giá tutti i bundle al suo interno
     const indexFile = path.resolve("./dist/index.html");
 
@@ -144,7 +148,7 @@ app.get("*", (req, res, next) => {
         //             res.json({ error: true });
         //         });
     });
-});
+}
 
 const PORT = process.env.PORT || 3001;
 server.listen(PORT, () => {
