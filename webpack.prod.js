@@ -1,12 +1,14 @@
 const { merge } = require("webpack-merge");
 const common = require("./webpack.common.js");
 const serverConfig = require("./webpack.server.js");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+// const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 // const { DefinePlugin } = require("webpack");
 
+const mode = "production";
+
 const browserConfig = merge(common, {
-    mode: "production",
+    mode: mode,
     devtool: "source-map",
 
     module: {
@@ -14,7 +16,8 @@ const browserConfig = merge(common, {
             {
                 test: /\.css$/i,
                 use: [
-                    MiniCssExtractPlugin.loader,
+                    // MiniCssExtractPlugin.loader,
+                    "style-loader",
                     "css-loader",
                     "postcss-loader",
                 ],
@@ -27,7 +30,7 @@ const browserConfig = merge(common, {
     },
 
     plugins: [
-        new MiniCssExtractPlugin(),
+        // new MiniCssExtractPlugin(),
         // new DefinePlugin({
         //     "process.env": {
         //         REACT_APP_CHEC_PUBLIC_KEY: JSON.stringify(
@@ -47,4 +50,4 @@ const browserConfig = merge(common, {
     ],
 });
 
-module.exports = [browserConfig, serverConfig];
+module.exports = [browserConfig, serverConfig({ mode: mode })];

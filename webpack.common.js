@@ -1,8 +1,8 @@
 const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+// const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 // const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
-const HtmlWebpackPartialsPlugin = require("html-webpack-partials-plugin");
+// const HtmlWebpackPartialsPlugin = require("html-webpack-partials-plugin");
 const Dotenv = require("dotenv-webpack");
 const { DefinePlugin } = require("webpack");
 
@@ -17,13 +17,13 @@ module.exports = {
     },
 
     output: {
-        filename: "[name].[contenthash].js",
         path: path.resolve(__dirname, "dist"),
-        // clean: true,
         publicPath: "/",
-        chunkFilename: "[name].bundle.js",
+        filename: "bundle.js",
 
-        // filename: "bundle.js",
+        // filename: "[name].[contenthash].js",
+        // chunkFilename: "[name].bundle.js",
+        // clean: true, // forse non serve
     },
 
     module: {
@@ -54,34 +54,34 @@ module.exports = {
         ],
     },
 
-    optimization: {
-        moduleIds: "deterministic",
-        runtimeChunk: "single",
-        splitChunks: {
-            cacheGroups: {
-                vendor: {
-                    test: /[\\/]node_modules[\\/]/,
-                    name: "vendors",
-                    chunks: "all",
-                },
-            },
-        },
-    },
+    // optimization: {
+    //     moduleIds: "deterministic",
+    //     runtimeChunk: "single",
+    //     splitChunks: {
+    //         cacheGroups: {
+    //             vendor: {
+    //                 test: /[\\/]node_modules[\\/]/,
+    //                 name: "vendors",
+    //                 chunks: "all",
+    //             },
+    //         },
+    //     },
+    // },
 
     plugins: [
-        new HtmlWebpackPlugin({
-            title: "Da Mamy a Mamy",
-            favicon: "./src/client/assets/favicon.ico",
-            template: "src/client/assets/index.html",
-            meta: {
-                viewport: "width=device-width, initial-scale=1.0",
-                description: "Articoli usati per bambini da 0 a 10 anni",
-                keywords:
-                    "Articoli, Usato, Bambini, Infanzia, Cavaion, Affi, Verona, Negozio, Compravendita, Neonati",
-                author: "Nicola Gaioni",
-                "theme-color": "#000000",
-            },
-        }),
+        // new HtmlWebpackPlugin({
+        //     title: "Da Mamy a Mamy",
+        //     favicon: "./src/client/assets/favicon.ico",
+        //     template: "src/client/assets/index.html",
+        //     meta: {
+        //         viewport: "width=device-width, initial-scale=1.0",
+        //         description: "Articoli usati per bambini da 0 a 10 anni",
+        //         keywords:
+        //             "Articoli, Usato, Bambini, Infanzia, Cavaion, Affi, Verona, Negozio, Compravendita, Neonati",
+        //         author: "Nicola Gaioni",
+        //         "theme-color": "#000000",
+        //     },
+        // }),
         new CopyPlugin({
             patterns: [
                 {
@@ -100,35 +100,12 @@ module.exports = {
         // new WebpackManifestPlugin({
         //     fileName: "manifest.json",
         // }),
-        new HtmlWebpackPartialsPlugin({
-            path: "./src/client/partials/root.html",
-        }),
+        // new HtmlWebpackPartialsPlugin({
+        //     path: "./src/client/partials/root.html",
+        // }),
         new Dotenv({ systemvars: true }),
         new DefinePlugin({
             __isBrowser__: "true",
         }),
     ],
 };
-
-/*
-STO PARTENDO PER L'ITALIA:
- problemi attuali
-
-- la mia build risulta sempre con un sacco di bundle files, non capisco perché (forse per le rules che ho?)
-- non riesco ad utilizzare parti della config originale di webpack, come optimization o chunks
-- redux thunk non funziona come previsto, probabilmente non l'ho settato correttamente per SSR (oppure é perché sto usando delle async funtion da server?)
-- devo ancora capire bene quale parte di state e o data mi serve caricare inizialmente da server, ne se la sta passando correttamente
-- IN TEORIA non ci sono problemi con l'html ✌
-
-PS. questi sono i comandi che uso
-npm run prod:server -> fa la build e fa partire server da dist
-
-
-TORNATO DALL'ITALIA
- Approccio
-
- - eliminare funzioni async in redux: le faccio in App e passo le response a Redux (questo mi evita di dover usare redux thunk)
- - se ci sono ancora problemi, provare a semplificare le config di webpack
- - se ci sono ancora problemi, ridurre i vari bundle ad uno solo
-
-*/

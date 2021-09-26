@@ -3,7 +3,8 @@ const Home = loadable(() => import("./components/Home/Home"));
 const About = loadable(() => import("./components/About/About"));
 const Contact = loadable(() => import("./components/Contact/Contact"));
 const Shop = loadable(() => import("./components/Shop/Shop"));
-const Item = loadable(() => import("./components/Shop/Item/Item"));
+import Item from "./components/Shop/Item/Item";
+// const Item = loadable(() => import("./components/Shop/Item/Item"));
 const Cart = loadable(() => import("./components/Cart/Cart"));
 const Checkout = loadable(() => import("./components/Checkout/Checkout"));
 
@@ -18,21 +19,20 @@ const TermsAndConditions = loadable(() =>
     import("./components/Documents/TermsAndConditions")
 );
 
-//quali di questi ha bisogno di initialData e quali no?
+/*
+import FAQ from "./components/Documents/FAQ/FAQ";
+import PrivacyAndCookiePolicy from "./components/Documents/PrivacyAndCookiePolicy";
+import Regolamento from "./components/Documents/Regolamento";
+import TermsAndConditions from "./components/Documents/TermsAndConditions";
+*/
 
-// cart in teoria devo averlo a prescindere, quindi tutto commerce.js immagino
-
-// redux state viene passato per intero insieme ai reducer
-// filter e pageNav non mi servono da server ma solo da client
-// loadData e loadCart invece serve da server
-
-//per item invece?
+//quali vanno importati con loadable? tutti credo
 
 const routes = [
     {
         path: "/",
         exact: true,
-        component: Home,
+        component: () => <Home fallback={<div className="loader" />} />,
     },
     {
         path: "/about",
@@ -40,23 +40,28 @@ const routes = [
     },
     {
         path: "/shop",
-        component: (props) => <Shop research={props.location.tag} />,
+        component: (props) => (
+            <Shop
+                research={props.location.tag}
+                fallback={<div className="loader" />}
+            />
+        ),
     },
     {
         path: "/item/:id",
         component: Item,
-    },
+    }, //questo non va con loadable perché vuole data preload da SSR
     {
         path: "/contact",
         component: Contact,
     },
     {
         path: "/checkout",
-        component: Checkout,
+        component: () => <Checkout fallback={<div className="loader" />} />,
     },
     {
         path: "/cart",
-        component: Cart,
+        component: () => <Cart fallback={<div className="loader" />} />,
     },
     {
         path: "/cookie-policy",

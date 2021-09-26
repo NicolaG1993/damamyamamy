@@ -58,7 +58,7 @@ export default function App() {
 
     return (
         <div className="App">
-            <Header fallback={<div className="loader from-header-comp" />} />
+            <Header />
             <Switch>
                 {routes.map((route) => (
                     <RouteWithSubRoutes key={route.path} {...route} />
@@ -69,7 +69,7 @@ export default function App() {
                     <NotFound />
                 </Route>
             </Switch>
-            <Footer fallback={<div className="loader from-footer-comp" />} />
+            <Footer />
             <Overlay />
             <CookiesPopUp />
         </div>
@@ -88,7 +88,6 @@ function RouteWithSubRoutes(route) {
                     fetchInitialData={route.fetchInitialData}
                     {...props}
                     routes={route.routes}
-                    fallback={<div className="loader from-route-comp" />}
                 />
             )}
         />
