@@ -7,8 +7,7 @@ import "./style/ColorModeButton.css";
 
 export default function ColorModeButton() {
     const [togClass, setTogClass] = useState("light");
-    let theme = localStorage.getItem("theme");
-    // console.log("theme", togClass);
+    let theme;
 
     const toggleColors = () => {
         if (localStorage.getItem("theme") === "theme-dark") {
@@ -21,6 +20,11 @@ export default function ColorModeButton() {
     };
 
     useEffect(() => {
+        theme = localStorage.getItem("theme");
+        // console.log("theme", togClass);
+    }, []);
+
+    useEffect(() => {
         if (localStorage.getItem("theme") === "theme-dark") {
             setTogClass("dark");
         } else if (localStorage.getItem("theme") === "theme-light") {
@@ -29,7 +33,7 @@ export default function ColorModeButton() {
     }, [theme]);
 
     return (
-        <div className={"color-mode-wrap"}>
+        <div className="color-mode-wrap">
             <div
                 onClick={toggleColors}
                 className={`color-mode-toggle ${

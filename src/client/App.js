@@ -16,9 +16,12 @@ const fetchData = (state) => state.loadData;
 // const fetchState = (state) => state;
 
 // COMPONENTS
-const Header = loadable(() => import("./components/Header/Header"));
-const Footer = loadable(() => import("./components/Footer/Footer"));
-const Overlay = loadable(() => import("./components/Overlay/Overlay"));
+// const Header = loadable(() => import("./components/Header/Header"));
+// const Footer = loadable(() => import("./components/Footer/Footer"));
+// const Overlay = loadable(() => import("./components/Overlay/Overlay"));
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+import Overlay from "./components/Overlay/Overlay";
 import NotFound from "./components/404/404";
 
 const CookiesPopUp = loadable(() =>

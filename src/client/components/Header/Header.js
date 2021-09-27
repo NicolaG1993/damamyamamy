@@ -1,6 +1,5 @@
 // REACT
-import loadable from "@loadable/component";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useWindowDimensions from "../../utils/useWindowDimensions";
 import "./style/Header.css";
@@ -10,19 +9,30 @@ import { useDispatch } from "react-redux";
 import { toggleLayout } from "../../redux/ToggleLayout/toggleLayout.actions";
 
 // COMPONENTS
-const Logo = loadable(() => import("../Logo/Logo"));
+import Logo from "../Logo/Logo";
 import CartIcon from "../Cart/CartIcon/CartIcon";
-const HamburgerButton = loadable(() =>
-    import("./HamburgerButton/HamburgerButton")
-);
-const ColorModeButton = loadable(() =>
-    import("../ColorModeButton/ColorModeButton")
-);
-const Nav = loadable(() => import("./Nav/Nav"));
+import HamburgerButton from "./HamburgerButton/HamburgerButton";
+import ColorModeButton from "../ColorModeButton/ColorModeButton";
+import Nav from "./Nav/Nav";
 
 export default function Header() {
+    const [windowSize, setWindowSize] = useState(721);
     const { width } = useWindowDimensions();
+
     useEffect(() => {
+        setWindowSize(width);
+    }, []);
+    //senza questo passaggio abbiamo errore in console, perché width torna 0 in SSR
+    //quindi abbiamo mobile header anche se siamo in desktop
+    // e non contiene questo component.
+    // cosí ci torna SEMPRE prima l'header di desktop, in SSR e client, poi vede quale mettere alla fine
+    // e controlliamo poi normalmente se cambia ancora, funziona
+    // un'alternativa é usare loadable per tutto header con un fallback, ma non mi sembrava ideale
+
+    // forse l'ideale sarebbe leggere il device da cui viene effettuata la richiesta? e in base a quello fare un render SSR per small or large device
+
+    useEffect(() => {
+        setWindowSize(width);
         width > 720 && close;
     }, [width]); // mi serve?
 
@@ -39,7 +49,7 @@ export default function Header() {
     const LogoLink = () => (
         <div className="logo-wrap">
             <Link to={"/"} onClick={close}>
-                <Logo fallback={<div className="loader" />} />
+                <Logo />
             </Link>
         </div>
     );
@@ -56,22 +66,18 @@ export default function Header() {
             <CartIcon />
             {/* <h3 className="cart-btn">CART</h3> */}
             <div className="header-buttons-box-right">
-                <ColorModeButton fallback={<div className="loader" />} />
+                <ColorModeButton />
                 <HamburgerButton toggleNav={toggle} />
             </div>
         </div>
     );
 
     return (
-        <div id="Header">
+        <header id="Header">
             <div className="header-component">
-                {width <= 720 ? <MobileHeader /> : <DesktopHeader />}
+                {windowSize <= 720 ? <MobileHeader /> : <DesktopHeader />}
             </div>
-            <Nav
-                fallback={<div className="loader" />}
-                closeNav={close}
-                width={width}
-            />
-        </div>
+            <Nav closeNav={close} width={windowSize} />
+        </header>
     );
 }

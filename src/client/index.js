@@ -1,6 +1,5 @@
 // REACT
 import ReactDOM from "react-dom";
-import loadable from "@loadable/component";
 import { BrowserRouter as Router } from "react-router-dom";
 
 // REDUX

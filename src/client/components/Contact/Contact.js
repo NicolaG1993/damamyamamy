@@ -1,11 +1,10 @@
-import loadable from "@loadable/component";
 import { useState, useEffect } from "react";
 import useScrollPosition from "../../utils/useScrollPosition";
 import "./style/Contact.css";
 
 import { MemoizedContactForm } from "./ContactForm/ContactForm";
-const ContactList = loadable(() => import("./ContactList/ContactList"));
-const ContactMap = loadable(() => import("./ContactMap/ContactMap"));
+import ContactList from "./ContactList/ContactList";
+import ContactMap from "./ContactMap/ContactMap";
 
 export default function Contact() {
     const { scrollTop } = useScrollPosition();
@@ -32,7 +31,7 @@ export default function Contact() {
         <div id="Contact">
             <div className="contact-wrap" style={{ padding: padding }}>
                 <MemoizedContactForm />
-                <ContactList fallback={<div className="loader" />} />
+                <ContactList />
             </div>
             <ContactMap fallback={<div className="loader" />} />
         </div>

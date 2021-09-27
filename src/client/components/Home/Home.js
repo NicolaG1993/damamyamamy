@@ -8,8 +8,10 @@ import "./style/Home.css";
 const fetchData = (state) => state.loadData;
 
 const Slider = loadable(() => import("./Slider/Slider"));
-const Shortlist = loadable(() => import("../Shortlist/Shortlist"));
-const IconsList = loadable(() => import("./IconsList/IconsList"));
+// const Shortlist = loadable(() => import("../Shortlist/Shortlist"));
+
+import Shortlist from "../Shortlist/Shortlist";
+import IconsList from "./IconsList/IconsList";
 import Button from "../Button/Button";
 
 export default function Home() {

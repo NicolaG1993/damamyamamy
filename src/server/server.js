@@ -107,7 +107,7 @@ function handleRender(req, res, next) {
     // lanciamo promise
     promise
         .then((data) => {
-            // console.log("data", data);
+            console.log("data", data);
 
             // Create a new Redux store instance
             const store = createStore(rootReducer);

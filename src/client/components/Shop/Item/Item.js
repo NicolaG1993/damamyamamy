@@ -1,51 +1,60 @@
 import loadable from "@loadable/component";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
 import "./style/Item.css";
 
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { getItem } from "../../../redux/LoadData/loadData.actions";
-import Button from "../../Button/Button";
+// import Button from "../../Button/Button";
 import CartButton from "../../CartButton/CartButton";
 const Shortlist = loadable(() => import("../../Shortlist/Shortlist"));
 const Gallery = loadable(() => import("./Gallery/Gallery"));
 
-const loadItem = (state) => state.loadData.selectedItem;
+export default function Item({ fetchInitialData, staticContext }) {
+    __isBrowser__
+        ? console.log("window.__INITIAL_DATA__ ", window.__INITIAL_DATA__)
+        : console.log("staticContext ", staticContext);
 
-export default function Item() {
+    const [item, setItem] = useState(() => {
+        return __isBrowser__ ? window.__INITIAL_DATA__ : staticContext.data;
+    });
+    // our data needs when the app is rendered on the server via context and when the app is rendered on the client via window
+
+    if (__isBrowser__ && window.__INITIAL_DATA__) {
+        delete window.__INITIAL_DATA__;
+    }
+
     let match = useRouteMatch();
     let key = match.params.id; // item id
-    const dispatch = useDispatch();
 
-    let selectedItem = useSelector(loadItem, shallowEqual);
+    const [loading, setLoading] = useState(item ? false : true);
+    const fetchNewItem = useRef(item ? false : true);
 
-    const [item, setItem] = useState(null);
     const [galleryOpen, setGalleryOpen] = useState(false);
     const [clickedPic, setClickedPic] = useState(0);
 
-    // console.log("🐔 state in Item.js: ", state);
-    // console.log("🐔 item in Item.js: ", item);
-
     useEffect(() => {
-        dispatch(getItem({ key: key }));
+        if (fetchNewItem.current === true) {
+            setLoading(true);
+            fetchInitialData(key).then((item) => {
+                setItem(item);
+                setLoading(false);
+            });
+        } else {
+            fetchNewItem.current = true;
+        }
+    }, [key, fetchNewItem]);
 
-        // (async () => {
-        //     const itemInfos = await commerce.products.retrieve(key);
-        //     setItem(itemInfos);
-        // })(); //is this autoinvoking? 🐔
-    }, [key]);
-
-    useEffect(() => {
-        setItem(selectedItem);
-    }, [selectedItem]);
     // useEffect(() => {
-    //     console.log("🐔 item in Item.js: ", item);
-    // }, [item]);
+    //     setItem(selectedItem);
+    // }, [selectedItem]);
 
     const toggleGallery = async (n, boo) => {
         setClickedPic(n);
         setGalleryOpen(boo);
     };
+
+    if (loading === true) {
+        return <div className="loader AAA"></div>;
+    }
 
     const PicDisplay = () =>
         item.assets.length > 1 ? (

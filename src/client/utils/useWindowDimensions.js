@@ -1,21 +1,29 @@
 import { useState, useEffect } from "react";
 
 export default function useWindowDimensions() {
-    const [width, setWidth] = useState(window.innerWidth);
-    const [height, setHeight] = useState(window.innerHeight);
+    if (__isBrowser__) {
+        const [width, setWidth] = useState(window.innerWidth);
+        const [height, setHeight] = useState(window.innerHeight);
 
-    const updateWidthAndHeight = () => {
-        setWidth(window.innerWidth);
-        setHeight(window.innerHeight);
-    };
+        const updateWidthAndHeight = () => {
+            setWidth(window.innerWidth);
+            setHeight(window.innerHeight);
+        };
 
-    useEffect(() => {
-        window.addEventListener("resize", updateWidthAndHeight);
-        return () => window.removeEventListener("resize", updateWidthAndHeight);
-    });
+        useEffect(() => {
+            window.addEventListener("resize", updateWidthAndHeight);
+            return () =>
+                window.removeEventListener("resize", updateWidthAndHeight);
+        });
 
-    return {
-        width,
-        height,
-    };
+        return {
+            width,
+            height,
+        };
+    } else {
+        return {
+            width: 0,
+            height: 0,
+        };
+    }
 }

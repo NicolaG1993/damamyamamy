@@ -1,10 +1,10 @@
 import loadable from "@loadable/component";
 import { useState, useEffect } from "react";
 import "./style/Footer.css";
-const Nav = loadable(() => import("./Nav/Nav"));
-const ContactCard = loadable(() => import("./ContactCard/ContactCard"));
-const LegalInfos = loadable(() => import("./LegalInfos/LegalInfos"));
-const SocialsIcons = loadable(() => import("./SocialsIcons/SocialsIcons"));
+import Nav from "./Nav/Nav";
+import ContactCard from "./ContactCard/ContactCard";
+import LegalInfos from "./LegalInfos/LegalInfos";
+import SocialsIcons from "./SocialsIcons/SocialsIcons";
 import useWindowDimensions from "../../utils/useWindowDimensions";
 import useScrollPosition from "../../utils/useScrollPosition";
 
@@ -37,17 +37,17 @@ export default function Footer() {
     }, [scrollTop]);
 
     return (
-        <div id="Footer">
+        <footer id="Footer">
             <div className="footer-wraper">
                 <div className="footer-parallax-wraper" style={parallaxHeight}>
-                    <Nav fallback={<div className="loader" />} />
-                    <LegalInfos fallback={<div className="loader" />} />
-                    <ContactCard fallback={<div className="loader" />} />
-                    <SocialsIcons fallback={<div className="loader" />} />
+                    <Nav />
+                    <LegalInfos />
+                    <ContactCard />
+                    <SocialsIcons />
                 </div>
             </div>
             <Copyrights />
-        </div>
+        </footer>
     );
 }
 
