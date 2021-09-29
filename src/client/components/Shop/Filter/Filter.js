@@ -37,7 +37,7 @@ export default function Filter({ research }) {
     //FILTERS STATE
     const [priceRange, setPriceRange] = useState({
         min: 0,
-        max: Number(topValue) || 10,
+        max: Number(topValue) || 99,
     }); //questo é il range, non il valore degli input (solo iniziale se mai)
     const [filters, setFilters] = useState({
         name: research || "",
@@ -48,14 +48,14 @@ export default function Filter({ research }) {
         order: "new",
     }); //forse posso eliminare //non credo
 
-    useEffect(
-        () =>
-            setPriceRange({
-                min: 0,
-                max: Number(topValue),
-            }),
-        [topValue]
-    );
+    useEffect(() => {
+        console.log("topValue🐲", topValue);
+        setPriceRange({
+            min: 0,
+            max: Number(topValue) || 99,
+        });
+    }, [topValue]);
+    useEffect(() => console.log("priceRange🐲", priceRange), [priceRange]);
     useEffect(() => {
         console.log("🐲🐲🐲");
         setFilters((prevState) => ({ ...prevState, ...appliedFilters }));

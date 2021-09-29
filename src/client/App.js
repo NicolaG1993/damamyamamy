@@ -35,7 +35,7 @@ import routes from "./routes";
 // APP
 export default function App() {
     let data = useSelector(fetchData, shallowEqual);
-    // console.log("data changed:", data);
+    console.log("data changed:", data);
     // let state = useSelector(fetchState, shallowEqual); // only for development //crashes Shop
     // console.log("🍟REDUX store: ", state);
 

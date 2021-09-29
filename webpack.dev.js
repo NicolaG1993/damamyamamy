@@ -17,7 +17,7 @@ const browserConfig = merge(common, {
         //da quando l'ho cambiato hot e liveReload si sono attivati in automatico, li disattivo 🧨 [aggiornare note]
         proxy: {
             "/": {
-                target: "http://localhost:3001",
+                target: "http://localhost:3002",
             },
         }, // disattivare proxy se si vuole usare url bar con npm start
         port: "3000",

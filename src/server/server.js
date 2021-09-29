@@ -161,7 +161,7 @@ function handleRender(req, res, next) {
         }); // .catch(next);
 }
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 server.listen(PORT, () => {
     console.log(`I'm listening on port ${PORT}`);
 });

@@ -90,9 +90,9 @@ export default function reducer(state = INITIAL_STATE, action) {
                           return element.price.raw; // FIXARE ? 🧨
                       })
                   ))
-                : (topValue = 10);
+                : (topValue = 100);
 
-            // console.log("FETCH_HIGHEST_VALUE topValue: ", topValue);
+            console.log("FETCH_HIGHEST_VALUE topValue: ", topValue);
 
             return {
                 ...state,

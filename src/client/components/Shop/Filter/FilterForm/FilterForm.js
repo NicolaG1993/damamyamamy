@@ -19,6 +19,8 @@ export default function FilterForm({
     const [appliedFilters, setAppliedFilters] = useState(filters);
     useEffect(() => setAppliedFilters(filters), [filters]);
 
+    console.log("topValue", topValue);
+    console.log("priceRange", priceRange);
     console.log("appliedFilters", appliedFilters);
     // console.log("✨✨categories", categories);
     return (
