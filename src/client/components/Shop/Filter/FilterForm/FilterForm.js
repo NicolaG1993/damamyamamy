@@ -74,8 +74,8 @@ export default function FilterForm({
                     <input
                         type="number"
                         min={priceRange.min}
-                        max={topValue}
-                        defaultValue={topValue}
+                        max={priceRange.max}
+                        defaultValue={priceRange.max}
                         name="priceMax"
                         id="priceMax"
                         onChange={(e) =>

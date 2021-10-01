@@ -32,7 +32,10 @@ export default function Filter({ research }) {
     let appliedFilters = useSelector(getAppliedFilters, shallowEqual);
 
     const dispatch = useDispatch();
-    useEffect(() => dispatch(fetchHighestValue()), []); // se aggiungo anche selected category all'array? si aggiorna anche quando cambio categoria in filter?
+    useEffect(
+        () => categories && categories.length && dispatch(fetchHighestValue()),
+        []
+    ); // se aggiungo anche selected category all'array? si aggiorna anche quando cambio categoria in filter?
 
     //FILTERS STATE
     const [priceRange, setPriceRange] = useState({
