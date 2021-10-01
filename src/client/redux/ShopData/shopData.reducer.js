@@ -1,21 +1,125 @@
 /* eslint-disable indent */
 import {
-    SETUP_STORE,
+    FETCH_DATA,
+    FETCH_CATEGORIES,
+    FETCH_SPECIFIC_CATEGORIES,
+    FETCH_HIGHEST_VALUE,
+    GET_ITEM,
+    SETUP_SHOP,
     FILTER_BY_CATEGORY,
     FILTER_BY_VALUE,
     FILTER_BY_PRICE,
     SORT_BY_NEW,
     SORT_BY_ALPHABET,
     SORT_BY_PRICE,
-} from "./filterStore.types";
+} from "./shopData.types";
 import { sortArrayAsc, sortArrayDesc } from "../../utils/useSort";
 
-const INITIAL_STATE = {};
+const INITIAL_STATE = {
+    data: [],
+    categories: [],
+};
 
 export default function reducer(state = INITIAL_STATE, action) {
     switch (action.type) {
-        case SETUP_STORE: {
+        /////////////////// from LoadData ///////////////////
+        case FETCH_DATA: {
             let data = action.payload;
+            console.log("FETCH_DATA: ", action.payload);
+
+            if (data) {
+                return {
+                    ...state,
+                    data,
+                    filteredItems: data,
+                };
+            } else {
+                return state;
+            }
+        }
+
+        case FETCH_CATEGORIES: {
+            console.log("FETCH_CATEGORIES: ", action.payload);
+            let categories = action.payload;
+
+            if (categories) {
+                return {
+                    ...state,
+                    categories,
+                };
+            } else {
+                return state;
+            }
+        }
+
+        case FETCH_SPECIFIC_CATEGORIES: {
+            let { data } = state;
+            // console.log("FETCH_SPECIFIC_CATEGORIES: ", data);
+
+            let catNewItems = data ? sortArrayDesc(data, "created") : [];
+            let cat1 =
+                data &&
+                data.filter(
+                    (product) =>
+                        product.categories[0] &&
+                        product.categories[0].slug === "giochi"
+                );
+            let cat2 =
+                data &&
+                data.filter(
+                    (product) =>
+                        product.categories[0] &&
+                        product.categories[0].slug === "passeggini-e-trasporto"
+                ); // FIXARE? 🧨
+
+            console.log("FETCH_SPECIFIC_CATEGORIES: ", {
+                catNewItems,
+                cat1,
+                cat2,
+            });
+            return {
+                ...state,
+                catNewItems,
+                cat1,
+                cat2,
+            };
+        }
+
+        case GET_ITEM: {
+            let selectedItem = action.payload;
+            // let key = Number(action.payload.key);
+            // let selectedItem = data.find((item) => item.id === key); // FIXARE ? 🧨
+            console.log("GET_ITEM: ", action);
+            return {
+                ...state,
+                selectedItem,
+            };
+        }
+
+        case FETCH_HIGHEST_VALUE: {
+            let { data } = state;
+            // console.log("FETCH_HIGHEST_VALUE data: ", data);
+            let topValue;
+            data
+                ? (topValue = Math.max.apply(
+                      Math,
+                      data.map(function (element) {
+                          return element.price.raw; // FIXARE ? 🧨
+                      })
+                  ))
+                : (topValue = undefined);
+
+            console.log("FETCH_HIGHEST_VALUE topValue: ", topValue);
+
+            return {
+                ...state,
+                topValue,
+            };
+        }
+
+        /////////////////// from filterStore ///////////////////
+        case SETUP_SHOP: {
+            console.log("SETUP_SHOP: ", state.data);
             return {
                 ...state,
                 appliedFilters: {
@@ -23,19 +127,16 @@ export default function reducer(state = INITIAL_STATE, action) {
                     categoryID: "",
                     order: "new",
                 },
-                originalState: data,
-                filteredItems: data,
+                filteredItems: state.data,
             };
-        }
+        } //serve per fare refresh di filteredItems
 
         case FILTER_BY_VALUE: {
             let newState = Object.assign({}, state);
             let { value } = action.payload;
             console.log("FILTER_BY_VALUE: ", value);
 
-            let filteredValues = state.originalState.filter((product) => {
-                // NB: io uso originalState perché non mi aspetto di avere troppo data, in quel caso gestire chunk di data via server e usarli come originalState (credo)
-
+            let filteredValues = state.data.filter((product) => {
                 return (
                     product.name.toLowerCase().includes(value) ||
                     (product.categories[0] &&
@@ -46,7 +147,7 @@ export default function reducer(state = INITIAL_STATE, action) {
             }); //look for objects with the received value in their ‘name’ or category fields
 
             if (value === "") {
-                newState.filteredItems = state.originalState;
+                newState.filteredItems = state.data;
             } else {
                 newState.filteredItems = filteredValues;
             }
@@ -73,7 +174,7 @@ export default function reducer(state = INITIAL_STATE, action) {
                         item.categories[0] &&
                         item.categories[0].name === value &&
                         item.categories[0].id === valueID
-                ); // NB: io uso originalState
+                ); // NB: io uso state.data
             }
             newState.appliedFilters = {
                 ...state.appliedFilters,
@@ -100,7 +201,7 @@ export default function reducer(state = INITIAL_STATE, action) {
                     (product) =>
                         product.price.raw >= minPrice &&
                         product.price.raw <= maxPrice
-                ); // NB: io uso originalState
+                ); // NB: io uso state.data
                 newState.filteredItems = filteredValues;
                 // newState.appliedFilters = {
                 //     ...state.appliedFilters,

@@ -17,11 +17,18 @@ export default function FilterForm({
     filtersBar,
 }) {
     const [appliedFilters, setAppliedFilters] = useState(filters);
-    useEffect(() => setAppliedFilters(filters), [filters]);
 
-    console.log("topValue", topValue);
-    console.log("priceRange", priceRange);
-    console.log("appliedFilters", appliedFilters);
+    useEffect(() => {
+        filters &&
+            console.log("✨setAppliedsetAppliedFilters activated", filters);
+        filters && setAppliedFilters(filters);
+    }, [filters]);
+
+    // useEffect(() => setAppliedFilters(filters), [filters]);
+
+    // console.log("✨✨topValue", topValue);
+    // console.log("✨✨priceRange", priceRange);
+    // console.log("✨✨appliedFilters", appliedFilters);
     // console.log("✨✨categories", categories);
     return (
         <form className={filtersBar ? "filter-form" : "hidden"}>
@@ -67,8 +74,8 @@ export default function FilterForm({
                     <input
                         type="number"
                         min={priceRange.min}
-                        max={priceRange.max}
-                        defaultValue={priceRange.max}
+                        max={topValue}
+                        defaultValue={topValue}
                         name="priceMax"
                         id="priceMax"
                         onChange={(e) =>

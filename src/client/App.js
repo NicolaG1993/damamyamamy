@@ -6,19 +6,17 @@ import { Switch, Route, Link, Redirect } from "react-router-dom";
 // REDUX
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import {
-    loadData,
+    fetchData,
     fetchSpecificCategories,
     fetchCategories,
     fetchHighestValue,
-} from "./redux/LoadData/loadData.actions";
+} from "./redux/ShopData/shopData.actions";
 import { fetchCart } from "./redux/LoadCart/loadCart.actions";
-const fetchData = (state) => state.loadData;
+const loadData = (state) => state.shopData.data;
+const loadCategories = (state) => state.shopData.categories;
 // const fetchState = (state) => state;
 
 // COMPONENTS
-// const Header = loadable(() => import("./components/Header/Header"));
-// const Footer = loadable(() => import("./components/Footer/Footer"));
-// const Overlay = loadable(() => import("./components/Overlay/Overlay"));
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Overlay from "./components/Overlay/Overlay";
@@ -34,8 +32,9 @@ import routes from "./routes";
 
 // APP
 export default function App() {
-    let data = useSelector(fetchData, shallowEqual);
-    console.log("data changed:", data);
+    let data = useSelector(loadData, shallowEqual);
+    let categories = useSelector(loadCategories, shallowEqual);
+    // console.log("data changed:", data);
     // let state = useSelector(fetchState, shallowEqual); // only for development //crashes Shop
     // console.log("🍟REDUX store: ", state);
 
@@ -43,14 +42,19 @@ export default function App() {
 
     useEffect(() => {
         keepTheme();
-        dispatch(loadData());
-        dispatch(fetchCategories());
+        dispatch(fetchData());
         dispatch(fetchCart());
     }, []);
 
     useEffect(() => {
-        dispatch(fetchSpecificCategories());
-    }, [data.data]);
+        console.log("data.data changed:", data);
+        data.length && dispatch(fetchCategories());
+    }, [data]);
+
+    useEffect(() => {
+        console.log("categories changed:", categories);
+        categories.length && dispatch(fetchSpecificCategories());
+    }, [categories]);
 
     // const NotFound = () => (
     //     <div>

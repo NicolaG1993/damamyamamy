@@ -6,35 +6,38 @@ import "./style/Shop.css";
 // import { connect } from "react-redux";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import {
-    setupStore,
+    setupShop,
     filterByCategory,
-} from "../../redux/FilterStore/filterStore.actions";
+} from "../../redux/ShopData/shopData.actions";
 // import { fetchHighestValue } from "../../redux/LoadData/loadData.actions";
-const filterStore = (state) => state.filterStore.filteredItems;
+
+const loadData = (state) => state.shopData.data; // a noi data non interessa qua
+const filterStore = (state) => state.shopData.filteredItems;
 
 const ItemsList = loadable(() => import("./ItemsList/ItemsList"));
 const Filter = loadable(() => import("./Filter/Filter"));
-import PageNav from "./PageNav/PageNav";
+const PageNav = loadable(() => import("./PageNav/PageNav"));
 import CategoriesMenu from "./CategoriesMenu/CategoriesMenu";
 
 export default function Shop({ research }) {
+    // let storeState = useSelector(loadData, shallowEqual);
     let storeState = useSelector(filterStore, shallowEqual);
     // console.log("storeState changed:", storeState);
 
-    const dispatch = useDispatch();
-    useEffect(() => dispatch(setupStore()), []);
+    // const dispatch = useDispatch();
+    // useEffect(() => dispatch(setupShop()), []);
     // useEffect(
     //     () => storeState.data && dispatch(fetchHighestValue()),
     //     [storeState.data]
     // );
 
     useEffect(
-        () => console.log("storeState changed:", storeState),
+        () => storeState && console.log("storeState changed:", storeState),
         [storeState]
     );
 
     const ShopUI = () =>
-        storeState ? (
+        storeState && storeState.length ? (
             <>
                 <Filter
                     research={research}
@@ -55,7 +58,9 @@ export default function Shop({ research }) {
             </div> */}
             </>
         ) : (
-            <div className="loader" />
+            <>
+                <div className="loader" />
+            </>
         );
 
     return (

@@ -7,7 +7,7 @@ import CartButton from "../../CartButton/CartButton";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { setPageNav } from "../../../redux/PageNav/pageNav.actions";
 
-const loadFilteredItems = (state) => state.filterStore.filteredItems;
+const loadFilteredItems = (state) => state.shopData.filteredItems;
 const loadPageNav = (state) => state.pageNav;
 
 export default function ItemsList() {
@@ -19,15 +19,15 @@ export default function ItemsList() {
 
     // console.log("🧠🧠🧠PAGINATION!!!!!", pagination.displayedItems);
 
-    const dispatch = useDispatch();
-    const setPageState = (arg) =>
-        filteredItems && dispatch(setPageNav({ ItemsList: arg }));
-
     useEffect(() =>
         document.querySelectorAll(".shop-item-wrap").forEach((el) => {
             el.classList.add("fade-in");
         })
     );
+
+    const dispatch = useDispatch();
+    const setPageState = (arg) =>
+        filteredItems && dispatch(setPageNav({ ItemsList: arg }));
 
     useEffect(() => setPageState(filteredItems), []); // settiamo PageNav
 

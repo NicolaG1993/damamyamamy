@@ -4,19 +4,19 @@ import FilterForm from "./FilterForm/FilterForm";
 
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import {
+    fetchHighestValue,
     filterByValue,
     filterByCategory,
     sortByPrice,
     filterByPrice,
     sortByAlphabet,
     sortByNew,
-} from "../../../redux/FilterStore/filterStore.actions";
-import { fetchHighestValue } from "../../../redux/LoadData/loadData.actions";
+} from "../../../redux/ShopData/shopData.actions";
 import HamburgerButton from "./HamburgerButton/HamburgerButton";
-const getCategories = (state) => state.loadData.categories;
-const getTopValue = (state) => state.loadData.topValue;
-const getFilteredItems = (state) => state.filterStore.filteredItems;
-const getAppliedFilters = (state) => state.filterStore.appliedFilters;
+const getCategories = (state) => state.shopData.categories;
+const getTopValue = (state) => state.shopData.topValue;
+// const getFilteredItems = (state) => state.shopData.filteredItems;
+const getAppliedFilters = (state) => state.shopData.appliedFilters;
 
 export default function Filter({ research }) {
     //TOGGLE FILTER BAR
@@ -28,16 +28,16 @@ export default function Filter({ research }) {
     //REDUX
     let categories = useSelector(getCategories, shallowEqual);
     let topValue = useSelector(getTopValue, shallowEqual);
-    let filteredItems = useSelector(getFilteredItems, shallowEqual);
+    // let filteredItems = useSelector(getFilteredItems, shallowEqual);
     let appliedFilters = useSelector(getAppliedFilters, shallowEqual);
 
     const dispatch = useDispatch();
-    useEffect(() => categories && dispatch(fetchHighestValue()), [categories]);
+    useEffect(() => dispatch(fetchHighestValue()), []); // se aggiungo anche selected category all'array? si aggiorna anche quando cambio categoria in filter?
 
     //FILTERS STATE
     const [priceRange, setPriceRange] = useState({
         min: 0,
-        max: Number(topValue) || 99,
+        max: Number(topValue) || 10,
     }); //questo é il range, non il valore degli input (solo iniziale se mai)
     const [filters, setFilters] = useState({
         name: research || "",
@@ -49,22 +49,33 @@ export default function Filter({ research }) {
     }); //forse posso eliminare //non credo
 
     useEffect(() => {
-        console.log("topValue🐲", topValue);
-        setPriceRange({
-            min: 0,
-            max: Number(topValue) || 99,
-        });
+        topValue && console.log("topValue changed🐲", topValue);
+        if (topValue) {
+            setPriceRange({
+                min: 0,
+                max: Number(topValue),
+            });
+            setFilters((prevState) => ({
+                ...prevState,
+                priceMax: Number(topValue),
+            }));
+        }
     }, [topValue]);
-    useEffect(() => console.log("priceRange🐲", priceRange), [priceRange]);
+
+    // useEffect(() => console.log("priceRange🐲", priceRange), [priceRange]);
     useEffect(() => {
-        console.log("🐲🐲🐲");
-        setFilters((prevState) => ({ ...prevState, ...appliedFilters }));
+        topValue && console.log("appliedFilters changed🐲🐲🐲", appliedFilters);
+        topValue &&
+            setFilters((prevState) => ({
+                ...prevState,
+                ...appliedFilters,
+            }));
     }, [appliedFilters]);
 
     ////////////////////////////////////////////HANDLE FORM
 
     const handleForm = (e) => {
-        // console.log("handleForm activated 🏰🏰🛸");
+        console.log("handleForm activated 🏰🏰🛸");
         e.preventDefault();
         const form = e.target.form;
         // Price range
@@ -134,11 +145,11 @@ export default function Filter({ research }) {
 
     ////////////////////////////////////////////HANDLE FILTERS
 
-    useEffect(() => handleFilters(), [filters]);
+    useEffect(() => topValue && handleFilters(), [filters]);
 
     const handleFilters = () => {
-        if (filteredItems && filters) {
-            // console.log("🐸🐸🐸handleFilters activated", filters);
+        if (topValue && filters) {
+            console.log("🐸🐸🐸handleFilters activated", filters);
             dispatch(filterByValue({ value: filters.name.toLowerCase() }));
             dispatch(
                 filterByCategory({
@@ -201,7 +212,7 @@ export default function Filter({ research }) {
                     toggleNav={toggleBar}
                 />
             </div>
-            {topValue && (
+            {topValue && filters && (
                 <FilterForm
                     filters={filters}
                     categories={categories}

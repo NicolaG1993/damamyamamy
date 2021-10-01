@@ -5,12 +5,12 @@ import { useSelector, shallowEqual } from "react-redux";
 import useScrollPosition from "../../utils/useScrollPosition";
 import useWindowDimensions from "../../utils/useWindowDimensions";
 import "./style/Home.css";
-const fetchData = (state) => state.loadData;
+const fetchData = (state) => state.shopData;
 
 const Slider = loadable(() => import("./Slider/Slider"));
-// const Shortlist = loadable(() => import("../Shortlist/Shortlist"));
+const Shortlist = loadable(() => import("../Shortlist/Shortlist"));
 
-import Shortlist from "../Shortlist/Shortlist";
+// import Shortlist from "../Shortlist/Shortlist";
 import IconsList from "./IconsList/IconsList";
 import Button from "../Button/Button";
 
@@ -53,6 +53,8 @@ export default function Home() {
     //     textAlign: "center",
     // };
 
+    // console.log("data in HOME:", data);
+
     return (
         <div id="Home">
             <Slider fallback={<div className="loader" />} width={width} />
@@ -66,15 +68,18 @@ export default function Home() {
                     text="Vedi tutti gli articoli"
                     type="internal"
                 />
-                <Shortlist
-                    products={data.catNewItems}
-                    listTitle={"Ultimi arrivi"}
-                />
-                <Shortlist products={data.cat1} listTitle={"Giochi"} />
-                <Shortlist
-                    products={data.cat2}
-                    listTitle={"Passeggini e trasporto"}
-                />
+
+                <>
+                    <Shortlist
+                        products={data.catNewItems}
+                        listTitle={"Ultimi arrivi"}
+                    />
+                    <Shortlist products={data.cat1} listTitle={"Giochi"} />
+                    <Shortlist
+                        products={data.cat2}
+                        listTitle={"Passeggini e trasporto"}
+                    />
+                </>
             </section>
             <IconsList iconslistHeight={iconslistHeight} />
             {/* Home component is here!
