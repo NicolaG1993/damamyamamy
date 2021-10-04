@@ -1,7 +1,7 @@
 const { merge } = require("webpack-merge");
 const common = require("./webpack.common.js");
 const serverConfig = require("./webpack.server.js");
-// const Dotenv = require("dotenv-webpack");
+const Dotenv = require("dotenv-webpack");
 
 const mode = "development";
 
@@ -33,7 +33,7 @@ const browserConfig = merge(common, {
             },
         ],
     },
-    // plugins: [new Dotenv({ systemvars: true })], //spostare in common quando si usa App local
+    plugins: [new Dotenv({ systemvars: true })], //spostare in common quando si usa App local
 });
 
 module.exports = [browserConfig, serverConfig({ mode: mode })];

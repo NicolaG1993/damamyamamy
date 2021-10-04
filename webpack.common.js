@@ -103,7 +103,7 @@ module.exports = {
         // new HtmlWebpackPartialsPlugin({
         //     path: "./src/client/partials/root.html",
         // }),
-        new Dotenv({ systemvars: true }),
+        // new Dotenv({ systemvars: true }),
         new DefinePlugin({
             __isBrowser__: "true",
         }),
