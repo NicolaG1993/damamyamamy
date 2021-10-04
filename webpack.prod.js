@@ -3,7 +3,7 @@ const common = require("./webpack.common.js");
 const serverConfig = require("./webpack.server.js");
 // const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-// const { DefinePlugin } = require("webpack");
+const { DefinePlugin } = require("webpack");
 
 const mode = "production";
 
