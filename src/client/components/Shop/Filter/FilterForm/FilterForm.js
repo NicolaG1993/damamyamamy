@@ -1,35 +1,23 @@
-import { useState, useEffect } from "react";
 import InputRange from "react-input-range";
 import "react-input-range/lib/css/index.css";
 import "./style/FilterForm.css";
 
 export default function FilterForm({
+    categories,
+    topValue,
     research,
     handleForm,
-    handleFormOrder,
-    priceRange,
-    handlePriceRange,
-    setPriceRange,
-    handleRangeSlider,
-    categories,
+    handleInputRange,
     filters,
-    topValue,
     filtersBar,
 }) {
-    const [appliedFilters, setAppliedFilters] = useState(filters);
+    const updateInputValues = () => {
+        let minInput = document.querySelector("#priceMin");
+        let maxInput = document.querySelector("#priceMax");
+        minInput.value = filters.priceMin;
+        maxInput.value = filters.priceMax;
+    };
 
-    useEffect(() => {
-        filters &&
-            console.log("✨setAppliedsetAppliedFilters activated", filters);
-        filters && setAppliedFilters(filters);
-    }, [filters]);
-
-    // useEffect(() => setAppliedFilters(filters), [filters]);
-
-    // console.log("✨✨topValue", topValue);
-    // console.log("✨✨priceRange", priceRange);
-    // console.log("✨✨appliedFilters", appliedFilters);
-    // console.log("✨✨categories", categories);
     return (
         <form className={filtersBar ? "filter-form" : "hidden"}>
             <div className="filter-form-col-left">
@@ -58,35 +46,22 @@ export default function FilterForm({
                 <div className="filter-form-prices">
                     <input
                         type="number"
-                        min="0"
+                        min={0}
                         max={topValue}
-                        defaultValue={priceRange.min}
+                        defaultValue={Number(filters.priceMin)}
                         name="priceMin"
                         id="priceMin"
-                        onChange={(e) =>
-                            handlePriceRange({
-                                min: Number(e.target.value),
-                                max: priceRange.max,
-                            })
-                        }
                         onInput={(e) => handleForm(e)}
                     />
                     <input
                         type="number"
-                        min={priceRange.min}
-                        max={priceRange.max}
-                        defaultValue={priceRange.max}
+                        min={0}
+                        max={topValue}
+                        defaultValue={Number(filters.priceMax)}
                         name="priceMax"
                         id="priceMax"
-                        onChange={(e) =>
-                            handlePriceRange({
-                                min: priceRange.min,
-                                max: Number(e.target.value),
-                            })
-                        }
                         onInput={(e) => handleForm(e)}
                     />
-                    {/* 🐞 BUG: incrementa via click non funziona */}
                 </div>
             </div>
 
@@ -94,17 +69,13 @@ export default function FilterForm({
                 <InputRange
                     maxValue={topValue}
                     minValue={0}
-                    value={
-                        priceRange.max < priceRange.min
-                            ? {
-                                  min: priceRange.min,
-                                  max: priceRange.min,
-                              }
-                            : priceRange
-                    }
+                    value={{
+                        min: Number(filters.priceMin),
+                        max: Number(filters.priceMax),
+                    }}
                     formatLabel={(value) => `${value} €`}
-                    onChange={(value) => setPriceRange(value)}
-                    onChangeComplete={() => handleRangeSlider()}
+                    onChange={(value) => handleInputRange(value)}
+                    onChangeComplete={() => updateInputValues()}
                 />
             </div>
 
@@ -114,11 +85,7 @@ export default function FilterForm({
                 </label>
             </div>
             <div className="filter-form-col-right">
-                <SelectCat
-                    defaultValue={appliedFilters.categoryID}
-                    handleForm={handleForm}
-                    categories={categories}
-                />
+                <SelectCat handleForm={handleForm} categories={categories} />
             </div>
 
             <div className="filter-form-col-left">
@@ -127,37 +94,31 @@ export default function FilterForm({
                 </label>
             </div>
             <div className="filter-form-col-right">
-                <SelectOrder handleFormOrder={handleFormOrder} />
+                <SelectOrder handleForm={handleForm} />
             </div>
         </form>
     );
 }
 
-function SelectCat({ defaultValue, handleForm, categories }) {
+function SelectCat({ handleForm, categories }) {
     // console.log("FilterForm Select: ", defaultValue);
     return (
-        <select
-            name="category"
-            id="category"
-            value={defaultValue || ""}
-            onChange={(e) => handleForm(e)}
-        >
-            {categories &&
-                categories.map((category) => (
-                    <option
-                        key={category.id}
-                        value={category.id}
-                        label={category.name}
-                    ></option>
-                ))}
+        <select name="category" id="category" onChange={(e) => handleForm(e)}>
             <option value="" label="--Tutte"></option>
+            {categories.map((category) => (
+                <option
+                    key={category.id}
+                    value={category.id}
+                    label={category.name}
+                ></option>
+            ))}
         </select>
     );
 }
 
-function SelectOrder({ handleFormOrder }) {
+function SelectOrder({ handleForm }) {
     return (
-        <select name="order" id="order" onChange={(e) => handleFormOrder(e)}>
+        <select name="order" id="order" onChange={(e) => handleForm(e)}>
             <option value="new">Novitá</option>
             {/* <option value="relevant">Rilevanza --?</option> */}
             <option value="asc">Ordine alfabetico A-Z</option>
@@ -167,7 +128,3 @@ function SelectOrder({ handleFormOrder }) {
         </select>
     );
 }
-
-// prevent re render
-// attivare altri filtri (uno alla volta!)
-// testare App

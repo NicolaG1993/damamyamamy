@@ -15,10 +15,7 @@ import {
 } from "./shopData.types";
 import { sortArrayAsc, sortArrayDesc } from "../../utils/useSort";
 
-const INITIAL_STATE = {
-    data: [],
-    categories: [],
-};
+const INITIAL_STATE = {};
 
 export default function reducer(state = INITIAL_STATE, action) {
     switch (action.type) {
@@ -118,151 +115,89 @@ export default function reducer(state = INITIAL_STATE, action) {
         }
 
         /////////////////// from filterStore ///////////////////
-        case SETUP_SHOP: {
-            console.log("SETUP_SHOP: ", state.data);
-            return {
-                ...state,
-                appliedFilters: {
-                    category: "",
-                    categoryID: "",
-                    order: "new",
-                },
-                filteredItems: state.data,
-            };
-        } //serve per fare refresh di filteredItems
 
         case FILTER_BY_VALUE: {
-            let newState = Object.assign({}, state);
             let { value } = action.payload;
             console.log("FILTER_BY_VALUE: ", value);
 
-            let filteredValues = state.data.filter((product) => {
-                return (
-                    product.name.toLowerCase().includes(value) ||
-                    (product.categories[0] &&
-                        product.categories[0].name
-                            .toLowerCase()
-                            .includes(value))
-                );
-            }); //look for objects with the received value in their ‘name’ or category fields
+            let filteredItems;
 
             if (value === "") {
-                newState.filteredItems = state.data;
+                filteredItems = state.data;
             } else {
-                newState.filteredItems = filteredValues;
+                filteredItems = state.data.filter((product) => {
+                    return (
+                        product.name.toLowerCase().includes(value) ||
+                        (product.categories[0] &&
+                            product.categories[0].name
+                                .toLowerCase()
+                                .includes(value))
+                    );
+                }); //look for objects with the received value in their ‘name’ or category fields //add here more fields in case we want to check them
             }
 
-            newState.appliedFilters = {
-                ...state.appliedFilters,
-                name: value,
-            };
-
-            return newState;
+            return { ...state, filteredItems: filteredItems };
         }
 
         case FILTER_BY_CATEGORY: {
-            let newState = Object.assign({}, state);
             let value = action.payload.value;
             let valueID = action.payload.valueID;
-            console.log("FILTER_BY_CATEGORY", state.filteredItems);
+            console.log("FILTER_BY_CATEGORY: ", value);
+
+            let filteredItems;
 
             if (value === "") {
-                newState.filteredItems = state.filteredItems;
+                filteredItems = state.filteredItems;
             } else {
-                newState.filteredItems = state.filteredItems.filter(
+                filteredItems = state.filteredItems.filter(
                     (item) =>
                         item.categories[0] &&
                         item.categories[0].name === value &&
                         item.categories[0].id === valueID
                 ); // NB: io uso state.data
             }
-            newState.appliedFilters = {
-                ...state.appliedFilters,
-                category: value,
-                categoryID: valueID,
-            };
-            //Filter deve impostare i filtri
-            //Li passa qua e viene filtrato state
-            //State viene passato da comp? /o preso da redux state direttamente?
-            //Salvare il nuovo state e usarlo in ItemsList
 
-            // console.log("FILTER_BY_CATEGORY", newState);
-
-            return newState;
+            return { ...state, filteredItems: filteredItems };
         }
 
         case FILTER_BY_PRICE: {
-            let newState = Object.assign({}, state);
             let minPrice = action.payload.minPrice;
             let maxPrice = action.payload.maxPrice;
+            console.log("FILTER_BY_PRICE: ", minPrice, maxPrice);
 
-            if (minPrice || maxPrice) {
-                let filteredValues = state.filteredItems.filter(
-                    (product) =>
-                        product.price.raw >= minPrice &&
-                        product.price.raw <= maxPrice
-                ); // NB: io uso state.data
-                newState.filteredItems = filteredValues;
-                // newState.appliedFilters = {
-                //     ...state.appliedFilters,
-                //     priceMin: minPrice,
-                //     priceMax: maxPrice,
-                // };
-            }
+            let filteredItems;
 
-            return newState;
+            filteredItems = state.filteredItems.filter(
+                (product) =>
+                    product.price.raw >= minPrice &&
+                    product.price.raw <= maxPrice
+            ); // NB: io uso state.data
+
+            return { ...state, filteredItems: filteredItems };
         }
 
         case SORT_BY_NEW: {
-            let newState = Object.assign({}, state);
-            newState.filteredItems = sortArrayDesc(
-                state.filteredItems,
-                "created"
-            );
+            let sortedArr = sortArrayDesc(state.filteredItems, "created");
 
-            newState.appliedFilters = {
-                ...state.appliedFilters,
-                order: action.payload.value,
-            };
-
-            return newState;
+            return { ...state, filteredItems: sortedArr };
         }
 
         case SORT_BY_ALPHABET: {
-            let newState = Object.assign({}, state);
             let sortedArr =
                 action.payload.value === "asc"
                     ? sortArrayAsc(state.filteredItems, "name")
                     : sortArrayDesc(state.filteredItems, "name");
 
-            newState.filteredItems = sortedArr;
-            newState.appliedFilters = {
-                ...state.appliedFilters,
-                order: action.payload.value,
-            };
-
-            return newState;
+            return { ...state, filteredItems: sortedArr };
         }
 
         case SORT_BY_PRICE: {
-            console.log("SORT_BY_PRICE: ", state);
-            let { value } = action.payload;
-            let newState = Object.assign({}, state);
-
             let sortedArr =
-                value === "lowPrice"
+                action.payload.value === "lowPrice"
                     ? sortArrayAsc(state.filteredItems, "price.raw")
                     : sortArrayDesc(state.filteredItems, "price.raw");
 
-            newState.filteredItems = sortedArr;
-            newState.appliedFilters = {
-                ...state.appliedFilters,
-                order: value,
-            };
-
-            let updatedState = { ...newState };
-
-            return updatedState;
+            return { ...state, filteredItems: sortedArr };
         }
 
         default:

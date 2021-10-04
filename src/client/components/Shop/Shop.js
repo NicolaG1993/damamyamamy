@@ -3,52 +3,44 @@ import { useState, useEffect } from "react";
 import "./style/Shop.css";
 
 // REDUX
-// import { connect } from "react-redux";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import {
-    setupShop,
-    filterByCategory,
+    fetchData,
+    fetchCategories,
+    fetchHighestValue,
 } from "../../redux/ShopData/shopData.actions";
-// import { fetchHighestValue } from "../../redux/LoadData/loadData.actions";
+import { fetchCart } from "../../redux/LoadCart/loadCart.actions";
 
 const loadData = (state) => state.shopData.data; // a noi data non interessa qua
-const filterStore = (state) => state.shopData.filteredItems;
 
 const ItemsList = loadable(() => import("./ItemsList/ItemsList"));
+const ItemsCount = loadable(() => import("./ItemsList/ItemsCount"));
 const Filter = loadable(() => import("./Filter/Filter"));
 const PageNav = loadable(() => import("./PageNav/PageNav"));
-import CategoriesMenu from "./CategoriesMenu/CategoriesMenu";
+// import CategoriesMenu from "./CategoriesMenu/CategoriesMenu";
 
 export default function Shop({ research }) {
-    // let storeState = useSelector(loadData, shallowEqual);
-    let storeState = useSelector(filterStore, shallowEqual);
-    // console.log("storeState changed:", storeState);
+    let data = useSelector(loadData, shallowEqual);
 
-    // const dispatch = useDispatch();
-    // useEffect(() => dispatch(setupShop()), []);
-    // useEffect(
-    //     () => storeState.data && dispatch(fetchHighestValue()),
-    //     [storeState.data]
-    // );
+    const dispatch = useDispatch();
+    useEffect(() => {
+        console.log("SHOP RENDERS");
+        if (!data) {
+            dispatch(fetchData());
+            dispatch(fetchCategories());
+        } // solo se non abbiamo gia data in redux!
+    }, []);
 
-    useEffect(
-        () => storeState && console.log("storeState changed:", storeState),
-        [storeState]
-    );
+    useEffect(() => data && dispatch(fetchHighestValue()), [data]);
 
     const ShopUI = () =>
-        storeState && storeState.length ? (
+        data && data.length ? (
             <>
                 <Filter
                     research={research}
                     fallback={<div className="loader" />}
                 />
-                {storeState.length === 1 && (
-                    <h5>{storeState.length} risultato</h5>
-                )}
-                {storeState.length > 1 && (
-                    <h5>{storeState.length} risultati</h5>
-                )}
+                <ItemsCount />
                 <PageNav />
                 <ItemsList fallback={<div className="loader" />} />
                 <PageNav />

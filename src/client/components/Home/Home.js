@@ -1,22 +1,53 @@
 import loadable from "@loadable/component";
 import { useState, useEffect } from "react";
-import { useSelector, shallowEqual } from "react-redux";
 
+// REDUX
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import {
+    fetchData,
+    fetchCategories,
+    fetchSpecificCategories,
+} from "../../redux/ShopData/shopData.actions";
+const loadData = (state) => state.shopData.data;
+const loadCats = (state) => state.shopData.categories;
+const loadCatNewItems = (state) => state.shopData.catNewItems;
+const loadCat1 = (state) => state.shopData.cat1;
+const loadCat2 = (state) => state.shopData.cat2;
+
+// UTILS
 import useScrollPosition from "../../utils/useScrollPosition";
 import useWindowDimensions from "../../utils/useWindowDimensions";
-import "./style/Home.css";
-const fetchData = (state) => state.shopData;
 
+// COMPONENTS
+import "./style/Home.css";
 const Slider = loadable(() => import("./Slider/Slider"));
 const Shortlist = loadable(() => import("../Shortlist/Shortlist"));
-
-// import Shortlist from "../Shortlist/Shortlist";
 import IconsList from "./IconsList/IconsList";
 import Button from "../Button/Button";
 
 export default function Home() {
-    let data = useSelector(fetchData, shallowEqual);
+    //redux
+    let data = useSelector(loadData, shallowEqual);
+    let categories = useSelector(loadCats, shallowEqual);
+    let catNewItems = useSelector(loadCatNewItems, shallowEqual);
+    let cat1 = useSelector(loadCat1, shallowEqual);
+    let cat2 = useSelector(loadCat2, shallowEqual);
+    const dispatch = useDispatch();
 
+    //hooks
+    useEffect(() => {
+        if (!data || !categories) {
+            dispatch(fetchData());
+            dispatch(fetchCategories());
+        }
+    }, []);
+
+    useEffect(() => {
+        data && console.log("data.data changed:", data);
+        data && dispatch(fetchSpecificCategories());
+    }, [data]);
+
+    //style
     const [iconslistHeight, setIconslistHeight] = useState(`800px`);
     const [shortlistPadding, setShortlistPadding] =
         useState(`100px 40px 90px 40px`);
@@ -43,18 +74,6 @@ export default function Home() {
         }
     }, [scrollTop]);
 
-    // const dispatch = useDispatch();
-    // const toggle = () => {
-    //     dispatch(toggleLayout({ id: "overlay", fn: "toggle" }));
-    // };
-
-    // const style = {
-    //     color: "red",
-    //     textAlign: "center",
-    // };
-
-    // console.log("data in HOME:", data);
-
     return (
         <div id="Home">
             <Slider fallback={<div className="loader" />} width={width} />
@@ -71,30 +90,17 @@ export default function Home() {
 
                 <>
                     <Shortlist
-                        products={data.catNewItems}
+                        products={catNewItems}
                         listTitle={"Ultimi arrivi"}
                     />
-                    <Shortlist products={data.cat1} listTitle={"Giochi"} />
+                    <Shortlist products={cat1} listTitle={"Giochi"} />
                     <Shortlist
-                        products={data.cat2}
+                        products={cat2}
                         listTitle={"Passeggini e trasporto"}
                     />
                 </>
             </section>
             <IconsList iconslistHeight={iconslistHeight} />
-            {/* Home component is here!
-            <div className="hello"></div>
-            <Button
-                page="http://www.instagram.com"
-                text="Visit our Instagram page"
-                type="external"
-            />
-            <br />
-            <br />
-            <Button page="/about" text="About us" type="internal" />
-            <br />
-            <br />
-            <Button fn={toggle} text="Toggle Overlay" type="function" /> */}
         </div>
     );
 }

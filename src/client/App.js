@@ -3,17 +3,6 @@ import loadable from "@loadable/component";
 import { useState, useEffect, useRef } from "react";
 import { Switch, Route, Link, Redirect } from "react-router-dom";
 
-// REDUX
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import {
-    fetchData,
-    fetchSpecificCategories,
-    fetchCategories,
-    fetchHighestValue,
-} from "./redux/ShopData/shopData.actions";
-import { fetchCart } from "./redux/LoadCart/loadCart.actions";
-const loadData = (state) => state.shopData.data;
-const loadCategories = (state) => state.shopData.categories;
 // const fetchState = (state) => state;
 
 // COMPONENTS
@@ -29,39 +18,20 @@ const CookiesPopUp = loadable(() =>
 // CUSTOM HOOKS
 import { keepTheme } from "./utils/themes";
 import routes from "./routes";
+import { fetchCart } from "./redux/LoadCart/loadCart.actions";
+import { useDispatch } from "react-redux";
 
 // APP
 export default function App() {
-    let data = useSelector(loadData, shallowEqual);
-    let categories = useSelector(loadCategories, shallowEqual);
     // console.log("data changed:", data);
     // let state = useSelector(fetchState, shallowEqual); // only for development //crashes Shop
     // console.log("🍟REDUX store: ", state);
 
     const dispatch = useDispatch();
-
     useEffect(() => {
         keepTheme();
-        dispatch(fetchData());
         dispatch(fetchCart());
     }, []);
-
-    useEffect(() => {
-        console.log("data.data changed:", data);
-        data.length && dispatch(fetchCategories());
-    }, [data]);
-
-    useEffect(() => {
-        console.log("categories changed:", categories);
-        categories.length && dispatch(fetchSpecificCategories());
-    }, [categories]);
-
-    // const NotFound = () => (
-    //     <div>
-    //         <h1>404 - Not Found!</h1>
-    //         <Link to="/">Go Home</Link>
-    //     </div>
-    // );
 
     return (
         <div className="App">
