@@ -1,9 +1,6 @@
-import loadable from "@loadable/component";
-import { Link } from "react-router-dom";
-import "./style/Nav.css";
-const ColorModeButton = loadable(() =>
-    import("../../ColorModeButton/ColorModeButton")
-);
+import Link from "next/link";
+import styles from "./style/Nav.module.css";
+import ColorModeButton from "../ColorModeButton/ColorModeButton";
 
 // REDUX
 import { useSelector, shallowEqual } from "react-redux";
@@ -39,23 +36,29 @@ export default function Nav({ closeNav, width }) {
     return (
         <>
             <div
-                className={`header-overlay ${
-                    navIsActive ? "overlayIn" : "overlayOut"
-                }`}
+                className={
+                    styles[
+                        `header-overlay ${
+                            navIsActive ? "overlayIn" : "overlayOut"
+                        }`
+                    ]
+                }
                 onClick={closeNav}
             ></div>
 
-            <nav className={`header-nav ${navIsActive ? "nav-on" : ""}`}>
+            <nav
+                className={styles[`header-nav ${navIsActive ? "nav-on" : ""}`]}
+            >
                 <ul>
                     {links.map((link, i) => (
-                        <Link to={link.to} onClick={() => closeNav()} key={i}>
-                            <li>{link.title} </li>
+                        <Link href={link.to} onClick={() => closeNav()} key={i}>
+                            <a>
+                                <li>{link.title} </li>
+                            </a>
                         </Link>
                     ))}
                 </ul>
-                {width <= 720 && (
-                    <ColorModeButton fallback={<div className="loader" />} />
-                )}
+                {width <= 720 && <ColorModeButton />}
             </nav>
         </>
     );

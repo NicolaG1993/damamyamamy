@@ -183,3 +183,175 @@ ul {
     background: var(--color000);
     padding: var(--size-300);
 }
+
+/***************OVERLAY***************/
+.overlay {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background: var(--color000);
+    z-index: 18;
+    padding: var(--size-300) var(--size100);
+}
+.overlayIn {
+    visibility: visible;
+    opacity: 33%;
+    transition: visibility 0s ease-in-out 0s, opacity 1.5s;
+}
+.overlayOut {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s ease-in-out 0.5s, opacity 1s;
+}
+
+/***************LOADER***************/
+/* REGULAR */
+.loader {
+    font-size: 10px;
+    margin: 50px auto;
+    text-indent: -9999em;
+    width: 8em;
+    height: 8em;
+    border-radius: 50%;
+    background: var(--color000);
+    background: -moz-linear-gradient(
+        left,
+        var(--color000) 10%,
+        rgba(255, 255, 255, 0) 42%
+    );
+    background: -webkit-linear-gradient(
+        left,
+        var(--color000) 10%,
+        rgba(255, 255, 255, 0) 42%
+    );
+    background: -o-linear-gradient(
+        left,
+        var(--color000) 10%,
+        rgba(255, 255, 255, 0) 42%
+    );
+    background: -ms-linear-gradient(
+        left,
+        var(--color000) 10%,
+        rgba(255, 255, 255, 0) 42%
+    );
+    background: linear-gradient(
+        to right,
+        var(--color000) 10%,
+        rgba(255, 255, 255, 0) 42%
+    );
+    position: relative;
+    -webkit-animation: load3 1.4s infinite linear;
+    animation: load3 1.4s infinite linear;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+}
+.loader:before {
+    width: 50%;
+    height: 50%;
+    background: var(--color000);
+    border-radius: 100% 0 0 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "";
+}
+.loader:after {
+    background: var(--bg000);
+    width: 75%;
+    height: 75%;
+    border-radius: 50%;
+    content: "";
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+/* INVERTED */
+.loader-inverted {
+    background: ghostwhite;
+    background: -moz-linear-gradient(
+        left,
+        ghostwhite 10%,
+        rgba(255, 255, 255, 0) 42%
+    );
+    background: -webkit-linear-gradient(
+        left,
+        ghostwhite 10%,
+        rgba(255, 255, 255, 0) 42%
+    );
+    background: -o-linear-gradient(
+        left,
+        ghostwhite 10%,
+        rgba(255, 255, 255, 0) 42%
+    );
+    background: -ms-linear-gradient(
+        left,
+        ghostwhite 10%,
+        rgba(255, 255, 255, 0) 42%
+    );
+    background: linear-gradient(to right, ghostwhite 10%);
+}
+.loader-inverted:before {
+    background: ghostwhite;
+}
+.loader-inverted:after {
+    background: var(--color000);
+}
+
+@-webkit-keyframes load3 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@keyframes load3 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@media screen and (max-width: 900px) {
+    #tablet-line-breaker::after {
+        content: "\a";
+        white-space: pre;
+    }
+}
+@media screen and (max-width: 720px) {
+    #line-breaker::after {
+        content: "\a";
+        white-space: pre;
+    }
+}
+
+.hidden {
+    opacity: 0;
+}
+
+/* Questo va qua perché viene usato da piu components in App */
+.product-divider-small {
+    height: 3px;
+    width: 66%;
+    background-color: var(--divider);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    /* position: relative;
+    margin: 10px auto; */
+}
+@media screen and (max-width: 760px) {
+    .product-divider-small {
+        width: 100%;
+    }
+}

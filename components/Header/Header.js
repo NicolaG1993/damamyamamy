@@ -2,18 +2,18 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import useWindowDimensions from "../../shared/utils/useWindowDimensions";
-import "./style/Header.module.css";
+import styles from "./style/Header.module.css";
 
 // REDUX
-// import { useDispatch } from "react-redux";
-// import { toggleLayout } from "../../redux/ToggleLayout/toggleLayout.actions";
+import { useDispatch } from "react-redux";
+import { toggleLayout } from "../../redux/ToggleLayout/toggleLayout.actions";
 
 // COMPONENTS
-// import Logo from "../Logo/Logo";
+import Logo from "../Logo/Logo";
 // import CartIcon from "../Cart/CartIcon/CartIcon";
-// import HamburgerButton from "./HamburgerButton/HamburgerButton";
-// import ColorModeButton from "../ColorModeButton/ColorModeButton";
-// import Nav from "./Nav/Nav";
+import HamburgerButton from "./HamburgerButton/HamburgerButton";
+import ColorModeButton from "./ColorModeButton/ColorModeButton";
+import Nav from "./Nav/Nav";
 
 export default function Header() {
     const [windowSize, setWindowSize] = useState(721);
@@ -37,44 +37,45 @@ export default function Header() {
     }, [width]); // mi serve?
 
     // REDUX
-    // const dispatch = useDispatch();
-    // const toggle = () => {
-    //     dispatch(toggleLayout({ id: "nav", fn: "toggle" }));
-    // };
-    // const close = () => {
-    //     dispatch(toggleLayout({ id: "nav", fn: "close" }));
-    // };
+    const dispatch = useDispatch();
+    const toggle = () => {
+        dispatch(toggleLayout({ id: "nav", fn: "toggle" }));
+    };
+    const close = () => {
+        dispatch(toggleLayout({ id: "nav", fn: "close" }));
+    };
 
     // SMALL COMPONENTS
     const LogoLink = () => (
-        <div className="logo-wrap">
-            <Link to={"/"} onClick={close}>
-                {/* <Logo /> */}
+        <div className={styles["logo-wrap"]}>
+            <Link href="/" onClick={close}>
+                <a>
+                    <Logo />
+                </a>
             </Link>
         </div>
     );
     const MobileHeader = () => (
-        <div className="header-wrap">
-            {/* <LogoLink />
-            <CartIcon />
-            <HamburgerButton toggleNav={toggle} /> */}
+        <div className={styles["header-wrap"]}>
+            <LogoLink />
+            {/*<CartIcon />*/}
+            <HamburgerButton toggleNav={toggle} />
         </div>
     );
     const DesktopHeader = () => (
-        <div className="header-wrap">
-            <h5>Header</h5>
-            {/* <LogoLink />
-            <CartIcon />
-            <div className="header-buttons-box-right">
+        <div className={styles["header-wrap"]}>
+            <LogoLink />
+            {/* <CartIcon /> */}
+            <div className={styles["header-buttons-box-right"]}>
                 <ColorModeButton />
                 <HamburgerButton toggleNav={toggle} />
-            </div> */}
+            </div>
         </div>
     );
 
     return (
-        <header id="Header">
-            <div className="header-component">
+        <header id={styles["Header"]}>
+            <div className={styles["header-component"]}>
                 {windowSize <= 720 ? <MobileHeader /> : <DesktopHeader />}
             </div>
             {/* <Nav closeNav={close} width={windowSize} /> */}

@@ -1,6 +1,5 @@
-import "./HamburgerButton.css";
+import styles from "./HamburgerButton.module.css";
 
-// import { toggleLayout } from "../../redux/ToggleLayout/toggleLayout.actions";
 import { useSelector, shallowEqual } from "react-redux";
 const selectLayouts = (state) => state.toggleLayout.layouts[1];
 
@@ -10,11 +9,11 @@ export default function HamburgerButton({ toggleNav }) {
 
     return (
         <div
-            id="hamBtn"
-            className={navIsActive ? "hamBtn active" : "hamBtn"}
+            id={styles["hamBtn"]}
+            className={styles[navIsActive ? "hamBtn active" : "hamBtn"]}
             onClick={toggleNav}
         >
-            <div className={"stick"}></div>
+            <div className={styles["stick"]}></div>
         </div>
     );
 }
