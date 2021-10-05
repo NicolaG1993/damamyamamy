@@ -32,19 +32,15 @@ export default function ColorModeButton() {
         }
     }, [theme]);
 
+    const getBtnStyle = () => {
+        if (togClass === "light") return styles["color-mode-toggle-sun"];
+        else return styles["color-mode-toggle-moon"];
+    };
+
     return (
         <div className="color-mode-wrap">
-            <div
-                onClick={toggleColors}
-                className={
-                    styles[
-                        `color-mode-toggle ${
-                            togClass === "light" ? "sun" : "moon"
-                        }`
-                    ]
-                }
-            >
-                <div className="color-mode-icons">
+            <div onClick={toggleColors} className={getBtnStyle()}>
+                <div className={styles["color-mode-icons"]}>
                     <div id={styles["Sun"]} />
                     <div id={styles["Moon"]} />
                 </div>

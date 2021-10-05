@@ -12,7 +12,7 @@ const links = [
         title: "Home",
     },
     {
-        to: "/about",
+        to: "/chi-siamo",
         title: "Chi siamo",
     },
     {
@@ -20,39 +20,37 @@ const links = [
         title: "In negozio",
     },
     {
-        to: "/contact",
+        to: "/contatto",
         title: "Contatto",
     },
     {
-        to: "/document",
+        to: "/regolamento",
         title: "Vendi",
     },
 ];
 
 export default function Nav({ closeNav, width }) {
-    let state = useSelector(selectLayouts, shallowEqual);
-    let navIsActive = state.active;
+    let { active } = useSelector(selectLayouts, shallowEqual);
+    // let navIsActive = state.active;
+
+    const getOverlayStyle = () => {
+        if (active) return styles["header-overlay-in"];
+        else return styles["header-overlay-out"];
+    };
+    const getNavStyle = () => {
+        if (active) return styles["header-nav-on"];
+        else return styles["header-nav-off"];
+    };
 
     return (
         <>
-            <div
-                className={
-                    styles[
-                        `header-overlay ${
-                            navIsActive ? "overlayIn" : "overlayOut"
-                        }`
-                    ]
-                }
-                onClick={closeNav}
-            ></div>
+            <div className={getOverlayStyle()} onClick={closeNav}></div>
 
-            <nav
-                className={styles[`header-nav ${navIsActive ? "nav-on" : ""}`]}
-            >
+            <nav className={getNavStyle()}>
                 <ul>
                     {links.map((link, i) => (
-                        <Link href={link.to} onClick={() => closeNav()} key={i}>
-                            <a>
+                        <Link href={link.to} key={i}>
+                            <a onClick={() => closeNav()}>
                                 <li>{link.title} </li>
                             </a>
                         </Link>

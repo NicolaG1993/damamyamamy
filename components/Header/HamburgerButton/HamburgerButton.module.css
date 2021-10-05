@@ -1,4 +1,5 @@
-.hamBtn {
+.hamBtn,
+.hamBtn-active {
     width: 25px;
     height: 35px;
     position: relative;
@@ -38,17 +39,17 @@
     top: 8px;
 }
 
-.hamBtn.active .stick {
+.hamBtn-active .stick {
     background: rgba(0, 0, 0, 0);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0);
     right: 250px;
 }
-.hamBtn.active .stick:before {
+.hamBtn-active .stick:before {
     background: var(--header-icon);
     top: 0;
     transform: rotate(45deg);
 }
-.hamBtn.active .stick:after {
+.hamBtn-active .stick:after {
     background: var(--header-icon);
     top: 0;
     transform: rotate(135deg);
@@ -59,10 +60,10 @@
 .hamBtn:hover > .stick:after {
     background: var(--header-icon-hover);
 }
-.hamBtn.active:hover > .stick:before,
-.hamBtn.active:hover > .stick:after {
+.hamBtn-active:hover > .stick:before,
+.hamBtn-active:hover > .stick:after {
     background: var(--header-icon-hover);
 }
-.hamBtn.active:hover > .stick {
+.hamBtn-active:hover > .stick {
     background: rgba(0, 0, 0, 0);
 }

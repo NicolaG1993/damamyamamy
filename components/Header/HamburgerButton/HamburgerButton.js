@@ -7,10 +7,15 @@ export default function HamburgerButton({ toggleNav }) {
     let state = useSelector(selectLayouts, shallowEqual);
     let navIsActive = state.active;
 
+    const getBtnStyle = () => {
+        if (navIsActive) return styles["hamBtn-active"];
+        else return styles["hamBtn"];
+    };
+
     return (
         <div
             id={styles["hamBtn"]}
-            className={styles[navIsActive ? "hamBtn active" : "hamBtn"]}
+            className={getBtnStyle()}
             onClick={toggleNav}
         >
             <div className={styles["stick"]}></div>

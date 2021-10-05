@@ -5,7 +5,7 @@ export default function Layout({ children }) {
     return (
         <>
             <Header />
-            <Nav />
+            {/* <Nav /> */}
             {children}
         </>
     );

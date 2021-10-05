@@ -1,4 +1,4 @@
-.header-nav {
+.header-nav-off {
     position: fixed;
     background-color: var(--bg300);
     height: 100vh;
@@ -10,7 +10,21 @@
     transition: transform 0.8s;
     top: 0;
 }
-.header-nav > ul > a > li {
+.header-nav-on {
+    position: fixed;
+    background-color: var(--bg300);
+    height: 100vh;
+    width: 230px;
+    padding: 150px 0 50px 0;
+    right: 0;
+    z-index: 19;
+    left: 100%;
+    transition: transform 0.8s;
+    top: 0;
+    opacity: 1;
+    transform: translateX(-100%);
+}
+.header-nav-ul > a > li {
     padding: 0 35px;
     font-size: 15pt;
     line-height: 60px;
@@ -18,32 +32,33 @@
     letter-spacing: 3px;
     color: var(--text);
 }
-.nav-on {
-    opacity: 1;
-    transform: translateX(-100%);
-}
-.header-nav > ul > a > li {
+
+.header-nav-ul > a > li {
     border-bottom: 1px solid var(--bg400);
 }
-.header-nav > ul > a:hover > li {
+.header-nav-ul > a:hover > li {
     font-size: 16pt;
     background-color: var(--bg350);
 }
 
-.header-overlay {
+.header-overlay-in {
     position: fixed;
     height: 100vh;
     width: 100vw;
     background: var(--bg000);
     opacity: 0;
     z-index: 18;
-}
-.overlayIn {
     visibility: visible;
     opacity: 33%;
     transition: visibility 0s ease-in-out 0s, opacity 1.5s;
 }
-.overlayOut {
+.header-overlay-out {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background: var(--bg000);
+    opacity: 0;
+    z-index: 18;
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s ease-in-out 0.5s, opacity 1s;
@@ -54,29 +69,29 @@ significa che é responsive in maniera autonoma, non adattata al design del prog
 il css scritto finora funziona su desktop, per questo uso mediaquery ora */
 
 @media screen and (min-width: 1110px) {
-    .header-nav {
+    .header-nav-on {
         width: 17vw;
         transition: transform 0.7s;
     }
 }
 @media screen and (max-width: 720px) {
-    .header-nav {
+    .header-nav-on {
         width: 100%;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
     }
-    .header-nav > ul > a {
+    .header-nav-ul > a {
         height: 65px;
     }
-    .header-nav > ul > a > li {
+    .header-nav-ul > a > li {
         text-align: center;
         border-bottom: none;
     }
 }
 @media screen and (max-width: 340px) {
-    .header-nav {
+    .header-nav-on {
         padding-top: 130px;
         padding-bottom: 40px;
     }

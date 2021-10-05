@@ -14,7 +14,15 @@
     width: 1px;
 }
 
-.color-mode-toggle {
+.color-mode-toggle-sun {
+    height: 30px;
+    width: 80px;
+    background: var(--bg000);
+    border-radius: 40px;
+    position: relative;
+    transition: var(--transition5);
+}
+.color-mode-toggle-moon {
     height: 30px;
     width: 80px;
     background: var(--bg000);
@@ -23,7 +31,24 @@
     transition: var(--transition5);
 }
 
-.color-mode-toggle::before {
+.color-mode-toggle-sun::before {
+    content: "";
+    display: block;
+    height: 24px;
+    width: 24px;
+    border-radius: 30px;
+    background: var(--color000);
+    position: absolute;
+    z-index: 2;
+    transform: translate(0);
+    transition: var(--transition5);
+    top: 3px;
+    left: 8px;
+    cursor: pointer;
+    transform: translateX(41px);
+}
+
+.color-mode-toggle-moon::before {
     content: "";
     display: block;
     height: 24px;
@@ -38,15 +63,12 @@
     left: 8px;
     cursor: pointer;
 }
-.color-mode-wrap:hover > .color-mode-toggle::before {
+.color-mode-wrap:hover > .color-mode-toggle-sun::before,
+.color-mode-wrap:hover > .color-mode-toggle-moon::before {
     background: var(--color100);
 }
 
-.color-mode-toggle.sun::before {
-    transform: translateX(41px);
-}
-
-.color-mode-toggle input {
+#toggleColorMode {
     position: absolute;
     top: 0;
     left: 0;
@@ -56,7 +78,8 @@
     cursor: pointer;
 }
 
-.color-mode-toggle .color-mode-icons {
+.color-mode-toggle-sun .color-mode-icons,
+.color-mode-toggle-moon .color-mode-icons {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -85,17 +108,18 @@
 
 @media screen and (max-width: 720px) {
     .color-mode-wrap,
-    .color-mode-toggle,
-    .color-mode-toggle input {
+    .color-mode-toggle-sun .color-mode-toggle-moon,
+    #toggleColorMode {
         width: 90px;
     }
-    .color-mode-toggle.sun::before {
+    .color-mode-toggle-sun::before {
         transform: translateX(50px);
     }
-    .color-mode-toggle {
+    .color-mode-toggle-sun .color-mode-toggle-moon {
         background: var(--bg100);
     }
-    .color-mode-toggle .color-mode-icons {
+    .color-mode-toggle-sun .color-mode-icons,
+    .color-mode-toggle-moon .color-mode-icons {
         padding: 0 11.5px 0 10px;
     }
 }

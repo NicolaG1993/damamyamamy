@@ -48,8 +48,8 @@ export default function Header() {
     // SMALL COMPONENTS
     const LogoLink = () => (
         <div className={styles["logo-wrap"]}>
-            <Link href="/" onClick={close}>
-                <a>
+            <Link href="/">
+                <a onClick={close}>
                     <Logo />
                 </a>
             </Link>
@@ -65,6 +65,7 @@ export default function Header() {
     const DesktopHeader = () => (
         <div className={styles["header-wrap"]}>
             <LogoLink />
+            <div></div>
             {/* <CartIcon /> */}
             <div className={styles["header-buttons-box-right"]}>
                 <ColorModeButton />
@@ -78,7 +79,7 @@ export default function Header() {
             <div className={styles["header-component"]}>
                 {windowSize <= 720 ? <MobileHeader /> : <DesktopHeader />}
             </div>
-            {/* <Nav closeNav={close} width={windowSize} /> */}
+            <Nav closeNav={close} width={windowSize} />
         </header>
     );
 }
