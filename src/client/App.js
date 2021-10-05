@@ -77,5 +77,8 @@ sul primo render di App abbiamo un secondo senza css, come coprirlo?
 
 axios? mi serve per fare richieste a server?
 
-integrazione SSR con AWS
+integrazione SSR con AWS#
+
+SEO
+
 */

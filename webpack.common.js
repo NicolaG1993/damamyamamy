@@ -89,7 +89,7 @@ module.exports = {
                     globOptions: {
                         ignore: [
                             // Ignore all `txt` files
-                            // "**/*.html",
+                            "**/*.html",
                             // Ignore all files in all subdirectories
                             "**/subdir/**",
                         ],
