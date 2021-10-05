@@ -32,3 +32,8 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# from me
+package-lock.json
+.env
+secrets.json

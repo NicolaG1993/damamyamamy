@@ -1,0 +1,185 @@
+@import url(https://fonts.googleapis.com/css?family=Nunito+Sans);
+@import url(https://fonts.googleapis.com/css?family=Fredoka+One);
+
+.theme-light {
+    --black-white: black;
+    --bg000: ghostwhite;
+    --bg100: rgb(250, 250, 250);
+    --bg200: rgb(241, 241, 241);
+    --bg300: rgb(233, 233, 233);
+    --bg350: rgb(224, 224, 224);
+    --bg400: rgb(199, 199, 199);
+    --header-icon: #acacac;
+    --header-icon-hover: #929292;
+    --text: #414141;
+    --text-color: rgb(
+        231,
+        134,
+        235
+    ); /*Questo non deve cambiare in dark mode  */
+    --text-color-darker: rgb(
+        204,
+        108,
+        207
+    ); /*Questo non deve cambiare in dark mode - copyrights*/
+    --placeholder-text: rgb(140, 140, 140); /*Contact Form, Filters?*/
+    --divider: rgba(169, 169, 169, 0.329);
+    --color000: rgb(231, 134, 235);
+    --color100: rgb(204, 108, 207);
+    --color-opacity: rgba(232, 134, 235, 0.315);
+}
+.theme-dark {
+    --black-white: white;
+    --bg000: rgb(45, 48, 70);
+    --bg100: rgb(42, 46, 70);
+    --bg200: rgb(40, 44, 71);
+    --bg300: rgb(37, 41, 65);
+    --bg350: rgb(34, 38, 63);
+    --bg400: rgb(34, 38, 63);
+    --header-icon: ghostwhite;
+    --header-icon-hover: rgb(224, 224, 224);
+    --text: ghostwhite;
+    --text-color: rgb(
+        231,
+        134,
+        235
+    ); /*Questo non deve cambiare in dark mode  */
+    --text-color-darker: rgb(
+        204,
+        108,
+        207
+    ); /*Questo non deve cambiare in dark mode - copyrights*/
+    --placeholder-text: rgb(140, 140, 140); /*Contact Form, Filters?*/
+    --divider: rgba(169, 169, 169, 0.329);
+    --color000: rgb(231, 134, 235);
+    --color100: rgb(204, 108, 207);
+    --color-opacity: rgba(232, 134, 235, 0.315);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    font-family: var(--fontA);
+    color: var(--text-color);
+    background: var(--bg000);
+    --fontA: "Nunito Sans";
+    --fontB: "Fredoka One";
+    --size-300: 0.42rem;
+    --size-200: 0.56rem;
+    --size-100: 0.75rem;
+    --size000: 1rem;
+    --size100: 1.33rem;
+    --size200: 1.77rem;
+    --size300: 2.37rem;
+    --size400: 3.16rem;
+    --size500: 4.21rem;
+    --size600: 5.61rem;
+    --size700: 7.48rem;
+    --left-indent: 1.33rem;
+    --transition: 0.2s ease;
+    --transition1: 0.1s ease;
+    --transition5: 0.5s ease;
+    --transition8: 0.8s ease;
+    --padding: var(--size-300) var(--size100);
+    --padding2: var(--size200) var(--size100);
+    --padding3: var(--size300);
+    --padding4: var(--size-100);
+    /* scrivere var anche per font sizes e piu cose possibili */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-weight: normal;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: var(--fontB);
+}
+
+h3,
+h4,
+h5 {
+    line-height: 1em;
+    margin-bottom: var(--size-200);
+}
+
+h1,
+h3,
+h4,
+h5 {
+    letter-spacing: 1px;
+}
+h2 {
+    letter-spacing: 2px;
+}
+
+h1 {
+    font-size: 32px;
+}
+h5 {
+    font-weight: bold;
+}
+
+p {
+    margin-bottom: var(--size000);
+}
+
+a {
+    color: var(--text-color);
+    transition: var(--transition);
+    text-decoration: none;
+    cursor: pointer;
+}
+a:hover {
+    color: var(--color100);
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.App {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: background var(--transition);
+    margin-top: 70px;
+    /* overflow-x: hidden; */
+}
+.App > div:nth-child(2) {
+    /*Importante che App sia una classe, cosí id possono avere la prioritá*/
+    padding: var(--padding3);
+}
+
+::-webkit-scrollbar {
+    width: 15px;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--color000);
+    border-radius: 15px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color100);
+}
+::-webkit-scrollbar-track {
+    background: var(--bg200);
+}
+
+::selection {
+    color: var(--text);
+    background: var(--color000);
+    padding: var(--size-300);
+}
