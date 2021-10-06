@@ -1,0 +1,19 @@
+.footer-nav {
+    padding-top: var(--size000);
+}
+
+.footer-nav li {
+    line-height: 1em;
+    margin-bottom: var(--size-200);
+}
+
+@media screen and (max-width: 720px) {
+    .footer-nav {
+        /* padding-top: var(--size500); */
+        padding-bottom: var(--size400);
+    }
+    .footer-nav li {
+        margin-bottom: var(--size100);
+        text-align: center;
+    }
+}

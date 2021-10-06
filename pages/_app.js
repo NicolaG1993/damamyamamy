@@ -7,13 +7,14 @@ import withRedux from "next-redux-wrapper";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import store from "../redux/store";
+import { createWrapper } from "next-redux-wrapper";
 // CUSTOM HOOKS
-import { keepTheme } from "../shared/utils/themes";
+// import { keepTheme } from "../shared/utils/themes";
 
 function MyApp({ Component, pageProps }) {
-    useEffect(() => {
-        keepTheme();
-    }, []);
+    // useEffect(() => {
+    //     keepTheme();
+    // }, []);
 
     return (
         <Provider store={store}>
@@ -24,6 +25,8 @@ function MyApp({ Component, pageProps }) {
     );
 }
 
-export default MyApp;
+const makeStore = () => store;
+const wrapper = createWrapper(makeStore);
 
-withRedux(createStore)(MyApp);
+export default wrapper.withRedux(MyApp);
+// export default withRedux(createStore)(MyApp);

@@ -5,7 +5,7 @@ import {
     HANDLE_ERROR,
 } from "./loadCart.types";
 
-import { commerce } from "../../lib/commerce";
+import { commerce } from "../../shared/libs/commerce";
 
 export function fetchCart() {
     return (dispatch) => {

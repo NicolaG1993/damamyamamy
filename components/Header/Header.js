@@ -10,7 +10,7 @@ import { toggleLayout } from "../../redux/ToggleLayout/toggleLayout.actions";
 
 // COMPONENTS
 import Logo from "../Logo/Logo";
-// import CartIcon from "../Cart/CartIcon/CartIcon";
+import CartIcon from "../Cart/CartIcon/CartIcon";
 import HamburgerButton from "./HamburgerButton/HamburgerButton";
 import ColorModeButton from "./ColorModeButton/ColorModeButton";
 import Nav from "./Nav/Nav";
@@ -18,6 +18,8 @@ import Nav from "./Nav/Nav";
 export default function Header() {
     const [windowSize, setWindowSize] = useState(721);
     const { width } = useWindowDimensions();
+
+    console.log("HEADER RENDERS");
 
     useEffect(() => {
         setWindowSize(width);
@@ -58,15 +60,14 @@ export default function Header() {
     const MobileHeader = () => (
         <div className={styles["header-wrap"]}>
             <LogoLink />
-            {/*<CartIcon />*/}
+            <CartIcon />
             <HamburgerButton toggleNav={toggle} />
         </div>
     );
     const DesktopHeader = () => (
         <div className={styles["header-wrap"]}>
             <LogoLink />
-            <div></div>
-            {/* <CartIcon /> */}
+            <CartIcon />
             <div className={styles["header-buttons-box-right"]}>
                 <ColorModeButton />
                 <HamburgerButton toggleNav={toggle} />

@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chec/commerce.js": "^2.8.0",
     "@svgr/webpack": "^5.5.0",
+    "dotenv-webpack": "^7.0.3",
     "next": "11.1.2",
     "next-redux-wrapper": "^7.0.5",
     "react": "17.0.2",

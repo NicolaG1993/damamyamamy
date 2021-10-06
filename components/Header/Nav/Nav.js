@@ -47,7 +47,7 @@ export default function Nav({ closeNav, width }) {
             <div className={getOverlayStyle()} onClick={closeNav}></div>
 
             <nav className={getNavStyle()}>
-                <ul>
+                <ul className={styles["header-nav-ul"]}>
                     {links.map((link, i) => (
                         <Link href={link.to} key={i}>
                             <a onClick={() => closeNav()}>
