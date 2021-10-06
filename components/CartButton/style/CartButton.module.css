@@ -1,0 +1,96 @@
+.add-cart,
+.remove-cart {
+    z-index: 3;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s ease;
+    border-color: transparent;
+    border: 1px solid darkgray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-cart > svg {
+    fill: #414141;
+    transition: 0.2s ease;
+    width: 88%;
+}
+
+.remove-cart > svg {
+    fill: #414141;
+    transition: 0.2s ease;
+    width: 55%;
+}
+
+.add-cart:hover,
+.remove-cart:hover {
+    background-color: var(--color000);
+    border-color: transparent;
+}
+.add-cart:hover > svg,
+.remove-cart:hover > svg {
+    fill: white;
+}
+
+.add-cart-for-small,
+.remove-cart-for-small {
+    position: absolute;
+    display: hidden;
+    opacity: 0;
+    top: -5px;
+    right: 8px;
+    box-shadow: 1px 3px 4px #00000025;
+}
+.product-content:hover .add-cart-for-small,
+.product-content:hover .remove-cart-for-small,
+.shop-item-wrap:hover .add-cart-for-small,
+.shop-item-wrap:hover .remove-cart-for-small {
+    display: visible;
+    opacity: 1;
+    top: 8px;
+}
+
+/* .add-cart-for-medium,
+.remove-cart-for-medium {
+    position: absolute;
+    display: hidden;
+    opacity: 0;
+    top: -5px;
+    right: 8px;
+    box-shadow: 1px 3px 4px #00000025;
+}
+.product-content:hover .add-cart-for-medium,
+.product-content:hover .remove-cart-for-medium {
+    display: visible;
+    opacity: 1;
+    top: 8px;
+} */
+
+/* .add-cart > img {
+    display: block;
+    height: 100%;
+    width: 100%;
+} */
+
+.btn {
+    padding: var(--size-200) var(--size-100);
+    min-width: 200px;
+    border-radius: 35px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: bold;
+    font-size: 1rem;
+    font-family: var(--fontA);
+    border: 3px solid var(--text-color);
+    letter-spacing: 1px;
+}
+@media screen and (max-width: 720px) {
+    .btn {
+        width: 100%;
+        margin: 5px 0;
+    }
+}
+/* oppure solo button? */

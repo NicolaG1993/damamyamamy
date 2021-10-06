@@ -4,6 +4,9 @@ const path = require("path");
 
 module.exports = {
     reactStrictMode: true,
+    images: {
+        domains: ["cdn.chec.io"],
+    },
 
     webpack(config) {
         config.module.rules.push({

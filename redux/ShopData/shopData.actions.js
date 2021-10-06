@@ -13,7 +13,7 @@ import {
     SORT_BY_PRICE,
 } from "./shopData.types";
 
-import { commerce } from "../../lib/commerce"; // importa axios, api, ...
+import { commerce } from "../../shared/libs/commerce"; // importa axios, api, ...
 
 // Molte delle funzioni che fará il reducer si potranno eliminare se si lavora con server o api, vedi sotto
 export function fetchData() {

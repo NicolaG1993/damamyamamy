@@ -1,0 +1,112 @@
+.shortlist {
+    margin-top: 100px;
+}
+
+.shortlist-topbar {
+    position: relative;
+    text-align: left;
+    /* padding-bottom: 10px;
+     border-bottom: 4px solid rgba(204, 108, 207, 0.377); */
+}
+
+.shortlist-topbar > h3 {
+    display: inline-block;
+    /* position: absolute;
+    left: 0;
+    top: 0; */
+}
+
+.shortlist-btns {
+    /* float: right; */
+    position: absolute;
+    right: 0;
+    /* right: 10px; */
+    top: -2px;
+}
+
+.shortlist-btns > button {
+    margin-left: 15px;
+}
+
+.small-arrow {
+    border-radius: 50%;
+    padding: 4px;
+    cursor: pointer;
+    background-color: rgb(231, 134, 235);
+    border: none;
+    height: 24px;
+    width: 24px;
+    min-width: 0;
+}
+
+.small-arrow:hover {
+    background-color: rgb(204, 108, 207);
+}
+
+.small-arrow-left,
+.small-arrow-right {
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 100%;
+    position: relative;
+}
+
+.small-arrow-left {
+    background-image: url(../assets/left-arrow-white.png);
+    margin-right: 2px;
+}
+.small-arrow-right {
+    background-image: url(../assets/right-arrow-white.png);
+    margin-left: 2px;
+}
+
+.products-small {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    column-gap: 20px;
+    row-gap: 15px;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    min-height: 180px;
+    clear: both;
+}
+
+@media screen and (min-width: 1110px) {
+    /* .shortlist {
+        width: 1110px;
+    } */
+}
+
+@media screen and (max-width: 900px) {
+    .products-small {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media screen and (max-width: 650px) {
+    .products-small {
+        grid-template-columns: 1fr;
+        row-gap: 30px;
+    }
+}
+
+.product-box {
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
+    /* background-color: white; */
+    /* padding: 15px; */
+
+    /* background-color: rgb(240, 240, 240); */
+    /* border-radius: 8px; */
+    overflow: hidden;
+    /* border: 1px solid darkgray; */
+    /* aspect-ratio: 1; pseudo something ?? check pls! */
+    min-height: 275px;
+    text-align: left;
+    width: auto;
+}
+
+.fade-in {
+    opacity: 1;
+}

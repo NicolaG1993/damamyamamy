@@ -1,0 +1,59 @@
+import Link from "next/link";
+import Image from "next/image";
+import styles from "./ItemCard.module.css";
+import CartButton from "../../CartButton/CartButton";
+import { useState } from "react";
+
+export default function ItemCard({ product }) {
+    const [isHovered, setIsHovered] = useState(false);
+    const onMouseEnter = () => {
+        setIsHovered(true);
+    };
+    const onMouseLeave = () => {
+        setIsHovered(false);
+    };
+
+    return (
+        <div
+            className={styles["product-content-wrap"]}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
+        >
+            <Link href={`/item/${product.id}`}>
+                <a className={styles["product-content"]}>
+                    <div className={styles["product-img"]}>
+                        <Image
+                            src={product.media.source || "test1.jpg"}
+                            alt={product.name}
+                            className={styles["product-img-pic"]}
+                            width="100%"
+                            height="100%"
+                            layout="responsive"
+                            objectFit="cover"
+                        />
+                    </div>
+                    {/* <div className={"product-divider"}> </div> */}
+
+                    <div className={styles["product-info"]}>
+                        <h4>{product.name}</h4>
+                        <div className={styles["product-divider-small"]}> </div>
+
+                        <h5>
+                            <span
+                                className={styles["price-for-small-card-tag"]}
+                            >
+                                Prezzo:{" "}
+                            </span>
+                            {product.price.raw}€
+                        </h5>
+                    </div>
+                </a>
+            </Link>
+            <CartButton
+                wrapStatus={isHovered}
+                wrapSize="small"
+                product_id={product.id}
+            />
+        </div>
+    );
+}

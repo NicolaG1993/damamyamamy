@@ -1,0 +1,200 @@
+.product-content-wrap {
+    position: relative;
+    height: 100%;
+    transition: 0.2s ease-in;
+    padding: 10px;
+    border-radius: 15px;
+    /* padding-bottom: 15px; */
+    border: 1px solid rgba(255, 255, 255, 0);
+}
+.product-content {
+    /* height: 100%; */
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 180px auto;
+}
+
+/* .product-divider {
+    height: 1px;
+    width: 100%;
+    background-color: darkgray;
+} */
+.product-img {
+    /* display: inline-block; */
+    overflow: hidden;
+    /* text-align: center; */
+    /* max-width: 276.44px; */
+}
+.product-img-pic {
+    /* height: 100%;
+    width: 100%; */
+    object-fit: cover;
+    object-position: center;
+    transition: 0.5s ease;
+    vertical-align: middle;
+}
+/* questo sará un component forse, uno slider */
+
+.product-info {
+    /* padding: 15px; */
+}
+
+.product-info > h4,
+.product-info > h5 {
+    color: var(--text);
+}
+.product-info > h4 {
+    margin: 15px 0 0 0;
+}
+.product-info > h5 {
+    font-family: var(--fontA);
+    font-weight: bold;
+    margin: 0;
+}
+
+.product-info > h4:nth-child(1) {
+    /* font-weight: normal; */
+    font-size: 16px;
+}
+
+.product-description {
+    max-width: 290px;
+    margin: 10px 0 5px 0;
+}
+
+.price-for-small-card {
+    font-weight: normal;
+
+    /* font-size: 14px; */
+}
+.price-for-small-card-tag {
+    color: violet;
+}
+
+.product-content-wrap:hover {
+    background-color: var(--bg200);
+    border: 1px solid var(--bg400);
+}
+.product-content-wrap:hover a {
+    color: var(--black-white);
+}
+.product-content-wrap:hover img {
+    transform: scale(1.05, 1.05);
+}
+
+.product-content-wrap:hover .product-box {
+    box-shadow: 0px 0px 10px #00000025;
+}
+
+@media screen and (max-width: 650px) {
+    .product-content > a {
+        grid-template-rows: 200px auto;
+    }
+}
+
+/*************************************
+************ SCRIPTS *************
+*************************************/
+.fade-in {
+    opacity: 1;
+}
+
+/*************************************
+************ CART BTN *************
+*************************************/
+/* 🧨da rifare x Shop (.shop-item-wrap:hover)*/
+
+.add-cart,
+.remove-cart {
+    z-index: 3;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s ease;
+    border-color: transparent;
+    border: 1px solid darkgray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-cart > svg {
+    fill: #414141;
+    transition: 0.2s ease;
+    width: 88%;
+}
+
+.remove-cart > svg {
+    fill: #414141;
+    transition: 0.2s ease;
+    width: 55%;
+}
+
+.add-cart:hover,
+.remove-cart:hover {
+    background-color: var(--color000);
+    border-color: transparent;
+}
+.add-cart:hover > svg,
+.remove-cart:hover > svg {
+    fill: white;
+}
+
+.add-cart-for-small,
+.remove-cart-for-small {
+    position: absolute;
+    opacity: 0;
+    top: -5px;
+    right: 8px;
+    box-shadow: 1px 3px 4px #00000025;
+}
+.product-content-wrap:hover .add-cart-for-small,
+.product-content-wrap:hover .remove-cart-for-small {
+    opacity: 1;
+    top: 8px;
+    transition: var(--transition);
+}
+/*x qualche motivo non va transition su button fade-in-out*/
+
+/* .add-cart-for-medium,
+.remove-cart-for-medium {
+    position: absolute;
+    display: hidden;
+    opacity: 0;
+    top: -5px;
+    right: 8px;
+    box-shadow: 1px 3px 4px #00000025;
+}
+.product-content:hover .add-cart-for-medium,
+.product-content:hover .remove-cart-for-medium {
+    display: visible;
+    opacity: 1;
+    top: 8px;
+} */
+
+/* .add-cart > img {
+    display: block;
+    height: 100%;
+    width: 100%;
+} */
+
+.btn {
+    padding: var(--size-200) var(--size-100);
+    min-width: 200px;
+    border-radius: 35px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: bold;
+    font-size: 1rem;
+    font-family: var(--fontA);
+    border: 3px solid var(--text-color);
+    letter-spacing: 1px;
+}
+@media screen and (max-width: 720px) {
+    .btn {
+        width: 100%;
+        margin: 5px 0;
+    }
+}
+/* oppure solo button? */
