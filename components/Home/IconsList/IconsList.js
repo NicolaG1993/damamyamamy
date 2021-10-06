@@ -1,6 +1,7 @@
 import styles from "./style/IconsList.module.css";
 
 export default function IconsList({ iconslistHeight }) {
+    console.log("iconslistHeight", iconslistHeight);
     return (
         <div
             className={styles["iconslist"]}

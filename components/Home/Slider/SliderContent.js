@@ -2,6 +2,7 @@ import styles from "./style/Slider.module.css";
 
 const SliderContent = (props) => (
     <div
+        className={styles["SliderContent"]}
         style={{
             transform: `translateX(-${props.translate}px)`,
             transition: `transform ease-out ${props.transition}s`,

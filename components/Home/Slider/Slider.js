@@ -13,7 +13,7 @@ import Dots from "./Dots";
 export default function Slider({ width }) {
     const { scrollTop } = useScrollPosition();
     // const { width } = useWindowDimensions();
-    console.log("slides", slides);
+    // console.log("slides", slides);
 
     const [parallaxHeight, setParallaxHeight] = useState();
     const autoPlay = 10;
@@ -45,7 +45,7 @@ export default function Slider({ width }) {
         const slider = sliderRef.current;
 
         const smooth = (e) => {
-            if (e.target.className.includes("SliderContent")) {
+            if (e.target.className.includes(styles["SliderContent"])) {
                 transitionRef.current();
             }
         };
@@ -140,7 +140,7 @@ export default function Slider({ width }) {
                     transition={transition}
                     width={width * _slides.length}
                 >
-                    {slides.map((_slide, i) => (
+                    {_slides.map((_slide, i) => (
                         <Slide
                             width={width}
                             key={_slide + i}

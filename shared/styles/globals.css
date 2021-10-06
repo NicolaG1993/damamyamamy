@@ -151,7 +151,7 @@ ul {
     padding: 0;
 }
 
-.App {
+body > div {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -159,7 +159,7 @@ ul {
     margin-top: 70px;
     /* overflow-x: hidden; */
 }
-.App > div:nth-child(2) {
+body > div > div:nth-child(2) {
     /*Importante che App sia una classe, cosí id possono avere la prioritá*/
     padding: var(--padding3);
 }
