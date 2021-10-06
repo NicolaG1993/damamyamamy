@@ -36,7 +36,7 @@ export default function ItemCard({ product }) {
 
                     <div className={styles["product-info"]}>
                         <h4>{product.name}</h4>
-                        <div className={styles["product-divider-small"]}> </div>
+                        <div className={"product-divider-small"}> </div>
 
                         <h5>
                             <span

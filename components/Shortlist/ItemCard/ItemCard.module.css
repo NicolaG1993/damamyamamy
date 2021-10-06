@@ -45,6 +45,7 @@
 }
 .product-info > h4 {
     margin: 15px 0 0 0;
+    min-height: 32px;
 }
 .product-info > h5 {
     font-family: var(--fontA);
