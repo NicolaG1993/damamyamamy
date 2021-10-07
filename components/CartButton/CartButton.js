@@ -81,7 +81,7 @@ export default function CartButton({ showBtn, wrapSize, product_id }) {
     const LargeCartButton = () =>
         isAvailable ? (
             <button
-                className={`${styles.btn} ${styles.status}`}
+                className={`${styles["btn"]} ${styles[status]}`}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
                 onClick={() =>
@@ -92,7 +92,7 @@ export default function CartButton({ showBtn, wrapSize, product_id }) {
             </button>
         ) : (
             <button
-                className={`${styles.btn} ${styles.status}`}
+                className={`${styles["btn"]} ${styles[status]}`}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
                 onClick={() => dispatch(removeFromCart({ productId: itemId }))}

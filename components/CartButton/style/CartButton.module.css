@@ -84,6 +84,8 @@
     border: 3px solid var(--text-color);
     letter-spacing: 1px;
 }
+/* transition non funziona neanche qua? */
+
 @media screen and (max-width: 720px) {
     .btn {
         width: 100%;
@@ -91,3 +93,13 @@
     }
 }
 /* oppure solo button? */
+
+.normal {
+    background: transparent;
+    color: var(--text-color);
+}
+
+.hovered {
+    background: var(--text-color);
+    color: var(--bg000);
+}

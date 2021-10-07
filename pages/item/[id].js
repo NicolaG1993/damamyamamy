@@ -1,51 +1,60 @@
-import loadable from "@loadable/component";
+import dynamic from "next/dynamic";
+import Link from "next/link";
+import { useRouter } from "next/router";
+
 import { useState, useEffect, useRef } from "react";
-import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
-import styles from "./style/Item.module.css";
+// import { Switch, Route, useRouteMatch } from "react-router-dom";
 
-// import Button from "../../Button/Button";
-import CartButton from "../../CartButton/CartButton";
-const Shortlist = loadable(() => import("../../Shortlist/Shortlist"));
-const Gallery = loadable(() => import("./Gallery/Gallery"));
+import styles from "../../components/Shop/Item/style/Item.module.css";
 
-export default function Item({ fetchInitialData, staticContext }) {
-    __isBrowser__
-        ? console.log("window.__INITIAL_DATA__ ", window.__INITIAL_DATA__)
-        : console.log("staticContext ", staticContext);
-
-    const [item, setItem] = useState(() => {
-        return __isBrowser__ ? window.__INITIAL_DATA__ : staticContext.data;
-    });
-    // our data needs when the app is rendered on the server via context and when the app is rendered on the client via window
-
-    if (__isBrowser__ && window.__INITIAL_DATA__) {
-        delete window.__INITIAL_DATA__;
+// import Button from "../../components/Button/Button";
+import CartButton from "../../components/CartButton/CartButton";
+const Shortlist = dynamic(
+    () => import("../../components/Shortlist/Shortlist"),
+    {
+        ssr: false,
     }
+); //giusto?
+const Gallery = dynamic(
+    () => import("../../components/Shop/Item/Gallery/Gallery"),
+    {
+        ssr: false,
+    }
+); //giusto?
 
-    let match = useRouteMatch();
-    let key = match.params.id; // item id
+import { fetchItem } from "../api/api";
+
+///////////////////////
+// devo fare una req ad api e settare Item, all'inizio e quando cambia query
+
+export default function Item() {
+    const [item, setItem] = useState(false); //?
+
+    const router = useRouter();
+    const { id } = router.query;
 
     const [loading, setLoading] = useState(item ? false : true);
-    const fetchNewItem = useRef(item ? false : true);
+    // const fetchNewItem = useRef(item ? false : true);
 
     const [galleryOpen, setGalleryOpen] = useState(false);
     const [clickedPic, setClickedPic] = useState(0);
 
     useEffect(() => {
-        if (fetchNewItem.current === true) {
-            setLoading(true);
-            fetchInitialData(key).then((item) => {
-                setItem(item);
-                setLoading(false);
-            });
+        fetchItem(id).then((item) => {
+            setItem(item);
+        });
+    }, []);
+    useEffect(() => {
+        if (item) {
+            // setLoading(true);
+            // fetchItem(id).then((item) => {
+            //     setItem(item);
+            setLoading(false);
+            // });
         } else {
-            fetchNewItem.current = true;
+            setLoading(true);
         }
-    }, [key, fetchNewItem]);
-
-    // useEffect(() => {
-    //     setItem(selectedItem);
-    // }, [selectedItem]);
+    }, [item]);
 
     const toggleGallery = async (n, boo) => {
         setClickedPic(n);
@@ -58,13 +67,13 @@ export default function Item({ fetchInitialData, staticContext }) {
 
     const PicDisplay = () =>
         item.assets.length > 1 ? (
-            <div className="item-pictures-wrap">
+            <div className={styles["item-pictures-wrap"]}>
                 <img
                     src={item.media.source || "test1.jpg"}
                     onClick={() => toggleGallery(0, true)}
                 />
 
-                <div className="item-pictures-small-wrap">
+                <div className={styles["item-pictures-small-wrap"]}>
                     {item.assets.map((el, i) => (
                         <img
                             key={el.id}
@@ -82,62 +91,70 @@ export default function Item({ fetchInitialData, staticContext }) {
         );
 
     const ItemWrap = () => (
-        <div id="Item">
-            <div className="item-wrap">
-                <div className="item-pic">
+        <div id={styles["Item"]}>
+            <div className={styles["item-wrap"]}>
+                <div className={styles["item-pic"]}>
                     <PicDisplay />
                 </div>
-                <div className="item-infos">
+                <div className={styles["item-infos"]}>
                     <h1>{item.name}</h1>
-                    <div className="item-infos-price">
+                    <div className={styles["item-infos-price"]}>
                         <h2>{item.price.raw}€</h2>
                         <p>IVA inclusa</p>
                     </div>
                     <div className={"product-divider-small"}> </div>
                     <div className={"item-infos-infos-box"}>
-                        <div className="item-infos-conditions">
+                        <div className={styles["item-infos-conditions"]}>
                             <span>Condizioni:</span>
-                            <div className="item-infos-conditions-wrap">
+                            <div
+                                className={styles["item-infos-conditions-wrap"]}
+                            >
                                 <h5>come nuovo</h5>
-                                <div className="circle"></div>
+                                <div className={styles["circle"]}></div>
                             </div>
                         </div>
 
-                        <div className="item-infos-infos">
+                        <div className={styles["item-infos-infos"]}>
                             <span>Categoria:</span>
                             <p>
                                 {item.categories[0] && item.categories[0].name}
                             </p>
                         </div>
 
-                        <div className="item-infos-infos">
+                        <div className={styles["item-infos-infos"]}>
                             <span>Tags:</span>
-                            <div className="item-infos-infos-inner-wrap">
+                            <div
+                                className={
+                                    styles["item-infos-infos-inner-wrap"]
+                                }
+                            >
                                 {item.categories[0] && (
                                     <Link
-                                        to={{
+                                        href={{
                                             pathname: "/shop",
                                             tag: item.categories[0].name,
                                         }}
-                                        className="item-tag"
                                     >
-                                        {item.categories[0].name}
+                                        <a className={styles["item-tag"]}>
+                                            {item.categories[0].name}
+                                        </a>
                                     </Link>
                                 )}
 
                                 <Link
-                                    to={{
+                                    href={{
                                         pathname: "/shop",
                                         tag: "3/5 anni",
                                     }}
-                                    className="item-tag"
                                 >
-                                    3/5 anni
+                                    <a className={styles["item-tag"]}>
+                                        3/5 anni
+                                    </a>
                                 </Link>
                             </div>
                         </div>
 
-                        <div className="item-infos-infos">
+                        <div className={styles["item-infos-infos"]}>
                             <span>Disponibilitá:</span>
                             <p>Pezzo unico</p>
                         </div>
@@ -154,36 +171,36 @@ export default function Item({ fetchInitialData, staticContext }) {
             setInfoDisplay(val);
         }; //posso farlo?
         return (
-            <section className="item-description-wrap">
-                <div className="item-description">
-                    <div className="item-description-selector">
+            <section className={styles["item-description-wrap"]}>
+                <div className={styles["item-description"]}>
+                    <div className={styles["item-description-selector"]}>
                         <h3
                             onClick={() => toggleInfoDisplay("description")}
-                            className={
+                            className={`${
                                 infoDisplay === "description"
-                                    ? "active-selector"
-                                    : "not-active-selector"
-                            }
+                                    ? styles["active-selector"]
+                                    : styles["not-active-selector"]
+                            }`}
                         >
                             Descrizione
                         </h3>
 
                         <h3
                             onClick={() => toggleInfoDisplay("infos")}
-                            className={
+                            className={`${
                                 infoDisplay === "infos"
-                                    ? "active-selector"
-                                    : "not-active-selector"
-                            }
+                                    ? styles["active-selector"]
+                                    : styles["not-active-selector"]
+                            }`}
                         >
                             Informazioni
                         </h3>
                     </div>
 
-                    <div className="item-description-display">
+                    <div className={styles["item-description-display"]}>
                         {infoDisplay === "description" ? (
                             <div
-                                className="dangerHTML-box"
+                                className={styles["dangerHTML-box"]}
                                 dangerouslySetInnerHTML={{
                                     __html: item.description.replace(
                                         /\u00a0/g,
@@ -192,7 +209,7 @@ export default function Item({ fetchInitialData, staticContext }) {
                                 }}
                             ></div>
                         ) : (
-                            <p>Prodotto mai utilizzato</p>
+                            <p>Nessuna informazione</p>
                         )}
                     </div>
                 </div>
@@ -201,7 +218,7 @@ export default function Item({ fetchInitialData, staticContext }) {
     };
 
     const ShortlistWrap = () => (
-        <section className="item-shortlist-wrap">
+        <section className={styles["item-shortlist-wrap"]}>
             {/* <h2>Articoli simili</h2> */}
 
             <Shortlist
@@ -213,26 +230,24 @@ export default function Item({ fetchInitialData, staticContext }) {
 
     if (item) {
         return (
-            <Switch>
-                <Route path={match.path}>
-                    <ItemWrap />
-                    <ItemDescriptionWrap />
-                    <ShortlistWrap />
-                    {galleryOpen && (
-                        <Gallery
-                            toggleGallery={toggleGallery}
-                            item={item}
-                            clickedPic={clickedPic}
-                        />
-                    )}
-                </Route>
-            </Switch>
+            <>
+                <ItemWrap />
+                <ItemDescriptionWrap />
+                <ShortlistWrap />
+                {galleryOpen && (
+                    <Gallery
+                        toggleGallery={toggleGallery}
+                        item={item}
+                        clickedPic={clickedPic}
+                    />
+                )}
+            </>
         );
     }
 
     if (!item) {
         return (
-            <div className="item-wrap">
+            <div className={styles["item-wrap"]}>
                 <div className="loader"></div>
             </div>
         );
