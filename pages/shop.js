@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import styles from "../components/Shop/style/Shop.module.css";
 
@@ -34,8 +35,12 @@ const PageNav = dynamic(() => import("../components/Shop/PageNav/PageNav"), {
 
 // import CategoriesMenu from "./CategoriesMenu/CategoriesMenu";
 
-export default function Shop({ research }) {
+export default function Shop() {
     let data = useSelector(loadData, shallowEqual);
+
+    const router = useRouter();
+    const { research } = router.query;
+    console.log("research", research);
 
     const dispatch = useDispatch();
     useEffect(() => {

@@ -134,7 +134,10 @@ export default function Item() {
                                     <Link
                                         href={{
                                             pathname: "/shop",
-                                            tag: item.categories[0].name,
+                                            query: {
+                                                research:
+                                                    item.categories[0].name,
+                                            },
                                         }}
                                     >
                                         <a className={styles["item-tag"]}>
@@ -146,7 +149,7 @@ export default function Item() {
                                 <Link
                                     href={{
                                         pathname: "/shop",
-                                        tag: "3/5 anni",
+                                        query: { research: "3/5 anni" },
                                     }}
                                 >
                                     <a className={styles["item-tag"]}>

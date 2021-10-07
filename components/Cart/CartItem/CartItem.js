@@ -1,22 +1,24 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { removeFromCart } from "../../../redux/LoadCart/loadCart.actions";
 
-export default function CartItem({ item }) {
+export default function CartItem({ item, styles }) {
     const dispatch = useDispatch();
     console.log("props in CartItem.js: ", item);
     return (
         <div>
-            <div className={"cart-product-content"}>
-                <Link to={`/item/${item.product_id}`}>
-                    <img src={item.media.source} alt={item.name} />
-                    <div className="cart-product-info">
-                        <h4>{item.name}</h4>
-                        <h5>€ {item.price.raw}</h5>
-                    </div>
+            <div className={styles["cart-product-content"]}>
+                <Link href={`/item/${item.product_id}`}>
+                    <a>
+                        <img src={item.media.source} alt={item.name} />
+                        <div className={styles["cart-product-info"]}>
+                            <h4>{item.name}</h4>
+                            <h5>€ {item.price.raw}</h5>
+                        </div>
+                    </a>
                 </Link>
                 <button
-                    className="cart-remove-button"
+                    className={styles["cart-remove-button"]}
                     onClick={() =>
                         dispatch(removeFromCart({ productId: item.id }))
                     }
@@ -25,7 +27,7 @@ export default function CartItem({ item }) {
                 </button>
             </div>
 
-            <div className="white-separator"></div>
+            <div className={styles["white-separator"]}></div>
         </div>
     );
 }

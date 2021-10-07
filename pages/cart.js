@@ -1,12 +1,14 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
-import CartItem from "./CartItem/CartItem";
-import Button from "../Button/Button";
-import "./style/Cart.css";
+import Link from "next/link";
+
+import CartItem from "../components/Cart/CartItem/CartItem";
+import Button from "../components/Button/Button";
+
+import styles from "../components/Cart/style/Cart.module.css";
 
 // REDUX
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { emptyCart } from "../../redux/LoadCart/loadCart.actions";
+import { emptyCart } from "../redux/LoadCart/loadCart.actions";
 const selectCart = (state) => state.loadCart.cart;
 
 export default function Cart() {
@@ -35,16 +37,16 @@ export default function Cart() {
     );
 
     const FilledCart = () => (
-        <div className={"cart-container"}>
-            <div className={"cart-products"}>
+        <div className={styles["cart-container"]}>
+            <div className={styles["cart-products"]}>
                 {cart.line_items.map((item) => (
-                    <div className={"cart-product-box"} key={item.id}>
-                        <CartItem item={item} />
+                    <div className={styles["cart-product-box"]} key={item.id}>
+                        <CartItem item={item} styles={styles} />
                     </div>
                 ))}
             </div>
-            <div className={"cart-interact"}>
-                <div className="cart-total">
+            <div className={styles["cart-interact"]}>
+                <div className={styles["cart-total"]}>
                     <span></span>
                     <h3>
                         Totale: <br />
@@ -54,7 +56,7 @@ export default function Cart() {
 
                 <span></span>
 
-                <div className="cart-btns">
+                <div className={styles["cart-btns"]}>
                     <Button
                         text="Svuota il carrello"
                         type="function"
@@ -75,8 +77,8 @@ export default function Cart() {
     if (!cart) return <p>Loading...</p>;
 
     return (
-        <div id="cart-comp">
-            <div className={"cart-comp-wrapper"}>
+        <div id={styles["cart-comp"]}>
+            <div className={styles["cart-comp-wrapper"]}>
                 <h2>Il tuo carrello</h2>
 
                 {!cart.line_items.length ? <EmptyCart /> : <FilledCart />}
