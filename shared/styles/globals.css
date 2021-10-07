@@ -355,3 +355,9 @@ body > div > div:nth-child(2) {
         width: 100%;
     }
 }
+
+/* OVERWRITE */
+.input-range__label {
+    color: ghostwhite;
+    font-family: "Nunito Sans";
+}

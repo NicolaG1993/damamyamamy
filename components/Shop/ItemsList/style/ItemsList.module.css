@@ -8,22 +8,6 @@
     row-gap: var(--size300);
 }
 
-.shop-item-wrap {
-    /* flex-basis: 80px; */
-    opacity: 0;
-    transition: opacity 0.5s ease-in;
-    /* background-color: white; */
-    /* padding: 15px; */
-    /* background-color: rgb(240, 240, 240); */
-    /* border-radius: 8px; */
-    overflow: hidden;
-    /* border: 1px solid darkgray; */
-    /* aspect-ratio: 1; pseudo something ?? check pls! */
-    min-height: 275px;
-    text-align: left;
-    position: relative;
-}
-
 .fade-in {
     opacity: 1;
 }

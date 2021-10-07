@@ -44,10 +44,7 @@
     right: 8px;
     box-shadow: 1px 3px 4px #00000025;
 }
-.product-content:hover .add-cart-for-small,
-.product-content:hover .remove-cart-for-small,
-.shop-item-wrap:hover .add-cart-for-small,
-.shop-item-wrap:hover .remove-cart-for-small {
+.show {
     display: visible;
     opacity: 1;
     top: 8px;

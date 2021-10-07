@@ -12,7 +12,9 @@ export default function HamburgerButton({ navIsActive, toggleNav }) {
         <div
             id={styles["hamBtn2"]}
             className={`${
-                navIsActive ? styles["hamBtn2 active"] : styles["hamBtn"]
+                navIsActive
+                    ? `${styles["hamBtn2"]} ${styles["active"]}`
+                    : styles["hamBtn2"]
             }`}
             onClick={toggleNav}
         >

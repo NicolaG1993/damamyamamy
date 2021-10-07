@@ -1,5 +1,6 @@
 import InputRange from "react-input-range";
 import "react-input-range/lib/css/index.css";
+import DEFAULT_CLASS_NAMES from "react-input-range/src/js/input-range/default-class-names.js";
 import styles from "./style/FilterForm.module.css";
 
 export default function FilterForm({
@@ -11,6 +12,7 @@ export default function FilterForm({
     filters,
     filtersBar,
 }) {
+    console.log("DEFAULT_CLASS_NAMES", DEFAULT_CLASS_NAMES);
     const updateInputValues = () => {
         let minInput = document.querySelector("#priceMin");
         let maxInput = document.querySelector("#priceMax");
@@ -19,11 +21,7 @@ export default function FilterForm({
     };
 
     return (
-        <form
-            className={`${
-                filtersBar ? styles["filter-form"] : styles["hidden"]
-            }`}
-        >
+        <form className={`${filtersBar ? styles["filter-form"] : "hidden"}`}>
             <div className={styles["filter-form-col-left"]}>
                 <label>
                     <span>Ricerca per nome</span>
@@ -71,6 +69,11 @@ export default function FilterForm({
 
             <div className={styles["filter-form-col-full"]}>
                 <InputRange
+                    classNames={{
+                        ...DEFAULT_CLASS_NAMES,
+                        labelContainer: `input-range__label-container ${styles["my-label"]}`,
+                        valueLabel: `input-range__label input-range__label--value ${styles["my-label"]}`,
+                    }}
                     maxValue={topValue}
                     minValue={0}
                     value={{

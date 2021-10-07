@@ -50,7 +50,7 @@ export default function ItemCard({ product }) {
                 </a>
             </Link>
             <CartButton
-                wrapStatus={isHovered}
+                showBtn={isHovered}
                 wrapSize="small"
                 product_id={product.id}
             />

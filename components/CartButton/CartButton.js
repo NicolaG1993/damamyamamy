@@ -4,7 +4,8 @@ import {
     addToCart,
     removeFromCart,
 } from "../../redux/LoadCart/loadCart.actions";
-import styles from "../Shortlist/ItemCard/ItemCard.module.css";
+import styles from "./style/CartButton.module.css";
+
 import ShoppingCart from "./assets/shopping-cart.svg";
 import X from "./assets/x.svg";
 
@@ -15,7 +16,7 @@ const STATUS = {
     NORMAL: "normal",
 };
 
-export default function CartButton({ wrapSize, product_id }) {
+export default function CartButton({ showBtn, wrapSize, product_id }) {
     const [status, setStatus] = useState(STATUS.NORMAL);
     const onMouseEnter = () => {
         setStatus(STATUS.HOVERED);
@@ -57,7 +58,9 @@ export default function CartButton({ wrapSize, product_id }) {
     const SmallCartButton = () =>
         isAvailable ? (
             <button
-                className={`${styles["add-cart"]} ${styles["add-cart-for-small"]}`}
+                className={`${styles["add-cart"]} ${
+                    styles["add-cart-for-small"]
+                } ${showBtn ? styles["show"] : ""}`}
                 onClick={() =>
                     dispatch(addToCart({ productId: product_id, quantity: 1 }))
                 }
@@ -66,7 +69,9 @@ export default function CartButton({ wrapSize, product_id }) {
             </button>
         ) : (
             <button
-                className={`${styles["remove-cart"]} ${styles["remove-cart-for-small"]}`}
+                className={`${styles["remove-cart"]} ${
+                    styles["remove-cart-for-small"]
+                } ${showBtn ? styles["show"] : ""}`}
                 onClick={() => dispatch(removeFromCart({ productId: itemId }))}
             >
                 <X />

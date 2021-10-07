@@ -11,6 +11,7 @@ const loadFilteredItems = (state) => state.shopData.filteredItems;
 const loadPageNav = (state) => state.pageNav;
 
 export default function ItemsList() {
+    //COMPONENT
     let pagination = useSelector(loadPageNav, shallowEqual);
     let filteredItems = useSelector(loadFilteredItems, shallowEqual);
 
@@ -19,11 +20,11 @@ export default function ItemsList() {
 
     // console.log("🧠🧠🧠PAGINATION!!!!!", pagination.displayedItems);
 
-    useEffect(() =>
-        document.querySelectorAll(".shop-item-wrap").forEach((el) => {
-            el.classList.add("fade-in");
-        })
-    );
+    useEffect(() => {
+        document.querySelectorAll(".fade-selector").forEach((el) => {
+            el.classList.add(styles["fade-in"]);
+        });
+    });
 
     const dispatch = useDispatch();
     const setPageState = (arg) =>
@@ -55,16 +56,7 @@ export default function ItemsList() {
                 onPage.length < 1 ? (
                     <h4>No results</h4>
                 ) : (
-                    onPage.map((item) => (
-                        <div className={styles["shop-item-wrap"]} key={item.id}>
-                            <Link href={`/item/${item.id}`}>
-                                <a>
-                                    <ItemCard item={item} />
-                                </a>
-                            </Link>
-                            <CartButton wrapSize="small" product_id={item.id} />
-                        </div>
-                    ))
+                    onPage.map((item) => <ItemCard item={item} key={item.id} />)
                 )
             ) : (
                 <div>Loading</div>
