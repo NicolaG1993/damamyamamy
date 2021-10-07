@@ -7,7 +7,7 @@ export default function Nav() {
             <h4>Links</h4>
             <ul>
                 <li>
-                    <Link href="/about">
+                    <Link href="/chi-siamo">
                         <a>Chi siamo</a>
                     </Link>
                 </li>
@@ -27,7 +27,7 @@ export default function Nav() {
                     </Link>
                 </li>
                 <li>
-                    <Link href="/contact">
+                    <Link href="/contatto">
                         <a>Contattaci / Assistenza</a>
                     </Link>
                 </li>
