@@ -1,0 +1,93 @@
+/* .item-card {
+    height: 150px;
+    padding: var(--size-100);
+    background-color: var(--bg200);
+    transition: 0.15s ease-in-out;
+    /* transition: var(--transition); */
+/*}*/
+
+.shop-item-wrap:hover .item-card {
+    background-color: var(--bg200);
+    border: 1px solid var(--bg400);
+    color: var(--black-white);
+}
+
+.shop-item-wrap:hover .item-card img {
+    transform: scale(1.05, 1.05);
+}
+
+/*COPIED HERE*/
+
+.item-card {
+    position: relative;
+    height: 100%;
+    transition: 0.2s ease-in;
+    padding: 10px;
+    border-radius: 15px;
+    /* padding-bottom: 15px; */
+    border: 1px solid rgba(255, 255, 255, 0);
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 180px auto;
+    color: var(--text);
+}
+
+.item-card-divider-small {
+    height: 3px;
+    width: 66%;
+    background-color: var(--divider);
+    margin: 12px 0;
+}
+.item-card-img {
+    /* display: inline-block; */
+    overflow: hidden;
+    /* text-align: center; */
+    /* max-width: 276.44px; */
+}
+.item-card-img > img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: 0.5s ease;
+    vertical-align: middle;
+}
+/* questo sará un component forse, uno slider */
+
+.item-card-info {
+    /* padding: 15px; */
+}
+
+.item-card h3 {
+    margin: 15px 0 0 0;
+}
+
+.item-card-info > h4:nth-child(1) {
+    /* font-weight: normal; */
+    font-size: 16px;
+}
+
+.item-card-description {
+    /* max-width: 290px; */
+    margin: 10px 0;
+}
+
+.item-card-description p {
+    margin: 0;
+
+    max-width: 100%;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.price-for-item-card {
+    color: var(--color000);
+}
+
+@media screen and (max-width: 720px) {
+    .item-card-divider-small {
+        width: 100%;
+    }
+}

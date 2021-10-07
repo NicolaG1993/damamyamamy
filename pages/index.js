@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 
 // REDUX

@@ -1,0 +1,75 @@
+#hamBtn2 {
+    width: 22.5px;
+    height: 22.5px;
+}
+
+.hamBtn2 {
+    width: 25px;
+    height: 35px;
+    position: relative;
+    justify-self: end;
+    align-self: center;
+    /* display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; */
+    cursor: pointer;
+}
+.stick2 {
+    width: 22px;
+    height: 4px;
+
+    left: 50%;
+    background-color: ghostwhite;
+    border-radius: 20px;
+    position: absolute;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+    transition: 0.5s;
+}
+.stick2:before,
+.stick2:after {
+    content: "";
+    position: absolute;
+    width: 22px;
+    height: 4px;
+    background-color: ghostwhite;
+    transition: 0.5s;
+    border-radius: 20px;
+}
+.stick2:before {
+    top: -8px;
+}
+.stick2:after {
+    top: 8px;
+}
+
+.hamBtn2.active .stick2 {
+    background: rgba(0, 0, 0, 0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0);
+    right: 250px;
+}
+.hamBtn2.active .stick2:before {
+    background: ghostwhite;
+    top: 0;
+    transform: rotate(45deg);
+}
+.hamBtn2.active .stick2:after {
+    background: ghostwhite;
+    top: 0;
+    transform: rotate(135deg);
+}
+
+.hamBtn2:hover > .stick2,
+.hamBtn2:hover > .stick2:before,
+.hamBtn2:hover > .stick2:after {
+    background: white;
+}
+.hamBtn2.active:hover > .stick2:before,
+.hamBtn2.active:hover > .stick2:after {
+    background: white;
+}
+.hamBtn2.active:hover > .stick2 {
+    background: rgba(0, 0, 0, 0);
+}
