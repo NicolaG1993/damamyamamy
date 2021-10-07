@@ -32,6 +32,7 @@ export default function Item() {
 
     const router = useRouter();
     const { id } = router.query;
+    console.log("id", id);
 
     const [loading, setLoading] = useState(item ? false : true);
     // const fetchNewItem = useRef(item ? false : true);
@@ -40,10 +41,11 @@ export default function Item() {
     const [clickedPic, setClickedPic] = useState(0);
 
     useEffect(() => {
-        fetchItem(id).then((item) => {
-            setItem(item);
-        });
-    }, []);
+        id &&
+            fetchItem(id).then((item) => {
+                setItem(item);
+            });
+    }, [id]);
     useEffect(() => {
         if (item) {
             // setLoading(true);
