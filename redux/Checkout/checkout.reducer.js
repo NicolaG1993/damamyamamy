@@ -5,7 +5,7 @@ import {
     HANDLE_ERROR,
 } from "./checkout.types";
 
-const INITIAL_STATE = {};
+const INITIAL_STATE = { smth: 0 };
 
 export default function reducer(state = INITIAL_STATE, action) {
     switch (action.type) {

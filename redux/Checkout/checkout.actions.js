@@ -4,7 +4,7 @@ import {
     HANDLE_ERROR,
 } from "./checkout.types";
 
-import { commerce } from "../../lib/commerce";
+import { commerce } from "../../shared/libs/commerce";
 
 export function loadCheckout() {
     return {
