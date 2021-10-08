@@ -1,6 +1,6 @@
-require("dotenv").config();
-const Dotenv = require("dotenv-webpack");
-const path = require("path");
+// require("dotenv").config();
+// const Dotenv = require("dotenv-webpack");
+// const path = require("path");
 
 module.exports = {
     reactStrictMode: true,
