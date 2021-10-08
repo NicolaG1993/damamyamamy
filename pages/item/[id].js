@@ -24,11 +24,22 @@ const Gallery = dynamic(
 
 import { fetchItem } from "../api/api";
 
+///////////////////////////////////////////
+
+export async function getServerSideProps(context) {
+    const { id } = context.query;
+    const fetchedItem = await fetchItem(id);
+    // const country = await res.json();
+
+    console.log(`Fetched item: ${fetchedItem}`);
+    return { props: { fetchedItem } };
+}
+
 ///////////////////////
 // devo fare una req ad api e settare Item, all'inizio e quando cambia query
 
-export default function Item() {
-    const [item, setItem] = useState(false); //?
+export default function Item({ fetchedItem }) {
+    const [item, setItem] = useState(fetchedItem); //?
 
     const router = useRouter();
     const { id } = router.query;
