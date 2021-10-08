@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import styles from "./style/Slider.module.css";
-import slides from "./assets/images";
+// import slides from "./assets/images";
 
 import useScrollPosition from "../../../shared/utils/useScrollPosition";
 // import useWindowDimensions from "../../../utils/useWindowDimensions";
@@ -10,7 +10,13 @@ import Slide from "./Slide";
 import Arrow from "./Arrow";
 import Dots from "./Dots";
 
+import PicA from "./assets/pics/test4.jpg";
+import PicB from "./assets/pics/pic4.jpg";
+import PicC from "./assets/pics/pic3.jpg";
+import PicD from "./assets/pics/pic2a.jpg";
+
 export default function Slider({ width }) {
+    let slides = [PicA, PicB, PicC, PicD];
     const { scrollTop } = useScrollPosition();
     // const { width } = useWindowDimensions();
     // console.log("slides", slides);
