@@ -22,7 +22,7 @@ export default function ItemCard({ product }) {
             <Link href={`/item/${product.id}`}>
                 <a className={styles["product-content"]}>
                     <div className={styles["product-img"]}>
-                        <Image
+                        <img
                             src={product.media.source || "test1.jpg"}
                             alt={product.name}
                             className={styles["product-img-pic"]}

@@ -26,7 +26,7 @@ import { fetchItem } from "../api/api";
 
 ///////////////////////////////////////////
 
-export async function getServerSideProps(context) {
+export async function getInitialProps(context) {
     const { id } = context.query;
     const fetchedItem = await fetchItem(id);
     // const country = await res.json();
