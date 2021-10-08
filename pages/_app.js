@@ -38,8 +38,7 @@ sul primo render di App abbiamo un secondo senza css, come coprirlo? 🐸?
 
 axios? mi serve per fare richieste a server? 🧠
 
-integrazione SSR con AWS 🧨
-in Item data non é preloaded
+deploy (integrazione SSR) con AWS 🧨
 
 SEO 🧨
 mettere i vari <head>

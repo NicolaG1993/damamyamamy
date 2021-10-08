@@ -32,9 +32,10 @@ export default function Checkout() {
     const [checkoutToken, setCheckoutToken] = useState(null);
     const [shippingData, setShippingData] = useState({});
     // const history = useHistory();
-    const [isFinished, setIsFinished] = useState(false); //this is only for test
+    const [isFinished, setIsFinished] = useState(false); //this is only for test#
 
-    useEffect(() => dispatch(loadCheckout()), []);
+    const dispatch = useDispatch();
+    useEffect(() => dispatch(loadCheckout()), [dispatch]);
 
     //STEPS FUNCTIONS
     const nextStep = () => {
@@ -49,7 +50,6 @@ export default function Checkout() {
         // console.log("shippingData: ", shippingData);
     };
 
-    const dispatch = useDispatch();
     const handleCaptureCheckout = async (checkoutTokenId, newOrder) => {
         console.log("handleCaptureCheckout activated! 🥶🧨🎅");
         if (checkoutTokenId === "test") {
@@ -65,6 +65,7 @@ export default function Checkout() {
         }
     };
     //quando abbiamo un ordine allora facciamo il refresh
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => order && dispatch(refreshCart()), [order]);
 
     useEffect(() => {
@@ -163,6 +164,7 @@ export default function Checkout() {
     //  (after testing) remove the "isFinished" condition and leave only the spinner
 
     if (error) {
+        // eslint-disable-next-line react/display-name
         Confirmation = () => (
             <div className={styles["confirmation-wrap"]}>
                 <div>
