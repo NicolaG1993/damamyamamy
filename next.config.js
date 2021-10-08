@@ -6,6 +6,7 @@
 
 module.exports = {
     reactStrictMode: true,
+    disableStaticImages: true,
 
     images: {
         domains: ["cdn.chec.io"],
@@ -23,16 +24,10 @@ module.exports = {
     //per deploy
 
     webpack(config) {
-        config.module.rules.push(
-            {
-                test: /\.svg$/,
-                use: ["@svgr/webpack"],
-            },
-            {
-                test: /\.(png|jpg|jpeg|gif)$/i,
-                type: "asset/resource",
-            }
-        );
+        config.module.rules.push({
+            test: /\.svg$/,
+            use: ["@svgr/webpack"],
+        });
         // config.plugins.push(
         //     new Dotenv({ path: path.join(__dirname, ".env"), systemvars: true })
         // );
