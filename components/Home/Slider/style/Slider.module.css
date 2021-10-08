@@ -41,6 +41,8 @@
 .slide {
     background-repeat: no-repeat;
     background-position: center;
+    object-fit: cover;
+    object-position: center;
 }
 
 .SliderContent {
