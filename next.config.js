@@ -1,11 +1,12 @@
 // require("dotenv").config();
 // const Dotenv = require("dotenv-webpack");
 // const path = require("path");
-const withImages = require("next-images");
 
-module.exports = withImages({
+// const withImages = require("next-images");
+
+module.exports = {
     reactStrictMode: true,
-    fileExtensions: ["jpg", "jpeg", "png", "gif"],
+
     images: {
         domains: ["cdn.chec.io"],
     },
@@ -22,10 +23,16 @@ module.exports = withImages({
     //per deploy
 
     webpack(config) {
-        config.module.rules.push({
-            test: /\.svg$/,
-            use: ["@svgr/webpack"],
-        });
+        config.module.rules.push(
+            {
+                test: /\.svg$/,
+                use: ["@svgr/webpack"],
+            },
+            {
+                test: /\.(png|jpg|jpeg|gif)$/i,
+                type: "asset/resource",
+            }
+        );
         // config.plugins.push(
         //     new Dotenv({ path: path.join(__dirname, ".env"), systemvars: true })
         // );
@@ -55,4 +62,4 @@ module.exports = withImages({
 
         return config;
     },
-});
+};
