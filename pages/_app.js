@@ -36,6 +36,8 @@ Layout o ColorModeButton - prevent reload 🧠
 
 sul primo render di App abbiamo un secondo senza css, come coprirlo? 🐸?
 
+components mancanti: CookieOverlay, Documents 🧨
+
 axios? mi serve per fare richieste a server? 🧠
 
 deploy (integrazione SSR) con AWS 🧨
