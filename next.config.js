@@ -2,8 +2,6 @@
 // const Dotenv = require("dotenv-webpack");
 // const path = require("path");
 
-const { DefinePlugin } = require("webpack");
-
 module.exports = {
     reactStrictMode: true,
     images: {
@@ -21,7 +19,7 @@ module.exports = {
         //per local
 
         config.plugins.push(
-            new DefinePlugin({
+            new options.webpack.DefinePlugin({
                 "process.env": {
                     REACT_APP_CHEC_PUBLIC_KEY: JSON.stringify(
                         process.env.REACT_APP_CHEC_PUBLIC_KEY
