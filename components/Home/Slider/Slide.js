@@ -11,7 +11,9 @@ const Slide = ({ content, width }) => {
             width={`${width}px`}
             height="100%"
             className={styles["slide"]}
-            objectFit="cover"
+            style={{
+                objectFit: "cover",
+            }}
         />
     );
     // return (
