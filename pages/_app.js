@@ -47,3 +47,10 @@ mettere i vari <head>
 fare SEO tests
 
 */
+
+/*
+env:
+
+posso provare au usare desinenze NEXT_ ... invece di REACT_APP_...
+forse non devo passare process env a deploy in quanto gia cé?
+*/
