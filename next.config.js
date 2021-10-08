@@ -8,20 +8,14 @@ module.exports = {
         domains: ["cdn.chec.io"],
     },
 
-    // env: {
-    //     REACT_APP_CHEC_PUBLIC_KEY: JSON.stringify(
-    //         process.env.REACT_APP_CHEC_PUBLIC_KEY
-    //     ),
-    //     REACT_APP_STRIPE_PUBLIC_KEY: JSON.stringify(
-    //         process.env.REACT_APP_STRIPE_PUBLIC_KEY
-    //     ),
-    //     REACT_APP_PAYPAL_CLIENT_ID: JSON.stringify(
-    //         process.env.REACT_APP_PAYPAL_CLIENT_ID
-    //     ),
-    //     secretCookie: JSON.stringify(process.env.secretCookie),
-    //     REACT_AWS_KEY: JSON.stringify(process.env.REACT_AWS_KEY),
-    //     REACT_AWS_SECRET: JSON.stringify(process.env.REACT_AWS_SECRET),
-    // },
+    env: {
+        REACT_APP_CHEC_PUBLIC_KEY: process.env.REACT_APP_CHEC_PUBLIC_KEY,
+        REACT_APP_STRIPE_PUBLIC_KEY: process.env.REACT_APP_STRIPE_PUBLIC_KEY,
+        REACT_APP_PAYPAL_CLIENT_ID: process.env.REACT_APP_PAYPAL_CLIENT_ID,
+        secretCookie: process.env.secretCookie,
+        REACT_AWS_KEY: process.env.REACT_AWS_KEY,
+        REACT_AWS_SECRET: process.env.REACT_AWS_SECRET,
+    },
 
     //per deploy
 
