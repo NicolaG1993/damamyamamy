@@ -1,8 +1,9 @@
 // require("dotenv").config();
 // const Dotenv = require("dotenv-webpack");
 // const path = require("path");
+const withImages = require("next-images");
 
-module.exports = {
+module.exports = withImages({
     reactStrictMode: true,
     images: {
         domains: ["cdn.chec.io"],
@@ -53,4 +54,4 @@ module.exports = {
 
         return config;
     },
-};
+});
