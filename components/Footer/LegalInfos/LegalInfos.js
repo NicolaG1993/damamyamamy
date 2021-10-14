@@ -26,9 +26,14 @@ export default function LegalInfos() {
                         <a>Cookies policy</a>
                     </Link>
                 </li>
-                <li>
+                {/* <li>
                     <Link href={"/info/termini-e-condizioni"}>
                         <a>Termini e condizioni</a>
+                    </Link>
+                </li> */}
+                <li>
+                    <Link href={"/info/faq"}>
+                        <a>Domande frequenti</a>
                     </Link>
                 </li>
                 {/* <p>Metodi di pagamento / Spedizione</p> */}

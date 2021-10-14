@@ -3,6 +3,13 @@ import styles from "../../components/Documents/Document.module.css";
 
 export default function TermsAndConditions() {
     return (
+        <>
+            <h1>Termini e condizioni</h1>
+        </>
+    );
+
+    /*
+    return (
         <div className={styles["document-comp"]}>
             <h1>Termini e condizioni</h1>
 
@@ -137,4 +144,5 @@ export default function TermsAndConditions() {
             </div>
         </div>
     );
+    */
 }

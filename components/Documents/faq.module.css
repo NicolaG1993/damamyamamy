@@ -1,0 +1,58 @@
+#FAQ h1 {
+    margin-bottom: var(--size300);
+}
+
+.dropdown-wrap {
+    color: var(--text);
+}
+
+.dropdown-wrap > div:nth-child(1) {
+    height: 50px;
+    background-color: var(--bg200);
+    cursor: pointer;
+    padding-left: var(--size-100);
+    transition: var(--transition);
+    border-bottom: 1px solid var(--color000);
+}
+.dropdown-wrap > div:nth-child(1):hover {
+    background-color: var(--bg300);
+}
+.dropdown-wrap > div:nth-child(1) > h3 {
+    line-height: 50px;
+}
+.dropdown-wrap > div:nth-child(2) {
+    background-color: var(--bg000);
+}
+.display-dropdown {
+    max-height: 100%;
+    padding: var(--size100);
+    transition: 0.25s ease-out;
+}
+.hide-dropdown {
+    overflow: hidden;
+    max-height: 0;
+    padding: 0 20px;
+    transition: 0.35s ease-in-out;
+}
+
+.dropdown-wrap > div:nth-child(2) > p {
+}
+.display-p {
+    position: relative;
+    top: 0;
+    opacity: 1;
+    transition: 0.5s ease-in;
+}
+.hide-p {
+    position: relative;
+    top: -18px;
+    opacity: 0;
+    transition: 0.5s ease-in;
+}
+
+@media screen and (min-width: 1110px) {
+    #FAQ {
+        width: 1110px;
+        margin: auto;
+    }
+}
