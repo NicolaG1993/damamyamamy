@@ -6,18 +6,28 @@ export default function LegalInfos() {
         <nav className={styles["legal-footer"]}>
             <h4>Informazioni</h4>
             <ul>
+                {/* <li>
+                    <Link href={"/info/vendi"}>
+                        <a>Come vendere</a>
+                    </Link>
+                </li>*/}
                 <li>
-                    <Link href={"/example-doc"}>
+                    <Link href={"/info/regolamento"}>
+                        <a>Regolamento</a>
+                    </Link>
+                </li>
+                <li>
+                    <Link href={"/info/note-legali"}>
                         <a>Note legali</a>
                     </Link>
                 </li>
                 <li>
-                    <Link href={"/cookie-policy"}>
+                    <Link href={"/info/cookie-policy"}>
                         <a>Cookies policy</a>
                     </Link>
                 </li>
                 <li>
-                    <Link href={"/terms-conditions"}>
+                    <Link href={"/info/termini-e-condizioni"}>
                         <a>Termini e condizioni</a>
                     </Link>
                 </li>

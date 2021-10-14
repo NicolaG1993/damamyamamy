@@ -59,12 +59,23 @@ export default function ContactList() {
                         <div
                             className={`${styles["contact-address-text"]} ${styles["contact-address-text4"]}`}
                         >
-                            <p>
+                            {/* <p>
                                 Siamo aperti{" "}
                                 <span id="tablet-line-breaker"></span>
                                 dal lunedí al venerdí
                             </p>
-                            <p>dalle 09:00 alle 16:00</p>
+                            <p>dalle 09:00 alle 16:00</p> */}
+
+                            <p id={styles["tablet-p-margin"]}>
+                                09:00 - 14:00
+                                <span id="tablet-line-breaker"></span> lunedí
+                                venerdí sabato
+                            </p>
+                            <p>
+                                09:00 - 18:30
+                                <span id="tablet-line-breaker"></span> martedí
+                                mercoledí giovedí
+                            </p>
                         </div>
                     </div>
                 </div>

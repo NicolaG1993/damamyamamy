@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "./style/ContactCard.module.css";
 
 export default function ContactCard() {
@@ -18,6 +19,13 @@ export default function ContactCard() {
                     <a href="mailto:damamyamamy@gmail.com">
                         damamyamamy@gmail.com
                     </a>
+                </li>
+                <li>
+                    <Link href="/contatto">
+                        <a>
+                            <strong>Vedi orari di apertura</strong>
+                        </a>
+                    </Link>
                 </li>
             </ul>
         </nav>

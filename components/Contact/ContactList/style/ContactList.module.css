@@ -55,6 +55,10 @@
     color: var(--color100);
 }
 
+#tablet-p-margin {
+    margin-bottom: 0.2rem;
+}
+
 @media screen and (max-width: 900px) {
     .contact-list-wrap {
         flex-direction: row;
@@ -77,6 +81,10 @@
 
     .contact-list-wrap > div:nth-child(1) > .contact-list-box:nth-child(5) {
         margin-bottom: 0;
+    }
+
+    #tablet-p-margin {
+        margin-bottom: 0.5rem;
     }
 }
 

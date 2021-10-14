@@ -1,0 +1,40 @@
+#Document h1,
+#Document h2 {
+    margin-bottom: var(--size300);
+}
+
+.document-text-wrap {
+    margin: var(--size300) var(--left-indent) 0;
+}
+
+.document-text-wrap h3 {
+    margin-bottom: var(--size200);
+}
+.document-text-wrap p {
+    margin-bottom: var(--size200);
+}
+.document-text-wrap a {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.end-paragraph {
+    margin-bottom: var(--size400);
+}
+
+@media screen and (min-width: 1110px) {
+    #Document {
+        width: 1110px;
+        margin: auto;
+    }
+}
+@media screen and (max-width: 720px) {
+    #Document {
+        text-align: justify;
+    }
+}
+@media screen and (max-width: 550px) {
+    .document-text-wrap {
+        margin: 0;
+    }
+}

@@ -46,6 +46,9 @@ SEO 🧨
 mettere i vari <head>
 fare SEO tests
 
+implementare DB e API
+testare pagamenti
+
 */
 
 /*

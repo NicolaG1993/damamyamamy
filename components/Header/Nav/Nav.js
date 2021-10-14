@@ -24,7 +24,7 @@ const links = [
         title: "Contatto",
     },
     {
-        to: "/regolamento",
+        to: "/info/vendi",
         title: "Vendi",
     },
 ];

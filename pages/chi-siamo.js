@@ -62,7 +62,7 @@ function About() {
                     <br />
 
                     <h4>
-                        <Link href={"/contact"}>
+                        <Link href={"/contatto"}>
                             <a>Contattaci!</a>
                         </Link>
                     </h4>

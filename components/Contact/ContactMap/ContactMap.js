@@ -24,9 +24,17 @@ export default function ContactMap() {
                 <div>
                     <ShopFacade />
                     <div className={styles["contact-icons-text"]}>
-                        <h3>Orario negozio</h3>
-                        <p>Lunedí - Venerdí</p>
-                        <p>09:00 - 16:00</p>
+                        <h3>Orari negozio</h3>
+                        <p>
+                            Lunedí Venerdí Sabato
+                            <br />
+                            09:00 - 14:00
+                        </p>
+                        <p>
+                            Martedí Mercoledí Giovedí
+                            <br />
+                            09:00 - 18:30
+                        </p>
                     </div>
                 </div>
                 <div>
@@ -38,24 +46,39 @@ export default function ContactMap() {
                     {/* <CargoTruck /> */}
                     <div className={styles["contact-icons-text"]}>
                         <h3>Spedizioni</h3>
-                        <p>Servizio di spedizione </p>
-                        <p>disponibile in tutta Italia</p>
-                    </div>
-                </div>
-                <div>
-                    <img
-                        className={styles["not-svg"]}
-                        src={HelpOperator.src}
-                        alt={"Help Operator Icon"}
-                    ></img>
-                    {/* <HelpOperator /> */}
-                    <div className={styles["contact-icons-text"]}>
-                        <h3>Assistenza</h3>
-                        <p>Sempre disponibili ad</p>
-                        <p>assistere i nostri clienti</p>
+                        <p>
+                            Servizio di spedizione
+                            <br />
+                            disponibile in tutta Italia
+                        </p>
+                        <p>
+                            Il costo dipenderá dal
+                            <br />
+                            peso dell'articolo richiesto
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     );
 }
+
+/*
+Questa é la terza icona in caso servisse un giorno
+<HelpOperator /> va al posto di <img> se vogliamo usare una svg
+
+<div>
+    <img
+        className={styles["not-svg"]}
+        src={HelpOperator.src}
+        alt={"Help Operator Icon"}
+    ></img>
+    <HelpOperator /> 
+
+    <div className={styles["contact-icons-text"]}>
+        <h3>Assistenza</h3>
+        <p>Sempre disponibili ad</p>
+        <p>assistere i nostri clienti</p>
+    </div>
+</div>;
+*/

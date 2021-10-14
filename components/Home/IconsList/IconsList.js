@@ -31,8 +31,13 @@ export default function IconsList({ iconslistHeight }) {
                 </div>
                 <div className={styles["iconslist-icon-box"]}>
                     <div className={styles["iconslist-icon"]}></div>
-                    <h3>Rimborsi</h3>
-                    <p>In caso di prodotti rovinati é previsto il rimborso</p>
+                    <h3>Spedizioni</h3>
+                    {/*  <h3>Rimborsi</h3>
+                   <p>In caso di prodotti rovinati é previsto il rimborso</p> */}
+                    <p>
+                        Ritira in negozio o ricevi gli articoli direttamente a
+                        casa tua
+                    </p>
                 </div>
             </div>
         </div>

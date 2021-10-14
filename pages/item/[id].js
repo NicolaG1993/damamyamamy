@@ -27,6 +27,7 @@ import { fetchItem } from "../api/api";
 ///////////////////////////////////////////
 
 export async function getInitialProps(context) {
+    //dovrei usare "getServerSideProps" per SEO ma con AWS mi da errore (dice da LambaFunction ma nemmeno non la uso qua!) //fouri da AWS funziona invece
     const { id } = context.query;
     const fetchedItem = await fetchItem(id);
     // const country = await res.json();
@@ -157,7 +158,7 @@ export default function Item({ fetchedItem }) {
                                     </Link>
                                 )}
 
-                                <Link
+                                {/* <Link
                                     href={{
                                         pathname: "/shop",
                                         query: { research: "3/5 anni" },
@@ -166,7 +167,7 @@ export default function Item({ fetchedItem }) {
                                     <a className={styles["item-tag"]}>
                                         3/5 anni
                                     </a>
-                                </Link>
+                                </Link> */}
                             </div>
                         </div>
 

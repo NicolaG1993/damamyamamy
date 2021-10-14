@@ -16,16 +16,17 @@ export default function Nav() {
                         <a>Prodotti</a>
                     </Link>
                 </li>
-                <li>
-                    <Link href="/document">
-                        <a>Vendi</a>
-                    </Link>
-                </li>
-                <li>
+                {/* <li>
                     <Link href="/FAQ">
                         <a>Domande frequenti</a>
                     </Link>
+                </li> */}
+                <li>
+                    <Link href={"/info/vendi"}>
+                        <a>Come vendere</a>
+                    </Link>
                 </li>
+
                 <li>
                     <Link href="/contatto">
                         <a>Contattaci / Assistenza</a>

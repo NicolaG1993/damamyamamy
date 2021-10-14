@@ -8,7 +8,8 @@
 }
 
 #contact-map ::selection {
-    color: var(--color000);
+    /* color: var(--color000); */
+    color: white;
     background: var(--bg000);
 }
 
@@ -23,14 +24,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--bg000);
+    /* color: var(--bg000); */
+    color: white;
 }
 
 .contact-icons-div {
     height: 380px;
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     padding: var(--size100);
 }
 
@@ -39,7 +41,8 @@
     align-self: center;
     display: flex;
     align-items: center;
-    color: var(--bg000);
+    /* color: var(--bg000); */
+    color: white;
 }
 
 .contact-icons-div svg,
@@ -48,7 +51,8 @@
     margin-right: var(--size100);
     height: 60px;
     width: 60px;
-    fill: var(--bg000);
+    /* fill: var(--bg000); */
+    fill: white;
 }
 .not-svg-small {
     height: auto;
@@ -57,7 +61,7 @@
 
 .contact-icons-text {
     margin-left: var(--size100);
-    width: 170px;
+    width: 190px;
 }
 .contact-icons-text > h3 {
     line-height: var(--size200);
@@ -88,12 +92,29 @@
 
 @media screen and (max-width: 800px) {
     .contact-icons-div {
+        height: 550px;
+        display: grid;
+        padding: 40px var(--size100);
+    }
+    /* PER 3 ICONS */
+    /* .contact-icons-div {
         height: 650px;
+        height: 550px;
         display: grid;
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 1fr 1fr;
         padding: 40px var(--size100);
+    } 
+    */
+    /* PER 2 ICONS  */
+    .contact-icons-div {
+        height: 550px;
+        display: grid;
+        padding: 40px var(--size100);
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
     }
+
     .contact-icons {
         margin-right: var(--size100);
     }
