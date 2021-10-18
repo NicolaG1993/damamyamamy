@@ -38,7 +38,7 @@ export default function ColorModeButton() {
     };
 
     return (
-        <div className="color-mode-wrap">
+        <div className={styles["color-mode-wrap"]}>
             <div onClick={toggleColors} className={getBtnStyle()}>
                 <div className={styles["color-mode-icons"]}>
                     <div id={styles["Sun"]} />

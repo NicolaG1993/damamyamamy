@@ -32,6 +32,8 @@
         align-items: center;
         /* margin-bottom: var(--size400); */
         padding: var(--size500) 0;
+        border-top: 1px solid #c3c3c3;
+        width: 100%;
     }
 
     .social-footer > a:nth-child(1) {

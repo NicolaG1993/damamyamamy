@@ -40,7 +40,7 @@
     background: var(--color000);
     position: absolute;
     z-index: 2;
-    transform: translate(0);
+    /* transform: translate(0); */
     transition: var(--transition5);
     top: 3px;
     left: 8px;

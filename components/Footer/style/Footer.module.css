@@ -68,11 +68,4 @@
         margin-bottom: var(--size400);
         text-align: center;
     }
-
-    .legal-footer,
-    .contact-footer,
-    .social-footer {
-        border-top: 1px solid #c3c3c3;
-        width: 100%;
-    }
 }

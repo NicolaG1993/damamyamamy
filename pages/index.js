@@ -213,8 +213,3 @@ export default function Home() {
         </div>
     );
 }
-
-/*
-robots.txt and manifest.json 🧠
-old version damamyamamy-web: creare nuova branch per gitHub, diversa da master che sará invece quella per questa versione del progetto
-*/

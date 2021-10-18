@@ -11,6 +11,8 @@
     .legal-footer {
         padding-top: var(--size500);
         padding-bottom: var(--size400);
+        border-top: 1px solid #c3c3c3;
+        width: 100%;
     }
     .legal-footer li {
         margin-bottom: var(--size100);

@@ -1,0 +1,15 @@
+robots.txt and manifest.json 🧠
+old version damamyamamy-web: creare nuova branch per gitHub, diversa da master che sará invece quella per questa versione del progetto 🐲
+controllare SEO e google analytics (dovrebbe chiamarsi cosi) 🧠
+fare tutti gli head necessari 🧠
+attivare e testare servizi di pagamento 🧠 per paypal credo che sono ancora dal mio profilo, controllare e sistemare tutto per sicurezza ⚠
+in Amplify vedo che backend status deploy non si aggiorna da quando sono passato a next, forse perché ho eliminato il folder di AWS, come ricollegare? 🧠
+aggiornare info sito web su facebook, IG, google business 🧠
+
+rendere il bottone di colormode statico, con next il layout mi si aggiorna ad ogni richiesta per qualche motivo, e non dovrebbe 🧠
+inoltre lo style del button é sfasato per small devices 🧠
+
+
+⚠ ⚠ ⚠ ⚠ ⚠
+ovviamente per il futuro dovró creare un database per shop, un api per cart, interfaccia admin con autorizzazione per gestire shop
+il tutto collegato al catalogo del negozio (con dati di venditore e acquirente, scadenza 60 giorni) e dall`acquisto in negozio
