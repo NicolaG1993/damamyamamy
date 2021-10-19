@@ -1,5 +1,6 @@
 // REACT
 import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import useWindowDimensions from "../../shared/utils/useWindowDimensions";
 import styles from "./style/Header.module.css";
@@ -12,8 +13,15 @@ import { toggleLayout } from "../../redux/ToggleLayout/toggleLayout.actions";
 import Logo from "../Logo/Logo";
 import CartIcon from "../Cart/CartIcon/CartIcon";
 import HamburgerButton from "./HamburgerButton/HamburgerButton";
-import ColorModeButton from "./ColorModeButton/ColorModeButton";
+// import ColorModeButton from "./ColorModeButton/ColorModeButton";
 import Nav from "./Nav/Nav";
+
+const ColorModeButton = dynamic(
+    () => import("./ColorModeButton/ColorModeButton"),
+    {
+        ssr: false,
+    }
+); // ?
 
 export default function Header() {
     const [windowSize, setWindowSize] = useState(721);

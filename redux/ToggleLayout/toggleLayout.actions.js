@@ -1,4 +1,4 @@
-import { TOGGLE, OPEN, CLOSE } from "./toggleLayout.types";
+import { TOGGLE, OPEN, CLOSE, SET_COLOR } from "./toggleLayout.types";
 
 export function toggleLayout(payload) {
     let fn = payload.fn;
@@ -23,4 +23,11 @@ export function toggleLayout(payload) {
             payload,
         };
     }
+}
+
+export function setColorButton(payload) {
+    return {
+        type: SET_COLOR,
+        payload,
+    };
 }

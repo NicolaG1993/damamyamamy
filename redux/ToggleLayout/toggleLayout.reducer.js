@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { TOGGLE, OPEN, CLOSE } from "./toggleLayout.types";
+import { TOGGLE, OPEN, CLOSE, SET_COLOR } from "./toggleLayout.types";
 
 const INITIAL_STATE = {
     layouts: [
@@ -7,6 +7,7 @@ const INITIAL_STATE = {
         { id: "nav", active: false },
         { id: "alert", active: true },
     ],
+    theme: "theme-light",
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -44,6 +45,16 @@ export default function reducer(state = INITIAL_STATE, action) {
                 layout.id === id ? { id: layout.id, active: false } : layout
             );
             return { layouts: newArr };
+        }
+
+        case SET_COLOR: {
+            let color = action.payload.color;
+            console.log("SET_COLOR: ", action.payload);
+
+            return {
+                ...state,
+                theme: color,
+            };
         }
 
         default:
