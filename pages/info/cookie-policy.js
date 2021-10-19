@@ -166,7 +166,7 @@ export default function CookiePolicy() {
 
                 <h3>COME ELIMINARE I COOKIES ?</h3>
                 <p>
-                    L'eliminazione dei cookies si effettua attraverso la
+                    L&apos;eliminazione dei cookies si effettua attraverso la
                     funzione «opzioni»/«strumenti» del vostro browser.
                 </p>
                 <p>

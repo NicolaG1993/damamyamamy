@@ -112,13 +112,14 @@ function SelectCat({ handleForm, categories }) {
     return (
         <select name="category" id="category" onChange={(e) => handleForm(e)}>
             <option value="" label="--Tutte"></option>
-            {categories.map((category) => (
-                <option
-                    key={category.id}
-                    value={category.id}
-                    label={category.name}
-                ></option>
-            ))}
+            {categories &&
+                categories.map((category) => (
+                    <option
+                        key={category.id}
+                        value={category.id}
+                        label={category.name}
+                    ></option>
+                ))}
         </select>
     );
 }

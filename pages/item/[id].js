@@ -1,3 +1,4 @@
+import Head from "next/head";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -248,6 +249,14 @@ export default function Item({ fetchedItem }) {
     if (item) {
         return (
             <>
+                <Head>
+                    <title>{item.name} - Da Mamy a Mamy</title>
+                    <meta
+                        property="og:title"
+                        content={`${item.name} - da Mamy a Mamy`}
+                    />
+                    <meta property="og:type" content="article" />
+                </Head>
                 <ItemWrap />
                 <ItemDescriptionWrap />
                 <ShortlistWrap />

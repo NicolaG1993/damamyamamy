@@ -1,3 +1,5 @@
+import Head from "next/head";
+
 import { useState, useEffect } from "react";
 import useScrollPosition from "../shared/utils/useScrollPosition";
 import styles from "../components/Contact/style/Contact.module.css";
@@ -29,6 +31,12 @@ export default function Contact() {
 
     return (
         <div id={styles["Contact"]}>
+            <Head>
+                <title>Contatto - Da Mamy a Mamy</title>
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content="Contatto - Da Mamy a Mamy" />
+            </Head>
+
             <div
                 className={styles["contact-wrap"]}
                 style={{ padding: padding }}

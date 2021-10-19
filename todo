@@ -13,3 +13,9 @@ inoltre lo style del button é sfasato per small devices 🧠
 ⚠ ⚠ ⚠ ⚠ ⚠
 ovviamente per il futuro dovró creare un database per shop, un api per cart, interfaccia admin con autorizzazione per gestire shop
 il tutto collegato al catalogo del negozio (con dati di venditore e acquirente, scadenza 60 giorni) e dall`acquisto in negozio
+
+
+----
+
+In Cart e Checkout usare una funzione (forse un util) che onComponentMount faccia un loop di tutti gli items in cart,
+ed elimini (via redux action?) tutti quelli non piú disponibili

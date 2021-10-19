@@ -6,9 +6,12 @@ function About() {
     return (
         <div id={styles["About"]}>
             <Head>
-                <title>Da Mamy a Mamy - Chi siamo</title>
-                <meta name="description" content="Chi siamo - Da Mamy a Mamy" />
-                {/* <link rel="icon" href="/favicon.ico" /> */}
+                <title>Chi siamo - Da Mamy a Mamy</title>
+                <meta property="og:type" content="website" />
+                <meta
+                    property="og:title"
+                    content="Chi siamo - Da Mamy a Mamy"
+                />
             </Head>
 
             <div

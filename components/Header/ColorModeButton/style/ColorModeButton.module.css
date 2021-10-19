@@ -113,7 +113,7 @@
         width: 90px;
     }
     .color-mode-toggle-sun::before {
-        transform: translateX(50px);
+        transform: translateX(42px);
     }
     .color-mode-toggle-sun .color-mode-toggle-moon {
         background: var(--bg100);

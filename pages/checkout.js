@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Head from "next/head";
 import Link from "next/link";
 import Router from "next/router";
 // import { Link, useHistory } from "react-router-dom";
@@ -177,6 +178,11 @@ export default function Checkout() {
 
     return (
         <div id={styles["Checkout"]}>
+            <Head>
+                <title>Checkout - Da Mamy a Mamy</title>
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content="Checkout - Da Mamy a Mamy" />
+            </Head>
             <div className={styles["checkout-wrap"]}>
                 <div className={styles["checkout-title"]}>
                     <h1>Checkout</h1>

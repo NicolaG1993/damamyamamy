@@ -1,3 +1,4 @@
+import Head from "next/head";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
@@ -13,6 +14,7 @@ import {
 import { fetchCart } from "../redux/LoadCart/loadCart.actions";
 
 const loadData = (state) => state.shopData.data; // a noi data non interessa qua
+const getCategories = (state) => state.shopData.categories;
 
 const ItemsList = dynamic(
     () => import("../components/Shop/ItemsList/ItemsList"),
@@ -45,10 +47,13 @@ export default function Shop() {
     const dispatch = useDispatch();
     useEffect(() => {
         console.log("SHOP RENDERS");
+
         if (!data) {
             dispatch(fetchData());
-            dispatch(fetchCategories());
-        } // solo se non abbiamo gia data in redux!
+        }
+
+        dispatch(fetchCategories());
+        // anche se abbiamo gia data in redux!
     }, []);
 
     useEffect(() => data && dispatch(fetchHighestValue()), [data]);
@@ -77,6 +82,11 @@ export default function Shop() {
 
     return (
         <div id={styles["Shop"]}>
+            <Head>
+                <title>Shop - Da Mamy a Mamy</title>
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content="Shop - Da Mamy a Mamy" />
+            </Head>
             <div className={styles["shop-wrap"]}>
                 <h1>In negozio</h1>
                 <ShopUI />

@@ -10,13 +10,14 @@ import Slide from "./Slide";
 import Arrow from "./Arrow";
 import Dots from "./Dots";
 
-import PicA from "/public/pics/test4.jpg";
-import PicB from "/public/pics/pic4.jpg";
-import PicC from "/public/pics/pic3.jpg";
-import PicD from "/public/pics/pic2a.jpg";
+// import PicD from "/public/pics/picAA.jpg";
+// import PicD from "/public/pics/test4.jpg";
+import PicA from "/public/pics/pic2a.jpg";
+import PicB from "/public/pics/pic3.jpg";
+import PicC from "/public/pics/pic4.jpg";
 
 export default function Slider({ width }) {
-    let slides = [PicA, PicB, PicC, PicD];
+    let slides = [PicA, PicB, PicC];
     const { scrollTop } = useScrollPosition();
     // const { width } = useWindowDimensions();
     // console.log("slides", slides);
