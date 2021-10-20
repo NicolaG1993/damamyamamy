@@ -159,7 +159,7 @@ export default function Home() {
                     </span>
                 </a>
             </footer> */}
-
+            <h1>Da Mamy a Mamy</h1>
             <Slider width={width} />
 
             <section
