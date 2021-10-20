@@ -29,6 +29,11 @@ export default function Layout({ children }) {
                 <meta charSet="UTF-8" />
 
                 <meta
+                    name="description"
+                    content="Accessori, Abbigliamento e giocattoli di seconda mano per bimbi da 0 a 10 anni"
+                />
+
+                <meta
                     property="og:description"
                     content="Accessori, Abbigliamento e giocattoli di seconda mano per bimbi da 0 a 10 anni"
                 />
