@@ -6,8 +6,14 @@
 
 module.exports = {
     reactStrictMode: true,
-    disableStaticImages: true,
 
+    i18n: {
+        localeDetection: false,
+        locales: ["it"],
+        defaultLocale: "it",
+    },
+
+    disableStaticImages: true,
     images: {
         domains: ["cdn.chec.io"],
     },
