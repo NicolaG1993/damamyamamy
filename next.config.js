@@ -7,15 +7,15 @@
 module.exports = {
     reactStrictMode: true,
 
-    // i18n: {
-    //     localeDetection: false,
-    //     locales: ["it"],
-    //     defaultLocale: "it",
-    // },
-
     disableStaticImages: true,
     images: {
         domains: ["cdn.chec.io"],
+    },
+
+    i18n: {
+        localeDetection: false,
+        locales: ["it"],
+        defaultLocale: "it",
     },
 
     env: {
