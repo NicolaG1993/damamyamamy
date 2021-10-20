@@ -39,8 +39,8 @@ export default function Cart() {
         if (cart && data) {
             let cartIds = cart.line_items.map((item) => item.product_id); //devo usare id? product_id? item_id?
             let shopIds = data.map((item) => item.id);
-            console.log("🎃🎃🎃cartIds in cartIds.js: ", cartIds);
-            console.log("🎃🎃🎃shopIds in Cart.js: ", shopIds);
+            // console.log("🎃🎃🎃cartIds in cartIds.js: ", cartIds);
+            // console.log("🎃🎃🎃shopIds in Cart.js: ", shopIds);
 
             // cartIds.filter(
             //     ({ product_id: id1 }) =>

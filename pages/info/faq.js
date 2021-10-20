@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useState, useEffect } from "react";
 import styles from "../../components/Documents/faq.module.css";
 
@@ -51,6 +52,14 @@ export default function FAQ() {
     // uso map per fare il render di ogni domanda con meno codice
     return (
         <div id={styles["FAQ"]}>
+            <Head>
+                <title>Domande frequenti - Da Mamy a Mamy</title>
+                <meta
+                    property="og:title"
+                    content="Domande frequenti - Da Mamy a Mamy"
+                />
+                <meta property="og:type" content="website" />
+            </Head>
             <h1>Domande frequenti</h1>
 
             {questionsState &&

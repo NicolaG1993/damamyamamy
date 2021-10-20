@@ -1,9 +1,18 @@
+import Head from "next/head";
 import Link from "next/link";
 import styles from "../../components/Documents/Document.module.css";
 
 export default function NoteLegali() {
     return (
         <div className={styles["document-comp"]}>
+            <Head>
+                <title>Note legali - Da Mamy a Mamy</title>
+                <meta
+                    property="og:title"
+                    content="Note legali - Da Mamy a Mamy"
+                />
+                <meta property="og:type" content="website" />
+            </Head>
             <h1>Dati dell'Azienda</h1>
 
             <div className={styles["document-text-wrap"]}>

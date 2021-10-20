@@ -1,9 +1,18 @@
+import Head from "next/head";
 import Link from "next/link";
 import styles from "../../components/Documents/Document.module.css";
 
 export default function TermsAndConditions() {
     return (
         <>
+            <Head>
+                <title>Termini e condizioni - Da Mamy a Mamy</title>
+                <meta
+                    property="og:title"
+                    content="Termini e condizioni - Da Mamy a Mamy"
+                />
+                <meta property="og:type" content="website" />
+            </Head>
             <h1>Termini e condizioni</h1>
         </>
     );

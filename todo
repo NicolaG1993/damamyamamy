@@ -1,21 +1,34 @@
 robots.txt and manifest.json 🧠
 old version damamyamamy-web: creare nuova branch per gitHub, diversa da master che sará invece quella per questa versione del progetto 🐲
 controllare SEO e google analytics (dovrebbe chiamarsi cosi) 🧠
-fare tutti gli head necessari 🧠
+fare tutti gli head necessari 🐲
 attivare e testare servizi di pagamento 🧠 per paypal credo che sono ancora dal mio profilo, controllare e sistemare tutto per sicurezza ⚠
 in Amplify vedo che backend status deploy non si aggiorna da quando sono passato a next, forse perché ho eliminato il folder di AWS, come ricollegare? 🧠
 aggiornare info sito web su facebook, IG, google business 🧠
 
-rendere il bottone di colormode statico, con next il layout mi si aggiorna ad ogni richiesta per qualche motivo, e non dovrebbe 🧠
-inoltre lo style del button é sfasato per small devices 🧠
+rendere il bottone di colormode statico, con next il layout mi si aggiorna ad ogni richiesta per qualche motivo, e non dovrebbe 🐲
+inoltre lo style del button é sfasato per small devices 🐲
+
+
+🐲ottimizare immagini
+cercare icons e img da envato
+
+--------------------------------------------------
+⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠
+
+
+Ho riscontrato un bug con commerce.js, praticamente se metto nel carrello un elemento che viene poi eliminato prima del mio aquisto non posso accedere a cart perché mi da errore, essendoci un oggetto ma con tutti i suoi valori "null"
+Potrebbe essere che gli elementi devono restare in commerce ma con la quantita disponibile = 0? questo non lo so
+Peró ho creato una funzione*🪁 che fa un check ogni volta che apro cart, non super cool ma sembra funzionare
+Quando avró creato un API dovró sistemare questa funzione in cart, perché funziona solo per commerce, essendoci il problema fra item_id di shop e prod_id di cart 
+
+*🪁In Cart uso una funzione (forse meglio un util?) che onComponentMount fa un loop di tutti gli items in cart, fra tutti quelli in data, li compari per esclusione
+ed elimini (via redux action?) tutti quelli non piú disponibili in data
+
+⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠
+--------------------------------------------------
 
 
 ⚠ ⚠ ⚠ ⚠ ⚠
 ovviamente per il futuro dovró creare un database per shop, un api per cart, interfaccia admin con autorizzazione per gestire shop
 il tutto collegato al catalogo del negozio (con dati di venditore e acquirente, scadenza 60 giorni) e dall`acquisto in negozio
-
-
-----
-
-In Cart e Checkout usare una funzione (forse un util) che onComponentMount faccia un loop di tutti gli items in cart,
-ed elimini (via redux action?) tutti quelli non piú disponibili
