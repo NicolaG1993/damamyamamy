@@ -5,11 +5,11 @@
 // const withImages = require("next-images");
 
 module.exports = {
-    // i18n: {
-    //     localeDetection: false,
-    //     locales: ["it"],
-    //     defaultLocale: "it",
-    // },
+    i18n: {
+        localeDetection: false,
+        locales: ["it"],
+        defaultLocale: "it",
+    },
 
     reactStrictMode: true,
 
