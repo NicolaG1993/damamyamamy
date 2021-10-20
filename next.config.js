@@ -5,17 +5,17 @@
 // const withImages = require("next-images");
 
 module.exports = {
+    i18n: {
+        localeDetection: false,
+        locales: ["it"],
+        defaultLocale: "it",
+    },
+
     reactStrictMode: true,
 
     disableStaticImages: true,
     images: {
         domains: ["cdn.chec.io"],
-    },
-
-    i18n: {
-        localeDetection: false,
-        locales: ["it"],
-        defaultLocale: "it",
     },
 
     env: {
