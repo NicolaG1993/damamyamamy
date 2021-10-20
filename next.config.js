@@ -7,11 +7,11 @@
 module.exports = {
     reactStrictMode: true,
 
-    i18n: {
-        // localeDetection: false,
-        locales: ["it"],
-        defaultLocale: "it",
-    },
+    // i18n: {
+    //     localeDetection: false,
+    //     locales: ["it"],
+    //     defaultLocale: "it",
+    // },
 
     disableStaticImages: true,
     images: {
