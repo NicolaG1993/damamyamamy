@@ -27,7 +27,7 @@ export default function Checkout() {
     let cart = useSelector(selectCart, shallowEqual);
     let order = useSelector(selectOrder, shallowEqual);
     let error = useSelector(selectError, shallowEqual);
-    console.log("cart in Checkout.js: ", cart);
+    // console.log("cart in Checkout.js: ", cart);
 
     const [activeStep, setActiveStep] = useState(0);
     const [checkoutToken, setCheckoutToken] = useState(null);
@@ -52,7 +52,7 @@ export default function Checkout() {
     };
 
     const handleCaptureCheckout = async (checkoutTokenId, newOrder) => {
-        console.log("handleCaptureCheckout activated! 🥶🧨🎅");
+        // console.log("handleCaptureCheckout activated! 🥶🧨🎅");
         if (checkoutTokenId === "test") {
             //this is only for test
             dispatch(emptyCart());
@@ -75,7 +75,7 @@ export default function Checkout() {
                     "cart",
                     cart.id
                 );
-                console.log("token: ", token);
+                // console.log("token: ", token);
                 setCheckoutToken(token);
             } catch (err) {
                 if (activeStep !== steps.length) Router.push("/");

@@ -18,7 +18,7 @@ export default function Cart() {
     const dispatch = useDispatch();
     let cart = useSelector(selectCart, shallowEqual);
     let data = useSelector(loadData, shallowEqual);
-    console.log("cart in Cart.js: ", cart);
+    // console.log("cart in Cart.js: ", cart);
     // console.log("data in Cart.js: ", data);
     // const [finalCart, setFinalCart] = useState();
 

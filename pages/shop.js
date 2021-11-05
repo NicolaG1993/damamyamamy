@@ -42,11 +42,11 @@ export default function Shop() {
 
     const router = useRouter();
     const { research } = router.query;
-    console.log("research", research);
+    // console.log("research", research);
 
     const dispatch = useDispatch();
     useEffect(() => {
-        console.log("SHOP RENDERS");
+        // console.log("SHOP RENDERS");
 
         if (!data) {
             dispatch(fetchData());

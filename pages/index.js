@@ -52,7 +52,7 @@ export default function Home() {
     }, []);
 
     useEffect(() => {
-        data && console.log("data.data changed:", data);
+        // data && console.log("data.data changed:", data);
         data && dispatch(fetchSpecificCategories());
     }, [data]);
 

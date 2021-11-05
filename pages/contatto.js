@@ -12,9 +12,9 @@ export default function Contact() {
     const { scrollTop } = useScrollPosition();
     const [padding, setPadding] = useState(); //usando hooks cosí ho anche l'animazione al caricamento, quando il padding non é ancora definito
 
-    useEffect(() => {
-        console.log("MOUNTED");
-    }, []);
+    // useEffect(() => {
+    //     console.log("MOUNTED");
+    // }, []);
 
     useEffect(() => {
         if (scrollTop > 70) {
