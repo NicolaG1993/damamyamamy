@@ -159,7 +159,10 @@ export default function Home() {
                     </span>
                 </a>
             </footer> */}
-            <h1>Da Mamy a Mamy</h1>
+            <h1>
+                Da Mamy a Mamy - Negozio di accessori, Abbigliamento e
+                giocattoli di seconda mano per bimbi da 0 a 10 anni
+            </h1>
             <Slider width={width} />
 
             <section

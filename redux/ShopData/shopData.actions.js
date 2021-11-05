@@ -21,7 +21,11 @@ export function fetchData() {
         dispatch({
             type: FETCH_DATA,
         });
-        getSomeAsyncData(dispatch, commerce.products.list(), FETCH_DATA);
+        getSomeAsyncData(
+            dispatch,
+            commerce.products.list({ limit: 200 }),
+            FETCH_DATA
+        );
     };
 } // This is how we do async actions with redux-thunk
 
