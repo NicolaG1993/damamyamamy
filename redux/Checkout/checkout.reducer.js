@@ -3,6 +3,7 @@ import {
     LOAD_CHECKOUT,
     CAPTURE_CHECKOUT,
     HANDLE_ERROR,
+    AUTHORIZE_PP,
 } from "./checkout.types";
 
 const INITIAL_STATE = { smth: 0 };
@@ -12,6 +13,11 @@ export default function reducer(state = INITIAL_STATE, action) {
         case LOAD_CHECKOUT:
             return { ...state, error: false };
 
+        // case AUTHORIZE_PP: {
+        //     let authOrder = action.payload;
+        //     console.log("AUTHORIZE_PP: ", authOrder);
+        //     return { ...state, authOrderPP: authOrder };
+        // }
         case CAPTURE_CHECKOUT: {
             let incomingOrder = action.payload;
             console.log("CAPTURE_CHECKOUT: ", incomingOrder);

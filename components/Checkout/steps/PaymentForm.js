@@ -18,12 +18,15 @@ const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 // const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
+import { commerce } from "../../../shared/libs/commerce";
+
 export default function PaymentForm({
     checkoutToken,
     shippingData,
     nextStep,
     backStep,
     onCaptureCheckout,
+    onCapturePPCheckout,
     timeout,
     styles,
 }) {
@@ -45,12 +48,24 @@ export default function PaymentForm({
                 locale: "it_IT",
             };
             insertScriptElement({
-                url: `https://www.paypal.com/sdk/js?client-id=${process.env.REACT_APP_PAYPAL_CLIENT_ID}&currency=${ppValues.currency}&disable-funding=${ppValues.disablefunding}&locale=${ppValues.locale}`,
+                url: `https://www.paypal.com/sdk/js?client-id=${process.env.REACT_APP_PAYPAL_CLIENT_ID}&currency=${ppValues.currency}&disable-funding=${ppValues.disablefunding}&locale=${ppValues.locale}&intent=authorize`,
                 callback: () => {
                     renderButtons();
                 },
             });
         }
+
+        // console.log(
+        //     "checkoutToken.live.line_items",
+        //     checkoutToken.live.line_items
+        // );
+        // console.log(
+        //     "🤖🤖🤖orderData.line_items",
+        //     checkoutToken.live.line_items.reduce(
+        //         (list, item) => ({ ...list, [item.id]: item }),
+        //         {}
+        //     )
+        // );
     }, []);
 
     useEffect(() => {
@@ -64,6 +79,163 @@ export default function PaymentForm({
         }
 
         if (method === "pp") {
+            const orderData = {
+                line_items: checkoutToken.live.line_items.reduce(
+                    (list, item) => ({
+                        ...list,
+                        [item.id]: { quantity: item.quantity },
+                    }),
+                    {}
+                ),
+                customer: {
+                    firstname: shippingData.firstName,
+                    lastname: shippingData.lastName,
+                    email: shippingData.email,
+                },
+                shipping: {
+                    name: "Domestico",
+                    street: shippingData.address1,
+                    town_city: shippingData.city,
+                    county_state: shippingData.region,
+                    postal_zip_code: shippingData.zip,
+                    country: shippingData.country,
+                },
+                fulfillment: {
+                    shipping_method: shippingData.shipping,
+                },
+            };
+
+            commerce.checkout
+                .capture(checkoutToken.id, {
+                    ...orderData,
+                    payment: {
+                        gateway: "paypal",
+                        paypal: {
+                            action: "authorize",
+                        },
+                    },
+                })
+                .then((resp) => {
+                    // Successful response
+                    console.log("resp in AuthPP! 🥶🥶🥶", resp);
+                    // devo usare payment_id della resp
+                    window.paypal
+                        .Buttons({
+                            style: {
+                                color: "blue",
+                                shape: "pill",
+                                label: "paypal",
+                                tagline: false,
+                            },
+                            // env: "production", // Or 'sandbox',
+                            // commit: true, // Show a 'Pay Now' button
+                            payment: function () {
+                                return resp.payment_id; // The payment ID from earlier
+                            },
+                            createOrder: (data, actions) => {
+                                console.log(
+                                    "createOrder! 🥶🥶🥶",
+                                    resp.payment_id
+                                );
+                                return actions.order.create({
+                                    purchase_units: [
+                                        {
+                                            description: "Your Order!",
+                                            amount: {
+                                                currency_code: "EUR",
+                                                value: checkoutToken.live
+                                                    .subtotal.raw,
+                                            },
+                                        },
+                                    ], //questa array verra mappata, devo mettere ogni elemento al suo interno 🐔
+                                });
+                            },
+
+                            onApprove: (data, actions) => {
+                                console.log("onApprove data 🥶🥶🥶", data);
+                                // Authorize the transaction
+                                actions.order
+                                    .authorize()
+                                    .then((authorization) => {
+                                        console.log(
+                                            "onApprove authorization 🥶🥶🥶",
+                                            authorization
+                                        );
+                                        // Get the authorization id
+                                        const authorizationID =
+                                            authorization.purchase_units[0]
+                                                .payments.authorizations[0].id;
+                                        alert(
+                                            "You have authorized this transaction. Order ID:  " +
+                                                data.orderID +
+                                                ", Authorization ID: " +
+                                                authorizationID
+                                        ); // Optional message given to purchaser
+                                        // Call your server to validate and capture the transaction;
+
+                                        // ..code here..
+                                        onCaptureCheckout(checkoutToken.id, {
+                                            ...orderData,
+                                            payment: {
+                                                gateway: "paypal",
+                                                paypal: {
+                                                    action: "capture",
+                                                    payment_id: data.orderID,
+                                                    payer_id: data.payerID, // 🧨
+                                                    authorizationID:
+                                                        authorizationID,
+                                                },
+                                            },
+                                        });
+
+                                        nextStep();
+                                    });
+                            },
+
+                            onApproveOldVersion: async (data, actions) => {
+                                const order = await actions.order.capture();
+                                console.log("🤖🤖🤖order", order);
+
+                                onCaptureCheckout(checkoutToken.id, {
+                                    ...orderData,
+                                    payment: {
+                                        gateway: "paypal",
+                                        paypal: {
+                                            action: "capture",
+                                            payment_id: order.id,
+                                            payer_id: order.payer.payer_id,
+                                        },
+                                    },
+                                });
+
+                                nextStep();
+                            }, //con sandbox funzionava cosí
+
+                            onCancel: function (data, actions) {
+                                console.log("cancel order!");
+                                // Handler if customer does not authorize payment
+                            },
+                            onError: (err) => {
+                                console.log("order error!", err);
+                                setPaypalError(err);
+                                console.error(err);
+                            },
+                        })
+                        .render(paypalRef.current);
+                })
+                .catch((error) => {
+                    // Error handler
+                    console.log("error in AuthPP! 🥶🥶🥶", error);
+                });
+
+            //devo fare prima la POST req a commerce con order + authorize
+            //la response mi dará il payment_id
+            // lo uso in paypal.Buttons(...)
+            //dentro onAuthorize faccio la seconda POST req a commerce con order + capture
+            // probabilmente const order = await actions.order.capture(); non serve piu
+        }
+
+        if (method === "pp-old") {
             window.paypal
                 .Buttons({
                     style: {
@@ -85,11 +257,19 @@ export default function PaymentForm({
                             ], //questa array verra mappata, devo mettere ogni elemento al suo interno 🐔
                         });
                     },
-                    onApprove: async (data, actions) => {
+                    onAuthorize: async (data, actions) => {
                         const order = await actions.order.capture();
                         // devo vedere questo order e in caso modificarlo come orderData
+
+                        // line_items: checkoutToken.live.line_items.map(item => item.id: item),
                         const orderData = {
-                            line_items: checkoutToken.live.line_items,
+                            line_items: checkoutToken.live.line_items.reduce(
+                                (list, item) => ({
+                                    ...list,
+                                    [item.id]: { quantity: item.quantity },
+                                }),
+                                {}
+                            ),
                             customer: {
                                 firstname: shippingData.firstName,
                                 lastname: shippingData.lastName,
@@ -114,13 +294,18 @@ export default function PaymentForm({
                                     payer_id: order.payer.payer_id,
                                 },
                             },
-                        }; //devo vedere se action:capture é corretto
+                        };
+                        //devo vedere se action:capture é corretto
+                        //forse usare authorize ?
 
-                        console.log("order", order);
-                        console.log("orderData", orderData);
-                        console.log("checkoutToken", checkoutToken);
+                        console.log("🤖🤖🤖order", order);
+                        console.log("🤖🤖🤖orderData", orderData);
+                        console.log("🤖🤖🤖checkoutToken", checkoutToken);
                         onCaptureCheckout(checkoutToken.id, orderData);
                         nextStep();
+                    },
+                    onCancel: function (data, actions) {
+                        // Handler if customer does not authorize payment
                     },
                     onError: (err) => {
                         setPaypalError(err);

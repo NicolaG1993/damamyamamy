@@ -11,10 +11,16 @@ import styles from "../components/Checkout/style/Checkout.module.css";
 
 // REDUX
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { emptyCart, refreshCart } from "../redux/LoadCart/loadCart.actions";
+import {
+    emptyCart,
+    refreshCart,
+    checkCart,
+    removeFromCart,
+} from "../redux/LoadCart/loadCart.actions";
 import {
     loadCheckout,
     captureCheckout,
+    authorizePP,
 } from "../redux/Checkout/checkout.actions";
 const selectCart = (state) => state.loadCart.cart;
 const selectOrder = (state) => state.checkout.order;
@@ -27,7 +33,9 @@ export default function Checkout() {
     let cart = useSelector(selectCart, shallowEqual);
     let order = useSelector(selectOrder, shallowEqual);
     let error = useSelector(selectError, shallowEqual);
-    // console.log("cart in Checkout.js: ", cart);
+    console.log("cart in Checkout.js: ", cart);
+    console.log("order in Checkout.js: ", order);
+    console.log("error in Checkout.js: ", error);
 
     const [activeStep, setActiveStep] = useState(0);
     const [checkoutToken, setCheckoutToken] = useState(null);
@@ -52,7 +60,7 @@ export default function Checkout() {
     };
 
     const handleCaptureCheckout = async (checkoutTokenId, newOrder) => {
-        // console.log("handleCaptureCheckout activated! 🥶🧨🎅");
+        console.log("handleCaptureCheckout activated! 🎅🎅🎅", newOrder);
         if (checkoutTokenId === "test") {
             //this is only for test
             dispatch(emptyCart());
@@ -85,6 +93,43 @@ export default function Checkout() {
         };
         activeStep === 0 && generateToken();
     }, [cart]);
+
+    const checkAvailability = () => {
+        cart.line_items.map((item) => {
+            commerce.checkout
+                .checkQuantity(checkoutToken.id, item.id, {
+                    amount: item.quantity,
+                })
+                .then((response) => {
+                    console.log("🐲 checkAvailability", response);
+                    if (response.available) {
+                        console.log("🐲 response.available is true!", item.id);
+                    } else {
+                        console.log("🐲 response.available is false!", item.id);
+                        dispatch(
+                            removeFromCart({
+                                productId: item.id,
+                            })
+                        );
+                    }
+                });
+
+            // dispatch(
+            //     checkCart({
+            //         checkoutTokenId: checkoutToken.id,
+            //         lineItemId: item.id,
+            //         requestedQuantity: item.quantity,
+            //     })
+            // );
+        });
+    };
+    //non funziona! dovrebbe eliminare un prodotto dal carrello se non é disponibile
+    //invece elimina tutto se manca qualcosa
+    //commerce mi da troppi problemi, creare una API mia?
+
+    useEffect(() => {
+        checkoutToken && checkAvailability();
+    }, [checkoutToken]);
 
     // timeout -> mock up the transaction without using card details on stripe
     const timeout = () => {
@@ -171,7 +216,12 @@ export default function Checkout() {
                     <p>{error.err.data.error.message}</p>
                 </div>
 
-                <Button page="/cart" text="Torna al carrello" type="internal" />
+                <Button
+                    page="/cart"
+                    text="Torna al carrello"
+                    type="internal"
+                    style="inverted-btn"
+                />
             </div>
         );
     }

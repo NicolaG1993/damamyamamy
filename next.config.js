@@ -1,6 +1,6 @@
-require("dotenv").config();
-const Dotenv = require("dotenv-webpack");
-const path = require("path");
+// require("dotenv").config();
+// const Dotenv = require("dotenv-webpack");
+// const path = require("path");
 //per local
 
 // const withImages = require("next-images");
@@ -35,9 +35,9 @@ module.exports = {
             test: /\.svg$/,
             use: ["@svgr/webpack"],
         });
-        config.plugins.push(
-            new Dotenv({ path: path.join(__dirname, ".env"), systemvars: true })
-        );
+        // config.plugins.push(
+        //     new Dotenv({ path: path.join(__dirname, ".env"), systemvars: true })
+        // );
         //per local
 
         // config.plugins.push(

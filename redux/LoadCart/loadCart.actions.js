@@ -40,12 +40,37 @@ export function refreshCart() {
         getSomeAsyncData(dispatch, commerce.cart.refresh(), HANDLE_NEW_CART);
 }
 
+export function checkCart(payload) {
+    return (dispatch) =>
+        getSomeAsyncLogic(
+            dispatch,
+            commerce.checkout.checkQuantity(
+                payload.checkoutTokenId,
+                payload.lineItemId,
+                {
+                    amount: payload.requestedQuantity,
+                }
+            )
+        );
+
+    // commerce.checkout
+    //     .checkQuantity(payload.checkoutTokenId, payload.lineItemId, {
+    //         amount: payload.requestedQuantity,
+    //     })
+    //     .then((response) => {
+    //         console.log("checkAvailability", response.available);
+    //         if (response.available === false) {
+    //             removeFromCart({ productId: payload.lineItemId });
+    //         }
+    //     });
+}
+
 async function getSomeAsyncData(dispatch, url, type) {
     // console.log(`👮‍♀️👮‍♂️👮‍♀️: `, type);
     // console.log(`😎😋😋url in ${type}: `, url);
     try {
         const data = await url;
-        // console.log(`😎😋😋data in ${type}: `, data);
+        console.log(`😎😋😋data in ${type}: `, data);
         dispatch({
             type: type,
             payload: data,
@@ -58,3 +83,26 @@ async function getSomeAsyncData(dispatch, url, type) {
         });
     }
 }
+
+async function getSomeAsyncLogic(dispatch, url) {
+    url.then((response) => {
+        console.log("response.available", response);
+        if (response.available === false) {
+            console.log(
+                "🐲 response.available is false!",
+                response.line_item_id
+            );
+            () =>
+                dispatch(removeFromCart({ productId: response.line_item_id }));
+        }
+        if (response.available === true) {
+            console.log(
+                "🐲 response.available is true!",
+                response.line_item_id
+            );
+        }
+    });
+} //portare questa logica in Checkout component ?
+
+//sembra funzionare ma se manca un articolo svuota tutto il carrello per qualche motivo
+//potrebbe essere qualche useEffect o reduxSelector?
