@@ -361,3 +361,57 @@ body > div > div:nth-child(2) {
     color: ghostwhite;
     font-family: "Nunito Sans";
 }
+
+/***************WIP***************/
+
+#WIP {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 90%;
+    width: 100%;
+    /* height: 110vh; */
+    /* width: 100vw; */
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+#WIP div {
+    text-align: center;
+}
+#WIP h1 {
+    margin-bottom: 30px;
+    font-weight: bold;
+    font-size: 64px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+#WIP > div:nth-child(2) {
+    position: absolute;
+    bottom: 50px;
+}
+#WIP a:hover {
+    font-style: italic;
+}
+
+@media screen and (max-width: 720px) {
+    #WIP div {
+        width: 360px;
+        text-align: start;
+    }
+}
+@media screen and (max-width: 400px) {
+    #WIP div {
+        width: 100%;
+    }
+    #WIP h1 {
+        font-size: 60px;
+    }
+}
+@media screen and (max-width: 350px) {
+    #WIP h1 {
+        font-size: 53px;
+    }
+}

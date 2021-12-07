@@ -13,21 +13,51 @@ import Cookies from "js-cookie";
 // CUSTOM HOOKS
 // import { keepTheme } from "../shared/utils/themes";
 
+const env = process.env.NODE_ENV;
+let workInProgress = true;
+if (env == "production") {
+    workInProgress = true;
+}
+
 function MyApp({ Component, pageProps }) {
     // useEffect(() => {
     //     keepTheme();
     // }, []);
-    return (
-        <SnackbarProvider
-            anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        >
-            <Provider store={store}>
-                <Layout>
-                    <Component {...pageProps} />
-                </Layout>
-            </Provider>
-        </SnackbarProvider>
-    );
+    if (workInProgress) {
+        return (
+            <div id="WIP">
+                <div>
+                    <h1>SITO IN FASE DI SVILUPPO</h1>
+                    <h3>Disponibile a breve</h3>
+                </div>
+                <div>
+                    <h4>DA MAMY A MAMY</h4>
+                    <p>Vicolo Teatro, 4, 37010 Cavaion, Verona, IT</p>
+                    <p>
+                        {" "}
+                        <a href="tel:+393479792644">(+39) 347 9792 644</a>
+                    </p>
+                    <p>
+                        <a href="mailto:damamyamamy@gmail.com">
+                            damamyamamy@gmail.com
+                        </a>
+                    </p>
+                </div>
+            </div>
+        );
+    } else {
+        return (
+            <SnackbarProvider
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            >
+                <Provider store={store}>
+                    <Layout>
+                        <Component {...pageProps} />
+                    </Layout>
+                </Provider>
+            </SnackbarProvider>
+        );
+    }
 }
 
 const makeStore = () => store;
