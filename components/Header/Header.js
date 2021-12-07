@@ -23,7 +23,7 @@ const ColorModeButton = dynamic(
     }
 ); // ?
 
-export default function Header() {
+export default function Header({ userInfo }) {
     const [windowSize, setWindowSize] = useState(721);
     const { width } = useWindowDimensions();
 
@@ -88,7 +88,7 @@ export default function Header() {
             <div className={styles["header-component"]}>
                 {windowSize <= 720 ? <MobileHeader /> : <DesktopHeader />}
             </div>
-            <Nav closeNav={close} width={windowSize} />
+            <Nav closeNav={close} width={windowSize} userInfo={userInfo} />
         </header>
     );
 }

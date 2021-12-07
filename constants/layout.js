@@ -2,17 +2,27 @@ import Head from "next/head";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchCart } from "../redux/LoadCart/loadCart.actions";
-import { useDispatch } from "react-redux";
 import { keepTheme } from "../shared/utils/themes";
+
+import { useDispatch, useSelector } from "react-redux";
+
+const selectUserInfo = (state) => state.user.userInfo;
 
 export default function Layout({ children }) {
     const dispatch = useDispatch();
+    const [userInfo, setUserInfo] = useState(null);
+
+    let selectedUserInfo = useSelector(selectUserInfo);
+
     useEffect(() => {
         keepTheme();
+        setUserInfo(selectedUserInfo);
         dispatch(fetchCart());
     }, []);
+
+    useEffect(() => setUserInfo(selectedUserInfo), [selectedUserInfo]);
 
     return (
         <>
@@ -54,7 +64,7 @@ export default function Layout({ children }) {
                 />
             </Head>
 
-            <Header />
+            <Header userInfo={userInfo} />
             {children}
             <Footer />
         </>

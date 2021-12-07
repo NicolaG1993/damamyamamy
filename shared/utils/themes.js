@@ -19,3 +19,6 @@ module.exports = {
     setTheme,
     keepTheme,
 };
+
+//uso localStorage perché theme serve solo su client, e non ha scadenza
+//cookies servono per data usato in server, ed hanno una scadenza

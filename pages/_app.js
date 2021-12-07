@@ -8,6 +8,8 @@ import { Provider } from "react-redux";
 import { createStore } from "redux";
 import store from "../redux/store";
 import { createWrapper } from "next-redux-wrapper";
+import { SnackbarProvider } from "notistack";
+import Cookies from "js-cookie";
 // CUSTOM HOOKS
 // import { keepTheme } from "../shared/utils/themes";
 
@@ -15,13 +17,16 @@ function MyApp({ Component, pageProps }) {
     // useEffect(() => {
     //     keepTheme();
     // }, []);
-
     return (
-        <Provider store={store}>
-            <Layout>
-                <Component {...pageProps} />
-            </Layout>
-        </Provider>
+        <SnackbarProvider
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        >
+            <Provider store={store}>
+                <Layout>
+                    <Component {...pageProps} />
+                </Layout>
+            </Provider>
+        </SnackbarProvider>
     );
 }
 

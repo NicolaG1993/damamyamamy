@@ -13,7 +13,7 @@ const nameValidation = (fieldName, fieldValue) => {
 
 const emailValidation = (email) => {
     if (
-        /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+        /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+$/.test(
             email
         )
     ) {
@@ -23,6 +23,22 @@ const emailValidation = (email) => {
         return "È richiesta un'email";
     }
     return "Perfavore inserisci un'email valida";
+};
+
+const passwordValidation = (password) => {
+    if (password.trim().length < 6) {
+        return "La password deve contenere almeno 6 caratteri";
+    } else {
+        return null;
+    }
+};
+
+const addressValidation = (fieldName, fieldValue) => {
+    if (fieldValue.trim().length < 1) {
+        return `L'${fieldName} è richiesto`;
+    } else {
+        return null;
+    }
 };
 
 const requestedValue = (fieldValue) => {
@@ -74,6 +90,8 @@ module.exports = {
     requestedValue,
     textValidation,
     numberValidation,
+    passwordValidation,
+    addressValidation,
 };
 
 /*

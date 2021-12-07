@@ -32,3 +32,16 @@ ed elimini (via redux action?) tutti quelli non piú disponibili in data
 ⚠ ⚠ ⚠ ⚠ ⚠
 ovviamente per il futuro dovró creare un database per shop, un api per cart, interfaccia admin con autorizzazione per gestire shop
 il tutto collegato al catalogo del negozio (con dati di venditore e acquirente, scadenza 60 giorni) e dall`acquisto in negozio
+
+
+
+
+--------------------------------------------------
+DICEMBRE 2021
+--------------------------------------------------
+
+• aggiungere database psql (items, orders, users)
+• migrare da commerce.js, non usarlo piú
+• aggiungere auth per users
+• aggiungere admin dashboard
+• infine sistemare tutta la parte legata ai pagamenti

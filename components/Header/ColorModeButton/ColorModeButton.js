@@ -38,30 +38,12 @@ export default function ColorModeButton() {
         let theme = localStorage.getItem("theme");
         console.log("theme", theme);
         stabilizer(theme);
-
-        // if (theme === "theme-dark") {
-        //     stabilizer("theme-dark");
-        //     // dispatch(setColorButton({ color: "theme-dark" }));
-        // } else if (theme === "theme-light") {
-        //     stabilizer("theme-light");
-        //     // dispatch(setColorButton({ color: "theme-light" }));
-        // }
     }, []);
 
     useEffect(() => {
         let theme = localStorage.getItem("theme");
         console.log("theme", theme);
         stabilizer(theme);
-
-        // if (localStorage.getItem("theme") === "theme-dark") {
-        //     // setTogClass("theme-dark");
-        //     stabilizer("theme-dark");
-        //     // dispatch(setColorButton({ color: "theme-dark" }));
-        // } else if (localStorage.getItem("theme") === "theme-light") {
-        //     // setTogClass("theme-light");
-        //     stabilizer("theme-light");
-        //     // dispatch(setColorButton({ color: "theme-light" }));
-        // }
     }, [selectedTheme]);
 
     const getBtnStyle = () => {

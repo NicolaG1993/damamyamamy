@@ -3,7 +3,10 @@ import styles from "./style/Nav.module.css";
 import ColorModeButton from "../ColorModeButton/ColorModeButton";
 
 // REDUX
-import { useSelector, shallowEqual } from "react-redux";
+import { useSelector, shallowEqual, useDispatch } from "react-redux";
+import Cookies from "js-cookie";
+import { userLogout } from "../../../redux/User/user.actions";
+import { useRouter } from "next/router";
 const selectLayouts = (state) => state.toggleLayout.layouts[1];
 
 const links = [
@@ -29,7 +32,9 @@ const links = [
     },
 ];
 
-export default function Nav({ closeNav, width }) {
+export default function Nav({ closeNav, width, userInfo }) {
+    const router = useRouter();
+    const dispatch = useDispatch();
     let { active } = useSelector(selectLayouts, shallowEqual);
     // let navIsActive = state.active;
 
@@ -40,6 +45,14 @@ export default function Nav({ closeNav, width }) {
     const getNavStyle = () => {
         if (active) return styles["header-nav-on"];
         else return styles["header-nav-off"];
+    };
+
+    const logoutClickHandler = () => {
+        dispatch(userLogout());
+        Cookies.remove("userInfo");
+        Cookies.remove("cartItems");
+        closeNav();
+        router.push("/");
     };
 
     return (
@@ -55,6 +68,26 @@ export default function Nav({ closeNav, width }) {
                             </a>
                         </Link>
                     ))}
+                    {userInfo ? (
+                        <>
+                            <Link href="/profile">
+                                <a onClick={() => closeNav()}>
+                                    <li>{userInfo.name}</li>
+                                </a>
+                            </Link>
+                            <Link href="/login">
+                                <a onClick={logoutClickHandler}>
+                                    <li>Logout</li>
+                                </a>
+                            </Link>
+                        </>
+                    ) : (
+                        <Link href="/login">
+                            <a onClick={() => closeNav()}>
+                                <li>Login</li>
+                            </a>
+                        </Link>
+                    )}
                 </ul>
                 {width <= 720 && <ColorModeButton />}
             </nav>

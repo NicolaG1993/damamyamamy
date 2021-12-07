@@ -14,7 +14,6 @@ export default function reducer(state = INITIAL_STATE, action) {
     switch (action.type) {
         case TOGGLE: {
             let { layouts } = state;
-            // console.log("TOGGLE: ", action.payload);
             let id = action.payload.id;
 
             let newArr = layouts.map((layout) =>
@@ -27,7 +26,6 @@ export default function reducer(state = INITIAL_STATE, action) {
 
         case OPEN: {
             let { layouts } = state;
-            // console.log("OPEN: ", action.payload);
             let id = action.payload.id;
 
             let newArr = layouts.map((layout) =>
@@ -38,7 +36,6 @@ export default function reducer(state = INITIAL_STATE, action) {
 
         case CLOSE: {
             let { layouts } = state;
-            // console.log("CLOSE: ", action.payload);
             let id = action.payload.id;
 
             let newArr = layouts.map((layout) =>
@@ -49,8 +46,6 @@ export default function reducer(state = INITIAL_STATE, action) {
 
         case SET_COLOR: {
             let color = action.payload.color;
-            console.log("SET_COLOR: ", action.payload);
-
             return {
                 ...state,
                 theme: color,
