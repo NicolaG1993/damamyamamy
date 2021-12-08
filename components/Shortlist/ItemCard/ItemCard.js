@@ -23,7 +23,7 @@ export default function ItemCard({ product }) {
                 <a className={styles["product-content"]}>
                     <div className={styles["product-img"]}>
                         <img
-                            src={product.media.source || "test1.jpg"}
+                            src={product.images[0] || "test1.jpg"}
                             alt={product.name}
                             className={styles["product-img-pic"]}
                             width="100%"
@@ -44,7 +44,7 @@ export default function ItemCard({ product }) {
                             >
                                 Prezzo:{" "}
                             </span>
-                            {product.price.raw}€
+                            {product.price}€
                         </h5>
                     </div>
                 </a>

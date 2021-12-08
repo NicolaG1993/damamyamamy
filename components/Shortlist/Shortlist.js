@@ -61,7 +61,7 @@ export default function Shortlist({ products, listTitle }) {
             <div className={styles["shortlist-topbar"]}>
                 <h3>{listTitle}</h3>
                 {products &&
-                    (products.length ? (
+                    (products.length > 4 ? (
                         <div className={styles["shortlist-btns"]}>
                             <button
                                 className={styles["small-arrow"]}

@@ -37,7 +37,7 @@ const PageNav = dynamic(() => import("../components/Shop/PageNav/PageNav"), {
 
 // import CategoriesMenu from "./CategoriesMenu/CategoriesMenu";
 
-export default function Shop() {
+export default function Shop({ products }) {
     let data = useSelector(loadData, shallowEqual);
 
     const router = useRouter();
@@ -93,6 +93,16 @@ export default function Shop() {
             </div>
         </div>
     );
+}
+
+export async function getServerSideProps() {
+    const response = await axios.get("http://localhost:3000/api/products");
+    //getServerSideProps runs on build time, it does not receive data that’s only available during request time, such as query parameters or HTTP headers as it generates static HTML
+    //per il deploy dovró renderlo dinamico in base al host dell'API, localhost funziona solo local
+    // console.log("response", response);
+    return {
+        props: { products: response.data.rows },
+    };
 }
 
 // vogliamo essere sicuri di avere data per shop prima di fare il render dei filters

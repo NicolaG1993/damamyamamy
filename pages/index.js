@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 
 // REDUX
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
+/* import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import {
     fetchData,
     fetchCategories,
@@ -15,15 +15,16 @@ const loadData = (state) => state.shopData.data;
 const loadCats = (state) => state.shopData.categories;
 const loadCatNewItems = (state) => state.shopData.catNewItems;
 const loadCat1 = (state) => state.shopData.cat1;
-const loadCat2 = (state) => state.shopData.cat2;
+const loadCat2 = (state) => state.shopData.cat2; */
 
 //COMPONENTS
 const Slider = dynamic(() => import("../components/Home/Slider/Slider"), {
     ssr: false,
 });
-const Shortlist = dynamic(() => import("../components/Shortlist/Shortlist"), {
-    loading: () => <div className="loader" />,
-}); //forse questo senza loader
+// const Shortlist = dynamic(() => import("../components/Shortlist/Shortlist"), {
+//     loading: () => <div className="loader" />,
+// }); //forse questo senza loader
+import Shortlist from "../components/Shortlist/Shortlist";
 import IconsList from "../components/Home/IconsList/IconsList";
 import Button from "../components/Button/Button";
 
@@ -33,28 +34,29 @@ import styles from "../components/Home/style/Home.module.css";
 // UTILS
 import useScrollPosition from "../shared/utils/useScrollPosition";
 import useWindowDimensions from "../shared/utils/useWindowDimensions";
+import axios from "axios";
 
-export default function Home() {
+export default function Home({ catNewItems, cat1, cat2 }) {
     //redux
-    let data = useSelector(loadData, shallowEqual);
+    /* let data = useSelector(loadData, shallowEqual);
     let categories = useSelector(loadCats, shallowEqual);
     let catNewItems = useSelector(loadCatNewItems, shallowEqual);
     let cat1 = useSelector(loadCat1, shallowEqual);
-    let cat2 = useSelector(loadCat2, shallowEqual);
-    const dispatch = useDispatch();
+    let cat2 = useSelector(loadCat2, shallowEqual); 
+    const dispatch = useDispatch(); */
 
     //hooks
     useEffect(() => {
-        if (!data || !categories) {
+        /* if (!data || !categories) {
             dispatch(fetchData());
             dispatch(fetchCategories());
-        }
+        } */
     }, []);
 
-    useEffect(() => {
+    /*  useEffect(() => {
         // data && console.log("data.data changed:", data);
         data && dispatch(fetchSpecificCategories());
-    }, [data]);
+    }, [data]); */
 
     //style
     const [iconslistHeight, setIconslistHeight] = useState(`800px`);
@@ -91,74 +93,6 @@ export default function Home() {
                 <meta property="og:title" content="Da Mamy a Mamy" />
             </Head>
 
-            {/* <main className={styles.main}>
-                <h1 className={styles.title}>
-                    Welcome to <a href="https://nextjs.org">Next.js!</a>
-                </h1>
-
-                <p className={styles.description}>
-                    Get started by editing{" "}
-                    <code className={styles.code}>pages/index.js</code>
-                </p>
- 
-                <div className={styles.grid}>
-                    <a href="https://nextjs.org/docs" className={styles.card}>
-                        <h2>Documentation &rarr;</h2>
-                        <p>
-                            Find in-depth information about Next.js features and
-                            API.
-                        </p>
-                    </a>
-
-                    <a href="https://nextjs.org/learn" className={styles.card}>
-                        <h2>Learn &rarr;</h2>
-                        <p>
-                            Learn about Next.js in an interactive course with
-                            quizzes!
-                        </p>
-                    </a>
-
-                    <a
-                        href="https://github.com/vercel/next.js/tree/master/examples"
-                        className={styles.card}
-                    >
-                        <h2>Examples &rarr;</h2>
-                        <p>
-                            Discover and deploy boilerplate example Next.js
-                            projects.
-                        </p>
-                    </a>
-
-                    <a
-                        href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-                        className={styles.card}
-                    >
-                        <h2>Deploy &rarr;</h2>
-                        <p>
-                            Instantly deploy your Next.js site to a public URL
-                            with Vercel.
-                        </p>
-                    </a>
-                </div>
-            </main>
-
-            <footer className={styles.footer}>
-                <a
-                    href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Powered by{" "}
-                    <span className={styles.logo}>
-                        <Image
-                            src="/vercel.svg"
-                            alt="Vercel Logo"
-                            width={72}
-                            height={16}
-                        />
-                    </span>
-                </a>
-            </footer> */}
             <h1>
                 Da Mamy a Mamy - Negozio di accessori, Abbigliamento e
                 giocattoli di seconda mano per bimbi da 0 a 10 anni
@@ -181,14 +115,25 @@ export default function Home() {
                         products={catNewItems}
                         listTitle={"Ultimi arrivi"}
                     />
-                    <Shortlist products={cat1} listTitle={"Giochi"} />
-                    <Shortlist
-                        products={cat2}
-                        listTitle={"Passeggini e trasporto"}
-                    />
+                    <Shortlist products={cat1} listTitle={"Abbigliamento"} />
+                    <Shortlist products={cat2} listTitle={"Giochi"} />
                 </>
             </section>
             <IconsList iconslistHeight={iconslistHeight} />
         </div>
     );
+}
+
+export async function getServerSideProps() {
+    const { data } = await axios.get(
+        `http://localhost:3000/api/home-categories`
+    );
+    console.log("data 👓", data);
+    return {
+        props: {
+            catNewItems: data.catNewItems,
+            cat1: data.cat1,
+            cat2: data.cat2,
+        },
+    };
 }

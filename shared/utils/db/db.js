@@ -16,8 +16,24 @@ module.exports.getAllProducts = () => {
 };
 
 module.exports.getProduct = (str) => {
-    const myQuery = `SELECT * FROM products WHERE (slug = $1)`;
+    const myQuery = `SELECT * FROM products WHERE slug = $1`;
     const key = [str];
+    return db.query(myQuery, key);
+};
+
+module.exports.getCatNewItems = () => {
+    const myQuery = `SELECT * FROM products
+    ORDER BY created_at ASC
+    LIMIT 20`;
+    return db.query(myQuery);
+};
+
+module.exports.getCategory = (category) => {
+    const myQuery = `SELECT * FROM products
+    WHERE $1 = ANY (categories)
+    ORDER BY created_at ASC
+    LIMIT 20`;
+    const key = [category];
     return db.query(myQuery, key);
 };
 

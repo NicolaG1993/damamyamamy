@@ -6,25 +6,23 @@ CREATE TABLE products(
     id SERIAL PRIMARY KEY,
     name VARCHAR NOT NULL CHECK (name != ''),
     slug VARCHAR NOT NULL CHECK (slug != ''),
-    category VARCHAR NOT NULL CHECK (category != ''),
-    image VARCHAR(255),
+    categories TEXT [],
+    images TEXT [],
     price INT,
     brand VARCHAR NOT NULL CHECK (brand != ''),
-    rating INT,
-    numReviews INT,
     countInStock INT,
     description VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO products (name, slug, category, image, price, brand, rating, numReviews, countInStock, description)
-VALUES ('Free Shirt', 'free-shirt', 'Shirts', '/images/shirt1.jpg', 70, 'Nike', 4.5, 10, 20, 'A popular shirt');
+INSERT INTO products (name, slug, categories, images, price, brand, countInStock, description)
+VALUES ('Maglietta', 'maglietta', ARRAY ['Maglie', 'Abbigliamento', 'Bambina'], ARRAY [ '/images/shirt1.jpg' ], 70, 'Nike', 1, 'A popular shirt');
 
-INSERT INTO products (name, slug, category, image, price, brand, rating, numReviews, countInStock, description)
-VALUES ('Fit Shirt', 'fit-shirt', 'Shirts', '/images/shirt2.jpg', 40, 'Adidas', 4, 10, 20, 'A fit shirt');
+INSERT INTO products (name, slug, categories, images, price, brand, countInStock, description)
+VALUES ('Scarpe', 'scarpe', ARRAY ['Scarpe', 'Abbigliamento', 'Bambino'], ARRAY [ '/images/shoes1.jpg' ], 40, 'Nike', 1, 'Some casual shoes');
 
-INSERT INTO products (name, slug, category, image, price, brand, rating, numReviews, countInStock, description)
-VALUES ('Polo', 'polo', 'Ralph Lauren', '/images/shirt3.jpg', 90, 'Nike', 4.8, 10, 20, 'A polo');
+INSERT INTO products (name, slug, categories, images, price, brand, countInStock, description)
+VALUES ('Game Boy', 'game-boy', ARRAY ['Giocattoli', 'Videogiochi', 'Elettronica'], ARRAY [ '/images/gameboy.jpg' ], 130, 'Nintendo', 2, 'Gameboy color come nuovo');
 
 
 CREATE TABLE users(

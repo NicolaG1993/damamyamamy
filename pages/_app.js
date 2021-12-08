@@ -1,20 +1,19 @@
-import { useEffect } from "react";
 import "../shared/styles/globals.css";
 //COMPONENTS
 import Layout from "../constants/layout";
 // REDUX
-import withRedux from "next-redux-wrapper";
+// import withRedux from "next-redux-wrapper";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+// import { createStore } from "redux";
 import store from "../redux/store";
 import { createWrapper } from "next-redux-wrapper";
 import { SnackbarProvider } from "notistack";
-import Cookies from "js-cookie";
+
 // CUSTOM HOOKS
 // import { keepTheme } from "../shared/utils/themes";
 
 const env = process.env.NODE_ENV;
-let workInProgress = true;
+let workInProgress = false;
 if (env == "production") {
     workInProgress = true;
 }
@@ -34,7 +33,6 @@ function MyApp({ Component, pageProps }) {
                     <h4>DA MAMY A MAMY</h4>
                     <p>Vicolo Teatro, 4, 37010 Cavaion, Verona, IT</p>
                     <p>
-                        {" "}
                         <a href="tel:+393479792644">(+39) 347 9792 644</a>
                     </p>
                     <p>
