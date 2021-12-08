@@ -23,7 +23,7 @@ export function setupShop(payload) {
     };
 }
 
-export function fetchCategories() {
+/* export function fetchCategories() {
     return (dispatch) => {
         dispatch({
             type: FETCH_CATEGORIES,
@@ -34,7 +34,7 @@ export function fetchCategories() {
             FETCH_CATEGORIES
         );
     };
-} // This is how we do async actions with redux-thunk
+} // This is how we do async actions with redux-thunk */
 
 export function getItem(payload) {
     // una cosa come questa é meglio farla via request server side se possibile

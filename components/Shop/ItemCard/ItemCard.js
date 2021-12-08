@@ -53,7 +53,7 @@ export default function ItemCard({ item }) {
                                 <span className={styles["price-for-item-card"]}>
                                     Prezzo:{" "}
                                 </span>
-                                {item.price.raw}€
+                                {item.price}€
                             </h5>
                         </div>
                         {/* </Link> */}

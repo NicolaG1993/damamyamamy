@@ -49,7 +49,7 @@ export default function ItemsList() {
 
     // console.log("🍄🍄🍄 filteredItems -> ", filteredItems);
     // console.log("🍄🍄🍄 results -> ", results);
-    // console.log("🍄🍄🍄 onPage -> ", onPage);
+    console.log("🍄🍄🍄 onPage -> ", onPage);
     return (
         <div className={styles["items-list"]}>
             {onPage ? (

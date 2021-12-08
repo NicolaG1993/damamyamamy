@@ -43,7 +43,6 @@ export default function Filter({ research }) {
                 priceMin: 0,
                 priceMax: topValue,
                 category: "",
-                categoryID: "",
                 order: "new",
             }),
         [topValue]
@@ -61,7 +60,6 @@ export default function Filter({ research }) {
         dispatch(
             filterByCategory({
                 value: filters.category,
-                valueID: filters.categoryID,
             })
         );
         // 🧨 Bug; se cancello lettera con category selezionata scompaiono i risultati
@@ -109,13 +107,13 @@ export default function Filter({ research }) {
         let allValues = Object.fromEntries(data.entries());
 
         // Category
-        let selectedCat = categories.find((cat) => cat.id === form[3].value);
+        let selectedCat = categories.find((cat) => cat === form[3].value);
+
         !selectedCat
-            ? (allValues = { ...allValues, category: "", categoryID: "" })
+            ? (allValues = { ...allValues, category: "" })
             : (allValues = {
                   ...allValues,
-                  category: selectedCat.name,
-                  categoryID: selectedCat.id,
+                  category: selectedCat,
               });
 
         // Price range

@@ -59,6 +59,7 @@ export default function reducer(state = INITIAL_STATE, action) {
         //     }
         // }
 
+        /*
         case FETCH_SPECIFIC_CATEGORIES: {
             let { data } = state;
             // console.log("FETCH_SPECIFIC_CATEGORIES: ", data);
@@ -91,6 +92,7 @@ export default function reducer(state = INITIAL_STATE, action) {
                 cat2,
             };
         }
+        */
 
         case GET_ITEM: {
             let selectedItem = action.payload;
@@ -138,10 +140,11 @@ export default function reducer(state = INITIAL_STATE, action) {
                 filteredItems = state.data.filter((product) => {
                     return (
                         product.name.toLowerCase().includes(value) ||
-                        (product.categories[0] &&
-                            product.categories[0].name
-                                .toLowerCase()
-                                .includes(value))
+                        (product.categories &&
+                            product.categories.some((el) => {
+                                console.log("EL: ", el.toLowerCase());
+                                return el.toLowerCase().includes(value);
+                            }))
                     );
                 }); //look for objects with the received value in their ‘name’ or category fields //add here more fields in case we want to check them
             }
@@ -151,7 +154,7 @@ export default function reducer(state = INITIAL_STATE, action) {
 
         case FILTER_BY_CATEGORY: {
             let value = action.payload.value;
-            let valueID = action.payload.valueID;
+
             console.log("FILTER_BY_CATEGORY: ", value);
 
             let filteredItems;
@@ -160,10 +163,7 @@ export default function reducer(state = INITIAL_STATE, action) {
                 filteredItems = state.filteredItems;
             } else {
                 filteredItems = state.filteredItems.filter(
-                    (item) =>
-                        item.categories[0] &&
-                        item.categories[0].name === value &&
-                        item.categories[0].id === valueID
+                    (item) => item.categories && item.categories.includes(value)
                 ); // NB: io uso state.data
             }
 
@@ -179,8 +179,7 @@ export default function reducer(state = INITIAL_STATE, action) {
 
             filteredItems = state.filteredItems.filter(
                 (product) =>
-                    product.price.raw >= minPrice &&
-                    product.price.raw <= maxPrice
+                    product.price >= minPrice && product.price <= maxPrice
             ); // NB: io uso state.data
 
             return { ...state, filteredItems: filteredItems };
@@ -204,8 +203,8 @@ export default function reducer(state = INITIAL_STATE, action) {
         case SORT_BY_PRICE: {
             let sortedArr =
                 action.payload.value === "lowPrice"
-                    ? sortArrayAsc(state.filteredItems, "price.raw")
-                    : sortArrayDesc(state.filteredItems, "price.raw");
+                    ? sortArrayAsc(state.filteredItems, "price")
+                    : sortArrayDesc(state.filteredItems, "price");
 
             return { ...state, filteredItems: sortedArr };
         }
