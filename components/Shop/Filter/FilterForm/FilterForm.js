@@ -12,7 +12,8 @@ export default function FilterForm({
     filters,
     filtersBar,
 }) {
-    console.log("DEFAULT_CLASS_NAMES", DEFAULT_CLASS_NAMES);
+    // console.log("DEFAULT_CLASS_NAMES", DEFAULT_CLASS_NAMES);
+    console.log("categories", categories);
     const updateInputValues = () => {
         let minInput = document.querySelector("#priceMin");
         let maxInput = document.querySelector("#priceMax");
@@ -115,9 +116,9 @@ function SelectCat({ handleForm, categories }) {
             {categories &&
                 categories.map((category) => (
                     <option
-                        key={category.id}
-                        value={category.id}
-                        label={category.name}
+                        key={category}
+                        value={category}
+                        label={category}
                     ></option>
                 ))}
         </select>

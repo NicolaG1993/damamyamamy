@@ -7,11 +7,12 @@ import styles from "../components/Shop/style/Shop.module.css";
 // REDUX
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import {
-    fetchData,
     fetchCategories,
     fetchHighestValue,
+    setupShop,
 } from "../redux/ShopData/shopData.actions";
 import { fetchCart } from "../redux/LoadCart/loadCart.actions";
+import axios from "axios";
 
 const loadData = (state) => state.shopData.data; // a noi data non interessa qua
 const getCategories = (state) => state.shopData.categories;
@@ -37,48 +38,43 @@ const PageNav = dynamic(() => import("../components/Shop/PageNav/PageNav"), {
 
 // import CategoriesMenu from "./CategoriesMenu/CategoriesMenu";
 
-export default function Shop({ products }) {
-    let data = useSelector(loadData, shallowEqual);
-
+export default function Shop({ products, categories }) {
     const router = useRouter();
     const { research } = router.query;
     // console.log("research", research);
 
     const dispatch = useDispatch();
-    useEffect(() => {
+
+    useEffect(() => dispatch(setupShop({ products, categories })), []);
+    /*
+    let data = useSelector(loadData, shallowEqual);
+     useEffect(() => {
         // console.log("SHOP RENDERS");
 
         if (!data) {
-            dispatch(fetchData());
+            dispatch(setupShop(products));
         }
 
         dispatch(fetchCategories());
         // anche se abbiamo gia data in redux!
-    }, []);
+    }, []); 
 
     useEffect(() => data && dispatch(fetchHighestValue()), [data]);
+    */
 
-    const ShopUI = () =>
-        data && data.length ? (
-            <>
-                <Filter
-                    research={research}
-                    fallback={<div className="loader" />}
-                />
-                <ItemsCount />
-                <PageNav />
-                <ItemsList fallback={<div className="loader" />} />
-                <PageNav />
-                {/* <div>
+    const ShopUI = () => (
+        <>
+            <Filter research={research} fallback={<div className="loader" />} />
+            <ItemsCount />
+            <PageNav />
+            <ItemsList fallback={<div className="loader" />} />
+            <PageNav />
+            {/* <div>
                 <h4>Categories:</h4>
                 <CategoriesMenu />
             </div> */}
-            </>
-        ) : (
-            <>
-                <div className="loader" />
-            </>
-        );
+        </>
+    );
 
     return (
         <div id={styles["Shop"]}>
@@ -96,12 +92,12 @@ export default function Shop({ products }) {
 }
 
 export async function getServerSideProps() {
-    const response = await axios.get("http://localhost:3000/api/products");
+    const { data } = await axios.get("http://localhost:3000/api/products");
     //getServerSideProps runs on build time, it does not receive data that’s only available during request time, such as query parameters or HTTP headers as it generates static HTML
     //per il deploy dovró renderlo dinamico in base al host dell'API, localhost funziona solo local
-    // console.log("response", response);
+    // console.log("data 👓", data);
     return {
-        props: { products: response.data.rows },
+        props: { products: data.products, categories: data.categories },
     };
 }
 

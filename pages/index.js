@@ -128,7 +128,6 @@ export async function getServerSideProps() {
     const { data } = await axios.get(
         `http://localhost:3000/api/home-categories`
     );
-    console.log("data 👓", data);
     return {
         props: {
             catNewItems: data.catNewItems,

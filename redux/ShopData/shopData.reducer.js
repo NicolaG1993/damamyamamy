@@ -20,34 +20,44 @@ const INITIAL_STATE = {};
 export default function reducer(state = INITIAL_STATE, action) {
     switch (action.type) {
         /////////////////// from LoadData ///////////////////
-        case FETCH_DATA: {
-            let data = action.payload;
-            console.log("FETCH_DATA: ", action.payload);
+        case SETUP_SHOP: {
+            let data = action.payload.products;
+            let categories = action.payload.categories;
+            console.log("SETUP_SHOP: ", action.payload);
 
-            if (data) {
+            if (data && categories) {
+                let topValue = Math.max.apply(
+                    Math,
+                    data.map(function (el) {
+                        return el.price;
+                    })
+                );
+
                 return {
                     ...state,
                     data,
                     filteredItems: data,
-                };
-            } else {
-                return state;
-            }
-        }
-
-        case FETCH_CATEGORIES: {
-            console.log("FETCH_CATEGORIES: ", action.payload);
-            let categories = action.payload;
-
-            if (categories) {
-                return {
-                    ...state,
                     categories,
+                    topValue,
                 };
             } else {
                 return state;
             }
         }
+
+        // case FETCH_CATEGORIES: {
+        //     console.log("FETCH_CATEGORIES: ", action.payload);
+        //     let categories = action.payload;
+
+        //     if (categories) {
+        //         return {
+        //             ...state,
+        //             categories,
+        //         };
+        //     } else {
+        //         return state;
+        //     }
+        // }
 
         case FETCH_SPECIFIC_CATEGORIES: {
             let { data } = state;
@@ -93,26 +103,26 @@ export default function reducer(state = INITIAL_STATE, action) {
             };
         }
 
-        case FETCH_HIGHEST_VALUE: {
-            let { data } = state;
-            // console.log("FETCH_HIGHEST_VALUE data: ", data);
-            let topValue;
-            data
-                ? (topValue = Math.max.apply(
-                      Math,
-                      data.map(function (element) {
-                          return element.price.raw; // FIXARE ? 🧨
-                      })
-                  ))
-                : (topValue = undefined);
+        // case FETCH_HIGHEST_VALUE: {
+        //     let { data } = state;
+        //     // console.log("FETCH_HIGHEST_VALUE data: ", data);
+        //     let topValue;
+        //     data
+        //         ? (topValue = Math.max.apply(
+        //               Math,
+        //               data.map(function (element) {
+        //                   return element.price.raw; // FIXARE ? 🧨
+        //               })
+        //           ))
+        //         : (topValue = undefined);
 
-            console.log("FETCH_HIGHEST_VALUE topValue: ", topValue);
+        //     console.log("FETCH_HIGHEST_VALUE topValue: ", topValue);
 
-            return {
-                ...state,
-                topValue,
-            };
-        }
+        //     return {
+        //         ...state,
+        //         topValue,
+        //     };
+        // }
 
         /////////////////// from filterStore ///////////////////
 

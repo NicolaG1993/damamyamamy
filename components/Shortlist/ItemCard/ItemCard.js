@@ -22,8 +22,8 @@ export default function ItemCard({ product }) {
             <Link href={`/item/${product.id}`}>
                 <a className={styles["product-content"]}>
                     <div className={styles["product-img"]}>
-                        <img
-                            src={product.images[0] || "test1.jpg"}
+                        <Image
+                            src={product.images[0] || "/pics/Logo.jpg"}
                             alt={product.name}
                             className={styles["product-img-pic"]}
                             width="100%"

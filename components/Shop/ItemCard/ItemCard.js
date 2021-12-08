@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import CartButton from "../../CartButton/CartButton";
 import styles from "./style/ItemCard.module.css"; // not loading right
@@ -30,7 +31,11 @@ export default function ItemCard({ item }) {
                     <div className={styles["item-card"]}>
                         {/* <Link to={`/item/${item.id}`} className={"product-content-medium"}> */}
                         <div className={styles["item-card-img"]}>
-                            <img src={item.media.source || "test1.jpg"} />
+                            <Image
+                                src={item.images[0] || "/pics/Logo.jpg"}
+                                alt={item.name}
+                                layout="fill"
+                            />
                         </div>
 
                         <div className={styles["item-card-info"]}>

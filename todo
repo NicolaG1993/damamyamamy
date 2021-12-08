@@ -44,13 +44,14 @@ DICEMBRE 2021
 • aggiungere auth per users 👍
 • aggiungere admin dashboard
 • migrare da commerce.js, non usarlo piú
+• gestire cart in state
 • infine sistemare tutta la parte legata ai pagamenti
 
 
 
-TODAY:
-• in Home non voglio fare il setup di shop, ma solo fetch di specific categories
-• setup shopData reducer in Shop
-• sistemare shop ssr, data fetch, se necessario
+08/12/21:
+• in Home non voglio fare il setup di shop, ma solo fetch di specific categories 👍
+• setup shopData reducer in Shop 🧠
+• sistemare shop ssr, data fetch, se necessario 🧠
 • usare items da db
 • modificare db structure e client data mngmt se necessario

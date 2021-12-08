@@ -16,18 +16,12 @@ import {
 import { commerce } from "../../shared/libs/commerce"; // importa axios, api, ...
 
 // Molte delle funzioni che fará il reducer si potranno eliminare se si lavora con server o api, vedi sotto
-export function fetchData() {
-    return (dispatch) => {
-        dispatch({
-            type: FETCH_DATA,
-        });
-        getSomeAsyncData(
-            dispatch,
-            commerce.products.list({ limit: 200 }),
-            FETCH_DATA
-        );
+export function setupShop(payload) {
+    return {
+        type: SETUP_SHOP,
+        payload,
     };
-} // This is how we do async actions with redux-thunk
+}
 
 export function fetchCategories() {
     return (dispatch) => {
@@ -57,12 +51,6 @@ export function getItem(payload) {
 export function fetchSpecificCategories() {
     return {
         type: FETCH_SPECIFIC_CATEGORIES,
-    };
-}
-
-export function setupShop() {
-    return {
-        type: SETUP_SHOP,
     };
 }
 

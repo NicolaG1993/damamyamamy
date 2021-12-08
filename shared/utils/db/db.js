@@ -21,6 +21,14 @@ module.exports.getProduct = (str) => {
     return db.query(myQuery, key);
 };
 
+module.exports.getAllCategories = () => {
+    const myQuery = `SELECT ARRAY (
+        SELECT DISTINCT UNNEST(categories) 
+        FROM products      
+        )`;
+    return db.query(myQuery);
+};
+
 module.exports.getCatNewItems = () => {
     const myQuery = `SELECT * FROM products
     ORDER BY created_at ASC
