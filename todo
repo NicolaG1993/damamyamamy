@@ -46,6 +46,8 @@ DICEMBRE 2021
 • migrare da commerce.js, non usarlo piú
 • gestire cart in state
 • infine sistemare tutta la parte legata ai pagamenti
+• hostare il db online e modificare url per prod mode in components
+• devo avere un check su cart e su checkout (custom hook?) per verificare disponibilitá dei prodotti
 
 
 
@@ -57,6 +59,7 @@ DICEMBRE 2021
 • modificare db structure e client data mngmt se necessario 👍
 
 09/12/21:
-• sistemare item cards usando db data
-• sistemare cart come altro progetto
+• sistemare item cards usando db data 👍
+• sistemare cart come altro progetto 🧠
 • ...orders...
+• in filter by value aggiungere condizioni per tags, categories, brand

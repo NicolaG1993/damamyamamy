@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Head from "next/head";
+import dynamic from "next/dynamic";
+import Image from "next/image";
+import axios from "axios";
 
 import CartItem from "../components/Cart/CartItem/CartItem";
 import Button from "../components/Button/Button";
@@ -9,15 +12,19 @@ import styles from "../components/Cart/style/Cart.module.css";
 
 // REDUX
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { emptyCart, removeFromCart } from "../redux/LoadCart/loadCart.actions";
-import { fetchData } from "../redux/ShopData/shopData.actions";
-const selectCart = (state) => state.loadCart.cart;
-const loadData = (state) => state.shopData.data;
+import {
+    cartAddItem,
+    cartRemoveItem,
+    cartClear,
+} from "../redux/Cart/cart.actions";
+// import { fetchData } from "../redux/ShopData/shopData.actions";
+const selectCart = (state) => state.cart.cartItems;
+// const loadData = (state) => state.shopData.data;
 
-export default function Cart() {
+function Cart() {
     const dispatch = useDispatch();
     let cart = useSelector(selectCart, shallowEqual);
-    let data = useSelector(loadData, shallowEqual);
+    // let data = useSelector(loadData, shallowEqual);
     // console.log("cart in Cart.js: ", cart);
     // console.log("data in Cart.js: ", data);
     // const [finalCart, setFinalCart] = useState();
@@ -28,9 +35,10 @@ export default function Cart() {
         });
     });
 
-    useEffect(() => dispatch(fetchData()), []);
+    // useEffect(() => dispatch(fetchData()), []);
     //fetchShop nuovamente (ci serve la versione aggiornata quando arriviamo qua)
 
+    /*
     useEffect(() => {
         // cart.line_items.filter(
         //     ({ product_id: id1 }) => !data.some(({ id: id2 }) => id2 === id1)
@@ -68,6 +76,20 @@ export default function Cart() {
     //alla fine mi basterebbe avere un listener ogni 10 secondi su data
     //e se sente qualche cambiamento fa la remove req ad API
     //visto che cart esiste ancora con tutti i dati degli items che non esistono piu in shop
+*/
+
+    const updateCartHandler = async (item, quantity) => {
+        const res = await axios.get(`/api/product/${item.slug}`);
+        console.log("res:", res.data.rows[0]);
+        if (res.data.rows[0].countInStock < quantity) {
+            window.alert("Sorry, product is out of stock");
+            return;
+        }
+        dispatch(cartAddItem({ ...item, quantity }));
+    };
+    const removeItemHandler = (item) => {
+        dispatch(cartRemoveItem({ item }));
+    };
 
     const EmptyCart = () => (
         <>
@@ -86,7 +108,7 @@ export default function Cart() {
     const FilledCart = () => (
         <div className={styles["cart-container"]}>
             <div className={styles["cart-products"]}>
-                {cart.line_items.map((item) => (
+                {cart.map((item) => (
                     <div className={styles["cart-product-box"]} key={item.id}>
                         <CartItem item={item} styles={styles} />
                     </div>
@@ -97,8 +119,9 @@ export default function Cart() {
                     <span></span>
                     <h3>
                         Totale: <br />
-                        {cart.subtotal.formatted_with_symbol}
+                        {cart.reduce((a, c) => a + c.quantity * c.price, 0)}
                     </h3>
+                    <p>{cart.reduce((a, c) => a + c.quantity, 0)} articoli</p>
                 </div>
 
                 <span></span>
@@ -107,7 +130,7 @@ export default function Cart() {
                     <Button
                         text="Svuota il carrello"
                         type="function"
-                        fn={() => dispatch(emptyCart())}
+                        fn={() => dispatch(cartClear())}
                         style="inverted-btn"
                     />
                     <Button
@@ -134,8 +157,10 @@ export default function Cart() {
             <div className={styles["cart-comp-wrapper"]}>
                 <h2>Il tuo carrello</h2>
 
-                {!cart.line_items.length ? <EmptyCart /> : <FilledCart />}
+                {!cart.length ? <EmptyCart /> : <FilledCart />}
             </div>
         </div>
     );
 }
+
+export default dynamic(() => Promise.resolve(Cart), { ssr: false });

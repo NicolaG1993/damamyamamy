@@ -11,12 +11,8 @@ import styles from "../../components/Shop/Item/style/Item.module.css";
 
 // import Button from "../../components/Button/Button";
 import CartButton from "../../components/CartButton/CartButton";
-const Shortlist = dynamic(
-    () => import("../../components/Shortlist/Shortlist"),
-    {
-        ssr: false,
-    }
-); //giusto?
+import Shortlist from "../../components/Shortlist/Shortlist";
+
 const Gallery = dynamic(
     () => import("../../components/Shop/Item/Gallery/Gallery"),
     {
@@ -138,6 +134,11 @@ export default function Item({ product }) {
                     </div>
                     <div className={"product-divider-small"}> </div>
                     <div className={"item-infos-infos-box"}>
+                        <div className={styles["item-infos-infos"]}>
+                            <span>Brand:</span>
+                            <p>{product.brand}</p>
+                        </div>
+
                         <div className={styles["item-infos-conditions"]}>
                             <span>Condizioni:</span>
                             <div
@@ -207,16 +208,16 @@ export default function Item({ product }) {
                                         </>
                                     ))}
 
-                                {/* <Link
+                                <Link
                                     href={{
                                         pathname: "/shop",
-                                        query: { research: "3/5 anni" },
+                                        query: { research: product.brand },
                                     }}
                                 >
                                     <a className={styles["item-tag"]}>
-                                        3/5 anni
+                                        {product.brand}
                                     </a>
-                                </Link> */}
+                                </Link>
                             </div>
                         </div>
 

@@ -11,7 +11,7 @@ import {
     fetchHighestValue,
     setupShop,
 } from "../redux/ShopData/shopData.actions";
-import { fetchCart } from "../redux/LoadCart/loadCart.actions";
+// import { fetchCart } from "../redux/Cart/cart.actions";
 import axios from "axios";
 
 const loadData = (state) => state.shopData.data; // a noi data non interessa qua

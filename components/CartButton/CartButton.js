@@ -1,15 +1,12 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import {
-    addToCart,
-    removeFromCart,
-} from "../../redux/LoadCart/loadCart.actions";
+import { cartAddItem, cartRemoveItem } from "../../redux/Cart/cart.actions";
 import styles from "./style/CartButton.module.css";
 
 import ShoppingCart from "./assets/shopping-cart.svg";
 import X from "./assets/x.svg";
 
-const loadNotAvailables = (state) => state.loadCart.notAvailables;
+const loadNotAvailables = (state) => state.cart.cartItems;
 
 const STATUS = {
     HOVERED: "hovered",
@@ -31,7 +28,7 @@ export default function CartButton({ showBtn, wrapSize, product_id }) {
     //Ho giá provato a copiare ed incollare css da Button component
     const dispatch = useDispatch();
     const [isAvailable, setIsAvailable] = useState(false);
-    const [itemId, setItemId] = useState("");
+    // const [itemId, setItemId] = useState("");
     // console.log("product_id: ", product_id);
     // console.log("itemId: ", itemId);
     //questo mi serve per remove!! ma non per add 🧨
@@ -43,13 +40,13 @@ export default function CartButton({ showBtn, wrapSize, product_id }) {
     useEffect(() => {
         if (notAvailables) {
             let result = notAvailables.filter((i) => {
-                return i.product_id === product_id;
+                return i.id === product_id;
             }); // se notAvailables esiste, cerca se contiene un item con questo product_id
 
             if (result.length === 0) {
                 setIsAvailable(true); //se non torna nessun risultato allora é disponibile
             } else {
-                setItemId(result[0].item_id); //altrimenti non lo é, estraiamo il suo item_id (ci serve per remove req to commerce.js)
+                // setItemId(result[0].item_id); //altrimenti non lo é, estraiamo il suo item_id (ci serve per remove req to commerce.js)
                 setIsAvailable(false); //settiamo stato su non disponibile
             }
         }
@@ -62,7 +59,9 @@ export default function CartButton({ showBtn, wrapSize, product_id }) {
                     styles["add-cart-for-small"]
                 } ${showBtn ? styles["show"] : ""}`}
                 onClick={() =>
-                    dispatch(addToCart({ productId: product_id, quantity: 1 }))
+                    dispatch(
+                        cartAddItem({ productId: product_id, quantity: 1 })
+                    )
                 }
             >
                 <ShoppingCart />
@@ -72,7 +71,9 @@ export default function CartButton({ showBtn, wrapSize, product_id }) {
                 className={`${styles["remove-cart"]} ${
                     styles["remove-cart-for-small"]
                 } ${showBtn ? styles["show"] : ""}`}
-                onClick={() => dispatch(removeFromCart({ productId: itemId }))}
+                onClick={() =>
+                    dispatch(cartRemoveItem({ productId: product_id }))
+                }
             >
                 <X />
             </button>
@@ -85,7 +86,9 @@ export default function CartButton({ showBtn, wrapSize, product_id }) {
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
                 onClick={() =>
-                    dispatch(addToCart({ productId: product_id, quantity: 1 }))
+                    dispatch(
+                        cartAddItem({ productId: product_id, quantity: 1 })
+                    )
                 }
             >
                 Aggiungi al carrello
@@ -95,7 +98,9 @@ export default function CartButton({ showBtn, wrapSize, product_id }) {
                 className={`${styles["btn"]} ${styles[status]}`}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
-                onClick={() => dispatch(removeFromCart({ productId: itemId }))}
+                onClick={() =>
+                    dispatch(cartRemoveItem({ productId: product_id }))
+                }
             >
                 Rimuovi dal carrello
             </button>

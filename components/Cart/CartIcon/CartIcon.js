@@ -3,7 +3,7 @@ import ShoppingCart from "./assets/shopping-cart.svg";
 import styles from "./style/CartIcon.module.css";
 
 import { useSelector, shallowEqual } from "react-redux";
-const selectTotalItems = (state) => state.loadCart.cart;
+const selectTotalItems = (state) => state.cart.cartItems;
 
 export default function CartIcon({ closeNav }) {
     let cart = useSelector(selectTotalItems, shallowEqual);

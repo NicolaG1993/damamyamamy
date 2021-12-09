@@ -44,21 +44,21 @@ CREATE TABLE users(
 
 
 CREATE TABLE orders(
-    orderId SERIAL PRIMARY KEY,
-    userId INT NOT NULL,
-    orderItems JSONB NOT NULL,
-    shippingAddress JSON NOT NULL,
-    paymentMethod VARCHAR NOT NULL,
-    paymentResult JSON,
-    itemsPrice DECIMAL(12,2) NOT NULL,
-    shippingPrice DECIMAL(12,2) NOT NULL,
-    taxPrice DECIMAL(12,2) NOT NULL,
-    totalPrice DECIMAL(12,2) NOT NULL,
-    isPaid BOOLEAN DEFAULT false,
-    isDelivered BOOLEAN DEFAULT false,
-    paidAt TIMESTAMP,
-    deliveredAt TIMESTAMP,
-    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    order_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    order_items JSONB NOT NULL,
+    shipping_address JSON NOT NULL,
+    payment_method VARCHAR NOT NULL,
+    payment_result JSON,
+    items_price DECIMAL(12,2) NOT NULL,
+    shipping_price DECIMAL(12,2) NOT NULL,
+    tax_price DECIMAL(12,2) NOT NULL,
+    total_price DECIMAL(12,2) NOT NULL,
+    is_paid BOOLEAN DEFAULT false,
+    is_delivered BOOLEAN DEFAULT false,
+    paid_at TIMESTAMP,
+    delivered_at TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 

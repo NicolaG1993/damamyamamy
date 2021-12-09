@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useDispatch } from "react-redux";
-import { removeFromCart } from "../../../redux/LoadCart/loadCart.actions";
+import { removeFromCart } from "../../../redux/Cart/cart.actions";
 
 export default function CartItem({ item, styles }) {
     const dispatch = useDispatch();

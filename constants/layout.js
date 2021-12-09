@@ -3,7 +3,7 @@ import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 
 import { useEffect, useState } from "react";
-import { fetchCart } from "../redux/LoadCart/loadCart.actions";
+// import { fetchCart } from "../redux/Cart/cart.actions";
 import { keepTheme } from "../shared/utils/themes";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -19,7 +19,7 @@ export default function Layout({ children }) {
     useEffect(() => {
         keepTheme();
         setUserInfo(selectedUserInfo);
-        dispatch(fetchCart());
+        // dispatch(fetchCart());
     }, []);
 
     useEffect(() => setUserInfo(selectedUserInfo), [selectedUserInfo]);

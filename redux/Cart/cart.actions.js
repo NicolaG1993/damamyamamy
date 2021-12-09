@@ -1,3 +1,4 @@
+/*
 import {
     FETCH_CART,
     HANDLE_CART,
@@ -106,3 +107,42 @@ async function getSomeAsyncLogic(dispatch, url) {
 
 //sembra funzionare ma se manca un articolo svuota tutto il carrello per qualche motivo
 //potrebbe essere qualche useEffect o reduxSelector?
+*/
+
+import {
+    CART_ADD_ITEM,
+    CART_REMOVE_ITEM,
+    CART_CLEAR,
+    SAVE_SHIPPING_ADDRESS,
+    SAVE_PAYMENT_METHOD,
+} from "./cart.types";
+
+export function cartAddItem(payload) {
+    return {
+        type: CART_ADD_ITEM,
+        payload,
+    };
+}
+export function cartRemoveItem(payload) {
+    return {
+        type: CART_REMOVE_ITEM,
+        payload,
+    };
+}
+export function cartClear() {
+    return {
+        type: CART_CLEAR,
+    };
+}
+export function saveShippingAddress(payload) {
+    return {
+        type: SAVE_SHIPPING_ADDRESS,
+        payload,
+    };
+}
+export function saveShippingMethod(payload) {
+    return {
+        type: SAVE_PAYMENT_METHOD,
+        payload,
+    };
+}
