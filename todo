@@ -51,7 +51,12 @@ DICEMBRE 2021
 
 08/12/21:
 • in Home non voglio fare il setup di shop, ma solo fetch di specific categories 👍
-• setup shopData reducer in Shop 🧠
-• sistemare shop ssr, data fetch, se necessario 🧠
-• usare items da db
-• modificare db structure e client data mngmt se necessario
+• setup shopData reducer in Shop on render 👍
+• sistemare shop ssr, data fetch, se necessario 👍
+• usare items da db 👍
+• modificare db structure e client data mngmt se necessario 👍
+
+09/12/21:
+• sistemare item cards usando db data
+• sistemare cart come altro progetto
+• ...orders...

@@ -11,7 +11,7 @@ db.connect(); // db.end(); o db.disconnect(); // idk quando e se devo usarli
 
 //** PRODUCTS **//
 module.exports.getAllProducts = () => {
-    const myQuery = `SELECT * FROM products`;
+    const myQuery = `SELECT * FROM products WHERE count_in_stock >= 1`;
     return db.query(myQuery);
 };
 
@@ -31,6 +31,7 @@ module.exports.getAllCategories = () => {
 
 module.exports.getCatNewItems = () => {
     const myQuery = `SELECT * FROM products
+    WHERE count_in_stock >= 1
     ORDER BY created_at ASC
     LIMIT 20`;
     return db.query(myQuery);
@@ -39,9 +40,16 @@ module.exports.getCatNewItems = () => {
 module.exports.getCategory = (category) => {
     const myQuery = `SELECT * FROM products
     WHERE $1 = ANY (categories)
+    AND count_in_stock >= 1
     ORDER BY created_at ASC
     LIMIT 20`;
     const key = [category];
+    return db.query(myQuery, key);
+};
+
+module.exports.getRelatedProducts = (arr) => {
+    const myQuery = `SELECT * FROM products WHERE id = ANY($1) AND count_in_stock >= 1`;
+    const key = [arr];
     return db.query(myQuery, key);
 };
 

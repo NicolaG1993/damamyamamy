@@ -1,6 +1,7 @@
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/router";
 
 import { useState, useEffect, useRef } from "react";
@@ -23,10 +24,11 @@ const Gallery = dynamic(
     }
 ); //giusto?
 
-import { fetchItem } from "../api/api";
+// import { fetchItem } from "../api/api";
+import axios from "axios";
 
 ///////////////////////////////////////////
-
+/*
 export async function getInitialProps(context) {
     //dovrei usare "getServerSideProps" per SEO ma con AWS mi da errore (dice da LambaFunction ma nemmeno non la uso qua!) //fouri da AWS funziona invece
     const { id } = context.query;
@@ -36,11 +38,17 @@ export async function getInitialProps(context) {
     console.log(`Fetched item: ${fetchedItem}`);
     return { props: { fetchedItem } };
 }
-
+*/
 ///////////////////////
 // devo fare una req ad api e settare Item, all'inizio e quando cambia query
 
-export default function Item({ fetchedItem }) {
+export default function Item({ product }) {
+    const [galleryOpen, setGalleryOpen] = useState(false);
+    const [clickedPic, setClickedPic] = useState(0);
+
+    console.log("product", product);
+
+    /* 
     const [item, setItem] = useState(fetchedItem); //?
 
     const router = useRouter();
@@ -49,9 +57,6 @@ export default function Item({ fetchedItem }) {
 
     const [loading, setLoading] = useState(item ? false : true);
     // const fetchNewItem = useRef(item ? false : true);
-
-    const [galleryOpen, setGalleryOpen] = useState(false);
-    const [clickedPic, setClickedPic] = useState(0);
 
     useEffect(() => {
         id &&
@@ -71,38 +76,52 @@ export default function Item({ fetchedItem }) {
         }
     }, [item]);
 
+    if (loading === true) {
+        return <div className="loader AAA"></div>;
+    }
+    */
+
     const toggleGallery = async (n, boo) => {
         setClickedPic(n);
         setGalleryOpen(boo);
     };
 
-    if (loading === true) {
-        return <div className="loader AAA"></div>;
-    }
-
     const PicDisplay = () =>
-        item.assets.length > 1 ? (
+        product.images.length > 1 ? (
             <div className={styles["item-pictures-wrap"]}>
-                <img
-                    src={item.media.source || "test1.jpg"}
-                    onClick={() => toggleGallery(0, true)}
-                />
+                <div>
+                    <Image
+                        src={product.images[0] || "/pics/Logo.jpg"}
+                        alt={product.name}
+                        onClick={() => toggleGallery(0, true)}
+                        layout="fill"
+                        objectFit="cover"
+                    />
+                </div>
 
                 <div className={styles["item-pictures-small-wrap"]}>
-                    {item.assets.map((el, i) => (
-                        <img
-                            key={el.id}
-                            src={el.url}
+                    {product.images.map((el, i) => (
+                        <Image
+                            key={el}
+                            alt={product.name}
+                            src={el}
                             onClick={() => toggleGallery(i, true)}
+                            layout="fill"
+                            objectFit="cover"
                         />
                     ))}
                 </div>
             </div>
         ) : (
-            <img
-                src={item.media.source || "test1.jpg"}
-                onClick={() => toggleGallery(0, true)}
-            />
+            <div>
+                <Image
+                    src={product.images[0] || "/pics/Logo.jpg"}
+                    alt={product.name}
+                    onClick={() => toggleGallery(0, true)}
+                    layout="fill"
+                    objectFit="cover"
+                />
+            </div>
         );
 
     const ItemWrap = () => (
@@ -112,9 +131,9 @@ export default function Item({ fetchedItem }) {
                     <PicDisplay />
                 </div>
                 <div className={styles["item-infos"]}>
-                    <h1>{item.name}</h1>
+                    <h1>{product.name}</h1>
                     <div className={styles["item-infos-price"]}>
-                        <h2>{item.price.raw}€</h2>
+                        <h2>{product.price}€</h2>
                         <p>IVA inclusa</p>
                     </div>
                     <div className={"product-divider-small"}> </div>
@@ -124,16 +143,38 @@ export default function Item({ fetchedItem }) {
                             <div
                                 className={styles["item-infos-conditions-wrap"]}
                             >
-                                <h5>come nuovo</h5>
-                                <div className={styles["circle"]}></div>
+                                {product.condition === "new" && (
+                                    <>
+                                        <h5>come nuovo</h5>
+                                        <div
+                                            className={styles["green-circle"]}
+                                        ></div>
+                                    </>
+                                )}
+                                {product.condition === "used" && (
+                                    <>
+                                        <h5>usato</h5>
+                                        <div
+                                            className={styles["yellow-circle"]}
+                                        ></div>
+                                    </>
+                                )}
+                                {product.condition === "broken" && (
+                                    <>
+                                        <h5>rovinato</h5>
+                                        <div
+                                            className={styles["red-circle"]}
+                                        ></div>
+                                    </>
+                                )}
                             </div>
                         </div>
 
                         <div className={styles["item-infos-infos"]}>
-                            <span>Categoria:</span>
-                            <p>
-                                {item.categories[0] && item.categories[0].name}
-                            </p>
+                            <span>Categorie:</span>
+                            {product.categories.map((el) => (
+                                <p key={el}>{el}</p>
+                            ))}
                         </div>
 
                         <div className={styles["item-infos-infos"]}>
@@ -143,21 +184,28 @@ export default function Item({ fetchedItem }) {
                                     styles["item-infos-infos-inner-wrap"]
                                 }
                             >
-                                {item.categories[0] && (
-                                    <Link
-                                        href={{
-                                            pathname: "/shop",
-                                            query: {
-                                                research:
-                                                    item.categories[0].name,
-                                            },
-                                        }}
-                                    >
-                                        <a className={styles["item-tag"]}>
-                                            {item.categories[0].name}
-                                        </a>
-                                    </Link>
-                                )}
+                                {product.tags &&
+                                    product.tags.map((el) => (
+                                        <>
+                                            <Link
+                                                key={el}
+                                                href={{
+                                                    pathname: "/shop",
+                                                    query: {
+                                                        research: el,
+                                                    },
+                                                }}
+                                            >
+                                                <a
+                                                    className={
+                                                        styles["item-tag"]
+                                                    }
+                                                >
+                                                    {el}
+                                                </a>
+                                            </Link>
+                                        </>
+                                    ))}
 
                                 {/* <Link
                                     href={{
@@ -174,10 +222,17 @@ export default function Item({ fetchedItem }) {
 
                         <div className={styles["item-infos-infos"]}>
                             <span>Disponibilitá:</span>
-                            <p>Pezzo unico</p>
+
+                            {!product.count_in_stock && (
+                                <p>Prodotto non disponibile</p>
+                            )}
+                            {product.count_in_stock === 1 && <p>Pezzo unico</p>}
+                            {product.count_in_stock > 1 && (
+                                <p>{product.count_in_stock} rimanenti</p>
+                            )}
                         </div>
                     </div>
-                    <CartButton wrapSize="large" product_id={item.id} />
+                    <CartButton wrapSize="large" product_id={product.id} />
                 </div>
             </div>
         </div>
@@ -220,12 +275,14 @@ export default function Item({ fetchedItem }) {
                             <div
                                 className={styles["dangerHTML-box"]}
                                 dangerouslySetInnerHTML={{
-                                    __html: item.description.replace(
+                                    __html: product.description.replace(
                                         /\u00a0/g,
                                         " "
                                     ),
                                 }}
                             ></div>
+                        ) : product.infos ? (
+                            <p>{product.infos}</p>
                         ) : (
                             <p>Nessuna informazione</p>
                         )}
@@ -235,25 +292,28 @@ export default function Item({ fetchedItem }) {
         );
     };
 
+    useEffect(() => {}, []);
+
+    //qui devo passargli related_products e mostrare solo articoli ancora in stock
     const ShortlistWrap = () => (
         <section className={styles["item-shortlist-wrap"]}>
             {/* <h2>Articoli simili</h2> */}
 
             <Shortlist
-                products={item.related_products}
+                products={product.related_products || []}
                 listTitle="Articoli simili"
             />
         </section>
     );
 
-    if (item) {
+    if (product) {
         return (
             <>
                 <Head>
-                    <title>{item.name} - Da Mamy a Mamy</title>
+                    <title>{product.name} - Da Mamy a Mamy</title>
                     <meta
                         property="og:title"
-                        content={`${item.name} - da Mamy a Mamy`}
+                        content={`${product.name} - da Mamy a Mamy`}
                     />
                     <meta property="og:type" content="article" />
                 </Head>
@@ -263,7 +323,7 @@ export default function Item({ fetchedItem }) {
                 {galleryOpen && (
                     <Gallery
                         toggleGallery={toggleGallery}
-                        item={item}
+                        product={product}
                         clickedPic={clickedPic}
                     />
                 )}
@@ -271,11 +331,25 @@ export default function Item({ fetchedItem }) {
         );
     }
 
-    if (!item) {
+    if (!product) {
         return (
             <div className={styles["item-wrap"]}>
                 <div className="loader"></div>
             </div>
         );
     }
+}
+
+export async function getServerSideProps(context) {
+    const { params } = context;
+    const { slug } = params;
+    console.log("slug: ", slug);
+
+    const { data } = await axios.get(
+        `http://localhost:3000/api/product/${slug}`
+    ); //solo per local
+    console.log("data: ", data);
+    return {
+        props: { product: data },
+    };
 }

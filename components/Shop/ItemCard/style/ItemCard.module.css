@@ -57,12 +57,13 @@
 .item-card-img {
     /* display: inline-block; */
     overflow: hidden;
+    height: 100%;
+    width: 100%;
+    position: relative;
     /* text-align: center; */
     /* max-width: 276.44px; */
 }
 .item-card-img > img {
-    height: 100%;
-    width: 100%;
     object-fit: cover;
     object-position: center;
     transition: 0.5s ease;

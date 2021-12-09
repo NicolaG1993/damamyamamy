@@ -19,7 +19,7 @@ export default function ItemCard({ product }) {
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
         >
-            <Link href={`/item/${product.id}`}>
+            <Link href={`/item/${product.slug}`}>
                 <a className={styles["product-content"]}>
                     <div className={styles["product-img"]}>
                         <Image
