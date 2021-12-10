@@ -186,26 +186,20 @@ export default function Item({ product }) {
                                 }
                             >
                                 {product.tags &&
-                                    product.tags.map((el) => (
-                                        <>
-                                            <Link
-                                                key={el}
-                                                href={{
-                                                    pathname: "/shop",
-                                                    query: {
-                                                        research: el,
-                                                    },
-                                                }}
-                                            >
-                                                <a
-                                                    className={
-                                                        styles["item-tag"]
-                                                    }
-                                                >
-                                                    {el}
-                                                </a>
-                                            </Link>
-                                        </>
+                                    product.tags.map((el, i) => (
+                                        <Link
+                                            key={el + i}
+                                            href={{
+                                                pathname: "/shop",
+                                                query: {
+                                                    research: el,
+                                                },
+                                            }}
+                                        >
+                                            <a className={styles["item-tag"]}>
+                                                {el}
+                                            </a>
+                                        </Link>
                                     ))}
 
                                 <Link
@@ -233,7 +227,7 @@ export default function Item({ product }) {
                             )}
                         </div>
                     </div>
-                    <CartButton wrapSize="large" product_id={product.id} />
+                    <CartButton wrapSize="large" product={product} />
                 </div>
             </div>
         </div>

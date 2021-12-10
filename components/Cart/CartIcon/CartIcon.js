@@ -9,9 +9,10 @@ export default function CartIcon({ closeNav }) {
     let cart = useSelector(selectTotalItems, shallowEqual);
 
     const TotalItems = () => {
+        let total_items = cart.reduce((a, c) => a + c.quantity, 0);
         if (cart) {
-            if (cart.total_items > 0) {
-                return <div id={styles["cartCounter"]}>{cart.total_items}</div>;
+            if (total_items > 0) {
+                return <div id={styles["cartCounter"]}>{total_items}</div>;
             } else {
                 return null;
             }

@@ -5,6 +5,7 @@ import styles from "./style/CartButton.module.css";
 
 import ShoppingCart from "./assets/shopping-cart.svg";
 import X from "./assets/x.svg";
+import axios from "axios";
 
 const loadNotAvailables = (state) => state.cart.cartItems;
 
@@ -13,7 +14,7 @@ const STATUS = {
     NORMAL: "normal",
 };
 
-export default function CartButton({ showBtn, wrapSize, product_id }) {
+export default function CartButton({ showBtn, wrapSize, product }) {
     const [status, setStatus] = useState(STATUS.NORMAL);
     const onMouseEnter = () => {
         setStatus(STATUS.HOVERED);
@@ -29,7 +30,7 @@ export default function CartButton({ showBtn, wrapSize, product_id }) {
     const dispatch = useDispatch();
     const [isAvailable, setIsAvailable] = useState(false);
     // const [itemId, setItemId] = useState("");
-    // console.log("product_id: ", product_id);
+    // console.log("product.id: ", product.id);
     // console.log("itemId: ", itemId);
     //questo mi serve per remove!! ma non per add 🧨
     //https://commercejs.com/docs/sdk/cart/#remove-from-cart
@@ -40,8 +41,8 @@ export default function CartButton({ showBtn, wrapSize, product_id }) {
     useEffect(() => {
         if (notAvailables) {
             let result = notAvailables.filter((i) => {
-                return i.id === product_id;
-            }); // se notAvailables esiste, cerca se contiene un item con questo product_id
+                return i.id === product.id;
+            }); // se notAvailables esiste, cerca se contiene un item con questo product.id
 
             if (result.length === 0) {
                 setIsAvailable(true); //se non torna nessun risultato allora é disponibile
@@ -52,17 +53,30 @@ export default function CartButton({ showBtn, wrapSize, product_id }) {
         }
     }, [notAvailables]);
 
+    const addToCartHandler = async (product, quantity) => {
+        // const existItem = notAvailables.find((x) => x.id === product.id);
+        // const quantity = existItem ? existItem.quantity + 1 : 1;
+        //cosí incrementa quantity se prodotto é gia in carrello
+        //in alternativa si puó modificare per switchare il button su REMOVE, o per altro
+
+        //controlliamo via API che il prodotto sia ancora in stock, live.
+        const { data } = await axios.get(`/api/product/${product.slug}`);
+
+        if (data.count_in_stock < quantity) {
+            window.alert("Sorry, the required quantity is not available");
+            return;
+        }
+
+        dispatch(cartAddItem({ ...data, quantity }));
+    };
+
     const SmallCartButton = () =>
         isAvailable ? (
             <button
                 className={`${styles["add-cart"]} ${
                     styles["add-cart-for-small"]
                 } ${showBtn ? styles["show"] : ""}`}
-                onClick={() =>
-                    dispatch(
-                        cartAddItem({ productId: product_id, quantity: 1 })
-                    )
-                }
+                onClick={() => addToCartHandler(product, 1)}
             >
                 <ShoppingCart />
             </button>
@@ -71,9 +85,7 @@ export default function CartButton({ showBtn, wrapSize, product_id }) {
                 className={`${styles["remove-cart"]} ${
                     styles["remove-cart-for-small"]
                 } ${showBtn ? styles["show"] : ""}`}
-                onClick={() =>
-                    dispatch(cartRemoveItem({ productId: product_id }))
-                }
+                onClick={() => dispatch(cartRemoveItem(product))}
             >
                 <X />
             </button>
@@ -85,11 +97,7 @@ export default function CartButton({ showBtn, wrapSize, product_id }) {
                 className={`${styles["btn"]} ${styles[status]}`}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
-                onClick={() =>
-                    dispatch(
-                        cartAddItem({ productId: product_id, quantity: 1 })
-                    )
-                }
+                onClick={() => addToCartHandler(product, 1)}
             >
                 Aggiungi al carrello
             </button>
@@ -98,9 +106,7 @@ export default function CartButton({ showBtn, wrapSize, product_id }) {
                 className={`${styles["btn"]} ${styles[status]}`}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
-                onClick={() =>
-                    dispatch(cartRemoveItem({ productId: product_id }))
-                }
+                onClick={() => dispatch(cartRemoveItem(product))}
             >
                 Rimuovi dal carrello
             </button>

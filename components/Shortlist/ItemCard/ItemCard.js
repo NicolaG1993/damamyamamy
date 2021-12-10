@@ -52,7 +52,7 @@ export default function ItemCard({ product }) {
             <CartButton
                 showBtn={isHovered}
                 wrapSize="small"
-                product_id={product.id}
+                product={product}
             />
         </div>
     );

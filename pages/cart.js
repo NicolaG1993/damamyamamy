@@ -78,19 +78,6 @@ function Cart() {
     //visto che cart esiste ancora con tutti i dati degli items che non esistono piu in shop
 */
 
-    const updateCartHandler = async (item, quantity) => {
-        const res = await axios.get(`/api/product/${item.slug}`);
-        console.log("res:", res.data.rows[0]);
-        if (res.data.rows[0].countInStock < quantity) {
-            window.alert("Sorry, product is out of stock");
-            return;
-        }
-        dispatch(cartAddItem({ ...item, quantity }));
-    };
-    const removeItemHandler = (item) => {
-        dispatch(cartRemoveItem({ item }));
-    };
-
     const EmptyCart = () => (
         <>
             <p>Nessun prodotto nel tuo carrello</p>
@@ -107,6 +94,11 @@ function Cart() {
 
     const FilledCart = () => (
         <div className={styles["cart-container"]}>
+            <div className={styles["cart-head-table-box"]}>
+                <h4>Articolo</h4>
+                <h4>Quantitá</h4>
+                <h4>Prezzo</h4>
+            </div>
             <div className={styles["cart-products"]}>
                 {cart.map((item) => (
                     <div className={styles["cart-product-box"]} key={item.id}>
@@ -117,11 +109,16 @@ function Cart() {
             <div className={styles["cart-interact"]}>
                 <div className={styles["cart-total"]}>
                     <span></span>
-                    <h3>
-                        Totale: <br />
-                        {cart.reduce((a, c) => a + c.quantity * c.price, 0)}
-                    </h3>
-                    <p>{cart.reduce((a, c) => a + c.quantity, 0)} articoli</p>
+                    <div>
+                        <h3>Totale: </h3>
+                        <p>
+                            {cart.reduce((a, c) => a + c.quantity, 0)} articoli
+                        </p>
+                        <h3>
+                            {cart.reduce((a, c) => a + c.quantity * c.price, 0)}{" "}
+                            €
+                        </h3>
+                    </div>
                 </div>
 
                 <span></span>

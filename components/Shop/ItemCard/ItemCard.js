@@ -70,11 +70,7 @@ export default function ItemCard({ item }) {
                 </a>
             </Link>
 
-            <CartButton
-                showBtn={isHovered}
-                wrapSize="small"
-                product_id={item.id}
-            />
+            <CartButton showBtn={isHovered} wrapSize="small" product={item} />
         </div>
     );
 }
