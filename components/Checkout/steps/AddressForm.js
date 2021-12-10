@@ -2,13 +2,242 @@ import { useState, useEffect } from "react";
 import { commerce } from "../../../shared/libs/commerce";
 import {
     nameValidation,
-    emailValidation,
     numberValidation,
-    requestedValue,
+    addressValidation,
 } from "../../../shared/utils/validateForms";
 import Button from "../../Button/Button";
 
-export default function AddressForm({ checkoutToken, next, styles }) {
+const countries = ["Italia", "Svizzera", "Austria", "Germania"];
+
+export default function AddressForm({ next, shippingAddress, styles }) {
+    const [fullName, setFullName] = useState("");
+    const [address, setAddress] = useState("");
+    const [city, setCity] = useState("");
+    const [postalCode, setPostalCode] = useState("");
+    const [country, setCountry] = useState("");
+    const [errors, setErrors] = useState({});
+
+    useEffect(() => {
+        console.log("shippingAddress", shippingAddress);
+        if (shippingAddress && Object.keys(shippingAddress).length) {
+            setFullName(shippingAddress.fullName);
+            setAddress(shippingAddress.address);
+            setCity(shippingAddress.city);
+            setPostalCode(shippingAddress.postalCode);
+            setCountry(shippingAddress.country);
+        }
+    }, []);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("next shippingAddress", {
+            fullName,
+            address,
+            city,
+            postalCode,
+            country,
+        });
+
+        next({
+            fullName,
+            address,
+            city,
+            postalCode,
+            country,
+        });
+    };
+
+    const handleBlur = (e) => {
+        console.log("e.target.id: ", e.target.id);
+        //estraggo il nome dell'input ed il suo valore
+        const { id, name, value } = e.target;
+        //creo nuovo oggetto ogni volta per rimuovere errori precedenti
+        let newErrObj = { ...errors };
+
+        //validate
+        if (id === "Full Name") {
+            const resp = nameValidation(id, value);
+            if (resp) {
+                setErrors({ ...errors, [name]: resp });
+            } else {
+                delete newErrObj[name];
+                setErrors(newErrObj);
+            }
+        }
+        if (id === "Address") {
+            const resp = addressValidation(id, value);
+            if (resp) {
+                setErrors({ ...errors, [name]: resp });
+            } else {
+                delete newErrObj[name];
+                setErrors(newErrObj);
+            }
+        }
+        if (id === "City") {
+            const resp = nameValidation(id, value);
+            if (resp) {
+                setErrors({ ...errors, [name]: resp });
+            } else {
+                delete newErrObj[name];
+                setErrors(newErrObj);
+            }
+        }
+        if (id === "Postal Code") {
+            const resp = numberValidation(id, value);
+            if (resp) {
+                setErrors({ ...errors, [name]: resp });
+            } else {
+                delete newErrObj[name];
+                setErrors(newErrObj);
+            }
+        }
+        if (id === "Country") {
+            const resp = nameValidation(id, value);
+            if (resp) {
+                setErrors({ ...errors, [name]: resp });
+            } else {
+                delete newErrObj[name];
+                setErrors(newErrObj);
+            }
+        }
+    };
+
+    return (
+        <div className={styles["checkout-form-box"]}>
+            <h3 className="">I vostri dati</h3>
+
+            <form onSubmit={(e) => handleSubmit(e)}>
+                <div className={styles["form-col-left"]}>
+                    <label>Nome *</label>
+                </div>
+                <div className={styles["form-col-right"]}>
+                    <input
+                        required
+                        type="text"
+                        name="fullName"
+                        id="fullName"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
+                        onBlur={(e) => handleBlur(e)}
+                    />
+                    {errors.fullName && (
+                        <div className={styles["form-error"]}>
+                            {errors.fullName}
+                        </div>
+                    )}
+                </div>
+
+                <div className={styles["form-col-left"]}>
+                    <label>Indirizzo *</label>
+                </div>
+                <div className={styles["form-col-right"]}>
+                    <input
+                        required
+                        type="text"
+                        name="address"
+                        id="Address"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        onBlur={(e) => handleBlur(e)}
+                    />
+                    {errors.address && (
+                        <div className="form-error">{errors.address}</div>
+                    )}
+                </div>
+
+                <div className={styles["form-col-left"]}>
+                    <label>Città *</label>
+                </div>
+                <div className={styles["form-col-right"]}>
+                    <input
+                        required
+                        type="text"
+                        name="city"
+                        id="City"
+                        value={city}
+                        onChange={(e) => setCity(e.target.value)}
+                        onBlur={(e) => handleBlur(e)}
+                    />
+                    {errors.city && (
+                        <div className="form-error">{errors.city}</div>
+                    )}
+                </div>
+
+                <div className={styles["form-col-left"]}>
+                    <label>CAP *</label>
+                </div>
+                <div className={styles["form-col-right"]}>
+                    <input
+                        required
+                        type="text"
+                        name="postalCode"
+                        id="PostalCode"
+                        value={postalCode}
+                        onChange={(e) => setPostalCode(e.target.value)}
+                        onBlur={(e) => handleBlur(e)}
+                    />
+                    {errors.postalCode && (
+                        <div className="form-error">{errors.postalCode}</div>
+                    )}
+                </div>
+
+                <div className={styles["form-col-left"]}>
+                    <label>Stato</label>
+                </div>
+                <div className={styles["form-col-right"]}>
+                    <select
+                        required
+                        name="country"
+                        id="country"
+                        value={country}
+                        onChange={(e) => setCountry(e.target.value)}
+                    >
+                        {countries.map((country) => (
+                            <option key={country} value={country}>
+                                {country}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+                {/* <div className={styles["form-col-left"]}>
+                    <label>Metodo di spedizione</label>
+                </div>
+                <div className={styles["form-col-right"]}>
+                    <select
+                        required
+                        name="shipping"
+                        id="shipping"
+                        value={shippingOption}
+                        onChange={(e) => setShippingOption(e.target.value)}
+                    >
+                        {options.map((option) => (
+                            <option key={option.id} value={option.id}>
+                                {option.label}
+                            </option>
+                        ))}
+                    </select>
+                </div> */}
+
+                <div className={styles["row"]}>
+                    <Button
+                        page="/cart"
+                        text="Torna al carrello"
+                        type="internal"
+                        style="inverted-btn"
+                    />
+
+                    <Button
+                        text="Prosegui"
+                        type="submit"
+                        style="inverted-btn"
+                    />
+                </div>
+            </form>
+        </div>
+    );
+
+    /*
     const [shippingCountries, setShippingCountries] = useState([]);
     const [shippingCountry, setShippingCountry] = useState("");
     const [shippingSubdivisions, setShippingSubdivisions] = useState([]);
@@ -373,6 +602,7 @@ export default function AddressForm({ checkoutToken, next, styles }) {
             </form>
         </div>
     );
+    */
 }
 
 /*

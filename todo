@@ -43,8 +43,8 @@ DICEMBRE 2021
 • aggiungere database psql (items, orders, users) 🧠
 • aggiungere auth per users 👍
 • aggiungere admin dashboard
-• migrare da commerce.js, non usarlo piú
-• gestire cart in state
+• migrare da commerce.js, non usarlo piú 🧠
+• gestire cart in state 👍
 • infine sistemare tutta la parte legata ai pagamenti
 • hostare il db online e modificare url per prod mode in components
 • devo avere un check su cart e su checkout (custom hook?) per verificare disponibilitá dei prodotti
@@ -61,5 +61,11 @@ DICEMBRE 2021
 09/12/21:
 • sistemare item cards usando db data 👍
 • sistemare cart come altro progetto 👍
-• ...orders...
-• in filter by value aggiungere condizioni per tags, categories, brand
+• in filter by value aggiungere condizioni per tags, categories, brand 👍
+
+10/12/21:
+• architettura orders db data
+• checkout come altro progetto, usando db e reducer
+• eliminare ogni connessione a commerce.js in checkout
+• ricollegare paypal a checkout, come altro progetto
+• ricollegare stripe

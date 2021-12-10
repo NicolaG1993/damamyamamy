@@ -1,5 +1,6 @@
 import "../shared/styles/globals.css";
 //COMPONENTS
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import Layout from "../constants/layout";
 // REDUX
 // import withRedux from "next-redux-wrapper";
@@ -49,9 +50,11 @@ function MyApp({ Component, pageProps }) {
                 anchorOrigin={{ vertical: "top", horizontal: "center" }}
             >
                 <Provider store={store}>
-                    <Layout>
-                        <Component {...pageProps} />
-                    </Layout>
+                    <PayPalScriptProvider deferLoading={true}>
+                        <Layout>
+                            <Component {...pageProps} />
+                        </Layout>
+                    </PayPalScriptProvider>
                 </Provider>
             </SnackbarProvider>
         );

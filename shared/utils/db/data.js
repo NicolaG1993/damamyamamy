@@ -16,6 +16,7 @@ const data = {
             infos: "Infos vanno qua",
             condition: "new",
             related_products: [2],
+            created_at: "2020-06-22 19:10:25-07",
         },
         {
             name: "Scarpe",
@@ -30,6 +31,7 @@ const data = {
             infos: null,
             condition: "used",
             related_products: [1, 3],
+            created_at: "2020-06-22 19:10:25-07",
         },
         {
             name: "Game Boy",
@@ -44,10 +46,62 @@ const data = {
             infos: null,
             condition: "new",
             related_products: null,
+            created_at: "2020-06-22 19:10:25-07",
         },
     ],
-    users: [],
-    orders: [],
+    users: [
+        {
+            id: 1,
+            name: "Nicola Gaioni",
+            email: "a@a.a",
+            password: "xxxencrypted",
+            is_admin: true,
+            profile_pic_url: "/pics/Logo.jpg",
+            created_at: "2020-06-22 19:10:25-07",
+        },
+    ],
+    orders: [
+        {
+            order_id: 1,
+            user_id: 1,
+            order_items: [
+                {
+                    itemId: 1,
+                    name: "Free Shirt",
+                    slug: "free-shirt",
+                    price: 70,
+                    quantity: 1,
+                    image: "/images/shirt1.jpg",
+                },
+                {
+                    itemId: 2,
+                    name: "Fit Shirt",
+                    slug: "fit-shirt",
+                    price: 40,
+                    quantity: 1,
+                    image: "/images/shirt2.jpg",
+                },
+            ],
+            shipping_address: {
+                fullName: "Nicola Gaioni",
+                address: "Via Porto 1",
+                city: "Cassone",
+                postalCode: "37010",
+                country: "Italy",
+            },
+            payment_method: "PayPal",
+            payment_result: { id: "", status: "", email_address: "" },
+            items_price: 15,
+            shipping_price: 5,
+            tax_price: 0.5,
+            total_price: 15.5,
+            is_paid: true,
+            is_delivered: false,
+            paid_at: "2020-06-22 19:10:25-07",
+            delivered_at: null,
+            created_at: "2020-06-22 19:10:25-07",
+        },
+    ],
 };
 
 export default data;

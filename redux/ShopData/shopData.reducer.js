@@ -144,9 +144,10 @@ export default function reducer(state = INITIAL_STATE, action) {
                             product.categories.some((el) =>
                                 el.toLowerCase().includes(value)
                             )) ||
-                        product.tags.some((el) =>
-                            el.toLowerCase().includes(value)
-                        ) ||
+                        (product.tags &&
+                            product.tags.some((el) =>
+                                el.toLowerCase().includes(value)
+                            )) ||
                         product.brand.toLowerCase().includes(value)
                     );
                 }); //look for objects with the received value in their ‘name’ or category fields //add here more fields in case we want to check them

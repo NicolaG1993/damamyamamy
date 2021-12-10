@@ -18,11 +18,11 @@ const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 // const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
-import { commerce } from "../../../shared/libs/commerce";
+// import { commerce } from "../../../shared/libs/commerce";
 
 export default function PaymentForm({
     checkoutToken,
-    shippingData,
+    shippingAddress,
     nextStep,
     backStep,
     onCaptureCheckout,
@@ -30,7 +30,10 @@ export default function PaymentForm({
     timeout,
     styles,
 }) {
-    console.log("shippingData: ", shippingData);
+    console.log("shippingAddress: ", shippingAddress);
+    return <div></div>;
+
+    /*
     console.log("paypal: ", window.paypal);
     const [method, setMethod] = useState("cc");
     const [termsAccepted, setTermsAccepted] = useState(false);
@@ -510,8 +513,10 @@ export default function PaymentForm({
             )}
         </div>
     );
+    */
 }
 
+/*
 function insertScriptElement({
     url,
     attributes = {},
@@ -530,6 +535,7 @@ function insertScriptElement({
     document.body.appendChild(newScript);
     newScript.src = url;
 }
+*/
 
 /*
 
