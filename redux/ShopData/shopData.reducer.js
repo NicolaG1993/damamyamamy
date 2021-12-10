@@ -141,10 +141,13 @@ export default function reducer(state = INITIAL_STATE, action) {
                     return (
                         product.name.toLowerCase().includes(value) ||
                         (product.categories &&
-                            product.categories.some((el) => {
-                                console.log("EL: ", el.toLowerCase());
-                                return el.toLowerCase().includes(value);
-                            }))
+                            product.categories.some((el) =>
+                                el.toLowerCase().includes(value)
+                            )) ||
+                        product.tags.some((el) =>
+                            el.toLowerCase().includes(value)
+                        ) ||
+                        product.brand.toLowerCase().includes(value)
                     );
                 }); //look for objects with the received value in their ‘name’ or category fields //add here more fields in case we want to check them
             }
