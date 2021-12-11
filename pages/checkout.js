@@ -6,7 +6,6 @@ import Router, { useRouter } from "next/router";
 import AddressForm from "../components/Checkout/steps/AddressForm";
 import PaymentForm from "../components/Checkout/steps/PaymentForm";
 import Button from "../components/Button/Button";
-import { commerce } from "../shared/libs/commerce";
 import styles from "../components/Checkout/style/Checkout.module.css";
 
 // REDUX
@@ -38,7 +37,7 @@ export default function Checkout() {
     const dispatch = useDispatch();
 
     //STATE
-    let cart = useSelector(selectCart, shallowEqual);
+    let cartItems = useSelector(selectCart, shallowEqual);
     let shippingAddress = useSelector(userAddress, shallowEqual);
     let userInfo = useSelector(loggedUser, shallowEqual);
 
@@ -59,9 +58,6 @@ export default function Checkout() {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     }; // !!in react, if u want to use the previous state, u need to call it as a callback fn
     const next = (data) => {
-        // setShippingData(data);
-        console.log("next data: ", data);
-        console.log("next cart: ", cart);
         dispatch(saveShippingAddress(data));
         Cookies.set("shippingAddress", JSON.stringify(data));
         nextStep();
@@ -86,6 +82,8 @@ export default function Checkout() {
         ) : (
             <PaymentForm
                 // checkoutToken={checkoutToken}
+                userInfo={userInfo}
+                cartItems={cartItems}
                 shippingAddress={shippingAddress}
                 // activeStep={activeStep}
                 nextStep={nextStep}

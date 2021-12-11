@@ -72,3 +72,64 @@ module.exports.updateUser = (id, name, email, password) => {
     const keys = [id, name, email, password];
     return db.query(myQuery, keys);
 };
+
+//** ORDERS **//
+module.exports.newOrder = ({
+    userId,
+    orderItems,
+    shippingAddress,
+    paymentMethod,
+    paymentResult,
+    itemsPrice,
+    shippingPrice,
+    taxPrice,
+    totalPrice,
+    isPaid,
+    isDelivered,
+    paidAt,
+    deliveredAt,
+}) => {
+    const myQuery = `INSERT INTO orders (user_id, order_items, shipping_address, payment_method, payment_result, items_price, shipping_price, tax_price, total_price, is_paid, is_delivered, paid_at, delivered_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *`;
+    const keys = [
+        userId,
+        orderItems,
+        shippingAddress,
+        paymentMethod,
+        paymentResult,
+        itemsPrice,
+        shippingPrice,
+        taxPrice,
+        totalPrice,
+        isPaid,
+        isDelivered,
+        paidAt,
+        deliveredAt,
+    ];
+    return db.query(myQuery, keys);
+};
+
+module.exports.getOrder = (orderId) => {
+    const myQuery = `SELECT orders.*, users.name, users.email, users.is_admin, users.profile_pic_url
+    FROM orders
+    JOIN users 
+    ON (order_id = $1 AND user_id = users.id)
+    ORDER BY created_at ASC`;
+    const key = [orderId];
+    return db.query(myQuery, key);
+}; // to check
+// da user mi serve solo nome e email
+
+module.exports.getOrderHistory = (userId) => {
+    const myQuery = `SELECT *
+    FROM orders
+    WHERE user_id = $1
+    ORDER BY created_at ASC`;
+    const key = [userId];
+    return db.query(myQuery, key);
+};
+
+module.exports.updateOrder = (id, bool, paymentResult) => {
+    const myQuery = `UPDATE orders SET is_paid = $2, paid_at = CURRENT_TIMESTAMP, payment_result = $3 WHERE order_id = $1 RETURNING *`;
+    const keys = [id, bool, paymentResult];
+    return db.query(myQuery, keys);
+};

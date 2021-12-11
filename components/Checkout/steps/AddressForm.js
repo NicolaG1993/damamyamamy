@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { commerce } from "../../../shared/libs/commerce";
 import {
     nameValidation,
     numberValidation,

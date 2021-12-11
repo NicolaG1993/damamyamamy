@@ -13,7 +13,7 @@ import {
     SORT_BY_PRICE,
 } from "./shopData.types";
 
-import { commerce } from "../../shared/libs/commerce"; // importa axios, api, ...
+// import { commerce } from "../../shared/libs/commerce"; // importa axios, api, ...
 
 // Molte delle funzioni che fará il reducer si potranno eliminare se si lavora con server o api, vedi sotto
 export function setupShop(payload) {
@@ -36,17 +36,17 @@ export function setupShop(payload) {
     };
 } // This is how we do async actions with redux-thunk */
 
-export function getItem(payload) {
-    // una cosa come questa é meglio farla via request server side se possibile
-    // console.log("😶😶😶😶😶😶", payload.key);
-    let { key } = payload;
-    return (dispatch) => {
-        dispatch({
-            type: GET_ITEM,
-        });
-        getSomeAsyncData(dispatch, commerce.products.retrieve(key), GET_ITEM);
-    };
-}
+// export function getItem(payload) {
+//     // una cosa come questa é meglio farla via request server side se possibile
+//     // console.log("😶😶😶😶😶😶", payload.key);
+//     let { key } = payload;
+//     return (dispatch) => {
+//         dispatch({
+//             type: GET_ITEM,
+//         });
+//         getSomeAsyncData(dispatch, commerce.products.retrieve(key), GET_ITEM);
+//     };
+// }
 
 export function fetchSpecificCategories() {
     return {
@@ -103,20 +103,20 @@ export function sortByNew(payload) {
 }
 
 // utilities //
-async function getSomeAsyncData(dispatch, url, type) {
-    if (type === GET_ITEM) {
-        url.then((data) =>
-            dispatch({
-                type: type,
-                payload: data,
-            })
-        ).catch((err) => console.log(`err in ${type} action: `, err));
-    } else {
-        url.then(({ data }) =>
-            dispatch({
-                type: type,
-                payload: data,
-            })
-        ).catch((err) => console.log(`err in ${type} action: `, err));
-    }
-}
+// async function getSomeAsyncData(dispatch, url, type) {
+//     if (type === GET_ITEM) {
+//         url.then((data) =>
+//             dispatch({
+//                 type: type,
+//                 payload: data,
+//             })
+//         ).catch((err) => console.log(`err in ${type} action: `, err));
+//     } else {
+//         url.then(({ data }) =>
+//             dispatch({
+//                 type: type,
+//                 payload: data,
+//             })
+//         ).catch((err) => console.log(`err in ${type} action: `, err));
+//     }
+// }

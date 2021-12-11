@@ -1,3 +1,4 @@
+/*
 import {
     LOAD_CHECKOUT,
     CAPTURE_CHECKOUT,
@@ -51,4 +52,55 @@ async function getSomeAsyncData(dispatch, url, type) {
             payload: { actionType: type, error: err },
         });
     }
+}
+*/
+
+import {
+    FETCH_REQUEST,
+    FETCH_SUCCESS,
+    FETCH_FAIL,
+    PAY_REQUEST,
+    PAY_SUCCESS,
+    PAY_FAIL,
+    PAY_RESET,
+} from "./checkout.types";
+
+export function fetchRequest() {
+    return {
+        type: FETCH_REQUEST,
+    };
+}
+export function fetchSuccess(payload) {
+    return {
+        type: FETCH_SUCCESS,
+        payload,
+    };
+}
+export function fetchFail(payload) {
+    return {
+        type: FETCH_FAIL,
+        payload,
+    };
+}
+export function payRequest() {
+    return {
+        type: PAY_REQUEST,
+    };
+}
+export function paySuccess(payload) {
+    return {
+        type: PAY_SUCCESS,
+        payload,
+    };
+}
+export function payFail(payload) {
+    return {
+        type: PAY_FAIL,
+        payload,
+    };
+}
+export function payReset() {
+    return {
+        type: PAY_RESET,
+    };
 }

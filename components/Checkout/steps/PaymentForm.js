@@ -9,10 +9,24 @@ import { loadStripe } from "@stripe/stripe-js";
 
 // import { envs } from "../../../../config";
 
+import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
+
 // import ReactDOM from "react-dom";
 
 import Review from "./Review";
 import Button from "../../Button/Button";
+import { useSnackbar } from "notistack";
+import Cookies from "js-cookie";
+import { savePaymentMethod } from "../../../redux/Cart/cart.actions";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+import {
+    payFail,
+    payRequest,
+    paySuccess,
+} from "../../../redux/Checkout/checkout.actions";
+import axios from "axios";
+import { getError } from "../../../shared/utils/error";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
@@ -21,7 +35,8 @@ const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 // import { commerce } from "../../../shared/libs/commerce";
 
 export default function PaymentForm({
-    checkoutToken,
+    userInfo,
+    cartItems,
     shippingAddress,
     nextStep,
     backStep,
@@ -31,7 +46,302 @@ export default function PaymentForm({
     styles,
 }) {
     console.log("shippingAddress: ", shippingAddress);
-    return <div></div>;
+
+    const router = useRouter();
+    const dispatch = useDispatch();
+    const { closeSnackbar, enqueueSnackbar } = useSnackbar();
+    const [paymentMethod, setPaymentMethod] = useState("PayPal");
+    const [termsAccepted, setTermsAccepted] = useState(false);
+    const [orderId, setOrderId] = useState();
+    const [loading, setLoading] = useState(false);
+
+    const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100; // 123.456 => 123.46
+    const items_price = round2(
+        cartItems.reduce((a, c) => a + c.price * c.quantity, 0)
+    );
+    const shipping_price = items_price > 200 ? 0 : 15;
+    const tax_price = round2(items_price * 0.15);
+    const total_price = round2(items_price + shipping_price + tax_price);
+
+    let orderItems = [];
+    cartItems.map((el) => {
+        orderItems.push({
+            itemId: el.id,
+            name: el.name,
+            price: el.price,
+            quantity: el.quantity,
+            image: el.image,
+            slug: el.slug,
+        });
+    });
+
+    useEffect(() => {
+        if (cartItems.length === 0) {
+            router.push("/cart");
+        }
+        if (!shippingAddress.address) {
+            backStep();
+        } else {
+            setPaymentMethod(Cookies.get("paymentMethod"));
+
+            const loadPayPalScript = async () => {
+                const { data: clientId } = await axios.get(`/api/keys/paypal`, {
+                    headers: { authorization: `Bearer ${userInfo.token}` },
+                });
+
+                paypalDispatch({
+                    type: "resetOptions",
+                    value: { "client-id": clientId, currency: "EUR" },
+                });
+                paypalDispatch({ type: "setLoadingStatus", value: "pending" });
+            };
+            loadPayPalScript();
+        }
+        console.log("paymentMethod:", Cookies.get("paymentMethod"));
+    }, []);
+
+    const createOrderDB = async () => {
+        try {
+            setLoading(true);
+            const { data } = await axios.post(
+                "/api/orders",
+                {
+                    user_id: userInfo.id,
+                    order_items: JSON.stringify(orderItems),
+                    shipping_address: shippingAddress,
+                    payment_method: paymentMethod,
+                    payment_result: null,
+                    items_price,
+                    shipping_price,
+                    tax_price,
+                    total_price,
+                },
+                { headers: { authorization: `Bearer ${userInfo.token}` } }
+            );
+            setLoading(false);
+            setOrderId(data.order_id);
+            console.log("🥶 data.order_id:", data.order_id);
+        } catch (err) {
+            setLoading(false);
+            enqueueSnackbar(getError(err), { variant: "error" });
+        }
+    };
+
+    // PAYPAL FUNCTIONS
+    const [{ ispending }, paypalDispatch] = usePayPalScriptReducer();
+    console.log("termsAccepted: ", termsAccepted);
+    const createOrderPP = (data, actions) => {
+        closeSnackbar();
+        console.log("termsAccepted: ", termsAccepted); // per qualche motivo quando in PP non si aggiorna
+
+        return actions.order
+            .create({
+                purchase_units: [{ amount: { value: total_price } }],
+            })
+            .then((orderID) => {
+                createOrderDB(); // ? creo order anche in DB
+                console.log("🥶 orderID:", orderID);
+                return orderID;
+            });
+
+        // devo creare order id prima di fare render di paypal
+        // posso creare ordine in db per poi avere un id unico
+        // se peró viene annullato il checkout l'ordine rimane in db non pagato, io invece vorrei creare solo ordini giá pagati in db
+        // anche se in teoria non dovrebbe essere un problema visto che il pagamento non sará disponibile dopo il checkout
+        // quindi: devo creare ordine in db prima di tutto
+        // o forse questo orderID viene da paypal? allora tutto ok
+        console.log("🥶 actions.order:", actions.order);
+    };
+    const onApprove = (data, actions) => {
+        console.log("🥶 actions.order:", actions.order);
+        return actions.order.capture().then(async function (details) {
+            try {
+                dispatch(payRequest());
+                const { data } = await axios.put(
+                    `/api/orders/${orderId}/pay`,
+                    details,
+                    { headers: { authorization: `Bearer ${userInfo.token}` } }
+                ); // 🧨 orderId viene da db, se ordine é gia stato creato
+                dispatch(cartClear());
+                Cookies.remove("cartItems");
+                dispatch(paySuccess(data));
+                enqueueSnackbar("Order is paid", { variant: "success" });
+                console.log("🥶 paySuccess", data);
+                nextStep();
+            } catch (err) {
+                dispatch(payFail(getError(err)));
+                enqueueSnackbar(getError(err), { variant: "error" });
+                console.log("🥶 payFail:", getError(err));
+            }
+        });
+    };
+    const onCancel = (err) => {
+        enqueueSnackbar(getError(err), { variant: "error" });
+    };
+
+    // FORM FUNCTIONS
+    const acceptTerms = (e) => {
+        // e.preventDefault();
+        e.persist();
+        const checked = e.target.checked;
+
+        checked ? setTermsAccepted(true) : setTermsAccepted(false);
+    };
+
+    const handleSelection = (e) => {
+        setPaymentMethod(e.target.value); //forse nn mi serve
+        dispatch(savePaymentMethod(e.target.value));
+        Cookies.set("paymentMethod", e.target.value);
+    };
+
+    const handleSubmit = async (e) => {
+        // e.preventDefault(); // per qualche motivo qua non funziona "e"
+        closeSnackbar();
+        if (!termsAccepted) {
+            enqueueSnackbar(
+                "Accettare termini e condizioni prima di proseguire",
+                { variant: "error" }
+            );
+            // alert("Accettare termini e condizioni prima di proseguire");
+            return; // ? non mi serve forse
+        }
+
+        try {
+            setLoading(true);
+            const { data } = await axios.post(
+                "/api/orders",
+                {
+                    user_id: userInfo.id,
+                    order_items: JSON.stringify(orderItems),
+                    shipping_address: shippingAddress,
+                    payment_method: paymentMethod,
+                    payment_result: null,
+                    items_price,
+                    shipping_price,
+                    tax_price,
+                    total_price,
+                },
+                { headers: { authorization: `Bearer ${userInfo.token}` } }
+            ); // 🧨 su submit voglio pagare, non piazzare l'ordine, questo va fatto prima, il resto della fn sembra giusto
+            dispatch(cartClear());
+            Cookies.remove("cartItems");
+            setLoading(false);
+            nextStep();
+            // router.push(`/order/${data.orderid}`);
+            //dovrei settare id random invece di numeri seriali
+        } catch (err) {
+            setLoading(false);
+            enqueueSnackbar(getError(err), { variant: "error" });
+        }
+    };
+
+    const TermsBox = () => (
+        <div className={styles["check-terms"]}>
+            <input
+                type="checkbox"
+                name="accept"
+                onChange={(e) => acceptTerms(e)}
+                checked={termsAccepted}
+            />
+            <label htmlFor="accept">
+                Dichiaro di aver letto{" "}
+                <a
+                    href="/terms-conditions"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Termini e Condizioni
+                </a>
+            </label>
+        </div>
+    );
+
+    return (
+        <div className={styles["checkout-form-box"]}>
+            <h3 className="">Pagamento</h3>
+            <Review
+                cartItems={cartItems}
+                totalPrice={total_price}
+                itemsPrice={items_price}
+                taxPrice={tax_price}
+                shippingPrice={shipping_price}
+                styles={styles}
+            />
+            <h5>Metodi di pagamento:</h5>
+            <select
+                className={styles["payment-mode"]}
+                onChange={handleSelection}
+                value={paymentMethod}
+            >
+                <option value="Carta di credito">Carta di credito</option>
+                <option value="PayPal">Paypal</option>
+                <option value="test">Test</option>
+            </select>
+
+            {paymentMethod === "PayPal" && (
+                <div className={styles["paypal-comp"]}>
+                    {/* {paypalError && (
+                        <div>
+                            Uh oh, an error occurred! {paypalError.message}
+                        </div>
+                    )} */}
+                    {/* <TermsBox /> */}
+                    {ispending ? (
+                        <p>Loading paypal...</p>
+                    ) : (
+                        <PayPalButtons
+                            createOrder={createOrderPP}
+                            onApprove={onApprove}
+                            onCancel={onCancel}
+                        ></PayPalButtons>
+                    )}
+                    <Button
+                        fn={backStep}
+                        text="Torna indietro"
+                        type="function"
+                        style="inverted-btn"
+                    />
+                    {loading && <h4>Loading...</h4>}
+                </div>
+            )}
+            {paymentMethod === "Carta di credito" && (
+                <div className={styles["row"]}>
+                    <TermsBox />
+                    <Button
+                        fn={backStep}
+                        text="Torna indietro"
+                        type="function"
+                        style="inverted-btn"
+                    />
+                    <Button
+                        fn={handleSubmit}
+                        text={`Conferma ${total_price} €`}
+                        type="function"
+                        style="inverted-btn"
+                    />
+                    {loading && <h4>Loading...</h4>}
+                </div>
+            )}
+            {paymentMethod === "test" && (
+                <div className={styles["row"]}>
+                    <TermsBox />
+                    <Button
+                        fn={backStep}
+                        text="Torna indietro"
+                        type="function"
+                        style="inverted-btn"
+                    />
+                    <Button
+                        fn={handleSubmit}
+                        text={`Conferma ${total_price} €`}
+                        type="function"
+                        style="inverted-btn"
+                    />
+                    {loading && <h4>Loading...</h4>}
+                </div>
+            )}
+        </div>
+    );
 
     /*
     console.log("paypal: ", window.paypal);

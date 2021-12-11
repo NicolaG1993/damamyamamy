@@ -140,7 +140,7 @@ export function saveShippingAddress(payload) {
         payload,
     };
 }
-export function saveShippingMethod(payload) {
+export function savePaymentMethod(payload) {
     return {
         type: SAVE_PAYMENT_METHOD,
         payload,

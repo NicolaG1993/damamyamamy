@@ -1,9 +1,16 @@
-export default function Review({ checkoutToken, styles }) {
+export default function Review({
+    cartItems,
+    totalPrice,
+    itemsPrice,
+    taxPrice,
+    shippingPrice,
+    styles,
+}) {
     return (
         <>
             <h5>Il vostro ordine:</h5>
             <div>
-                {checkoutToken.live.line_items.map((product) => (
+                {cartItems.map((product) => (
                     <div key={product.name} className={styles["review-row"]}>
                         <div className={styles["review-product-infos"]}>
                             <p>{product.name}</p>
@@ -11,15 +18,25 @@ export default function Review({ checkoutToken, styles }) {
                         </div>
 
                         <p className={styles["review-product-price"]}>
-                            {product.line_total.formatted_with_symbol}
+                            {product.price} €
                         </p>
                     </div>
                 ))}
             </div>
+
+            <div className={"flex-paragraph"}>
+                <p>Items Price:</p> <p>{itemsPrice} €</p>
+            </div>
+            <div className={"flex-paragraph"}>
+                <p>Tax Price:</p> <p>{taxPrice} €</p>
+            </div>
+            <div className={"flex-paragraph"}>
+                <p>Shipping Price:</p> <p>{shippingPrice} €</p>
+            </div>
             <div>
-                <p className={styles["review-final-price"]}>
-                    Totale: {checkoutToken.live.subtotal.formatted_with_symbol}
-                </p>
+                <h4 className={styles["review-final-price"]}>
+                    Totale: {totalPrice} €
+                </h4>
             </div>
         </>
     );

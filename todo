@@ -66,6 +66,6 @@ DICEMBRE 2021
 10/12/21:
 • architettura orders db data
 • checkout come altro progetto, usando db e reducer
-• eliminare ogni connessione a commerce.js in checkout
+• eliminare ogni connessione a commerce.js in checkout 👍
 • ricollegare paypal a checkout, come altro progetto
 • ricollegare stripe
