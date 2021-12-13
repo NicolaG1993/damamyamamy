@@ -17,7 +17,7 @@ import Review from "./Review";
 import Button from "../../Button/Button";
 import { useSnackbar } from "notistack";
 import Cookies from "js-cookie";
-import { savePaymentMethod } from "../../../redux/Cart/cart.actions";
+import { cartClear, savePaymentMethod } from "../../../redux/Cart/cart.actions";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import {
@@ -40,9 +40,6 @@ export default function PaymentForm({
     shippingAddress,
     nextStep,
     backStep,
-    onCaptureCheckout,
-    onCapturePPCheckout,
-    timeout,
     styles,
 }) {
     console.log("shippingAddress: ", shippingAddress);
@@ -52,7 +49,6 @@ export default function PaymentForm({
     const { closeSnackbar, enqueueSnackbar } = useSnackbar();
     const [paymentMethod, setPaymentMethod] = useState("PayPal");
     const [termsAccepted, setTermsAccepted] = useState(false);
-    const [orderId, setOrderId] = useState();
     const [loading, setLoading] = useState(false);
 
     const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100; // 123.456 => 123.46
@@ -119,8 +115,8 @@ export default function PaymentForm({
                 { headers: { authorization: `Bearer ${userInfo.token}` } }
             );
             setLoading(false);
-            setOrderId(data.order_id);
             console.log("🥶 data.order_id:", data.order_id);
+            return data.order_id;
         } catch (err) {
             setLoading(false);
             enqueueSnackbar(getError(err), { variant: "error" });
@@ -132,14 +128,13 @@ export default function PaymentForm({
     console.log("termsAccepted: ", termsAccepted);
     const createOrderPP = (data, actions) => {
         closeSnackbar();
-        console.log("termsAccepted: ", termsAccepted); // per qualche motivo quando in PP non si aggiorna
+        // console.log("termsAccepted: ", termsAccepted); // per qualche motivo quando in PP non si aggiorna
 
         return actions.order
             .create({
                 purchase_units: [{ amount: { value: total_price } }],
             })
             .then((orderID) => {
-                createOrderDB(); // ? creo order anche in DB
                 console.log("🥶 orderID:", orderID);
                 return orderID;
             });
@@ -150,29 +145,35 @@ export default function PaymentForm({
         // anche se in teoria non dovrebbe essere un problema visto che il pagamento non sará disponibile dopo il checkout
         // quindi: devo creare ordine in db prima di tutto
         // o forse questo orderID viene da paypal? allora tutto ok
-        console.log("🥶 actions.order:", actions.order);
     };
     const onApprove = (data, actions) => {
         console.log("🥶 actions.order:", actions.order);
-        return actions.order.capture().then(async function (details) {
-            try {
-                dispatch(payRequest());
-                const { data } = await axios.put(
-                    `/api/orders/${orderId}/pay`,
-                    details,
-                    { headers: { authorization: `Bearer ${userInfo.token}` } }
-                ); // 🧨 orderId viene da db, se ordine é gia stato creato
-                dispatch(cartClear());
-                Cookies.remove("cartItems");
-                dispatch(paySuccess(data));
-                enqueueSnackbar("Order is paid", { variant: "success" });
-                console.log("🥶 paySuccess", data);
-                nextStep();
-            } catch (err) {
-                dispatch(payFail(getError(err)));
-                enqueueSnackbar(getError(err), { variant: "error" });
-                console.log("🥶 payFail:", getError(err));
-            }
+
+        createOrderDB().then(async (orderID) => {
+            return actions.order.capture().then(async function (details) {
+                try {
+                    dispatch(payRequest());
+                    const { data } = await axios.put(
+                        `/api/orders/${orderID}/pay`,
+                        details,
+                        {
+                            headers: {
+                                authorization: `Bearer ${userInfo.token}`,
+                            },
+                        }
+                    ); // 🧨 orderId viene da db, se ordine é gia stato creato
+                    dispatch(cartClear());
+                    Cookies.remove("cartItems");
+                    dispatch(paySuccess(data));
+                    enqueueSnackbar("Order is paid", { variant: "success" });
+                    console.log("🥶 paySuccess", data);
+                    nextStep();
+                } catch (err) {
+                    dispatch(payFail(getError(err)));
+                    enqueueSnackbar(getError(err), { variant: "error" });
+                    console.log("🥶 payFail:", getError(err));
+                }
+            });
         });
     };
     const onCancel = (err) => {
@@ -204,34 +205,39 @@ export default function PaymentForm({
             );
             // alert("Accettare termini e condizioni prima di proseguire");
             return; // ? non mi serve forse
-        }
+        } else {
+            createOrderDB().then(async (orderID) => {
+                console.log("🐸 orderID: ", orderID); // invece di settare state (async) ritorno il valore direttamente da createOrderDB
 
-        try {
-            setLoading(true);
-            const { data } = await axios.post(
-                "/api/orders",
-                {
-                    user_id: userInfo.id,
-                    order_items: JSON.stringify(orderItems),
-                    shipping_address: shippingAddress,
-                    payment_method: paymentMethod,
-                    payment_result: null,
-                    items_price,
-                    shipping_price,
-                    tax_price,
-                    total_price,
-                },
-                { headers: { authorization: `Bearer ${userInfo.token}` } }
-            ); // 🧨 su submit voglio pagare, non piazzare l'ordine, questo va fatto prima, il resto della fn sembra giusto
-            dispatch(cartClear());
-            Cookies.remove("cartItems");
-            setLoading(false);
-            nextStep();
-            // router.push(`/order/${data.orderid}`);
-            //dovrei settare id random invece di numeri seriali
-        } catch (err) {
-            setLoading(false);
-            enqueueSnackbar(getError(err), { variant: "error" });
+                try {
+                    dispatch(payRequest());
+
+                    const details = {
+                        note: "id transazione eseguita su PayPal o Stripe",
+                        email_address: "sb-kaxfo6042804@business.example.com",
+                        status: "TEST COMPLETED",
+                    };
+
+                    const { data } = await axios.put(
+                        `/api/orders/${orderID}/pay`,
+                        details,
+                        {
+                            headers: {
+                                authorization: `Bearer ${userInfo.token}`,
+                            },
+                        }
+                    );
+                    dispatch(cartClear());
+                    Cookies.remove("cartItems");
+                    dispatch(paySuccess(data));
+                    enqueueSnackbar("Order is paid", { variant: "success" });
+                    console.log("🥶 paySuccess", data);
+                    nextStep();
+                } catch (err) {
+                    setLoading(false);
+                    enqueueSnackbar(getError(err), { variant: "error" });
+                }
+            });
         }
     };
 

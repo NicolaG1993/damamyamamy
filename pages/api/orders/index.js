@@ -2,11 +2,12 @@ import { isAuth } from "../../../shared/utils/auth";
 import { newOrder } from "../../../shared/utils/db/db";
 
 async function handler(req, res) {
-    console.log("req.body:", req.body);
+    console.log("🐸 req.body :", req.body);
+    console.log("🐸 req.user.id :", req.user.id);
 
     try {
         const data = await newOrder({ ...req.body, user_id: req.user.id });
-        // console.log("data🥶:", data.rows[0]);
+        // console.log("data🐸:", data.rows[0]);
         res.status(201).json(data.rows[0]);
     } catch (err) {
         if (err.name === "UnauthorizedError") {
@@ -15,7 +16,7 @@ async function handler(req, res) {
         }
 
         // default to 500 server error
-        console.error("err: ", err);
+        console.error("🐸 err: ", err);
         return res.status(500).json({ message: err.message });
     }
     //da testare

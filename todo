@@ -64,8 +64,15 @@ DICEMBRE 2021
 • in filter by value aggiungere condizioni per tags, categories, brand 👍
 
 10/12/21:
-• architettura orders db data
-• checkout come altro progetto, usando db e reducer
+• architettura orders db data 👍
+• checkout come altro progetto, usando db e reducer 👍
 • eliminare ogni connessione a commerce.js in checkout 👍
-• ricollegare paypal a checkout, come altro progetto
+• ricollegare paypal a checkout, come altro progetto 👍
+
+
+13/12/21:
+• prodotti in stock deve modificarsi dopo acquisto
+• testare paypal
 • ricollegare stripe
+• trovare il modo di creare admin user via sql (bycrypt password in query)
+• creare pagina in cui vedere tutti gli ordini (solo per admin)

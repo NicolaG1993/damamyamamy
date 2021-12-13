@@ -80,6 +80,12 @@ export default function Nav({ closeNav, width, userInfo }) {
                                     <li>Logout</li>
                                 </a>
                             </Link>
+                            {/* aggiungere if userInfo.isAdmin una volta creato primo admin */}
+                            <Link href="/admin/dashboard">
+                                <a onClick={logoutClickHandler}>
+                                    <li>Pannello admin</li>
+                                </a>
+                            </Link>
                         </>
                     ) : (
                         <Link href="/login">
