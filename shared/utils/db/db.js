@@ -133,3 +133,30 @@ module.exports.updateOrder = (id, bool, paymentResult) => {
     const keys = [id, bool, paymentResult];
     return db.query(myQuery, keys);
 };
+
+//** ADMIN DASHBOARD **//
+module.exports.totalOrders = () => {
+    const myQuery = `SELECT 
+    COUNT(*)
+    FROM orders`;
+    return db.query(myQuery);
+};
+module.exports.totalProducts = () => {
+    const myQuery = `SELECT 
+    COUNT(*)
+    FROM products`;
+    return db.query(myQuery);
+};
+module.exports.totalUsers = () => {
+    const myQuery = `SELECT 
+    COUNT(*)
+    FROM users`;
+    return db.query(myQuery);
+};
+module.exports.allPaidOrdersPreview = () => {
+    const myQuery = `SELECT total_price, created_at
+    FROM orders
+    WHERE is_paid = true
+    ORDER BY created_at ASC`;
+    return db.query(myQuery);
+}; /* seleziona solo total_price e created_at x admin dashboard */
