@@ -43,9 +43,9 @@ async function handler(req, res) {
     // console.log("🧨🐸 ordersPrice : ", ordersPrice);
 
     res.send({
-        ordersCount: ordersCount.rows[0].count,
-        productsCount: productsCount.rows[0].count,
-        usersCount: usersCount.rows[0].count,
+        ordersCount: Number(ordersCount.rows[0].count),
+        productsCount: Number(productsCount.rows[0].count),
+        usersCount: Number(usersCount.rows[0].count),
         ordersPrice,
         salesData,
     });

@@ -160,3 +160,21 @@ module.exports.allPaidOrdersPreview = () => {
     ORDER BY created_at ASC`;
     return db.query(myQuery);
 }; /* seleziona solo total_price e created_at x admin dashboard */
+module.exports.allOrders = () => {
+    const myQuery = `SELECT *
+    FROM orders
+    ORDER BY created_at ASC`;
+    return db.query(myQuery);
+}; /* si dovra mettere un limite (range) per i risultati, oltre ad alcuni filtri semplici */
+module.exports.allUsers = () => {
+    const myQuery = `SELECT *
+    FROM users
+    ORDER BY id ASC`;
+    return db.query(myQuery);
+}; /* si dovra mettere un limite (range) per i risultati, oltre ad alcuni filtri semplici */
+module.exports.allProducts = () => {
+    const myQuery = `SELECT *
+    FROM products
+    ORDER BY id ASC`;
+    return db.query(myQuery);
+}; /* si dovra mettere un limite (range) per i risultati, oltre ad alcuni filtri semplici */

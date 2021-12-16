@@ -1,0 +1,109 @@
+/* DASHBOARD */
+.admin-dashboard {
+    min-height: 80vh;
+}
+
+.admin-dashboard > section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.admin-dashboard > section > a {
+    padding: 15px;
+    margin: 5px;
+    background-color: var(--bg200);
+    border: 1px solid transparent;
+    height: 200px;
+}
+.admin-dashboard > section > a:hover {
+    padding: 16px;
+    background-color: var(--bg300);
+    border: 1px solid var(--bg400);
+    /* box-shadow: ; */
+}
+
+/* UTENTI */
+.admin-user-head,
+.admin-user-box {
+    display: grid;
+    grid-template-columns: 100px repeat(4, 1fr) 80px;
+    transition: 0.2s ease-in;
+    height: 45px;
+    padding: 10px;
+    margin: 5px 0;
+    align-items: center;
+}
+.admin-user-box {
+    color: var(--text);
+}
+.admin-user-box:hover {
+    background-color: var(--bg200);
+    border: 1px solid var(--bg400);
+}
+.admin-user-head h4,
+.admin-user-box p {
+    margin: 0;
+}
+.admin-user-head > h4:last-child {
+    justify-self: center;
+}
+.admin-user-box > a:last-child {
+    justify-self: end;
+}
+
+/* ORDINI */
+.admin-order-head,
+.admin-order-box {
+    display: grid;
+    grid-template-columns: 100px repeat(5, 1fr) 80px;
+    transition: 0.2s ease-in;
+    height: 45px;
+    padding: 10px;
+    margin: 5px 0;
+    align-items: center;
+}
+.admin-order-box {
+    color: var(--text);
+}
+.admin-order-box:hover {
+    background-color: var(--bg200);
+    border: 1px solid var(--bg400);
+}
+.admin-order-head h4,
+.admin-order-box p {
+    margin: 0;
+}
+.admin-order-head > h4:last-child {
+    justify-self: center;
+}
+.admin-order-box > a:last-child {
+    justify-self: end;
+}
+
+/* PRODOTTI */
+.admin-product-head,
+.admin-product-box {
+    display: grid;
+    grid-template-columns: 100px repeat(6, 1fr) 80px;
+    transition: 0.2s ease-in;
+    height: 45px;
+    padding: 10px;
+    margin: 5px 0;
+    align-items: center;
+}
+.admin-product-box {
+    color: var(--text);
+}
+.admin-product-box:hover {
+    background-color: var(--bg200);
+    border: 1px solid var(--bg400);
+}
+.admin-product-head h4,
+.admin-product-box p {
+    margin: 0;
+}
+.admin-product-head > h4:last-child {
+    justify-self: center;
+}
+.admin-product-box > a:last-child {
+    justify-self: end;
+}

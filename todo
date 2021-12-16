@@ -42,13 +42,14 @@ DICEMBRE 2021
 
 • aggiungere database psql (items, orders, users) 🧠
 • aggiungere auth per users 👍
-• aggiungere admin dashboard
-• migrare da commerce.js, non usarlo piú 🧠
+• aggiungere admin dashboard 🧠
+• migrare da commerce.js, non usarlo piú 👍
 • gestire cart in state 👍
-• infine sistemare tutta la parte legata ai pagamenti
+• infine sistemare tutta la parte legata ai pagamenti 🧠
 • hostare il db online e modificare url per prod mode in components
 • devo avere un check su cart e su checkout (custom hook?) per verificare disponibilitá dei prodotti
-
+• sistemare Nav (anche responsive!) e fare design profilo + auth 🧠
+• bucket per uploadare immagini
 
 
 08/12/21:
@@ -71,8 +72,12 @@ DICEMBRE 2021
 
 
 13/12/21:
-• prodotti in stock deve modificarsi dopo acquisto
-• testare paypal
-• ricollegare stripe
-• trovare il modo di creare admin user via sql (bycrypt password in query)
-• creare pagina in cui vedere tutti gli ordini (solo per admin)
+• prodotti in stock deve modificarsi dopo acquisto -> update db dopo capture order ?
+• testare paypal in SB 👍
+• ricollegare stripe e testare in SB
+• creare pagina in cui vedere tutti gli ordini (solo per admin) 👍
+
+15/12/21:
+• design basic per intrefaccia dashboard e pannelli
+• assicurarsi che dashboard non sia accessibile a non admin (finche sviluppo non uso)
+• aggiungere query per far diventare utente admin (la useró in un component nascosto passandogli user id)
