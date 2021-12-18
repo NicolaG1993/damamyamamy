@@ -54,9 +54,9 @@ module.exports.getRelatedProducts = (arr) => {
 };
 
 //** USERS **//
-module.exports.getUser = (email) => {
-    const myQuery = `SELECT * FROM users WHERE email = $1`;
-    const key = [email];
+module.exports.getUser = (id) => {
+    const myQuery = `SELECT * FROM users WHERE id = $1`;
+    const key = [id];
     return db.query(myQuery, key);
 };
 module.exports.createUser = (name, email, password, isAdmin) => {
@@ -175,6 +175,13 @@ module.exports.allUsers = () => {
 module.exports.allProducts = () => {
     const myQuery = `SELECT *
     FROM products
+    ORDER BY id ASC`;
+    return db.query(myQuery);
+}; /* si dovra mettere un limite (range) per i risultati, oltre ad alcuni filtri semplici */
+module.exports.allProductsAvailables = () => {
+    const myQuery = `SELECT *
+    FROM products
+    WHERE count_in_stock >= 1
     ORDER BY id ASC`;
     return db.query(myQuery);
 }; /* si dovra mettere un limite (range) per i risultati, oltre ad alcuni filtri semplici */

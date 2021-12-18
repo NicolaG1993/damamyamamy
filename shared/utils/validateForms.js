@@ -64,6 +64,11 @@ const numberValidation = (fieldName, fieldValue) => {
     return `${fieldName} deve essere un numero`;
 };
 
+//** VALIDATE SHOP ITEMS **//
+// l'idea é di avere una max lenght se necessario per design
+//ho scoperto che posso gia mettere un limite in input
+// ... annulla?
+
 // const ageValidation = (age) => {
 //     if (!age) {
 //         return "Age is required";

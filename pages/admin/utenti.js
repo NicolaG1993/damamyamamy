@@ -6,6 +6,7 @@ import { shallowEqual, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
 import styles from "../../components/AdminDashboard/style/AdminDashboard.module.css";
+import { formatDateShort } from "../../shared/utils/convertTimestamp";
 
 const loggedUser = (state) => state.user.userInfo;
 
@@ -57,9 +58,9 @@ function AdminAllUsers() {
                             <p>{user.email}</p>
 
                             {user.is_admin ? <p>Admin</p> : <p>Utente</p>}
-                            <p>{user.created_at.toString().split("T")[0]}</p>
+                            <p>{formatDateShort(user.created_at)}</p>
 
-                            <Link href="/admin/dashboard">
+                            <Link href={`/admin/utente/${user.id}`}>
                                 <a>
                                     <button>Visualizza</button>
                                 </a>

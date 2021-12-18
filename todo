@@ -81,3 +81,10 @@ DICEMBRE 2021
 • design basic per intrefaccia dashboard e pannelli
 • assicurarsi che dashboard non sia accessibile a non admin (finche sviluppo non uso)
 • aggiungere query per far diventare utente admin (la useró in un component nascosto passandogli user id)
+
+16/12/21:
+• fare component per admin/ordine/[id]
+• fare component per admin/utente/[id]
+• fare component e form per admin/prodotto/[slug]
+• fare i vari filtri per ogni scheda
+• fare componente per admin/statistiche

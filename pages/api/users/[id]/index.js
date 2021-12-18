@@ -1,12 +1,12 @@
 import { isAuth } from "../../../../shared/utils/auth";
-import { getOrder } from "../../../../shared/utils/db/db";
+import { getUser } from "../../../../shared/utils/db/db";
 
 async function handler(req, res) {
     const id = req.query.id;
     console.log("id:", id);
-    const order = await getOrder(id);
-    console.log("order:", order);
-    res.status(200).json(order);
+    const user = await getUser(id);
+    console.log("user:", user);
+    res.status(200).json(user);
 }
 
 export default isAuth(handler); //middleware

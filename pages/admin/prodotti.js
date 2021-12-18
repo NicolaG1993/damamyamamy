@@ -1,37 +1,69 @@
 import axios from "axios";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { shallowEqual, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { useSnackbar } from "notistack";
 
 import styles from "../../components/AdminDashboard/style/AdminDashboard.module.css";
+import { getError } from "../../shared/utils/error";
+import { formatDateShort } from "../../shared/utils/convertTimestamp";
 
 const loggedUser = (state) => state.user.userInfo;
 
 function AdminShop() {
     let userInfo = useSelector(loggedUser, shallowEqual);
     const router = useRouter();
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const [allProducts, setAllProducts] = useState([]);
+    const [displayedAll, setDisplayedAll] = useState(false);
+
+    const fetchData = async () => {
+        try {
+            const { data } = await axios.get(`/api/admin/products`, {
+                headers: {
+                    authorization: `Bearer ${userInfo.token}`,
+                    all: false,
+                },
+            });
+            setAllProducts(data);
+        } catch (err) {
+            enqueueSnackbar(getError(err), { variant: "error" });
+        }
+    };
+    const fetchAllData = async () => {
+        try {
+            const { data } = await axios.get(`/api/admin/products`, {
+                headers: {
+                    authorization: `Bearer ${userInfo.token}`,
+                    all: true,
+                },
+            });
+            setAllProducts(data);
+        } catch (err) {
+            enqueueSnackbar(getError(err), { variant: "error" });
+        }
+    };
 
     useEffect(() => {
         if (!userInfo) {
             router.push("/login");
         }
-        const fetchData = async () => {
-            try {
-                const { data } = await axios.get(`/api/admin/products`, {
-                    headers: { authorization: `Bearer ${userInfo.token}` },
-                });
-                setAllProducts(data);
-            } catch (err) {
-                // dispatch({ type: "FETCH_FAIL", payload: getError(err) });
-            }
-        };
         fetchData();
     }, []);
+    useEffect(() => {
+        displayedAll ? fetchAllData() : fetchData();
+    }, [displayedAll]);
 
     console.log("allProducts: ", allProducts);
+    console.log("displayedAll: ", displayedAll);
+
+    const handleDisplay = async () => {
+        closeSnackbar();
+        setDisplayedAll(!displayedAll);
+    };
 
     return (
         <div>
@@ -56,16 +88,23 @@ function AdminShop() {
                             className={styles["admin-product-box"]}
                         >
                             {/* questo deve essere img */}
-                            <p>{product.id}</p>
+                            <div>
+                                <Image
+                                    src={product.images[0] || "/pics/Logo.jpg"}
+                                    alt={product.name}
+                                    layout="fill"
+                                    objectFit="cover"
+                                />
+                            </div>
 
                             <p>{product.name}</p>
                             <p>#{product.id}</p>
                             <p>{product.price} €</p>
                             <p>{product.brand}</p>
                             <p>{product.count_in_stock}</p>
-                            <p>{product.created_at.toString().split("T")[0]}</p>
+                            <p>{formatDateShort(product.created_at)}</p>
 
-                            <Link href="/admin/dashboard">
+                            <Link href={`/admin/prodotto/${product.slug}`}>
                                 <a>
                                     <button>Visualizza</button>
                                 </a>
@@ -73,6 +112,9 @@ function AdminShop() {
                         </div>
                     ))}
             </div>
+
+            {/* mettere button component */}
+            <p onClick={handleDisplay}>Mostra non disponibili</p>
 
             <Link href="/admin/dashboard">
                 <a>Torna indietro</a>

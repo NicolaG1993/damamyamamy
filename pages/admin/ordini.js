@@ -6,6 +6,7 @@ import { shallowEqual, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
 import styles from "../../components/AdminDashboard/style/AdminDashboard.module.css";
+import { formatDateShort } from "../../shared/utils/convertTimestamp";
 
 const loggedUser = (state) => state.user.userInfo;
 
@@ -65,14 +66,14 @@ function AdminAllOrders() {
                             ) : (
                                 <p>non pagato</p>
                             )}
-                            <p>{order.created_at.toString().split("T")[0]}</p>
+                            <p>{formatDateShort(order.created_at)}</p>
                             <p>
                                 {order.is_delivered
                                     ? "consegnato"
                                     : "non consegnato"}
                             </p>
 
-                            <Link href="/admin/dashboard">
+                            <Link href={`/admin/ordine/${order.order_id}`}>
                                 <a>
                                     <button>Visualizza</button>
                                 </a>
