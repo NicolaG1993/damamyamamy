@@ -83,7 +83,9 @@ function AdminAllOrders() {
             </div>
 
             <Link href="/admin/dashboard">
-                <a>Torna indietro</a>
+                <a>
+                    <h5>Torna indietro</h5>
+                </a>
             </Link>
         </div>
     );

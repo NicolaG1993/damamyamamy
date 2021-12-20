@@ -12,6 +12,8 @@ import { useSnackbar } from "notistack";
 import { getError } from "../../../shared/utils/error";
 import axios from "axios";
 
+import styles from "../../../components/AdminDashboard/style/AdminDashboard.module.css";
+
 import Cookies from "js-cookie";
 
 import { formatJSDate } from "../../../shared/utils/convertTimestamp";
@@ -54,6 +56,7 @@ function Order({ params }) {
                 const { data } = await axios.get(`/api/orders/${orderId}`, {
                     headers: { authorization: `Bearer ${userInfo.token}` },
                 });
+                console.log("data:", data);
                 setOrder(data.rows[0]);
             } catch (err) {
                 setError(getError(err));
@@ -67,18 +70,30 @@ function Order({ params }) {
     console.log("order:", order);
 
     return (
-        <main>
-            <h1>Order details: {orderId}</h1>
+        <div className={styles["dashboard-sub-component"]}>
+            <Link href={`/admin/ordini`}>
+                <a>
+                    <h5>Torna indietro</h5>
+                </a>
+            </Link>
+            <h1>Dettagli ordine: #{orderId}</h1>
 
             {!order ? (
                 <h3>Loading...</h3>
             ) : error ? (
                 <h3>{error}</h3>
             ) : (
-                <section className={"placeorder-section"}>
+                <section className={styles["order-section"]}>
                     <div>
                         <div>
-                            <h2>Shipping Address</h2>
+                            <h2>Utente</h2>
+                            <p>ID: #{order.user_id}</p>
+                            <p>Nome: {order.name}</p>
+                            <p>E-mail: {order.email}</p>
+                        </div>
+
+                        <div>
+                            <h2>Indirizzo</h2>
                             <p>
                                 {order.shipping_address.fullName},{" "}
                                 {order.shipping_address.address},{" "}
@@ -89,37 +104,39 @@ function Order({ params }) {
                             <p>
                                 Status:{" "}
                                 {order.is_delivered
-                                    ? `delivered at ${formatJSDate(
+                                    ? `consegnato il ${formatJSDate(
                                           order.delivered_at
                                       )}`
-                                    : `not delivered`}
+                                    : `non ancora consegnato`}
                             </p>
                         </div>
 
                         <div>
-                            <h2>Payment Method</h2>
+                            <h2>Metodo di pagamento</h2>
                             <p>{order.payment_method}</p>
                             <p>
                                 Status:{" "}
                                 {order.ispaid
-                                    ? `paid at ${formatJSDate(order.paid_at)}`
-                                    : `not paid`}
+                                    ? `pagato il ${formatJSDate(order.paid_at)}`
+                                    : `non pagato`}
                             </p>
                         </div>
 
                         <div>
-                            <h2>Order items</h2>
+                            <h2>Articoli ordinati</h2>
                             <div>
-                                <div className={"grid-table-headings"}>
-                                    <h4>Image</h4>
-                                    <h4>Name</h4>
-                                    <h4>Quantity</h4>
-                                    <h4>Price</h4>
+                                <div className={styles["grid-table-headings"]}>
+                                    <h4>Immagine</h4>
+                                    <h4>Nome</h4>
+                                    <h4>Quantità</h4>
+                                    <h4>Prezzo</h4>
                                 </div>
                                 {order.order_items.map((el) => (
                                     <div
                                         key={el.itemId}
-                                        className={"placeorder-table-product"}
+                                        className={
+                                            styles["order-table-product"]
+                                        }
                                     >
                                         <div>
                                             <Link href={`/product/${el.slug}`}>
@@ -151,7 +168,7 @@ function Order({ params }) {
                                                 </a>
                                             </Link>
 
-                                            <p>{el.quantity} €</p>
+                                            <p>{el.quantity}</p>
                                             <p>{el.price} €</p>
                                         </div>
                                     </div>
@@ -161,23 +178,22 @@ function Order({ params }) {
                     </div>
 
                     <div>
-                        <div className={"flex-paragraph"}>
-                            <p>Items Price:</p> <p>{order.items_price} €</p>
+                        <div className={styles["flex-paragraph"]}>
+                            <p>Articoli:</p> <p>{order.items_price} €</p>
                         </div>
-                        <div className={"flex-paragraph"}>
-                            <p>Tax Price:</p> <p>{order.tax_price} €</p>
+                        <div className={styles["flex-paragraph"]}>
+                            <p>Tasse:</p> <p>{order.tax_price} €</p>
                         </div>
-                        <div className={"flex-paragraph"}>
-                            <p>Shipping Price:</p>{" "}
-                            <p>{order.shipping_price} €</p>
+                        <div className={styles["flex-paragraph"]}>
+                            <p>Spedizione:</p> <p>{order.shipping_price} €</p>
                         </div>
-                        <div className={"flex-paragraph"}>
-                            <h4>Total Price:</h4> <h4>{order.total_price} €</h4>
+                        <div className={styles["flex-paragraph"]}>
+                            <h4>Totale:</h4> <h4>{order.total_price} €</h4>
                         </div>
                     </div>
                 </section>
             )}
-        </main>
+        </div>
     );
 }
 

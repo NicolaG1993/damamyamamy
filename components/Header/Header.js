@@ -27,8 +27,6 @@ export default function Header({ userInfo }) {
     const [windowSize, setWindowSize] = useState(721);
     const { width } = useWindowDimensions();
 
-    console.log("HEADER RENDERS");
-
     useEffect(() => {
         setWindowSize(width);
     }, []);

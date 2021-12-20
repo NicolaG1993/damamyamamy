@@ -21,6 +21,16 @@
     /* box-shadow: ; */
 }
 
+/* GLOBAL */
+
+.dashboard-sub-component {
+    padding: var(--padding3);
+}
+.dashboard-sub-component h1,
+.dashboard-sub-component h2 {
+    margin-bottom: 1em;
+}
+
 /* UTENTI */
 .admin-user-head,
 .admin-user-box {
@@ -112,4 +122,67 @@
 }
 .admin-product-box > a:last-child {
     justify-self: end;
+}
+
+/***************ORDER***************/
+
+.order-section {
+    display: flex;
+}
+.order-section > div:nth-child(1) {
+    width: 75%;
+}
+.order-section > div:nth-child(2) {
+    width: 25%;
+}
+
+.order-section > div:nth-child(1) > div {
+    margin-bottom: var(--size400);
+}
+
+.grid-table-headings {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 110px 1fr 120px 120px;
+    align-items: center;
+    margin-bottom: var(--size-100);
+}
+
+.order-table-product > div {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 110px 1fr 120px 120px;
+    align-items: center;
+    margin-bottom: var(--size-100);
+}
+.order-table-product h4,
+.order-table-product p {
+    margin-bottom: 0;
+}
+
+.order-table-product > div > a:nth-child(1) > div {
+    height: 50px;
+    width: 50px;
+    position: relative;
+}
+
+.flex-paragraph {
+    display: flex;
+    justify-content: space-between;
+}
+
+/***************PRODUCT***************/
+.form-input-hint-box {
+    position: absolute;
+    background-color: var(--color100);
+    color: var(--text);
+    width: 100%;
+}
+.form-input-hint-box > p {
+    cursor: pointer;
+    margin-bottom: 0;
+}
+.form-input-hint-box > p:hover {
+    background-color: var(--text);
+    color: var(--color100);
 }

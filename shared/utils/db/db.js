@@ -29,6 +29,14 @@ module.exports.getAllCategories = () => {
     return db.query(myQuery);
 };
 
+module.exports.getAllTags = () => {
+    const myQuery = `SELECT ARRAY (
+        SELECT DISTINCT UNNEST(tags) 
+        FROM products      
+        )`;
+    return db.query(myQuery);
+};
+
 module.exports.getCatNewItems = () => {
     const myQuery = `SELECT * FROM products
     WHERE count_in_stock >= 1

@@ -12,6 +12,7 @@ import { useSnackbar } from "notistack";
 import { getError } from "../../../shared/utils/error";
 import axios from "axios";
 
+import styles from "../../../components/AdminDashboard/style/AdminDashboard.module.css";
 import Cookies from "js-cookie";
 
 import { formatJSDate } from "../../../shared/utils/convertTimestamp";
@@ -53,14 +54,20 @@ function AdminUser({ params }) {
 
     console.log("user:", user);
     return (
-        <main>
+        <div className={styles["dashboard-sub-component"]}>
+            <Link href={`/admin/utenti`}>
+                <a>
+                    <h5>Torna indietro</h5>
+                </a>
+            </Link>
+
             {!user ? (
                 <h3>Loading...</h3>
             ) : error ? (
                 <h3>{error}</h3>
             ) : (
                 <div>
-                    <h1>Dati utente: #{user.id}</h1>
+                    <h1>Dati utente: ID#{user.id}</h1>
                     <p>Nome: {user.name}</p>
                     <p>Email: {user.email}</p>
                     <p>Registrato il: {formatJSDate(user.created_at)}</p>
@@ -70,7 +77,7 @@ function AdminUser({ params }) {
                     </p>
                 </div>
             )}
-        </main>
+        </div>
     );
 }
 

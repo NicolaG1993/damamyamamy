@@ -18,7 +18,8 @@ import { useRouter } from "next/router";
 import { useState, useEffect, useRef } from "react";
 // import { Switch, Route, useRouteMatch } from "react-router-dom";
 
-import styles from "../../../components/Shop/Item/style/Item.module.css";
+import styles from "../../../components/AdminDashboard/style/AdminDashboard.module.css";
+import { formatJSDate } from "../../../shared/utils/convertTimestamp";
 
 // import Button from "../../components/Button/Button";
 /*
@@ -43,38 +44,69 @@ function AdminItem({ params }) {
     let userInfo = useSelector(loggedUser, shallowEqual);
 
     const [product, setProduct] = useState();
+    const [categories, setCategories] = useState();
+    const [tags, setTags] = useState();
+
     const [errors, setErrors] = useState({});
+    const [categoryMatchResults, setCategoryMatchResults] = useState();
+    const [tagMatchResults, setTagMatchResults] = useState();
+
+    // questi state servono per poter fare update di input value da altre funzioni
+    const [newCategoryInput, setNewCategoryInput] = useState("");
+    const [newTagInput, setNewTagInput] = useState("");
+
+    const fetchProduct = async () => {
+        try {
+            const { data } = await axios.get(`/api/product/${slug}`);
+            setProduct(data);
+        } catch (err) {
+            enqueueSnackbar(getError(err), { variant: "error" });
+        }
+    };
+
+    const fetchCategories = async () => {
+        try {
+            const { data } = await axios.get(`/api/categories`);
+            setCategories(data.allCategories);
+            setTags(data.allTags);
+        } catch (err) {
+            enqueueSnackbar(getError(err), { variant: "error" });
+        }
+    };
 
     useEffect(() => {
         if (!userInfo) {
             router.push("/login");
         }
-
-        const fetchProduct = async () => {
-            try {
-                const { data } = await axios.get(`/api/product/${slug}`, {
-                    headers: { authorization: `Bearer ${userInfo.token}` },
-                }); // questa riga disattiva linter 🧨
-
-                setProduct(data);
-            } catch (err) {
-                enqueueSnackbar(getError(err), { variant: "error" });
-            }
-        };
-
         fetchProduct();
+        fetchCategories();
     }, []);
 
+    // rimuovo elemento corrispondente a i da array corrispondente in product
+    const handleRemoveSelectedInput = ({ field, i }) => {
+        if (field === "categories") {
+            setProduct({
+                ...product,
+                categories: product.categories.filter(
+                    (el, index) => index !== i
+                ),
+            });
+        } else if (field === "tags") {
+            setProduct({
+                ...product,
+                tags: product.tags.filter((el, index) => index !== i),
+            });
+        }
+    };
+
+    // validazione valori di input quando si toglie focus e gestione errori
     const handleBlur = (e) => {
-        // qui voglio settare lo state di product con i valori di input
-        // valori iniziali saranno quelli di fetched product
-        // fare anche check per errori e mostrare spans come in register component
-
-        console.log("e.target.id: ", e.target.id);
+        //estraggo valori
         const { id, name, value } = e.target;
-        let newErrObj = { ...errors }; //creo nuovo oggetto ogni volta per rimuovere errori precedenti
+        //creo nuovo oggetto ogni volta per rimuovere errori precedenti
+        let newErrObj = { ...errors };
 
-        //validate
+        //validate values
         if (id === "Name") {
             const resp = nameValidation("Name", value);
             if (resp) {
@@ -84,12 +116,96 @@ function AdminItem({ params }) {
                 setErrors(newErrObj);
             }
         }
-    };
-    const handleSubmit = async () => {
-        // quando user clicca conferma e non ci sono errori allora facciamo post request per update
+        // continuare ...
+
+        // come gestire singoli errori sui vari newInputs per tags e categories ?
     };
 
-    console.log("product: ", product);
+    // quando user clicca conferma e non ci sono errori allora facciamo post request per update
+    const handleSubmit = async () => {};
+
+    // settare state per matchResults = null -> questo fa chiudere la box relativa in DOM
+    // notare che quando attivo fn con onBlur applico un timeout brevissimo, perché devo poter attivare onClick in caso seleziono opzione
+    // non si attiverebbe mai altrimenti perché il focus nel browser sarebbe nullo e click non avverrebbe mai
+    const closeMatchResults = (e) => {
+        const { id, value } = e.target;
+        if (id === "CategoryNew") {
+            setNewCategoryInput(value);
+            setCategoryMatchResults(null);
+        } else if (id === "TagNew") {
+            setNewTagInput(value);
+            setTagMatchResults(null);
+        }
+    };
+
+    // quando user clicca e/o modifica input riceve una array con le opzioni filtrare, se ci sono, quando input é vuoto le riceve tutte
+    const handleInputHints = (e) => {
+        // estraggo e setto tutti i valori che servono
+        const { id, value } = e.target;
+        const inputVal = e.target.value.toLowerCase();
+        let matchResults = [];
+        let source;
+        let propFlag;
+
+        // setto quale array filtrare e setto i valori di uncontrolled inputs
+        if (id === "CategoryNew") {
+            setNewCategoryInput(value); // non inputValue perché lowerCase
+            source = categories;
+            propFlag = "categories";
+        } else if (id === "TagNew") {
+            setNewTagInput(value);
+            source = tags;
+            propFlag = "tags";
+        }
+
+        // filtro source array
+        for (var i = 0; i < source.length; i++) {
+            // finché el corrisponde a inputVal && se el non é gia in product.tag o cat
+            // pushalo in matchResult fino a max 5 risultati
+            if (
+                source[i].toLowerCase().indexOf(inputVal) === 0 &&
+                !product[propFlag].includes(source[i])
+            ) {
+                matchResults.push(source[i]);
+                if (matchResults.length === 5) {
+                    break;
+                }
+            }
+        }
+
+        // salvo matchResults in state per usarlo in result box in dom per fare map
+        if (!matchResults.length) {
+            id === "CategoryNew" && setCategoryMatchResults(null);
+            id === "TagNew" && setTagMatchResults(null);
+        } else {
+            id === "CategoryNew" && setCategoryMatchResults(matchResults);
+            id === "TagNew" && setTagMatchResults(matchResults);
+        }
+
+        //devo ancora settare i keydown events (frecce e invio) -> nn prioritario 🪁
+    };
+
+    const handleAddInputToArray = (field) => {
+        // prendo value da input in DOM
+        const value = document.getElementById(field).value;
+
+        if (value !== "") {
+            // modifico array e svuoto input corrispondenti
+            field === "CategoryNew" &&
+                (setProduct({
+                    ...product,
+                    categories: [...product.categories, value],
+                }),
+                setNewCategoryInput(""));
+
+            field === "TagNew" &&
+                (setProduct({
+                    ...product,
+                    tags: [...product.tags, value],
+                }),
+                setNewTagInput(""));
+        }
+    };
 
     if (!product) {
         return (
@@ -109,11 +225,23 @@ function AdminItem({ params }) {
                 />
                 <meta property="og:type" content="article" />
             </Head>
-            <main>
+            <div className={styles["dashboard-sub-component"]}>
+                <Link href={`/admin/prodotti`}>
+                    <a>
+                        <h5>Torna indietro</h5>
+                    </a>
+                </Link>
                 <form>
                     <div className={"filter-form-col-left"}>
                         <label>
                             <span>ID: #{product.id}</span>
+                        </label>
+                    </div>
+                    <div className={"filter-form-col-left"}>
+                        <label>
+                            <span>
+                                Creato il il: {formatJSDate(product.created_at)}
+                            </span>
                         </label>
                     </div>
 
@@ -204,7 +332,7 @@ function AdminItem({ params }) {
                             onChange={(e) =>
                                 setProduct({
                                     ...product,
-                                    price: e.target.value,
+                                    price: Number(e.target.value),
                                 })
                             }
                             onBlur={(e) => handleBlur(e)}
@@ -228,7 +356,7 @@ function AdminItem({ params }) {
                             onChange={(e) =>
                                 setProduct({
                                     ...product,
-                                    count_in_stock: e.target.value,
+                                    count_in_stock: Number(e.target.value),
                                 })
                             }
                             onBlur={(e) => handleBlur(e)}
@@ -238,6 +366,29 @@ function AdminItem({ params }) {
                                 {errors.count_in_stock}
                             </div>
                         )}
+                    </div>
+
+                    <div className={"filter-form-col-left"}>
+                        <label>
+                            <span>Condizioni</span>
+                        </label>
+                    </div>
+                    <div className={"filter-form-col-right"}>
+                        <select
+                            name="conditions"
+                            id="Conditions"
+                            defaultValue={product.condition}
+                            onChange={(e) =>
+                                setProduct({
+                                    ...product,
+                                    condition: e.target.value,
+                                })
+                            }
+                        >
+                            <option value={"new"}>Nuovo</option>
+                            <option value={"used"}>Usato</option>
+                            <option value={"bad"}>Rovinato</option>
+                        </select>
                     </div>
 
                     <div className={"filter-form-col-left"}>
@@ -292,12 +443,13 @@ function AdminItem({ params }) {
                         )}
                     </div>
 
+                    {/* qui cé da vedere come fare a modificare array categories, e come gestire i singoli errori */}
                     <div className={"filter-form-col-left"}>
                         <label>
                             <span>Categorie</span>
                         </label>
                     </div>
-                    {/* qui cé da vedere come fare a modificare array categories, e come gestire i singoli errori */}
+
                     {product.categories.map((cat, i) => (
                         <div className={"filter-form-col-right"} key={cat}>
                             <input
@@ -305,52 +457,146 @@ function AdminItem({ params }) {
                                 name={`category ${i + 1}`}
                                 id="Category"
                                 value={cat}
-                                maxLength="30"
-                                onChange={(e) =>
-                                    setProduct({
-                                        ...product,
-                                        categories: e.target.value,
+                                readOnly
+                            />
+                            <span
+                                onClick={() =>
+                                    handleRemoveSelectedInput({
+                                        field: "categories",
+                                        i,
                                     })
                                 }
-                                onBlur={(e) => handleBlur(e)}
-                            />
-                            {errors.categories && (
-                                <div className={"form-error"}>
-                                    {errors.categories}
-                                </div>
-                            )}
+                            >
+                                X
+                            </span>
                         </div>
                     ))}
-
-                    <div className={"filter-form-col-left"}>
-                        <label>
-                            <span>Tags</span>
-                        </label>
-                    </div>
-                    {/* qui cé da vedere come fare a modificare array categories, e come gestire i singoli errori */}
-                    {product.tags.map((tag, i) => (
-                        <div className={"filter-form-col-right"} key={tag}>
+                    {product.categories.length < 3 && (
+                        <div className={"filter-form-col-right"}>
                             <input
                                 type="text"
-                                name={`tag ${i + 1}`}
-                                id="Tag"
-                                value={tag}
+                                name={`category`}
+                                id="CategoryNew"
                                 maxLength="30"
-                                onChange={(e) =>
-                                    setProduct({
-                                        ...product,
-                                        tags: e.target.value,
-                                    })
+                                value={newCategoryInput}
+                                onFocus={(e) => handleInputHints(e)}
+                                onChange={(e) => handleInputHints(e)}
+                                onBlur={(e) =>
+                                    setTimeout(() => {
+                                        closeMatchResults(e);
+                                        //serve timeout per poter attivare prima onClick su hint box
+                                    }, 350)
                                 }
-                                onBlur={(e) => handleBlur(e)}
                             />
+                            <span
+                                onClick={() =>
+                                    handleAddInputToArray("CategoryNew")
+                                } // aggiorno array in product e svuoto hint box
+                            >
+                                V
+                            </span>
+
+                            {categoryMatchResults && (
+                                <div className={styles["form-input-hint-box"]}>
+                                    {categoryMatchResults.map((el) => (
+                                        <p
+                                            key={el}
+                                            onClick={() => {
+                                                setNewCategoryInput(el); //setto input value
+                                                setCategoryMatchResults(null); //svuoto hint box
+                                            }}
+                                        >
+                                            {el}
+                                        </p>
+                                    ))}
+                                </div>
+                            )}
+
                             {errors.tags && (
                                 <div className={"form-error"}>
                                     {errors.tags}
                                 </div>
                             )}
                         </div>
+                    )}
+
+                    <div className={styles["filter-form-col-left"]}>
+                        <label>
+                            <span>Tags</span>
+                        </label>
+                    </div>
+
+                    {product.tags.map((tag, i) => (
+                        <div
+                            className={styles["filter-form-col-right"]}
+                            key={tag}
+                        >
+                            <input
+                                type="text"
+                                name={`tag ${i + 1}`}
+                                id="Tag"
+                                value={tag}
+                                readOnly
+                            />
+                            <span
+                                onClick={() =>
+                                    handleRemoveSelectedInput({
+                                        field: "tags",
+                                        i,
+                                    })
+                                }
+                            >
+                                X
+                            </span>
+                        </div>
                     ))}
+                    {product.tags.length < 8 && (
+                        <div className={styles["filter-form-col-right"]}>
+                            <input
+                                type="text"
+                                name={`tag`}
+                                id="TagNew"
+                                maxLength="30"
+                                value={newTagInput}
+                                onFocus={(e) => handleInputHints(e)}
+                                onChange={(e) => handleInputHints(e)}
+                                onBlur={(e) =>
+                                    setTimeout(() => {
+                                        closeMatchResults(e);
+                                    }, 350)
+                                }
+                            />
+                            <span
+                                onClick={() => handleAddInputToArray("TagNew")}
+                            >
+                                V
+                            </span>
+
+                            {tagMatchResults && (
+                                <div className={styles["form-input-hint-box"]}>
+                                    {tagMatchResults.map((el) => (
+                                        <p
+                                            key={el}
+                                            onClick={() => {
+                                                setNewTagInput(el);
+                                                setTagMatchResults(null);
+                                            }}
+                                        >
+                                            {el}
+                                        </p>
+                                    ))}
+                                </div>
+                            )}
+
+                            {errors.tags && (
+                                <div className={styles["form-error"]}>
+                                    {errors.tags}
+                                </div>
+                            )}
+                        </div>
+                    )}
+
+                    <button type="submit">Conferma modifiche</button>
                 </form>
 
                 <br />
@@ -358,290 +604,12 @@ function AdminItem({ params }) {
                 <h2>rimane da fare</h2>
                 <br />
                 <p>lista immagini e upload bucket?</p>
-                <p>select condition</p>
+                <p>auto complete</p>
                 <p>select related products</p>
-                <p>display created_at</p>
-            </main>
+                <p>validation</p>
+            </div>
         </>
     );
-
-    /*
-    const [galleryOpen, setGalleryOpen] = useState(false);
-    const [clickedPic, setClickedPic] = useState(0);
-
-    console.log("product", product);
-
-    const toggleGallery = async (n, boo) => {
-        setClickedPic(n);
-        setGalleryOpen(boo);
-    };
-
-    const PicDisplay = () =>
-        product.images.length > 1 ? (
-            <div className={styles["item-pictures-wrap"]}>
-                <div>
-                    <Image
-                        src={product.images[0] || "/pics/Logo.jpg"}
-                        alt={product.name}
-                        onClick={() => toggleGallery(0, true)}
-                        layout="fill"
-                        objectFit="cover"
-                    />
-                </div>
-
-                <div className={styles["item-pictures-small-wrap"]}>
-                    {product.images.map((el, i) => (
-                        <Image
-                            key={el}
-                            alt={product.name}
-                            src={el}
-                            onClick={() => toggleGallery(i, true)}
-                            layout="fill"
-                            objectFit="cover"
-                        />
-                    ))}
-                </div>
-            </div>
-        ) : (
-            <div>
-                <Image
-                    src={product.images[0] || "/pics/Logo.jpg"}
-                    alt={product.name}
-                    onClick={() => toggleGallery(0, true)}
-                    layout="fill"
-                    objectFit="cover"
-                />
-            </div>
-        );
-
-    const ItemWrap = () => (
-        <div id={styles["Item"]}>
-            <div className={styles["item-wrap"]}>
-                <div className={styles["item-pic"]}>
-                    <PicDisplay />
-                </div>
-                <div className={styles["item-infos"]}>
-                    <h1>{product.name}</h1>
-                    <div className={styles["item-infos-price"]}>
-                        <h2>{product.price}€</h2>
-                        <p>IVA inclusa</p>
-                    </div>
-                    <div className={"product-divider-small"}> </div>
-                    <div className={"item-infos-infos-box"}>
-                        <div className={styles["item-infos-infos"]}>
-                            <span>Brand:</span>
-                            <p>{product.brand}</p>
-                        </div>
-
-                        <div className={styles["item-infos-conditions"]}>
-                            <span>Condizioni:</span>
-                            <div
-                                className={styles["item-infos-conditions-wrap"]}
-                            >
-                                {product.condition === "new" && (
-                                    <>
-                                        <h5>come nuovo</h5>
-                                        <div
-                                            className={styles["green-circle"]}
-                                        ></div>
-                                    </>
-                                )}
-                                {product.condition === "used" && (
-                                    <>
-                                        <h5>usato</h5>
-                                        <div
-                                            className={styles["yellow-circle"]}
-                                        ></div>
-                                    </>
-                                )}
-                                {product.condition === "broken" && (
-                                    <>
-                                        <h5>rovinato</h5>
-                                        <div
-                                            className={styles["red-circle"]}
-                                        ></div>
-                                    </>
-                                )}
-                            </div>
-                        </div>
-
-                        <div className={styles["item-infos-infos"]}>
-                            <span>Categorie:</span>
-                            {product.categories.map((el) => (
-                                <p key={el}>{el}</p>
-                            ))}
-                        </div>
-
-                        <div className={styles["item-infos-infos"]}>
-                            <span>Tags:</span>
-                            <div
-                                className={
-                                    styles["item-infos-infos-inner-wrap"]
-                                }
-                            >
-                                {product.tags &&
-                                    product.tags.map((el, i) => (
-                                        <Link
-                                            key={el + i}
-                                            href={{
-                                                pathname: "/shop",
-                                                query: {
-                                                    research: el,
-                                                },
-                                            }}
-                                        >
-                                            <a className={styles["item-tag"]}>
-                                                {el}
-                                            </a>
-                                        </Link>
-                                    ))}
-
-                                <Link
-                                    href={{
-                                        pathname: "/shop",
-                                        query: { research: product.brand },
-                                    }}
-                                >
-                                    <a className={styles["item-tag"]}>
-                                        {product.brand}
-                                    </a>
-                                </Link>
-                            </div>
-                        </div>
-
-                        <div className={styles["item-infos-infos"]}>
-                            <span>Disponibilitá:</span>
-
-                            {!product.count_in_stock && (
-                                <p>Prodotto non disponibile</p>
-                            )}
-                            {product.count_in_stock === 1 && <p>Pezzo unico</p>}
-                            {product.count_in_stock > 1 && (
-                                <p>{product.count_in_stock} rimanenti</p>
-                            )}
-                        </div>
-                    </div>
-                    <CartButton wrapSize="large" product={product} />
-                </div>
-            </div>
-        </div>
-    );
-
-    const ItemDescriptionWrap = () => {
-        const [infoDisplay, setInfoDisplay] = useState("description");
-        const toggleInfoDisplay = (val) => {
-            setInfoDisplay(val);
-        }; //posso farlo?
-        return (
-            <section className={styles["item-description-wrap"]}>
-                <div className={styles["item-description"]}>
-                    <div className={styles["item-description-selector"]}>
-                        <h3
-                            onClick={() => toggleInfoDisplay("description")}
-                            className={`${
-                                infoDisplay === "description"
-                                    ? styles["active-selector"]
-                                    : styles["not-active-selector"]
-                            }`}
-                        >
-                            Descrizione
-                        </h3>
-
-                        <h3
-                            onClick={() => toggleInfoDisplay("infos")}
-                            className={`${
-                                infoDisplay === "infos"
-                                    ? styles["active-selector"]
-                                    : styles["not-active-selector"]
-                            }`}
-                        >
-                            Informazioni
-                        </h3>
-                    </div>
-
-                    <div className={styles["item-description-display"]}>
-                        {infoDisplay === "description" ? (
-                            <div
-                                className={styles["dangerHTML-box"]}
-                                dangerouslySetInnerHTML={{
-                                    __html: product.description.replace(
-                                        /\u00a0/g,
-                                        " "
-                                    ),
-                                }}
-                            ></div>
-                        ) : product.infos ? (
-                            <p>{product.infos}</p>
-                        ) : (
-                            <p>Nessuna informazione</p>
-                        )}
-                    </div>
-                </div>
-            </section>
-        );
-    };
-
-    useEffect(() => {}, []);
-
-    //qui devo passargli related_products e mostrare solo articoli ancora in stock
-    const ShortlistWrap = () => (
-        <section className={styles["item-shortlist-wrap"]}>
-            // <h2>Articoli simili</h2> 
-
-            <Shortlist
-                products={product.related_products || []}
-                listTitle="Articoli simili"
-            />
-        </section>
-    );
-
-    if (product) {
-        return (
-            <>
-                <Head>
-                    <title>{product.name} - Da Mamy a Mamy</title>
-                    <meta
-                        property="og:title"
-                        content={`${product.name} - da Mamy a Mamy`}
-                    />
-                    <meta property="og:type" content="article" />
-                </Head>
-                <ItemWrap />
-                <ItemDescriptionWrap />
-                <ShortlistWrap />
-                {galleryOpen && (
-                    <Gallery
-                        toggleGallery={toggleGallery}
-                        product={product}
-                        clickedPic={clickedPic}
-                    />
-                )}
-            </>
-        );
-    }
-
-    if (!product) {
-        return (
-            <div className={styles["item-wrap"]}>
-                <div className="loader"></div>
-            </div>
-        );
-    }
-}
-
-export async function getServerSideProps(context) {
-    const { params } = context;
-    const { slug } = params;
-    console.log("slug: ", slug);
-
-    const { data } = await axios.get(
-        `http://localhost:3000/api/product/${slug}`
-    ); //solo per local
-    console.log("data: ", data);
-    return {
-        props: { product: data },
-    };
-    */
 }
 
 export async function getServerSideProps({ params }) {
@@ -649,3 +617,12 @@ export async function getServerSideProps({ params }) {
 } //serve per poter accedere a slug di url in backend, altrimenti undefined
 
 export default dynamic(() => Promise.resolve(AdminItem), { ssr: false });
+
+// devo avere autocomplete per tags e categories fields, per non creare doppioni (case sensitive!)
+// descrizione e infos devono essere textarea
+// bisogna fare un displayer per le foto
+// e fare fn aggiungi/rimuovi
+// aggiungere validation per ogni field + required values
+// buttons non fanno nulla se non ci sono state modifiche ?
+// aggiungere button per annulla modifiche (refresh pagina)
+// una volta completate le modifiche con conferma si fa la post req
