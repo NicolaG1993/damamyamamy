@@ -193,3 +193,11 @@ module.exports.allProductsAvailables = () => {
     ORDER BY id ASC`;
     return db.query(myQuery);
 }; /* si dovra mettere un limite (range) per i risultati, oltre ad alcuni filtri semplici */
+module.exports.deleteProductImages = (id, newImages) => {
+    const myQuery = `UPDATE products 
+    SET images = $2
+    WHERE id = $1
+    RETURNING images`;
+    const keys = [id, newImages];
+    return db.query(myQuery, keys);
+}; /* DA FINIRE! devo rimuovere tutte le immagini da array images dove prodotto=id */

@@ -16,7 +16,7 @@ module.exports = {
 
     disableStaticImages: true,
     images: {
-        domains: ["cdn.chec.io"],
+        domains: ["cdn.chec.io", "dmam-items.s3.eu-south-1.amazonaws.com"],
     },
 
     env: {

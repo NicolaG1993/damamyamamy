@@ -186,3 +186,20 @@
     background-color: var(--text);
     color: var(--color100);
 }
+
+.admin-product-images > div {
+    display: flex;
+}
+.admin-product-images > div > div {
+    position: relative;
+    height: 120px;
+    width: 120px;
+    margin: 5px;
+}
+.admin-delete-image {
+    position: absolute;
+    right: 5px;
+    z-index: 5;
+    cursor: pointer;
+    font-weight: bold;
+}

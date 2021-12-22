@@ -207,6 +207,90 @@ function AdminItem({ params }) {
         }
     };
 
+    // qui é dove faccio i check ed aggiungo l'immagine a S3 bucket
+    //modifico anche component state per mostrare nuova img
+    // in attesa di conferma per modificare db item o scartare le modifiche
+    const preUploadImage = async (e) => {
+        closeSnackbar();
+
+        // console.log("imageToUpload: ", imageToUpload);
+        // const { name, type, size } = imageToUpload;
+        // const file = { name, type, size, path: "" };
+        const file = e.target.files[0];
+        const formData = new FormData();
+        formData.append("file", file);
+
+        axios
+            .post("/api/product/upload-pic", formData)
+            .then(({ data }) => {
+                console.log("preUploadImage data: ", data);
+
+                setProduct({
+                    ...product,
+                    images: [
+                        ...product.images,
+                        { location: data.Location, key: data.Key },
+                    ],
+                });
+
+                // aggiungere data.Key e Location ad un array contenente tutte le img caricate
+                // es: [{Key: "smth", Location: "smth"}, {}, ...]
+
+                // Key mi serve per poter eliminare immagini
+                // quindi dovró salvarla in database, cambiando type in json, non piu array
+
+                // Location mi serve per mostrare le immagini in DOM
+            })
+            .catch((err) => {
+                enqueueSnackbar(getError(err), { variant: "error" });
+            });
+    };
+
+    // faccio upload di immagine selezionata in file input
+    const uploadImage = async () => {
+        // S3, aws-sdk, multer ???
+        // resize image e max size
+        // verficare tipo di file ? solo jpg e png
+        // se dopo premo annulla modifiche immagine/i devono essere eliminate anche da bucket
+    };
+
+    // elimino immagini che passo in keys [array]
+    const deleteImage = async (keys) => {
+        // devo gestire se immagine é presente solo in state local
+        // o se é giá presente in db#
+        // oltre al fatto che non deve essere eliminata se user non conferma modifiche
+        //..
+        // potrei salvare state originale di item
+        // per avere un fn che aggiorni db con nuovo state o item originale
+        // se viene premuto conferma o se non viene premuto
+        // le immagini gia caricate non verrano mai aggiunte a db senza conferma, e verranno eliminate anche da S3
+        // posso invocare questa fn oppure esiste una specie di timeout ?
+
+        closeSnackbar();
+
+        // creiamo la nuova array da passare a db, senza le immagini da eliminare
+        // la creiamo qua invece che in query (+ complicato)
+        const newImages = product.images.filter((i) => !keys.includes(i.key));
+
+        axios
+            .post("/api/product/delete-pic", {
+                keys,
+                id: product.id,
+                newImages,
+            })
+            .then(({ data }) => {
+                setProduct({
+                    ...product,
+                    images: data,
+                });
+            })
+            .catch((err) => {
+                enqueueSnackbar(getError(err), { variant: "error" });
+            });
+    };
+
+    console.log("product: ", product);
+
     if (!product) {
         return (
             <div>
@@ -596,6 +680,43 @@ function AdminItem({ params }) {
                         </div>
                     )}
 
+                    {/* tutta questa parte va stilizzata come resto di form (labels, layout, ecc) */}
+                    <div className={styles["admin-product-images"]}>
+                        <span>Immagini</span>
+                        <div>
+                            {product.images.map((el, i) => (
+                                <div key={el.key}>
+                                    <Image
+                                        src={el.location}
+                                        alt={`Foto ${i}`}
+                                        layout="fill"
+                                        objectFit="cover"
+                                    />
+                                    <span
+                                        className={styles["admin-delete-image"]}
+                                        onClick={() => deleteImage([el.key])}
+                                    >
+                                        X
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* mostrare solo se immagini sono meno di 5 */}
+                    <div>
+                        <input
+                            id="FileID"
+                            type="file"
+                            name="filename"
+                            accept="image/png, image/jpeg"
+                            onChange={(e) => preUploadImage(e)}
+                        />
+                    </div>
+
+                    <button type="button" onClick={() => discardChanges()}>
+                        Annulla modifiche
+                    </button>
                     <button type="submit">Conferma modifiche</button>
                 </form>
 
@@ -604,7 +725,6 @@ function AdminItem({ params }) {
                 <h2>rimane da fare</h2>
                 <br />
                 <p>lista immagini e upload bucket?</p>
-                <p>auto complete</p>
                 <p>select related products</p>
                 <p>validation</p>
             </div>
@@ -618,11 +738,10 @@ export async function getServerSideProps({ params }) {
 
 export default dynamic(() => Promise.resolve(AdminItem), { ssr: false });
 
-// devo avere autocomplete per tags e categories fields, per non creare doppioni (case sensitive!)
 // descrizione e infos devono essere textarea
-// bisogna fare un displayer per le foto
-// e fare fn aggiungi/rimuovi
+// fare fn aggiungi/rimuovi immagine
 // aggiungere validation per ogni field + required values
 // buttons non fanno nulla se non ci sono state modifiche ?
 // aggiungere button per annulla modifiche (refresh pagina)
+
 // una volta completate le modifiche con conferma si fa la post req
