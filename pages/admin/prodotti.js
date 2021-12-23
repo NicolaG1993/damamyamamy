@@ -90,7 +90,11 @@ function AdminShop() {
                             {/* questo deve essere img */}
                             <div>
                                 <Image
-                                    src={product.images[0] || "/pics/Logo.jpg"}
+                                    src={
+                                        product.images[0]
+                                            ? product.images[0].location
+                                            : "/pics/Logo.jpg"
+                                    }
                                     alt={product.name}
                                     layout="fill"
                                     objectFit="cover"

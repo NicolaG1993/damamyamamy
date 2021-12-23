@@ -8,7 +8,7 @@ CREATE TABLE products(
     slug VARCHAR NOT NULL CHECK (slug != ''),
     categories TEXT [],
     tags TEXT [],
-    images JSON,
+    images JSONB,
     price INT,
     brand VARCHAR,
     count_in_stock INT,

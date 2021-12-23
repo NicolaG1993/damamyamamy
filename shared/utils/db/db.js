@@ -63,7 +63,7 @@ module.exports.getRelatedProducts = (arr) => {
 
 //** USERS **//
 module.exports.getUser = (id) => {
-    const myQuery = `SELECT * FROM users WHERE id = $1`;
+    const myQuery = `SELECT * FROM users WHERE email = $1`;
     const key = [id];
     return db.query(myQuery, key);
 };
@@ -193,11 +193,47 @@ module.exports.allProductsAvailables = () => {
     ORDER BY id ASC`;
     return db.query(myQuery);
 }; /* si dovra mettere un limite (range) per i risultati, oltre ad alcuni filtri semplici */
-module.exports.deleteProductImages = (id, newImages) => {
+module.exports.updateProduct = (
+    id,
+    name,
+    slug,
+    categories,
+    tags,
+    images,
+    price,
+    brand,
+    count_in_stock,
+    description,
+    infos,
+    condition,
+    related_products
+) => {
+    const myQuery = `UPDATE products 
+    SET name = $2, slug = $3, categories = $4, tags = $5, images = $6, price = $7, brand = $8, count_in_stock = $9, description = $10, infos = $11, condition = $12, related_products = $13
+    WHERE id = $1
+    RETURNING *`;
+    const keys = [
+        id,
+        name,
+        slug,
+        categories,
+        tags,
+        images,
+        price,
+        brand,
+        count_in_stock,
+        description,
+        infos,
+        condition,
+        related_products,
+    ];
+    return db.query(myQuery, keys);
+}; /* DA FINIRE! */
+/* module.exports.deleteProductImages = (id, newImages) => {
     const myQuery = `UPDATE products 
     SET images = $2
     WHERE id = $1
     RETURNING images`;
     const keys = [id, newImages];
     return db.query(myQuery, keys);
-}; /* DA FINIRE! devo rimuovere tutte le immagini da array images dove prodotto=id */
+};  DA FINIRE! devo rimuovere tutte le immagini da array images dove prodotto=id */

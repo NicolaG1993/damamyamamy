@@ -23,7 +23,11 @@ export default function ItemCard({ product }) {
                 <a className={styles["product-content"]}>
                     <div className={styles["product-img"]}>
                         <Image
-                            src={product.images[0] || "/pics/Logo.jpg"}
+                            src={
+                                product.images[0]
+                                    ? product.images[0].location
+                                    : "/pics/Logo.jpg"
+                            }
                             alt={product.name}
                             className={styles["product-img-pic"]}
                             width="100%"

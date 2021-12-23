@@ -20,6 +20,10 @@ import { useState, useEffect, useRef } from "react";
 
 import styles from "../../../components/AdminDashboard/style/AdminDashboard.module.css";
 import { formatJSDate } from "../../../shared/utils/convertTimestamp";
+import {
+    createObjectURL,
+    revokeObjectURL,
+} from "../../../shared/utils/useLocalImages";
 
 // import Button from "../../components/Button/Button";
 /*
@@ -44,6 +48,7 @@ function AdminItem({ params }) {
     let userInfo = useSelector(loggedUser, shallowEqual);
 
     const [product, setProduct] = useState();
+    const [originalProduct, setOriginalProduct] = useState();
     const [categories, setCategories] = useState();
     const [tags, setTags] = useState();
 
@@ -54,11 +59,14 @@ function AdminItem({ params }) {
     // questi state servono per poter fare update di input value da altre funzioni
     const [newCategoryInput, setNewCategoryInput] = useState("");
     const [newTagInput, setNewTagInput] = useState("");
+    const [newImages, setNewImages] = useState([]); //nuove immagini da aggiungere onSubmit
+    const [deletedImages, setDeletedImages] = useState([]); //immagini gia in db e S3 da eliminare onSubmit
 
     const fetchProduct = async () => {
         try {
             const { data } = await axios.get(`/api/product/${slug}`);
             setProduct(data);
+            setOriginalProduct(data);
         } catch (err) {
             enqueueSnackbar(getError(err), { variant: "error" });
         }
@@ -207,10 +215,43 @@ function AdminItem({ params }) {
         }
     };
 
+    const addLocalImages = (e) => {
+        console.log("e.target.files: ", e.target.files); // use the spread syntax to get it as an array
+        const files = [...e.target.files].map((el) => ({
+            location: createObjectURL(el),
+            key: el.name,
+            file: el,
+        }));
+        setNewImages([...newImages, ...files]);
+    };
+
+    const preDeleteImages = (img) => {
+        if (
+            product.images.filter((e) => e.location === img.location).length > 0
+        ) {
+            // se img é qui allora salvo valore in deletedImages e aggiorno state senza img
+            setDeletedImages([...deletedImages, img.key]);
+            const newArr = product.images.filter((el) => img.key !== el.key);
+            setProduct({
+                ...product,
+                images: newArr,
+            });
+        } else if (
+            newImages.filter((e) => e.location === img.location).length > 0
+        ) {
+            // se img é in newImages, allora elimino img da newImages e revokeObjectURL
+            const newArr = newImages.filter((el) => img.key !== el.key);
+            setNewImages(newArr);
+            revokeObjectURL(img.location);
+        }
+        // uso deletedImages solo dopo submit per eliminarle da S3 e da db
+        // uso newImages solo dopo submit per aggiungerle a S3 e da db
+    };
+
     // qui é dove faccio i check ed aggiungo l'immagine a S3 bucket
     //modifico anche component state per mostrare nuova img
     // in attesa di conferma per modificare db item o scartare le modifiche
-    const preUploadImage = async (e) => {
+    const preUploadImage2 = async (e) => {
         closeSnackbar();
 
         // console.log("imageToUpload: ", imageToUpload);
@@ -247,11 +288,59 @@ function AdminItem({ params }) {
     };
 
     // faccio upload di immagine selezionata in file input
-    const uploadImage = async () => {
+    const uploadImages = (obj) => {
         // S3, aws-sdk, multer ???
         // resize image e max size
         // verficare tipo di file ? solo jpg e png
         // se dopo premo annulla modifiche immagine/i devono essere eliminate anche da bucket
+
+        return axios.post("/api/product/upload-pic", obj, {
+            headers: { authorization: `Bearer ${userInfo.token}` },
+        });
+    };
+
+    //nuova versione di deleteImage da testare
+    const deleteImages = () => {
+        const newImagesQuery = product.images.filter(
+            (i) => !deletedImages.includes(i.key)
+        );
+        return axios.post(
+            "/api/product/delete-pic",
+            {
+                keys: deletedImages,
+                id: product.id,
+                newImages: newImagesQuery,
+            },
+            {
+                headers: { authorization: `Bearer ${userInfo.token}` },
+            }
+        );
+    };
+
+    const updateProduct = (obj, uploadResponse) => {
+        //devo prendere info da state e da responses di S3
+        //passarle a ruote per fare update (PUT) in products table
+        console.log("uploadResponse", uploadResponse);
+        let uploadedImages = [];
+        if (uploadResponse.length) {
+            uploadedImages = uploadResponse.map((el) => ({
+                location: el.Location,
+                key: el.Key,
+            }));
+            console.log("uploadedImages", uploadedImages);
+        }
+
+        return axios.put(
+            `/api/product/update`,
+            {
+                ...obj,
+                images: [...obj.images, ...uploadedImages],
+                related_products: obj.related_products.map((el) => el.id),
+            },
+            {
+                headers: { authorization: `Bearer ${userInfo.token}` },
+            }
+        );
     };
 
     // elimino immagini che passo in keys [array]
@@ -289,7 +378,106 @@ function AdminItem({ params }) {
             });
     };
 
+    // modifico product in db e modifico S3 bucket
+    const confirmChanges = async (e) => {
+        //questa funzione passa a db oggetto finale
+        //setProduct(response)
+        //assicurarmi che qualsiasi immagine eliminata non sia piu presente su S3
+        //devo avere su S3 qualsiasi nuova immagine caricata
+
+        e.preventDefault(); //mi serve per poter fare redirect? se no refresh on submit
+        closeSnackbar();
+
+        //importante usare originalProduct.slug, in caso di modifiche
+        //usare product.slug per fare un redirect dopo submit 🧨
+        // axios
+        //     .put(`/api/product/${originalProduct.slug}/update`, product)
+        //     .then(({ data }) => {
+        //         setProduct(data);
+        //     })
+        //     .catch((err) => {
+        //         enqueueSnackbar(getError(err), { variant: "error" });
+        //     });
+
+        // const file = e.target.files[0];
+        const formData = new FormData();
+        newImages.forEach((file) => {
+            formData.append("arrOfFiles", file.file);
+        });
+
+        // upload to S3
+        // axios
+        //     .post("/api/product/upload-pic", formData)
+        //     .then((resp) => {
+        //         console.log("/api/product/upload-pic data: ", resp.data);
+        //     })
+        //     .catch((err) => {
+        //         enqueueSnackbar(getError(err), { variant: "error" });
+        //     });
+
+        //delete from S3
+        // const newImagesQuery = product.images.filter(
+        //     (i) => !deletedImages.includes(i.key)
+        // );
+        // axios
+        //     .post("/api/product/delete-pic", {
+        //         keys: deletedImages,
+        //         id: product.id,
+        //         newImages: newImagesQuery,
+        //     })
+        //     .then(({ data }) => {
+        //         setProduct({
+        //             ...product,
+        //             images: data,
+        //         });
+        //     })
+        //     .catch((err) => {
+        //         enqueueSnackbar(getError(err), { variant: "error" });
+        //     });
+
+        var results = {}; //Accumulate Results in One Object -> to use them down the chain
+        uploadImages(formData).then(({ data }) => {
+            results.result1 = data;
+            deleteImages().then(({ data }) => {
+                results.result2 = data;
+                updateProduct(product, results.result1)
+                    .then(({ data }) => {
+                        console.log("results!", results);
+                        console.log("res!", data);
+                        router.push(data.product.slug);
+                    })
+                    .catch((err) =>
+                        enqueueSnackbar(getError(err), {
+                            variant: "error",
+                        })
+                    );
+            });
+        });
+
+        /*
+        check no errors
+            upload s3
+            delete s3
+            update db item
+            redirect client a slug
+            */
+    };
+
+    // annullo tutte le modifiche e ripristino product originale
+    const discardChanges = async () => {
+        // questa funzione passa a db oggetto originale -> forse non serve
+        // setProduct(response)
+        //devo ripristinare qualsiasi immagine eliminata (come faccio con S3? non devo eliminare niente fino a premere conferma)
+        //devo eliminare da S3 qualsiasi nuova immagine caricata
+        //NB: se user chiude window o torna indietro senza premere annulla le immagini restano in S3 ma non vengono aggiunte a product in db -> risolvere
+
+        console.log("originalProduct: ", originalProduct);
+        setProduct(originalProduct);
+        //eliminare new pictures da S3
+    };
+
     console.log("product: ", product);
+    console.log("newImages: ", newImages);
 
     if (!product) {
         return (
@@ -315,7 +503,7 @@ function AdminItem({ params }) {
                         <h5>Torna indietro</h5>
                     </a>
                 </Link>
-                <form>
+                <form onSubmit={(e) => confirmChanges(e)}>
                     <div className={"filter-form-col-left"}>
                         <label>
                             <span>ID: #{product.id}</span>
@@ -694,12 +882,31 @@ function AdminItem({ params }) {
                                     />
                                     <span
                                         className={styles["admin-delete-image"]}
-                                        onClick={() => deleteImage([el.key])}
+                                        onClick={() => preDeleteImages(el)}
                                     >
                                         X
                                     </span>
                                 </div>
                             ))}
+                            {newImages.length > 0 &&
+                                newImages.map((el, i) => (
+                                    <div key={el.key + i}>
+                                        <Image
+                                            src={el.location}
+                                            alt={`Foto ${i}`}
+                                            layout="fill"
+                                            objectFit="cover"
+                                        />
+                                        <span
+                                            className={
+                                                styles["admin-delete-image"]
+                                            }
+                                            onClick={() => preDeleteImages(el)}
+                                        >
+                                            X
+                                        </span>
+                                    </div>
+                                ))}
                         </div>
                     </div>
 
@@ -710,7 +917,7 @@ function AdminItem({ params }) {
                             type="file"
                             name="filename"
                             accept="image/png, image/jpeg"
-                            onChange={(e) => preUploadImage(e)}
+                            onChange={(e) => addLocalImages(e)}
                         />
                     </div>
 
