@@ -23,10 +23,10 @@ INSERT INTO products (name, slug, categories, tags, images, price, count_in_stoc
 VALUES ('Braccioli', 'braccioli', ARRAY ['Gonfiabili', 'Mare', 'Estate'], ARRAY ['Gonfiabili', 'Mare', 'Estate', 'Braccioli'], '[{ "location": "https://dmam-items.s3.eu-south-1.amazonaws.com/pro-swim-swimsafe-manguitos-de-natacion-flipper-a254611.jpg", "key": "pro-swim-swimsafe-manguitos-de-natacion-flipper-a254611.jpg"}]', 5, 1, 'Good in summer', 'Infos vanno qua', 'new');
 
 INSERT INTO products (name, slug, categories, tags, images, price, brand, count_in_stock, description, infos, condition, related_products)
-VALUES ('Maglietta', 'maglietta', ARRAY ['Maglie', 'Abbigliamento', 'Bambina'], ARRAY ['Abbigliamento', 'Nike', 'Scarpe', 'Bambina'], '[{ "location": "https://dmam-items.s3.eu-south-1.amazonaws.com/shirt1.jpeg", "key": "shirt1.jpeg"}]', 70, 'Nike', 1, 'A popular shirt', 'Infos vanno qua', 'new', ARRAY [2]);
+VALUES ('Maglietta', 'maglietta', ARRAY ['Maglie', 'Abbigliamento', 'Bambina'], ARRAY ['Abbigliamento', 'Nike', 'Scarpe', 'Bambina'], '[{ "location": "https://dmam-items.s3.eu-south-1.amazonaws.com/shirt1.jpeg", "key": "shirt1.jpeg"}]', 70, 'Nike', 1, 'A popular shirt', 'Infos vanno qua', 'new', ARRAY [3]);
 
 INSERT INTO products (name, slug, categories, tags, images, price, brand, count_in_stock, description, condition, related_products)
-VALUES ('Scarpe', 'scarpe', ARRAY ['Scarpe', 'Abbigliamento', 'Bambino'], ARRAY ['Abbigliamento', 'Nike', 'Scarpe', 'Bambino'], '[{ "location": "https://dmam-items.s3.eu-south-1.amazonaws.com/shoes1.jpeg", "key": "shoes1.jpeg"}]', 40, 'Nike', 1, 'Some casual shoes', 'used', ARRAY [1, 3]);
+VALUES ('Scarpe', 'scarpe', ARRAY ['Scarpe', 'Abbigliamento', 'Bambino'], ARRAY ['Abbigliamento', 'Nike', 'Scarpe', 'Bambino'], '[{ "location": "https://dmam-items.s3.eu-south-1.amazonaws.com/shoes1.jpeg", "key": "shoes1.jpeg"}]', 40, 'Nike', 1, 'Some casual shoes', 'used', ARRAY [1, 2]);
 
 INSERT INTO products (name, slug, categories, tags, images, price, brand, count_in_stock, description, infos, condition)
 VALUES ('Game Boy', 'game-boy', ARRAY ['Giocattoli', 'Videogiochi', 'Elettronica'], ARRAY ['Giocattoli', 'Videogiochi', 'Game-Boy'], '[{ "location": "https://dmam-items.s3.eu-south-1.amazonaws.com/gameboy.jpeg", "key": "gameboy.jpeg"}]', 130, 'Nintendo', 2, 'Gameboy color come nuovo', 'Infos vanno qua', 'new');

@@ -51,14 +51,23 @@ function AdminItem({ params }) {
     const [originalProduct, setOriginalProduct] = useState();
     const [categories, setCategories] = useState();
     const [tags, setTags] = useState();
+    const [relatedProducts, setRelatedProducts] = useState([]);
+    const [relatedProductsWindow, setRelatedProductsWindow] = useState(false);
+    const [allProducts, setAllProducts] = useState([]);
 
     const [errors, setErrors] = useState({});
+
+    //researches
     const [categoryMatchResults, setCategoryMatchResults] = useState();
     const [tagMatchResults, setTagMatchResults] = useState();
+    const [productMatchResults, setProductMatchResults] = useState();
 
     // questi state servono per poter fare update di input value da altre funzioni
     const [newCategoryInput, setNewCategoryInput] = useState("");
     const [newTagInput, setNewTagInput] = useState("");
+    const [newRelatedProductInput, setNewRelatedProductInput] = useState("");
+
+    //images
     const [newImages, setNewImages] = useState([]); //nuove immagini da aggiungere onSubmit
     const [deletedImages, setDeletedImages] = useState([]); //immagini gia in db e S3 da eliminare onSubmit
 
@@ -67,6 +76,14 @@ function AdminItem({ params }) {
             const { data } = await axios.get(`/api/product/${slug}`);
             setProduct(data);
             setOriginalProduct(data);
+            setRelatedProducts(
+                data.related_products
+                    ? data.related_products.map((el) => ({
+                          name: el.name,
+                          id: el.id,
+                      }))
+                    : []
+            ); //map ricostruisce data per state
         } catch (err) {
             enqueueSnackbar(getError(err), { variant: "error" });
         }
@@ -89,6 +106,22 @@ function AdminItem({ params }) {
         fetchProduct();
         fetchCategories();
     }, []);
+
+    //quando apro related products window faccio fetch di tutti i prodotti
+    useEffect(async () => {
+        if (relatedProductsWindow) {
+            try {
+                const { data } = await axios.get(`/api/products`);
+                setAllProducts(
+                    data.products
+                        .filter((it) => it.id !== product.id)
+                        .map((el) => ({ name: el.name, id: el.id }))
+                ); // filter elimina la copia dell obj in array
+            } catch (err) {
+                enqueueSnackbar(getError(err), { variant: "error" });
+            }
+        }
+    }, [relatedProductsWindow]);
 
     // rimuovo elemento corrispondente a i da array corrispondente in product
     const handleRemoveSelectedInput = ({ field, i }) => {
@@ -164,7 +197,11 @@ function AdminItem({ params }) {
             setNewTagInput(value);
             source = tags;
             propFlag = "tags";
-        }
+        } else if (id === "RelatedProductNew") {
+            setNewRelatedProductInput(value);
+            source = relatedProducts;
+            propFlag = "related";
+        } // non so se mi serve se faccio gia vedere tutti i prodotti, poi ho bisogno di condition per count_in_stock
 
         // filtro source array
         for (var i = 0; i < source.length; i++) {
@@ -185,9 +222,11 @@ function AdminItem({ params }) {
         if (!matchResults.length) {
             id === "CategoryNew" && setCategoryMatchResults(null);
             id === "TagNew" && setTagMatchResults(null);
+            id === "RelatedProductNew" && setProductMatchResults(null);
         } else {
             id === "CategoryNew" && setCategoryMatchResults(matchResults);
             id === "TagNew" && setTagMatchResults(matchResults);
+            id === "RelatedProductNew" && setProductMatchResults(matchResults);
         }
 
         //devo ancora settare i keydown events (frecce e invio) -> nn prioritario 🪁
@@ -214,6 +253,16 @@ function AdminItem({ params }) {
                 setNewTagInput(""));
         }
     };
+    // const handleAddRelatedProduct = (id) => {
+    //     // prendo value da input in DOM
+    //     const value = document.getElementById(field).value;
+    //         field === "RelatedProductNew" &&
+    //             (setRelatedProducts({
+    //                 ...relatedProducts,
+    //                 value,
+    //             }), //mi servono id e name 🧨
+    //             setNewRelatedProductInput(""));
+    // };
 
     const addLocalImages = (e) => {
         console.log("e.target.files: ", e.target.files); // use the spread syntax to get it as an array
@@ -335,12 +384,15 @@ function AdminItem({ params }) {
             {
                 ...obj,
                 images: [...obj.images, ...uploadedImages],
-                related_products: obj.related_products.map((el) => el.id),
+                related_products: obj.related_products
+                    ? obj.related_products.map((el) => el.id)
+                    : null,
             },
             {
                 headers: { authorization: `Bearer ${userInfo.token}` },
             }
-        );
+        ); // credo che non sto passando correttamente related_products
+        // devo passare lo state in relatedProducts (che é quello che devo mostrare in DOM), non quello di product
     };
 
     // elimino immagini che passo in keys [array]
@@ -440,7 +492,10 @@ function AdminItem({ params }) {
             results.result1 = data;
             deleteImages().then(({ data }) => {
                 results.result2 = data;
-                updateProduct(product, results.result1)
+                updateProduct(
+                    { ...product, related_products: relatedProducts },
+                    results.result1
+                )
                     .then(({ data }) => {
                         console.log("results!", results);
                         console.log("res!", data);
@@ -471,13 +526,23 @@ function AdminItem({ params }) {
         //devo eliminare da S3 qualsiasi nuova immagine caricata
         //NB: se user chiude window o torna indietro senza premere annulla le immagini restano in S3 ma non vengono aggiunte a product in db -> risolvere
 
-        console.log("originalProduct: ", originalProduct);
+        // console.log("originalProduct: ", originalProduct);
+        setNewCategoryInput("");
+        setNewTagInput("");
+        setNewImages([]);
+        setDeletedImages([]);
         setProduct(originalProduct);
+        setRelatedProducts(
+            originalProduct.related_products
+                ? originalProduct.related_products.map((el) => el.name, el.id)
+                : []
+        );
         //eliminare new pictures da S3
     };
 
     console.log("product: ", product);
     console.log("newImages: ", newImages);
+    console.log("relatedProducts: ", relatedProducts);
 
     if (!product) {
         return (
@@ -784,9 +849,9 @@ function AdminItem({ params }) {
                                 </div>
                             )}
 
-                            {errors.tags && (
+                            {errors.categories && (
                                 <div className={"form-error"}>
-                                    {errors.tags}
+                                    {errors.categories}
                                 </div>
                             )}
                         </div>
@@ -910,16 +975,131 @@ function AdminItem({ params }) {
                         </div>
                     </div>
 
-                    {/* mostrare solo se immagini sono meno di 5 */}
-                    <div>
-                        <input
-                            id="FileID"
-                            type="file"
-                            name="filename"
-                            accept="image/png, image/jpeg"
-                            onChange={(e) => addLocalImages(e)}
-                        />
+                    {product.images.length + newImages.length < 5 && (
+                        <div>
+                            <input
+                                id="FileID"
+                                type="file"
+                                name="filename"
+                                accept="image/png, image/jpeg"
+                                onChange={(e) => addLocalImages(e)}
+                            />
+                        </div>
+                    )}
+
+                    <div className={styles["filter-form-col-left"]}>
+                        <label>
+                            <span>Prodotti correlati</span>
+                        </label>
                     </div>
+
+                    {relatedProductsWindow ? (
+                        <p
+                            onClick={() =>
+                                setRelatedProductsWindow(!relatedProductsWindow)
+                            }
+                        >
+                            chiudi
+                        </p>
+                    ) : (
+                        <p
+                            onClick={() =>
+                                setRelatedProductsWindow(!relatedProductsWindow)
+                            }
+                        >
+                            apri
+                        </p>
+                    )}
+
+                    {relatedProductsWindow && (
+                        <>
+                            {relatedProducts &&
+                                relatedProducts.map((el, i) => (
+                                    <div
+                                        className={
+                                            styles["filter-form-col-right"]
+                                        }
+                                        key={el.id}
+                                    >
+                                        <input
+                                            type="text"
+                                            name={`prodotto ${el.id}`}
+                                            id="RelatedProduct"
+                                            value={el.name}
+                                            readOnly
+                                        />
+                                        <span
+                                            onClick={() =>
+                                                setRelatedProducts(
+                                                    relatedProducts.filter(
+                                                        (el, index) =>
+                                                            index !== i
+                                                    )
+                                                )
+                                            }
+                                        >
+                                            X
+                                        </span>
+                                    </div>
+                                ))}
+
+                            {/* this checks if values are not in relatedProducts already */}
+                            {allProducts
+                                .filter(
+                                    (el) =>
+                                        !relatedProducts.find(
+                                            (it) => el.id == it.id
+                                        )
+                                )
+                                .map((el, i) => (
+                                    <div
+                                        className={
+                                            styles["filter-form-col-right"]
+                                        }
+                                        key={el.id}
+                                    >
+                                        <input
+                                            type="text"
+                                            name={`prodotto ${el.id}`}
+                                            id="RelatedProduct2"
+                                            value={el.name}
+                                            readOnly
+                                        />
+                                        <span
+                                            onClick={() =>
+                                                setRelatedProducts([
+                                                    ...relatedProducts,
+                                                    {
+                                                        name: el.name,
+                                                        id: el.id,
+                                                    },
+                                                ])
+                                            }
+                                        >
+                                            +
+                                        </span>
+                                    </div>
+                                ))}
+                        </>
+                    )}
+
+                    <p>mappare prodotti in stock , ma solo il titolo e id</p>
+                    <p>
+                        devo avere un div "chiuso", solo quando apro faccio
+                        fetch di tutti i prodotti
+                    </p>
+                    <p>
+                        onClick aggiorna id ad array in state, da passare poi on
+                        update
+                    </p>
+                    <p>
+                        non modifico state di product, ma modifico uno state
+                        separato con gia gli id di quelli in product
+                    </p>
+                    <p>
+                        sará un select a selzioni multiple, quelli gia presenti
+                        in state sono gia selezionati
+                    </p>
 
                     <button type="button" onClick={() => discardChanges()}>
                         Annulla modifiche
@@ -931,7 +1111,6 @@ function AdminItem({ params }) {
                 <br />
                 <h2>rimane da fare</h2>
                 <br />
-                <p>lista immagini e upload bucket?</p>
                 <p>select related products</p>
                 <p>validation</p>
             </div>
