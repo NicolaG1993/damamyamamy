@@ -87,7 +87,7 @@ export default function Item({ product }) {
             <div className={styles["item-pictures-wrap"]}>
                 <div>
                     <Image
-                        src={product.images[0] || "/pics/Logo.jpg"}
+                        src={product.images[0].location || "/pics/Logo.jpg"}
                         alt={product.name}
                         onClick={() => toggleGallery(0, true)}
                         layout="fill"
@@ -111,7 +111,7 @@ export default function Item({ product }) {
         ) : (
             <div>
                 <Image
-                    src={product.images[0] || "/pics/Logo.jpg"}
+                    src={product.images[0].location || "/pics/Logo.jpg"}
                     alt={product.name}
                     onClick={() => toggleGallery(0, true)}
                     layout="fill"

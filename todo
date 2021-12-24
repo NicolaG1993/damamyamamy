@@ -87,9 +87,13 @@ DICEMBRE 2021
 • fare component per admin/utente/[id] 👍
 • fare component e form per admin/prodotto/[slug] 👍
 • fare i vari filtri per ogni scheda
-• fare componente per admin/statistiche
+• fare component per admin/statistiche
 
 23/12/21:
-• fare input x related product in admin/prodotto/[slug]
-• fare error handling per inputs in admin/prodotto/[slug]
-• testare bugs admin/prodotto/[slug]
+• fare input x related product in admin/prodotto/[slug] 👍
+• fare error handling per inputs in admin/prodotto/[slug] 👍
+• testare bugs admin/prodotto/[slug] + prevent hickJacking
+
+24/12/21:
+• scheda per creare nuovo prodotto
+• funzione per eliminare prodotti

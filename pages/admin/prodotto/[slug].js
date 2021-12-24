@@ -24,6 +24,7 @@ import {
     createObjectURL,
     revokeObjectURL,
 } from "../../../shared/utils/useLocalImages";
+import { slugValidation } from "../../../shared/utils/validateForms";
 
 // import Button from "../../components/Button/Button";
 /*
@@ -54,18 +55,17 @@ function AdminItem({ params }) {
     const [relatedProducts, setRelatedProducts] = useState([]);
     const [relatedProductsWindow, setRelatedProductsWindow] = useState(false);
     const [allProducts, setAllProducts] = useState([]);
+    const [allProductsFetched, setAllProductsFetched] = useState(false);
 
     const [errors, setErrors] = useState({});
 
     //researches
     const [categoryMatchResults, setCategoryMatchResults] = useState();
     const [tagMatchResults, setTagMatchResults] = useState();
-    const [productMatchResults, setProductMatchResults] = useState();
 
     // questi state servono per poter fare update di input value da altre funzioni
     const [newCategoryInput, setNewCategoryInput] = useState("");
     const [newTagInput, setNewTagInput] = useState("");
-    const [newRelatedProductInput, setNewRelatedProductInput] = useState("");
 
     //images
     const [newImages, setNewImages] = useState([]); //nuove immagini da aggiungere onSubmit
@@ -99,6 +99,21 @@ function AdminItem({ params }) {
         }
     };
 
+    const fetchAllProducts = async () => {
+        try {
+            const { data } = await axios.get(`/api/products`);
+            const finalData = data.products
+                .filter((it) => it.id !== product.id)
+                .map((el) => ({ name: el.name, id: el.id, slug: el.slug }));
+            // filter elimina la copia dell obj in array
+            // setAllProductsFetched(true); //settiamo questa flag perché non serve fare questo fetch on render,e anche per evitare di ripeterlo in caso
+            setAllProducts(finalData);
+            return finalData; //torno data che serve in handleBlur, essendo setAllProducts async
+        } catch (err) {
+            enqueueSnackbar(getError(err), { variant: "error" });
+        }
+    };
+
     useEffect(() => {
         if (!userInfo) {
             router.push("/login");
@@ -108,18 +123,9 @@ function AdminItem({ params }) {
     }, []);
 
     //quando apro related products window faccio fetch di tutti i prodotti
-    useEffect(async () => {
+    useEffect(() => {
         if (relatedProductsWindow) {
-            try {
-                const { data } = await axios.get(`/api/products`);
-                setAllProducts(
-                    data.products
-                        .filter((it) => it.id !== product.id)
-                        .map((el) => ({ name: el.name, id: el.id }))
-                ); // filter elimina la copia dell obj in array
-            } catch (err) {
-                enqueueSnackbar(getError(err), { variant: "error" });
-            }
+            fetchAllProducts();
         }
     }, [relatedProductsWindow]);
 
@@ -141,7 +147,7 @@ function AdminItem({ params }) {
     };
 
     // validazione valori di input quando si toglie focus e gestione errori
-    const handleBlur = (e) => {
+    const handleBlur = async (e) => {
         //estraggo valori
         const { id, name, value } = e.target;
         //creo nuovo oggetto ogni volta per rimuovere errori precedenti
@@ -149,7 +155,7 @@ function AdminItem({ params }) {
 
         //validate values
         if (id === "Name") {
-            const resp = nameValidation("Name", value);
+            const resp = nameValidation("Titolo", value);
             if (resp) {
                 setErrors({ ...errors, [name]: resp });
             } else {
@@ -157,13 +163,74 @@ function AdminItem({ params }) {
                 setErrors(newErrObj);
             }
         }
-        // continuare ...
+        // if (id === "Brand") {
+        //     const resp = nameValidation("Brand", value);
+        //     if (resp) {
+        //         setErrors({ ...errors, [name]: resp });
+        //     } else {
+        //         delete newErrObj[name];
+        //         setErrors(newErrObj);
+        //     }
+        // } // non posso usare nameValidation perché brand puo contenere numeri o simboli
+        if (id === "Slug") {
+            //devo controllare se slug é unica in db
+            //potrei farlo onSubmit ma va bene anche qua onBlur, x ora
+            fetchAllProducts().then((data) => {
+                const resp = slugValidation("Slug", value);
+                if (resp) {
+                    setErrors({ ...errors, [name]: resp });
+                } else {
+                    console.log("allProducts", data);
+                    const allSlugs = data.map((el) => el.slug);
+                    console.log("allSlugs", allSlugs);
+                    //se slug esiste giá in db, torna errore
+                    if (allSlugs.includes(value)) {
+                        setErrors({ ...errors, [name]: "Slug giá esistente" });
+                    } else {
+                        delete newErrObj[name];
+                        setErrors(newErrObj);
+                    }
+                }
+            });
+        }
+        if (id === "Price") {
+            const resp = numberValidation("Prezzo", value);
+            if (resp) {
+                setErrors({ ...errors, [name]: resp });
+            } else {
+                delete newErrObj[name];
+                setErrors(newErrObj);
+            }
+        }
+        if (id === "Stock") {
+            const resp = numberValidation("Quantità", value);
+            if (resp) {
+                setErrors({ ...errors, [name]: resp });
+            } else {
+                delete newErrObj[name];
+                setErrors(newErrObj);
+            }
+        }
 
+        /*
+        Name; 👍
+        Brand; 🐸
+        Slug; 👍
+        Price; 👍
+        Stock; 👍
+        Conditions; 🐸
+        Description; 🐸
+        Infos; 🐸
+        Category; 🐸
+        CategoryNew; 🐸
+        Tag; 🐸
+        TagNew; 🐸
+        FileID; 🐸
+        RelatedProduct; 🐸
+        RelatedProduct2; 🐸
+        */
         // come gestire singoli errori sui vari newInputs per tags e categories ?
     };
-
-    // quando user clicca conferma e non ci sono errori allora facciamo post request per update
-    const handleSubmit = async () => {};
 
     // settare state per matchResults = null -> questo fa chiudere la box relativa in DOM
     // notare che quando attivo fn con onBlur applico un timeout brevissimo, perché devo poter attivare onClick in caso seleziono opzione
@@ -197,11 +264,7 @@ function AdminItem({ params }) {
             setNewTagInput(value);
             source = tags;
             propFlag = "tags";
-        } else if (id === "RelatedProductNew") {
-            setNewRelatedProductInput(value);
-            source = relatedProducts;
-            propFlag = "related";
-        } // non so se mi serve se faccio gia vedere tutti i prodotti, poi ho bisogno di condition per count_in_stock
+        }
 
         // filtro source array
         for (var i = 0; i < source.length; i++) {
@@ -222,11 +285,9 @@ function AdminItem({ params }) {
         if (!matchResults.length) {
             id === "CategoryNew" && setCategoryMatchResults(null);
             id === "TagNew" && setTagMatchResults(null);
-            id === "RelatedProductNew" && setProductMatchResults(null);
         } else {
             id === "CategoryNew" && setCategoryMatchResults(matchResults);
             id === "TagNew" && setTagMatchResults(matchResults);
-            id === "RelatedProductNew" && setProductMatchResults(matchResults);
         }
 
         //devo ancora settare i keydown events (frecce e invio) -> nn prioritario 🪁
@@ -253,16 +314,6 @@ function AdminItem({ params }) {
                 setNewTagInput(""));
         }
     };
-    // const handleAddRelatedProduct = (id) => {
-    //     // prendo value da input in DOM
-    //     const value = document.getElementById(field).value;
-    //         field === "RelatedProductNew" &&
-    //             (setRelatedProducts({
-    //                 ...relatedProducts,
-    //                 value,
-    //             }), //mi servono id e name 🧨
-    //             setNewRelatedProductInput(""));
-    // };
 
     const addLocalImages = (e) => {
         console.log("e.target.files: ", e.target.files); // use the spread syntax to get it as an array
@@ -297,46 +348,7 @@ function AdminItem({ params }) {
         // uso newImages solo dopo submit per aggiungerle a S3 e da db
     };
 
-    // qui é dove faccio i check ed aggiungo l'immagine a S3 bucket
-    //modifico anche component state per mostrare nuova img
-    // in attesa di conferma per modificare db item o scartare le modifiche
-    const preUploadImage2 = async (e) => {
-        closeSnackbar();
-
-        // console.log("imageToUpload: ", imageToUpload);
-        // const { name, type, size } = imageToUpload;
-        // const file = { name, type, size, path: "" };
-        const file = e.target.files[0];
-        const formData = new FormData();
-        formData.append("file", file);
-
-        axios
-            .post("/api/product/upload-pic", formData)
-            .then(({ data }) => {
-                console.log("preUploadImage data: ", data);
-
-                setProduct({
-                    ...product,
-                    images: [
-                        ...product.images,
-                        { location: data.Location, key: data.Key },
-                    ],
-                });
-
-                // aggiungere data.Key e Location ad un array contenente tutte le img caricate
-                // es: [{Key: "smth", Location: "smth"}, {}, ...]
-
-                // Key mi serve per poter eliminare immagini
-                // quindi dovró salvarla in database, cambiando type in json, non piu array
-
-                // Location mi serve per mostrare le immagini in DOM
-            })
-            .catch((err) => {
-                enqueueSnackbar(getError(err), { variant: "error" });
-            });
-    };
-
-    // faccio upload di immagine selezionata in file input
+    // faccio upload di immagini selezionate in file input
     const uploadImages = (obj) => {
         // S3, aws-sdk, multer ???
         // resize image e max size
@@ -349,6 +361,7 @@ function AdminItem({ params }) {
     };
 
     //nuova versione di deleteImage da testare
+    // elimino immagini che passo in keys [array]
     const deleteImages = () => {
         const newImagesQuery = product.images.filter(
             (i) => !deletedImages.includes(i.key)
@@ -395,41 +408,7 @@ function AdminItem({ params }) {
         // devo passare lo state in relatedProducts (che é quello che devo mostrare in DOM), non quello di product
     };
 
-    // elimino immagini che passo in keys [array]
-    const deleteImage = async (keys) => {
-        // devo gestire se immagine é presente solo in state local
-        // o se é giá presente in db#
-        // oltre al fatto che non deve essere eliminata se user non conferma modifiche
-        //..
-        // potrei salvare state originale di item
-        // per avere un fn che aggiorni db con nuovo state o item originale
-        // se viene premuto conferma o se non viene premuto
-        // le immagini gia caricate non verrano mai aggiunte a db senza conferma, e verranno eliminate anche da S3
-        // posso invocare questa fn oppure esiste una specie di timeout ?
-
-        closeSnackbar();
-
-        // creiamo la nuova array da passare a db, senza le immagini da eliminare
-        // la creiamo qua invece che in query (+ complicato)
-        const newImages = product.images.filter((i) => !keys.includes(i.key));
-
-        axios
-            .post("/api/product/delete-pic", {
-                keys,
-                id: product.id,
-                newImages,
-            })
-            .then(({ data }) => {
-                setProduct({
-                    ...product,
-                    images: data,
-                });
-            })
-            .catch((err) => {
-                enqueueSnackbar(getError(err), { variant: "error" });
-            });
-    };
-
+    // quando user clicca conferma e non ci sono errori allora facciamo post request per update
     // modifico product in db e modifico S3 bucket
     const confirmChanges = async (e) => {
         //questa funzione passa a db oggetto finale
@@ -440,74 +419,44 @@ function AdminItem({ params }) {
         e.preventDefault(); //mi serve per poter fare redirect? se no refresh on submit
         closeSnackbar();
 
-        //importante usare originalProduct.slug, in caso di modifiche
-        //usare product.slug per fare un redirect dopo submit 🧨
-        // axios
-        //     .put(`/api/product/${originalProduct.slug}/update`, product)
-        //     .then(({ data }) => {
-        //         setProduct(data);
-        //     })
-        //     .catch((err) => {
-        //         enqueueSnackbar(getError(err), { variant: "error" });
-        //     });
-
-        // const file = e.target.files[0];
-        const formData = new FormData();
-        newImages.forEach((file) => {
-            formData.append("arrOfFiles", file.file);
-        });
-
-        // upload to S3
-        // axios
-        //     .post("/api/product/upload-pic", formData)
-        //     .then((resp) => {
-        //         console.log("/api/product/upload-pic data: ", resp.data);
-        //     })
-        //     .catch((err) => {
-        //         enqueueSnackbar(getError(err), { variant: "error" });
-        //     });
-
-        //delete from S3
-        // const newImagesQuery = product.images.filter(
-        //     (i) => !deletedImages.includes(i.key)
-        // );
-        // axios
-        //     .post("/api/product/delete-pic", {
-        //         keys: deletedImages,
-        //         id: product.id,
-        //         newImages: newImagesQuery,
-        //     })
-        //     .then(({ data }) => {
-        //         setProduct({
-        //             ...product,
-        //             images: data,
-        //         });
-        //     })
-        //     .catch((err) => {
-        //         enqueueSnackbar(getError(err), { variant: "error" });
-        //     });
-
-        var results = {}; //Accumulate Results in One Object -> to use them down the chain
-        uploadImages(formData).then(({ data }) => {
-            results.result1 = data;
-            deleteImages().then(({ data }) => {
-                results.result2 = data;
-                updateProduct(
-                    { ...product, related_products: relatedProducts },
-                    results.result1
-                )
-                    .then(({ data }) => {
-                        console.log("results!", results);
-                        console.log("res!", data);
-                        router.push(data.product.slug);
-                    })
-                    .catch((err) =>
-                        enqueueSnackbar(getError(err), {
-                            variant: "error",
-                        })
-                    );
+        if (Object.keys(errors).length === 0) {
+            // const file = e.target.files[0];
+            const formData = new FormData();
+            newImages.forEach((file) => {
+                formData.append("arrOfFiles", file.file);
             });
-        });
+
+            var results = {}; //Accumulate Results in One Object -> to use them down the chain
+            uploadImages(formData).then(({ data }) => {
+                results.result1 = data;
+                deleteImages().then(({ data }) => {
+                    results.result2 = data;
+                    updateProduct(
+                        { ...product, related_products: relatedProducts },
+                        results.result1
+                    )
+                        .then(({ data }) => {
+                            console.log("results!", results);
+                            console.log("res!", data);
+                            router.push(data.product.slug);
+                        })
+                        .catch((err) =>
+                            enqueueSnackbar(getError(err), {
+                                variant: "error",
+                            })
+                        );
+                });
+            });
+        } else {
+            console.log("INVALID INPUTS", errors);
+            // how to map object values, instead of array
+            Object.values(errors).map((err, i) =>
+                enqueueSnackbar(err, {
+                    variant: "error",
+                })
+            );
+            return;
+        }
 
         /*
         check no errors
@@ -526,7 +475,7 @@ function AdminItem({ params }) {
         //devo eliminare da S3 qualsiasi nuova immagine caricata
         //NB: se user chiude window o torna indietro senza premere annulla le immagini restano in S3 ma non vengono aggiunte a product in db -> risolvere
 
-        // console.log("originalProduct: ", originalProduct);
+        console.log("originalProduct: ", originalProduct);
         setNewCategoryInput("");
         setNewTagInput("");
         setNewImages([]);
@@ -534,7 +483,10 @@ function AdminItem({ params }) {
         setProduct(originalProduct);
         setRelatedProducts(
             originalProduct.related_products
-                ? originalProduct.related_products.map((el) => el.name, el.id)
+                ? originalProduct.related_products.map((el) => ({
+                      name: el.name,
+                      id: el.id,
+                  }))
                 : []
         );
         //eliminare new pictures da S3
@@ -734,8 +686,7 @@ function AdminItem({ params }) {
                         </label>
                     </div>
                     <div className={"filter-form-col-right"}>
-                        <input
-                            type="text"
+                        <textarea
                             name="description"
                             id="Description"
                             value={product.description}
@@ -748,6 +699,7 @@ function AdminItem({ params }) {
                             }
                             onBlur={(e) => handleBlur(e)}
                         />
+
                         {errors.description && (
                             <div className={"form-error"}>
                                 {errors.description}
@@ -761,8 +713,7 @@ function AdminItem({ params }) {
                         </label>
                     </div>
                     <div className={"filter-form-col-right"}>
-                        <input
-                            type="text"
+                        <textarea
                             name="infos"
                             id="Infos"
                             value={product.infos}
@@ -775,6 +726,7 @@ function AdminItem({ params }) {
                             }
                             onBlur={(e) => handleBlur(e)}
                         />
+
                         {errors.infos && (
                             <div className={"form-error"}>{errors.infos}</div>
                         )}
@@ -1083,36 +1035,11 @@ function AdminItem({ params }) {
                         </>
                     )}
 
-                    <p>mappare prodotti in stock , ma solo il titolo e id</p>
-                    <p>
-                        devo avere un div "chiuso", solo quando apro faccio
-                        fetch di tutti i prodotti
-                    </p>
-                    <p>
-                        onClick aggiorna id ad array in state, da passare poi on
-                        update
-                    </p>
-                    <p>
-                        non modifico state di product, ma modifico uno state
-                        separato con gia gli id di quelli in product
-                    </p>
-                    <p>
-                        sará un select a selzioni multiple, quelli gia presenti
-                        in state sono gia selezionati
-                    </p>
-
                     <button type="button" onClick={() => discardChanges()}>
                         Annulla modifiche
                     </button>
                     <button type="submit">Conferma modifiche</button>
                 </form>
-
-                <br />
-                <br />
-                <h2>rimane da fare</h2>
-                <br />
-                <p>select related products</p>
-                <p>validation</p>
             </div>
         </>
     );

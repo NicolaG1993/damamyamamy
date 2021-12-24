@@ -64,6 +64,13 @@ const numberValidation = (fieldName, fieldValue) => {
     return `${fieldName} deve essere un numero`;
 };
 
+const slugValidation = (fieldName, fieldValue) => {
+    if (fieldValue.trim() === "") {
+        return `Lo ${fieldName} è richiesto`;
+    }
+    return null;
+};
+
 //** VALIDATE SHOP ITEMS **//
 // l'idea é di avere una max lenght se necessario per design
 //ho scoperto che posso gia mettere un limite in input
@@ -97,6 +104,7 @@ module.exports = {
     numberValidation,
     passwordValidation,
     addressValidation,
+    slugValidation,
 };
 
 /*
