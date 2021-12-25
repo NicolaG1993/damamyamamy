@@ -72,7 +72,7 @@ DICEMBRE 2021
 
 
 13/12/21:
-• prodotti in stock deve modificarsi dopo acquisto -> update db dopo capture order ? 🧠
+• prodotti in stock deve modificarsi dopo acquisto -> db update ? 👍
 • testare paypal in SB 👍
 • ricollegare stripe e testare in SB
 • creare pagina in cui vedere tutti gli ordini (solo per admin) 👍
@@ -86,7 +86,7 @@ DICEMBRE 2021
 • fare component per admin/ordine/[id] 👍
 • fare component per admin/utente/[id] 👍
 • fare component e form per admin/prodotto/[slug] 👍
-• fare i vari filtri per ogni scheda
+• fare i vari filtri per ogni scheda 🧠
 • fare component per admin/statistiche
 
 23/12/21:
@@ -95,8 +95,9 @@ DICEMBRE 2021
 • testare bugs admin/prodotto/[slug] + prevent hickJacking
 
 24/12/21:
-• scheda per creare nuovo prodotto
-• funzione per eliminare prodotti
-• check di stock quando si apre cart e prima di creare ordine in db 🧠
-• test di check (typos, dataflow) 🧠
-• test funzionale (mettere item in carrello -> azzerare e/o diminuire stock in db -> provare a pagare)
+• scheda per creare nuovo prodotto 🧠
+• funzione per eliminare prodotti 🧠
+• check di stock quando si apre cart e prima di creare ordine in db 👍
+• test di check stock (typos, dataflow) 👍
+• test funzionale (mettere item in carrello -> azzerare e/o diminuire stock in db -> provare a pagare) 👍
+• 

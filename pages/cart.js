@@ -18,12 +18,14 @@ import {
     cartClear,
     cartUpdateItemQuantity,
 } from "../redux/Cart/cart.actions";
+import { useSnackbar } from "notistack";
 // import { fetchData } from "../redux/ShopData/shopData.actions";
 const selectCart = (state) => state.cart.cartItems;
 // const loadData = (state) => state.shopData.data;
 
 function Cart() {
     const dispatch = useDispatch();
+    const { enqueueSnackbar } = useSnackbar();
     let cart = useSelector(selectCart, shallowEqual);
     // let data = useSelector(loadData, shallowEqual);
     // console.log("cart in Cart.js: ", cart);
@@ -60,6 +62,12 @@ function Cart() {
                         if (product.count_in_stock < 1) {
                             //delete from cart
                             dispatch(cartRemoveItem(el));
+                            enqueueSnackbar(
+                                "Uno o piú prodotti sono giá stati acquistati, il tuo carrello é stato aggiornato",
+                                {
+                                    variant: "error",
+                                }
+                            );
                         } else if (product.count_in_stock > 0) {
                             //set new quantity for item in cart = product.count_in_stock
                             dispatch(
@@ -67,6 +75,12 @@ function Cart() {
                                     ...el,
                                     quantity: product.count_in_stock,
                                 })
+                            );
+                            enqueueSnackbar(
+                                "Uno o piú prodotti sono giá stati acquistati, il tuo carrello é stato aggiornato",
+                                {
+                                    variant: "error",
+                                }
                             );
                         }
                     } else {

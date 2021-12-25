@@ -7,13 +7,11 @@ import { getError } from "../../../shared/utils/error";
 import { shallowEqual, useSelector } from "react-redux";
 const loggedUser = (state) => state.user.userInfo;
 
-//
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
 import { useState, useEffect, useRef } from "react";
-// import { Switch, Route, useRouteMatch } from "react-router-dom";
 
 import styles from "../../../components/AdminDashboard/style/AdminDashboard.module.css";
 import { formatJSDate } from "../../../shared/utils/convertTimestamp";
@@ -27,36 +25,18 @@ import {
     slugValidation,
 } from "../../../shared/utils/validateForms";
 
-// import Button from "../../components/Button/Button";
-/*
-import CartButton from "../../../components/CartButton/CartButton";
-import Shortlist from "../../../components/Shortlist/Shortlist";
-
-
-const Gallery = dynamic(
-    () => import("../../../components/Shop/Item/Gallery/Gallery"),
-    {
-        ssr: false,
-    }
-);
-*/
-
-function AdminItem({ params }) {
-    //features:
-    //visualizza tutte info, modifica item, modifica categorie, elimina item, conferma annulla modifiche, error handle in form e api requests
-    const { slug } = params;
+export default function AdminNewItem() {
     const router = useRouter();
     const { closeSnackbar, enqueueSnackbar } = useSnackbar();
     let userInfo = useSelector(loggedUser, shallowEqual);
 
-    const [product, setProduct] = useState();
-    const [originalProduct, setOriginalProduct] = useState();
+    const [product, setProduct] = useState({ categories: [], tags: [] });
+    // const [originalProduct, setOriginalProduct] = useState();
     const [categories, setCategories] = useState();
     const [tags, setTags] = useState();
     const [relatedProducts, setRelatedProducts] = useState([]);
     const [relatedProductsWindow, setRelatedProductsWindow] = useState(false);
     const [allProducts, setAllProducts] = useState([]);
-    const [allProductsFetched, setAllProductsFetched] = useState(false);
 
     const [errors, setErrors] = useState({});
 
@@ -70,25 +50,7 @@ function AdminItem({ params }) {
 
     //images
     const [newImages, setNewImages] = useState([]); //nuove immagini da aggiungere onSubmit
-    const [deletedImages, setDeletedImages] = useState([]); //immagini gia in db e S3 da eliminare onSubmit
-
-    const fetchProduct = async () => {
-        try {
-            const { data } = await axios.get(`/api/product/${slug}`);
-            setProduct(data);
-            setOriginalProduct(data);
-            setRelatedProducts(
-                data.related_products
-                    ? data.related_products.map((el) => ({
-                          name: el.name,
-                          id: el.id,
-                      }))
-                    : []
-            ); //map ricostruisce data per state
-        } catch (err) {
-            enqueueSnackbar(getError(err), { variant: "error" });
-        }
-    };
+    // const [deletedImages, setDeletedImages] = useState([]);
 
     const fetchCategories = async () => {
         try {
@@ -106,10 +68,8 @@ function AdminItem({ params }) {
             const finalData = data.products
                 .filter((it) => it.id !== product.id)
                 .map((el) => ({ name: el.name, id: el.id, slug: el.slug }));
-            // filter elimina la copia dell obj in array
-            // setAllProductsFetched(true); //settiamo questa flag perché non serve fare questo fetch on render,e anche per evitare di ripeterlo in caso
             setAllProducts(finalData);
-            return finalData; //torno data che serve in handleBlur, essendo setAllProducts async
+            return finalData;
         } catch (err) {
             enqueueSnackbar(getError(err), { variant: "error" });
         }
@@ -119,18 +79,15 @@ function AdminItem({ params }) {
         if (!userInfo) {
             router.push("/login");
         }
-        fetchProduct();
         fetchCategories();
     }, []);
 
-    //quando apro related products window faccio fetch di tutti i prodotti
     useEffect(() => {
         if (relatedProductsWindow) {
             fetchAllProducts();
         }
     }, [relatedProductsWindow]);
 
-    // rimuovo elemento corrispondente a i da array corrispondente in product
     const handleRemoveSelectedInput = ({ field, i }) => {
         if (field === "categories") {
             setProduct({
@@ -147,11 +104,8 @@ function AdminItem({ params }) {
         }
     };
 
-    // validazione valori di input quando si toglie focus e gestione errori
     const handleBlur = async (e) => {
-        //estraggo valori
         const { id, name, value } = e.target;
-        //creo nuovo oggetto ogni volta per rimuovere errori precedenti
         let newErrObj = { ...errors };
 
         //validate values
@@ -164,18 +118,7 @@ function AdminItem({ params }) {
                 setErrors(newErrObj);
             }
         }
-        // if (id === "Brand") {
-        //     const resp = nameValidation("Brand", value);
-        //     if (resp) {
-        //         setErrors({ ...errors, [name]: resp });
-        //     } else {
-        //         delete newErrObj[name];
-        //         setErrors(newErrObj);
-        //     }
-        // } // non posso usare nameValidation perché brand puo contenere numeri o simboli
         if (id === "Slug") {
-            //devo controllare se slug é unica in db
-            //potrei farlo onSubmit ma va bene anche qua onBlur, x ora
             fetchAllProducts().then((data) => {
                 const resp = slugValidation("Slug", value);
                 if (resp) {
@@ -212,30 +155,8 @@ function AdminItem({ params }) {
                 setErrors(newErrObj);
             }
         }
-
-        /*
-        Name; 👍
-        Brand; 🐸
-        Slug; 👍
-        Price; 👍
-        Stock; 👍
-        Conditions; 🐸
-        Description; 🐸
-        Infos; 🐸
-        Category; 🐸
-        CategoryNew; 🐸
-        Tag; 🐸
-        TagNew; 🐸
-        FileID; 🐸
-        RelatedProduct; 🐸
-        RelatedProduct2; 🐸
-        */
-        // come gestire singoli errori sui vari newInputs per tags e categories ?
     };
 
-    // settare state per matchResults = null -> questo fa chiudere la box relativa in DOM
-    // notare che quando attivo fn con onBlur applico un timeout brevissimo, perché devo poter attivare onClick in caso seleziono opzione
-    // non si attiverebbe mai altrimenti perché il focus nel browser sarebbe nullo e click non avverrebbe mai
     const closeMatchResults = (e) => {
         const { id, value } = e.target;
         if (id === "CategoryNew") {
@@ -247,18 +168,15 @@ function AdminItem({ params }) {
         }
     };
 
-    // quando user clicca e/o modifica input riceve una array con le opzioni filtrare, se ci sono, quando input é vuoto le riceve tutte
     const handleInputHints = (e) => {
-        // estraggo e setto tutti i valori che servono
         const { id, value } = e.target;
         const inputVal = e.target.value.toLowerCase();
         let matchResults = [];
         let source;
         let propFlag;
 
-        // setto quale array filtrare e setto i valori di uncontrolled inputs
         if (id === "CategoryNew") {
-            setNewCategoryInput(value); // non inputValue perché lowerCase
+            setNewCategoryInput(value);
             source = categories;
             propFlag = "categories";
         } else if (id === "TagNew") {
@@ -269,8 +187,6 @@ function AdminItem({ params }) {
 
         // filtro source array
         for (var i = 0; i < source.length; i++) {
-            // finché el corrisponde a inputVal && se el non é gia in product.tag o cat
-            // pushalo in matchResult fino a max 5 risultati
             if (
                 source[i].toLowerCase().indexOf(inputVal) === 0 &&
                 !product[propFlag].includes(source[i])
@@ -282,7 +198,6 @@ function AdminItem({ params }) {
             }
         }
 
-        // salvo matchResults in state per usarlo in result box in dom per fare map
         if (!matchResults.length) {
             id === "CategoryNew" && setCategoryMatchResults(null);
             id === "TagNew" && setTagMatchResults(null);
@@ -326,63 +241,19 @@ function AdminItem({ params }) {
         setNewImages([...newImages, ...files]);
     };
 
-    const preDeleteImages = (img) => {
-        if (
-            product.images.filter((e) => e.location === img.location).length > 0
-        ) {
-            // se img é qui allora salvo valore in deletedImages e aggiorno state senza img
-            setDeletedImages([...deletedImages, img.key]);
-            const newArr = product.images.filter((el) => img.key !== el.key);
-            setProduct({
-                ...product,
-                images: newArr,
-            });
-        } else if (
-            newImages.filter((e) => e.location === img.location).length > 0
-        ) {
-            // se img é in newImages, allora elimino img da newImages e revokeObjectURL
-            const newArr = newImages.filter((el) => img.key !== el.key);
-            setNewImages(newArr);
-            revokeObjectURL(img.location);
-        }
-        // uso deletedImages solo dopo submit per eliminarle da S3 e da db
-        // uso newImages solo dopo submit per aggiungerle a S3 e da db
+    const deleteImage = (img) => {
+        const newArr = newImages.filter((el) => img.key !== el.key);
+        setNewImages(newArr);
+        revokeObjectURL(img.location);
     };
 
-    // faccio upload di immagini selezionate in file input
     const uploadImages = (obj) => {
-        // S3, aws-sdk, multer ???
-        // resize image e max size
-        // verficare tipo di file ? solo jpg e png
-        // se dopo premo annulla modifiche immagine/i devono essere eliminate anche da bucket
-
         return axios.post("/api/product/upload-pic", obj, {
             headers: { authorization: `Bearer ${userInfo.token}` },
         });
     };
 
-    //nuova versione di deleteImage da testare
-    // elimino immagini che passo in keys [array]
-    const deleteImages = () => {
-        const newImagesQuery = product.images.filter(
-            (i) => !deletedImages.includes(i.key)
-        );
-        return axios.post(
-            "/api/product/delete-pic",
-            {
-                keys: deletedImages,
-                id: product.id,
-                newImages: newImagesQuery,
-            },
-            {
-                headers: { authorization: `Bearer ${userInfo.token}` },
-            }
-        );
-    };
-
-    const updateProduct = (obj, uploadResponse) => {
-        //devo prendere info da state e da responses di S3
-        //passarle a ruote per fare update (PUT) in products table
+    const uploadProduct = (obj, uploadResponse) => {
         console.log("uploadResponse", uploadResponse);
         let uploadedImages = [];
         if (uploadResponse.length) {
@@ -393,11 +264,11 @@ function AdminItem({ params }) {
             console.log("uploadedImages", uploadedImages);
         }
 
-        return axios.put(
-            `/api/product/update`,
+        return axios.post(
+            `/api/product/upload`,
             {
                 ...obj,
-                images: [...obj.images, ...uploadedImages],
+                images: [...uploadedImages],
                 related_products: obj.related_products
                     ? obj.related_products.map((el) => el.id)
                     : null,
@@ -405,19 +276,11 @@ function AdminItem({ params }) {
             {
                 headers: { authorization: `Bearer ${userInfo.token}` },
             }
-        ); // credo che non sto passando correttamente related_products
-        // devo passare lo state in relatedProducts (che é quello che devo mostrare in DOM), non quello di product
+        );
     };
 
-    // quando user clicca conferma e non ci sono errori allora facciamo post request per update
-    // modifico product in db e modifico S3 bucket
     const confirmChanges = async (e) => {
-        //questa funzione passa a db oggetto finale
-        //setProduct(response)
-        //assicurarmi che qualsiasi immagine eliminata non sia piu presente su S3
-        //devo avere su S3 qualsiasi nuova immagine caricata
-
-        e.preventDefault(); //mi serve per poter fare redirect? se no refresh on submit
+        e.preventDefault();
         closeSnackbar();
 
         if (Object.keys(errors).length === 0) {
@@ -427,26 +290,20 @@ function AdminItem({ params }) {
                 formData.append("arrOfFiles", file.file);
             });
 
-            var results = {}; //Accumulate Results in One Object -> to use them down the chain
             uploadImages(formData).then(({ data }) => {
-                results.result1 = data;
-                deleteImages().then(({ data }) => {
-                    results.result2 = data;
-                    updateProduct(
-                        { ...product, related_products: relatedProducts },
-                        results.result1
-                    )
-                        .then(({ data }) => {
-                            console.log("results!", results);
-                            console.log("res!", data);
-                            router.push(data.product.slug);
+                uploadProduct(
+                    { ...product, related_products: relatedProducts },
+                    data
+                )
+                    .then(({ data }) => {
+                        console.log("res!", data);
+                        router.push(data.product.slug);
+                    })
+                    .catch((err) =>
+                        enqueueSnackbar(getError(err), {
+                            variant: "error",
                         })
-                        .catch((err) =>
-                            enqueueSnackbar(getError(err), {
-                                variant: "error",
-                            })
-                        );
-                });
+                    );
             });
         } else {
             console.log("INVALID INPUTS", errors);
@@ -458,60 +315,15 @@ function AdminItem({ params }) {
             );
             return;
         }
-
-        /*
-        check no errors
-            upload s3
-            delete s3
-            update db item
-            redirect client a slug
-            */
     };
-
-    // annullo tutte le modifiche e ripristino product originale
-    const discardChanges = async () => {
-        // questa funzione passa a db oggetto originale -> forse non serve
-        // setProduct(response)
-        //devo ripristinare qualsiasi immagine eliminata (come faccio con S3? non devo eliminare niente fino a premere conferma)
-        //devo eliminare da S3 qualsiasi nuova immagine caricata
-        //NB: se user chiude window o torna indietro senza premere annulla le immagini restano in S3 ma non vengono aggiunte a product in db -> risolvere
-
-        console.log("originalProduct: ", originalProduct);
-        setNewCategoryInput("");
-        setNewTagInput("");
-        setNewImages([]);
-        setDeletedImages([]);
-        setProduct(originalProduct);
-        setRelatedProducts(
-            originalProduct.related_products
-                ? originalProduct.related_products.map((el) => ({
-                      name: el.name,
-                      id: el.id,
-                  }))
-                : []
-        );
-        //eliminare new pictures da S3
-    };
-
-    console.log("product: ", product);
-    console.log("newImages: ", newImages);
-    console.log("relatedProducts: ", relatedProducts);
-
-    if (!product) {
-        return (
-            <div>
-                <p>Caricamento...</p>
-            </div>
-        );
-    }
 
     return (
         <>
             <Head>
-                <title>Modifica prodotto - Admin Dashboard</title>
+                <title>Aggiungi prodotto - Admin Dashboard</title>
                 <meta
                     property="og:title"
-                    content={`$Modifica prodotto - Admin Dashboard`}
+                    content={`Aggiungi prodotto - Admin Dashboard`}
                 />
                 <meta property="og:type" content="article" />
             </Head>
@@ -524,14 +336,7 @@ function AdminItem({ params }) {
                 <form onSubmit={(e) => confirmChanges(e)}>
                     <div className={"filter-form-col-left"}>
                         <label>
-                            <span>ID: #{product.id}</span>
-                        </label>
-                    </div>
-                    <div className={"filter-form-col-left"}>
-                        <label>
-                            <span>
-                                Creato il: {formatJSDate(product.created_at)}
-                            </span>
+                            <span>ID: #{"generato automaticamente"}</span>
                         </label>
                     </div>
 
@@ -545,7 +350,6 @@ function AdminItem({ params }) {
                             type="text"
                             name="name"
                             id="Name"
-                            value={product.name}
                             maxLength="30"
                             onChange={(e) =>
                                 setProduct({ ...product, name: e.target.value })
@@ -567,7 +371,6 @@ function AdminItem({ params }) {
                             type="text"
                             name="brand"
                             id="Brand"
-                            value={product.brand}
                             maxLength="30"
                             onChange={(e) =>
                                 setProduct({
@@ -592,7 +395,6 @@ function AdminItem({ params }) {
                             type="text"
                             name="slug"
                             id="Slug"
-                            value={product.slug}
                             maxLength="30"
                             onChange={(e) =>
                                 setProduct({
@@ -618,7 +420,6 @@ function AdminItem({ params }) {
                             type="number"
                             name="price"
                             id="Price"
-                            value={product.price}
                             onChange={(e) =>
                                 setProduct({
                                     ...product,
@@ -642,7 +443,6 @@ function AdminItem({ params }) {
                             type="number"
                             name="stock"
                             id="Stock"
-                            value={product.count_in_stock}
                             onChange={(e) =>
                                 setProduct({
                                     ...product,
@@ -667,7 +467,6 @@ function AdminItem({ params }) {
                         <select
                             name="conditions"
                             id="Conditions"
-                            defaultValue={product.condition}
                             onChange={(e) =>
                                 setProduct({
                                     ...product,
@@ -690,7 +489,6 @@ function AdminItem({ params }) {
                         <textarea
                             name="description"
                             id="Description"
-                            value={product.description}
                             maxLength="250"
                             onChange={(e) =>
                                 setProduct({
@@ -717,7 +515,6 @@ function AdminItem({ params }) {
                         <textarea
                             name="infos"
                             id="Infos"
-                            value={product.infos}
                             maxLength="250"
                             onChange={(e) =>
                                 setProduct({
@@ -890,22 +687,6 @@ function AdminItem({ params }) {
                     <div className={styles["admin-product-images"]}>
                         <span>Immagini</span>
                         <div>
-                            {product.images.map((el, i) => (
-                                <div key={el.key}>
-                                    <Image
-                                        src={el.location}
-                                        alt={`Foto ${i}`}
-                                        layout="fill"
-                                        objectFit="cover"
-                                    />
-                                    <span
-                                        className={styles["admin-delete-image"]}
-                                        onClick={() => preDeleteImages(el)}
-                                    >
-                                        X
-                                    </span>
-                                </div>
-                            ))}
                             {newImages.length > 0 &&
                                 newImages.map((el, i) => (
                                     <div key={el.key + i}>
@@ -919,7 +700,7 @@ function AdminItem({ params }) {
                                             className={
                                                 styles["admin-delete-image"]
                                             }
-                                            onClick={() => preDeleteImages(el)}
+                                            onClick={() => deleteImage(el)}
                                         >
                                             X
                                         </span>
@@ -928,7 +709,7 @@ function AdminItem({ params }) {
                         </div>
                     </div>
 
-                    {product.images.length + newImages.length < 5 && (
+                    {newImages.length < 5 && (
                         <div>
                             <input
                                 id="FileID"
@@ -1036,26 +817,9 @@ function AdminItem({ params }) {
                         </>
                     )}
 
-                    <button type="button" onClick={() => discardChanges()}>
-                        Annulla modifiche
-                    </button>
                     <button type="submit">Conferma modifiche</button>
                 </form>
             </div>
         </>
     );
 }
-
-export async function getServerSideProps({ params }) {
-    return { props: { params } };
-} //serve per poter accedere a slug di url in backend, altrimenti undefined
-
-export default dynamic(() => Promise.resolve(AdminItem), { ssr: false });
-
-// descrizione e infos devono essere textarea
-// fare fn aggiungi/rimuovi immagine
-// aggiungere validation per ogni field + required values
-// buttons non fanno nulla se non ci sono state modifiche ?
-// aggiungere button per annulla modifiche (refresh pagina)
-
-// una volta completate le modifiche con conferma si fa la post req

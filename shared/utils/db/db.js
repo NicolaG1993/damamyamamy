@@ -199,6 +199,47 @@ module.exports.allProductsAvailables = () => {
     ORDER BY id ASC`;
     return db.query(myQuery);
 }; /* si dovra mettere un limite (range) per i risultati, oltre ad alcuni filtri semplici */
+module.exports.allProductsOutOfStock = () => {
+    const myQuery = `SELECT *
+    FROM products
+    WHERE count_in_stock = 0
+    ORDER BY id ASC`;
+    return db.query(myQuery);
+}; /* si dovra mettere un limite (range) per i risultati, oltre ad alcuni filtri semplici */
+module.exports.newProduct = (
+    name,
+    slug,
+    categories,
+    tags,
+    images,
+    price,
+    brand,
+    count_in_stock,
+    description,
+    infos,
+    condition,
+    related_products
+) => {
+    const myQuery = `INSERT 
+    INTO products (name, slug, categories, tags, images, price, brand, count_in_stock, description, infos, condition, related_products)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+    RETURNING *`;
+    const keys = [
+        name,
+        slug,
+        categories,
+        tags,
+        images,
+        price,
+        brand,
+        count_in_stock,
+        description,
+        infos,
+        condition,
+        related_products,
+    ];
+    return db.query(myQuery, keys);
+};
 module.exports.updateProduct = (
     id,
     name,

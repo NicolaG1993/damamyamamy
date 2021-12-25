@@ -67,7 +67,7 @@ const numberValidation = (fieldName, fieldValue) => {
 const slugValidation = (fieldName, fieldValue) => {
     if (fieldValue.trim() === "") {
         return `Lo ${fieldName} è richiesto`;
-    }
+    } // 🧨 devo controllare che non ci siano spazi (ancora meglio se li sostituisco con "-")
     return null;
 };
 

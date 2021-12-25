@@ -18,14 +18,29 @@ function AdminShop() {
     const router = useRouter();
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const [allProducts, setAllProducts] = useState([]);
-    const [displayedAll, setDisplayedAll] = useState(false);
+    const [displayedProducts, setDisplayedProducts] = useState("in stock");
 
-    const fetchData = async () => {
+    const fetchAvailableData = async () => {
         try {
             const { data } = await axios.get(`/api/admin/products`, {
                 headers: {
                     authorization: `Bearer ${userInfo.token}`,
                     all: false,
+                    stock: true,
+                },
+            });
+            setAllProducts(data);
+        } catch (err) {
+            enqueueSnackbar(getError(err), { variant: "error" });
+        }
+    };
+    const fetchOutOfStockData = async () => {
+        try {
+            const { data } = await axios.get(`/api/admin/products`, {
+                headers: {
+                    authorization: `Bearer ${userInfo.token}`,
+                    all: false,
+                    stock: false,
                 },
             });
             setAllProducts(data);
@@ -51,18 +66,20 @@ function AdminShop() {
         if (!userInfo) {
             router.push("/login");
         }
-        fetchData();
+        fetchAvailableData();
     }, []);
     useEffect(() => {
-        displayedAll ? fetchAllData() : fetchData();
-    }, [displayedAll]);
+        displayedProducts === "in stock" && fetchAvailableData();
+        displayedProducts === "not in stock" && fetchOutOfStockData();
+        displayedProducts === "all" && fetchAllData();
+    }, [displayedProducts]);
 
     console.log("allProducts: ", allProducts);
-    console.log("displayedAll: ", displayedAll);
+    console.log("displayedProducts: ", displayedProducts);
 
-    const handleDisplay = async () => {
+    const handleDisplay = async (e) => {
         closeSnackbar();
-        setDisplayedAll(!displayedAll);
+        setDisplayedProducts(e.target.value);
     };
 
     return (
@@ -117,9 +134,20 @@ function AdminShop() {
                     ))}
             </div>
 
-            {/* mettere button component */}
-            <p onClick={handleDisplay}>Mostra non disponibili</p>
+            <select
+                defaultValue={"in stock"}
+                onChange={(e) => handleDisplay(e)}
+            >
+                <option value={"in stock"}>Prodotti disponibili</option>
+                <option value={"not in stock"}>Prodotti non disponibili</option>
+                <option value={"all"}>Tutti i prodotti</option>
+            </select>
 
+            <Link href="/admin/prodotto/crea">
+                <a>
+                    <h5>Aggiungi un nuovo prodotto</h5>
+                </a>
+            </Link>
             <Link href="/admin/dashboard">
                 <a>
                     <h5>Torna indietro</h5>
