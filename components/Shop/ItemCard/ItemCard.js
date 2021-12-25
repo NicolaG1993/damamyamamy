@@ -32,7 +32,9 @@ export default function ItemCard({ item }) {
                         {/* <Link to={`/item/${item.id}`} className={"product-content-medium"}> */}
                         <div className={styles["item-card-img"]}>
                             <Image
-                                src={item.images[0] || "/pics/Logo.jpg"}
+                                src={
+                                    item.images[0].location || "/pics/Logo.jpg"
+                                }
                                 alt={item.name}
                                 layout="fill"
                                 objectFit="cover"

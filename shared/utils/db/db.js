@@ -61,6 +61,12 @@ module.exports.getRelatedProducts = (arr) => {
     return db.query(myQuery, key);
 };
 
+module.exports.getLiveProducts = (arr) => {
+    const myQuery = `SELECT * FROM products WHERE id = ANY($1)`;
+    const key = [arr];
+    return db.query(myQuery, key);
+};
+
 //** USERS **//
 module.exports.getUser = (id) => {
     const myQuery = `SELECT * FROM users WHERE email = $1`;
@@ -227,6 +233,18 @@ module.exports.updateProduct = (
         condition,
         related_products,
     ];
+    return db.query(myQuery, keys);
+}; /* DA FINIRE! */
+module.exports.updateStock = (allIDs, allQuantities) => {
+    const myQuery = `UPDATE products
+    SET count_in_stock = count_in_stock - arr.quantity
+    FROM (SELECT 
+        UNNEST(CAST($1 as INT[])) AS id,
+        UNNEST(CAST($2 as INT[])) AS quantity
+        ) AS arr
+    WHERE products.id = arr.id
+    RETURNING *`;
+    const keys = [allIDs, allQuantities];
     return db.query(myQuery, keys);
 }; /* DA FINIRE! */
 /* module.exports.deleteProductImages = (id, newImages) => {

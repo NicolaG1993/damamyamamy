@@ -100,7 +100,7 @@ export default function Item({ product }) {
                         <Image
                             key={el}
                             alt={product.name}
-                            src={el}
+                            src={el.location}
                             onClick={() => toggleGallery(i, true)}
                             layout="fill"
                             objectFit="cover"

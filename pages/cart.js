@@ -16,6 +16,7 @@ import {
     cartAddItem,
     cartRemoveItem,
     cartClear,
+    cartUpdateItemQuantity,
 } from "../redux/Cart/cart.actions";
 // import { fetchData } from "../redux/ShopData/shopData.actions";
 const selectCart = (state) => state.cart.cartItems;
@@ -29,11 +30,52 @@ function Cart() {
     // console.log("data in Cart.js: ", data);
     // const [finalCart, setFinalCart] = useState();
 
+    const fetchLiveData = async () => {
+        console.log(
+            "cart ids:",
+            cart.map((el) => el.id)
+        );
+        const { data } = await axios.post(
+            `/api/products-live/`,
+            cart.map((el) => el.id)
+        );
+        console.log("data:", data);
+        return data;
+    };
+
     useEffect(() => {
         document.querySelectorAll(".product-box").forEach((el) => {
             el.classList.add("fade-in");
         });
     });
+
+    // onRender prendiamo prendiamo tutti i prodotti di cart in db
+    // e se non sono piú disponibili aggiorniamo cart
+    useEffect(() => {
+        cart.length &&
+            fetchLiveData().then((liveProducts) =>
+                cart.map((el) => {
+                    const product = liveProducts.find((it) => el.id === it.id);
+                    if (product.count_in_stock < el.quantity) {
+                        if (product.count_in_stock < 1) {
+                            //delete from cart
+                            dispatch(cartRemoveItem(el));
+                        } else if (product.count_in_stock > 0) {
+                            //set new quantity for item in cart = product.count_in_stock
+                            dispatch(
+                                cartAddItem({
+                                    ...el,
+                                    quantity: product.count_in_stock,
+                                })
+                            );
+                        }
+                    } else {
+                        //dont push
+                        return;
+                    }
+                })
+            );
+    }, [cart]); // da testare 🧠
 
     // useEffect(() => dispatch(fetchData()), []);
     //fetchShop nuovamente (ci serve la versione aggiornata quando arriviamo qua)

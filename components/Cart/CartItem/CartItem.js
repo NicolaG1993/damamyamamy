@@ -25,7 +25,7 @@ export default function CartItem({ item, styles }) {
                     <a>
                         <div>
                             <Image
-                                src={item.images[0]}
+                                src={item.images[0].location}
                                 alt={item.name}
                                 layout="fill"
                                 objectFit="cover"

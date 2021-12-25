@@ -103,7 +103,7 @@ export default function PaymentForm({
                 "/api/orders",
                 {
                     user_id: userInfo.id,
-                    order_items: JSON.stringify(orderItems),
+                    order_items: orderItems,
                     shipping_address: shippingAddress,
                     payment_method: paymentMethod,
                     payment_result: null,
@@ -118,8 +118,25 @@ export default function PaymentForm({
             console.log("🥶 data.order_id:", data.order_id);
             return data.order_id;
         } catch (err) {
-            setLoading(false);
-            enqueueSnackbar(getError(err), { variant: "error" });
+            if (err.response.status === 500) {
+                enqueueSnackbar(getError(err), { variant: "error" });
+                router.push("/cart");
+                //modificare carrello
+                // err.response.data.soldOutItems.map((el) =>
+                //     (el.newQuantity = 0)
+                //         ? console.log("elimina")
+                //         : console.log("aggiorna")
+                // );
+                // se el.newQuantity = 0 elimina
+                // se el.newQuantity > 0 aggiorna quantity per el.id
+                //reindirizza a /cart
+                //forse meglio svolgere lí questo processo?
+                //ancora meglio: faccio redirect ed applico un useEffect che controlla e aggiorna cart on render
+                //cosí non mi serve nemmeno avere newQuantity
+            } else {
+                setLoading(false);
+                enqueueSnackbar(getError(err), { variant: "error" });
+            }
         }
     };
 
