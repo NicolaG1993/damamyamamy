@@ -409,6 +409,12 @@ function AdminItem({ params }) {
         // devo passare lo state in relatedProducts (che é quello che devo mostrare in DOM), non quello di product
     };
 
+    const deleteProductFromDB = (id) => {
+        return axios.post(`/api/product/delete`, id, {
+            headers: { authorization: `Bearer ${userInfo.token}` },
+        });
+    };
+
     // quando user clicca conferma e non ci sono errori allora facciamo post request per update
     // modifico product in db e modifico S3 bucket
     const confirmChanges = async (e) => {
@@ -439,7 +445,10 @@ function AdminItem({ params }) {
                         .then(({ data }) => {
                             console.log("results!", results);
                             console.log("res!", data);
-                            router.push(data.product.slug);
+                            enqueueSnackbar(data.message, {
+                                variant: "success",
+                            });
+                            router.push(data.product.slug); // non é completo?
                         })
                         .catch((err) =>
                             enqueueSnackbar(getError(err), {
@@ -491,6 +500,30 @@ function AdminItem({ params }) {
                 : []
         );
         //eliminare new pictures da S3
+    };
+
+    //elimino prodotto da db e reindirizzo a admin/prodotti
+    const deleteProduct = async () => {
+        console.log("product.id:", product.id);
+        axios
+            .post(
+                `/api/product/delete`,
+                { id: product.id },
+                {
+                    headers: { authorization: `Bearer ${userInfo.token}` },
+                }
+            )
+            .then(({ data }) => {
+                enqueueSnackbar(data.message, {
+                    variant: "success",
+                });
+                router.push("/admin/prodotti");
+            })
+            .catch((err) =>
+                enqueueSnackbar(getError(err), {
+                    variant: "error",
+                })
+            );
     };
 
     console.log("product: ", product);
@@ -1041,6 +1074,16 @@ function AdminItem({ params }) {
                     </button>
                     <button type="submit">Conferma modifiche</button>
                 </form>
+
+                <button type="button" onClick={() => deleteProduct()}>
+                    Elimina prodotto
+                </button>
+                <p>
+                    È consigliabile modificare il prodotto oppure impostare la
+                    quantità a 0 per rimuoverlo dal negozio, eliminare solo se
+                    strettamente necessario e se il prodotto non è mai stato
+                    acquistato
+                </p>
             </div>
         </>
     );

@@ -30,7 +30,13 @@ export default function AdminNewItem() {
     const { closeSnackbar, enqueueSnackbar } = useSnackbar();
     let userInfo = useSelector(loggedUser, shallowEqual);
 
-    const [product, setProduct] = useState({ categories: [], tags: [] });
+    const [product, setProduct] = useState({
+        categories: [],
+        tags: [],
+        condition: "new",
+        price: 0,
+        count_in_stock: 1,
+    });
     // const [originalProduct, setOriginalProduct] = useState();
     const [categories, setCategories] = useState();
     const [tags, setTags] = useState();
@@ -297,7 +303,10 @@ export default function AdminNewItem() {
                 )
                     .then(({ data }) => {
                         console.log("res!", data);
-                        router.push(data.product.slug);
+                        enqueueSnackbar(data.message, {
+                            variant: "success",
+                        });
+                        router.push("/admin/prodotti");
                     })
                     .catch((err) =>
                         enqueueSnackbar(getError(err), {
@@ -420,6 +429,7 @@ export default function AdminNewItem() {
                             type="number"
                             name="price"
                             id="Price"
+                            value={0}
                             onChange={(e) =>
                                 setProduct({
                                     ...product,
@@ -443,6 +453,7 @@ export default function AdminNewItem() {
                             type="number"
                             name="stock"
                             id="Stock"
+                            value={1}
                             onChange={(e) =>
                                 setProduct({
                                     ...product,

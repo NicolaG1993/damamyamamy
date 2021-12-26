@@ -95,9 +95,15 @@ DICEMBRE 2021
 • testare bugs admin/prodotto/[slug] + prevent hickJacking
 
 24/12/21:
-• scheda per creare nuovo prodotto 🧠
-• funzione per eliminare prodotti 🧠
+• scheda per creare nuovo prodotto 👍
+• funzione per eliminare prodotti 👍
 • check di stock quando si apre cart e prima di creare ordine in db 👍
 • test di check stock (typos, dataflow) 👍
 • test funzionale (mettere item in carrello -> azzerare e/o diminuire stock in db -> provare a pagare) 👍
 • 
+
+
+ordini: ordina per id, ordina per data, ordina per importo, ordina per consegnato, filtra per utente, filtra per utente id
+utenti: ordina per data registrazione, ordina per status, cerca per nome, cerca per email
+prodotti: ordina per prezzo, ordina per data, ordine alfabetico, cerca per nome
+NB che prodotti deve sempre filtrare data selezionato in select option

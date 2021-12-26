@@ -33,7 +33,9 @@ export default function ItemCard({ item }) {
                         <div className={styles["item-card-img"]}>
                             <Image
                                 src={
-                                    item.images[0].location || "/pics/Logo.jpg"
+                                    item.images[0]
+                                        ? item.images[0].location
+                                        : "/pics/Logo.jpg"
                                 }
                                 alt={item.name}
                                 layout="fill"

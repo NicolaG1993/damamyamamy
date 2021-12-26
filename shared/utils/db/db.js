@@ -288,6 +288,14 @@ module.exports.updateStock = (allIDs, allQuantities) => {
     const keys = [allIDs, allQuantities];
     return db.query(myQuery, keys);
 }; /* DA FINIRE! */
+module.exports.deleteProduct = (id) => {
+    const myQuery = `DELETE FROM products
+    WHERE id = $1
+    RETURNING *`;
+    const key = [id];
+    return db.query(myQuery, key);
+};
+
 /* module.exports.deleteProductImages = (id, newImages) => {
     const myQuery = `UPDATE products 
     SET images = $2
