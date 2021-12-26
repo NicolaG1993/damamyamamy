@@ -27,7 +27,6 @@ function AdminAllUsers() {
                     headers: { authorization: `Bearer ${userInfo.token}` },
                 });
                 setAllUsers(data);
-                setDisplayedUsers(data);
             } catch (err) {
                 // dispatch({ type: "FETCH_FAIL", payload: getError(err) });
             }
@@ -41,8 +40,7 @@ function AdminAllUsers() {
 
         if (filters.research === "") {
             matchResults = allUsers;
-        }
-        if (filters.research !== "") {
+        } else {
             source.filter((user) => {
                 if (
                     user.name.toLowerCase().indexOf(filters.research) === 0 ||
@@ -54,71 +52,23 @@ function AdminAllUsers() {
         }
 
         filters.order === "date asc" &&
-            setDisplayedUsers(
-                matchResults.sort((a, b) => {
-                    return new Date(b.created_at) - new Date(a.created_at);
-                })
+            matchResults.sort(
+                (a, b) => new Date(a.created_at) - new Date(b.created_at)
             );
+
         filters.order === "date disc" &&
-            setDisplayedUsers(
-                matchResults.sort((a, b) => {
-                    return new Date(a.created_at) - new Date(b.created_at);
-                })
+            matchResults.sort(
+                (a, b) => new Date(b.created_at) - new Date(a.created_at)
             );
+
         filters.order === "admin" &&
-            setDisplayedUsers(matchResults.filter((el) => el.is_admin));
+            (matchResults = matchResults.filter((el) => el.is_admin)); //filter doesnt mutate original array
+
         filters.order === "not admin" &&
-            setDisplayedUsers(matchResults.filter((el) => !el.is_admin));
-    }, [filters]);
+            (matchResults = matchResults.filter((el) => !el.is_admin));
 
-    // const handleDisplay = (e) => {
-    //     const { value } = e.target;
-    //     let source = displayedUsers;
-
-    //     // source = allUsers;
-
-    //     value === "date asc" &&
-    //         setDisplayedUsers(
-    //             source.sort((a, b) => {
-    //                 return new Date(b.created_at) - new Date(a.created_at);
-    //             })
-    //         );
-    //     value === "date disc" &&
-    //         setDisplayedUsers(
-    //             source.sort((a, b) => {
-    //                 return new Date(a.created_at) - new Date(b.created_at);
-    //             })
-    //         ); //reverse array
-    //     value === "admin" &&
-    //         setDisplayedUsers(source.filter((el) => el.is_admin));
-    //     value === "not admin" &&
-    //         setDisplayedUsers(source.filter((el) => !el.is_admin));
-    // };
-
-    // const handleResearch = (e) => {
-    //     e.preventDefault();
-    //     const value = e.target.value.toLowerCase();
-    //     let source = allUsers;
-    //     let matchResults = [];
-
-    //     if (value === "") {
-    //         setDisplayedUsers(allUsers);
-    //     } else {
-    //         source.filter((user) => {
-    //             if (
-    //                 user.name.toLowerCase().indexOf(value) === 0 ||
-    //                 user.email.toLowerCase().indexOf(value) === 0
-    //             ) {
-    //                 matchResults.push(user);
-    //             }
-    //         });
-
-    //         console.log("handleResearch activated", matchResults);
-    //         setDisplayedUsers(matchResults);
-    //     }
-    // };
-
-    console.log("displayedUsers: ", displayedUsers);
+        setDisplayedUsers([...matchResults]);
+    }, [filters, allUsers]);
 
     return (
         <div>
@@ -145,7 +95,10 @@ function AdminAllUsers() {
             <input
                 type="text"
                 onChange={(e) =>
-                    setFilters({ ...filters, research: e.target.value })
+                    setFilters({
+                        ...filters,
+                        research: e.target.value.toLowerCase(),
+                    })
                 }
             ></input>
 

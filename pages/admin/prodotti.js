@@ -18,7 +18,12 @@ function AdminShop() {
     const router = useRouter();
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const [allProducts, setAllProducts] = useState([]);
-    const [displayedProducts, setDisplayedProducts] = useState("in stock");
+    const [filters, setFilters] = useState({
+        research: "",
+        order: "date disc",
+    });
+    const [fetchedProducts, setFetchedProducts] = useState("in stock");
+    const [displayedProducts, setDisplayedProducts] = useState([]);
 
     const fetchAvailableData = async () => {
         try {
@@ -30,6 +35,7 @@ function AdminShop() {
                 },
             });
             setAllProducts(data);
+            // setDisplayedProducts(data);
         } catch (err) {
             enqueueSnackbar(getError(err), { variant: "error" });
         }
@@ -44,6 +50,7 @@ function AdminShop() {
                 },
             });
             setAllProducts(data);
+            // setDisplayedProducts(data);
         } catch (err) {
             enqueueSnackbar(getError(err), { variant: "error" });
         }
@@ -57,6 +64,7 @@ function AdminShop() {
                 },
             });
             setAllProducts(data);
+            // setDisplayedProducts(data);
         } catch (err) {
             enqueueSnackbar(getError(err), { variant: "error" });
         }
@@ -69,22 +77,114 @@ function AdminShop() {
         fetchAvailableData();
     }, []);
     useEffect(() => {
-        displayedProducts === "in stock" && fetchAvailableData();
-        displayedProducts === "not in stock" && fetchOutOfStockData();
-        displayedProducts === "all" && fetchAllData();
-    }, [displayedProducts]);
+        fetchedProducts === "in stock" && fetchAvailableData();
+        fetchedProducts === "not in stock" && fetchOutOfStockData();
+        fetchedProducts === "all" && fetchAllData();
+    }, [fetchedProducts]);
 
-    console.log("allProducts: ", allProducts);
-    console.log("displayedProducts: ", displayedProducts);
+    useEffect(() => {
+        let source = allProducts;
+        let matchResults = [];
 
-    const handleDisplay = async (e) => {
+        if (filters.research === "") {
+            matchResults = allProducts;
+        } else {
+            source.filter((product) => {
+                if (
+                    product.name.toLowerCase().indexOf(filters.research) ===
+                        0 ||
+                    (product.categories &&
+                        product.categories.some((el) =>
+                            el.toLowerCase().includes(filters.research)
+                        )) ||
+                    (product.tags &&
+                        product.tags.some((el) =>
+                            el.toLowerCase().includes(filters.research)
+                        )) ||
+                    (product.brand &&
+                        product.brand.toLowerCase().includes(filters.research))
+                ) {
+                    matchResults.push(product);
+                }
+            });
+        }
+
+        filters.order === "date asc" &&
+            matchResults.sort(
+                (a, b) => new Date(a.created_at) - new Date(b.created_at)
+            );
+
+        filters.order === "date disc" &&
+            matchResults.sort(
+                (a, b) => new Date(b.created_at) - new Date(a.created_at)
+            );
+
+        filters.order === "name asc" &&
+            matchResults.sort((a, b) => (a.name < b.name ? -1 : 1));
+
+        filters.order === "name disc" &&
+            matchResults.sort((a, b) => (a.name > b.name ? -1 : 1));
+
+        filters.order === "price asc" &&
+            matchResults.sort((a, b) =>
+                Number(a.price) > Number(b.price) ? 1 : -1
+            );
+
+        filters.order === "price disc" &&
+            matchResults.sort((a, b) =>
+                Number(b.price) > Number(a.price) ? 1 : -1
+            );
+
+        setDisplayedProducts([...matchResults]); //React doesnt reconize it as a new Array, spread solves that
+    }, [filters, allProducts]);
+
+    const handleDisplay = (e) => {
+        e.preventDefault();
         closeSnackbar();
-        setDisplayedProducts(e.target.value);
+        setFetchedProducts(e.target.value);
     };
 
     return (
         <div>
             <h1>Il tuo negozio</h1>
+
+            <select
+                defaultValue={"date disc"}
+                onChange={(e) =>
+                    setFilters({ ...filters, order: e.target.value })
+                }
+            >
+                <option value={"date disc"}>Data di creazione (recente)</option>
+                <option value={"date asc"}>Data di creazione (passato)</option>
+                <option value={"name asc"}>
+                    Ordine alfabetico (ascendente)
+                </option>
+                <option value={"name disc"}>
+                    Ordine alfabetico (discendente)
+                </option>
+                <option value={"price asc"}>Prezzo (ascendente)</option>
+                <option value={"price disc"}>Prezzo (discendente)</option>
+            </select>
+
+            <p>Cerca nome, brand, categoria o tag</p>
+            <input
+                type="text"
+                onChange={(e) =>
+                    setFilters({
+                        ...filters,
+                        research: e.target.value.toLowerCase(),
+                    })
+                }
+            ></input>
+
+            <select
+                defaultValue={"in stock"}
+                onChange={(e) => handleDisplay(e)}
+            >
+                <option value={"in stock"}>Prodotti disponibili</option>
+                <option value={"not in stock"}>Prodotti non disponibili</option>
+                <option value={"all"}>Tutti i prodotti</option>
+            </select>
 
             <div>
                 <div className={styles["admin-product-head"]}>
@@ -98,8 +198,8 @@ function AdminShop() {
                     <h4>Azione</h4>
                 </div>
 
-                {allProducts &&
-                    allProducts.map((product) => (
+                {displayedProducts &&
+                    displayedProducts.map((product) => (
                         <div
                             key={product.id}
                             className={styles["admin-product-box"]}
@@ -134,15 +234,6 @@ function AdminShop() {
                     ))}
             </div>
 
-            <select
-                defaultValue={"in stock"}
-                onChange={(e) => handleDisplay(e)}
-            >
-                <option value={"in stock"}>Prodotti disponibili</option>
-                <option value={"not in stock"}>Prodotti non disponibili</option>
-                <option value={"all"}>Tutti i prodotti</option>
-            </select>
-
             <Link href="/admin/prodotto/crea">
                 <a>
                     <h5>Aggiungi un nuovo prodotto</h5>
@@ -154,14 +245,6 @@ function AdminShop() {
                 </a>
             </Link>
 
-            <h2>
-                qui devo mettere tutti i prodotti e le impostazioni del negozio
-            </h2>
-            <p>Si deve poter caricare, eliminare e modificare items</p>
-            <p>
-                Si possono vedere gli articoli gia venduti non piu disponibili
-                (in stock = 0)
-            </p>
             <p>
                 Si puo andare a modificare anche le categorie forse? non so
                 ancora come gestirle

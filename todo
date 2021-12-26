@@ -104,6 +104,3 @@ DICEMBRE 2021
 
 
 ordini: ordina per id, ordina per data, ordina per importo, ordina per consegnato, filtra per utente, filtra per utente id
-utenti: ordina per data registrazione, ordina per status, cerca per nome, cerca per email
-prodotti: ordina per prezzo, ordina per data, ordine alfabetico, cerca per nome
-NB che prodotti deve sempre filtrare data selezionato in select option
