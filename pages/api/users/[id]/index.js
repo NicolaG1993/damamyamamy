@@ -4,7 +4,7 @@ import { getUser } from "../../../../shared/utils/db/db";
 async function handler(req, res) {
     const id = req.query.id;
     console.log("id:", id);
-    const user = await getUser(id);
+    const user = await getUser(Number(id));
     console.log("user:", user);
     res.status(200).json(user);
 }

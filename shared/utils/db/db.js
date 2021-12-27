@@ -69,7 +69,7 @@ module.exports.getLiveProducts = (arr) => {
 
 //** USERS **//
 module.exports.getUser = (id) => {
-    const myQuery = `SELECT * FROM users WHERE email = $1`;
+    const myQuery = `SELECT * FROM users WHERE id = $1`;
     const key = [id];
     return db.query(myQuery, key);
 };
@@ -85,6 +85,10 @@ module.exports.updateUser = (id, name, email, password) => {
     RETURNING *`;
     const keys = [id, name, email, password];
     return db.query(myQuery, keys);
+};
+module.exports.getAllEmails = () => {
+    const myQuery = `SELECT ARRAY (SELECT email FROM users)`;
+    return db.query(myQuery);
 };
 
 //** ORDERS **//

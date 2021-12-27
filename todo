@@ -79,7 +79,7 @@ DICEMBRE 2021
 
 15/12/21:
 • design basic per intrefaccia dashboard e pannelli 👍
-• assicurarsi che dashboard non sia accessibile a non admin 🧠
+• assicurarsi che dashboard non sia accessibile a non admin 👍
 • trovare modo per far diventare utente admin 👍
 // Ho il valore della mia password hashed che posso usare in setup.sql per creare primi users admin
 
@@ -103,7 +103,7 @@ DICEMBRE 2021
 • test funzionale (mettere item in carrello -> azzerare e/o diminuire stock in db -> provare a pagare) 👍
 
 26/12/21:
-• aggiornare isAuth utils con isAdmin 🧠
+• aggiornare isAuth utils con isAdmin 👍
 • prevent hickJacking in inputs
 • testare pagamenti non in sb mode
 

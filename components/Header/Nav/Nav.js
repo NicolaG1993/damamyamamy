@@ -72,7 +72,7 @@ export default function Nav({ closeNav, width, userInfo }) {
                         <>
                             <Link href="/profile">
                                 <a onClick={() => closeNav()}>
-                                    <li>{userInfo.name}</li>
+                                    <li>Profilo</li>
                                 </a>
                             </Link>
                             <Link href="/login">
@@ -81,11 +81,13 @@ export default function Nav({ closeNav, width, userInfo }) {
                                 </a>
                             </Link>
                             {/* aggiungere if userInfo.isAdmin una volta creato primo admin */}
-                            <Link href="/admin/dashboard">
-                                <a onClick={() => closeNav()}>
-                                    <li>Pannello admin</li>
-                                </a>
-                            </Link>
+                            {userInfo.is_admin && (
+                                <Link href="/admin/dashboard">
+                                    <a onClick={() => closeNav()}>
+                                        <li>Pannello admin</li>
+                                    </a>
+                                </Link>
+                            )}
                         </>
                     ) : (
                         <Link href="/login">

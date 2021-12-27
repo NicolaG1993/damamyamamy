@@ -18,11 +18,10 @@ function Profile() {
     let userInfo = useSelector(selectUserInfo, shallowEqual);
     console.log("userInfo: ", userInfo);
 
-    useEffect(() => {
-        if (!userInfo) {
-            return router.push("/login");
-        }
-    }, []);
+    if (!userInfo) {
+        return router.push("/login");
+    }
+    useEffect(() => {}, []);
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");

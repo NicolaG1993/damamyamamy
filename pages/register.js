@@ -107,12 +107,12 @@ export default function Register() {
 
     return (
         <main>
-            <h1>Register</h1>
+            <h1>Registrazione</h1>
 
             <form onSubmit={(e) => submitHandler(e)}>
                 <div className={"filter-form-col-left"}>
                     <label>
-                        <span>Name</span>
+                        <span>Nome completo</span>
                     </label>
                 </div>
                 <div className={"filter-form-col-right"}>
@@ -166,7 +166,7 @@ export default function Register() {
 
                 <div className={"filter-form-col-left"}>
                     <label>
-                        <span>Confirm Password</span>
+                        <span>Conferma Password</span>
                     </label>
                 </div>
                 <div className={"filter-form-col-right"}>
@@ -183,11 +183,11 @@ export default function Register() {
                     )}
                 </div>
 
-                <button type="submit">Register</button>
+                <button type="submit">Registrati</button>
             </form>
 
             <p>
-                Already have an account?{" "}
+                Hai già un account?{" "}
                 <Link href={`/login?redirect=${redirect || "/"}`}>
                     <a>Login</a>
                 </Link>
