@@ -21,6 +21,9 @@ function AdminAllUsers() {
         if (!userInfo) {
             router.push("/login");
         }
+        if (!userInfo.is_admin) {
+            router.push("/");
+        }
         const fetchData = async () => {
             try {
                 const { data } = await axios.get(`/api/admin/users`, {
@@ -34,6 +37,7 @@ function AdminAllUsers() {
         fetchData();
     }, []);
 
+    console.log("userinfo:", userInfo);
     useEffect(() => {
         let source = allUsers;
         let matchResults = [];

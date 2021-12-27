@@ -1,4 +1,4 @@
-import { isAuth } from "../../../shared/utils/auth";
+import { isAdmin, isAuth } from "../../../shared/utils/auth";
 import { newProduct } from "../../../shared/utils/db/db";
 
 async function handler(req, res) {
@@ -46,4 +46,4 @@ async function handler(req, res) {
     }
 }
 
-export default isAuth(handler); //middleware
+export default isAuth(isAdmin(handler)); //middleware

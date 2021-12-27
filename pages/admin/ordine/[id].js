@@ -49,6 +49,9 @@ function Order({ params }) {
         if (!userInfo) {
             router.push("/login");
         }
+        if (!userInfo.is_admin) {
+            router.push("/");
+        }
 
         // in questo file fare check di tutte le keys id, orderId, _id
         const fetchOrder = async () => {

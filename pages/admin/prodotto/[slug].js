@@ -119,6 +119,9 @@ function AdminItem({ params }) {
         if (!userInfo) {
             router.push("/login");
         }
+        if (!userInfo.is_admin) {
+            router.push("/");
+        }
         fetchProduct();
         fetchCategories();
     }, []);

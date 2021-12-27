@@ -1,4 +1,4 @@
-import { isAuth } from "../../../shared/utils/auth";
+import { isAdmin, isAuth } from "../../../shared/utils/auth";
 import {
     allPaidOrdersPreview,
     totalOrders,
@@ -51,4 +51,4 @@ async function handler(req, res) {
     });
 }
 
-export default isAuth(handler);
+export default isAuth(isAdmin(handler));

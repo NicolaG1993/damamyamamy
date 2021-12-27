@@ -34,6 +34,9 @@ function AdminUser({ params }) {
         if (!userInfo) {
             router.push("/login");
         }
+        if (!userInfo.is_admin) {
+            router.push("/");
+        }
 
         const fetchUser = async () => {
             try {
@@ -51,6 +54,12 @@ function AdminUser({ params }) {
 
         fetchUser();
     }, []);
+
+    const makeUserAdmin = async (bool) => {
+        //...
+        // update user via api <--(bool)
+        // aggiorna pagina o fetchUser
+    };
 
     console.log("user:", user);
     return (
@@ -75,6 +84,16 @@ function AdminUser({ params }) {
                         Autorizzazione:{" "}
                         {user.is_admin ? "Amministratore" : "Utente"}
                     </p>
+
+                    {user.is_admin ? (
+                        <button onClick={() => makeUserAdmin(false)}>
+                            Revoca ruolo Admin
+                        </button>
+                    ) : (
+                        <button onClick={() => makeUserAdmin(true)}>
+                            Rendi Admin
+                        </button>
+                    )}
                 </div>
             )}
         </div>

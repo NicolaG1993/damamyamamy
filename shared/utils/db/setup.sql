@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS products;
--- DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS orders;
 
 CREATE TABLE products(
@@ -45,6 +45,8 @@ CREATE TABLE users(
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+INSERT INTO users (name, email, password, is_admin)
+VALUES ('Nicola Gaioni', 'a@a.a', '$2a$10$YmU3q9VIaVLClGdd/1RP7ODIENztcUdp6IYAPbDTOApnvjHb5o5bm', true);
 
 CREATE TABLE orders(
     order_id SERIAL PRIMARY KEY,

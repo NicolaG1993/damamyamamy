@@ -1,4 +1,4 @@
-import { isAuth } from "../../../shared/utils/auth";
+import { isAdmin, isAuth } from "../../../shared/utils/auth";
 import { allUsers } from "../../../shared/utils/db/db";
 
 async function handler(req, res) {
@@ -7,4 +7,4 @@ async function handler(req, res) {
     res.json(rows);
 }
 
-export default isAuth(handler);
+export default isAuth(isAdmin(handler));

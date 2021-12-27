@@ -1,5 +1,5 @@
 import S3 from "../../../shared/libs/s3";
-import { isAuth } from "../../../shared/utils/auth";
+import { isAdmin, isAuth } from "../../../shared/utils/auth";
 import { deleteProductImages } from "../../../shared/utils/db/db";
 
 async function handler(req, res) {
@@ -48,4 +48,4 @@ async function handler(req, res) {
         });
 }
 
-export default isAuth(handler);
+export default isAuth(isAdmin(handler));

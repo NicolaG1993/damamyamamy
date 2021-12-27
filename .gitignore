@@ -37,3 +37,5 @@ yarn-error.log*
 package-lock.json
 .env
 secrets.json
+/shared/utils/db/setup.sql
+/shared/utils/db/data.js

@@ -39,4 +39,14 @@ const isAuth = (handler) => {
     };
 };
 
-export { signToken, isAuth };
+const isAdmin = (handler) => async (req, res, next) => {
+    console.log("isAdmin middleware activated");
+    if (req.user.is_admin) {
+        // next();
+        return handler(req, res);
+    } else {
+        res.status(401).send({ message: "User is not admin" });
+    }
+};
+
+export { signToken, isAuth, isAdmin };

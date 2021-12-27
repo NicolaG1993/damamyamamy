@@ -1,7 +1,7 @@
 import fs from "fs";
 import { IncomingForm } from "formidable";
 import S3 from "../../../shared/libs/s3";
-import { isAuth } from "../../../shared/utils/auth";
+import { isAdmin, isAuth } from "../../../shared/utils/auth";
 
 // first we need to disable the default body parser
 export const config = {
@@ -110,7 +110,7 @@ async function handler(req, res) {
         });
 }
 
-export default isAuth(handler);
+export default isAuth(isAdmin(handler));
 
 /*
 

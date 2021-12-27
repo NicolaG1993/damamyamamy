@@ -1,4 +1,4 @@
-import { isAuth } from "../../../shared/utils/auth";
+import { isAuth, isAdmin } from "../../../shared/utils/auth";
 import {
     allProducts,
     allProductsAvailables,
@@ -21,4 +21,6 @@ async function handler(req, res) {
     }
 }
 
-export default isAuth(handler);
+export default isAuth(isAdmin(handler));
+
+// import nc from "next-connect";

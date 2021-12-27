@@ -74,6 +74,9 @@ function AdminShop() {
         if (!userInfo) {
             router.push("/login");
         }
+        if (!userInfo.is_admin) {
+            router.push("/");
+        }
         fetchAvailableData();
     }, []);
     useEffect(() => {

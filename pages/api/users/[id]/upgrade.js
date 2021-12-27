@@ -1,47 +1,23 @@
-/*
-async function handlerA(req, res) {
-    const id = req.query.id;
-    // console.log("id:", id);
-    const order = await getOrder(id);
-    if (order) {
-        order.isPaid = true;
-        order.paidAt = Date.now;
-        order.paymentResult = {
-            id: req.body.id,
-            status: req.body.status,
-            email_address: req.body.email_address,
-        };
-        const paidOrder = await order.save(); //non esiste save() // devo forse fare update in db? questa é PUT request
-        // res.status(200).json(order);
-        console.log("paidOrder:", paidOrder);
-        res.status(200).send({ message: "order paid", order: paidOrder });
-    } else {
-        res.status(404).send({ message: "order not found" });
-    }
-} 
-*/
-
-import { isAuth } from "../../../../shared/utils/auth";
-import { getOrder, updateOrder } from "../../../../shared/utils/db/db";
+import { isAdmin, isAuth } from "../../../../shared/utils/auth";
+import { authorizeUser } from "../../../../shared/utils/db/db";
 
 // SISTEMARE QUESTA
 
 // async function handler(req, res) {
 //     const id = req.query.id;
-//     const order = await getOrder(id);
+//     const user = await getUser(id);
 
-//     if (order) {
-//         const paymentResult = {
-//             id: req.body.id,
-//             status: req.body.status,
-//             email_address: req.body.email_address,
-//         };
-//         const paidOrder = await updateOrder(id, true, paymentResult);
-//         console.log("paidOrder:", paidOrder);
-//         res.status(200).send({ message: "order paid", order: paidOrder });
+//     if (user) {
+//         const newStatus = req.body;
+//         const updatedUser = await authorizeUser(id, newStatus);
+//         console.log("updatedUser:", updatedUser);
+//         res.status(200).send({
+//             message: "Autorizzazioni modificate",
+//             user: updatedUser,
+//         });
 //     } else {
-//         res.status(404).send({ message: "order not found" });
+//         res.status(404).send({ message: "Utente non trovato" });
 //     }
 // }
 
-export default isAuth(handler); //middleware
+export default isAuth(isAdmin(handler));

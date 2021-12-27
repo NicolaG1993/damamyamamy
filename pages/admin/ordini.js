@@ -24,6 +24,9 @@ function AdminAllOrders() {
         if (!userInfo) {
             router.push("/login");
         }
+        if (!userInfo.is_admin) {
+            router.push("/");
+        }
         const fetchData = async () => {
             try {
                 const { data } = await axios.get(`/api/admin/orders`, {
