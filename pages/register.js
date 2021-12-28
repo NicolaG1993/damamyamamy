@@ -10,10 +10,12 @@ import {
 } from "../shared/utils/validateForms";
 import { getError } from "../shared/utils/error";
 import { useSnackbar } from "notistack";
+import styles from "../shared/styles/Login.module.css";
 
 // REDUX
 import { userRegister } from "../redux/User/user.actions";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import Button from "../components/Button/Button";
 const selectUserInfo = (state) => state.user.userInfo;
 
 export default function Register() {
@@ -106,92 +108,112 @@ export default function Register() {
     };
 
     return (
-        <main>
-            <h1>Registrazione</h1>
+        <main id={styles["Access"]}>
+            <div>
+                <h1>Registrazione</h1>
 
-            <form onSubmit={(e) => submitHandler(e)}>
-                <div className={"filter-form-col-left"}>
-                    <label>
-                        <span>Nome completo</span>
-                    </label>
-                </div>
-                <div className={"filter-form-col-right"}>
-                    <input
-                        type="text"
-                        name="name"
-                        id="Name"
-                        onChange={(e) => setName(e.target.value)}
-                        onBlur={(e) => handleBlur(e)}
-                    />
-                    {errors.name && (
-                        <div className={"form-error"}>{errors.name}</div>
-                    )}
-                </div>
+                <form
+                    className={styles["filter-form"]}
+                    onSubmit={(e) => submitHandler(e)}
+                >
+                    <div className={styles["filter-form-col-left"]}>
+                        <label>
+                            <span>Nome completo</span>
+                        </label>
+                    </div>
+                    <div className={styles["filter-form-col-right"]}>
+                        <input
+                            type="text"
+                            name="name"
+                            id="Name"
+                            onChange={(e) => setName(e.target.value)}
+                            onBlur={(e) => handleBlur(e)}
+                        />
+                        {errors.name && (
+                            <div className={"form-error"}>{errors.name}</div>
+                        )}
+                    </div>
 
-                <div className={"filter-form-col-left"}>
-                    <label>
-                        <span>Email</span>
-                    </label>
-                </div>
-                <div className={"filter-form-col-right"}>
-                    <input
-                        type="text"
-                        name="email"
-                        id="Email"
-                        onChange={(e) => setEmail(e.target.value)}
-                        onBlur={(e) => handleBlur(e)}
-                    />
-                    {errors.email && (
-                        <div className={"form-error"}>{errors.email}</div>
-                    )}
-                </div>
+                    <div className={styles["filter-form-col-left"]}>
+                        <label>
+                            <span>Email</span>
+                        </label>
+                    </div>
+                    <div className={styles["filter-form-col-right"]}>
+                        <input
+                            type="text"
+                            name="email"
+                            id="Email"
+                            onChange={(e) => setEmail(e.target.value)}
+                            onBlur={(e) => handleBlur(e)}
+                        />
+                        {errors.email && (
+                            <div className={"form-error"}>{errors.email}</div>
+                        )}
+                    </div>
 
-                <div className={"filter-form-col-left"}>
-                    <label>
-                        <span>Password</span>
-                    </label>
-                </div>
-                <div className={"filter-form-col-right"}>
-                    <input
-                        type="password"
-                        name="password"
-                        id="Password"
-                        onChange={(e) => setPassword(e.target.value)}
-                        onBlur={(e) => handleBlur(e)}
-                    />
-                    {errors.password && (
-                        <div className={"form-error"}>{errors.password}</div>
-                    )}
-                </div>
+                    <div className={styles["filter-form-col-left"]}>
+                        <label>
+                            <span>Password</span>
+                        </label>
+                    </div>
+                    <div className={styles["filter-form-col-right"]}>
+                        <input
+                            type="password"
+                            name="password"
+                            id="Password"
+                            onChange={(e) => setPassword(e.target.value)}
+                            onBlur={(e) => handleBlur(e)}
+                        />
+                        {errors.password && (
+                            <div className={"form-error"}>
+                                {errors.password}
+                            </div>
+                        )}
+                    </div>
 
-                <div className={"filter-form-col-left"}>
-                    <label>
-                        <span>Conferma Password</span>
-                    </label>
-                </div>
-                <div className={"filter-form-col-right"}>
-                    <input
-                        type="password"
-                        name="confirmPassword"
-                        id="confirmPassword"
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                    />
-                    {pswConfirmationError && (
-                        <div className={"form-error"}>
-                            {pswConfirmationError}
-                        </div>
-                    )}
-                </div>
+                    <div className={styles["filter-form-col-left"]}>
+                        <label>
+                            <span>Conferma Password</span>
+                        </label>
+                    </div>
+                    <div className={styles["filter-form-col-right"]}>
+                        <input
+                            type="password"
+                            name="confirmPassword"
+                            id="confirmPassword"
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                        />
+                        {pswConfirmationError && (
+                            <div className={"form-error"}>
+                                {pswConfirmationError}
+                            </div>
+                        )}
+                    </div>
 
-                <button type="submit">Registrati</button>
-            </form>
+                    <div className={styles["filter-form-col-full"]}>
+                        <Button
+                            text="Registrati"
+                            type="submit"
+                            style="inverted-btn"
+                        />
+                    </div>
+                    {/* 
+                    <button
+                        className={styles["filter-form-col-full"]}
+                        type="submit"
+                    >
+                        Registrati
+                    </button> */}
+                </form>
 
-            <p>
-                Hai già un account?{" "}
-                <Link href={`/login?redirect=${redirect || "/"}`}>
-                    <a>Login</a>
-                </Link>
-            </p>
+                <p>
+                    Hai già un account?{" "}
+                    <Link href={`/login?redirect=${redirect || "/"}`}>
+                        <a>Accedi</a>
+                    </Link>
+                </p>
+            </div>
         </main>
     );
 }

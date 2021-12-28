@@ -84,7 +84,7 @@ export default function Nav({ closeNav, width, userInfo }) {
                             {userInfo.is_admin && (
                                 <Link href="/admin/dashboard">
                                     <a onClick={() => closeNav()}>
-                                        <li>Pannello admin</li>
+                                        <li>Area admin</li>
                                     </a>
                                 </Link>
                             )}

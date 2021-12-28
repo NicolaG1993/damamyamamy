@@ -1,0 +1,73 @@
+#Access {
+    min-height: 100vh;
+    height: 100%;
+    padding: var(--size300) var(--size100) var(--size500) var(--size100);
+    /* padding: 40px 20px 100px 20px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#Access > div {
+    padding: var(--size400);
+    color: ghostwhite;
+    background: var(--color000);
+    border-radius: 25px;
+}
+
+.filter-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* grid-template-rows: 50px 50px auto 50px 50px;
+    row-gap: var(--size100);
+    margin: var(--size200) 0 var(--size-300) 0;
+    opacity: 1;
+    transition: 0.7s ease-in-out; */
+}
+.filter-form > div {
+    padding-bottom: var(--size-100);
+}
+
+.filter-form-col-left {
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+.filter-form-col-right {
+    grid-column-start: 2;
+    grid-column-end: 3;
+}
+.filter-form-col-full {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    margin: var(--size200) 0 var(--size-200) 0;
+    padding-bottom: 0;
+    justify-self: center;
+}
+
+#Access h1 {
+    margin-bottom: 1em;
+}
+#Access p {
+    margin-bottom: 0;
+    text-align: center;
+}
+#Access a {
+    margin-bottom: 0;
+    text-align: center;
+    color: #414141;
+    font-weight: bold;
+}
+#Access a:hover {
+    color: ghostwhite;
+}
+
+/* per qualche motivo non funziona */
+
+@media screen and (max-width: 720px) {
+    #Access > div {
+        padding: var(--size200);
+    }
+    .filter-form-col-right {
+        margin-left: 10px;
+    }
+}

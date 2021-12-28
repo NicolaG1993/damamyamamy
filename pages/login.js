@@ -6,10 +6,12 @@ import { useState } from "react";
 import Cookies from "js-cookie";
 import { useSnackbar } from "notistack";
 import { getError } from "../shared/utils/error";
+import styles from "../shared/styles/Login.module.css";
 
 // REDUX
 import { userLogin } from "../redux/User/user.actions";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import Button from "../components/Button/Button";
 const selectUserInfo = (state) => state.user.userInfo;
 
 export default function Login() {
@@ -54,47 +56,58 @@ export default function Login() {
     };
 
     return (
-        <main>
-            <h1>Login</h1>
+        <main id={styles["Access"]}>
+            <div>
+                <h1>Login</h1>
 
-            <form onSubmit={(e) => submitHandler(e)}>
-                <div className={"filter-form-col-left"}>
-                    <label>
-                        <span>Email</span>
-                    </label>
-                </div>
-                <div className={"filter-form-col-right"}>
-                    <input
-                        type="text"
-                        name="email"
-                        id="email"
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                </div>
+                <form
+                    className={styles["filter-form"]}
+                    onSubmit={(e) => submitHandler(e)}
+                >
+                    <div className={styles["filter-form-col-left"]}>
+                        <label>
+                            <span>Email</span>
+                        </label>
+                    </div>
+                    <div className={styles["filter-form-col-right"]}>
+                        <input
+                            type="text"
+                            name="email"
+                            id="email"
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </div>
 
-                <div className={"filter-form-col-left"}>
-                    <label>
-                        <span>Password</span>
-                    </label>
-                </div>
-                <div className={"filter-form-col-right"}>
-                    <input
-                        type="password"
-                        name="password"
-                        id="password"
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </div>
+                    <div className={styles["filter-form-col-left"]}>
+                        <label>
+                            <span>Password</span>
+                        </label>
+                    </div>
+                    <div className={styles["filter-form-col-right"]}>
+                        <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
 
-                <button type="submit">Enter</button>
-            </form>
+                    <div className={styles["filter-form-col-full"]}>
+                        <Button
+                            text="Entra"
+                            type="submit"
+                            style="inverted-btn"
+                        />
+                    </div>
+                </form>
 
-            <p>
-                Don&apos;t have an account?{" "}
-                <Link href={`/register?redirect=${redirect || "/"}`}>
-                    <a>Register</a>
-                </Link>
-            </p>
+                <p>
+                    Non hai ancora un account?{" "}
+                    <Link href={`/register?redirect=${redirect || "/"}`}>
+                        <a>Registrati</a>
+                    </Link>
+                </p>
+            </div>
         </main>
     );
 }

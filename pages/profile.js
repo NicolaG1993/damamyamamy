@@ -9,7 +9,10 @@ import {
     nameValidation,
     passwordValidation,
 } from "../shared/utils/validateForms";
+import { userRegister } from "../redux/User/user.actions";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import styles from "../shared/styles/Profile.module.css";
+import Button from "../components/Button/Button";
 const selectUserInfo = (state) => state.user.userInfo;
 
 function Profile() {
@@ -98,7 +101,8 @@ function Profile() {
                         headers: { authorization: `Bearer ${userInfo.token}` },
                     }
                 );
-                dispatch({ type: "USER_REGISTER", payload: data });
+                // dispatch({ type: "USER_REGISTER", payload: data });
+                dispatch(userRegister(data));
                 Cookies.set("userInfo", JSON.stringify(data));
                 // alert("succesfull Registration!");
             } catch (err) {
@@ -115,92 +119,105 @@ function Profile() {
     };
 
     return (
-        <main>
-            <h1>Profile</h1>
+        <main id={styles["Profile"]}>
+            <div>
+                <h1>Il tuo profilo</h1>
 
-            <form onSubmit={(e) => submitHandler(e)}>
-                <div className={"filter-form-col-left"}>
-                    <label>
-                        <span>Name</span>
-                    </label>
-                </div>
-                <div className={"filter-form-col-right"}>
-                    <input
-                        type="text"
-                        name="name"
-                        id="Name"
-                        onChange={(e) => setName(e.target.value)}
-                        onBlur={(e) => handleBlur(e)}
-                    />
-                    {errors.name && (
-                        <div className={"form-error"}>{errors.name}</div>
-                    )}
-                </div>
+                <form
+                    className={styles["filter-form"]}
+                    onSubmit={(e) => submitHandler(e)}
+                >
+                    <div className={styles["filter-form-col-left"]}>
+                        <label>
+                            <span>Nome completo</span>
+                        </label>
+                    </div>
+                    <div className={styles["filter-form-col-right"]}>
+                        <input
+                            type="text"
+                            name="name"
+                            id="Name"
+                            onChange={(e) => setName(e.target.value)}
+                            onBlur={(e) => handleBlur(e)}
+                        />
+                        {errors.name && (
+                            <div className={"form-error"}>{errors.name}</div>
+                        )}
+                    </div>
 
-                <div className={"filter-form-col-left"}>
-                    <label>
-                        <span>Email</span>
-                    </label>
-                </div>
-                <div className={"filter-form-col-right"}>
-                    <input
-                        type="text"
-                        name="email"
-                        id="Email"
-                        onChange={(e) => setEmail(e.target.value)}
-                        onBlur={(e) => handleBlur(e)}
-                    />
-                    {errors.email && (
-                        <div className={"form-error"}>{errors.email}</div>
-                    )}
-                </div>
+                    <div className={styles["filter-form-col-left"]}>
+                        <label>
+                            <span>Email</span>
+                        </label>
+                    </div>
+                    <div className={styles["filter-form-col-right"]}>
+                        <input
+                            type="text"
+                            name="email"
+                            id="Email"
+                            onChange={(e) => setEmail(e.target.value)}
+                            onBlur={(e) => handleBlur(e)}
+                        />
+                        {errors.email && (
+                            <div className={"form-error"}>{errors.email}</div>
+                        )}
+                    </div>
 
-                <div className={"filter-form-col-left"}>
-                    <label>
-                        <span>Password</span>
-                    </label>
-                </div>
-                <div className={"filter-form-col-right"}>
-                    <input
-                        type="password"
-                        name="password"
-                        id="Password"
-                        onChange={(e) => setPassword(e.target.value)}
-                        onBlur={(e) => handleBlur(e)}
-                    />
-                    {errors.password && (
-                        <div className={"form-error"}>{errors.password}</div>
-                    )}
-                </div>
+                    <div className={styles["filter-form-col-left"]}>
+                        <label>
+                            <span>Password</span>
+                        </label>
+                    </div>
+                    <div className={styles["filter-form-col-right"]}>
+                        <input
+                            type="password"
+                            name="password"
+                            id="Password"
+                            onChange={(e) => setPassword(e.target.value)}
+                            onBlur={(e) => handleBlur(e)}
+                        />
+                        {errors.password && (
+                            <div className={"form-error"}>
+                                {errors.password}
+                            </div>
+                        )}
+                    </div>
 
-                <div className={"filter-form-col-left"}>
-                    <label>
-                        <span>Confirm Password</span>
-                    </label>
-                </div>
-                <div className={"filter-form-col-right"}>
-                    <input
-                        type="password"
-                        name="confirmPassword"
-                        id="confirmPassword"
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                    />
-                    {pswConfirmationError && (
-                        <div className={"form-error"}>
-                            {pswConfirmationError}
-                        </div>
-                    )}
-                </div>
+                    <div className={styles["filter-form-col-left"]}>
+                        <label>
+                            <span>Conferma Password</span>
+                        </label>
+                    </div>
+                    <div className={styles["filter-form-col-right"]}>
+                        <input
+                            type="password"
+                            name="confirmPassword"
+                            id="confirmPassword"
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                        />
+                        {pswConfirmationError && (
+                            <div className={"form-error"}>
+                                {pswConfirmationError}
+                            </div>
+                        )}
+                    </div>
 
-                <button type="submit">Update profile</button>
-            </form>
+                    <div className={styles["filter-form-col-full"]}>
+                        <Button
+                            text="Salva modifiche"
+                            type="submit"
+                            style="inverted-btn"
+                        />
+                    </div>
+                </form>
 
-            <section>
-                <h3>ID: {userInfo.id}</h3>
-                <h3>Name: {userInfo.name}</h3>
-                <h3>Email: {userInfo.email}</h3>
-                <h3>Pic: {userInfo.profile_pic_url}</h3>
-            </section>
+                <section>
+                    <h3>ID: {userInfo.id}</h3>
+                    <h3>Nome: {userInfo.name}</h3>
+                    <h3>Email: {userInfo.email}</h3>
+                    <h3>Foto: {userInfo.profile_pic_url}</h3>
+                </section>
+            </div>
         </main>
     );
 }

@@ -32,10 +32,13 @@ function AdminDashboard() {
     const router = useRouter();
     const [summary, setSummary] = useState({});
 
+    console.log("userInfo: ", userInfo);
+
     if (!userInfo) {
+        console.log("user is not logged in");
         router.push("/login");
     }
-    if (!userInfo.is_admin) {
+    if (userInfo && !userInfo.is_admin) {
         router.push("/");
     }
     useEffect(() => {
@@ -58,7 +61,7 @@ function AdminDashboard() {
         <div className={styles["admin-dashboard"]}>
             <h1>Pannello amministratore</h1>
 
-            <h3>Ciao, {userInfo.name}</h3>
+            <h3>Ciao, {userInfo && userInfo.name}</h3>
 
             <section>
                 <Link href="/admin/ordini">

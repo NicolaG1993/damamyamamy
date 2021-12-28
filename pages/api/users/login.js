@@ -1,10 +1,10 @@
 import bcrypt from "bcryptjs";
 import { signToken } from "../../../shared/utils/auth";
-import { getUser } from "../../../shared/utils/db/db";
+import { getUserByEmail } from "../../../shared/utils/db/db";
 
 export default async function handler(req, res) {
     const email = req.body.email;
-    let user = await getUser(email);
+    let user = await getUserByEmail(email);
     console.log("user:", user);
     user = user.rows[0];
 

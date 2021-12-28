@@ -74,7 +74,7 @@ DICEMBRE 2021
 13/12/21:
 • prodotti in stock deve modificarsi dopo acquisto -> db update ? 👍
 • testare paypal in SB 👍
-• ricollegare stripe e testare in SB
+• ricollegare stripe e testare in SB 🧨
 • creare pagina in cui vedere tutti gli ordini (solo per admin) 👍
 
 15/12/21:
@@ -104,17 +104,17 @@ DICEMBRE 2021
 
 26/12/21:
 • aggiornare isAuth utils con isAdmin 👍
-• prevent hickJacking in inputs
-• testare pagamenti non in sb mode
+• prevent hickJacking in inputs 🧨
+• testare pagamenti non in sb mode 🧨
 
 27/12/21:
-• Component profilo utente
-• Responsiveness e design fixes parte user
+• Component profilo utente 🧠
+• Responsiveness e design fixes parte user  🧠 (login, register, profile)
 • Responsiveness e design parte admin (dashboard)
 
 28/12/21
-• rimuovere tutti console.log()
-• host db online e cambia link in components e funzioni che lo utilizzano
-• deploy su AWS
-• testare che tutte le key siano nascoste e che sito sia sicuro 
+• rimuovere tutti console.log() 🧨
+• host db online e cambia link in components e funzioni che lo utilizzano 🧨
+• deploy su AWS 🧨
+• testare che tutte le key siano nascoste e che sito sia sicuro 🧨
 // users non hanno modo di accedere a admin routes (server e client), keys, etc...
