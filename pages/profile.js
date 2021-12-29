@@ -30,11 +30,13 @@ function Profile() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [passwordInputsBox, setPasswordInputsBox] = useState(false);
     const [errors, setErrors] = useState({});
     const [pswConfirmationError, setPswConfirmationError] = useState(false);
 
     const handleBlur = (e) => {
         console.log("e.target.id: ", e.target.id);
+        console.log("password: ", password);
         console.log("e.target.value: ", e.target.value);
         //estraggo il nome dell'input ed il suo valore
         const { id, name, value } = e.target;
@@ -168,39 +170,57 @@ function Profile() {
                             <span>Password</span>
                         </label>
                     </div>
-                    <div className={styles["filter-form-col-right"]}>
-                        <input
-                            type="password"
-                            name="password"
-                            id="Password"
-                            onChange={(e) => setPassword(e.target.value)}
-                            onBlur={(e) => handleBlur(e)}
-                        />
-                        {errors.password && (
-                            <div className={"form-error"}>
-                                {errors.password}
+                    {passwordInputsBox ? (
+                        <>
+                            <div className={styles["filter-form-col-right"]}>
+                                <input
+                                    type="password"
+                                    name="password"
+                                    id="Password"
+                                    onChange={(e) =>
+                                        setPassword(e.target.value)
+                                    }
+                                    onBlur={(e) => handleBlur(e)}
+                                />
+                                {errors.password && (
+                                    <div className={"form-error"}>
+                                        {errors.password}
+                                    </div>
+                                )}
                             </div>
-                        )}
-                    </div>
-
-                    <div className={styles["filter-form-col-left"]}>
-                        <label>
-                            <span>Conferma Password</span>
-                        </label>
-                    </div>
-                    <div className={styles["filter-form-col-right"]}>
-                        <input
-                            type="password"
-                            name="confirmPassword"
-                            id="confirmPassword"
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                        />
-                        {pswConfirmationError && (
-                            <div className={"form-error"}>
-                                {pswConfirmationError}
+                            <div className={styles["filter-form-col-left"]}>
+                                <label>
+                                    <span>Conferma Password</span>
+                                </label>
                             </div>
-                        )}
-                    </div>
+                            <div className={styles["filter-form-col-right"]}>
+                                <input
+                                    type="password"
+                                    name="confirmPassword"
+                                    id="confirmPassword"
+                                    onChange={(e) =>
+                                        setConfirmPassword(e.target.value)
+                                    }
+                                />
+                                {pswConfirmationError && (
+                                    <div className={"form-error"}>
+                                        {pswConfirmationError}
+                                    </div>
+                                )}
+                            </div>
+                            <span
+                                onClick={() => (
+                                    setPasswordInputsBox(false), setPassword("")
+                                )}
+                            >
+                                Annulla
+                            </span>
+                        </>
+                    ) : (
+                        <p onClick={() => setPasswordInputsBox(true)}>
+                            Modifica
+                        </p>
+                    )}
 
                     <div className={styles["filter-form-col-full"]}>
                         <Button
@@ -215,7 +235,7 @@ function Profile() {
                     <h3>ID: {userInfo.id}</h3>
                     <h3>Nome: {userInfo.name}</h3>
                     <h3>Email: {userInfo.email}</h3>
-                    <h3>Foto: {userInfo.profile_pic_url}</h3>
+                    {/* <h3>Foto: {userInfo.profile_pic_url}</h3> */}
                 </section>
             </div>
         </main>
