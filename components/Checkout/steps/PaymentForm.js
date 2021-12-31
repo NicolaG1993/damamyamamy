@@ -4,8 +4,14 @@ import {
     Elements,
     CardElement,
     ElementsConsumer,
+    useStripe,
+    useElements,
+    PaymentElement,
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+const stripePromise = loadStripe(
+    `${process.env.REACT_APP_TEST_MYACCOUNT_STRIPE_PUBLIC_KEY}`
+);
 
 // import { envs } from "../../../../config";
 
@@ -17,18 +23,18 @@ import Review from "./Review";
 import Button from "../../Button/Button";
 import { useSnackbar } from "notistack";
 import Cookies from "js-cookie";
-import { cartClear, savePaymentMethod } from "../../../redux/Cart/cart.actions";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import {
-    payFail,
-    payRequest,
-    paySuccess,
-} from "../../../redux/Checkout/checkout.actions";
+import { cartClear, savePaymentMethod } from "../../../redux/Cart/cart.actions";
+// import {
+//     payFail,
+//     payRequest,
+//     paySuccess,
+// } from "../../../redux/Checkout/checkout.actions";
 import axios from "axios";
 import { getError } from "../../../shared/utils/error";
-
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
+import StripeForm from "../checkoutForms/Stripe";
+import PayPalForm from "../checkoutForms/PayPal";
 
 // const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
@@ -47,6 +53,7 @@ export default function PaymentForm({
     const router = useRouter();
     const dispatch = useDispatch();
     const { closeSnackbar, enqueueSnackbar } = useSnackbar();
+
     const [paymentMethod, setPaymentMethod] = useState("PayPal");
     const [termsAccepted, setTermsAccepted] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -71,30 +78,56 @@ export default function PaymentForm({
         });
     });
 
+    const checkLiveData = async () => {
+        axios
+            .post(
+                `/api/products-live/`,
+                cartItems.map((el) => el.id)
+            )
+            .then(({ data }) =>
+                cartItems.map((el) => {
+                    const product = data.find((it) => el.id === it.id);
+                    if (product.count_in_stock < el.quantity) {
+                        if (product.count_in_stock < 1) {
+                            router.push("/cart");
+                            // mi basta fare il redirect a /cart, che ha giá funzione per aggiornare carrello
+                        } else if (product.count_in_stock > 0) {
+                            router.push("/cart");
+                        }
+                    } else {
+                        return;
+                    }
+                })
+            );
+    };
+
     useEffect(() => {
-        if (cartItems.length === 0) {
-            router.push("/cart");
-        }
         if (!shippingAddress.address) {
             backStep();
         } else {
             setPaymentMethod(Cookies.get("paymentMethod"));
-
-            const loadPayPalScript = async () => {
-                const { data: clientId } = await axios.get(`/api/keys/paypal`, {
-                    headers: { authorization: `Bearer ${userInfo.token}` },
-                });
-
-                paypalDispatch({
-                    type: "resetOptions",
-                    value: { "client-id": clientId, currency: "EUR" },
-                });
-                paypalDispatch({ type: "setLoadingStatus", value: "pending" });
-            };
-            loadPayPalScript();
+            checkLiveData();
         }
+        // else {
+        //     setPaymentMethod(Cookies.get("paymentMethod"));
+
+        //     const loadPayPalScript = async () => {
+        //         const { data: clientId } = await axios.get(`/api/keys/paypal`, {
+        //             headers: { authorization: `Bearer ${userInfo.token}` },
+        //         });
+
+        //         paypalDispatch({
+        //             type: "resetOptions",
+        //             value: { "client-id": clientId, currency: "EUR" },
+        //         });
+        //         paypalDispatch({ type: "setLoadingStatus", value: "pending" });
+        //     };
+        //     loadPayPalScript();
+        // }
         console.log("paymentMethod:", Cookies.get("paymentMethod"));
     }, []);
+
+    useEffect(() => checkLiveData(), [paymentMethod]);
 
     const createOrderDB = async () => {
         try {
@@ -141,6 +174,7 @@ export default function PaymentForm({
     };
 
     // PAYPAL FUNCTIONS
+    /*
     const [{ ispending }, paypalDispatch] = usePayPalScriptReducer();
     console.log("termsAccepted: ", termsAccepted);
     const createOrderPP = (data, actions) => {
@@ -168,8 +202,9 @@ export default function PaymentForm({
 
         createOrderDB().then(async (orderID) => {
             return actions.order.capture().then(async function (details) {
+                console.log("🥶 details:", details);
                 try {
-                    dispatch(payRequest());
+                    // dispatch(payRequest());
                     const { data } = await axios.put(
                         `/api/orders/${orderID}/pay`,
                         details,
@@ -181,12 +216,12 @@ export default function PaymentForm({
                     ); // 🧨 orderId viene da db, se ordine é gia stato creato
                     dispatch(cartClear());
                     Cookies.remove("cartItems");
-                    dispatch(paySuccess(data));
+                    // dispatch(paySuccess(data));
                     enqueueSnackbar("Order is paid", { variant: "success" });
                     console.log("🥶 paySuccess", data);
                     nextStep();
                 } catch (err) {
-                    dispatch(payFail(getError(err)));
+                    // dispatch(payFail(getError(err)));
                     enqueueSnackbar(getError(err), { variant: "error" });
                     console.log("🥶 payFail:", getError(err));
                 }
@@ -196,6 +231,7 @@ export default function PaymentForm({
     const onCancel = (err) => {
         enqueueSnackbar(getError(err), { variant: "error" });
     };
+    */
 
     // FORM FUNCTIONS
     const acceptTerms = (e) => {
@@ -220,14 +256,13 @@ export default function PaymentForm({
                 "Accettare termini e condizioni prima di proseguire",
                 { variant: "error" }
             );
-            // alert("Accettare termini e condizioni prima di proseguire");
             return; // ? non mi serve forse
         } else {
             createOrderDB().then(async (orderID) => {
                 console.log("🐸 orderID: ", orderID); // invece di settare state (async) ritorno il valore direttamente da createOrderDB
 
                 try {
-                    dispatch(payRequest());
+                    // dispatch(payRequest());
 
                     const details = {
                         note: "id transazione eseguita su PayPal o Stripe",
@@ -246,7 +281,7 @@ export default function PaymentForm({
                     );
                     dispatch(cartClear());
                     Cookies.remove("cartItems");
-                    dispatch(paySuccess(data));
+                    // dispatch(paySuccess(data));
                     enqueueSnackbar("Order is paid", { variant: "success" });
                     console.log("🥶 paySuccess", data);
                     nextStep();
@@ -258,6 +293,115 @@ export default function PaymentForm({
         }
     };
 
+    // STRIPE FUNCTIONS
+
+    /* 
+    quando seleziono "carta di credito" DOM renderizza stripe UI (da dove la prendo?)
+    dopo che user inserisce i dati, accetta condizioni e conferma si crea l'obj ordine da passare a stripe (non db order)
+    check possibili errori (non so se ci pensa gia stripe forse)
+    se il pagamento avviene con successo allora si torna la response e si crea ordine in db
+    */
+
+    // const StripeForm = () => {
+    //     const stripe = useStripe();
+    //     const elements = useElements();
+    //     return (
+    //         <form onSubmit={(e) => handleStripeSubmit(e, elements, stripe)}>
+    //             <CardElement />
+
+    //             <TermsBox />
+
+    //             <div className={styles["row2"]}>
+    //                 <Button
+    //                     fn={backStep}
+    //                     text="Torna indietro"
+    //                     type="function"
+    //                     style="inverted-btn"
+    //                 />
+    //                 <button
+    //                     className={`${styles["btn"]} ${styles["inverted-btn"]}`}
+    //                     type="submit"
+    //                     disabled={!stripe}
+    //                 >
+    //                     {`Conferma ${total_price} €`}
+    //                 </button>
+    //             </div>
+    //         </form>
+    //     );
+    // };
+
+    //elimina
+    const handleStripeSubmit = async (e, elements, stripe) => {
+        e.preventDefault();
+
+        if (!stripe || !elements) return;
+
+        if (!termsAccepted) {
+            enqueueSnackbar(
+                "Accettare termini e condizioni prima di proseguire",
+                {
+                    variant: "error",
+                }
+            );
+            return; // ? non mi serve forse
+        }
+
+        const cardElement = elements.getElement(CardElement);
+
+        // const { error, paymentMethod } = await stripe.createPaymentMethod({
+        //     type: "card",
+        //     card: cardElement,
+        // });
+
+        const result = await stripe.confirmPayment({
+            //`Elements` instance that was used to create the cardElement
+            elements,
+            confirmParams: {
+                return_url: "https://my-site.com/order/123/complete",
+            },
+        });
+
+        if (error) {
+            console.log("[error]", error);
+        } else {
+            console.log("result: ", result);
+            // Your customer will be redirected to your `return_url`. For some payment
+            // methods like iDEAL, your customer will be redirected to an intermediate
+            // site first to authorize the payment, then redirected to the `return_url`.
+            const orderData = {
+                line_items: cartItems,
+                customer: {
+                    firstname: shippingAddress.firstName,
+                    lastname: shippingAddress.lastName,
+                    email: shippingAddress.email,
+                },
+                shipping: {
+                    name: "Domestico",
+                    street: shippingAddress.address1,
+                    town_city: shippingAddress.city,
+                    county_state: shippingAddress.region,
+                    postal_zip_code: shippingAddress.zip,
+                    country: shippingAddress.country,
+                },
+                fulfillment: { shipping_method: shippingAddress.shipping },
+                payment: {
+                    gateway: "stripe",
+                    stripe: {
+                        payment_method_id: paymentMethod.id,
+                    },
+                },
+            };
+
+            console.log("paymentMethod: ", paymentMethod);
+            console.log("orderData: ", orderData);
+            // onCaptureCheckout(checkoutToken.id, orderData);
+
+            nextStep();
+        }
+    };
+
+    // COMPONENTS
+    //elimina
     const TermsBox = () => (
         <div className={styles["check-terms"]}>
             <input
@@ -302,32 +446,64 @@ export default function PaymentForm({
             </select>
 
             {paymentMethod === "PayPal" && (
-                <div className={styles["paypal-comp"]}>
-                    {/* {paypalError && (
-                        <div>
-                            Uh oh, an error occurred! {paypalError.message}
-                        </div>
-                    )} */}
-                    {/* <TermsBox /> */}
-                    {ispending ? (
-                        <p>Loading paypal...</p>
-                    ) : (
-                        <PayPalButtons
-                            createOrder={createOrderPP}
-                            onApprove={onApprove}
-                            onCancel={onCancel}
-                        ></PayPalButtons>
-                    )}
-                    <Button
-                        fn={backStep}
-                        text="Torna indietro"
-                        type="function"
-                        style="inverted-btn"
-                    />
-                    {loading && <h4>Loading...</h4>}
-                </div>
+                <PayPalForm
+                    styles={styles}
+                    backStep={backStep}
+                    nextStep={nextStep}
+                    createOrderDB={createOrderDB}
+                    userInfo={userInfo}
+                    total_price={total_price}
+                    loading={loading}
+                />
             )}
+
             {paymentMethod === "Carta di credito" && (
+                <Elements stripe={stripePromise}>
+                    <StripeForm
+                        styles={styles}
+                        backStep={backStep}
+                        nextStep={nextStep}
+                        createOrderDB={createOrderDB}
+                        userInfo={userInfo}
+                        total_price={total_price}
+                        cartItems={orderItems}
+                        email={userInfo.email_address}
+                        shipping={undefined}
+                        loading={loading}
+                    />
+
+                    {/* <ElementsConsumer>
+                        {({ elements, stripe }) => (
+                            <form
+                                onSubmit={(e) =>
+                                    handleStripeSubmit(e, elements, stripe)
+                                }
+                            >
+                                <CardElement />
+
+                                <TermsBox />
+
+                                <div className={styles["row2"]}>
+                                    <Button
+                                        fn={backStep}
+                                        text="Torna indietro"
+                                        type="function"
+                                        style="inverted-btn"
+                                    />
+                                    <button
+                                        className={`${styles["btn"]} ${styles["inverted-btn"]}`}
+                                        type="submit"
+                                        disabled={!stripe}
+                                    >
+                                        {`Conferma ${total_price} €`}
+                                    </button>
+                                </div>
+                            </form>
+                        )}
+                    </ElementsConsumer> */}
+                </Elements>
+            )}
+            {/* {paymentMethod === "test" && (
                 <div className={styles["row"]}>
                     <TermsBox />
                     <Button
@@ -344,25 +520,7 @@ export default function PaymentForm({
                     />
                     {loading && <h4>Loading...</h4>}
                 </div>
-            )}
-            {paymentMethod === "test" && (
-                <div className={styles["row"]}>
-                    <TermsBox />
-                    <Button
-                        fn={backStep}
-                        text="Torna indietro"
-                        type="function"
-                        style="inverted-btn"
-                    />
-                    <Button
-                        fn={handleSubmit}
-                        text={`Conferma ${total_price} €`}
-                        type="function"
-                        style="inverted-btn"
-                    />
-                    {loading && <h4>Loading...</h4>}
-                </div>
-            )}
+            )} */}
         </div>
     );
 

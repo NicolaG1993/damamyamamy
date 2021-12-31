@@ -1,6 +1,7 @@
 import { isAuth } from "../../../shared/utils/auth";
 import { newOrder, getLiveProducts } from "../../../shared/utils/db/db";
 
+/*
 async function handler(req, res) {
     console.log("🐸 req.body :", req.body);
     console.log("🐸 req.user.id :", req.user.id);
@@ -47,6 +48,7 @@ async function handler(req, res) {
     // looppo liveProducts e comparo el.quantity e it.count_in_stock, basandomi su el.itemId e it.id
 
     if (!soldOutItems.length) {
+        // 🧨 questa API viene chiamata dopo che ordine é stato pagato! il check stock andrebbe prima del pagamento
         try {
             const data = await newOrder({
                 ...req.body,
@@ -77,6 +79,30 @@ async function handler(req, res) {
     //fare err status 500 , server error
     //ad esempio quando manca payment method o altri required values, oppure errori
     // fare try catch ?
+}
+*/
+
+// questa é la versione senza check live stock
+// visto che quando arriviamo qua il pagamento é giá stato approvato su stripe o paypal
+// almeno admin puo vedere ordine in dashboard e annullarlo, visto che conservo tutta la response dell'ordine in db
+// dovró creare una feature per annullare ordine e ritornare denaro 🧠
+async function handler(req, res) {
+    try {
+        const data = await newOrder({
+            ...req.body,
+            user_id: req.user.id,
+            order_items: JSON.stringify(req.body.order_items),
+        });
+        res.status(201).json(data.rows[0]);
+    } catch (err) {
+        if (err.name === "UnauthorizedError") {
+            // jwt authentication error
+            return res.status(401).json({ message: "Invalid Token" });
+        }
+        // default to 500 server error
+        console.error("🐸 err: ", err);
+        return res.status(500).json({ message: err.message });
+    }
 }
 
 export default isAuth(handler); //middleware

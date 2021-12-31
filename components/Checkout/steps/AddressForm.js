@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import {
     nameValidation,
@@ -8,7 +9,14 @@ import Button from "../../Button/Button";
 
 const countries = ["Italia", "Svizzera", "Austria", "Germania"];
 
-export default function AddressForm({ next, shippingAddress, styles }) {
+export default function AddressForm({
+    next,
+    shippingAddress,
+    cartItems,
+    styles,
+}) {
+    const router = useRouter();
+
     const [fullName, setFullName] = useState("");
     const [address, setAddress] = useState("");
     const [city, setCity] = useState("");
@@ -17,6 +25,9 @@ export default function AddressForm({ next, shippingAddress, styles }) {
     const [errors, setErrors] = useState({});
 
     useEffect(() => {
+        if (cartItems.length === 0) {
+            router.push("/cart");
+        }
         console.log("shippingAddress", shippingAddress);
         if (shippingAddress && Object.keys(shippingAddress).length) {
             setFullName(shippingAddress.fullName);

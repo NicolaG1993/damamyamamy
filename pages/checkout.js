@@ -77,6 +77,7 @@ export default function Checkout() {
             <AddressForm
                 next={next}
                 shippingAddress={shippingAddress}
+                cartItems={cartItems}
                 styles={styles}
             />
         ) : (
@@ -94,7 +95,25 @@ export default function Checkout() {
             />
         );
 
-    let Confirmation = () => <div>Confirmation ...</div>;
+    let Confirmation = () => (
+        <div className={styles["confirmation-wrap"]}>
+            <div>
+                <h3>Grazie per il tuo acquisto {userInfo.name}!</h3>
+            </div>
+            <br />
+
+            <Button
+                page="/"
+                text="Torna al sito"
+                type="internal"
+                style="inverted-btn"
+            />
+        </div>
+    );
+
+    // devo mostrare il risultato della transazione
+    //se ok -> Ordine pagato, Grazie ..
+    //se err -> Non é stato possibile completare l'ordine + err.message
 
     return (
         <div id={styles["Checkout"]}>

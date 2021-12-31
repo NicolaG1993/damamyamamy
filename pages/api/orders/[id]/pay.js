@@ -34,12 +34,10 @@ async function handler(req, res) {
 
     if (order) {
         //probabilmete ha piu senso farlo quando creo ordine, e qua modificare solo db dopo pagamento ;)
+        // console.log("🥶 order:", order.rows[0]);
+        // console.log("🥶 req.body:", req.body);
 
-        const paymentResult = {
-            id: req.body.id,
-            status: req.body.status,
-            email_address: req.body.email_address,
-        };
+        const paymentResult = req.body;
         const paidOrder = await updateOrder(id, true, paymentResult);
 
         let allIDs = [];
@@ -51,20 +49,20 @@ async function handler(req, res) {
                 allQuantities.push(el.quantity);
             } else {
                 res.status(500).send({
-                    message: "DB error updating stock",
+                    message: "Errore in DB: update stock",
                     order: paidOrder,
                 });
             } // se questo check se fallisce il pagamento é gia stato effettuato
             // lo sposto prima del pagamento , ma alla fine a user non interessa, quindi torno paidOrder
         });
 
-        console.log("paidOrder", paidOrder);
+        // console.log("paidOrder", paidOrder);
 
         updateStock(allIDs, allQuantities)
             .then((responseStock) => {
-                console.log("stock updated! :", responseStock);
+                // console.log("stock updated! :", responseStock.rows[0]);
                 res.status(200).send({
-                    message: "order paid",
+                    message: "Articoli acquistati!",
                     order: paidOrder,
                 });
             })
@@ -87,7 +85,7 @@ async function handler(req, res) {
 
         // console.log("paidOrder:", paidOrder);
     } else {
-        res.status(404).send({ message: "order not found" });
+        res.status(404).send({ message: "Ordine non trovato" });
     }
 }
 

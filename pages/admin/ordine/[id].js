@@ -119,7 +119,7 @@ function Order({ params }) {
                             <p>{order.payment_method}</p>
                             <p>
                                 Status:{" "}
-                                {order.ispaid
+                                {order.is_paid
                                     ? `pagato il ${formatJSDate(order.paid_at)}`
                                     : `non pagato`}
                             </p>
