@@ -32,13 +32,13 @@ module.exports = {
 
     //per deploy
 
-    webpack(config) {
+    webpack(config, { webpack }) {
         config.module.rules.push({
             test: /\.svg$/,
             use: ["@svgr/webpack"],
         });
         config.plugins.push(
-            new options.webpack.IgnorePlugin({ resourceRegExp: /^pg-native$/ })
+            new webpack.IgnorePlugin({ resourceRegExp: /^pg-native$/ })
         );
 
         // config.plugins.push(
