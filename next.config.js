@@ -30,6 +30,8 @@ module.exports = {
         DATABASE_URL: process.env.DATABASE_URL,
     },
 
+    new webpack.IgnorePlugin({ resourceRegExp: /^pg-native$/}),
+
     //per deploy
 
     webpack(config) {
@@ -38,7 +40,7 @@ module.exports = {
             use: ["@svgr/webpack"],
         });
         config.plugins.push(
-            new this.webpack.IgnorePlugin({ resourceRegExp: /^pg-native$/ })
+            new options.webpack.IgnorePlugin({ resourceRegExp: /^pg-native$/ })
         );
 
         // config.plugins.push(
