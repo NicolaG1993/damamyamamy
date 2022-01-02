@@ -1,4 +1,4 @@
-const { Client } = require("pg");
+const { Client } = require("pg").native;
 const connectionString = process.env.DATABASE_URL;
 // const connectionString =
 //     process && process.env.NODE_ENV === "development"
