@@ -37,6 +37,10 @@ module.exports = {
             test: /\.svg$/,
             use: ["@svgr/webpack"],
         });
+        config.plugins.push(
+            new this.webpack.IgnorePlugin({ resourceRegExp: /^pg-native$/ })
+        );
+
         // config.plugins.push(
         //     new Dotenv({ path: path.join(__dirname, ".env"), systemvars: true })
         // );
