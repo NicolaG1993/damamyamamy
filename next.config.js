@@ -30,8 +30,6 @@ module.exports = {
         DATABASE_URL: process.env.DATABASE_URL,
     },
 
-    new webpack.IgnorePlugin({ resourceRegExp: /^pg-native$/}),
-
     //per deploy
 
     webpack(config) {
