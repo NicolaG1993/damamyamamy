@@ -70,3 +70,7 @@ CREATE TABLE orders(
 -- sudo service postgresql start
 -- createdb damamyamamy
 -- psql -d damamyamamy -f shared/utils/db/setup.sql
+
+-- nick Precipizio69 db-damamyamamy
+-- psql postgresql://nick:Precipizio69@db-damamyamamy.clybwugninmk.eu-south-1.rds.amazonaws.com:5432/db-damamyamamy 🧨
+-- psql postgresql://nick:Precipizio69@db-damamyamamy.clybwugninmk.eu-south-1.rds.amazonaws.com:5432/postgres

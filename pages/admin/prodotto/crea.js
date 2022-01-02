@@ -432,7 +432,7 @@ export default function AdminNewItem() {
                             type="number"
                             name="price"
                             id="Price"
-                            value={0}
+                            defaultValue={0}
                             onChange={(e) =>
                                 setProduct({
                                     ...product,
@@ -456,7 +456,7 @@ export default function AdminNewItem() {
                             type="number"
                             name="stock"
                             id="Stock"
-                            value={1}
+                            defaultValue={1}
                             onChange={(e) =>
                                 setProduct({
                                     ...product,

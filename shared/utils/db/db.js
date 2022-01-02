@@ -1,8 +1,13 @@
 const { Client } = require("pg");
-const connectionString =
-    process.env.DATABASE_URL ||
-    "postgresql://postgres:postgres@localhost:5432/damamyamamy"; // "postgresql://user:secretpassword@database.server.com:3211/mydb";
+const connectionString = process.env.DATABASE_URL;
+// const connectionString =
+//     process && process.env.NODE_ENV === "development"
+//         ? "postgresql://postgres:postgres@localhost:5432/damamyamamy"
+//         : process.env.DATABASE_URL;
+
+// "postgresql://user:secretpassword@database.server.com:3211/mydb";
 //usiamo il db local in dev, ma per deploy ne dobbiamo usare uno hostato (su heroku probabilmente)
+//IMPORTANTE: aggiungere secret key su AWS x DATABASE_URL
 
 const db = new Client({
     connectionString,

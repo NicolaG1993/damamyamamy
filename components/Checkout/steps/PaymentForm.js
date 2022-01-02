@@ -9,9 +9,7 @@ import {
     PaymentElement,
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-const stripePromise = loadStripe(
-    `${process.env.REACT_APP_TEST_MYACCOUNT_STRIPE_PUBLIC_KEY}`
-);
+const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_PUBLIC_KEY}`);
 
 // import { envs } from "../../../../config";
 

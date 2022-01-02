@@ -270,10 +270,12 @@ export default function Item({ product }) {
                             <div
                                 className={styles["dangerHTML-box"]}
                                 dangerouslySetInnerHTML={{
-                                    __html: product.description.replace(
-                                        /\u00a0/g,
-                                        " "
-                                    ),
+                                    __html:
+                                        product.description &&
+                                        product.description.replace(
+                                            /\u00a0/g,
+                                            " "
+                                        ),
                                 }}
                             ></div>
                         ) : product.infos ? (

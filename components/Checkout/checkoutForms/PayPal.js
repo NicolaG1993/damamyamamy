@@ -28,7 +28,7 @@ export default function PayPalForm({
         const loadPayPalScript = async () => {
             const { data: clientId } = await axios.get(`/api/keys/paypal`, {
                 headers: { authorization: `Bearer ${userInfo.token}` },
-            });
+            }); //forse dotenv mi evita questo passaggio
 
             paypalDispatch({
                 type: "resetOptions",

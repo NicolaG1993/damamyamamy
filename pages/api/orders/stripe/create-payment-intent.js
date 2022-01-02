@@ -1,6 +1,4 @@
-const stripe = require("stripe")(
-    process.env.REACT_APP_TEST_MYACCOUNT_STRIPE_SECRET_KEY
-);
+const stripe = require("stripe")(process.env.REACT_APP_STRIPE_SECRET_KEY);
 
 const calculateOrderAmount = (items) => {
     console.log("items: ", items);

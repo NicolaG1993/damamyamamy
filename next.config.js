@@ -20,14 +20,14 @@ module.exports = {
     },
 
     env: {
-        // REACT_APP_CHEC_PUBLIC_KEY: process.env.REACT_APP_CHEC_PUBLIC_KEY,
         REACT_APP_STRIPE_PUBLIC_KEY: process.env.REACT_APP_STRIPE_PUBLIC_KEY,
         REACT_APP_STRIPE_SECRET_KEY: process.env.REACT_APP_STRIPE_SECRET_KEY,
         REACT_APP_PAYPAL_CLIENT_ID: process.env.REACT_APP_PAYPAL_CLIENT_ID,
-        secretCookie: process.env.secretCookie,
         REACT_AWS_KEY: process.env.REACT_AWS_KEY,
         REACT_AWS_SECRET: process.env.REACT_AWS_SECRET,
+        secretCookie: process.env.secretCookie,
         ADMIN_SECRET: process.env.ADMIN_SECRET,
+        DATABASE_URL: process.env.DATABASE_URL,
     },
 
     //per deploy
