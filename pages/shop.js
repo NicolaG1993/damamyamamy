@@ -92,7 +92,8 @@ export default function Shop({ products, categories }) {
 }
 
 export async function getServerSideProps() {
-    const { data } = await axios.get("http://localhost:3000/api/products");
+    // const { data } = await axios.get("http://localhost:3000/api/products");
+    const { data } = await axios.get("http://damamyamamy/api/products");
     //getServerSideProps runs on build time, it does not receive data that’s only available during request time, such as query parameters or HTTP headers as it generates static HTML
     //per il deploy dovró renderlo dinamico in base al host dell'API, localhost funziona solo local
     // console.log("data 👓", data);
