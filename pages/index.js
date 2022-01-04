@@ -124,7 +124,7 @@ export default function Home({ catNewItems, cat1, cat2 }) {
     );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
     const { data } = await axios.get(
         `http://localhost:3000/api/home-categories`
     );
