@@ -129,7 +129,7 @@ export async function getServerSideProps() {
     //     `http://localhost:3000/api/home-categories`
     // );
     const { data } = await axios.get(
-        `http://damamyamamy.com/api/home-categories`
+        `https://damamyamamy.com/api/home-categories`
     );
     return {
         props: {

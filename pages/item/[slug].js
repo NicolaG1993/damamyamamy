@@ -342,9 +342,12 @@ export async function getServerSideProps(context) {
     const { slug } = params;
     console.log("slug: ", slug);
 
+    // const { data } = await axios.get(
+    //     `http://localhost:3000/api/product/${slug}`
+    // ); //solo per local
     const { data } = await axios.get(
-        `http://localhost:3000/api/product/${slug}`
-    ); //solo per local
+        `https://damamyamamy.com/api/product/${slug}`
+    );
     console.log("data: ", data);
     return {
         props: { product: data },

@@ -143,7 +143,7 @@ DICEMBRE 2021
 
 26/12/21:
 • aggiornare isAuth utils con isAdmin 👍
-• prevent hickJacking in inputs 🧠
+• prevent hickJacking in inputs
 • testare pagamenti non in sb mode 🧨
 
 27/12/21:
@@ -154,7 +154,7 @@ DICEMBRE 2021
 28/12/21
 • rimuovere tutti console.log() 
 • host db online e cambia link in components e funzioni che lo utilizzano 👍 (Amazon RDS)
-// Home, Shop
+// Home, Shop, item/slug, 
 • deploy su AWS 🧠
 • testare che tutte le key siano corrette, nascoste e che sito sia sicuro 👍
 • users non hanno modo di accedere a admin routes (server e client), keys, etc... (tipo fare richieste a db come user table)
