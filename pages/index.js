@@ -124,14 +124,14 @@ export default function Home({ catNewItems, cat1, cat2 }) {
     );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps(context) {
     // const { data } = await axios.get(
     //     `http://localhost:3000/api/home-categories`
     // );
-    const { data } = await axios.get(`/api/home-categories`);
-    // const { data } = await axios.get(
-    //     `https://damamyamamy.com/api/home-categories`
-    // );
+    // const { data } = await axios.get(`/api/home-categories`);
+    const { data } = await axios.get(
+        `https://damamyamamy.com/api/home-categories`
+    );
 
     return {
         props: {
@@ -141,3 +141,4 @@ export async function getStaticProps() {
         },
     };
 }
+// getStaticProps // getServerSideProps
