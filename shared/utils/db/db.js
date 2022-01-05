@@ -1,5 +1,7 @@
 const { Client } = require("pg");
-const connectionString = process.env.DATABASE_URL;
+// const connectionString = process.env.DATABASE_URL;
+const connectionString =
+    "postgres://mxftavodinpqwc:d10f85b63f24055b035ce73da60c90dacbd445bfd80ed2e1cc032c1515202b2d@ec2-54-76-249-45.eu-west-1.compute.amazonaws.com:5432/d2m448pfidotdr";
 // const connectionString =
 //     process && process.env.NODE_ENV === "development"
 //         ? "postgresql://postgres:postgres@localhost:5432/damamyamamy"
