@@ -35,7 +35,6 @@ import styles from "../components/Home/style/Home.module.css";
 import useScrollPosition from "../shared/utils/useScrollPosition";
 import useWindowDimensions from "../shared/utils/useWindowDimensions";
 import axios from "axios";
-import { getCategory, getCatNewItems } from "../shared/utils/db/db";
 
 export default function Home({ catNewItems, cat1, cat2 }) {
     //redux
@@ -125,14 +124,14 @@ export default function Home({ catNewItems, cat1, cat2 }) {
     );
 }
 
-export async function getServerSideProps(context) {
-    // const { data } = await axios.get(
-    //     `http://localhost:3000/api/home-categories`
-    // );
-    // const { data } = await axios.get(`/api/home-categories`);
+export async function getStaticProps(context) {
     const { data } = await axios.get(
-        `https://damamyamamy.com/api/home-categories`
+        `http://localhost:3000/api/home-categories`
     );
+    // const { data } = await axios.get(`/api/home-categories`);
+    // const { data } = await axios.get(
+    //     `https://damamyamamy.com/api/home-categories`
+    // );
 
     return {
         props: {
@@ -141,15 +140,4 @@ export async function getServerSideProps(context) {
             cat2: data.cat2,
         },
     };
-    // const responseA = await getCatNewItems();
-    // const responseB = await getCategory("Abbigliamento");
-    // const responseC = await getCategory("Giocattoli");
-
-    // return {
-    //     props: {
-    //         catNewItems: responseA.rows,
-    //         cat1: responseB.rows,
-    //         cat2: responseC.rows,
-    //     },
-    // };
 }
