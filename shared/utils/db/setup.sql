@@ -9,7 +9,7 @@ CREATE TABLE products(
     categories TEXT [],
     tags TEXT [],
     images JSONB,
-    price INT,
+    price DECIMAL(12,2),
     brand VARCHAR,
     count_in_stock INT,
     description VARCHAR(255),
@@ -50,7 +50,7 @@ VALUES ('Nicola Gaioni', 'a@a.a', '$2a$10$YmU3q9VIaVLClGdd/1RP7ODIENztcUdp6IYAPb
 
 CREATE TABLE orders(
     order_id SERIAL PRIMARY KEY,
-    user_id INT NOT NULL,
+    user_id INT NOT NULL REFERENCES users(id),
     order_items JSONB NOT NULL,
     shipping_address JSON NOT NULL,
     payment_method VARCHAR NOT NULL,

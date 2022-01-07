@@ -49,6 +49,7 @@ REACT_APP_STRIPE_PUBLIC_KEY=pk_test_51IeyVQDhvZh2Tfco8sQW90qdWGh1gHcrFppkEoGKQ74
 REACT_APP_STRIPE_SECRET_KEY=sk_test_51IeyVQDhvZh2TfcouuLyqejSCCNl9Xqi4iPhMlqyEj4CSii5STpDOqiLB4EpGYVYZBcpboGZLX5auTklXRnLVUun00Cmj2j2uX
 REACT_APP_PAYPAL_CLIENT_ID=AZVz756sSn0AylZvDKjKGJnhJMGIw3JLV5crP_6igMFZhIOH00ReyNl4bo8GSKT7P0NkK5GEZUgULuin
 DATABASE_URL=postgresql://postgres:postgres@localhost:5432/damamyamamy
+DATABASE_URL=postgres://zewnlznpptfkmu:cc9c1136eb72f98d2a2574dbc65c1adb8d0194d57c8dbd0ccc7175c08eb183a2@ec2-54-220-243-77.eu-west-1.compute.amazonaws.com:5432/d6ko5ff1gruu6q
 
 
 prod / my account:
@@ -170,3 +171,8 @@ DICEMBRE 2021
 nick Precipizio69
 psql postgresql://nick:Precipizio69@db-damamyamamy.clybwugninmk.eu-south-1.rds.amazonaws.com:5432/postgres
 
+06/01/22:
+• fare db schema per prisma 👍
+• collegare nuovo db su heroku con prisma
+• fare deploy in production mode
+• se non funziona cambiare approccio

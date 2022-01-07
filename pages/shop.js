@@ -13,6 +13,7 @@ import {
 } from "../redux/ShopData/shopData.actions";
 // import { fetchCart } from "../redux/Cart/cart.actions";
 import axios from "axios";
+import prisma from "../shared/libs/prisma";
 
 const loadData = (state) => state.shopData.data; // a noi data non interessa qua
 const getCategories = (state) => state.shopData.categories;
