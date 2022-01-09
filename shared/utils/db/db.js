@@ -9,8 +9,10 @@ const connectionString = process.env.DATABASE_URL;
 //usiamo il db local in dev, ma per deploy ne dobbiamo usare uno hostato (su heroku probabilmente)
 //IMPORTANTE: aggiungere secret key su AWS x DATABASE_URL
 
+// console.log("__dirname", __dirname);
 const db = new Client({
     connectionString,
+    ssl: { rejectUnauthorized: false },
 });
 db.connect(); // db.end(); o db.disconnect(); // idk quando e se devo usarli
 
