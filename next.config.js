@@ -30,6 +30,10 @@ module.exports = {
         DATABASE_URL: process.env.DATABASE_URL,
     },
 
+    externals: {
+        _http_common: "commonjs2 _http_common",
+    },
+
     //per deploy
 
     webpack(config, { webpack }) {
