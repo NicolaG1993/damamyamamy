@@ -24,7 +24,7 @@ export default function ItemCard({ product }) {
                     <div className={styles["product-img"]}>
                         <Image
                             src={
-                                product.images[0]
+                                product.images && product.images[0]
                                     ? product.images[0].location
                                     : "/pics/Logo.jpg"
                             }

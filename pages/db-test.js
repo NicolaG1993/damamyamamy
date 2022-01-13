@@ -6,8 +6,10 @@ import axios from "axios";
 import prisma from "../shared/libs/prisma";
 import { formatJSDate } from "../shared/utils/convertTimestamp";
 
-export default function DbTest({ products }) {
-    console.log("products", products);
+export default function DbTest({ catNewItems, cat1, cat2 }) {
+    console.log("catNewItems", catNewItems);
+    console.log("cat1", cat1);
+    console.log("cat2", cat2);
 
     return (
         <div>
@@ -17,20 +19,50 @@ export default function DbTest({ products }) {
 }
 
 export async function getServerSideProps() {
-    let feed = await prisma.products.findMany();
+    let feedNew = await prisma.products.findMany({
+        where: { count_in_stock: { gt: 0 } },
+        orderBy: {
+            created_at: "asc",
+        },
+        take: 20,
+    });
+    let feedA = await prisma.products.findMany({
+        where: {
+            count_in_stock: { gt: 0 },
+            categories: {
+                has: "Abbigliamento",
+            },
+        },
+        orderBy: {
+            created_at: "asc",
+        },
+        take: 20,
+    });
+    let feedB = await prisma.products.findMany({
+        where: {
+            count_in_stock: { gt: 0 },
+            categories: {
+                has: "Giocattoli",
+            },
+        },
+        orderBy: {
+            created_at: "asc",
+        },
+        take: 20,
+    });
 
-    feed.map((el) => {
-        el.price = Number(el.price);
-        el.created_at = formatJSDate(el.created_at);
-        return el;
-    }); //not serializible data
-    console.log("feed", feed);
+    const validateFeeds = (arr) =>
+        arr.map((el) => {
+            el.price = Number(el.price);
+            el.created_at = formatJSDate(el.created_at);
+            return el;
+        });
 
-    return { props: { products: feed } };
-
-    // const { data } = await axios.get("http://localhost:3000/api/products");
-
-    // return {
-    //     props: { products: data.products, categories: data.categories },
-    // };
+    return {
+        props: {
+            catNewItems: validateFeeds(feedNew),
+            cat1: validateFeeds(feedA),
+            cat2: validateFeeds(feedB),
+        },
+    };
 }

@@ -21,6 +21,8 @@ async function handlerA(req, res) {
 } 
 */
 
+/*
+POSTGRESQL VERSION
 import { isAuth } from "../../../../shared/utils/auth";
 import {
     getOrder,
@@ -90,3 +92,86 @@ async function handler(req, res) {
 }
 
 export default isAuth(handler); //middleware
+
+*/
+
+import prisma from "../../../../shared/libs/prisma";
+import { isAuth } from "../../../../shared/utils/auth";
+
+async function handler(req, res) {
+    const id = Number(req.query.id);
+
+    try {
+        let order = await prisma.orders.findUnique({
+            where: {
+                order_id: id,
+            },
+        });
+        let user = await prisma.users.findUnique({
+            where: {
+                id: order.user_id,
+            },
+        });
+
+        if (order) {
+            const paymentResult = req.body;
+
+            const paidOrder = await prisma.orders.update({
+                where: {
+                    order_id: id,
+                },
+                data: {
+                    is_paid: true,
+                    paid_at: new Date().toISOString(),
+                    payment_result: paymentResult,
+                },
+            });
+
+            let dbData = [];
+            console.log("paidOrder: ", paidOrder);
+            paidOrder.order_items.map((el) => {
+                if (el.itemId && el.quantity) {
+                    dbData.push({ id: el.itemId, quantity: el.quantity });
+                } else {
+                    res.status(500).send({
+                        message: "Errore in DB: update stock",
+                        order: paidOrder,
+                    });
+                }
+            });
+
+            //testare
+            prisma
+                .$transaction(
+                    dbData.map((el) =>
+                        prisma.products.update({
+                            where: { id: el.id },
+                            data: {
+                                count_in_stock: { decrement: el.quantity },
+                            },
+                        })
+                    )
+                )
+                .then((responseStock) => {
+                    res.status(200).send({
+                        message: "Articoli acquistati!",
+                        order: paidOrder,
+                    });
+                })
+                .catch((err) => {
+                    console.log("err", err);
+                    res.status(500).send({
+                        message: err.message,
+                        order: paidOrder,
+                    });
+                });
+        } else {
+            res.status(404).send({ message: "Ordine non trovato" });
+        }
+    } catch (err) {
+        console.log("ERROR!", err);
+        return res.status(500).json({ message: err.message });
+    }
+}
+
+export default isAuth(handler);

@@ -22,6 +22,8 @@ const Gallery = dynamic(
 
 // import { fetchItem } from "../api/api";
 import axios from "axios";
+import prisma from "../../shared/libs/prisma";
+import { formatJSDate } from "../../shared/utils/convertTimestamp";
 
 ///////////////////////////////////////////
 /*
@@ -98,11 +100,13 @@ export default function Item({ product }) {
                 <div className={styles["item-pictures-small-wrap"]}>
                     {product.images.map((el, i) => (
                         <Image
-                            key={el}
-                            alt={product.name}
+                            key={el.key}
+                            alt={el.key}
                             src={el.location}
                             onClick={() => toggleGallery(i, true)}
-                            layout="fill"
+                            layout="responsive"
+                            width="50px"
+                            height="50px"
                             objectFit="cover"
                         />
                     ))}
@@ -111,7 +115,11 @@ export default function Item({ product }) {
         ) : (
             <div>
                 <Image
-                    src={product.images[0].location || "/pics/Logo.jpg"}
+                    src={
+                        product.images.length
+                            ? product.images[0].location
+                            : "/pics/Logo.jpg"
+                    }
                     alt={product.name}
                     onClick={() => toggleGallery(0, true)}
                     layout="fill"
@@ -227,7 +235,9 @@ export default function Item({ product }) {
                             )}
                         </div>
                     </div>
-                    <CartButton wrapSize="large" product={product} />
+                    {product.count_in_stock > 0 && (
+                        <CartButton wrapSize="large" product={product} />
+                    )}
                 </div>
             </div>
         </div>
@@ -340,6 +350,27 @@ export default function Item({ product }) {
 export async function getServerSideProps(context) {
     const { params } = context;
     const { slug } = params;
+
+    let feed = await prisma.products.findUnique({
+        where: { slug: slug },
+    });
+
+    const validateFeed = (obj) => ({
+        ...obj,
+        price: Number(obj.price),
+        created_at: formatJSDate(obj.created_at),
+    });
+
+    return {
+        props: { product: validateFeed(feed) },
+    };
+}
+
+/*
+POSTGRESQL VERSION
+export async function getServerSideProps(context) {
+    const { params } = context;
+    const { slug } = params;
     console.log("slug: ", slug);
 
     // const { data } = await axios.get(
@@ -353,3 +384,4 @@ export async function getServerSideProps(context) {
         props: { product: data },
     };
 }
+*/

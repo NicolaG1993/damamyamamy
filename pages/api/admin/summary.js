@@ -1,3 +1,5 @@
+/*
+POSTGRESQL VERSION
 import { isAdmin, isAuth } from "../../../shared/utils/auth";
 import {
     allPaidOrdersPreview,
@@ -49,6 +51,51 @@ async function handler(req, res) {
         ordersPrice,
         salesData,
     });
+}
+
+export default isAuth(isAdmin(handler));
+*/
+
+import prisma from "../../../shared/libs/prisma";
+import { isAdmin, isAuth } from "../../../shared/utils/auth";
+
+async function handler(req, res) {
+    try {
+        const ordersCount = await prisma.orders.count();
+        const productsCount = await prisma.products.count();
+        const usersCount = await prisma.users.count();
+
+        let paidOrders = await prisma.orders.findMany({
+            where: { is_paid: true },
+        });
+        let ordersPrice = 0;
+        paidOrders.map((order) => (ordersPrice += Number(order.total_price))); // somma di tutti gli ordini pagati
+
+        let salesData = {};
+        paidOrders.forEach((order) => {
+            const date = order.created_at.toISOString().split("T")[0];
+            if (salesData[date]) {
+                salesData[date].total += Number(order.total_price);
+                salesData[date].orders++;
+            } else {
+                salesData[date] = {
+                    total: Number(order.total_price),
+                    orders: 1,
+                };
+            }
+        }); // { '2021-12-13': { total: 562.5, orders: 3 }}
+
+        res.send({
+            ordersCount: Number(ordersCount),
+            productsCount: Number(productsCount),
+            usersCount: Number(usersCount),
+            ordersPrice,
+            salesData,
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(403).json({ err: "Error occured." });
+    }
 }
 
 export default isAuth(isAdmin(handler));

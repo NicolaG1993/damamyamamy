@@ -29,9 +29,24 @@
 }
 .gallery-focus-wrap {
     height: 100%;
+    width: 100%;
 }
 .gallery-pics-wrap {
     column-gap: 15px;
+    /* position: relative; */
+    width: 100%;
+}
+
+.gallery-focus-wrap > div {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.gallery-pics-wrap > div {
+    position: relative;
+    height: 90px;
+    width: 90px;
+    cursor: pointer;
 }
 
 .gallery-focus-wrap > div > img {
@@ -39,8 +54,6 @@
     max-width: 100vw;
 }
 .gallery-pics-wrap > div > img {
-    height: 90px;
-    width: 90px;
     cursor: pointer;
 }
 .gallery-pics-wrap > div > img:hover {

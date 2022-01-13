@@ -20,6 +20,7 @@ import {
     revokeObjectURL,
 } from "../../../shared/utils/useLocalImages";
 import {
+    decimalValidation,
     nameValidation,
     numberValidation,
     slugValidation,
@@ -147,7 +148,7 @@ export default function AdminNewItem() {
             });
         }
         if (id === "Price") {
-            const resp = numberValidation("Prezzo", value);
+            const resp = decimalValidation("Prezzo", value);
             if (resp) {
                 setErrors({ ...errors, [name]: resp });
             } else {
@@ -433,10 +434,13 @@ export default function AdminNewItem() {
                             name="price"
                             id="Price"
                             defaultValue={0}
+                            step="0.01"
                             onChange={(e) =>
                                 setProduct({
                                     ...product,
-                                    price: Number(e.target.value),
+                                    price: Number(
+                                        parseFloat(e.target.value).toFixed(2)
+                                    ),
                                 })
                             }
                             onBlur={(e) => handleBlur(e)}

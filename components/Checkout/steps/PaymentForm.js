@@ -57,12 +57,24 @@ export default function PaymentForm({
     const [loading, setLoading] = useState(false);
 
     const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100; // 123.456 => 123.46
+    //SISTEMARE A DOVERE (IVA, tasse, spedizione)
+    /*
     const items_price = round2(
         cartItems.reduce((a, c) => a + c.price * c.quantity, 0)
     );
     const shipping_price = items_price > 200 ? 0 : 15;
     const tax_price = round2(items_price * 0.15);
     const total_price = round2(items_price + shipping_price + tax_price);
+    */
+
+    // X TEST
+    const items_price = round2(
+        cartItems.reduce((a, c) => a + c.price * c.quantity, 0)
+    );
+    const shipping_price = 0;
+    const tax_price = 0;
+    const total_price = round2(items_price + shipping_price + tax_price);
+    ///////
 
     let orderItems = [];
     cartItems.map((el) => {
@@ -137,7 +149,7 @@ export default function PaymentForm({
                     order_items: orderItems,
                     shipping_address: shippingAddress,
                     payment_method: paymentMethod,
-                    payment_result: null,
+                    payment_result: undefined,
                     items_price,
                     shipping_price,
                     tax_price,
@@ -146,6 +158,7 @@ export default function PaymentForm({
                 { headers: { authorization: `Bearer ${userInfo.token}` } }
             );
             setLoading(false);
+            console.log("🥶 data:", data);
             console.log("🥶 data.order_id:", data.order_id);
             return data.order_id;
         } catch (err) {

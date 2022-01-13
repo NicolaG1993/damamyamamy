@@ -1,6 +1,6 @@
 import S3 from "../../../shared/libs/s3";
 import { isAdmin, isAuth } from "../../../shared/utils/auth";
-import { deleteProductImages } from "../../../shared/utils/db/db";
+// import { deleteProductImages } from "../../../shared/utils/db/db";
 
 async function handler(req, res) {
     console.log("😋😭 req.body:", req.body);

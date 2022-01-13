@@ -60,7 +60,7 @@ function Order({ params }) {
                     headers: { authorization: `Bearer ${userInfo.token}` },
                 });
                 console.log("data:", data);
-                setOrder(data.rows[0]);
+                setOrder(data);
             } catch (err) {
                 setError(getError(err));
                 enqueueSnackbar(getError(err), { variant: "error" });

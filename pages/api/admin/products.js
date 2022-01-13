@@ -1,3 +1,5 @@
+/*
+POSTGRESQL VERSION
 import { isAuth, isAdmin } from "../../../shared/utils/auth";
 import {
     allProducts,
@@ -24,3 +26,33 @@ async function handler(req, res) {
 export default isAuth(isAdmin(handler));
 
 // import nc from "next-connect";
+*/
+
+import prisma from "../../../shared/libs/prisma";
+import { isAuth, isAdmin } from "../../../shared/utils/auth";
+
+async function handler(req, res) {
+    try {
+        if (req.headers.all === "true") {
+            const products = await prisma.products.findMany();
+            res.json(products);
+        } else {
+            if (req.headers.stock === "true") {
+                const products = await prisma.products.findMany({
+                    where: { count_in_stock: { gt: 0 } },
+                });
+                res.json(products);
+            } else {
+                const products = await prisma.products.findMany({
+                    where: { count_in_stock: 0 },
+                });
+                res.json(products);
+            }
+        }
+    } catch (err) {
+        console.log(err);
+        res.status(403).json({ err: "Error occured." });
+    }
+}
+
+export default isAuth(isAdmin(handler));

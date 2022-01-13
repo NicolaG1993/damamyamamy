@@ -90,12 +90,12 @@ export default function Shortlist({ products, listTitle }) {
                     <div className={styles["products-small"]}>
                         {products
                             .slice(sliceStart, sliceStart + step)
-                            .map((product) => (
+                            .map((product, i) => (
                                 <div
                                     className={`${"fade-selector"} ${
                                         styles["product-box"]
                                     }`}
-                                    key={product.id}
+                                    key={i}
                                 >
                                     <ItemCard
                                         product={product}

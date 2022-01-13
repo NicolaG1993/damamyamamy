@@ -30,7 +30,7 @@ model orders {
 model products {
   id               Int       @id @default(autoincrement())
   name             String    @db.VarChar
-  slug             String    @db.VarChar
+  slug             String    @unique @db.VarChar
   categories       String[]
   tags             String[]
   images           Json?

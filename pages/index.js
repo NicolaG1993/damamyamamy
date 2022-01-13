@@ -3,6 +3,7 @@ import Image from "next/image";
 
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
+import prisma from "../shared/libs/prisma";
 
 // REDUX
 /* import { useDispatch, useSelector, shallowEqual } from "react-redux";
@@ -35,6 +36,7 @@ import styles from "../components/Home/style/Home.module.css";
 import useScrollPosition from "../shared/utils/useScrollPosition";
 import useWindowDimensions from "../shared/utils/useWindowDimensions";
 import axios from "axios";
+import { formatJSDate } from "../shared/utils/convertTimestamp";
 
 export default function Home({ catNewItems, cat1, cat2 }) {
     //redux
@@ -124,6 +126,57 @@ export default function Home({ catNewItems, cat1, cat2 }) {
     );
 }
 
+export async function getServerSideProps() {
+    let feedNew = await prisma.products.findMany({
+        where: { count_in_stock: { gt: 0 } },
+        orderBy: {
+            created_at: "asc",
+        },
+        take: 20,
+    });
+    let feedA = await prisma.products.findMany({
+        where: {
+            count_in_stock: { gt: 0 },
+            categories: {
+                has: "Abbigliamento",
+            },
+        },
+        orderBy: {
+            created_at: "asc",
+        },
+        take: 20,
+    });
+    let feedB = await prisma.products.findMany({
+        where: {
+            count_in_stock: { gt: 0 },
+            categories: {
+                has: "Giocattoli",
+            },
+        },
+        orderBy: {
+            created_at: "asc",
+        },
+        take: 20,
+    });
+
+    const validateFeeds = (arr) =>
+        arr.map((el) => {
+            el.price = Number(el.price);
+            el.created_at = formatJSDate(el.created_at);
+            return el;
+        });
+
+    return {
+        props: {
+            catNewItems: validateFeeds(feedNew),
+            cat1: validateFeeds(feedA),
+            cat2: validateFeeds(feedB),
+        },
+    };
+}
+
+/*
+POSTGRESQL VERSION
 export async function getServerSideProps(context) {
     console.log("__dirname", __dirname);
     const { data } = await axios.get(
@@ -143,3 +196,5 @@ export async function getServerSideProps(context) {
     };
 }
 // getStaticProps // getServerSideProps
+
+*/

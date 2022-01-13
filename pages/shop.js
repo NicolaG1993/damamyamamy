@@ -13,7 +13,8 @@ import {
 } from "../redux/ShopData/shopData.actions";
 // import { fetchCart } from "../redux/Cart/cart.actions";
 import axios from "axios";
-// import prisma from "../shared/libs/prisma";
+import prisma from "../shared/libs/prisma";
+import { formatJSDate } from "../shared/utils/convertTimestamp";
 
 const loadData = (state) => state.shopData.data; // a noi data non interessa qua
 const getCategories = (state) => state.shopData.categories;
@@ -93,6 +94,30 @@ export default function Shop({ products, categories }) {
 }
 
 export async function getServerSideProps() {
+    let feed = await prisma.products.findMany({
+        where: { count_in_stock: { gt: 0 } },
+    });
+
+    let allCategories = [];
+    feed.map((el) => {
+        allCategories = allCategories.concat(el.categories);
+        console.log("el", el);
+    });
+    const uniqueCategories = [...new Set(allCategories)].sort();
+
+    feed.map((el) => {
+        el.price = Number(el.price);
+        el.created_at = formatJSDate(el.created_at);
+        return el;
+    }); //not serializible data
+    console.log("products", feed);
+
+    return { props: { products: feed, categories: uniqueCategories } };
+}
+
+/* 
+POSTGRESQL VERSION
+export async function getServerSideProps() {
     const { data } = await axios.get("http://localhost:3000/api/products");
     // const { data } = await axios.get("https://damamyamamy/api/products");
     //getServerSideProps runs on build time, it does not receive data that’s only available during request time, such as query parameters or HTTP headers as it generates static HTML
@@ -102,6 +127,7 @@ export async function getServerSideProps() {
         props: { products: data.products, categories: data.categories },
     };
 }
+*/
 
 // vogliamo essere sicuri di avere data per shop prima di fare il render dei filters
 // perché alcuni reducer hanno bisogno di data (vedi fetchHighestValue e priceRange)

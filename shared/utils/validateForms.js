@@ -64,6 +64,16 @@ const numberValidation = (fieldName, fieldValue) => {
     return `${fieldName} deve essere un numero`;
 };
 
+const decimalValidation = (fieldName, fieldValue) => {
+    if (fieldValue.trim() === "") {
+        return `Il ${fieldName} è richiesto`;
+    }
+    if (/^\d*(\.\d{0,2})?$/.test(fieldValue)) {
+        return null;
+    }
+    return `${fieldName} deve essere un numero`;
+};
+
 const slugValidation = (fieldName, fieldValue) => {
     if (fieldValue.trim() === "") {
         return `Lo ${fieldName} è richiesto`;
@@ -102,6 +112,7 @@ module.exports = {
     requestedValue,
     textValidation,
     numberValidation,
+    decimalValidation,
     passwordValidation,
     addressValidation,
     slugValidation,

@@ -156,9 +156,9 @@ DICEMBRE 2021
 • rimuovere tutti console.log() 
 • host db online e cambia link in components e funzioni che lo utilizzano 👍 (Amazon RDS)
 // Home, Shop, item/slug, 
-• deploy su AWS 🧠
+• deploy su AWS  🥤
 • testare che tutte le key siano corrette, nascoste e che sito sia sicuro 👍
-• users non hanno modo di accedere a admin routes (server e client), keys, etc... (tipo fare richieste a db come user table)
+• users non hanno modo di accedere a admin routes (server e client), keys, etc... (tipo fare richieste a db come user table) 🥤
 
 30/12/21:
 • controllare stock prima di fare pagamento, non dopo. controllare! 👍
@@ -169,10 +169,20 @@ DICEMBRE 2021
 // dovró informarmi da qualche servizio tipo ups
 
 06/01/22:
-• fare db schema per prisma 👍
-• collegare nuovo db su heroku con prisma
+• cambiare approccio da AWS + postgres e fare db schema per prisma (+vercel +heroku) 👍
+• collegare nuovo db su heroku con prisma 👍
 • fare deploy in production mode
 • se non funziona cambiare approccio
 
 nick Precipizio69
 psql postgresql://nick:Precipizio69@db-damamyamamy.clybwugninmk.eu-south-1.rds.amazonaws.com:5432/postgres
+
+
+🐞 BUGS:
+• add/modify product price -> decimal number not working
+• add/modify product title -> numbers are trowing error
+• reset di db schema per prisma prima di andare in production
+• heroku postgres deve fare plan upgrade (cambia URI ogni tanto, connessioni limitate)
+• formato date fra client e server ("1" prima di ogni anno, formati TIMESTAMP forse non uguali)
+• prezzo tasse
+• prezzo spedizioni

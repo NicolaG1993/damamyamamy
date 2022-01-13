@@ -45,7 +45,7 @@ function AdminUser({ params }) {
                         authorization: `Bearer ${userInfo.token}`,
                     },
                 });
-                setUser(data.rows[0]);
+                setUser(data);
             } catch (err) {
                 setError(getError(err));
                 enqueueSnackbar(getError(err), { variant: "error" });
