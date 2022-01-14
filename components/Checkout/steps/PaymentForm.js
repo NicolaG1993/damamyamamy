@@ -47,6 +47,7 @@ export default function PaymentForm({
     styles,
 }) {
     console.log("shippingAddress: ", shippingAddress);
+    const { shippingOption } = shippingAddress;
 
     const router = useRouter();
     const dispatch = useDispatch();
@@ -71,7 +72,10 @@ export default function PaymentForm({
     const items_price = round2(
         cartItems.reduce((a, c) => a + c.price * c.quantity, 0)
     );
-    const shipping_price = 0;
+    let shipping_price;
+    if (shippingOption === "Ritiro in negozio") {
+        shipping_price = 0;
+    } //aggiungere qua nuovi metodi di spedizione quando disponibili 🧠
     const tax_price = 0;
     const total_price = round2(items_price + shipping_price + tax_price);
     ///////
@@ -140,6 +144,7 @@ export default function PaymentForm({
     useEffect(() => checkLiveData(), [paymentMethod]);
 
     const createOrderDB = async () => {
+        closeSnackbar();
         try {
             setLoading(true);
             const { data } = await axios.post(
@@ -184,255 +189,13 @@ export default function PaymentForm({
         }
     };
 
-    // PAYPAL FUNCTIONS
-    /*
-    const [{ ispending }, paypalDispatch] = usePayPalScriptReducer();
-    console.log("termsAccepted: ", termsAccepted);
-    const createOrderPP = (data, actions) => {
-        closeSnackbar();
-        // console.log("termsAccepted: ", termsAccepted); // per qualche motivo quando in PP non si aggiorna
-
-        return actions.order
-            .create({
-                purchase_units: [{ amount: { value: total_price } }],
-            })
-            .then((orderID) => {
-                console.log("🥶 orderID:", orderID);
-                return orderID;
-            });
-
-        // devo creare order id prima di fare render di paypal
-        // posso creare ordine in db per poi avere un id unico
-        // se peró viene annullato il checkout l'ordine rimane in db non pagato, io invece vorrei creare solo ordini giá pagati in db
-        // anche se in teoria non dovrebbe essere un problema visto che il pagamento non sará disponibile dopo il checkout
-        // quindi: devo creare ordine in db prima di tutto
-        // o forse questo orderID viene da paypal? allora tutto ok
-    };
-    const onApprove = (data, actions) => {
-        console.log("🥶 actions.order:", actions.order);
-
-        createOrderDB().then(async (orderID) => {
-            return actions.order.capture().then(async function (details) {
-                console.log("🥶 details:", details);
-                try {
-                    // dispatch(payRequest());
-                    const { data } = await axios.put(
-                        `/api/orders/${orderID}/pay`,
-                        details,
-                        {
-                            headers: {
-                                authorization: `Bearer ${userInfo.token}`,
-                            },
-                        }
-                    ); // 🧨 orderId viene da db, se ordine é gia stato creato
-                    dispatch(cartClear());
-                    Cookies.remove("cartItems");
-                    // dispatch(paySuccess(data));
-                    enqueueSnackbar("Order is paid", { variant: "success" });
-                    console.log("🥶 paySuccess", data);
-                    nextStep();
-                } catch (err) {
-                    // dispatch(payFail(getError(err)));
-                    enqueueSnackbar(getError(err), { variant: "error" });
-                    console.log("🥶 payFail:", getError(err));
-                }
-            });
-        });
-    };
-    const onCancel = (err) => {
-        enqueueSnackbar(getError(err), { variant: "error" });
-    };
-    */
-
     // FORM FUNCTIONS
-    const acceptTerms = (e) => {
-        // e.preventDefault();
-        e.persist();
-        const checked = e.target.checked;
-
-        checked ? setTermsAccepted(true) : setTermsAccepted(false);
-    };
 
     const handleSelection = (e) => {
         setPaymentMethod(e.target.value); //forse nn mi serve
         dispatch(savePaymentMethod(e.target.value));
         Cookies.set("paymentMethod", e.target.value);
     };
-
-    const handleSubmit = async (e) => {
-        // e.preventDefault(); // per qualche motivo qua non funziona "e"
-        closeSnackbar();
-        if (!termsAccepted) {
-            enqueueSnackbar(
-                "Accettare termini e condizioni prima di proseguire",
-                { variant: "error" }
-            );
-            return; // ? non mi serve forse
-        } else {
-            createOrderDB().then(async (orderID) => {
-                console.log("🐸 orderID: ", orderID); // invece di settare state (async) ritorno il valore direttamente da createOrderDB
-
-                try {
-                    // dispatch(payRequest());
-
-                    const details = {
-                        note: "id transazione eseguita su PayPal o Stripe",
-                        email_address: "sb-kaxfo6042804@business.example.com",
-                        status: "TEST COMPLETED",
-                    };
-
-                    const { data } = await axios.put(
-                        `/api/orders/${orderID}/pay`,
-                        details,
-                        {
-                            headers: {
-                                authorization: `Bearer ${userInfo.token}`,
-                            },
-                        }
-                    );
-                    dispatch(cartClear());
-                    Cookies.remove("cartItems");
-                    // dispatch(paySuccess(data));
-                    enqueueSnackbar("Order is paid", { variant: "success" });
-                    console.log("🥶 paySuccess", data);
-                    nextStep();
-                } catch (err) {
-                    setLoading(false);
-                    enqueueSnackbar(getError(err), { variant: "error" });
-                }
-            });
-        }
-    };
-
-    // STRIPE FUNCTIONS
-
-    /* 
-    quando seleziono "carta di credito" DOM renderizza stripe UI (da dove la prendo?)
-    dopo che user inserisce i dati, accetta condizioni e conferma si crea l'obj ordine da passare a stripe (non db order)
-    check possibili errori (non so se ci pensa gia stripe forse)
-    se il pagamento avviene con successo allora si torna la response e si crea ordine in db
-    */
-
-    // const StripeForm = () => {
-    //     const stripe = useStripe();
-    //     const elements = useElements();
-    //     return (
-    //         <form onSubmit={(e) => handleStripeSubmit(e, elements, stripe)}>
-    //             <CardElement />
-
-    //             <TermsBox />
-
-    //             <div className={styles["row2"]}>
-    //                 <Button
-    //                     fn={backStep}
-    //                     text="Torna indietro"
-    //                     type="function"
-    //                     style="inverted-btn"
-    //                 />
-    //                 <button
-    //                     className={`${styles["btn"]} ${styles["inverted-btn"]}`}
-    //                     type="submit"
-    //                     disabled={!stripe}
-    //                 >
-    //                     {`Conferma ${total_price} €`}
-    //                 </button>
-    //             </div>
-    //         </form>
-    //     );
-    // };
-
-    //elimina
-    const handleStripeSubmit = async (e, elements, stripe) => {
-        e.preventDefault();
-
-        if (!stripe || !elements) return;
-
-        if (!termsAccepted) {
-            enqueueSnackbar(
-                "Accettare termini e condizioni prima di proseguire",
-                {
-                    variant: "error",
-                }
-            );
-            return; // ? non mi serve forse
-        }
-
-        const cardElement = elements.getElement(CardElement);
-
-        // const { error, paymentMethod } = await stripe.createPaymentMethod({
-        //     type: "card",
-        //     card: cardElement,
-        // });
-
-        const result = await stripe.confirmPayment({
-            //`Elements` instance that was used to create the cardElement
-            elements,
-            confirmParams: {
-                return_url: "https://my-site.com/order/123/complete",
-            },
-        });
-
-        if (error) {
-            console.log("[error]", error);
-        } else {
-            console.log("result: ", result);
-            // Your customer will be redirected to your `return_url`. For some payment
-            // methods like iDEAL, your customer will be redirected to an intermediate
-            // site first to authorize the payment, then redirected to the `return_url`.
-            const orderData = {
-                line_items: cartItems,
-                customer: {
-                    firstname: shippingAddress.firstName,
-                    lastname: shippingAddress.lastName,
-                    email: shippingAddress.email,
-                },
-                shipping: {
-                    name: "Domestico",
-                    street: shippingAddress.address1,
-                    town_city: shippingAddress.city,
-                    county_state: shippingAddress.region,
-                    postal_zip_code: shippingAddress.zip,
-                    country: shippingAddress.country,
-                },
-                fulfillment: { shipping_method: shippingAddress.shipping },
-                payment: {
-                    gateway: "stripe",
-                    stripe: {
-                        payment_method_id: paymentMethod.id,
-                    },
-                },
-            };
-
-            console.log("paymentMethod: ", paymentMethod);
-            console.log("orderData: ", orderData);
-            // onCaptureCheckout(checkoutToken.id, orderData);
-
-            nextStep();
-        }
-    };
-
-    // COMPONENTS
-    //elimina
-    const TermsBox = () => (
-        <div className={styles["check-terms"]}>
-            <input
-                type="checkbox"
-                name="accept"
-                onChange={(e) => acceptTerms(e)}
-                checked={termsAccepted}
-            />
-            <label htmlFor="accept">
-                Dichiaro di aver letto{" "}
-                <a
-                    href="/terms-conditions"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Termini e Condizioni
-                </a>
-            </label>
-        </div>
-    );
 
     return (
         <div className={styles["checkout-form-box"]}>
@@ -453,7 +216,7 @@ export default function PaymentForm({
             >
                 <option value="Carta di credito">Carta di credito</option>
                 <option value="PayPal">Paypal</option>
-                <option value="test">Test</option>
+                {/* <option value="test">Test</option> */}
             </select>
 
             {paymentMethod === "PayPal" && (

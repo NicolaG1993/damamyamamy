@@ -35,44 +35,7 @@ il tutto collegato al catalogo del negozio (con dati di venditore e acquirente, 
 
 
 
-⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠
-⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠
-⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠
-⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠
-⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠  CHIAVI ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠
 
-
-dev / my account:
-
-REACT_APP_CHEC_PUBLIC_KEY=pk_test_256064749a77acef81f7f565517eb1be2138151d5380f
-REACT_APP_STRIPE_PUBLIC_KEY=pk_test_51IeyVQDhvZh2Tfco8sQW90qdWGh1gHcrFppkEoGKQ74ISWujDTy2C86oixsRf396tt1DCmz0VOViPUv4eNg2TvCF00f8Cgjd7p
-REACT_APP_STRIPE_SECRET_KEY=sk_test_51IeyVQDhvZh2TfcouuLyqejSCCNl9Xqi4iPhMlqyEj4CSii5STpDOqiLB4EpGYVYZBcpboGZLX5auTklXRnLVUun00Cmj2j2uX
-REACT_APP_PAYPAL_CLIENT_ID=AZVz756sSn0AylZvDKjKGJnhJMGIw3JLV5crP_6igMFZhIOH00ReyNl4bo8GSKT7P0NkK5GEZUgULuin
-DATABASE_URL=postgresql://postgres:postgres@localhost:5432/damamyamamy
-DATABASE_URL=postgres://zewnlznpptfkmu:cc9c1136eb72f98d2a2574dbc65c1adb8d0194d57c8dbd0ccc7175c08eb183a2@ec2-54-220-243-77.eu-west-1.compute.amazonaws.com:5432/d6ko5ff1gruu6q
-
-
-prod / my account:
-
-REACT_AWS_KEY=AKIAVE5U2QGXAR2GZXWV
-REACT_AWS_SECRET=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
-secretCookie=Beautiful Madness
-ADMIN_SECRET=Michelangelo883
-
-
-production / damamyamamy:
-
-REACT_APP_CHEC_PUBLIC_KEY=pk_323925cc3b3dca2c66053cfe071b9a97b7b6ab935b3b6
-REACT_APP_STRIPE_PUBLIC_KEY=pk_live_51JSOhbGsnm0Tyvb25feHTQ3DgZgVZJNHgz40u0Hb0MB86rjL6BscsxnVZQVFfyXcbGkQExfZUezbgUih72aVNHQh00sJbvbTSR
-REACT_APP_STRIPE_SECRET_KEY=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 
-REACT_APP_PAYPAL_CLIENT_ID=AR7hkE6Qe4BiJD6ZYPImyIEnpsxuMLe6PnE13cz49Up6fuMYsa0O3S8HWW4UZOpWkxkxA5RyYd0-qSvM
-DATABASE_URL=postgresql://nick:Precipizio69@db-damamyamamy.clybwugninmk.eu-south-1.rds.amazonaws.com:5432/postgres
-
-
-⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠
-⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠
-⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠
-⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠
 
 
 
@@ -145,7 +108,7 @@ DICEMBRE 2021
 26/12/21:
 • aggiornare isAuth utils con isAdmin 👍
 • prevent hickJacking in inputs
-• testare pagamenti non in sb mode 🧨
+• testare pagamenti non in sb mode 👍
 
 27/12/21:
 • Component profilo utente 👍
@@ -158,7 +121,7 @@ DICEMBRE 2021
 // Home, Shop, item/slug, 
 • deploy su AWS  🥤
 • testare che tutte le key siano corrette, nascoste e che sito sia sicuro 👍
-• users non hanno modo di accedere a admin routes (server e client), keys, etc... (tipo fare richieste a db come user table) 🥤
+• users non hanno modo di accedere a admin routes (server e client), keys, etc... (tipo fare richieste a db come user table)
 
 30/12/21:
 • controllare stock prima di fare pagamento, non dopo. controllare! 👍
@@ -167,12 +130,17 @@ DICEMBRE 2021
 31/12/21
 • fare parte legata a shipping (seleziona metodo in checkout, applica a order, check e aggiorna shipping status[not sended, on the way, delivered, returned])
 // dovró informarmi da qualche servizio tipo ups
+• intanto creare opzione "ritiro in negozio" in checkout 👍
 
 06/01/22:
 • cambiare approccio da AWS + postgres e fare db schema per prisma (+vercel +heroku) 👍
 • collegare nuovo db su heroku con prisma 👍
-• fare deploy in production mode
-• se non funziona cambiare approccio
+• fare deploy in production mode per testare nuovo architecture👍
+
+13/01/22:
+• migrare da AWS a vercel (con domain) 🧠
+• resettare DB su heroku (o creare con nuovo plan?) 🧠
+• sistemare calcolo tasse e costi (sia in api che in stripe component) 👍
 
 nick Precipizio69
 psql postgresql://nick:Precipizio69@db-damamyamamy.clybwugninmk.eu-south-1.rds.amazonaws.com:5432/postgres
@@ -186,3 +154,4 @@ psql postgresql://nick:Precipizio69@db-damamyamamy.clybwugninmk.eu-south-1.rds.a
 • formato date fra client e server ("1" prima di ogni anno, formati TIMESTAMP forse non uguali)
 • prezzo tasse
 • prezzo spedizioni
+• css a volte non funziona come dovuto (Home, Cart)

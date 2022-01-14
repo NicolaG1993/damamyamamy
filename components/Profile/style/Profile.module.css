@@ -1,0 +1,29 @@
+/* ORDINI */
+.user-order-head,
+.user-order-box {
+    display: grid;
+    grid-template-columns: 100px 100px repeat(3, 1fr) 80px;
+    transition: 0.2s ease-in;
+    height: 45px;
+    padding: 10px;
+    margin: 5px 0;
+    align-items: center;
+}
+
+.user-order-box {
+    color: var(--text);
+}
+.user-order-box:hover {
+    background-color: var(--bg200);
+    border: 1px solid var(--bg400);
+}
+.user-order-head h4,
+.user-order-box p {
+    margin: 0;
+}
+.user-order-head > h4:last-child {
+    justify-self: center;
+}
+.user-order-box > a:last-child {
+    justify-self: end;
+}

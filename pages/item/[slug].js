@@ -210,16 +210,18 @@ export default function Item({ product }) {
                                         </Link>
                                     ))}
 
-                                <Link
-                                    href={{
-                                        pathname: "/shop",
-                                        query: { research: product.brand },
-                                    }}
-                                >
-                                    <a className={styles["item-tag"]}>
-                                        {product.brand}
-                                    </a>
-                                </Link>
+                                {product.brand && (
+                                    <Link
+                                        href={{
+                                            pathname: "/shop",
+                                            query: { research: product.brand },
+                                        }}
+                                    >
+                                        <a className={styles["item-tag"]}>
+                                            {product.brand}
+                                        </a>
+                                    </Link>
+                                )}
                             </div>
                         </div>
 

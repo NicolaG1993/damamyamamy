@@ -30,9 +30,10 @@ import prisma from "../../../shared/libs/prisma";
 
 async function handler(req, res) {
     try {
-        const orders = prisma.orders.findMany({
+        const orders = await prisma.orders.findMany({
             where: { user_id: req.user.id },
         });
+        console.log("ORDERS: ", orders);
         res.send(orders);
     } catch (err) {
         if (err.name === "UnauthorizedError") {

@@ -237,6 +237,13 @@ function Profile() {
                     <h3>Email: {userInfo.email}</h3>
                     {/* <h3>Foto: {userInfo.profile_pic_url}</h3> */}
                 </section>
+
+                <Button
+                    page="/ordini"
+                    text="Vedi i tuoi ordini"
+                    type="internal"
+                    style="inverted-btn"
+                />
             </div>
         </main>
     );

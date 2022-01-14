@@ -1,5 +1,6 @@
 const stripe = require("stripe")(process.env.REACT_APP_STRIPE_SECRET_KEY);
 
+/*
 const calculateOrderAmount = (items) => {
     console.log("items: ", items);
     const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100; // 123.456 => 123.46
@@ -16,19 +17,25 @@ const calculateOrderAmount = (items) => {
     console.log("total_price: ", total_price * 100);
     return total_price * 100;
 };
+*/
 
 export default async function handler(req, res) {
-    const { items, email, shipping } = req.body;
-    console.log("req.body: ", req.body);
+    try {
+        const { items, email, shipping, total_price } = req.body;
+        console.log("req.body: ", req.body);
 
-    const paymentIntent = await stripe.paymentIntents.create({
-        amount: calculateOrderAmount(items),
-        currency: "eur",
-        receipt_email: email,
-        shipping: shipping,
-    });
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount: Number(total_price) * 100,
+            // amount: calculateOrderAmount(items),
+            currency: "eur",
+            receipt_email: email,
+            shipping: shipping,
+        });
 
-    res.send({
-        clientSecret: paymentIntent.client_secret,
-    });
+        res.send({
+            clientSecret: paymentIntent.client_secret,
+        });
+    } catch (err) {
+        return res.status(500).json({ message: err.message });
+    }
 }

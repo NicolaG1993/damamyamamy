@@ -14,6 +14,7 @@ import Cookies from "js-cookie";
 import Button from "../../Button/Button";
 import { cartClear, savePaymentMethod } from "../../../redux/Cart/cart.actions";
 import { getError } from "../../../shared/utils/error";
+import { useRouter } from "next/router";
 
 export default function StripeForm({
     styles,
@@ -31,6 +32,7 @@ export default function StripeForm({
     const elements = useElements();
     const dispatch = useDispatch();
     const { closeSnackbar, enqueueSnackbar } = useSnackbar();
+    const router = useRouter();
 
     const [termsAccepted, setTermsAccepted] = useState(false);
 
@@ -43,17 +45,23 @@ export default function StripeForm({
     useEffect(() => {
         console.log("COMPONENT RENDERS!");
         console.log("succeeded: ", succeeded);
-        if (!succeeded) {
+        closeSnackbar();
+        if (!succeeded && total_price > 0) {
             // Create PaymentIntent as soon as the page loads
             axios
                 .post(`/api/orders/stripe/create-payment-intent`, {
                     items: cartItems,
                     email: email,
                     shipping: shipping,
+                    total_price: total_price,
                 })
                 .then(({ data }) => {
                     console.log("data: ", data);
                     setClientSecret(data.clientSecret);
+                })
+                .catch((err) => {
+                    enqueueSnackbar(getError(err), { variant: "error" });
+                    router.push("/cart");
                 });
         }
     }, []); //sembra riattivarsi dopo pagamento ?🧠

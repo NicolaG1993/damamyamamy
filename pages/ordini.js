@@ -5,12 +5,12 @@ import Link from "next/link";
 import { shallowEqual, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
-import styles from "../../components/AdminDashboard/style/AdminDashboard.module.css";
-import { formatDateShort } from "../../shared/utils/convertTimestamp";
+import styles from "../components/Profile/style/Profile.module.css";
+import { formatDateShort } from "../shared/utils/convertTimestamp";
 
 const loggedUser = (state) => state.user.userInfo;
 
-function AdminAllOrders() {
+function UserAllOrders() {
     let userInfo = useSelector(loggedUser, shallowEqual);
     const router = useRouter();
     const [allOrders, setAllOrders] = useState([]);
@@ -29,7 +29,7 @@ function AdminAllOrders() {
         }
         const fetchData = async () => {
             try {
-                const { data } = await axios.get(`/api/admin/orders`, {
+                const { data } = await axios.get(`/api/orders/history`, {
                     headers: { authorization: `Bearer ${userInfo.token}` },
                 });
                 setAllOrders(data);
@@ -124,12 +124,11 @@ function AdminAllOrders() {
             ></input>
 
             <div>
-                <div className={styles["admin-order-head"]}>
+                <div className={styles["user-order-head"]}>
                     <h4>ID</h4>
-                    <h4>Utente</h4>
                     <h4>Importo</h4>
-                    <h4>Stato</h4>
                     <h4>Data</h4>
+                    <h4>Stato</h4>
                     <h4>Consegna</h4>
                     <h4>Azione</h4>
                     {/* <h4>Consegna</h4> */}
@@ -139,11 +138,11 @@ function AdminAllOrders() {
                     displayedOrders.map((order) => (
                         <div
                             key={order.order_id}
-                            className={styles["admin-order-box"]}
+                            className={styles["user-order-box"]}
                         >
                             <p>#{order.order_id}</p>
-                            <p>{order.user_id}</p>
                             <p>{order.total_price}€</p>
+                            <p>{formatDateShort(order.created_at)}</p>
                             {order.is_paid ? (
                                 <>
                                     <p>pagato ({order.payment_method})</p>
@@ -151,14 +150,13 @@ function AdminAllOrders() {
                             ) : (
                                 <p>non pagato</p>
                             )}
-                            <p>{formatDateShort(order.created_at)}</p>
                             <p>
                                 {order.is_delivered
                                     ? "consegnato"
                                     : "non consegnato"}
                             </p>
 
-                            <Link href={`/admin/ordine/${order.order_id}`}>
+                            <Link href={`/ordine/${order.order_id}`}>
                                 <a>
                                     <button>Visualizza</button>
                                 </a>
@@ -167,7 +165,7 @@ function AdminAllOrders() {
                     ))}
             </div>
 
-            <Link href="/admin/dashboard">
+            <Link href="/profilo">
                 <a>
                     <h5>Torna indietro</h5>
                 </a>
@@ -176,4 +174,4 @@ function AdminAllOrders() {
     );
 }
 
-export default dynamic(() => Promise.resolve(AdminAllOrders), { ssr: false });
+export default dynamic(() => Promise.resolve(UserAllOrders), { ssr: false });

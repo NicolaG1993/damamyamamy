@@ -8,6 +8,12 @@ import {
 import Button from "../../Button/Button";
 
 const countries = ["Italia", "Svizzera", "Austria", "Germania"];
+const shippingOptions = [
+    {
+        id: "Ritiro in negozio",
+        label: `Ritiro in negozio - 0€`,
+    },
+];
 
 export default function AddressForm({
     next,
@@ -22,6 +28,7 @@ export default function AddressForm({
     const [city, setCity] = useState("");
     const [postalCode, setPostalCode] = useState("");
     const [country, setCountry] = useState("");
+    const [shippingOption, setShippingOption] = useState("Ritiro in negozio");
     const [errors, setErrors] = useState({});
 
     useEffect(() => {
@@ -35,18 +42,12 @@ export default function AddressForm({
             setCity(shippingAddress.city);
             setPostalCode(shippingAddress.postalCode);
             setCountry(shippingAddress.country);
+            setShippingOption(shippingAddress.shippingOption);
         }
     }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("next shippingAddress", {
-            fullName,
-            address,
-            city,
-            postalCode,
-            country,
-        });
 
         next({
             fullName,
@@ -54,6 +55,7 @@ export default function AddressForm({
             city,
             postalCode,
             country,
+            shippingOption,
         });
     };
 
@@ -210,7 +212,7 @@ export default function AddressForm({
                     </select>
                 </div>
 
-                {/* <div className={styles["form-col-left"]}>
+                <div className={styles["form-col-left"]}>
                     <label>Metodo di spedizione</label>
                 </div>
                 <div className={styles["form-col-right"]}>
@@ -221,13 +223,13 @@ export default function AddressForm({
                         value={shippingOption}
                         onChange={(e) => setShippingOption(e.target.value)}
                     >
-                        {options.map((option) => (
+                        {shippingOptions.map((option) => (
                             <option key={option.id} value={option.id}>
                                 {option.label}
                             </option>
                         ))}
                     </select>
-                </div> */}
+                </div>
 
                 <div className={styles["row"]}>
                     <Button

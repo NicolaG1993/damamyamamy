@@ -70,7 +70,7 @@ export default function Nav({ closeNav, width, userInfo }) {
                     ))}
                     {userInfo ? (
                         <>
-                            <Link href="/profile">
+                            <Link href="/profilo">
                                 <a onClick={() => closeNav()}>
                                     <li>Profilo</li>
                                 </a>
