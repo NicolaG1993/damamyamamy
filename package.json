@@ -14,7 +14,7 @@
         "@emotion/styled": "^11.6.0",
         "@mui/material": "^5.2.6",
         "@paypal/react-paypal-js": "^7.5.0",
-        "@prisma/client": "^3.7.0",
+        "@prisma/client": "^3.8.1",
         "@stripe/react-stripe-js": "^1.6.0",
         "@stripe/stripe-js": "^1.19.1",
         "@svgr/webpack": "^5.5.0",
@@ -45,6 +45,6 @@
     "devDependencies": {
         "eslint": "7.32.0",
         "eslint-config-next": "11.1.2",
-        "prisma": "^3.7.0"
+        "prisma": "^3.8.1"
     }
 }

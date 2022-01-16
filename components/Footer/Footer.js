@@ -57,7 +57,16 @@ function Copyrights() {
     const currentYear = new Date().getFullYear();
     return (
         <div className={styles["copyrights"]}>
-            <h5>Da Mamy a Mamy, © {currentYear}</h5>
+            <h5>
+                Da Mamy a Mamy, © {currentYear} • Creato da{" "}
+                <a
+                    href="https://nicogdesign.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    NGDesign
+                </a>
+            </h5>
         </div>
     );
 }

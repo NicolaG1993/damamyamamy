@@ -138,7 +138,7 @@ DICEMBRE 2021
 • fare deploy in production mode per testare nuovo architecture👍
 
 13/01/22:
-• migrare da AWS a vercel (con domain) 🧠
+• migrare da AWS a vercel (con domain) 👍
 • resettare DB su heroku (o creare con nuovo plan?) 🧠
 • sistemare calcolo tasse e costi (sia in api che in stripe component) 👍
 

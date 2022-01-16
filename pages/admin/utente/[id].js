@@ -56,9 +56,20 @@ function AdminUser({ params }) {
     }, []);
 
     const makeUserAdmin = async (bool) => {
-        //...
-        // update user via api <--(bool)
-        // aggiorna pagina o fetchUser
+        try {
+            const { data } = await axios.post(
+                `/api/users/${userId}/upgrade`,
+                { newStatus: bool },
+                {
+                    headers: {
+                        authorization: `Bearer ${userInfo.token}`,
+                    },
+                }
+            );
+            setUser(data.user);
+        } catch (err) {
+            enqueueSnackbar(getError(err), { variant: "error" });
+        }
     };
 
     console.log("user:", user);

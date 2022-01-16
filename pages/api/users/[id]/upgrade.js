@@ -30,8 +30,9 @@ import { isAdmin, isAuth } from "../../../../shared/utils/auth";
 import prisma from "../../../../shared/libs/prisma";
 
 async function handler(req, res) {
-    const id = req.query.id;
-    const newStatus = req.body;
+    const id = Number(req.query.id);
+    const { newStatus } = req.body;
+
     try {
         let updatedUser = await prisma.users.update({
             where: {
