@@ -77,7 +77,9 @@ function AdminUser({ params }) {
         <div className={styles["dashboard-sub-component"]}>
             <Link href={`/admin/utenti`}>
                 <a>
-                    <h5>Torna indietro</h5>
+                    <h5 className={styles["filter-form-small-btn"]}>
+                        🠔 Torna indietro
+                    </h5>
                 </a>
             </Link>
 

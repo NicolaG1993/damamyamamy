@@ -1,3 +1,16 @@
+const titleValidation = (fieldName, fieldValue) => {
+    if (fieldValue.trim() === "") {
+        return `Il ${fieldName} è richiesto`;
+    }
+    if (/[^a-zA-Z0-9&.,:+_ áéíóúàèìòùÁÉÍÓÚÀÈÌÒÙäöüÄÖÜ'`-]/.test(fieldValue)) {
+        return "Caratteri non consentiti";
+    }
+    if (fieldValue.trim().length < 3) {
+        return `Il ${fieldName} deve contenere almeno 3 lettere`;
+    }
+    return null;
+};
+
 const nameValidation = (fieldName, fieldValue) => {
     if (fieldValue.trim() === "") {
         return `Il ${fieldName} è richiesto`;
@@ -107,6 +120,7 @@ const slugValidation = (fieldName, fieldValue) => {
 // };
 
 module.exports = {
+    titleValidation,
     nameValidation,
     emailValidation,
     requestedValue,

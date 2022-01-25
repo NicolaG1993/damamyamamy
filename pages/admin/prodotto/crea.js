@@ -21,10 +21,13 @@ import {
 } from "../../../shared/utils/useLocalImages";
 import {
     decimalValidation,
+    titleValidation,
     nameValidation,
     numberValidation,
     slugValidation,
 } from "../../../shared/utils/validateForms";
+import slugify from "../../../shared/utils/slugify";
+import Button from "../../../components/Button/Button";
 
 export default function AdminNewItem() {
     const router = useRouter();
@@ -114,13 +117,15 @@ export default function AdminNewItem() {
         }
     };
 
+    //avrebbe piu senso fare un validate per tutto il form e tornare solo il primo errore che si riscontra (o anche tutti insieme)
+    //cosí si potrebbe usarlo sia onBlur che onSubmit
     const handleBlur = async (e) => {
         const { id, name, value } = e.target;
         let newErrObj = { ...errors };
 
         //validate values
         if (id === "Name") {
-            const resp = nameValidation("Titolo", value);
+            const resp = titleValidation("Titolo", value);
             if (resp) {
                 setErrors({ ...errors, [name]: resp });
             } else {
@@ -130,21 +135,28 @@ export default function AdminNewItem() {
         }
         if (id === "Slug") {
             fetchAllProducts().then((data) => {
-                const resp = slugValidation("Slug", value);
-                if (resp) {
-                    setErrors({ ...errors, [name]: resp });
+                //validation non serve perché campo puo essere vuoto
+                //verificare value con slugify, perché é quello che sará salvato in db
+
+                // const resp = slugValidation("Slug", slugify(value));
+                // if (resp) {
+                //     setErrors({ ...errors, [name]: resp });
+                // } else {
+
+                const allSlugs = data.map((el) => el.slug);
+                document.getElementById("Slug").value = slugify(value);
+                //se slug esiste giá in db, torna errore
+                if (allSlugs.includes(slugify(value))) {
+                    setErrors({ ...errors, [name]: "Slug giá esistente" });
                 } else {
-                    console.log("allProducts", data);
-                    const allSlugs = data.map((el) => el.slug);
-                    console.log("allSlugs", allSlugs);
-                    //se slug esiste giá in db, torna errore
-                    if (allSlugs.includes(value)) {
-                        setErrors({ ...errors, [name]: "Slug giá esistente" });
-                    } else {
-                        delete newErrObj[name];
-                        setErrors(newErrObj);
-                    }
+                    delete newErrObj[name];
+                    setErrors(newErrObj);
+                    setProduct({
+                        ...product,
+                        slug: slugify(value),
+                    }); // forse non servé perché update invoca gia onChange, quindi setProduct ??? testare
                 }
+                // }
             });
         }
         if (id === "Price") {
@@ -263,7 +275,7 @@ export default function AdminNewItem() {
         });
     };
 
-    const uploadProduct = (obj, uploadResponse) => {
+    const uploadProduct = async (obj, uploadResponse) => {
         console.log("uploadResponse", uploadResponse);
         let uploadedImages = [];
         if (uploadResponse.length) {
@@ -273,6 +285,27 @@ export default function AdminNewItem() {
             }));
             console.log("uploadedImages", uploadedImages);
         }
+
+        if (obj.slug === "" || !obj.slug) {
+            //genero slug
+            obj.slug = slugify(obj.name);
+
+            const data = await fetchAllProducts();
+            const allSlugs = data.map((el) => el.slug);
+            //se esiste giá: aggiungo timestamp
+            if (allSlugs.includes(obj.slug)) {
+                obj.slug = `${obj.slug}-${Date.now()}`;
+            }
+        } else {
+            obj.slug = slugify(obj.slug);
+        }
+
+        /*
+        Collegare nuovo db per test in dev mode
+        Provare ad inserire un oggetto senza slug 👍
+        Inserire un secondo oggetto senza slug con lo stesso titolo 👍
+        Provare a creare uno oggetto inserendo uno slug sbagliato (spazi, accenti, ecc) 👍
+        */
 
         return axios.post(
             `/api/product/upload`,
@@ -343,22 +376,23 @@ export default function AdminNewItem() {
             <div className={styles["dashboard-sub-component"]}>
                 <Link href={`/admin/prodotti`}>
                     <a>
-                        <h5>Torna indietro</h5>
+                        <h5 className={styles["filter-form-small-btn"]}>
+                            🠔 Torna indietro
+                        </h5>
                     </a>
                 </Link>
                 <form onSubmit={(e) => confirmChanges(e)}>
-                    <div className={"filter-form-col-left"}>
-                        <label>
-                            <span>ID: #{"generato automaticamente"}</span>
-                        </label>
+                    <div className={styles["filter-form-col-full"]}>
+                        <h4>ID: #</h4>
+                        <span>{"generato automaticamente"}</span>
                     </div>
 
-                    <div className={"filter-form-col-left"}>
+                    <div className={styles["filter-form-col-left"]}>
                         <label>
-                            <span>Titolo</span>
+                            <h4>Titolo</h4>
                         </label>
                     </div>
-                    <div className={"filter-form-col-right"}>
+                    <div className={styles["filter-form-col-right"]}>
                         <input
                             type="text"
                             name="name"
@@ -374,12 +408,12 @@ export default function AdminNewItem() {
                         )}
                     </div>
 
-                    <div className={"filter-form-col-left"}>
+                    <div className={styles["filter-form-col-left"]}>
                         <label>
-                            <span>Brand</span>
+                            <h4>Brand</h4>
                         </label>
                     </div>
-                    <div className={"filter-form-col-right"}>
+                    <div className={styles["filter-form-col-right"]}>
                         <input
                             type="text"
                             name="brand"
@@ -398,17 +432,17 @@ export default function AdminNewItem() {
                         )}
                     </div>
 
-                    <div className={"filter-form-col-left"}>
+                    <div className={styles["filter-form-col-left"]}>
                         <label>
-                            <span>Slug</span>
+                            <h4>Slug</h4>
                         </label>
                     </div>
-                    <div className={"filter-form-col-right"}>
+                    <div className={styles["filter-form-col-right"]}>
                         <input
                             type="text"
                             name="slug"
                             id="Slug"
-                            maxLength="30"
+                            maxLength="60"
                             onChange={(e) =>
                                 setProduct({
                                     ...product,
@@ -422,12 +456,12 @@ export default function AdminNewItem() {
                         )}
                     </div>
 
-                    <div className={"filter-form-col-left"}>
+                    <div className={styles["filter-form-col-left"]}>
                         <label>
-                            <span>Prezzo</span>
+                            <h4>Prezzo</h4>
                         </label>
                     </div>
-                    <div className={"filter-form-col-right"}>
+                    <div className={styles["filter-form-col-right"]}>
                         €{" "}
                         <input
                             type="number"
@@ -435,6 +469,7 @@ export default function AdminNewItem() {
                             id="Price"
                             defaultValue={0}
                             step="0.01"
+                            className={styles["filter-form-input-price"]}
                             onChange={(e) =>
                                 setProduct({
                                     ...product,
@@ -450,17 +485,18 @@ export default function AdminNewItem() {
                         )}
                     </div>
 
-                    <div className={"filter-form-col-left"}>
+                    <div className={styles["filter-form-col-left"]}>
                         <label>
-                            <span>Disponibili</span>
+                            <h4>Disponibili</h4>
                         </label>
                     </div>
-                    <div className={"filter-form-col-right"}>
+                    <div className={styles["filter-form-col-right"]}>
                         <input
                             type="number"
                             name="stock"
                             id="Stock"
                             defaultValue={1}
+                            className={styles["filter-form-input-number"]}
                             onChange={(e) =>
                                 setProduct({
                                     ...product,
@@ -476,12 +512,12 @@ export default function AdminNewItem() {
                         )}
                     </div>
 
-                    <div className={"filter-form-col-left"}>
+                    <div className={styles["filter-form-col-left"]}>
                         <label>
-                            <span>Condizioni</span>
+                            <h4>Condizioni</h4>
                         </label>
                     </div>
-                    <div className={"filter-form-col-right"}>
+                    <div className={styles["filter-form-col-right"]}>
                         <select
                             name="conditions"
                             id="Conditions"
@@ -498,12 +534,12 @@ export default function AdminNewItem() {
                         </select>
                     </div>
 
-                    <div className={"filter-form-col-left"}>
+                    <div className={styles["filter-form-col-left"]}>
                         <label>
-                            <span>Descrizione</span>
+                            <h4>Descrizione</h4>
                         </label>
                     </div>
-                    <div className={"filter-form-col-right"}>
+                    <div className={styles["filter-form-col-right"]}>
                         <textarea
                             name="description"
                             id="Description"
@@ -524,12 +560,12 @@ export default function AdminNewItem() {
                         )}
                     </div>
 
-                    <div className={"filter-form-col-left"}>
+                    <div className={styles["filter-form-col-left"]}>
                         <label>
-                            <span>Maggiori informazioni</span>
+                            <h4>Maggiori informazioni</h4>
                         </label>
                     </div>
-                    <div className={"filter-form-col-right"}>
+                    <div className={styles["filter-form-col-right"]}>
                         <textarea
                             name="infos"
                             id="Infos"
@@ -549,14 +585,17 @@ export default function AdminNewItem() {
                     </div>
 
                     {/* qui cé da vedere come fare a modificare array categories, e come gestire i singoli errori */}
-                    <div className={"filter-form-col-left"}>
+                    <div className={styles["filter-form-col-left"]}>
                         <label>
-                            <span>Categorie</span>
+                            <h4>Categorie</h4>
                         </label>
                     </div>
 
                     {product.categories.map((cat, i) => (
-                        <div className={"filter-form-col-right"} key={cat}>
+                        <div
+                            className={styles["filter-form-col-right"]}
+                            key={cat}
+                        >
                             <input
                                 type="text"
                                 name={`category ${i + 1}`}
@@ -564,20 +603,22 @@ export default function AdminNewItem() {
                                 value={cat}
                                 readOnly
                             />
-                            <span
+                            <div
                                 onClick={() =>
                                     handleRemoveSelectedInput({
                                         field: "categories",
                                         i,
                                     })
                                 }
+                                className={styles["form-input-sub-btn"]}
+                                style={{ fontSize: "16px", fontWeight: "bold" }}
                             >
                                 X
-                            </span>
+                            </div>
                         </div>
                     ))}
                     {product.categories.length < 3 && (
-                        <div className={"filter-form-col-right"}>
+                        <div className={styles["filter-form-col-right"]}>
                             <input
                                 type="text"
                                 name={`category`}
@@ -593,13 +634,15 @@ export default function AdminNewItem() {
                                     }, 350)
                                 }
                             />
-                            <span
+                            <div
                                 onClick={() =>
                                     handleAddInputToArray("CategoryNew")
                                 } // aggiorno array in product e svuoto hint box
+                                className={styles["form-input-sub-btn"]}
+                                style={{ fontSize: "25px", fontWeight: "bold" }}
                             >
-                                V
-                            </span>
+                                +
+                            </div>
 
                             {categoryMatchResults && (
                                 <div className={styles["form-input-hint-box"]}>
@@ -625,9 +668,9 @@ export default function AdminNewItem() {
                         </div>
                     )}
 
-                    <div className={styles["filter-form-col-left"]}>
+                    <div className={styles[styles["filter-form-col-left"]]}>
                         <label>
-                            <span>Tags</span>
+                            <h4>Tags</h4>
                         </label>
                     </div>
 
@@ -643,16 +686,18 @@ export default function AdminNewItem() {
                                 value={tag}
                                 readOnly
                             />
-                            <span
+                            <div
                                 onClick={() =>
                                     handleRemoveSelectedInput({
                                         field: "tags",
                                         i,
                                     })
                                 }
+                                className={styles["form-input-sub-btn"]}
+                                style={{ fontSize: "16px", fontWeight: "bold" }}
                             >
                                 X
-                            </span>
+                            </div>
                         </div>
                     ))}
                     {product.tags.length < 8 && (
@@ -671,11 +716,13 @@ export default function AdminNewItem() {
                                     }, 350)
                                 }
                             />
-                            <span
+                            <div
                                 onClick={() => handleAddInputToArray("TagNew")}
+                                className={styles["form-input-sub-btn"]}
+                                style={{ fontSize: "25px", fontWeight: "bold" }}
                             >
-                                V
-                            </span>
+                                +
+                            </div>
 
                             {tagMatchResults && (
                                 <div className={styles["form-input-hint-box"]}>
@@ -701,9 +748,15 @@ export default function AdminNewItem() {
                         </div>
                     )}
 
-                    {/* tutta questa parte va stilizzata come resto di form (labels, layout, ecc) */}
-                    <div className={styles["admin-product-images"]}>
-                        <span>Immagini</span>
+                    <div className={styles["filter-form-col-left"]}>
+                        <label>
+                            <h4>Immagini</h4>
+                        </label>
+                    </div>
+
+                    <div
+                        className={`${styles["filter-form-col-right"]} ${styles["admin-product-images"]}`}
+                    >
                         <div>
                             {newImages.length > 0 &&
                                 newImages.map((el, i) => (
@@ -725,42 +778,44 @@ export default function AdminNewItem() {
                                     </div>
                                 ))}
                         </div>
-                    </div>
 
-                    {newImages.length < 5 && (
-                        <div>
-                            <input
-                                id="FileID"
-                                type="file"
-                                name="filename"
-                                accept="image/png, image/jpeg"
-                                onChange={(e) => addLocalImages(e)}
-                            />
-                        </div>
-                    )}
+                        {newImages.length < 5 && (
+                            <div>
+                                <input
+                                    id="FileID"
+                                    type="file"
+                                    name="filename"
+                                    accept="image/png, image/jpeg"
+                                    onChange={(e) => addLocalImages(e)}
+                                />
+                            </div>
+                        )}
+                    </div>
 
                     <div className={styles["filter-form-col-left"]}>
                         <label>
-                            <span>Prodotti correlati</span>
+                            <h4>Prodotti correlati</h4>
                         </label>
                     </div>
 
                     {relatedProductsWindow ? (
-                        <p
+                        <h5
+                            className={styles["filter-form-toggler"]}
                             onClick={() =>
                                 setRelatedProductsWindow(!relatedProductsWindow)
                             }
                         >
                             chiudi
-                        </p>
+                        </h5>
                     ) : (
-                        <p
+                        <h5
+                            className={styles["filter-form-toggler"]}
                             onClick={() =>
                                 setRelatedProductsWindow(!relatedProductsWindow)
                             }
                         >
                             apri
-                        </p>
+                        </h5>
                     )}
 
                     {relatedProductsWindow && (
@@ -779,8 +834,12 @@ export default function AdminNewItem() {
                                             id="RelatedProduct"
                                             value={el.name}
                                             readOnly
+                                            style={{
+                                                backgroundColor:
+                                                    "rgb(231, 134, 235)",
+                                            }}
                                         />
-                                        <span
+                                        <div
                                             onClick={() =>
                                                 setRelatedProducts(
                                                     relatedProducts.filter(
@@ -789,9 +848,16 @@ export default function AdminNewItem() {
                                                     )
                                                 )
                                             }
+                                            className={
+                                                styles["form-input-sub-btn"]
+                                            }
+                                            style={{
+                                                fontSize: "16px",
+                                                fontWeight: "bold",
+                                            }}
                                         >
                                             X
-                                        </span>
+                                        </div>
                                     </div>
                                 ))}
 
@@ -817,7 +883,7 @@ export default function AdminNewItem() {
                                             value={el.name}
                                             readOnly
                                         />
-                                        <span
+                                        <div
                                             onClick={() =>
                                                 setRelatedProducts([
                                                     ...relatedProducts,
@@ -827,15 +893,26 @@ export default function AdminNewItem() {
                                                     },
                                                 ])
                                             }
+                                            className={
+                                                styles["form-input-sub-btn"]
+                                            }
+                                            style={{
+                                                fontSize: "25px",
+                                                fontWeight: "bold",
+                                            }}
                                         >
                                             +
-                                        </span>
+                                        </div>
                                     </div>
                                 ))}
                         </>
                     )}
 
-                    <button type="submit">Conferma modifiche</button>
+                    <div
+                        className={`${styles["filter-form-col-left"]} ${styles["buttons-box"]}`}
+                    >
+                        <Button text="Conferma modifiche" type="submit" />
+                    </div>
                 </form>
             </div>
         </>

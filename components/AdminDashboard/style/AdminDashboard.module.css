@@ -31,6 +31,158 @@
     margin-bottom: 1em;
 }
 
+.heading {
+    margin-bottom: var(--size100);
+}
+
+.table {
+    margin: var(--size100) 0;
+}
+
+.admin-filter {
+    min-width: 230px;
+    margin-top: 0.5em;
+    margin-left: 5px;
+}
+
+.buttons-box {
+    display: flex;
+    /* flex-direction: column; */
+}
+
+.buttons-box > a,
+.buttons-box > button {
+    margin-top: 10px;
+    margin-right: 10px;
+    max-width: 200px;
+}
+
+/* FORMS */
+.dashboard-sub-component form {
+    background-color: var(--bg200);
+    padding: var(--size200) var(--size600) var(--size300) var(--size300);
+    border-radius: var(--size100);
+    display: grid;
+    grid-template-columns: 185px 1fr 1fr 1fr;
+    row-gap: var(--size100);
+    margin: var(--size200) 0 var(--size-300) 0;
+}
+
+/**************************/
+
+.filter-form-col-left {
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+.filter-form-col-left h4 {
+    line-height: 1.8em;
+}
+
+.filter-form-col-right {
+    grid-column-start: 2;
+    grid-column-end: 5;
+    display: flex;
+    align-items: center;
+}
+.filter-form-col-full {
+    grid-column-start: 1;
+    grid-column-end: 5;
+    margin: var(--size-200) var(--size-100) var(--size000) 0;
+}
+
+.dashboard-sub-component form input[type="text"],
+.dashboard-sub-component form input[type="number"],
+.dashboard-sub-component form select,
+.dashboard-sub-component form textarea {
+    padding: var(--size000);
+    border-radius: var(--size-100);
+    background-color: ghostwhite;
+    /* color: var(--text); */
+    border: none;
+}
+
+.dashboard-sub-component form input[type="text"],
+.dashboard-sub-component form select {
+    width: 100%;
+    height: 100%;
+    max-height: 48px;
+}
+.dashboard-sub-component form textarea {
+    resize: vertical;
+    width: 100%;
+    min-height: 70px;
+}
+
+.filter-form-input-price {
+    width: 95px;
+    height: 10%;
+    margin-right: var(--size100);
+    margin-left: 6px;
+}
+
+.filter-form-input-number {
+    width: 95px;
+    height: 10%;
+    margin-right: var(--size100);
+    margin-left: 16px;
+}
+
+.filter-form-col-full h4 {
+    margin-right: var(--size-100);
+    display: inline;
+}
+
+.form-input-sub-btn {
+    border-radius: 25px;
+    background-color: var(--color000);
+    color: ghostwhite;
+    transition: 0.2s ease;
+    width: 31px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-left: var(--size-100);
+}
+
+.filter-form-toggler {
+    border-radius: 25px;
+    background-color: var(--color000);
+    color: ghostwhite;
+    transition: 0.2s ease;
+    width: 70px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-left: var(--size-100);
+    margin-top: 5px;
+}
+.filter-form-small-btn {
+    border-radius: 25px;
+    background-color: var(--color000);
+    color: ghostwhite;
+    transition: 0.2s ease;
+    width: 140px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-left: var(--size-100);
+    margin-top: 5px;
+}
+
+.form-input-sub-btn:hover,
+.filter-form-toggler:hover,
+.filter-form-small-btn:hover {
+    background-color: var(--color100);
+}
+
+/**************************/
+
 /* UTENTI */
 .admin-user-head,
 .admin-user-box {
@@ -93,16 +245,20 @@
 .admin-product-head,
 .admin-product-box {
     display: grid;
-    grid-template-columns: 100px repeat(6, 1fr) 80px;
+    grid-template-columns: 100px 200px repeat(4, 1fr) 80px;
     transition: 0.2s ease-in;
     /* height: 80px; */
     padding: 10px;
-    margin: 5px 0;
     align-items: center;
+}
+
+.admin-product-head {
+    margin: 15px 0 5px 0;
 }
 .admin-product-box {
     color: var(--text);
     border: 1px solid var(--bg200);
+    margin: 5px 0;
 }
 .admin-product-box > div {
     width: 50px;

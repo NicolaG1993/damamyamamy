@@ -10,12 +10,15 @@ import { useSnackbar } from "notistack";
 import styles from "../../components/AdminDashboard/style/AdminDashboard.module.css";
 import { getError } from "../../shared/utils/error";
 import { formatDateShort } from "../../shared/utils/convertTimestamp";
+import Button from "../../components/Button/Button";
+import useWindowDimensions from "../../shared/utils/useWindowDimensions";
 
 const loggedUser = (state) => state.user.userInfo;
 
 function AdminShop() {
     let userInfo = useSelector(loggedUser, shallowEqual);
     const router = useRouter();
+    const { width } = useWindowDimensions();
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const [allProducts, setAllProducts] = useState([]);
     const [filters, setFilters] = useState({
@@ -149,55 +152,73 @@ function AdminShop() {
 
     return (
         <div>
-            <h1>Il tuo negozio</h1>
-
-            <select
-                defaultValue={"date disc"}
-                onChange={(e) =>
-                    setFilters({ ...filters, order: e.target.value })
-                }
-            >
-                <option value={"date disc"}>Data di creazione (recente)</option>
-                <option value={"date asc"}>Data di creazione (passato)</option>
-                <option value={"name asc"}>
-                    Ordine alfabetico (ascendente)
-                </option>
-                <option value={"name disc"}>
-                    Ordine alfabetico (discendente)
-                </option>
-                <option value={"price asc"}>Prezzo (ascendente)</option>
-                <option value={"price disc"}>Prezzo (discendente)</option>
-            </select>
-
-            <p>Cerca nome, brand, categoria o tag</p>
-            <input
-                type="text"
-                onChange={(e) =>
-                    setFilters({
-                        ...filters,
-                        research: e.target.value.toLowerCase(),
-                    })
-                }
-            ></input>
-
-            <select
-                defaultValue={"in stock"}
-                onChange={(e) => handleDisplay(e)}
-            >
-                <option value={"in stock"}>Prodotti disponibili</option>
-                <option value={"not in stock"}>Prodotti non disponibili</option>
-                <option value={"all"}>Tutti i prodotti</option>
-            </select>
+            <h1 className={styles["heading"]}>Il tuo negozio</h1>
 
             <div>
+                <select
+                    defaultValue={"date disc"}
+                    onChange={(e) =>
+                        setFilters({ ...filters, order: e.target.value })
+                    }
+                    className={styles["admin-filter"]}
+                >
+                    <option value={"date disc"}>
+                        Data di creazione (recente)
+                    </option>
+                    <option value={"date asc"}>
+                        Data di creazione (passato)
+                    </option>
+                    <option value={"name asc"}>
+                        Ordine alfabetico (ascendente)
+                    </option>
+                    <option value={"name disc"}>
+                        Ordine alfabetico (discendente)
+                    </option>
+                    <option value={"price asc"}>Prezzo (ascendente)</option>
+                    <option value={"price disc"}>Prezzo (discendente)</option>
+                </select>
+            </div>
+
+            <div>
+                <select
+                    defaultValue={"in stock"}
+                    onChange={(e) => handleDisplay(e)}
+                    className={styles["admin-filter"]}
+                >
+                    <option value={"in stock"}>Prodotti disponibili</option>
+                    <option value={"not in stock"}>
+                        Prodotti non disponibili
+                    </option>
+                    <option value={"all"}>Tutti i prodotti</option>
+                </select>
+            </div>
+
+            <div>
+                <input
+                    type="text"
+                    placeholder="Cerca nome, brand, categoria o tag"
+                    onChange={(e) =>
+                        setFilters({
+                            ...filters,
+                            research: e.target.value.toLowerCase(),
+                        })
+                    }
+                    className={styles["admin-filter"]}
+                ></input>
+            </div>
+
+            <div className={styles["table"]}>
                 <div className={styles["admin-product-head"]}>
                     <h4>Immagine</h4>
                     <h4>Titolo</h4>
-                    <h4>ID</h4>
-                    <h4>Prezzo</h4>
-                    <h4>Brand</h4>
-                    <h4>In negozio</h4>
-                    <h4>Data creazione</h4>
+                    {width > 950 && (
+                        <>
+                            <h4>Prezzo</h4>
+                            <h4>Brand</h4>
+                            <h4>In negozio</h4>
+                            <h4>Creato il</h4>
+                        </>
+                    )}
                     <h4>Azione</h4>
                 </div>
 
@@ -222,12 +243,14 @@ function AdminShop() {
                             </div>
 
                             <p>{product.name}</p>
-                            <p>#{product.id}</p>
-                            <p>{product.price} €</p>
-                            <p>{product.brand}</p>
-                            <p>{product.count_in_stock}</p>
-                            <p>{formatDateShort(product.created_at)}</p>
-
+                            {width > 950 && (
+                                <>
+                                    <p>{product.price} €</p>
+                                    <p>{product.brand}</p>
+                                    <p>{product.count_in_stock}</p>
+                                    <p>{formatDateShort(product.created_at)}</p>
+                                </>
+                            )}
                             <Link href={`/admin/prodotto/${product.slug}`}>
                                 <a>
                                     <button>Visualizza</button>
@@ -237,21 +260,18 @@ function AdminShop() {
                     ))}
             </div>
 
-            <Link href="/admin/prodotto/crea">
-                <a>
-                    <h5>Aggiungi un nuovo prodotto</h5>
-                </a>
-            </Link>
-            <Link href="/admin/dashboard">
-                <a>
-                    <h5>Torna indietro</h5>
-                </a>
-            </Link>
-
-            <p>
-                Si puo andare a modificare anche le categorie forse? non so
-                ancora come gestirle
-            </p>
+            <div className={styles["buttons-box"]}>
+                <Button
+                    page="/admin/prodotto/crea"
+                    text="Aggiungi prodotto"
+                    type="internal"
+                />
+                <Button
+                    page="/admin/dashboard"
+                    text="Torna indietro"
+                    type="internal"
+                />
+            </div>
         </div>
     );
 }

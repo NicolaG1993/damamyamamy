@@ -357,6 +357,9 @@ export async function getServerSideProps(context) {
         where: { slug: slug },
     });
 
+    console.log("slug:", slug);
+    console.log("feed:", feed);
+
     const validateFeed = (obj) => ({
         ...obj,
         price: Number(obj.price),

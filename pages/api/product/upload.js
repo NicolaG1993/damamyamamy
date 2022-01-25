@@ -55,7 +55,7 @@ import { isAdmin, isAuth } from "../../../shared/utils/auth";
 import prisma from "../../../shared/libs/prisma";
 
 async function handler(req, res) {
-    const {
+    let {
         name,
         slug,
         categories,

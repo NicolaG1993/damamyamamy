@@ -94,9 +94,10 @@ function AdminDashboard() {
                     <a>
                         <div>
                             <h4>Rendimento del sito</h4>
-                            <p>Totale ordini: {summary.ordersPrice}€</p>
+                            <p>Sezione al momento non disponibile</p>
+                            {/* <p>Totale ordini: {summary.ordersPrice}€</p>
                             <p>Totale ordini di oggi: {"?"}€</p>
-                            <p>Totale ordini di questo mese: {"?"}€</p>
+                            <p>Totale ordini di questo mese: {"?"}€</p> */}
                         </div>
                     </a>
                 </Link>

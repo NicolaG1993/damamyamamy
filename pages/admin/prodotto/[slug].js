@@ -22,10 +22,12 @@ import {
     revokeObjectURL,
 } from "../../../shared/utils/useLocalImages";
 import {
-    nameValidation,
+    titleValidation,
     numberValidation,
     slugValidation,
 } from "../../../shared/utils/validateForms";
+import slugify from "../../../shared/utils/slugify";
+import Button from "../../../components/Button/Button";
 
 // import Button from "../../components/Button/Button";
 /*
@@ -159,7 +161,7 @@ function AdminItem({ params }) {
 
         //validate values
         if (id === "Name") {
-            const resp = nameValidation("Titolo", value);
+            const resp = titleValidation("Titolo", value);
             if (resp) {
                 setErrors({ ...errors, [name]: resp });
             } else {
@@ -167,33 +169,20 @@ function AdminItem({ params }) {
                 setErrors(newErrObj);
             }
         }
-        // if (id === "Brand") {
-        //     const resp = nameValidation("Brand", value);
-        //     if (resp) {
-        //         setErrors({ ...errors, [name]: resp });
-        //     } else {
-        //         delete newErrObj[name];
-        //         setErrors(newErrObj);
-        //     }
-        // } // non posso usare nameValidation perché brand puo contenere numeri o simboli
         if (id === "Slug") {
-            //devo controllare se slug é unica in db
-            //potrei farlo onSubmit ma va bene anche qua onBlur, x ora
             fetchAllProducts().then((data) => {
-                const resp = slugValidation("Slug", value);
-                if (resp) {
-                    setErrors({ ...errors, [name]: resp });
+                const allSlugs = data.map((el) => el.slug);
+                document.getElementById("Slug").value = slugify(value);
+                //se slug esiste giá in db, torna errore
+                if (allSlugs.includes(slugify(value))) {
+                    setErrors({ ...errors, [name]: "Slug giá esistente" });
                 } else {
-                    console.log("allProducts", data);
-                    const allSlugs = data.map((el) => el.slug);
-                    console.log("allSlugs", allSlugs);
-                    //se slug esiste giá in db, torna errore
-                    if (allSlugs.includes(value)) {
-                        setErrors({ ...errors, [name]: "Slug giá esistente" });
-                    } else {
-                        delete newErrObj[name];
-                        setErrors(newErrObj);
-                    }
+                    delete newErrObj[name];
+                    setErrors(newErrObj);
+                    setProduct({
+                        ...product,
+                        slug: slugify(value),
+                    });
                 }
             });
         }
@@ -383,7 +372,7 @@ function AdminItem({ params }) {
         );
     };
 
-    const updateProduct = (obj, uploadResponse) => {
+    const updateProduct = async (obj, uploadResponse) => {
         //devo prendere info da state e da responses di S3
         //passarle a ruote per fare update (PUT) in products table
         console.log("uploadResponse", uploadResponse);
@@ -394,6 +383,20 @@ function AdminItem({ params }) {
                 key: el.Key,
             }));
             console.log("uploadedImages", uploadedImages);
+        }
+
+        if (obj.slug === "" || !obj.slug) {
+            //genero slug
+            obj.slug = slugify(obj.name);
+
+            const data = await fetchAllProducts();
+            const allSlugs = data.map((el) => el.slug);
+            //se esiste giá: aggiungo timestamp
+            if (allSlugs.includes(obj.slug)) {
+                obj.slug = `${obj.slug}-${Date.now()}`;
+            }
+        } else {
+            obj.slug = slugify(obj.slug);
         }
 
         return axios.put(
@@ -451,6 +454,7 @@ function AdminItem({ params }) {
                             enqueueSnackbar(data.message, {
                                 variant: "success",
                             });
+                            setProduct(data.product);
                             router.push(data.product.slug); // non é completo?
                         })
                         .catch((err) =>
@@ -554,29 +558,28 @@ function AdminItem({ params }) {
             <div className={styles["dashboard-sub-component"]}>
                 <Link href={`/admin/prodotti`}>
                     <a>
-                        <h5>Torna indietro</h5>
+                        <h5 className={styles["filter-form-small-btn"]}>
+                            🠔 Torna indietro
+                        </h5>
                     </a>
                 </Link>
                 <form onSubmit={(e) => confirmChanges(e)}>
-                    <div className={"filter-form-col-left"}>
+                    <h4 className={styles["filter-form-col-left"]}>ID:</h4>
+                    <span className={styles["filter-form-col-right"]}>
+                        #{product.id}
+                    </span>
+                    <h4 className={styles["filter-form-col-left"]}>
+                        Creato il:
+                    </h4>
+                    <span className={styles["filter-form-col-right"]}>
+                        {formatJSDate(product.created_at)}
+                    </span>
+                    <div className={styles["filter-form-col-left"]}>
                         <label>
-                            <span>ID: #{product.id}</span>
+                            <h4>Titolo</h4>
                         </label>
                     </div>
-                    <div className={"filter-form-col-left"}>
-                        <label>
-                            <span>
-                                Creato il: {formatJSDate(product.created_at)}
-                            </span>
-                        </label>
-                    </div>
-
-                    <div className={"filter-form-col-left"}>
-                        <label>
-                            <span>Titolo</span>
-                        </label>
-                    </div>
-                    <div className={"filter-form-col-right"}>
+                    <div className={styles["filter-form-col-right"]}>
                         <input
                             type="text"
                             name="name"
@@ -592,13 +595,12 @@ function AdminItem({ params }) {
                             <div className={"form-error"}>{errors.name}</div>
                         )}
                     </div>
-
-                    <div className={"filter-form-col-left"}>
+                    <div className={styles["filter-form-col-left"]}>
                         <label>
-                            <span>Brand</span>
+                            <h4>Brand</h4>
                         </label>
                     </div>
-                    <div className={"filter-form-col-right"}>
+                    <div className={styles["filter-form-col-right"]}>
                         <input
                             type="text"
                             name="brand"
@@ -617,13 +619,12 @@ function AdminItem({ params }) {
                             <div className={"form-error"}>{errors.brand}</div>
                         )}
                     </div>
-
-                    <div className={"filter-form-col-left"}>
+                    <div className={styles["filter-form-col-left"]}>
                         <label>
-                            <span>Slug</span>
+                            <h4>Slug</h4>
                         </label>
                     </div>
-                    <div className={"filter-form-col-right"}>
+                    <div className={styles["filter-form-col-right"]}>
                         <input
                             type="text"
                             name="slug"
@@ -642,19 +643,20 @@ function AdminItem({ params }) {
                             <div className={"form-error"}>{errors.slug}</div>
                         )}
                     </div>
-
-                    <div className={"filter-form-col-left"}>
+                    <div className={styles["filter-form-col-left"]}>
                         <label>
-                            <span>Prezzo</span>
+                            <h4>Prezzo</h4>
                         </label>
                     </div>
-                    <div className={"filter-form-col-right"}>
+                    <div className={styles["filter-form-col-right"]}>
                         €{" "}
                         <input
                             type="number"
                             name="price"
                             id="Price"
                             value={product.price}
+                            step="0.01"
+                            className={styles["filter-form-input-price"]}
                             onChange={(e) =>
                                 setProduct({
                                     ...product,
@@ -667,18 +669,18 @@ function AdminItem({ params }) {
                             <div className={"form-error"}>{errors.price}</div>
                         )}
                     </div>
-
-                    <div className={"filter-form-col-left"}>
+                    <div className={styles["filter-form-col-left"]}>
                         <label>
-                            <span>Disponibili</span>
+                            <h4>Disponibili</h4>
                         </label>
                     </div>
-                    <div className={"filter-form-col-right"}>
+                    <div className={styles["filter-form-col-right"]}>
                         <input
                             type="number"
                             name="stock"
                             id="Stock"
                             value={product.count_in_stock}
+                            className={styles["filter-form-input-number"]}
                             onChange={(e) =>
                                 setProduct({
                                     ...product,
@@ -693,13 +695,12 @@ function AdminItem({ params }) {
                             </div>
                         )}
                     </div>
-
-                    <div className={"filter-form-col-left"}>
+                    <div className={styles["filter-form-col-left"]}>
                         <label>
-                            <span>Condizioni</span>
+                            <h4>Condizioni</h4>
                         </label>
                     </div>
-                    <div className={"filter-form-col-right"}>
+                    <div className={styles["filter-form-col-right"]}>
                         <select
                             name="conditions"
                             id="Conditions"
@@ -716,13 +717,12 @@ function AdminItem({ params }) {
                             <option value={"bad"}>Rovinato</option>
                         </select>
                     </div>
-
-                    <div className={"filter-form-col-left"}>
+                    <div className={styles["filter-form-col-left"]}>
                         <label>
-                            <span>Descrizione</span>
+                            <h4>Descrizione</h4>
                         </label>
                     </div>
-                    <div className={"filter-form-col-right"}>
+                    <div className={styles["filter-form-col-right"]}>
                         <textarea
                             name="description"
                             id="Description"
@@ -743,13 +743,12 @@ function AdminItem({ params }) {
                             </div>
                         )}
                     </div>
-
-                    <div className={"filter-form-col-left"}>
+                    <div className={styles["filter-form-col-left"]}>
                         <label>
-                            <span>Maggiori informazioni</span>
+                            <h4>Maggiori informazioni</h4>
                         </label>
                     </div>
-                    <div className={"filter-form-col-right"}>
+                    <div className={styles["filter-form-col-right"]}>
                         <textarea
                             name="infos"
                             id="Infos"
@@ -768,16 +767,17 @@ function AdminItem({ params }) {
                             <div className={"form-error"}>{errors.infos}</div>
                         )}
                     </div>
-
                     {/* qui cé da vedere come fare a modificare array categories, e come gestire i singoli errori */}
-                    <div className={"filter-form-col-left"}>
+                    <div className={styles["filter-form-col-left"]}>
                         <label>
-                            <span>Categorie</span>
+                            <h4>Categorie</h4>
                         </label>
                     </div>
-
                     {product.categories.map((cat, i) => (
-                        <div className={"filter-form-col-right"} key={cat}>
+                        <div
+                            className={styles["filter-form-col-right"]}
+                            key={cat}
+                        >
                             <input
                                 type="text"
                                 name={`category ${i + 1}`}
@@ -785,20 +785,22 @@ function AdminItem({ params }) {
                                 value={cat}
                                 readOnly
                             />
-                            <span
+                            <div
                                 onClick={() =>
                                     handleRemoveSelectedInput({
                                         field: "categories",
                                         i,
                                     })
                                 }
+                                className={styles["form-input-sub-btn"]}
+                                style={{ fontSize: "16px", fontWeight: "bold" }}
                             >
                                 X
-                            </span>
+                            </div>
                         </div>
                     ))}
                     {product.categories.length < 3 && (
-                        <div className={"filter-form-col-right"}>
+                        <div className={styles["filter-form-col-right"]}>
                             <input
                                 type="text"
                                 name={`category`}
@@ -814,13 +816,15 @@ function AdminItem({ params }) {
                                     }, 350)
                                 }
                             />
-                            <span
+                            <div
                                 onClick={() =>
                                     handleAddInputToArray("CategoryNew")
                                 } // aggiorno array in product e svuoto hint box
+                                className={styles["form-input-sub-btn"]}
+                                style={{ fontSize: "25px", fontWeight: "bold" }}
                             >
-                                V
-                            </span>
+                                +
+                            </div>
 
                             {categoryMatchResults && (
                                 <div className={styles["form-input-hint-box"]}>
@@ -845,13 +849,11 @@ function AdminItem({ params }) {
                             )}
                         </div>
                     )}
-
                     <div className={styles["filter-form-col-left"]}>
                         <label>
-                            <span>Tags</span>
+                            <h4>Tags</h4>
                         </label>
                     </div>
-
                     {product.tags.map((tag, i) => (
                         <div
                             className={styles["filter-form-col-right"]}
@@ -864,16 +866,18 @@ function AdminItem({ params }) {
                                 value={tag}
                                 readOnly
                             />
-                            <span
+                            <div
                                 onClick={() =>
                                     handleRemoveSelectedInput({
                                         field: "tags",
                                         i,
                                     })
                                 }
+                                className={styles["form-input-sub-btn"]}
+                                style={{ fontSize: "16px", fontWeight: "bold" }}
                             >
                                 X
-                            </span>
+                            </div>
                         </div>
                     ))}
                     {product.tags.length < 8 && (
@@ -892,11 +896,13 @@ function AdminItem({ params }) {
                                     }, 350)
                                 }
                             />
-                            <span
+                            <div
                                 onClick={() => handleAddInputToArray("TagNew")}
+                                className={styles["form-input-sub-btn"]}
+                                style={{ fontSize: "25px", fontWeight: "bold" }}
                             >
-                                V
-                            </span>
+                                +
+                            </div>
 
                             {tagMatchResults && (
                                 <div className={styles["form-input-hint-box"]}>
@@ -921,10 +927,15 @@ function AdminItem({ params }) {
                             )}
                         </div>
                     )}
+                    <div className={styles["filter-form-col-left"]}>
+                        <label>
+                            <h4>Immagini</h4>
+                        </label>
+                    </div>
 
-                    {/* tutta questa parte va stilizzata come resto di form (labels, layout, ecc) */}
-                    <div className={styles["admin-product-images"]}>
-                        <span>Immagini</span>
+                    <div
+                        className={`${styles["filter-form-col-right"]} ${styles["admin-product-images"]}`}
+                    >
                         <div>
                             {product.images.map((el, i) => (
                                 <div key={el.key}>
@@ -942,6 +953,7 @@ function AdminItem({ params }) {
                                     </span>
                                 </div>
                             ))}
+
                             {newImages.length > 0 &&
                                 newImages.map((el, i) => (
                                     <div key={el.key + i}>
@@ -962,44 +974,44 @@ function AdminItem({ params }) {
                                     </div>
                                 ))}
                         </div>
-                    </div>
 
-                    {product.images.length + newImages.length < 5 && (
-                        <div>
-                            <input
-                                id="FileID"
-                                type="file"
-                                name="filename"
-                                accept="image/png, image/jpeg"
-                                onChange={(e) => addLocalImages(e)}
-                            />
-                        </div>
-                    )}
+                        {product.images.length + newImages.length < 5 && (
+                            <div>
+                                <input
+                                    id="FileID"
+                                    type="file"
+                                    name="filename"
+                                    accept="image/png, image/jpeg"
+                                    onChange={(e) => addLocalImages(e)}
+                                />
+                            </div>
+                        )}
+                    </div>
 
                     <div className={styles["filter-form-col-left"]}>
                         <label>
-                            <span>Prodotti correlati</span>
+                            <h4>Prodotti correlati</h4>
                         </label>
                     </div>
-
                     {relatedProductsWindow ? (
-                        <p
+                        <h5
+                            className={styles["filter-form-toggler"]}
                             onClick={() =>
                                 setRelatedProductsWindow(!relatedProductsWindow)
                             }
                         >
                             chiudi
-                        </p>
+                        </h5>
                     ) : (
-                        <p
+                        <h5
+                            className={styles["filter-form-toggler"]}
                             onClick={() =>
                                 setRelatedProductsWindow(!relatedProductsWindow)
                             }
                         >
                             apri
-                        </p>
+                        </h5>
                     )}
-
                     {relatedProductsWindow && (
                         <>
                             {relatedProducts &&
@@ -1016,8 +1028,12 @@ function AdminItem({ params }) {
                                             id="RelatedProduct"
                                             value={el.name}
                                             readOnly
+                                            style={{
+                                                backgroundColor:
+                                                    "rgb(231, 134, 235)",
+                                            }}
                                         />
-                                        <span
+                                        <div
                                             onClick={() =>
                                                 setRelatedProducts(
                                                     relatedProducts.filter(
@@ -1026,9 +1042,16 @@ function AdminItem({ params }) {
                                                     )
                                                 )
                                             }
+                                            className={
+                                                styles["form-input-sub-btn"]
+                                            }
+                                            style={{
+                                                fontSize: "16px",
+                                                fontWeight: "bold",
+                                            }}
                                         >
                                             X
-                                        </span>
+                                        </div>
                                     </div>
                                 ))}
 
@@ -1054,7 +1077,7 @@ function AdminItem({ params }) {
                                             value={el.name}
                                             readOnly
                                         />
-                                        <span
+                                        <div
                                             onClick={() =>
                                                 setRelatedProducts([
                                                     ...relatedProducts,
@@ -1064,23 +1087,37 @@ function AdminItem({ params }) {
                                                     },
                                                 ])
                                             }
+                                            className={
+                                                styles["form-input-sub-btn"]
+                                            }
+                                            style={{
+                                                fontSize: "25px",
+                                                fontWeight: "bold",
+                                            }}
                                         >
                                             +
-                                        </span>
+                                        </div>
                                     </div>
                                 ))}
                         </>
                     )}
-
-                    <button type="button" onClick={() => discardChanges()}>
-                        Annulla modifiche
-                    </button>
-                    <button type="submit">Conferma modifiche</button>
+                    <div
+                        className={`${styles["filter-form-col-full"]} ${styles["buttons-box"]}`}
+                    >
+                        <Button text="Conferma modifiche" type="submit" />
+                        <Button
+                            text="Annulla modifiche"
+                            type="function"
+                            fn={() => discardChanges()}
+                        />
+                        <Button
+                            text="Elimina prodotto"
+                            type="function"
+                            fn={() => deleteProduct()}
+                        />
+                    </div>
                 </form>
 
-                <button type="button" onClick={() => deleteProduct()}>
-                    Elimina prodotto
-                </button>
                 <p>
                     È consigliabile modificare il prodotto oppure impostare la
                     quantità a 0 per rimuoverlo dal negozio, eliminare solo se
@@ -1105,3 +1142,9 @@ export default dynamic(() => Promise.resolve(AdminItem), { ssr: false });
 // aggiungere button per annulla modifiche (refresh pagina)
 
 // una volta completate le modifiche con conferma si fa la post req
+
+/*
+mostrare slug attuale
+user puo eliminarlo, allora si inserisce slug automatico, come su crea
+user puo modificarlo, allora si modifica slug, dopo validation
+*/

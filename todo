@@ -155,3 +155,20 @@ psql postgresql://nick:Precipizio69@db-damamyamamy.clybwugninmk.eu-south-1.rds.a
 • prezzo tasse
 • prezzo spedizioni
 • css a volte non funziona come dovuto (Home, Cart)
+
+
+-----------------
+
+• crea Item deve accettare numeri, simboli o lettere con accento sul titolo
+• creare slug in automatico 🧠
+• eliminare spazi da slug in automatico
+
+su crea.js lo slug deve essere creato in automatico se non viene inserito
+se inserito invece non lo crea in automatico
+in entrambi i casi va fatto il check per vedere se é unico
+in caso contrario aggiungere qualcosa alla fine (automatico), finché non é unico (ripetere anche piu volte)
+inoltre va fatto il check per eliminare possibili errori di battitura (spazi, accenti, ecc)
+
+su modifica.js va fornito lo slug gia creato
+poi in caso di modifiche va fatto il check per errori di battitura
+se eliminato va generato automaticamente
