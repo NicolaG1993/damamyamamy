@@ -29,7 +29,7 @@ export default function Layout({ children }) {
             <Head>
                 <meta
                     name="keywords"
-                    content="usato, bambini, compro, negozio, articoli, seconda mano, giochi, abbigliamento"
+                    content="usato, bambini, compro, negozio, articoli, seconda mano, giochi, abbigliamento, cavaion, verona"
                 />
                 <meta
                     name="viewport"
@@ -40,7 +40,7 @@ export default function Layout({ children }) {
 
                 <meta
                     name="description"
-                    content="Accessori, Abbigliamento e giocattoli di seconda mano per bimbi da 0 a 10 anni"
+                    content="Negozio di accessori, abbigliamento e giocattoli di seconda mano per bimbi da 0 a 10 anni. Situato in Vicolo Teatro, 4, 37010 Cavaion Veronese, Verona, Italia"
                 />
 
                 <meta
