@@ -6,12 +6,15 @@ import { shallowEqual, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
 import styles from "../../components/AdminDashboard/style/AdminDashboard.module.css";
+import Button from "../../components/Button/Button";
+import useWindowDimensions from "../../shared/utils/useWindowDimensions";
 
 const loggedUser = (state) => state.user.userInfo;
 
 function AdminSummary() {
     let userInfo = useSelector(loggedUser, shallowEqual);
     const router = useRouter();
+    const { width } = useWindowDimensions();
     const [allUsers, setAllUsers] = useState([]);
 
     useEffect(() => {
@@ -38,44 +41,19 @@ function AdminSummary() {
 
     return (
         <div id={styles["AdminComponent"]}>
-            <h1>Rendimento del sito</h1>
+            <h1 className={styles["heading"]}>Rendimento del sito</h1>
 
-            <div>
-                <div className={styles["admin-user-head"]}>
-                    <h4>ID</h4>
-                    <h4>Nome</h4>
-                    <h4>Email</h4>
-                    <h4>Account</h4>
-                    {/* <h4>Autorizzazione</h4> */}
-                    <h4>Data registrazione</h4>
-                    <h4>Azione</h4>
-                    {/* <h4>Consegna</h4> */}
-                </div>
-
-                {allUsers &&
-                    allUsers.map((user) => (
-                        <div key={user.id} className={styles["admin-user-box"]}>
-                            <p>#{user.id}</p>
-                            <p>{user.name}</p>
-                            <p>{user.email}</p>
-
-                            {user.is_admin ? <p>Admin</p> : <p>Utente</p>}
-                            <p>{user.created_at.toString().split("T")[0]}</p>
-
-                            <Link href="/admin/dashboard">
-                                <a>
-                                    <button>Visualizza</button>
-                                </a>
-                            </Link>
-                        </div>
-                    ))}
+            <div className={styles["table"]}>
+                <h3>Non ancora disponibile</h3>
             </div>
 
-            <Link href="/admin/dashboard">
-                <a>
-                    <h5>Torna indietro</h5>
-                </a>
-            </Link>
+            <div className={styles["buttons-box"]}>
+                <Button
+                    page="/admin/dashboard"
+                    text="Torna indietro"
+                    type="internal"
+                />
+            </div>
 
             <h2>
                 qui devo mettere grafici e statistiche relativi al rendimento
