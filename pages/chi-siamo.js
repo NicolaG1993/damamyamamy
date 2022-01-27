@@ -92,7 +92,7 @@ function About() {
                     <div>
                         <p>
                             La pratica del riutilizzo fa bene al pianeta e al
-                            portafoglio
+                            tuo portafoglio!
                             {/* Per noi é importante il pianeta, comprare articoli
                             di seconda mano aiuta a sensibilizzare alla
                             sostenibilitá ed al riutilizzo di oggetti. Educando
@@ -105,6 +105,8 @@ function About() {
                     <div>
                         <div></div>
                         <p>
+                            Offriamo il migliore servizio, controllando ogni
+                            prodotto
                             {/* 1 Qualitá 2 Pianeta 3 Servizio Accessori
                             Abbigliamento e Giocattoli di seconda mano Bambini
                             0-10 Anni */}
