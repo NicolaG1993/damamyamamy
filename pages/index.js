@@ -130,7 +130,7 @@ export async function getServerSideProps() {
     let feedNew = await prisma.products.findMany({
         where: { count_in_stock: { gt: 0 } },
         orderBy: {
-            created_at: "asc",
+            created_at: "desc",
         },
         take: 20,
     });

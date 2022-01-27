@@ -191,7 +191,7 @@ export default function reducer(state = INITIAL_STATE, action) {
         }
 
         case SORT_BY_NEW: {
-            let sortedArr = sortArrayDesc(state.filteredItems, "created");
+            let sortedArr = sortArrayDesc(state.filteredItems, "created_at");
 
             return { ...state, filteredItems: sortedArr };
         }
