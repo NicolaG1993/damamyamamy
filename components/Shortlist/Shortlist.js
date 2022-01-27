@@ -11,6 +11,7 @@ export default function Shortlist({ products, listTitle }) {
     const [step, setStep] = useState(4);
 
     const seeNext = () => {
+        console.log("ACTIVATED1");
         setSliceStart((startingPoint) =>
             startingPoint < products.length - step
                 ? startingPoint + step
@@ -61,7 +62,7 @@ export default function Shortlist({ products, listTitle }) {
             <div className={styles["shortlist-topbar"]}>
                 <h3>{listTitle}</h3>
                 {products &&
-                    (products.length > 4 ? (
+                    (products.length > step ? (
                         <div className={styles["shortlist-btns"]}>
                             <button
                                 className={styles["small-arrow"]}

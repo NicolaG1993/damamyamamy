@@ -150,7 +150,7 @@ export async function getServerSideProps() {
         where: {
             count_in_stock: { gt: 0 },
             categories: {
-                has: "Giocattoli",
+                has: "Giochi",
             },
         },
         orderBy: {
