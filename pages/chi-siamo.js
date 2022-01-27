@@ -91,11 +91,13 @@ function About() {
 
                     <div>
                         <p>
-                            Per noi é importante il pianeta, comprare articoli
+                            La pratica del riutilizzo fa bene al pianeta e al
+                            portafoglio
+                            {/* Per noi é importante il pianeta, comprare articoli
                             di seconda mano aiuta a sensibilizzare alla
                             sostenibilitá ed al riutilizzo di oggetti. Educando
                             inoltre i piú piccoli al riutilizzo, che saranno il
-                            nostro futuro, bla bla sistemare
+                            nostro futuro, bla bla sistemare */}
                         </p>
                         <div></div>
                     </div>
@@ -103,9 +105,9 @@ function About() {
                     <div>
                         <div></div>
                         <p>
-                            1 Qualitá 2 Pianeta 3 Servizio Accessori
+                            {/* 1 Qualitá 2 Pianeta 3 Servizio Accessori
                             Abbigliamento e Giocattoli di seconda mano Bambini
-                            0-10 Anni
+                            0-10 Anni */}
                         </p>
                     </div>
                 </div>
