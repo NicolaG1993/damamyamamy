@@ -28,6 +28,10 @@ function AdminShop() {
     const [fetchedProducts, setFetchedProducts] = useState("in stock");
     const [displayedProducts, setDisplayedProducts] = useState([]);
 
+    function createMarkup(str) {
+        return { __html: str };
+    }
+
     const fetchAvailableData = async () => {
         try {
             const { data } = await axios.get(`/api/admin/products`, {
@@ -151,7 +155,7 @@ function AdminShop() {
     };
 
     return (
-        <div>
+        <div id={styles["AdminComponent"]}>
             <h1 className={styles["heading"]}>Il tuo negozio</h1>
 
             <div>
@@ -253,7 +257,9 @@ function AdminShop() {
                             )}
                             <Link href={`/admin/prodotto/${product.slug}`}>
                                 <a>
-                                    <button>Visualizza</button>
+                                    <h5 className={styles["go-to-btn"]}>
+                                        Visualizza
+                                    </h5>
                                 </a>
                             </Link>
                         </div>

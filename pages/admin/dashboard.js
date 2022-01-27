@@ -58,7 +58,10 @@ function AdminDashboard() {
     console.log("summary: ", summary);
 
     return (
-        <div className={styles["admin-dashboard"]}>
+        <div
+            id={styles["AdminComponent"]}
+            className={styles["admin-dashboard"]}
+        >
             <h1>Pannello amministratore</h1>
 
             <h3>Ciao, {userInfo && userInfo.name}</h3>

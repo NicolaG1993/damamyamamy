@@ -73,7 +73,10 @@ function Order({ params }) {
     console.log("order:", order);
 
     return (
-        <div className={styles["dashboard-sub-component"]}>
+        <div
+            id={styles["AdminComponent"]}
+            className={styles["dashboard-sub-component"]}
+        >
             <Link href={`/admin/ordini`}>
                 <a>
                     <h5>Torna indietro</h5>

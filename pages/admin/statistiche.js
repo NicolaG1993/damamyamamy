@@ -37,7 +37,7 @@ function AdminSummary() {
     console.log("allUsers: ", allUsers);
 
     return (
-        <div>
+        <div id={styles["AdminComponent"]}>
             <h1>Rendimento del sito</h1>
 
             <div>

@@ -75,7 +75,7 @@ function AdminAllUsers() {
     }, [filters, allUsers]);
 
     return (
-        <div>
+        <div id={styles["AdminComponent"]}>
             <h1>Tutti gli utenti</h1>
 
             <p>Ordina per</p>

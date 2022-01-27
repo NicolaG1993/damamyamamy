@@ -373,7 +373,10 @@ export default function AdminNewItem() {
                 />
                 <meta property="og:type" content="article" />
             </Head>
-            <div className={styles["dashboard-sub-component"]}>
+            <div
+                id={styles["AdminComponent"]}
+                className={styles["dashboard-sub-component"]}
+            >
                 <Link href={`/admin/prodotti`}>
                     <a>
                         <h5 className={styles["filter-form-small-btn"]}>
@@ -528,8 +531,8 @@ export default function AdminNewItem() {
                                 })
                             }
                         >
-                            <option value={"new"}>Nuovo</option>
                             <option value={"used"}>Usato</option>
+                            <option value={"new"}>Come nuovo</option>
                             <option value={"bad"}>Rovinato</option>
                         </select>
                     </div>
@@ -778,9 +781,8 @@ export default function AdminNewItem() {
                                     </div>
                                 ))}
                         </div>
-
                         {newImages.length < 5 && (
-                            <div>
+                            <div className={styles["filter-form-col-right"]}>
                                 <input
                                     id="FileID"
                                     type="file"

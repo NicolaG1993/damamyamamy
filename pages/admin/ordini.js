@@ -92,7 +92,7 @@ function AdminAllOrders() {
     }, [filters, allOrders]);
 
     return (
-        <div>
+        <div id={styles["AdminComponent"]}>
             <h1>Tutti gli ordini</h1>
 
             <p>Ordina per</p>

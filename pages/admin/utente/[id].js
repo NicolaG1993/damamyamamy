@@ -74,7 +74,10 @@ function AdminUser({ params }) {
 
     console.log("user:", user);
     return (
-        <div className={styles["dashboard-sub-component"]}>
+        <div
+            id={styles["AdminComponent"]}
+            className={styles["dashboard-sub-component"]}
+        >
             <Link href={`/admin/utenti`}>
                 <a>
                     <h5 className={styles["filter-form-small-btn"]}>

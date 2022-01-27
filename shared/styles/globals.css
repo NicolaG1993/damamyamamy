@@ -68,7 +68,7 @@ html {
     scroll-behavior: smooth;
     font-family: var(--fontA);
     color: var(--text-color);
-    background: var(--bg000);
+    background: var(--bg350);
     --fontA: "Nunito Sans";
     --fontB: "Fredoka One";
     --size-300: 0.42rem;
@@ -158,6 +158,7 @@ body > div {
     transition: background var(--transition);
     margin-top: 70px;
     /* overflow-x: hidden; */
+    background-color: var(--bg000);
 }
 body > div > div:nth-child(2) {
     /*Importante che App sia una classe, cosí id possono avere la prioritá*/
