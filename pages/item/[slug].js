@@ -43,6 +43,7 @@ export async function getInitialProps(context) {
 export default function Item({ product }) {
     const [galleryOpen, setGalleryOpen] = useState(false);
     const [clickedPic, setClickedPic] = useState(0);
+    const [relatedProducts, setRelatedProducts] = useState([]);
 
     console.log("product", product);
 
@@ -168,7 +169,7 @@ export default function Item({ product }) {
                                         ></div>
                                     </>
                                 )}
-                                {product.condition === "broken" && (
+                                {product.condition === "bad" && (
                                     <>
                                         <h5>rovinato</h5>
                                         <div
@@ -301,8 +302,6 @@ export default function Item({ product }) {
         );
     };
 
-    useEffect(() => {}, []);
-
     //qui devo passargli related_products e mostrare solo articoli ancora in stock
     const ShortlistWrap = () => (
         <section className={styles["item-shortlist-wrap"]}>
@@ -353,18 +352,28 @@ export async function getServerSideProps(context) {
     const { params } = context;
     const { slug } = params;
 
-    let feed = await prisma.products.findUnique({
-        where: { slug: slug },
-    });
-
-    console.log("slug:", slug);
-    console.log("feed:", feed);
-
     const validateFeed = (obj) => ({
         ...obj,
         price: Number(obj.price),
         created_at: formatJSDate(obj.created_at),
     });
+
+    let feed = await prisma.products.findUnique({
+        where: { slug: slug },
+    });
+
+    if (feed.related_products) {
+        let resp = await prisma.products.findMany({
+            where: { id: { in: feed.related_products } },
+        });
+
+        resp = resp.map((el) => validateFeed(el));
+
+        feed.related_products = resp;
+    }
+
+    console.log("slug:", slug);
+    console.log("feed:", feed);
 
     return {
         props: { product: validateFeed(feed) },

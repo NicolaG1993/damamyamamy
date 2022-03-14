@@ -81,6 +81,14 @@ function AdminAllUsers() {
         <div id={styles["AdminComponent"]}>
             <h1 className={styles["heading"]}>Tutti gli utenti</h1>
 
+            <div className={styles["buttons-box"]}>
+                <Button
+                    page="/admin/dashboard"
+                    text="Torna indietro"
+                    type="internal"
+                />
+            </div>
+
             <div>
                 <select
                     defaultValue={"date asc"}
@@ -151,14 +159,6 @@ function AdminAllUsers() {
                             </Link>
                         </div>
                     ))}
-            </div>
-
-            <div className={styles["buttons-box"]}>
-                <Button
-                    page="/admin/dashboard"
-                    text="Torna indietro"
-                    type="internal"
-                />
             </div>
         </div>
     );

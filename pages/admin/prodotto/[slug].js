@@ -781,52 +781,62 @@ function AdminItem({ params }) {
                             className={styles["filter-form-col-right"]}
                             key={cat}
                         >
-                            <input
-                                type="text"
-                                name={`category ${i + 1}`}
-                                id="Category"
-                                value={cat}
-                                readOnly
-                            />
-                            <div
-                                onClick={() =>
-                                    handleRemoveSelectedInput({
-                                        field: "categories",
-                                        i,
-                                    })
-                                }
-                                className={styles["form-input-sub-btn"]}
-                                style={{ fontSize: "16px", fontWeight: "bold" }}
-                            >
-                                X
+                            <div className={styles["input-and-btn-wrap"]}>
+                                <input
+                                    type="text"
+                                    name={`category ${i + 1}`}
+                                    id="Category"
+                                    value={cat}
+                                    readOnly
+                                />
+                                <div
+                                    onClick={() =>
+                                        handleRemoveSelectedInput({
+                                            field: "categories",
+                                            i,
+                                        })
+                                    }
+                                    className={styles["form-input-sub-btn"]}
+                                    style={{
+                                        fontSize: "16px",
+                                        fontWeight: "bold",
+                                    }}
+                                >
+                                    X
+                                </div>
                             </div>
                         </div>
                     ))}
                     {product.categories.length < 3 && (
                         <div className={styles["filter-form-col-right"]}>
-                            <input
-                                type="text"
-                                name={`category`}
-                                id="CategoryNew"
-                                maxLength="30"
-                                value={newCategoryInput}
-                                onFocus={(e) => handleInputHints(e)}
-                                onChange={(e) => handleInputHints(e)}
-                                onBlur={(e) =>
-                                    setTimeout(() => {
-                                        closeMatchResults(e);
-                                        //serve timeout per poter attivare prima onClick su hint box
-                                    }, 350)
-                                }
-                            />
-                            <div
-                                onClick={() =>
-                                    handleAddInputToArray("CategoryNew")
-                                } // aggiorno array in product e svuoto hint box
-                                className={styles["form-input-sub-btn"]}
-                                style={{ fontSize: "25px", fontWeight: "bold" }}
-                            >
-                                +
+                            <div className={styles["input-and-btn-wrap"]}>
+                                <input
+                                    type="text"
+                                    name={`category`}
+                                    id="CategoryNew"
+                                    maxLength="30"
+                                    value={newCategoryInput}
+                                    onFocus={(e) => handleInputHints(e)}
+                                    onChange={(e) => handleInputHints(e)}
+                                    onBlur={(e) =>
+                                        setTimeout(() => {
+                                            closeMatchResults(e);
+                                            //serve timeout per poter attivare prima onClick su hint box
+                                        }, 350)
+                                    }
+                                />
+                                <div
+                                    onClick={() =>
+                                        handleAddInputToArray("CategoryNew")
+                                    } // aggiorno array in product e svuoto hint box
+                                    className={styles["form-input-sub-btn"]}
+                                    style={{
+                                        fontSize: "25px",
+                                        fontWeight: "bold",
+                                    }}
+                                >
+                                    +
+                                </div>
                             </div>
 
                             {categoryMatchResults && (
@@ -862,49 +872,61 @@ function AdminItem({ params }) {
                             className={styles["filter-form-col-right"]}
                             key={tag}
                         >
-                            <input
-                                type="text"
-                                name={`tag ${i + 1}`}
-                                id="Tag"
-                                value={tag}
-                                readOnly
-                            />
-                            <div
-                                onClick={() =>
-                                    handleRemoveSelectedInput({
-                                        field: "tags",
-                                        i,
-                                    })
-                                }
-                                className={styles["form-input-sub-btn"]}
-                                style={{ fontSize: "16px", fontWeight: "bold" }}
-                            >
-                                X
+                            <div className={styles["input-and-btn-wrap"]}>
+                                <input
+                                    type="text"
+                                    name={`tag ${i + 1}`}
+                                    id="Tag"
+                                    value={tag}
+                                    readOnly
+                                />
+                                <div
+                                    onClick={() =>
+                                        handleRemoveSelectedInput({
+                                            field: "tags",
+                                            i,
+                                        })
+                                    }
+                                    className={styles["form-input-sub-btn"]}
+                                    style={{
+                                        fontSize: "16px",
+                                        fontWeight: "bold",
+                                    }}
+                                >
+                                    X
+                                </div>
                             </div>
                         </div>
                     ))}
                     {product.tags.length < 8 && (
                         <div className={styles["filter-form-col-right"]}>
-                            <input
-                                type="text"
-                                name={`tag`}
-                                id="TagNew"
-                                maxLength="30"
-                                value={newTagInput}
-                                onFocus={(e) => handleInputHints(e)}
-                                onChange={(e) => handleInputHints(e)}
-                                onBlur={(e) =>
-                                    setTimeout(() => {
-                                        closeMatchResults(e);
-                                    }, 350)
-                                }
-                            />
-                            <div
-                                onClick={() => handleAddInputToArray("TagNew")}
-                                className={styles["form-input-sub-btn"]}
-                                style={{ fontSize: "25px", fontWeight: "bold" }}
-                            >
-                                +
+                            <div className={styles["input-and-btn-wrap"]}>
+                                <input
+                                    type="text"
+                                    name={`tag`}
+                                    id="TagNew"
+                                    maxLength="30"
+                                    value={newTagInput}
+                                    onFocus={(e) => handleInputHints(e)}
+                                    onChange={(e) => handleInputHints(e)}
+                                    onBlur={(e) =>
+                                        setTimeout(() => {
+                                            closeMatchResults(e);
+                                        }, 350)
+                                    }
+                                />
+                                <div
+                                    onClick={() =>
+                                        handleAddInputToArray("TagNew")
+                                    }
+                                    className={styles["form-input-sub-btn"]}
+                                    style={{
+                                        fontSize: "25px",
+                                        fontWeight: "bold",
+                                    }}
+                                >
+                                    +
+                                </div>
                             </div>
 
                             {tagMatchResults && (
@@ -1025,35 +1047,41 @@ function AdminItem({ params }) {
                                         }
                                         key={el.id}
                                     >
-                                        <input
-                                            type="text"
-                                            name={`prodotto ${el.id}`}
-                                            id="RelatedProduct"
-                                            value={el.name}
-                                            readOnly
-                                            style={{
-                                                backgroundColor:
-                                                    "rgb(231, 134, 235)",
-                                            }}
-                                        />
                                         <div
-                                            onClick={() =>
-                                                setRelatedProducts(
-                                                    relatedProducts.filter(
-                                                        (el, index) =>
-                                                            index !== i
-                                                    )
-                                                )
-                                            }
                                             className={
-                                                styles["form-input-sub-btn"]
+                                                styles["input-and-btn-wrap"]
                                             }
-                                            style={{
-                                                fontSize: "16px",
-                                                fontWeight: "bold",
-                                            }}
                                         >
-                                            X
+                                            <input
+                                                type="text"
+                                                name={`prodotto ${el.id}`}
+                                                id="RelatedProduct"
+                                                value={el.name}
+                                                readOnly
+                                                style={{
+                                                    backgroundColor:
+                                                        "rgb(231, 134, 235)",
+                                                }}
+                                            />
+                                            <div
+                                                onClick={() =>
+                                                    setRelatedProducts(
+                                                        relatedProducts.filter(
+                                                            (el, index) =>
+                                                                index !== i
+                                                        )
+                                                    )
+                                                }
+                                                className={
+                                                    styles["form-input-sub-btn"]
+                                                }
+                                                style={{
+                                                    fontSize: "16px",
+                                                    fontWeight: "bold",
+                                                }}
+                                            >
+                                                X
+                                            </div>
                                         </div>
                                     </div>
                                 ))}
@@ -1073,32 +1101,38 @@ function AdminItem({ params }) {
                                         }
                                         key={el.id}
                                     >
-                                        <input
-                                            type="text"
-                                            name={`prodotto ${el.id}`}
-                                            id="RelatedProduct2"
-                                            value={el.name}
-                                            readOnly
-                                        />
                                         <div
-                                            onClick={() =>
-                                                setRelatedProducts([
-                                                    ...relatedProducts,
-                                                    {
-                                                        name: el.name,
-                                                        id: el.id,
-                                                    },
-                                                ])
-                                            }
                                             className={
-                                                styles["form-input-sub-btn"]
+                                                styles["input-and-btn-wrap"]
                                             }
-                                            style={{
-                                                fontSize: "25px",
-                                                fontWeight: "bold",
-                                            }}
                                         >
-                                            +
+                                            <input
+                                                type="text"
+                                                name={`prodotto ${el.id}`}
+                                                id="RelatedProduct2"
+                                                value={el.name}
+                                                readOnly
+                                            />
+                                            <div
+                                                onClick={() =>
+                                                    setRelatedProducts([
+                                                        ...relatedProducts,
+                                                        {
+                                                            name: el.name,
+                                                            id: el.id,
+                                                        },
+                                                    ])
+                                                }
+                                                className={
+                                                    styles["form-input-sub-btn"]
+                                                }
+                                                style={{
+                                                    fontSize: "25px",
+                                                    fontWeight: "bold",
+                                                }}
+                                            >
+                                                +
+                                            </div>
                                         </div>
                                     </div>
                                 ))}

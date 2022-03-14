@@ -98,6 +98,14 @@ function AdminAllOrders() {
         <div id={styles["AdminComponent"]}>
             <h1 className={styles["heading"]}>Tutti gli ordini</h1>
 
+            <div className={styles["buttons-box"]}>
+                <Button
+                    page="/admin/dashboard"
+                    text="Torna indietro"
+                    type="internal"
+                />
+            </div>
+
             <div>
                 <select
                     defaultValue={"date asc"}
@@ -184,14 +192,6 @@ function AdminAllOrders() {
                             </Link>
                         </div>
                     ))}
-            </div>
-
-            <div className={styles["buttons-box"]}>
-                <Button
-                    page="/admin/dashboard"
-                    text="Torna indietro"
-                    type="internal"
-                />
             </div>
         </div>
     );

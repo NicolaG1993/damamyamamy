@@ -6,6 +6,7 @@
 .admin-dashboard > section {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    margin: 80px 0;
 }
 .admin-dashboard > section > a {
     padding: 15px;
@@ -48,6 +49,7 @@
 
 .buttons-box {
     display: flex;
+    margin: 30px 0;
 }
 
 .buttons-box > a,
@@ -107,6 +109,11 @@
     max-width: 960px;
 }
 
+.input-and-btn-wrap {
+    display: flex;
+    width: 100%;
+}
+
 @media screen and (max-width: 920px) {
     .dashboard-sub-component form {
         padding: var(--size200) var(--size300) var(--size300) var(--size300);
@@ -134,6 +141,7 @@
     grid-column-end: 5;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 .filter-form-col-full {
     grid-column-start: 1;
@@ -423,11 +431,14 @@
 }
 
 /***************PRODUCT***************/
+
 .form-input-hint-box {
-    position: absolute;
+    /* position: absolute; */
+    /* flex: 0 0 auto; */
     background-color: var(--color100);
     color: var(--text);
     width: 100%;
+    /* margin-top: 100px; */
 }
 .form-input-hint-box > p {
     cursor: pointer;

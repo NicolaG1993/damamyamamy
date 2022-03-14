@@ -248,9 +248,7 @@
     background-color: var(--bg200);
     /* background-color: var(--color000); */
 }
-.item-shortlist-wrap > .shortlist {
-    max-width: 1110px;
-}
+
 .item-description-wrap {
     padding: var(--size300);
     /* box-shadow: 0px 0px 10px #00000025; */

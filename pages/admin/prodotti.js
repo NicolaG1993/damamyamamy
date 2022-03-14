@@ -158,6 +158,19 @@ function AdminShop() {
         <div id={styles["AdminComponent"]}>
             <h1 className={styles["heading"]}>Il tuo negozio</h1>
 
+            <div className={styles["buttons-box"]}>
+                <Button
+                    page="/admin/prodotto/crea"
+                    text="Aggiungi prodotto"
+                    type="internal"
+                />
+                <Button
+                    page="/admin/dashboard"
+                    text="Torna indietro"
+                    type="internal"
+                />
+            </div>
+
             <div>
                 <select
                     defaultValue={"date disc"}
@@ -264,19 +277,6 @@ function AdminShop() {
                             </Link>
                         </div>
                     ))}
-            </div>
-
-            <div className={styles["buttons-box"]}>
-                <Button
-                    page="/admin/prodotto/crea"
-                    text="Aggiungi prodotto"
-                    type="internal"
-                />
-                <Button
-                    page="/admin/dashboard"
-                    text="Torna indietro"
-                    type="internal"
-                />
             </div>
         </div>
     );
