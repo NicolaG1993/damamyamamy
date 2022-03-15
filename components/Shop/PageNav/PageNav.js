@@ -24,18 +24,18 @@ export default function PageNav() {
         <div id={styles["PageNav"]}>
             <div className={styles["pagenav-wrap"]}>
                 <nav className={styles["pagination"]}>
-                    {pageNav.currentPage > 1 && (
-                        <button
-                            className={`${styles["pagenav-arrow"]} ${styles["pagination-previous"]}`}
-                            onClick={() => {
-                                previousPage();
-                            }}
-                        >
-                            <div className={styles["pagenav-prev"]}></div>
-                        </button>
-                    )}
-
-                    <ul className={styles["pagination-list"]}>
+                    <div className={styles["pagination-list"]}>
+                        {" "}
+                        {pageNav.currentPage > 1 && (
+                            <button
+                                className={`${styles["pagenav-arrow"]} ${styles["pagination-previous"]}`}
+                                onClick={() => {
+                                    previousPage();
+                                }}
+                            >
+                                <div className={styles["pagenav-prev"]}></div>
+                            </button>
+                        )}
                         {[...Array(pageNav.filteredPages)].map(
                             (value, index) => (
                                 <button
@@ -53,18 +53,17 @@ export default function PageNav() {
                                 </button>
                             )
                         )}
-                    </ul>
-
-                    {pageNav.currentPage !== pageNav.totalPages && (
-                        <button
-                            className={`${styles["pagenav-arrow"]} ${styles["pagination-next"]}`}
-                            onClick={() => {
-                                nextPage();
-                            }}
-                        >
-                            <div className={styles["pagenav-next"]}></div>
-                        </button>
-                    )}
+                        {pageNav.currentPage !== pageNav.totalPages && (
+                            <button
+                                className={`${styles["pagenav-arrow"]} ${styles["pagination-next"]}`}
+                                onClick={() => {
+                                    nextPage();
+                                }}
+                            >
+                                <div className={styles["pagenav-next"]}></div>
+                            </button>
+                        )}
+                    </div>
                 </nav>
             </div>
         </div>

@@ -6,12 +6,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .pagination-list {
     padding-inline-start: 0;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 /* .pagination-previous,
@@ -45,6 +47,8 @@
     color: white;
     border: none;
     letter-spacing: 1px;
+    text-align: center;
+    padding: 0;
 }
 
 .pagination-previous,
@@ -107,4 +111,10 @@
 .pagenav-next {
     background-image: url(../assets/right-arrow-white.png);
     margin-left: 2px;
+}
+
+@media screen and (max-width: 720px) {
+    .pagination-link {
+        margin: 5px;
+    }
 }
