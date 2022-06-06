@@ -47,7 +47,7 @@ export default function Layout({ children }) {
                     property="og:description"
                     content="Negozio di accessori, abbigliamento e giocattoli di seconda mano per bambini da 0 a 10 anni. Il nostro mercatino dell'usato è situato in Vicolo Teatro, 4, 37010 Cavaion Veronese, Verona, Italia"
                 />
-                <meta property="og:url" content="https://damamyamamy.com" />
+                <meta property="og:url" content="https://www.damamyamamy.com" />
                 <meta property="og:image" content="/logo192.png" />
                 <meta property="og:image:alt" content="Il nostro logo" />
                 <link rel="icon" href="/favicon.ico" />
