@@ -1,6 +1,5 @@
 import Head from "next/head";
-import Link from "next/link";
-import styles from "../../components/Documents/Document.module.css";
+// import styles from "../../components/Documents/Document.module.css";
 
 export default function TermsAndConditions() {
     return (

@@ -1,9 +1,9 @@
-import Image from "next/image";
+// import Image from "next/image";
 import styles from "./style/ContactMap.module.css";
 import ShopFacade from "./assets/shop-facade.svg";
 // import HelpOperator from "./assets/help-operator.svg";
 // import CargoTruck from "./assets/cargo-truck.svg";
-import HelpOperator from "./assets/help-operator.png"; // convert to svg
+// import HelpOperator from "./assets/help-operator.png"; // convert to svg
 import CargoTruck from "./assets/cargo-truck.png"; // convert to svg
 
 export default function ContactMap() {
@@ -54,7 +54,7 @@ export default function ContactMap() {
                         <p>
                             Il costo dipenderá dal
                             <br />
-                            peso dell'articolo richiesto
+                            peso dell&apos;articolo richiesto
                         </p>
                     </div>
                 </div>

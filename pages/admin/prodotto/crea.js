@@ -1,5 +1,4 @@
 import Head from "next/head";
-import dynamic from "next/dynamic";
 import axios from "axios";
 import { useSnackbar } from "notistack";
 import { getError } from "../../../shared/utils/error";
@@ -11,10 +10,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 import styles from "../../../components/AdminDashboard/style/AdminDashboard.module.css";
-import { formatJSDate } from "../../../shared/utils/convertTimestamp";
+// import { formatJSDate } from "../../../shared/utils/convertTimestamp";
 import {
     createObjectURL,
     revokeObjectURL,
@@ -22,9 +21,7 @@ import {
 import {
     decimalValidation,
     titleValidation,
-    nameValidation,
     numberValidation,
-    slugValidation,
 } from "../../../shared/utils/validateForms";
 import slugify from "../../../shared/utils/slugify";
 import Button from "../../../components/Button/Button";
@@ -355,7 +352,7 @@ export default function AdminNewItem() {
         } else {
             console.log("INVALID INPUTS", errors);
             // how to map object values, instead of array
-            Object.values(errors).map((err, i) =>
+            Object.values(errors).map((err) =>
                 enqueueSnackbar(err, {
                     variant: "error",
                 })
@@ -900,7 +897,7 @@ export default function AdminNewItem() {
                                             (it) => el.id == it.id
                                         )
                                 )
-                                .map((el, i) => (
+                                .map((el) => (
                                     <div
                                         className={
                                             styles["filter-form-col-right"]

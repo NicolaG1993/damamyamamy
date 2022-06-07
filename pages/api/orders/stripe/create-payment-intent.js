@@ -21,7 +21,7 @@ const calculateOrderAmount = (items) => {
 
 export default async function handler(req, res) {
     try {
-        const { items, email, shipping, total_price } = req.body;
+        const { email, shipping, total_price } = req.body;
         console.log("req.body: ", req.body);
 
         const paymentIntent = await stripe.paymentIntents.create({

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -22,7 +21,7 @@ function Profile() {
     console.log("userInfo: ", userInfo);
 
     if (!userInfo) {
-        return router.push("/login");
+        router.push("/login");
     }
     useEffect(() => {}, []);
 

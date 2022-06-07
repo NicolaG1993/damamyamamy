@@ -1,20 +1,19 @@
 import axios from "axios";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import { shallowEqual, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
 import styles from "../../components/AdminDashboard/style/AdminDashboard.module.css";
 import Button from "../../components/Button/Button";
-import useWindowDimensions from "../../shared/utils/useWindowDimensions";
+// import useWindowDimensions from "../../shared/utils/useWindowDimensions";
 
 const loggedUser = (state) => state.user.userInfo;
 
 function AdminSummary() {
     let userInfo = useSelector(loggedUser, shallowEqual);
     const router = useRouter();
-    const { width } = useWindowDimensions();
+    // const { width } = useWindowDimensions();
     const [allUsers, setAllUsers] = useState([]);
 
     useEffect(() => {

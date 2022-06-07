@@ -1,23 +1,18 @@
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import styles from "../components/Shop/style/Shop.module.css";
 
 // REDUX
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import {
-    fetchCategories,
-    fetchHighestValue,
-    setupShop,
-} from "../redux/ShopData/shopData.actions";
+import { useDispatch } from "react-redux";
+import { setupShop } from "../redux/ShopData/shopData.actions";
 // import { fetchCart } from "../redux/Cart/cart.actions";
-import axios from "axios";
 import prisma from "../shared/libs/prisma";
 import { formatJSDate } from "../shared/utils/convertTimestamp";
 
-const loadData = (state) => state.shopData.data; // a noi data non interessa qua
-const getCategories = (state) => state.shopData.categories;
+// const loadData = (state) => state.shopData.data; // a noi data non interessa qua
+// const getCategories = (state) => state.shopData.categories;
 
 const ItemsList = dynamic(
     () => import("../components/Shop/ItemsList/ItemsList"),

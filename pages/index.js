@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
 
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
@@ -35,7 +34,6 @@ import styles from "../components/Home/style/Home.module.css";
 // UTILS
 import useScrollPosition from "../shared/utils/useScrollPosition";
 import useWindowDimensions from "../shared/utils/useWindowDimensions";
-import axios from "axios";
 import { formatJSDate } from "../shared/utils/convertTimestamp";
 
 export default function Home({ catNewItems, cat1, cat2 }) {

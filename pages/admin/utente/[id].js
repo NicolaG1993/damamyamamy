@@ -4,16 +4,14 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import Image from "next/image";
 import { useRouter } from "next/router";
-import { useContext, useEffect, useReducer, useState } from "react";
+import { useEffect, useState } from "react";
 // import { Store } from "../../utils/Store";
 import { useSnackbar } from "notistack";
 import { getError } from "../../../shared/utils/error";
 import axios from "axios";
 
 import styles from "../../../components/AdminDashboard/style/AdminDashboard.module.css";
-import Cookies from "js-cookie";
 
 import { formatJSDate } from "../../../shared/utils/convertTimestamp";
 
@@ -25,7 +23,7 @@ function AdminUser({ params }) {
     const router = useRouter();
     let userInfo = useSelector(loggedUser, shallowEqual);
 
-    const { closeSnackbar, enqueueSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
 
     const [user, setUser] = useState();
     const [error, setError] = useState();

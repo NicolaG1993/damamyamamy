@@ -40,14 +40,14 @@ function About() {
                     <br />
                     <br />
                     <p>
-                        Nasce Da Mamy a Mamy, il mercatino dell'usato dei
+                        Nasce Da Mamy a Mamy, il mercatino dell&apos;usato dei
                         genitori, per gli acquisti per i vostri bambini.
                     </p>
 
                     <p>
                         Il nostro negozio ha aperto nel 2019 a Cavaion Veronese,
-                        ed ha subito attirato l'attenzione di genitori e
-                        famiglie, rivelandosi un'interessante novitá nella
+                        ed ha subito attirato l&apos;attenzione di genitori e
+                        famiglie, rivelandosi un&apos;interessante novitá nella
                         provincia di Verona; Non solo perché si possono trovare
                         prodotti di qualitá in ottime condizioni, ma anche
                         perché i nostri clienti possono rivendere i loro
@@ -56,7 +56,7 @@ function About() {
                     </p>
 
                     <p>
-                        Da Mamy a Mamy infatti nasce dall'idea di Sara
+                        Da Mamy a Mamy infatti nasce dall&apos;idea di Sara
                         Gagliardi, due volte mamma, che sa quindi riconoscere al
                         meglio le esigenze delle proprie clienti, sempre
                         disponibile a dare consiglio sul prossimo acquisto per i

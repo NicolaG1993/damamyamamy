@@ -1,8 +1,5 @@
-import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
-
 // import { fetchCart } from "../redux/Cart/cart.actions";
-import axios from "axios";
+
 import prisma from "../shared/libs/prisma";
 import { formatJSDate } from "../shared/utils/convertTimestamp";
 

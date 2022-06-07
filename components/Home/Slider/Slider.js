@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import styles from "./style/Slider.module.css";
 // import slides from "./assets/images";
 

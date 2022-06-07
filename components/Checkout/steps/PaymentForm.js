@@ -1,29 +1,30 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 
-import {
-    Elements,
-    CardElement,
-    ElementsConsumer,
-    useStripe,
-    useElements,
-    PaymentElement,
-} from "@stripe/react-stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+// import {
+//     Elements,
+//     CardElement,
+//     ElementsConsumer,
+//     useStripe,
+//     useElements,
+//     PaymentElement,
+// } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_PUBLIC_KEY}`);
 
 // import { envs } from "../../../../config";
 
-import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
+// import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 
 // import ReactDOM from "react-dom";
 
 import Review from "./Review";
-import Button from "../../Button/Button";
+// import Button from "../../Button/Button";
 import { useSnackbar } from "notistack";
 import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import { cartClear, savePaymentMethod } from "../../../redux/Cart/cart.actions";
+import { savePaymentMethod } from "../../../redux/Cart/cart.actions";
 // import {
 //     payFail,
 //     payRequest,
@@ -54,7 +55,7 @@ export default function PaymentForm({
     const { closeSnackbar, enqueueSnackbar } = useSnackbar();
 
     const [paymentMethod, setPaymentMethod] = useState("PayPal");
-    const [termsAccepted, setTermsAccepted] = useState(false);
+    // const [termsAccepted, setTermsAccepted] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100; // 123.456 => 123.46

@@ -1,6 +1,6 @@
 import Button from "../../../Button/Button";
 
-export default function StepC({ isFailed, isFinished, error, styles }) {
+export default function StepC({ isFailed, isFinished, error }) {
     console.log("error: ", error);
     if (isFinished) {
         return <div>Messaggio inviato! Ti risponderemo al piú presto</div>;

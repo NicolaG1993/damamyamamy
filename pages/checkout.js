@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
-import Link from "next/link";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 // import { Link, useHistory } from "react-router-dom";
 import AddressForm from "../components/Checkout/steps/AddressForm";
 import PaymentForm from "../components/Checkout/steps/PaymentForm";
@@ -10,18 +9,12 @@ import styles from "../components/Checkout/style/Checkout.module.css";
 
 // REDUX
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import {
-    emptyCart,
-    refreshCart,
-    checkCart,
-    removeFromCart,
-    saveShippingAddress,
-} from "../redux/Cart/cart.actions";
-import {
-    loadCheckout,
-    captureCheckout,
-    authorizePP,
-} from "../redux/Checkout/checkout.actions";
+import { saveShippingAddress } from "../redux/Cart/cart.actions";
+// import {
+//     loadCheckout,
+//     captureCheckout,
+//     authorizePP,
+// } from "../redux/Checkout/checkout.actions";
 import Cookies from "js-cookie";
 const selectCart = (state) => state.cart.cartItems;
 const userAddress = (state) => state.cart.shippingAddress;
@@ -33,7 +26,7 @@ const steps = ["Shipping address", "Payment details"];
 
 export default function Checkout() {
     const router = useRouter();
-    const { redirect } = router.query;
+    // const { redirect } = router.query;
     const dispatch = useDispatch();
 
     //STATE

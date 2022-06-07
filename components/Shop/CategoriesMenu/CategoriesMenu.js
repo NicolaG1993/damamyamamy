@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import {
-    fetchCategories,
-    filterByCategory,
-} from "../../../redux/ShopData/shopData.actions";
+import { filterByCategory } from "../../../redux/ShopData/shopData.actions";
 const getCategories = (state) => state.shopData.categories;
 import styles from "./style/CategoriesMenu.module.css";
 import useWindowDimensions from "../../../utils/useWindowDimensions";

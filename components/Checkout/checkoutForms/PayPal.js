@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSnackbar } from "notistack";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
-import { cartClear, savePaymentMethod } from "../../../redux/Cart/cart.actions";
+import { cartClear } from "../../../redux/Cart/cart.actions";
 import { getError } from "../../../shared/utils/error";
 import Button from "../../Button/Button";
 

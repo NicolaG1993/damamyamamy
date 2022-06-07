@@ -107,11 +107,11 @@ async function handler(req, res) {
                 order_id: id,
             },
         });
-        let user = await prisma.users.findUnique({
-            where: {
-                id: order.user_id,
-            },
-        });
+        // let user = await prisma.users.findUnique({
+        //     where: {
+        //         id: order.user_id,
+        //     },
+        // });
 
         if (order) {
             const paymentResult = req.body;
@@ -152,7 +152,7 @@ async function handler(req, res) {
                         })
                     )
                 )
-                .then((responseStock) => {
+                .then(() => {
                     res.status(200).send({
                         message: "Articoli acquistati!",
                         order: paidOrder,

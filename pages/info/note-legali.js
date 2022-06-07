@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Link from "next/link";
 import styles from "../../components/Documents/Document.module.css";
 
 export default function NoteLegali() {
@@ -13,7 +12,7 @@ export default function NoteLegali() {
                 />
                 <meta property="og:type" content="website" />
             </Head>
-            <h1>Dati dell'Azienda</h1>
+            <h1>Dati dell&apos;Azienda</h1>
 
             <div className={styles["document-text-wrap"]}>
                 <h3>Da Mamy a Mamy</h3>
@@ -21,8 +20,8 @@ export default function NoteLegali() {
                 <p>Partita Iva: 04625930237</p>
                 <p>C.F.: GGLSRA74P48H330M</p>
                 <p>
-                    Agenzia d'affari per la vendita per conto di terzi (art. 115
-                    T.U.L.P.S.)
+                    Agenzia d&apos;affari per la vendita per conto di terzi
+                    (art. 115 T.U.L.P.S.)
                 </p>
 
                 <div className={styles["end-paragraph"]}></div>

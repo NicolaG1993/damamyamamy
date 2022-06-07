@@ -1,5 +1,5 @@
 import { memo } from "react";
-import Image from "next/image";
+// import Image from "next/image";
 import styles from "./style/Slider.module.css";
 
 const Slide = ({ content, width }) => {

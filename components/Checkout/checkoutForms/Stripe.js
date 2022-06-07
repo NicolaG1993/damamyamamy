@@ -1,18 +1,13 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 
-import {
-    CardElement,
-    useStripe,
-    useElements,
-    PaymentElement,
-} from "@stripe/react-stripe-js";
+import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 
 import { useSnackbar } from "notistack";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import Cookies from "js-cookie";
 import Button from "../../Button/Button";
-import { cartClear, savePaymentMethod } from "../../../redux/Cart/cart.actions";
+import { cartClear } from "../../../redux/Cart/cart.actions";
 import { getError } from "../../../shared/utils/error";
 import { useRouter } from "next/router";
 

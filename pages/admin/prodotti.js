@@ -28,9 +28,9 @@ function AdminShop() {
     const [fetchedProducts, setFetchedProducts] = useState("in stock");
     const [displayedProducts, setDisplayedProducts] = useState([]);
 
-    function createMarkup(str) {
-        return { __html: str };
-    }
+    // function createMarkup(str) {
+    //     return { __html: str };
+    // }
 
     const fetchAvailableData = async () => {
         try {

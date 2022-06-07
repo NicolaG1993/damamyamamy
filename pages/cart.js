@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
-import Link from "next/link";
+import { useEffect } from "react";
 import Head from "next/head";
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import axios from "axios";
 
 import CartItem from "../components/Cart/CartItem/CartItem";
@@ -16,7 +14,6 @@ import {
     cartAddItem,
     cartRemoveItem,
     cartClear,
-    cartUpdateItemQuantity,
 } from "../redux/Cart/cart.actions";
 import { useSnackbar } from "notistack";
 // import { fetchData } from "../redux/ShopData/shopData.actions";

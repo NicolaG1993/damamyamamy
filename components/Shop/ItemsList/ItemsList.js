@@ -1,8 +1,7 @@
-import Link from "next/link";
 import { useState, useEffect } from "react";
 import ItemCard from "../ItemCard/ItemCard";
 import styles from "./style/ItemsList.module.css";
-import CartButton from "../../CartButton/CartButton";
+// import CartButton from "../../CartButton/CartButton";
 
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { setPageNav } from "../../../redux/PageNav/pageNav.actions";

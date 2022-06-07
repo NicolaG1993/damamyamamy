@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styles from "./style/Gallery.module.css";
 import btnStyles from "../../../Header/HamburgerButton/HamburgerButton.module.css";
 

@@ -12,7 +12,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 // import { Switch, Route, useRouteMatch } from "react-router-dom";
 
 import styles from "../../../components/AdminDashboard/style/AdminDashboard.module.css";
@@ -24,7 +24,6 @@ import {
 import {
     titleValidation,
     numberValidation,
-    slugValidation,
 } from "../../../shared/utils/validateForms";
 import slugify from "../../../shared/utils/slugify";
 import Button from "../../../components/Button/Button";
@@ -58,7 +57,7 @@ function AdminItem({ params }) {
     const [relatedProducts, setRelatedProducts] = useState([]);
     const [relatedProductsWindow, setRelatedProductsWindow] = useState(false);
     const [allProducts, setAllProducts] = useState([]);
-    const [allProductsFetched, setAllProductsFetched] = useState(false);
+    // const [allProductsFetched, setAllProductsFetched] = useState(false);
 
     const [errors, setErrors] = useState({});
 
@@ -415,11 +414,11 @@ function AdminItem({ params }) {
         // devo passare lo state in relatedProducts (che é quello che devo mostrare in DOM), non quello di product
     };
 
-    const deleteProductFromDB = (id) => {
-        return axios.post(`/api/product/delete`, id, {
-            headers: { authorization: `Bearer ${userInfo.token}` },
-        });
-    };
+    // const deleteProductFromDB = (id) => {
+    //     return axios.post(`/api/product/delete`, id, {
+    //         headers: { authorization: `Bearer ${userInfo.token}` },
+    //     });
+    // };
 
     // quando user clicca conferma e non ci sono errori allora facciamo post request per update
     // modifico product in db e modifico S3 bucket
@@ -467,7 +466,7 @@ function AdminItem({ params }) {
         } else {
             console.log("INVALID INPUTS", errors);
             // how to map object values, instead of array
-            Object.values(errors).map((err, i) =>
+            Object.values(errors).map((err) =>
                 enqueueSnackbar(err, {
                     variant: "error",
                 })
@@ -1094,7 +1093,7 @@ function AdminItem({ params }) {
                                             (it) => el.id == it.id
                                         )
                                 )
-                                .map((el, i) => (
+                                .map((el) => (
                                     <div
                                         className={
                                             styles["filter-form-col-right"]

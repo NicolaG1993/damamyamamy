@@ -2,9 +2,8 @@ import Head from "next/head";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/router";
 
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 // import { Switch, Route, useRouteMatch } from "react-router-dom";
 
 import styles from "../../components/Shop/Item/style/Item.module.css";
@@ -21,7 +20,6 @@ const Gallery = dynamic(
 ); //giusto?
 
 // import { fetchItem } from "../api/api";
-import axios from "axios";
 import prisma from "../../shared/libs/prisma";
 import { formatJSDate } from "../../shared/utils/convertTimestamp";
 
@@ -43,7 +41,7 @@ export async function getInitialProps(context) {
 export default function Item({ product }) {
     const [galleryOpen, setGalleryOpen] = useState(false);
     const [clickedPic, setClickedPic] = useState(0);
-    const [relatedProducts, setRelatedProducts] = useState([]);
+    // const [relatedProducts, setRelatedProducts] = useState([]);
 
     console.log("product", product);
 
