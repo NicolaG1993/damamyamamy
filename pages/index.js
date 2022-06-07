@@ -88,14 +88,20 @@ export default function Home({ catNewItems, cat1, cat2 }) {
     return (
         <div id={styles["Home"]}>
             <Head>
-                <title>Da Mamy a Mamy</title>
+                <title>
+                    Da Mamy a Mamy - Mercatino dell&apos;usato per Bambini in
+                    provincia di Verona
+                </title>
                 <meta property="og:type" content="website" />
-                <meta property="og:title" content="Da Mamy a Mamy" />
+                <meta
+                    property="og:title"
+                    content="Da Mamy a Mamy - Mercatino dell'usato per Bambini in provincia di Verona"
+                />
             </Head>
 
             <h1>
-                Da Mamy a Mamy - Negozio di accessori, Abbigliamento e
-                giocattoli di seconda mano per bimbi da 0 a 10 anni
+                Da Mamy a Mamy - Negozio di accessori, passeggini, abbigliamento
+                e giocattoli di seconda mano per bimbi da 0 a 10 anni
             </h1>
             <Slider width={width} />
 
