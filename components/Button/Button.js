@@ -41,8 +41,8 @@ export default function Button({ page, text, type, fn, style }) {
 
     if (type === "internal")
         return (
-            <Link href={page || "#"} onClick={() => handleFunction()}>
-                <a>
+            <Link href={page || "#"}>
+                <a onClick={() => handleFunction()}>
                     <button
                         type="button"
                         className={`${styles.btn} ${styles[status]} ${styles[style]}`}

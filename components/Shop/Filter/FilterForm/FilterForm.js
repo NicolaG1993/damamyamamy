@@ -8,18 +8,18 @@ export default function FilterForm({
     topValue,
     research,
     handleForm,
-    handleInputRange,
+    // handleInputRange,
     filters,
     filtersBar,
 }) {
     // console.log("DEFAULT_CLASS_NAMES", DEFAULT_CLASS_NAMES);
     console.log("categories", categories);
-    const updateInputValues = () => {
-        let minInput = document.querySelector("#priceMin");
-        let maxInput = document.querySelector("#priceMax");
-        minInput.value = filters.priceMin;
-        maxInput.value = filters.priceMax;
-    };
+    // const updateInputValues = () => {
+    //     let minInput = document.querySelector("#priceMin");
+    //     let maxInput = document.querySelector("#priceMax");
+    //     minInput.value = filters.priceMin;
+    //     maxInput.value = filters.priceMax;
+    // };
 
     return (
         <form className={`${filtersBar ? styles["filter-form"] : "hidden"}`}>

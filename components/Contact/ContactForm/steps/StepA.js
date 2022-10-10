@@ -73,7 +73,7 @@ export default function StepA({ next, contactReq, styles }) {
             {Object.keys(errors).length !== 0 && <ErrorsBox />}
             <form
                 className={styles["contact-form"]}
-                onLoad={(e) => handleForm(e)}
+                // onLoad={(e) => handleForm(e)}
                 onInput={(e) => handleForm(e)}
                 onSubmit={(e) => validate(e)}
             >
