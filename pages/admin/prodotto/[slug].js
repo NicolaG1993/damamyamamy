@@ -321,7 +321,7 @@ function AdminItem({ params }) {
         if (
             product.images.filter((e) => e.location === img.location).length > 0
         ) {
-            // se img é qui allora salvo valore in deletedImages e aggiorno state senza img
+            // se img é in obj originale allora salvo valore in deletedImages e aggiorno state senza img
             setDeletedImages([...deletedImages, img.key]);
             const newArr = product.images.filter((el) => img.key !== el.key);
             setProduct({
