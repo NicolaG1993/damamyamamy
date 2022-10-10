@@ -14,7 +14,7 @@ module.exports = {
 
     reactStrictMode: true,
 
-    disableStaticImages: true,
+    // disableStaticImages: true,
     images: {
         domains: ["cdn.chec.io", "dmam-items.s3.eu-south-1.amazonaws.com"],
     },
@@ -30,9 +30,9 @@ module.exports = {
         DATABASE_URL: process.env.DATABASE_URL,
     },
 
-    externals: {
-        _http_common: "commonjs2 _http_common",
-    },
+    // externals: {
+    //     _http_common: "commonjs2 _http_common",
+    // },
 
     //per deploy
 
