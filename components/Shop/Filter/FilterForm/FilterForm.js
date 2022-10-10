@@ -1,6 +1,6 @@
-import InputRange from "react-input-range";
-import "react-input-range/lib/css/index.css";
-import DEFAULT_CLASS_NAMES from "react-input-range/src/js/input-range/default-class-names.js";
+// import InputRange from "react-input-range";
+// import "react-input-range/lib/css/index.css";
+// import DEFAULT_CLASS_NAMES from "react-input-range/src/js/input-range/default-class-names.js";
 import styles from "./style/FilterForm.module.css";
 
 export default function FilterForm({
@@ -68,8 +68,8 @@ export default function FilterForm({
                 </div>
             </div>
 
-            <div className={styles["filter-form-col-full"]}>
-                <InputRange
+            {/*<div className={styles["filter-form-col-full"]}>
+               <InputRange
                     classNames={{
                         ...DEFAULT_CLASS_NAMES,
                         labelContainer: `input-range__label-container ${styles["my-label"]}`,
@@ -85,7 +85,7 @@ export default function FilterForm({
                     onChange={(value) => handleInputRange(value)}
                     onChangeComplete={() => updateInputValues()}
                 />
-            </div>
+            </div>*/}
 
             <div className={styles["filter-form-col-left"]}>
                 <label>
