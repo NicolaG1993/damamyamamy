@@ -23,7 +23,6 @@ function Profile() {
     if (!userInfo) {
         router.push("/login");
     }
-    useEffect(() => {}, []);
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -231,9 +230,13 @@ function Profile() {
                 </form>
 
                 <section>
-                    <h3>ID: {userInfo.id}</h3>
-                    <h3>Nome: {userInfo.name}</h3>
-                    <h3>Email: {userInfo.email}</h3>
+                    {userInfo && (
+                        <>
+                            <h3>ID: {userInfo.id}</h3>
+                            <h3>Nome: {userInfo.name}</h3>
+                            <h3>Email: {userInfo.email}</h3>
+                        </>
+                    )}
                     {/* <h3>Foto: {userInfo.profile_pic_url}</h3> */}
                 </section>
 

@@ -38,6 +38,8 @@ export default function Nav({ closeNav, width, userInfo }) {
     let { active } = useSelector(selectLayouts, shallowEqual);
     // let navIsActive = state.active;
 
+    console.log("userInfo: ", userInfo);
+
     const getOverlayStyle = () => {
         if (active) return styles["header-overlay-in"];
         else return styles["header-overlay-out"];

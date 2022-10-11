@@ -16,7 +16,7 @@ import { SnackbarProvider } from "notistack";
 const env = process.env.NODE_ENV;
 let workInProgress = false;
 if (env == "production") {
-    workInProgress = true; // 👀
+    workInProgress = false; // 👀
 }
 
 function MyApp({ Component, pageProps }) {

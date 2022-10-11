@@ -8,6 +8,12 @@ datasource db {
 }
 
 // npx prisma db pull
+// npx prisma db push
+// npx prisma studio
+
+// heroku config:get DATABASE_URL -a damamyamamy-db
+// heroku pg:info --app damamyamamy-db
+
 model orders {
   order_id         Int       @id @default(autoincrement())
   user_id          Int
@@ -55,4 +61,3 @@ model users {
   orders          orders[]
 }
 
-// heroku pg:info --app damamyamamy-db
