@@ -54,3 +54,5 @@ model users {
   created_at      DateTime? @default(now()) @db.Timestamp(6)
   orders          orders[]
 }
+
+// heroku pg:info --app damamyamamy-db
