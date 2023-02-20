@@ -27,6 +27,14 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env
 
 # vercel
 .vercel
+
+# Me
+utils/db/data.js
+utils/db/db.js
+utils/db/setup.sql
+steps.txt
+/public/local_pics
