@@ -184,3 +184,13 @@ modifiche di marzo 2022:
 • migliorare css in admin 🐢
 • Shop, page selector non responisive, ci sono molte pagine 🐢
 • links icone footer 🐢
+
+
+---------------
+20 Febbraio 2023
+
+Creare v2.0 del sito
+Chiudere qua questa folder e crearne una nuova, con versioni aggiornate di nextjs e dependencies
+Creare una nuova branch chiamata Alpha, che sará un backup di questa
+Non usare piu prisma ma bensi psql
+Migrazione DB su AWS

@@ -42,7 +42,12 @@ export default function Shop({ products, categories }) {
 
     const dispatch = useDispatch();
 
-    useEffect(() => dispatch(setupShop({ products, categories })), []);
+    useEffect(() => {
+        async () => dispatch(setupShop({ products, categories }));
+        // return () => {
+        //     console.log("This will be logged on unmount");
+        // };
+    }, []);
     /*
     let data = useSelector(loadData, shallowEqual);
      useEffect(() => {
