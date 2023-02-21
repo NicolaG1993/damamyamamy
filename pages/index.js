@@ -3,6 +3,7 @@ import Image from "next/image";
 import styles from "@/styles/Home.module.css";
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
+import ShortList from "@/components/Displayers/Shortlist/Shortlist";
 
 // import useScrollPosition from "../shared/utils/useScrollPosition";
 // import useWindowDimensions from "../shared/utils/useWindowDimensions";
@@ -33,13 +34,13 @@ export default function Home() {
 
             <main className={styles.main} id={styles["Home"]}>
                 <Slider />
-                {/* Shortlist */}
-                <section>
-                    <h3>Gli ultimi arrivi</h3>
+                <ShortList tableName={"Gli ultimi arrivi"} data={[]} />
+                <section className={styles.section5050}>
+                    <div></div>
+                    <div></div>
                 </section>
-                <section>
-                    <h4>Section</h4>
-                </section>
+                <section></section>
+                <section></section>
             </main>
         </>
     );

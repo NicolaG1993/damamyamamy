@@ -7,12 +7,32 @@
     /* min-height: 100vh; */
 }
 .main > section {
-    padding: 3rem 1.5rem;
+    /* padding: 3rem 1.5rem; */
 }
 .main > section:nth-child(2) {
     background: white;
 }
 .main > section:nth-child(3) {
+    background: whitesmoke;
+    padding: 0;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+}
+.main > section:nth-child(3) > div:nth-child(1) {
+    width: 50%;
+    background: whitesmoke;
+}
+.main > section:nth-child(3) > div:nth-child(2) {
+    width: 50%;
+    background: white;
+}
+
+.main > section:nth-child(4) {
+    background: rgb(228, 228, 228);
+}
+
+.main > section:nth-child(5) {
     background: whitesmoke;
 }
 

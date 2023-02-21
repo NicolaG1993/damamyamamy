@@ -133,6 +133,15 @@ footer {
     align-items: center;
     padding: 2em 1.5em;
 }
+.copyrights {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 2em 1.5em;
+    text-align: center;
+    font-size: 0.85rem;
+    font-family: var(--fontB);
+}
+
 main {
     margin-top: 60px;
     min-height: 100vh;
@@ -140,6 +149,7 @@ main {
 section {
     width: 100%;
     min-height: 50vh;
+    padding: 3rem 1.5rem;
 }
 
 /* COOKIES WRAP */
