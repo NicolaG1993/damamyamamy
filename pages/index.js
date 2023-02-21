@@ -8,7 +8,9 @@ import dynamic from "next/dynamic";
 // import useWindowDimensions from "../shared/utils/useWindowDimensions";
 // import { formatJSDate } from "../shared/utils/convertTimestamp";
 
-// const Slider = dynamic(() => import("../components/Home/Slider/Slider"), {ssr: false});
+const Slider = dynamic(() => import("@/components/Slider/Slider"), {
+    ssr: false,
+});
 // import Shortlist from "../components/Shortlist/Shortlist";
 // import IconsList from "../components/Home/IconsList/IconsList";
 // import Button from "../components/Button/Button";
@@ -30,8 +32,14 @@ export default function Home() {
             </Head>
 
             <main className={styles.main} id={styles["Home"]}>
-                {/* SLIDER */}
-                Home
+                <Slider />
+                {/* Shortlist */}
+                <section>
+                    <h3>Gli ultimi arrivi</h3>
+                </section>
+                <section>
+                    <h4>Section</h4>
+                </section>
             </main>
         </>
     );

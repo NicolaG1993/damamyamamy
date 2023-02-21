@@ -1,0 +1,21 @@
+#Slider {
+    position: relative;
+    height: calc(100vh - 60px);
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    transition: 0.2s ease;
+    padding: 0;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    /* background-attachment: fixed; */
+    background-repeat: no-repeat;
+    background-position: center;
+    object-position: center;
+    background-size: cover;
+    background-attachment: scroll; /* importante per proporzioni su ios */
+}
