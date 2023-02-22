@@ -1,0 +1,15 @@
+#PicAndTextSection {
+    background: whitesmoke;
+    padding: 0;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+}
+#PicAndTextSection > div:nth-child(1) {
+    width: 50%;
+    background: whitesmoke;
+}
+#PicAndTextSection > div:nth-child(2) {
+    width: 50%;
+    background: white;
+}

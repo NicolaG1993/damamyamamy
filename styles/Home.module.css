@@ -9,31 +9,24 @@
 .main > section {
     /* padding: 3rem 1.5rem; */
 }
-.main > section:nth-child(2) {
-    background: white;
-}
-.main > section:nth-child(3) {
-    background: whitesmoke;
-    padding: 0;
+
+.main > .intro {
+    background: var(--colorC);
     display: flex;
-    align-items: stretch;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
-.main > section:nth-child(3) > div:nth-child(1) {
-    width: 50%;
-    background: whitesmoke;
+.main > .intro h1 {
+    font-size: 2.5rem;
+    text-align: center;
+    /* margin: 0 0 1rem 0; */
 }
-.main > section:nth-child(3) > div:nth-child(2) {
-    width: 50%;
-    background: white;
-}
-
-.main > section:nth-child(4) {
-    background: rgb(228, 228, 228);
-}
-
-.main > section:nth-child(5) {
-    background: whitesmoke;
+.main > .intro p {
+    max-width: 500px;
+    text-align: center;
+    margin: 1rem 0 2rem 0;
+    line-height: 1.3rem;
 }
 
 /* Tablet and Smaller Desktop */

@@ -4,6 +4,8 @@ import styles from "@/styles/Home.module.css";
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import ShortList from "@/components/Displayers/Shortlist/Shortlist";
+import PicAndTextSection from "@/components/Displayers/PicAndTextSection/PicAndTextSection";
+import Link from "next/link";
 
 // import useScrollPosition from "../shared/utils/useScrollPosition";
 // import useWindowDimensions from "../shared/utils/useWindowDimensions";
@@ -34,13 +36,32 @@ export default function Home() {
 
             <main className={styles.main} id={styles["Home"]}>
                 <Slider />
-                <ShortList tableName={"Gli ultimi arrivi"} data={[]} />
-                <section className={styles.section5050}>
-                    <div></div>
-                    <div></div>
+                <section className={styles.intro}>
+                    <h1>Da Mamy a Mamy</h1>
+                    <p>
+                        A Cavaion Veronese nasce il negozio di abbigliamento e
+                        giocattoli di seconda mano per bambini da 0 a 10 anni
+                    </p>
+                    <Link className="button" href={"/negozio"}>
+                        Vedi gli articoli in negozio
+                    </Link>
                 </section>
-                <section></section>
-                <section></section>
+                <ShortList
+                    tableName={"Gli ultimi arrivi"}
+                    data={[
+                        { id: 1, title: "aaa", price: 50 },
+                        { id: 2, title: "aaa", price: 50 },
+                    ]}
+                />
+                <PicAndTextSection item={{ title: "Something", price: 9.99 }} />
+
+                <section className={styles.intro}>
+                    <h1>Vuoi vendere i tuoi articoli?</h1>
+                    {/* <p>Scopri come fare</p> */}
+                    <Link className="button" href={"/vendi"}>
+                        Scopri come fare
+                    </Link>
+                </section>
             </main>
         </>
     );

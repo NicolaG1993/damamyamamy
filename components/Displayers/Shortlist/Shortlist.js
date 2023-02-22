@@ -6,11 +6,11 @@ export default function ShortList({ data, tableName }) {
     return (
         <section className={styles.displayerWrap} id={styles.ShortList}>
             <div className={styles.displayerHeading}>
-                <h4>{tableName}</h4>
+                <p>{tableName}</p>
                 {/* <Link href={`/negozio`}>Tutti i prodotti</Link> */}
             </div>
 
-            <div className={styles.shortListGrid} id={styles.ShortListGrid}>
+            <div className={styles.shortListGrid}>
                 {data ? (
                     data.length ? (
                         data.map((el) => (
@@ -19,7 +19,7 @@ export default function ShortList({ data, tableName }) {
                                 key={tableName + " ShortList " + el.id}
                                 className={styles.gridElement}
                             >
-                                <div id={styles[thumbnailSize]}>
+                                <div id={styles.thumbnailWrap}>
                                     <div
                                         style={{
                                             position: "relative",
@@ -32,7 +32,7 @@ export default function ShortList({ data, tableName }) {
                                                     ? el.pic
                                                     : "/no-image.png"
                                             }
-                                            alt={el[nameType]}
+                                            alt={el.title}
                                             fill
                                             style={{ objectFit: "cover" }}
                                         />
@@ -40,7 +40,7 @@ export default function ShortList({ data, tableName }) {
 
                                     <div className={styles.gridElementInfos}>
                                         <h5>{el.title}</h5>
-                                        <p>{el.price}</p>
+                                        <p>€{el.price}</p>
                                     </div>
                                 </div>
                             </Link>

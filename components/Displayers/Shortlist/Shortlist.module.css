@@ -1,6 +1,54 @@
-.wrap {
-    width: 100%;
+#Shortlist {
+    background: var(--colorC);
+}
+.displayerHeading {
+}
+.displayerHeading p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: var(--fontB);
+    margin: 0 0 2rem 0;
+}
+.shortListGrid {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+}
+
+.gridElement {
+    height: 350px;
+    width: 300px;
+    border: 1px solid var(--colorD);
+    border-radius: 12px;
+    margin: 0 0.5rem;
+}
+.shortListGrid > .gridElement:nth-child(1) {
+    margin: 0 1rem 0 0;
+}
+.shortListGrid > .gridElement:nth-last-child(1) {
+    margin: 0 0 0 1rem;
+}
+.gridElement:hover {
+    box-shadow: var(--box-shadow-hover);
+    transition: var(--transition);
+}
+
+.picWrap {
+    width: 100%;
+    height: 260px;
+    background: var(--colorC);
+    border-radius: 12px 12px 0 0;
+}
+.picWrap img {
+    border-radius: 12px 12px 0 0;
+}
+.gridElementInfos {
+    padding: 1rem;
+}
+.gridElementInfos h5 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+.gridElementInfos p {
+    font-size: 1.1rem;
 }
