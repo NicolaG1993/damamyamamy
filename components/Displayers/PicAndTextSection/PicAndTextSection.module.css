@@ -5,6 +5,7 @@
     align-items: stretch;
     justify-content: center;
     height: 450px;
+    margin-top: 1rem;
 }
 #PicAndTextSection > div {
     display: flex;

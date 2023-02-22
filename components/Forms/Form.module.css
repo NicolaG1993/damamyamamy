@@ -1,0 +1,35 @@
+.form {
+    padding: 1rem 1.5rem;
+    background: var(--colorA);
+    border: 1px solid var(--colorD);
+    border-radius: 12px;
+    /* align-self: flex-start; */
+}
+
+.form input,
+.form textarea {
+    padding: 0.5rem;
+    width: 400px;
+    background: var(--colorC);
+    border: 1px solid var(--colorD);
+    font-size: 0.9rem;
+    font-family: var(--fontB);
+}
+
+.form input {
+    border-radius: 12px;
+}
+
+.form textarea {
+    border-radius: 12px;
+    resize: none;
+    height: 200px;
+}
+
+.inputWrap {
+    margin: 1rem 0;
+}
+
+.buttonWrap {
+    margin: 0.5rem 0;
+}

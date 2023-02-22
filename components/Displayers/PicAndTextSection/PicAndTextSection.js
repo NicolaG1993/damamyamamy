@@ -15,7 +15,7 @@ export default function PicAndTextSection({ item }) {
                     <p className={styles.title}>Occasione</p>
                     <p>{title}</p>
                     <p>€{price}</p>
-                    <Link href={`/el/${id}`}>Vedi articolo</Link>
+                    <Link href={`/el/${id}`}>Vedi l&apos;articolo</Link>
                 </div>
             </div>
         </section>
