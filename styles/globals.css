@@ -54,6 +54,9 @@
     --colorB: rgb(47, 163, 218);
     --colorC: white;
     --colorD: rgb(14, 14, 14);
+    --colorE: whitesmoke;
+    --colorF: rgb(205, 205, 205);
+    --colorG: rgb(150, 150, 150);
 
     --transition: 0.2s ease;
     --box-shadow-hover: 0 0 11px rgba(33, 33, 33, 0.2);
@@ -83,6 +86,7 @@ body {
 }
 
 h1,
+h2,
 h3,
 h3,
 h4,
@@ -120,7 +124,7 @@ a:hover {
 }
 
 header {
-    background: white;
+    background: var(--colorC);
     height: 60px;
     display: flex;
     align-items: center;
@@ -156,15 +160,16 @@ header nav a:hover {
 }
 
 footer {
-    background: rgba(0, 0, 0, 0.2);
+    background: var(--colorF);
     display: flex;
     align-items: center;
+    justify-content: space-around;
     padding: 2em 1.5em;
     min-height: 300px;
 }
 .copyrights {
     width: 100%;
-    background: rgba(0, 0, 0, 0.6);
+    background: var(--colorG);
     padding: 2em 1.5em;
     text-align: center;
     font-size: 0.85rem;

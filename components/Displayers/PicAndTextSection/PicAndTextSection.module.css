@@ -4,12 +4,57 @@
     display: flex;
     align-items: stretch;
     justify-content: center;
+    height: 450px;
+}
+#PicAndTextSection > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 #PicAndTextSection > div:nth-child(1) {
     width: 50%;
-    background: whitesmoke;
+    background: var(--colorE);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 #PicAndTextSection > div:nth-child(2) {
     width: 50%;
-    background: white;
+    background: var(--colorC);
+}
+
+/* PIC */
+
+#PicAndTextSection > div:nth-child(1) img {
+    width: 230px;
+    height: 230px;
+    background: var(--colorA);
+}
+
+/* TEXT */
+
+#PicAndTextSection .textWrap {
+    padding: 1rem;
+    width: 230px;
+    height: 230px;
+    border: 1px solid var(--colorD);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* border-radius: 12px; */
+}
+#PicAndTextSection .textWrap p {
+    margin: 0.1rem 0;
+}
+#PicAndTextSection .textWrap p.title {
+    font-weight: 700;
+    font-size: 1.3rem;
+    line-height: 1.3rem;
+    font-family: var(--fontB);
+    margin: 0 0 0.6rem 0;
+}
+#PicAndTextSection .textWrap a {
+    margin: 0.3rem 0 0 0;
 }

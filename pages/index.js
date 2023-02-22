@@ -49,14 +49,15 @@ export default function Home() {
                 <ShortList
                     tableName={"Gli ultimi arrivi"}
                     data={[
-                        { id: 1, title: "aaa", price: 50 },
-                        { id: 2, title: "aaa", price: 50 },
+                        { id: 1, title: "Alb", price: "50.50" },
+                        { id: 2, title: "Bab", price: 50 },
+                        { id: 3, title: "Cac", price: 420 },
                     ]}
                 />
                 <PicAndTextSection item={{ title: "Something", price: 9.99 }} />
 
                 <section className={styles.intro}>
-                    <h1>Vuoi vendere i tuoi articoli?</h1>
+                    <h2>Vuoi vendere i tuoi articoli?</h2>
                     {/* <p>Scopri come fare</p> */}
                     <Link className="button" href={"/vendi"}>
                         Scopri come fare

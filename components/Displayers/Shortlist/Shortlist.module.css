@@ -1,7 +1,13 @@
-#Shortlist {
-    background: var(--colorC);
+#ShortList {
+    /* background: var(--colorC); */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .displayerHeading {
+    max-width: 1000px;
+    width: 100%;
 }
 .displayerHeading p {
     font-size: 1.5rem;
@@ -12,7 +18,9 @@
 .shortListGrid {
     display: flex;
     align-items: center;
-    /* justify-content: space-between; */
+    justify-content: space-between;
+    max-width: 1000px;
+    width: 100%;
 }
 
 .gridElement {
@@ -20,13 +28,13 @@
     width: 300px;
     border: 1px solid var(--colorD);
     border-radius: 12px;
-    margin: 0 0.5rem;
+    /* margin: 0 0.5rem; */
 }
 .shortListGrid > .gridElement:nth-child(1) {
-    margin: 0 1rem 0 0;
+    /* margin: 0 1rem 0 0; */
 }
 .shortListGrid > .gridElement:nth-last-child(1) {
-    margin: 0 0 0 1rem;
+    /* margin: 0 0 0 1rem; */
 }
 .gridElement:hover {
     box-shadow: var(--box-shadow-hover);

@@ -7,12 +7,16 @@ export default function PicAndTextSection({ item }) {
     let { title, price, id } = item;
     return (
         <section id={styles.PicAndTextSection}>
-            <div></div>
             <div>
-                <p>Occasione</p>
-                <p>{title}</p>
-                <p>€{price}</p>
-                <Link href={`/el/${id}`}>Vedi articolo</Link>
+                <Image />
+            </div>
+            <div>
+                <div className={styles.textWrap}>
+                    <p className={styles.title}>Occasione</p>
+                    <p>{title}</p>
+                    <p>€{price}</p>
+                    <Link href={`/el/${id}`}>Vedi articolo</Link>
+                </div>
             </div>
         </section>
     );
