@@ -34,8 +34,8 @@ yarn-error.log*
 
 # Me
 utils/db/data.js
-utils/db/db.js
-utils/db/setup.sql
+# utils/db/db.js
+# utils/db/setup.sql
 steps.txt
 /public/local_pics
 todo
