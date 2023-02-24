@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Cookies from "js-cookie";
 import styles from "@/components/Forms/Form.module.css";
 
+import { userLogin } from "../redux/User/user.actions";
 import { emailValidation, passwordValidation } from "@/utils/validateForms";
 import { getError } from "@/utils/error";
 
@@ -18,9 +20,8 @@ export default function Login() {
 
     const router = useRouter();
     const { redirect } = router.query;
-    let userInfo = Cookies.get("userInfo")
-        ? JSON.parse(Cookies.get("userInfo"))
-        : undefined;
+    const dispatch = useDispatch();
+    let userInfo = useSelector(selectUserInfo, shallowEqual);
     if (userInfo) {
         router.push("/");
     }
@@ -54,6 +55,7 @@ export default function Login() {
                     password,
                 });
                 Cookies.set("userInfo", JSON.stringify(data));
+                dispatch(userLogin(data));
                 router.push(redirect || "/");
             } catch (err) {
                 alert(getError(err));

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
-// import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Cookies from "js-cookie";
 import styles from "@/components/Forms/Form.module.css";
@@ -28,12 +28,11 @@ export default function Registrazione() {
 
     const router = useRouter();
     const { redirect } = router.query;
-    // const dispatch = useDispatch();
-    // let userInfo = useSelector(selectUserInfo, shallowEqual);
-    // let userInfo = Cookies.get("userInfo");
-    let userInfo = Cookies.get("userInfo")
-        ? JSON.parse(Cookies.get("userInfo"))
-        : undefined;
+    const dispatch = useDispatch();
+    let userInfo = useSelector(selectUserInfo, shallowEqual);
+    // let userInfo = Cookies.get("userInfo")
+    //     ? JSON.parse(Cookies.get("userInfo"))
+    //     : undefined;
     // console.log("userInfo:", userInfo);
     if (userInfo) {
         router.push("/");
@@ -102,7 +101,7 @@ export default function Registrazione() {
                     email,
                     password,
                 });
-                // dispatch(userRegister(data));
+                dispatch(userRegister(data));
                 Cookies.set("userInfo", JSON.stringify(data));
                 router.push(redirect || "/");
             } catch (err) {

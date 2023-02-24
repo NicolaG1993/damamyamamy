@@ -1,18 +1,19 @@
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import Cookies from "js-cookie";
 
 function Profilo() {
     const router = useRouter();
+    const dispatch = useDispatch();
 
-    let userInfo = Cookies.get("userInfo")
-        ? JSON.parse(Cookies.get("userInfo"))
-        : undefined;
+    let userInfo = useSelector(selectUserInfo, shallowEqual);
     if (!userInfo) {
         router.push("/login");
     }
 
     const logout = () => {
+        dispatch(userLogout());
         Cookies.remove("userInfo");
         Cookies.remove("cartItems");
         router.push("/");
