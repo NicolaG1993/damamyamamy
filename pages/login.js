@@ -1,7 +1,27 @@
-import styles from "@/components/Forms/Form.module.css";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
+import styles from "@/components/Forms/Form.module.css";
+
+import { emailValidation, passwordValidation } from "@/utils/validateForms";
+import { getError } from "@/utils/error";
 
 export default function Login() {
+    //================================================================================
+    // Component State
+    //================================================================================
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    //================================================================================
+    // Functions
+    //================================================================================
+
+    //================================================================================
+    // Render UI
+    //================================================================================
     return (
         <main>
             <section className="page">

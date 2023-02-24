@@ -1,0 +1,26 @@
+.adminHomeWrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 800px;
+}
+
+.adminHomeWrap a {
+    height: 200px;
+    width: 200px;
+    padding: 1.6rem;
+    background: var(--colorE);
+    border: 1px solid var(--colorF);
+    border-radius: 12px;
+    transition: var(--transition);
+    margin: 0 1rem 2rem 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.adminHomeWrap a:hover {
+    box-shadow: var(--box-shadow-hover);
+    background: var(--colorE);
+}

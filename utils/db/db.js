@@ -2,11 +2,11 @@ import { Pool } from "pg";
 
 const config = {
     // connectionString: process.env.DATABASE_URL,
-    host: process.env.DATABASE_HOST,
-    port: process.env.DATABASE_PORT,
-    user: process.env.DATABASE_USER,
-    password: process.env.DATABASE_PSW,
-    database: process.env.DATABASE_NAME,
+    host: process.env.DEV_DATABASE_HOST,
+    port: process.env.DEV_DATABASE_PORT,
+    user: process.env.DEV_DATABASE_USER,
+    password: process.env.DEV_DATABASE_PSW,
+    database: process.env.DEV_DATABASE_NAME,
 };
 
 let db;
@@ -44,7 +44,7 @@ module.exports.newItem = (
     return db.query(myQuery, keys);
 };
 module.exports.newUser = (first_name, last_name, email, psw) => {
-    const myQuery = `INSERT INTO user 
+    const myQuery = `INSERT INTO users 
     (first_name, last_name, email, psw) 
     VALUES ($1, $2, $3, $4) 
     RETURNING *`;
@@ -65,7 +65,7 @@ module.exports.newOrder = ({
     paid_at,
     delivered_at,
 }) => {
-    const myQuery = `INSERT INTO order
+    const myQuery = `INSERT INTO orders
     (user_id, shipping_address, payment_method, payment_result, items_price, shipping_price, tax_price, total_price, is_paid, is_delivered, paid_at, delivered_at)
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
     RETURNING *`;
@@ -116,6 +116,11 @@ module.exports.newBrand = (name) => {
 module.exports.getElementByID = (table, id) => {
     const myQuery = `SELECT * FROM ${table} WHERE id = $1`;
     const key = [id];
+    return db.query(myQuery, key);
+};
+module.exports.getUserByEmail = (email) => {
+    const myQuery = `SELECT * FROM users WHERE email = $1`;
+    const key = [email];
     return db.query(myQuery, key);
 };
 

@@ -10,7 +10,11 @@ export default function Header({ userInfo }) {
                 <Link href={"/vendi"}>Vendi</Link>
                 <Link href={"/chi-siamo"}>Chi siamo</Link>
                 <Link href={"/contatto"}>Contatto</Link>
-                <Link href={"/login"}>Accedi</Link>
+                {userInfo ? (
+                    <Link href={"/profilo"}>Profilo</Link>
+                ) : (
+                    <Link href={"/login"}>Accedi</Link>
+                )}
             </nav>
         </header>
     );

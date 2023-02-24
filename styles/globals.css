@@ -89,12 +89,19 @@ section {
 .document-text-wrap > div > div {
     margin-bottom: 1rem;
 }
-.document-button-wrap {
+.document-button-wrap,
+.document-double-button-wrap {
     margin: 4rem 0;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.document-double-button-wrap {
+    flex-direction: column;
+}
+.document-double-button-wrap button {
+    margin: 1rem;
 }
 
 h1,
@@ -233,8 +240,8 @@ footer {
 /* COOKIES WRAP */
 .cookieWrap {
     position: fixed;
-    bottom: 10px;
-    right: 2rem;
+    bottom: 0.5rem;
+    right: 1.5rem;
     /* width: 50%; */
     max-width: 650px;
     border-radius: 40px;
@@ -243,7 +250,7 @@ footer {
     align-items: center;
     background: black;
     padding: 0.3rem 0.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     font-size: 0.9em;
     transition: 0.5s ease;
     background: var(--colorA);

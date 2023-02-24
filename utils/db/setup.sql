@@ -2,8 +2,8 @@
 -- psql -d damamyamamy -f utils/db/setup.sql
 
 DROP TABLE IF EXISTS item;
-DROP TABLE IF EXISTS "user";
-DROP TABLE IF EXISTS "order";
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS brand;
 DROP TABLE IF EXISTS category;
 DROP TABLE IF EXISTS tag;
@@ -25,7 +25,7 @@ CREATE TABLE item(
     condition VARCHAR(255)
 );
 
-CREATE TABLE "user"(
+CREATE TABLE users(
     id SERIAL PRIMARY KEY,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     first_name VARCHAR NOT NULL CHECK (first_name != ''),
@@ -40,7 +40,7 @@ CREATE TABLE "user"(
     personal_code VARCHAR(255)
 );
 
-CREATE TABLE "order"(
+CREATE TABLE orders(
     id SERIAL PRIMARY KEY,  
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     user_id INTEGER,
