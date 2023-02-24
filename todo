@@ -1,5 +1,17 @@
 20.02.2023
 • Ricreare sito in maniera pulita e corretta (MODULARE!)
+• Ricreare API
+• Ricreare DB in postgresql
 • Ideare un nuovo design, piú clean e pro (no dark mode, solo white mode)
 • Aggiungere PayPal e Stripe logos
 • Aggiungere sezione feed IG o Google reviews
+
+SEZIONI:
+• Auth (login, profilo, admin user, ...)
+• Admin (add, remove, edit products, users, orders)
+• Shop (dinamic components, fetches, responsive design, new design, filters)
+• Cart (add and remove items, design, API requests)
+• Checkout (checkout forms, PayPal, Stripe, API requests)
+
+NON PRIORITARIO:
+• vedi "registrazione.js" per cose non aggiunte, tipo snackbar o redux per user State

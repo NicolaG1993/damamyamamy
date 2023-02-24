@@ -34,7 +34,7 @@ export default function Registrazione() {
     let userInfo = Cookies.get("userInfo")
         ? JSON.parse(Cookies.get("userInfo"))
         : undefined;
-    console.log("userInfo:", userInfo);
+    // console.log("userInfo:", userInfo);
     if (userInfo) {
         router.push("/");
     }

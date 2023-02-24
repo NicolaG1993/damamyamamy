@@ -14,10 +14,52 @@ export default function Login() {
     //================================================================================
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [errors, setErrors] = useState({});
+
+    const router = useRouter();
+    const { redirect } = router.query;
+    let userInfo = Cookies.get("userInfo")
+        ? JSON.parse(Cookies.get("userInfo"))
+        : undefined;
+    if (userInfo) {
+        router.push("/");
+    }
 
     //================================================================================
     // Functions
     //================================================================================
+    const validateData = (e) => {
+        e.preventDefault();
+        const { id, name, value } = e.target;
+
+        // validate data + setErrors
+        let newErrObj = { ...errors };
+        if (id === "Email") {
+            const resp = emailValidation(value);
+            if (resp) {
+                setErrors({ ...errors, [name]: resp });
+            } else {
+                delete newErrObj[name];
+                setErrors(newErrObj);
+            }
+        }
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (Object.keys(errors).length === 0) {
+            try {
+                const { data } = await axios.post("/api/auth/login", {
+                    email,
+                    password,
+                });
+                Cookies.set("userInfo", JSON.stringify(data));
+                router.push(redirect || "/");
+            } catch (err) {
+                alert(getError(err));
+            }
+        }
+    };
 
     //================================================================================
     // Render UI
@@ -26,14 +68,16 @@ export default function Login() {
         <main>
             <section className="page">
                 <h1>Login</h1>
-                <form className={styles.form}>
+                <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>
                     <div className={styles.inputWrap}>
                         <input
                             type="text"
                             placeholder="Email"
                             name="email"
                             id="email"
-                            // defaultValue={contactReq.email || ""}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            onBlur={(e) => validateData(e)}
                         />
                     </div>
                     <div className={styles.inputWrap}>
@@ -42,7 +86,9 @@ export default function Login() {
                             placeholder="Password"
                             name="password"
                             id="password"
-                            // onChange={(e) => setPassword(e.target.value)}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            // onBlur={(e) => validateData(e)}
                         />
                     </div>
                     <div className={styles.buttonWrap}>

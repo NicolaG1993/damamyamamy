@@ -14,10 +14,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Header from "./Header";
 import Footer from "./Footer";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 
-export default function Layout({ children, ...pageProps }) {
-    const [userInfo, setUserInfo] = useState(null);
+export default function Layout({ children, userInfo, ...pageProps }) {
+    // const [userInfo, setUserInfo] = useState(null);
     const [cookiesConfirm, setCookiesConfirm] = useState(false);
     // const [isSmallDevice, setIsSmallDevice] = useState(false);
     const [animationReady, setAnimationReady] = useState(false);
@@ -34,11 +34,11 @@ export default function Layout({ children, ...pageProps }) {
     //  useEffect(() => setUserInfo(selectedUserInfo), [selectedUserInfo]);
 
     useEffect(() => {
-        let userCookie = Cookies.get("userInfo")
-            ? JSON.parse(Cookies.get("userInfo"))
-            : undefined;
-        setUserInfo(userCookie);
-        console.log("userInfo:", userCookie);
+        // let userCookie = Cookies.get("userInfo")
+        //     ? JSON.parse(Cookies.get("userInfo"))
+        //     : undefined;
+        // setUserInfo(userCookie);
+        // console.log("userInfo:", userCookie);
 
         const timer = setTimeout(() => {
             setAnimationReady(true);
