@@ -6,7 +6,8 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import styles from "@/components/Forms/Form.module.css";
 
-import { userLogin } from "../redux/User/user.actions";
+// import { userLogin } from "../redux/User/user.actions";
+import { selectUserState, userLogin } from "@/redux/slices/userSlice";
 import { emailValidation, passwordValidation } from "@/utils/validateForms";
 import { getError } from "@/utils/error";
 
@@ -21,9 +22,9 @@ export default function Login() {
     const router = useRouter();
     const { redirect } = router.query;
     const dispatch = useDispatch();
-    let userInfo = useSelector(selectUserInfo, shallowEqual);
+    let userInfo = useSelector(selectUserState, shallowEqual);
     if (userInfo) {
-        router.push("/");
+        router.push("/profilo");
     }
 
     //================================================================================

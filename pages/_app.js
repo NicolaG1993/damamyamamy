@@ -1,12 +1,20 @@
-import "@/styles/globals.css";
-import Layout from "@/constants/Layout/layout";
+import { Provider } from "react-redux";
 import Cookies from "js-cookie";
-import { useEffect, useState } from "react";
+import "@/styles/globals.css";
 
-export default function App({ Component, pageProps }) {
+import Layout from "@/constants/Layout/layout";
+
+import store from "@/redux/store.js";
+// import wrapper from "@/redux/store.js";
+
+function App({ Component, pageProps }) {
     return (
-        <Layout>
-            <Component {...pageProps} />
-        </Layout>
+        <Provider store={store}>
+            <Layout>
+                <Component {...pageProps} />
+            </Layout>
+        </Provider>
     );
 }
+// export default wrapper.useWrappedStore(App);
+export default App;

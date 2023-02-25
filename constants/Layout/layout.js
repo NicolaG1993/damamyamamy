@@ -8,7 +8,8 @@ import {
 } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-const selectUserInfo = (state) => state.user.userInfo;
+import { selectUserState } from "@/redux/slices/userSlice";
+// const selectUserInfo = (state) => state.user.userInfo;
 // import useWindowDimensions from "@/utils/useWindowDimensions";
 // import useScrollPosition from "@/utils/useScrollPosition";
 
@@ -17,13 +18,13 @@ import Footer from "./Footer";
 // import Cookies from "js-cookie";
 
 export default function Layout({ children, ...pageProps }) {
-    // const [userInfo, setUserInfo] = useState(null);
+    const [userInfo, setUserInfo] = useState(null);
     const [cookiesConfirm, setCookiesConfirm] = useState(false);
     // const [isSmallDevice, setIsSmallDevice] = useState(false);
     const [animationReady, setAnimationReady] = useState(false);
 
     // const dispatch = useDispatch();
-    let userInfo = useSelector(selectUserInfo);
+    let user = useSelector(selectUserState);
     // const { width, height } = useWindowDimensions();
     // const { scrollTop } = useScrollPosition();
 
@@ -46,6 +47,7 @@ export default function Layout({ children, ...pageProps }) {
         return () => clearTimeout(timer);
     }, []);
 
+    useEffect(() => (user ? setUserInfo(user) : setUserInfo(null)), [user]);
     // useEffect(
     //     () => (width > 550 ? setIsSmallDevice(false) : setIsSmallDevice(true)),
     //     [width]

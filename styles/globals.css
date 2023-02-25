@@ -124,24 +124,32 @@ a:hover {
     color: var(--colorB);
     /* text-decoration: underline; */
 }
-
-.button {
+.button,
+.button-disabled {
     padding: 1rem 1.5rem;
-    background: var(--colorB);
-    color: var(--colorC);
-    transition: var(--transition);
-    cursor: pointer;
     border-radius: 50px;
     font-weight: 700;
     text-align: center;
-    border: none;
     min-width: 230px;
+}
+.button {
+    cursor: pointer;
+    background: var(--colorB);
+    color: var(--colorC);
+    transition: var(--transition);
+    border: none;
 }
 .button:hover {
     box-shadow: var(--box-shadow-hover);
     color: var(--colorB);
     background: var(--colorA);
     text-decoration: none;
+}
+.button-disabled {
+    cursor: not-allowed;
+    background: var(--colorF);
+    color: var(--colorG);
+    border: none;
 }
 /* .form-button {
      background: var(--colorA);

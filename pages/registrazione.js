@@ -6,6 +6,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import styles from "@/components/Forms/Form.module.css";
 
+import { selectUserState, userLogin } from "@/redux/slices/userSlice";
 import {
     emailValidation,
     nameValidation,
@@ -29,13 +30,9 @@ export default function Registrazione() {
     const router = useRouter();
     const { redirect } = router.query;
     const dispatch = useDispatch();
-    let userInfo = useSelector(selectUserInfo, shallowEqual);
-    // let userInfo = Cookies.get("userInfo")
-    //     ? JSON.parse(Cookies.get("userInfo"))
-    //     : undefined;
-    // console.log("userInfo:", userInfo);
+    let userInfo = useSelector(selectUserState, shallowEqual);
     if (userInfo) {
-        router.push("/");
+        router.push("/profilo");
     }
 
     //================================================================================
@@ -101,7 +98,7 @@ export default function Registrazione() {
                     email,
                     password,
                 });
-                dispatch(userRegister(data));
+                dispatch(userLogin(data));
                 Cookies.set("userInfo", JSON.stringify(data));
                 router.push(redirect || "/");
             } catch (err) {
