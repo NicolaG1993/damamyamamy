@@ -19,7 +19,6 @@ export default async function handler(req, res) {
                     lastName: user.last_name,
                     email: user.email,
                     is_admin: user.is_admin,
-                    profile_pic_url: user.profile_pic_url,
                     pic: user.pic,
                     token: token,
                 });
@@ -31,6 +30,6 @@ export default async function handler(req, res) {
         }
     } catch (err) {
         console.log("ERROR: ", err);
-        res.status(403).json({ err: "Error occured." });
+        res.status(500).json({ err: "Error occured." });
     }
 }

@@ -98,8 +98,12 @@ export default function Registrazione() {
                     email,
                     password,
                 });
-                dispatch(userLogin({ token: _, ...data }));
-                Cookies.set("userInfo", JSON.stringify(data));
+
+                Cookies.set(
+                    "userInfo",
+                    JSON.stringify({ is_admin: _, ...data })
+                );
+                dispatch(userLogin({ token: _, is_admin: _, ...data }));
                 router.push(redirect || "/");
             } catch (err) {
                 // console.log("error:", err);

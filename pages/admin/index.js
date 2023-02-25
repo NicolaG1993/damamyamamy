@@ -1,14 +1,34 @@
+import { useEffect } from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
+import { shallowEqual, useSelector } from "react-redux";
+import { selectUserState } from "@/redux/slices/userSlice";
 import styles from "@/styles/Admin.module.css";
+import { getError } from "@/utils/error";
+import { checkAdmin } from "@/utils/custom/checks";
 
-export default function Admin() {
-    // if (!userInfo) {
-    //     console.log("user is not logged in");
-    //     router.push("/login");
-    // } else if (userInfo && !userInfo.is_admin) {
-    //     console.log("user is not Admin");
-    //     router.push("/");
-    // } // ATTIVARE QUANDO ABBIAMO ADMIN ACCOUNT
+function Admin() {
+    const router = useRouter();
+    let userInfo = useSelector(selectUserState, shallowEqual);
+
+    useEffect(() => {
+        try {
+            if (!userInfo) {
+                console.log("user is not logged in");
+                router.push("/login");
+            } else {
+                checkAdmin(userInfo)
+                    ? console.log("user is Admin, you can continue")
+                    : (console.log("user is not Admin"), router.push("/"));
+            }
+        } catch (err) {
+            console.log("ERR: ", err);
+            router.push("/");
+            alert(getError(err));
+        }
+    }, []);
+
     return (
         <main>
             <section className="page">
@@ -56,3 +76,5 @@ export default function Admin() {
         </main>
     );
 }
+
+export default dynamic(() => Promise.resolve(Admin), { ssr: false });

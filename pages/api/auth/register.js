@@ -36,6 +36,6 @@ export default async function handler(req, res) {
         }
     } catch (err) {
         console.log("ERROR: ", err);
-        res.status(403).json({ message: "Error occured." });
+        res.status(500).json({ message: "Error occured." });
     }
 }

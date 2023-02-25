@@ -55,8 +55,12 @@ export default function Login() {
                     email,
                     password,
                 });
-                Cookies.set("userInfo", JSON.stringify(data));
-                dispatch(userLogin({ token: _, ...data }));
+
+                Cookies.set(
+                    "userInfo",
+                    JSON.stringify({ is_admin: _, ...data })
+                );
+                dispatch(userLogin({ token: _, is_admin: _, ...data }));
                 router.push(redirect || "/");
             } catch (err) {
                 alert(getError(err));

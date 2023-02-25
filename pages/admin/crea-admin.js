@@ -1,11 +1,31 @@
 import styles from "@/components/Forms/Form.module.css";
 import { getError } from "@/utils/error";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { checkAdmin } from "@/utils/custom/checks";
+import { useRouter } from "next/router";
+import { shallowEqual, useSelector } from "react-redux";
+import { selectUserState } from "@/redux/slices/userSlice";
 
 export default function CreaAdmin() {
+    const router = useRouter();
+    let userInfo = useSelector(selectUserState, shallowEqual);
+
     const [userID, setUserID] = useState();
     const [success, setSuccess] = useState();
+
+    useEffect(() => {
+        try {
+            if (!userInfo) {
+                router.push("/login");
+            } else if (!checkAdmin(userInfo)) {
+                router.push("/");
+            }
+        } catch (err) {
+            router.push("/");
+            alert(getError(err));
+        }
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -13,7 +33,7 @@ export default function CreaAdmin() {
             const { data } = await axios.post("/api/admin/new-admin", {
                 id: userID,
             });
-            setUserID();
+            // setUserID();
             setSuccess(data);
         } catch (err) {
             alert(getError(err));
