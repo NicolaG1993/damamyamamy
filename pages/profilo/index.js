@@ -10,7 +10,7 @@ function Profilo() {
 
     let userInfo = useSelector(selectUserState, shallowEqual);
     if (!userInfo) {
-        router.push("/login");
+        router.push("/profilo/login");
     }
 
     const logout = () => {

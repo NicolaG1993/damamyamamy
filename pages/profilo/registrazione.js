@@ -98,7 +98,7 @@ export default function Registrazione() {
                     email,
                     password,
                 });
-                dispatch(userLogin(data));
+                dispatch(userLogin({ token: _, ...data }));
                 Cookies.set("userInfo", JSON.stringify(data));
                 router.push(redirect || "/");
             } catch (err) {
@@ -205,7 +205,8 @@ export default function Registrazione() {
                     </div>
                 </form>
                 <p className={styles.toggleForms}>
-                    Hai giá un profilo? <Link href={"/login"}>Accedi</Link>
+                    Hai giá un profilo?{" "}
+                    <Link href={"/profilo/login"}>Accedi</Link>
                 </p>
             </section>
         </main>

@@ -104,6 +104,24 @@ section {
     margin: 1rem;
 }
 
+.success {
+    background: green;
+    color: var(--colorC);
+    width: 100%;
+    padding: 1rem 1.5rem;
+    max-width: 450px;
+    margin: 1rem 0;
+}
+.success div:nth-child(1) {
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+    font-weight: 800;
+}
+.success div:nth-child(2) {
+    margin: 1rem 0;
+}
+
 h1,
 h2,
 h3,

@@ -56,7 +56,7 @@ export default function Login() {
                     password,
                 });
                 Cookies.set("userInfo", JSON.stringify(data));
-                dispatch(userLogin(data));
+                dispatch(userLogin({ token: _, ...data }));
                 router.push(redirect || "/");
             } catch (err) {
                 alert(getError(err));
@@ -101,7 +101,7 @@ export default function Login() {
 
                 <p className={styles.toggleForms}>
                     Non hai ancora un profilo?{" "}
-                    <Link href={"/registrazione"}>Registrati qui</Link>
+                    <Link href={"/profilo/registrazione"}>Registrati qui</Link>
                 </p>
             </section>
         </main>

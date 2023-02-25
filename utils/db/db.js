@@ -111,6 +111,14 @@ module.exports.newBrand = (name) => {
 };
 
 /* EDIT */
+module.exports.upgradeUser = (id) => {
+    const myQuery = `UPDATE users 
+    SET is_admin = true
+    WHERE id = $1
+    RETURNING *`;
+    const key = [id];
+    return db.query(myQuery, key);
+};
 
 /* GET */
 module.exports.getElementByID = (table, id) => {

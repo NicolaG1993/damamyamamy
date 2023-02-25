@@ -8,8 +8,7 @@ export default function Admin() {
     // } else if (userInfo && !userInfo.is_admin) {
     //     console.log("user is not Admin");
     //     router.push("/");
-    // }
-
+    // } // ATTIVARE QUANDO ABBIAMO ADMIN ACCOUNT
     return (
         <main>
             <section className="page">
