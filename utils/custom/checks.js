@@ -1,12 +1,18 @@
 import axios from "axios";
 
-const checkAdmin = async (user) => {
-    let { data } = await axios.get(`/api/user/${user.id}`);
-    if (data.is_admin) {
-        return true;
-    } else {
-        return false;
-    }
+const checkUser = async (user) => {
+    try {
+        if (!user) {
+            return false;
+        } else {
+            let { data } = await axios.get(`/api/user/${user.id}`);
+            if (data.is_admin) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    } catch (err) {}
 };
 
-export { checkAdmin };
+export { checkUser };

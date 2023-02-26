@@ -99,11 +99,9 @@ export default function Registrazione() {
                     password,
                 });
 
-                Cookies.set(
-                    "userInfo",
-                    JSON.stringify({ is_admin: _, ...data })
-                );
-                dispatch(userLogin({ token: _, is_admin: _, ...data }));
+                Cookies.set("userInfo", JSON.stringify(data));
+                let clone = (({ token, ...obj }) => obj)(data); // remove obj key
+                dispatch(userLogin(clone));
                 router.push(redirect || "/");
             } catch (err) {
                 // console.log("error:", err);

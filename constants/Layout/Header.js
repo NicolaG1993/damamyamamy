@@ -13,7 +13,7 @@ export default function Header({ userInfo }) {
                 {userInfo ? (
                     <Link href={"/profilo"}>Profilo</Link>
                 ) : (
-                    <Link href={"/login"}>Accedi</Link>
+                    <Link href={"/profilo/login"}>Accedi</Link>
                 )}
             </nav>
         </header>
