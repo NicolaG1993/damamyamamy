@@ -137,3 +137,15 @@ module.exports.getAllItems = () => {
     const myQuery = `SELECT * FROM item WHERE count_in_stock >= 1`;
     return db.query(myQuery);
 };
+module.exports.getAllItemsForAdmin = () => {
+    const myQuery = `SELECT * FROM item ORDER BY id`;
+    return db.query(myQuery);
+};
+module.exports.getAllUsers = () => {
+    const myQuery = `SELECT * FROM users ORDER BY id`;
+    return db.query(myQuery);
+};
+module.exports.getAllOrders = () => {
+    const myQuery = `SELECT * FROM orders ORDER BY created_at DESC`;
+    return db.query(myQuery);
+};

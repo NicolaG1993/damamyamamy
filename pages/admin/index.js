@@ -24,7 +24,7 @@ function Admin() {
         if (res) {
             setIsAdmin(true);
         } else {
-            router.push("/profilo");
+            router.push("/");
         }
     };
     return (
@@ -34,35 +34,45 @@ function Admin() {
                 <div className={styles.adminHomeWrap}>
                     {isAdmin ? (
                         <>
-                            <Link href={"/admin/nuovo"}>
+                            <Link href="/admin/nuovo" className={styles.link}>
                                 <div>
                                     <h4>Aggiungi prodotto</h4>
                                 </div>
                             </Link>
-                            <Link href="/admin/prodotti">
+                            <Link
+                                href="/admin/articoli"
+                                className={styles.link}
+                            >
                                 <h4>Vedi tutti i prodotti</h4>
                                 {/* <p>{summary.productsCount} prodotti in vendita</p> */}
-                                <p>{"?"} prodotti acquistati</p>
+                                {/* <p>{"?"} prodotti acquistati</p> */}
                             </Link>
-                            <Link href="/admin/ordini">
+                            <Link href="/admin/ordini" className={styles.link}>
                                 <div>
                                     <h4>Vedi tutti gli ordini</h4>
                                     {/* <p>{summar  y.ordersCount} ordini in totale</p> */}
                                 </div>
                             </Link>
-                            <Link href="/admin/utenti">
+                            <Link href="/admin/utenti" className={styles.link}>
                                 <div>
                                     <h4>Vedi tutti gli utenti</h4>
                                     {/* <p>{summary.usersCount} utenti iscritti</p> */}
-                                    <p>{"?"} utenti sono admin</p>
+                                    {/* <p>{"?"} utenti sono admin</p> */}
                                 </div>
                             </Link>
-                            <Link href="/admin/crea-admin">
+                            <Link
+                                href="/admin/crea-admin"
+                                className={`${styles.disabledLink} ${styles.link}`}
+                            >
                                 <div>
-                                    <h4>Rendi utente admin</h4>
+                                    <h4>Crea nuovo admin</h4>
+                                    <p>Disabilitato per ragioni di sicurezza</p>
                                 </div>
                             </Link>
-                            <Link href="/admin/statistiche">
+                            <Link
+                                href="/admin/statistiche"
+                                className={`${styles.disabledLink} ${styles.link}`}
+                            >
                                 <div>
                                     <h4>Rendimento del sito</h4>
                                     <p>Sezione al momento non disponibile</p>

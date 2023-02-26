@@ -1,5 +1,6 @@
 import axios from "axios";
 import jwt from "jsonwebtoken";
+import { getElementByID } from "@/utils/db/db";
 
 function signToken(user) {
     return jwt.sign(
@@ -18,7 +19,7 @@ function signToken(user) {
 
 const isAuth = (handler) => {
     return async (req, res, next) => {
-        console.log("isAuth middleware activated");
+        // console.log("isAuth middleware activated");
         const { authorization } = req.headers; //passiamo token via headers (vedi placeorder.js)
         if (authorization) {
             //Bearer xxx => xxx
@@ -29,7 +30,7 @@ const isAuth = (handler) => {
                 } else {
                     //decodificare token per avere i valori di user id, email e isAdmin
                     req.user = decode;
-                    console.log("isAuth req.user: ", req.user);
+                    // console.log("isAuth req.user: ", req.user);
                     // next();
                     return handler(req, res);
                 }
@@ -41,10 +42,20 @@ const isAuth = (handler) => {
 };
 
 const isAdmin = (handler) => async (req, res, next) => {
-    console.log("isAdmin middleware activated");
+    // console.log("isAdmin middleware activated");
     if (req.user.is_admin) {
-        // next();
-        return handler(req, res);
+        try {
+            let { rows } = await getElementByID("users", req.user.id);
+            if (rows[0].is_admin) {
+                // next();
+                return handler(req, res);
+            } else {
+                res.status(401).send({ message: "User is not admin" });
+            }
+        } catch (err) {
+            console.log("🐞 ERROR: ", err);
+            res.status(500).send({ message: "Server: internal error" });
+        }
     } else {
         res.status(401).send({ message: "User is not admin" });
     }

@@ -11,7 +11,16 @@ export default function Header({ userInfo }) {
                 <Link href={"/chi-siamo"}>Chi siamo</Link>
                 <Link href={"/contatto"}>Contatto</Link>
                 {userInfo ? (
-                    <Link href={"/profilo"}>Profilo</Link>
+                    userInfo.is_admin ? (
+                        <>
+                            <Link href={"/profilo"}>Profilo</Link>
+                            <Link href={"/admin"} className="admin">
+                                Admin
+                            </Link>
+                        </>
+                    ) : (
+                        <Link href={"/profilo"}>Profilo</Link>
+                    )
                 ) : (
                     <Link href={"/profilo/login"}>Accedi</Link>
                 )}

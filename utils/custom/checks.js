@@ -12,7 +12,10 @@ const checkUser = async (user) => {
                 return false;
             }
         }
-    } catch (err) {}
+    } catch (err) {
+        console.log("🐞 ERROR: ", err);
+        return false;
+    }
 };
 
 export { checkUser };

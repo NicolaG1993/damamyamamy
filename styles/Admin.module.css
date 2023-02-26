@@ -24,3 +24,28 @@
     box-shadow: var(--box-shadow-hover);
     background: var(--colorE);
 }
+.adminHomeWrap a div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.adminHomeWrap a div h4 {
+    margin: 0.3rem 0;
+}
+.adminHomeWrap a div p {
+    font-size: 0.9rem;
+    font-weight: 400;
+    max-width: 80%;
+}
+
+.adminHomeWrap .disabledLink {
+    cursor: not-allowed;
+    background: var(--colorE);
+    border: 1px solid var(--colorF);
+    color: var(--colorG);
+}
+.adminHomeWrap .disabledLink:hover {
+    box-shadow: none;
+    background: var(--colorE);
+    color: var(--colorG);
+}

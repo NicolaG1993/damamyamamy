@@ -1,6 +1,7 @@
+import { isAdmin, isAuth } from "@/utils/auth";
 import { upgradeUser } from "@/utils/db/db";
 
-export default async function handler(req, res) {
+async function handler(req, res) {
     try {
         const id = Number(req.body.id);
         let { rows } = await upgradeUser(id);
@@ -17,5 +18,4 @@ export default async function handler(req, res) {
     }
 }
 
-// APPLICARE MIDDLEWARE PER PASSARE COOKIE TOKEN E VERIFICARE CHE UTENTE È AUTORIZZATO AD USARE QUESTA API
-// FORSE MI SERVE UN SECONDO TOKEN PER GLI ADMIN ?
+export default isAuth(isAdmin(handler));

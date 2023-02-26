@@ -230,7 +230,7 @@ header #HeaderLogo {
     background: var(--colorA);
 }
 header nav {
-    width: 500px;
+    min-width: 500px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -265,6 +265,56 @@ footer {
     font-family: var(--fontB);
 }
 
+/* LIST */
+.list {
+    padding: 1rem;
+    /* background: var(--colorE); */
+    background: var(--colorC);
+    /* border: 1px solid var(--colorF); */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 12px;
+}
+.listHead,
+.listItem {
+    display: grid;
+    padding: 1rem;
+    margin: 0.5rem;
+}
+.listHead {
+    font-size: 0.7rem;
+    font-weight: 700;
+    border-bottom: 1px solid var(--colorF);
+}
+.listItem {
+    cursor: pointer;
+    /* display: flex; */
+    /* justify-content: space-between; */
+    /* align-items: center; */
+    background: var(--colorE);
+    border: 1px solid var(--colorF);
+    border-radius: 12px;
+    font-size: 0.9rem;
+    /* transition: box-shadow var(--transition); */
+}
+.listItem:hover {
+    color: var(--colorB);
+    /* border: 1px solid var(--colorD); */
+    box-shadow: var(--box-shadow-hover);
+}
+.listHead p,
+.listItem p {
+    margin: 0 0.5rem;
+    align-self: center;
+    /* overflow: hidden; */
+    /* white-space: nowrap; */
+}
+#UsersList > .listHead,
+#UsersList > .listItem {
+    grid-template-columns: 0.25fr 1fr 0.75fr 1.5fr 0.5fr 0.5fr 0.5fr 0.5fr;
+}
+
 /* COOKIES WRAP */
 .cookieWrap {
     position: fixed;
@@ -276,7 +326,7 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: black;
+    background: var(--colorD);
     padding: 0.3rem 0.5rem;
     margin-bottom: 0.5rem;
     font-size: 0.9em;

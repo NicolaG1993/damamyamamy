@@ -15,3 +15,7 @@ SEZIONI:
 
 NON PRIORITARIO:
 • vedi "registrazione.js" per cose non aggiunte, tipo snackbar o redux per user State
+
+26.02.2023
+• aggiungere middleware per admin api routes
+• completare sezione admin

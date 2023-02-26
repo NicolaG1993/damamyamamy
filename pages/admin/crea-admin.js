@@ -1,16 +1,16 @@
-import styles from "@/components/Forms/Form.module.css";
-import { getError } from "@/utils/error";
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { checkUser } from "@/utils/custom/checks";
 import { useRouter } from "next/router";
+import axios from "axios";
 import { shallowEqual, useSelector } from "react-redux";
+
+import styles from "@/components/Forms/Form.module.css";
+import { checkUser } from "@/utils/custom/checks";
+import { getError } from "@/utils/error";
 import { selectUserState } from "@/redux/slices/userSlice";
 
 export default function CreaAdmin() {
     const router = useRouter();
     let userInfo = useSelector(selectUserState, shallowEqual);
-
     const [isAdmin, setIsAdmin] = useState(false);
     const [userID, setUserID] = useState();
     const [success, setSuccess] = useState();
@@ -25,7 +25,7 @@ export default function CreaAdmin() {
         if (res) {
             setIsAdmin(true);
         } else {
-            router.push("/profilo");
+            router.push("/");
         }
     };
 
