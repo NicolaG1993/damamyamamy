@@ -10,7 +10,7 @@ import { checkUser } from "@/utils/custom/checks";
 
 function Admin() {
     const router = useRouter();
-    let userInfo = useSelector(selectUserState, shallowEqual);
+    let userInfo = useSelector(selectUserState);
 
     const [isAdmin, setIsAdmin] = useState(false);
 
@@ -34,43 +34,52 @@ function Admin() {
                 <div className={styles.adminHomeWrap}>
                     {isAdmin ? (
                         <>
-                            <Link href="/admin/nuovo" className={styles.link}>
+                            <Link
+                                href="/admin/nuovo/articolo"
+                                className={styles.link}
+                            >
                                 <div>
                                     <h4>Aggiungi prodotto</h4>
                                 </div>
                             </Link>
                             <Link
-                                href="/admin/articoli"
+                                href="/admin/lista/articoli"
                                 className={styles.link}
                             >
                                 <h4>Vedi tutti i prodotti</h4>
                                 {/* <p>{summary.productsCount} prodotti in vendita</p> */}
                                 {/* <p>{"?"} prodotti acquistati</p> */}
                             </Link>
-                            <Link href="/admin/ordini" className={styles.link}>
+                            <Link
+                                href="/admin/lista/ordini"
+                                className={styles.link}
+                            >
                                 <div>
                                     <h4>Vedi tutti gli ordini</h4>
                                     {/* <p>{summar  y.ordersCount} ordini in totale</p> */}
                                 </div>
                             </Link>
-                            <Link href="/admin/utenti" className={styles.link}>
+                            <Link
+                                href="/admin/lista/utenti"
+                                className={styles.link}
+                            >
                                 <div>
                                     <h4>Vedi tutti gli utenti</h4>
                                     {/* <p>{summary.usersCount} utenti iscritti</p> */}
                                     {/* <p>{"?"} utenti sono admin</p> */}
                                 </div>
                             </Link>
-                            <Link
-                                href="/admin/crea-admin"
+                            <p
+                                // href="/admin/nuovo/admin"
                                 className={`${styles.disabledLink} ${styles.link}`}
                             >
                                 <div>
                                     <h4>Crea nuovo admin</h4>
                                     <p>Disabilitato per ragioni di sicurezza</p>
                                 </div>
-                            </Link>
-                            <Link
-                                href="/admin/statistiche"
+                            </p>
+                            <p
+                                // href="/admin/statistiche"
                                 className={`${styles.disabledLink} ${styles.link}`}
                             >
                                 <div>
@@ -80,7 +89,7 @@ function Admin() {
                             <p>Totale ordini di oggi: {"?"}€</p>
                             <p>Totale ordini di questo mese: {"?"}€</p> */}
                                 </div>
-                            </Link>
+                            </p>
                         </>
                     ) : (
                         <p>Caricamento...</p>

@@ -35,6 +35,7 @@ CREATE TABLE users(
     psw VARCHAR(255) NOT NULL,
     pic VARCHAR(255),
     is_admin BOOLEAN DEFAULT FALSE,
+    newsletter BOOLEAN DEFAULT FALSE,
     shipping_address JSON,
     terms_accepted BOOLEAN DEFAULT FALSE,
     personal_code VARCHAR(255)

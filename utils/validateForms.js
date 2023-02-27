@@ -70,7 +70,7 @@ const requestedValue = (fieldValue) => {
 };
 const textValidation = (fieldValue) => {
     if (fieldValue.trim() === "") {
-        return `Devi scriverci qualcosa`;
+        return `Devi scrivere qualcosa`;
     }
     return null;
 };

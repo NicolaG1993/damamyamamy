@@ -5,7 +5,7 @@
     max-width: 800px;
 }
 
-.adminHomeWrap a {
+.adminHomeWrap .link {
     height: 200px;
     width: 200px;
     padding: 1.6rem;
@@ -20,19 +20,19 @@
     align-items: center;
     justify-content: center;
 }
-.adminHomeWrap a:hover {
+.adminHomeWrap .link:hover {
     box-shadow: var(--box-shadow-hover);
     background: var(--colorE);
 }
-.adminHomeWrap a div {
+.adminHomeWrap .link div {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.adminHomeWrap a div h4 {
+.adminHomeWrap .link div h4 {
     margin: 0.3rem 0;
 }
-.adminHomeWrap a div p {
+.adminHomeWrap .link div p {
     font-size: 0.9rem;
     font-weight: 400;
     max-width: 80%;

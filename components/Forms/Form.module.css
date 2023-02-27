@@ -7,7 +7,9 @@
 }
 
 .form input,
-.form textarea {
+.form select,
+.form textarea,
+.form .input {
     padding: 0.5rem;
     width: 400px;
     background: var(--colorC);
@@ -16,18 +18,115 @@
     font-family: var(--fontB);
 }
 
-.form input {
+.form input,
+.form select,
+.form .input {
     border-radius: 12px;
 }
 
+.form input::placeholder,
+.form .placeholder {
+    color: var(--colorG);
+}
+.form select option {
+    color: var(--colorD);
+}
 .form textarea {
     border-radius: 12px;
-    resize: none;
+    min-height: 70px;
+    max-height: 200px;
+    resize: vertical;
+}
+.form textarea.message {
     height: 200px;
+    resize: none;
 }
 
 .inputWrap {
     margin: 1rem 0;
+}
+.optionsWrap {
+    margin-top: 0.5rem;
+    padding: 0.75rem;
+    min-height: 50px;
+    /* max-height: 200px; */
+    background: var(--colorC);
+    border: 1px solid var(--colorD);
+    font-size: 0.85rem;
+    box-shadow: var(--box-shadow-hover);
+}
+.optionsWrap .addNewWrap {
+    display: flex;
+    justify-items: stretch;
+    align-items: center;
+    margin: 0.2rem 0 0.5rem 0;
+}
+.optionsWrap .addNewWrap input {
+    width: auto;
+    flex-grow: 1;
+    border-radius: 12px 0 0 12px;
+    font-size: 0.85rem;
+    padding: 0.3rem 0.5rem;
+    height: 30px;
+}
+.optionsWrap .addNewWrap .mini-bar-button {
+    min-width: 30px;
+    /* width: 30px; */
+    height: 26px;
+    /* cursor: pointer; */
+    border: 0px;
+    padding: 0 0.75rem;
+    border: none;
+    /* border: 1px solid var(--colorD); */
+    outline: 2px solid var(--colorB);
+    /* background: var(--colorB);
+    color: var(--colorC); */
+    font-weight: 600;
+    font-size: 0.8rem;
+    border-radius: 0 12px 12px 0;
+}
+.optionsWrap .addNewWrap .mini-bar-button:hover {
+    outline: 2px solid var(--colorB);
+    border: none;
+    /* border: 1px solid var(--colorD); */
+    /* background: var(--colorA);*/
+    color: var(--colorB);
+}
+
+.optionsWrap .options {
+    /* margin: 0 0.5rem; */
+    display: flex;
+}
+.optionsWrap .options .column {
+    height: 150px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 0.5rem;
+    width: 50%;
+    border: 1px solid var(--colorD);
+}
+.optionsWrap .options .column > p:nth-child(1) {
+    color: var(--colorB);
+    /* text-decoration: underline; */
+    font-weight: bold;
+    margin: 0.2rem 0;
+}
+.optionsWrap .options .column > p:nth-child(2) {
+    color: var(--colorG);
+}
+.optionsWrap .options option {
+    cursor: pointer;
+    margin: 0.1rem 0 0.1rem 0.2rem;
+    padding: 0.15rem 0.5rem;
+    font-size: 0.8rem;
+    border-radius: 12px;
+    background: var(--colorB);
+    color: var(--colorC);
+}
+.optionsWrap .options option:hover {
+    background: var(--colorA);
+    color: var(--colorB);
+    /* text-decoration: underline; */
 }
 
 .form-error {

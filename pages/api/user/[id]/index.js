@@ -15,3 +15,5 @@ export default async function handler(req, res) {
         res.status(500).json({ message: "Error occured." });
     }
 }
+
+// middleware! check if user id match logged user id

@@ -54,6 +54,7 @@ export default function ContactForm() {
                         defaultValue={contactReq.message || ""}
                         name="message"
                         id="message"
+                        className={styles.message}
                     />
                 </div>
                 <div className={styles.buttonWrap}>

@@ -8,9 +8,9 @@ import { checkUser } from "@/utils/custom/checks";
 import { getError } from "@/utils/error";
 import { selectUserState } from "@/redux/slices/userSlice";
 
-export default function CreaAdmin() {
+export default function NuovoAdmin() {
     const router = useRouter();
-    let userInfo = useSelector(selectUserState, shallowEqual);
+    let userInfo = useSelector(selectUserState);
     const [isAdmin, setIsAdmin] = useState(false);
     const [userID, setUserID] = useState();
     const [success, setSuccess] = useState();
@@ -32,7 +32,7 @@ export default function CreaAdmin() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { data } = await axios.post("/api/admin/new-admin", {
+            const { data } = await axios.post("/api/admin/new/admin", {
                 id: userID,
             });
             // setUserID();

@@ -1,6 +1,5 @@
 import { isAdmin, isAuth } from "@/utils/auth";
 import { upgradeUser } from "@/utils/db/db";
-
 async function handler(req, res) {
     try {
         const id = Number(req.body.id);
@@ -11,11 +10,10 @@ async function handler(req, res) {
         } else {
             res.status(401).send({ message: "Invalid user ID" });
         }
-    } catch (error) {
+    } catch (err) {
         console.log("🐞 ERROR: ", err);
         res.status(500).json({ err: "Error occured." });
         // res.status(403).json({ err: "Forbidden." });
     }
 }
-
 export default isAuth(isAdmin(handler));

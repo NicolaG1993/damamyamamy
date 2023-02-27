@@ -9,7 +9,7 @@ import { getError } from "@/utils/error";
 
 export default function Articoli() {
     const router = useRouter();
-    let userInfo = useSelector(selectUserState, shallowEqual);
+    let userInfo = useSelector(selectUserState);
     const [isAdmin, setIsAdmin] = useState(false);
     const [orders, setOrders] = useState();
 

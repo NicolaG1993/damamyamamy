@@ -149,3 +149,15 @@ module.exports.getAllOrders = () => {
     const myQuery = `SELECT * FROM orders ORDER BY created_at DESC`;
     return db.query(myQuery);
 };
+module.exports.getAllCategories = () => {
+    const myQuery = `SELECT * FROM category ORDER BY name`;
+    return db.query(myQuery);
+};
+module.exports.getAllTags = () => {
+    const myQuery = `SELECT * FROM tag ORDER BY name`;
+    return db.query(myQuery);
+};
+module.exports.getAllBrands = () => {
+    const myQuery = `SELECT * FROM brand ORDER BY name`;
+    return db.query(myQuery);
+};
