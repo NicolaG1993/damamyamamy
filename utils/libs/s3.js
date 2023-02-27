@@ -4,7 +4,7 @@ import AWS from "aws-sdk";
 AWS.config.update({
     accessKeyId: process.env.REACT_AWS_KEY,
     secretAccessKey: process.env.REACT_AWS_SECRET,
-    // region: "eu-south-1",
+    region: "eu-south-1",
 });
 const S3 = new AWS.S3();
 

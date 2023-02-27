@@ -109,6 +109,11 @@ module.exports.newBrand = (name) => {
     const keys = [name];
     return db.query(myQuery, keys);
 };
+module.exports.newRelations = (id, arr, table, idColumn, arrColumn) => {
+    const myQuery = `INSERT INTO ${table} (${idColumn}, ${arrColumn}) VALUES ($1, UNNEST(cast($2 as integer[]))) RETURNING *`;
+    const keys = [id, arr];
+    return db.query(myQuery, keys);
+};
 
 /* EDIT */
 module.exports.upgradeUser = (id) => {

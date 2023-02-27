@@ -15,20 +15,22 @@ SEZIONI:
 
 NON PRIORITARIO:
 • vedi "registrazione.js" per cose non aggiunte, tipo snackbar o redux per user State
+• bisogna bloccare submit button in ItemForm quando si preme, finche promise non sono risolte o si riceve errore
+• save form states in cookies (serve sempre per tutti? quando pulire?)
+• err handling e req responses confirmations like a pro
 
 26.02.2023
 • 💚aggiungere middleware per admin api routes
 • 🧠add/edit item form and api and components
 • 💚categories and tags and brands tabels
-• save form states in cookies (serve sempre per tutti? quando pulire?)
 • completare sezione admin
 
 27.02.2023
 • 💚 ItemForm brands
-• 🧠 ItemForm pics
-• 🧠 S3 Bucket
-• ItemForm API generate relations and slug on submit + run checks
-• Edit items via ItemForm
+• 💚 ItemForm pics
+• 💚 S3 Bucket
+• 🧠 ItemForm API generate relations and slug on submit + run checks
+• 🧠 Edit items via ItemForm
 
 ---
 

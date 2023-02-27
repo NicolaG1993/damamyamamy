@@ -12,6 +12,8 @@ import {
     textValidation,
 } from "@/utils/validateForms";
 import { createObjectURL, revokeObjectURL } from "@/utils/useLocalImages";
+import { parseFormRelationsEdit } from "@/utils/custom/parsers";
+import axios from "axios";
 
 export default function NuovoArticolo() {
     //================================================================================
@@ -116,13 +118,14 @@ export default function NuovoArticolo() {
         if (Object.keys(errors).length === 0) {
             try {
                 // const file = e.target.files[0];
-                const { data } = await uploadImages(newImages);
+                let { data } = await uploadImages(newImages);
+                console.log("S3 res!", data);
+                if (data.length) {
+                    data = data.map((obj) => obj.Location);
+                }
                 // let { files } = fileInput.current;
                 // const { data } = await uploadImages(files);
-                const res = await createItem(
-                    { ...formState, related_products: relatedProducts },
-                    data
-                );
+                const res = await createItem({ ...formState, pics: data });
                 console.log("res!", res.data);
                 router.push("/admin/lista/articoli");
             } catch (err) {
@@ -135,20 +138,70 @@ export default function NuovoArticolo() {
     // API
     //================================================================================
     const uploadImages = (files) => {
-        const formData = new FormData();
-        files.forEach((file) => {
-            formData.append("arrOfFiles", file.file);
-        });
-        formData.append("folder", "item");
-        return axios.post("/api/admin/upload-pic", formData, {
-            headers: { authorization: `Bearer ${userInfo.token}` },
-        });
+        if (files) {
+            const formData = new FormData();
+            files.forEach((file) => {
+                formData.append("arrOfFiles", file.file);
+            });
+            formData.append("folder", "item");
+            console.log("💚🔍 formData", formData);
+            return axios.post("/api/admin/upload-pic", formData, {
+                headers: { authorization: `Bearer ${userInfo.token}` },
+            });
+        } else {
+            return [];
+        }
     };
 
-    const createItem = async (obj) => {
+    const createItem = (obj) => {
         // parse data and relations for db
+        let relatedData = {};
+        let relations = [
+            { topic: "tags", label: "tag" },
+            { topic: "categories", label: "category" },
+            { topic: "brands", label: "brand" },
+        ];
+        relations.map(
+            ({ topic, label }) =>
+                // per ogni formState item che key corrisponde a topic di relations
+                // ridurre ad array di IDs
+                (relatedData[topic] = obj[topic]
+                    ? obj[topic].map(({ id }) => id)
+                    : [])
+        );
+        // console.log("💚🔍 createItem activated", {
+        //     ...obj,
+        //     ...relatedData,
+        // });
+        return axios.post(
+            `/api/admin/new/item`,
+            {
+                ...obj,
+                ...relatedData,
+            },
+            {
+                headers: { authorization: `Bearer ${userInfo.token}` },
+            }
+        );
         // if props exist return put req to db
+        /*
+        // IO QUI FACCIO SOLO ADD, non EDIT
         // else return post req
+        if (propsData) {
+            // find addedRelations and removedRelations for DB req
+            const relationsObj = parseFormRelationsEdit(relatedData, propsData);
+            return axios.put(`/api/admin/edit/item`, {
+                ...obj,
+                ...relationsObj,
+            });
+            // 🧨🧨🧨 Probably Broken Parse and TODO API
+            // 🧨🧨🧨 need to check changes in pics too (remove deleted and merge with the rest)
+        } else {
+            return axios.post(`/api/admin/new/item`, {
+                ...obj,
+                ...relatedData,
+            });
+        } */
     };
 
     //================================================================================

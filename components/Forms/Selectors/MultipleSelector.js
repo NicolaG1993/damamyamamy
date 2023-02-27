@@ -27,7 +27,7 @@ export default function MultipleSelector({
     const [inputValue, setInputValue] = useState();
     const [allOptions, setAllOptions] = useState();
     const [availableOptions, setAvailableOptions] = useState();
-    const [selection, setSelection] = useState(currentState || []);
+    const [selection, setSelection] = useState(currentState);
     const [valueIsNew, setValueIsNew] = useState(false);
 
     useEffect(() => {
@@ -40,7 +40,7 @@ export default function MultipleSelector({
         // console.log("💚 allOptions:", allOptions);
         // console.log("📝 inputValue:", inputValue);
         // console.log("🧠 selection:", selection);
-        updateFormState(selection || [], label);
+        selection && updateFormState(selection, label);
 
         if (allOptions) {
             let parsedData = allOptions;
@@ -108,7 +108,7 @@ export default function MultipleSelector({
     };
 
     const handleSelect = (el) => {
-        let newState = [...selection, el];
+        let newState = selection ? [...selection, el] : [el];
         setSelection(newState);
     };
     const handleDeselect = async (el) => {

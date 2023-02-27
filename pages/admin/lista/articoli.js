@@ -36,6 +36,7 @@ export default function Articoli() {
             const { data } = await axios.get("/api/admin/all-items", {
                 headers: { authorization: `Bearer ${userInfo.token}` },
             });
+            console.log("💚 data: ", data);
             setItems(data);
         } catch (err) {
             setItems();

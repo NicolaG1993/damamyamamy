@@ -2,21 +2,21 @@
 -- psql -d damamyamamy -f utils/db/setup.sql
 
 DROP TABLE IF EXISTS item;
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS orders;
-DROP TABLE IF EXISTS brand;
-DROP TABLE IF EXISTS category;
-DROP TABLE IF EXISTS tag;
-DROP TABLE IF EXISTS item_order;
-DROP TABLE IF EXISTS item_brand;
-DROP TABLE IF EXISTS item_tag;
-DROP TABLE IF EXISTS item_category;
+-- DROP TABLE IF EXISTS users;
+-- DROP TABLE IF EXISTS orders;
+-- DROP TABLE IF EXISTS brand;
+-- DROP TABLE IF EXISTS category;
+-- DROP TABLE IF EXISTS tag;
+-- DROP TABLE IF EXISTS item_order;
+-- DROP TABLE IF EXISTS item_brand;
+-- DROP TABLE IF EXISTS item_tag;
+-- DROP TABLE IF EXISTS item_category;
 
 CREATE TABLE item(
     id SERIAL PRIMARY KEY,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     name VARCHAR NOT NULL CHECK (name != ''),
-    pics JSONB,
+    pics TEXT[],
     price DECIMAL(12,2),
     count_in_stock INTEGER,
     slug VARCHAR(255),
