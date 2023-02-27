@@ -21,13 +21,14 @@ export default function NuovoArticolo() {
     const [isAdmin, setIsAdmin] = useState(false);
     const [errors, setErrors] = useState({});
     const [newImages, setNewImages] = useState([]);
-    const [formState, setFormState] = useState({
-        categories: [],
-        tags: [],
-        // condition: "used",
-        // price: 0,
-        // count_in_stock: 1,
-    });
+    const [formState, setFormState] = useState({});
+    // const [formState, setFormState] = useState({
+    //     categories: [],
+    //     tags: [],
+    //     // condition: "used",
+    //     // price: 0,
+    //     // count_in_stock: 1,
+    // });
 
     useEffect(() => {
         console.log("💚 formState: ", formState);

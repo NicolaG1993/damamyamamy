@@ -113,7 +113,7 @@ export default function ItemForm({
                 />
             </div>
             <div className={styles.inputWrap}>
-                <input
+                {/* <input
                     disabled
                     placeholder="Brand"
                     name="brand"
@@ -123,6 +123,15 @@ export default function ItemForm({
                     }
                     // onBlur={(e) => validateData(e)}
                     // value={formState.pics}
+                /> */}
+                <MultipleSelector
+                    label="brands"
+                    inputID="Brands"
+                    table="brand"
+                    currentState={formState.brand}
+                    updateFormState={handleParentState}
+                    openSection={openSection}
+                    setOpenSection={setOpenSection}
                 />
             </div>
             <div className={styles.inputWrap}>

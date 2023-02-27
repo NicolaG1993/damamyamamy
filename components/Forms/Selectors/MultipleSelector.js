@@ -27,7 +27,7 @@ export default function MultipleSelector({
     const [inputValue, setInputValue] = useState();
     const [allOptions, setAllOptions] = useState();
     const [availableOptions, setAvailableOptions] = useState();
-    const [selection, setSelection] = useState(currentState);
+    const [selection, setSelection] = useState(currentState || []);
     const [valueIsNew, setValueIsNew] = useState(false);
 
     useEffect(() => {
@@ -94,7 +94,9 @@ export default function MultipleSelector({
         setInputValue(str);
         // check if it could be a new element for DB
         if (str) {
-            let check = allOptions.filter(({ name }) => name === str);
+            let check = allOptions.filter(
+                ({ name }) => name.toLowerCase() === str.toLowerCase()
+            );
             if (!check.length) {
                 setValueIsNew(true);
             } else {
@@ -118,12 +120,15 @@ export default function MultipleSelector({
         <>
             <div
                 className={styles.input}
-                onClick={() => {
-                    setOpenSection(label);
-                }}
+                onClick={() =>
+                    openSection !== label
+                        ? setOpenSection(label)
+                        : setOpenSection()
+                }
+                // className={currentState.length > 0 ? "" : ""}
             >
-                {selection.length > 0
-                    ? `${inputID}: ${selection.length} selezionati`
+                {currentState && currentState.length > 0
+                    ? `${inputID}: ${currentState.length} selezionati`
                     : inputID}
             </div>
 

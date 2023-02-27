@@ -24,6 +24,11 @@
     border-radius: 12px;
 }
 
+.form select,
+.form .input {
+    cursor: pointer;
+}
+
 .form input::placeholder,
 .form .placeholder {
     color: var(--colorG);
