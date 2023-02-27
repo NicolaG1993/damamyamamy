@@ -126,6 +126,12 @@ export default function MultipleSelector({
                         : setOpenSection()
                 }
                 // className={currentState.length > 0 ? "" : ""}
+                style={{
+                    color:
+                        currentState && currentState.length > 0
+                            ? "var(--colorD)"
+                            : "var(--colorG)",
+                }}
             >
                 {currentState && currentState.length > 0
                     ? `${inputID}: ${currentState.length} selezionati`

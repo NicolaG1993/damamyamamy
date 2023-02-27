@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import ItemForm from "@/components/Forms/ItemForm";
 import { selectUserState } from "@/redux/slices/userSlice";
@@ -11,6 +11,7 @@ import {
     numberValidation,
     textValidation,
 } from "@/utils/validateForms";
+import { createObjectURL, revokeObjectURL } from "@/utils/useLocalImages";
 
 export default function NuovoArticolo() {
     //================================================================================
@@ -22,6 +23,7 @@ export default function NuovoArticolo() {
     const [errors, setErrors] = useState({});
     const [newImages, setNewImages] = useState([]);
     const [formState, setFormState] = useState({});
+    // const fileInput = useRef();
     // const [formState, setFormState] = useState({
     //     categories: [],
     //     tags: [],
@@ -59,6 +61,7 @@ export default function NuovoArticolo() {
     };
 
     const addLocalImages = (e) => {
+        // we need this to display pics before they get uploaded to bucket
         // console.log("e.target.files: ", e.target.files); // use the spread syntax to get it as an array
         const files = [...e.target.files].map((el) => ({
             location: createObjectURL(el),
@@ -114,6 +117,8 @@ export default function NuovoArticolo() {
             try {
                 // const file = e.target.files[0];
                 const { data } = await uploadImages(newImages);
+                // let { files } = fileInput.current;
+                // const { data } = await uploadImages(files);
                 const res = await createItem(
                     { ...formState, related_products: relatedProducts },
                     data
@@ -129,9 +134,9 @@ export default function NuovoArticolo() {
     //================================================================================
     // API
     //================================================================================
-    const uploadImages = (arr) => {
+    const uploadImages = (files) => {
         const formData = new FormData();
-        arr.forEach((file) => {
+        files.forEach((file) => {
             formData.append("arrOfFiles", file.file);
         });
         formData.append("folder", "item");
@@ -163,6 +168,7 @@ export default function NuovoArticolo() {
                         addLocalImages={addLocalImages}
                         deleteImage={deleteImage}
                         errors={errors}
+                        // parentRef={fileInput}
                     />
                 ) : (
                     <p>Caricamento...</p>

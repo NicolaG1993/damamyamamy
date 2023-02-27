@@ -6,10 +6,12 @@
     /* align-self: flex-start; */
 }
 
+/* INPUTS */
 .form input,
 .form select,
 .form textarea,
-.form .input {
+.form .input,
+.form .picsInput {
     padding: 0.5rem;
     width: 400px;
     background: var(--colorC);
@@ -20,7 +22,8 @@
 
 .form input,
 .form select,
-.form .input {
+.form .input,
+.form .picsInput {
     border-radius: 12px;
 }
 
@@ -47,9 +50,21 @@
     resize: none;
 }
 
+.picsInput {
+    cursor: pointer;
+    width: 100%;
+    display: inline-block;
+}
+
 .inputWrap {
     margin: 1rem 0;
 }
+
+.inputWrap input[type="file"] {
+    display: none;
+}
+
+/* OPTIONS */
 .optionsWrap {
     margin-top: 0.5rem;
     padding: 0.75rem;
@@ -134,11 +149,65 @@
     /* text-decoration: underline; */
 }
 
+/* IMAGES */
+.imagesWrap {
+    width: 400px;
+    margin-top: 0.5rem;
+    padding: 0.75rem;
+    background: var(--colorC);
+    border: 1px solid var(--colorD);
+    font-size: 0.85rem;
+}
+.imagesWrap > p:nth-child(1) {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+.imagesWrap > div:nth-child(2) {
+    /* display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap; */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    justify-items: center;
+}
+.formImage {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    margin: 0.5rem;
+}
+.deleteImage {
+    cursor: pointer;
+    position: absolute;
+    top: 0.2rem;
+    right: 0.2rem;
+    padding: 0.2rem;
+    font-weight: 900;
+    border-radius: 50px;
+    height: 25px;
+    width: 25px;
+    line-height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: var(--colorB);
+    color: var(--colorC);
+}
+.deleteImage:hover {
+    background: var(--colorC);
+    color: var(--colorD);
+}
+
+/* ERROR */
 .form-error {
     margin: 0.5rem 0.5rem 0 0.5rem;
     color: rgb(180, 0, 0);
 }
 
+/* BUTTONS */
 .buttonWrap {
     margin: 0.5rem 0;
 }

@@ -1,5 +1,6 @@
 import styles from "@/components/Forms/Form.module.css";
-import { useState } from "react";
+import Image from "next/image";
+import { useRef, useState } from "react";
 import MultipleSelector from "./Selectors/MultipleSelector";
 
 /*
@@ -16,6 +17,7 @@ export default function ItemForm({
     addLocalImages,
     deleteImage,
     errors,
+    parentRef,
 }) {
     const [openSection, setOpenSection] = useState(false);
 
@@ -99,18 +101,92 @@ export default function ItemForm({
                 </select>
             </div>
             <div className={styles.inputWrap}>
-                <input
-                    disabled
-                    placeholder="Immagini"
-                    name="pics"
-                    id="Pics"
-                    onChange={(e) =>
-                        updateFormState(e.target.value, e.target.name)
-                    }
-                    onBlur={(e) => validateData(e)}
-                    onClick={(e) => setOpenSection(e.target.name)}
-                    value={formState.pics}
-                />
+                <label
+                    className={styles.picsInput}
+                    style={{
+                        color:
+                            (formState.pics ? formState.pics.length : 0) +
+                                (newImages ? newImages.length : 0) >
+                            0
+                                ? "var(--colorD)"
+                                : "var(--colorG)",
+                    }}
+                >
+                    {(formState.pics ? formState.pics.length : 0) +
+                        (newImages ? newImages.length : 0) >
+                    0
+                        ? `Immagini: ${
+                              (formState.pics ? formState.pics.length : 0) +
+                              (newImages ? newImages.length : 0)
+                          } selezionate`
+                        : "Immagini"}
+                    <input
+                        type="file"
+                        multiple
+                        placeholder="Immagini"
+                        name="pics"
+                        id="Pics"
+                        // ref={parentRef}
+                        accept="image/png, image/jpeg, image/webp"
+                        onChange={(e) => addLocalImages(e)}
+                        onClick={(e) => setOpenSection(e.target.name)}
+
+                        // value={formState.pics}
+                    />
+                </label>
+
+                {formState.pics && formState.pics.length && (
+                    <div className={styles["imagesWrap"]}>
+                        <p>Foto</p>
+                        <div>
+                            {formState.pics.map((pic) => (
+                                <div
+                                    key={pic.key}
+                                    className={styles["formImage"]}
+                                >
+                                    <Image
+                                        src={pic.location}
+                                        alt={`Picture`}
+                                        fill
+                                        style={{ objectFit: "cover" }}
+                                    />
+                                    <span
+                                        className={styles["form-delete-image"]}
+                                        // onClick={() => deleteImage(pic)} // 🧠 serve un'altra fn qui
+                                    >
+                                        X
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+                {newImages && newImages.length > 0 && (
+                    <div className={styles["imagesWrap"]}>
+                        <p>Nuove foto</p>
+                        <div>
+                            {newImages.map((pic) => (
+                                <div
+                                    key={pic.key}
+                                    className={styles["formImage"]}
+                                >
+                                    <Image
+                                        src={pic.location}
+                                        alt={`Picture`}
+                                        fill
+                                        style={{ objectFit: "cover" }}
+                                    />
+                                    <span
+                                        className={styles["deleteImage"]}
+                                        onClick={() => deleteImage(pic)}
+                                    >
+                                        X
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
             </div>
             <div className={styles.inputWrap}>
                 {/* <input
@@ -128,7 +204,7 @@ export default function ItemForm({
                     label="brands"
                     inputID="Brands"
                     table="brand"
-                    currentState={formState.brand}
+                    currentState={formState.brands}
                     updateFormState={handleParentState}
                     openSection={openSection}
                     setOpenSection={setOpenSection}
