@@ -18,6 +18,10 @@ export default function ItemForm({
     errors,
 }) {
     const [openSection, setOpenSection] = useState(false);
+
+    const handleParentState = (val, topic) => {
+        updateFormState(val, topic);
+    };
     return (
         <form
             className={styles.form}
@@ -138,6 +142,7 @@ export default function ItemForm({
                     inputID="Categories"
                     table="category"
                     currentState={formState.categories}
+                    updateFormState={handleParentState}
                     openSection={openSection}
                     setOpenSection={setOpenSection}
                 />
@@ -159,6 +164,7 @@ export default function ItemForm({
                     inputID="Tags"
                     table="tag"
                     currentState={formState.tags}
+                    updateFormState={handleParentState}
                     openSection={openSection}
                     setOpenSection={setOpenSection}
                 />

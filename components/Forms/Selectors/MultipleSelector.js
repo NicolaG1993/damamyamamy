@@ -9,17 +9,18 @@ export default function MultipleSelector({
     label,
     inputID,
     table,
+    updateFormState,
     currentState,
     openSection,
     setOpenSection,
 }) {
     //💚 listen to click to activate input
     //💚 fetch all table
-    // check if any selection exist already
+    //💚 check if any selection exist already
     //💚 render all table (with selection if needed)
     //💚 user can choose and remove many element as needed
-    // user can add a new element
-    // handle parent state
+    //💚 user can add a new element
+    //💚 handle parent state
 
     let userInfo = useSelector(selectUserState);
 
@@ -36,9 +37,10 @@ export default function MultipleSelector({
     }, [openSection]);
 
     useEffect(() => {
-        console.log("💚 allOptions:", allOptions);
-        console.log("📝 inputValue:", inputValue);
-        console.log("🧠 selection:", selection);
+        // console.log("💚 allOptions:", allOptions);
+        // console.log("📝 inputValue:", inputValue);
+        // console.log("🧠 selection:", selection);
+        updateFormState(selection || [], label);
 
         if (allOptions) {
             let parsedData = allOptions;
@@ -55,7 +57,7 @@ export default function MultipleSelector({
                     pattern.test(name.toLowerCase())
                 );
             }
-            console.log("🔍 parsedData:", parsedData);
+            // console.log("🔍 parsedData:", parsedData);
             setAvailableOptions(parsedData);
         }
     }, [allOptions, inputValue, selection]);
@@ -77,7 +79,7 @@ export default function MultipleSelector({
                         headers: { authorization: `Bearer ${userInfo.token}` },
                     }
                 );
-                console.log("💚 ADD NEW WORKED! ", data);
+                // console.log("💚 ADD NEW WORKED! ", data);
                 fetchData();
                 setSelection((prevState) => [...prevState, data]);
                 handleInput();
@@ -104,10 +106,12 @@ export default function MultipleSelector({
     };
 
     const handleSelect = (el) => {
-        setSelection((prevState) => [...prevState, el]);
+        let newState = [...selection, el];
+        setSelection(newState);
     };
-    const handleDeselect = (el) => {
-        setSelection((prevState) => prevState.filter(({ id }) => id !== el.id));
+    const handleDeselect = async (el) => {
+        let newState = selection.filter(({ id }) => id !== el.id);
+        setSelection(newState);
     };
 
     return (
