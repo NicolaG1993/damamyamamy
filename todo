@@ -29,8 +29,13 @@ NON PRIORITARIO:
 • 💚 ItemForm brands
 • 💚 ItemForm pics
 • 💚 S3 Bucket
-• 🧠 ItemForm API generate relations and slug on submit + run checks
+• 💚 ItemForm API generate relations and slug on submit + run checks
 • 🧠 Edit items via ItemForm
+
+28.02.2023
+• 💚 capire perché conditions non viene salvato in crea articolo
+• 💚 capire perché non mostra pics in modifica articolo
+• 💚 capire perché multipleSelector non mostra data in modifica articolo // fare relations fetch
 
 ---
 

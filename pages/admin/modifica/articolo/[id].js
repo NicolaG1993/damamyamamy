@@ -5,43 +5,40 @@ import { selectUserState } from "@/redux/slices/userSlice";
 import { shallowEqual, useSelector } from "react-redux";
 import { checkUser } from "@/utils/custom/checks";
 import { getError } from "@/utils/error";
-// import styles from "@/components/Forms/Form.module.css";
+import styles from "@/components/Forms/Form.module.css";
 import {
     decimalValidation,
     numberValidation,
     textValidation,
 } from "@/utils/validateForms";
 import { createObjectURL, revokeObjectURL } from "@/utils/useLocalImages";
-// import { parseFormRelationsEdit } from "@/utils/custom/parsers";
+import { parseFormRelationsEdit } from "@/utils/custom/parsers";
 import axios from "axios";
 
-export default function NuovoArticolo() {
+export default function ModificaArticolo() {
     //================================================================================
     // Component State
     //================================================================================
     const router = useRouter();
+    const { id } = router.query;
     let userInfo = useSelector(selectUserState);
     const [isAdmin, setIsAdmin] = useState(false);
     const [errors, setErrors] = useState({});
     const [newImages, setNewImages] = useState([]);
+    const [storedImages, setStoredImages] = useState([]);
     const [formState, setFormState] = useState({});
-    // const fileInput = useRef();
-    // const [formState, setFormState] = useState({
-    //     categories: [],
-    //     tags: [],
-    //     // condition: "used",
-    //     // price: 0,
-    //     // count_in_stock: 1,
-    // });
-
-    useEffect(() => {
-        console.log("💚 formState: ", formState);
-    }, [formState]);
+    const [originalData, setOriginalData] = useState({});
 
     useEffect(() => {
         setIsAdmin(false);
         handleAuth(userInfo);
     }, [userInfo]);
+
+    useEffect(() => {
+        if (id && isAdmin) {
+            fetchData();
+        }
+    }, [id, isAdmin]);
 
     const handleAuth = async () => {
         let res = await checkUser(userInfo);
@@ -77,6 +74,11 @@ export default function NuovoArticolo() {
         const newArr = newImages.filter((el) => img.key !== el.key);
         setNewImages(newArr);
         revokeObjectURL(img.file);
+    };
+
+    const deleteStoredImage = (str) => {
+        let newState = storedImages.filter((x) => x !== str);
+        setStoredImages(newState);
     };
 
     const validateData = async (e) => {
@@ -117,15 +119,14 @@ export default function NuovoArticolo() {
         e.preventDefault();
         if (Object.keys(errors).length === 0) {
             try {
-                // const file = e.target.files[0];
                 let { data } = await uploadImages(newImages);
-                console.log("S3 res!", data);
                 if (data.length) {
                     data = data.map((obj) => obj.Location);
                 }
-                // let { files } = fileInput.current;
-                // const { data } = await uploadImages(files);
-                const res = await createItem({ ...formState, pics: data });
+                const res = await editItem({
+                    ...formState,
+                    pics: [...data, ...storedImages],
+                });
                 console.log("res!", res.data);
                 router.push("/admin/lista/articoli");
             } catch (err) {
@@ -137,8 +138,19 @@ export default function NuovoArticolo() {
     //================================================================================
     // API
     //================================================================================
+    const fetchData = async () => {
+        try {
+            const { data } = await axios.get(`/api/get/item/${id}`);
+            console.log("💚🔍 data", data);
+            setFormState(data);
+            setOriginalData(data);
+            setStoredImages(data.pics);
+        } catch (err) {
+            console.log("ERROR!", err);
+        }
+    };
+
     const uploadImages = (files) => {
-        console.log("💚🔍 files", files);
         if (files) {
             const formData = new FormData();
             files.forEach((file) => {
@@ -154,64 +166,73 @@ export default function NuovoArticolo() {
         }
     };
 
-    const createItem = (obj) => {
-        // parse data and relations for db
+    const editItem = async (obj) => {
+        console.log("💚 obj: ", obj);
         let relatedData = {};
         let relations = [
             { topic: "tags", label: "tag" },
             { topic: "categories", label: "category" },
             { topic: "brands", label: "brand" },
         ];
+
+        // reduce "obj" arrays to only IDs and store them into relatedData
         relations.map(
             ({ topic, label }) =>
-                // per ogni formState item che key corrisponde a topic di relations
-                // ridurre ad array di IDs
                 (relatedData[topic] = obj[topic]
                     ? obj[topic].map(({ id }) => id)
                     : [])
         );
-        // console.log("💚🔍 createItem activated", {
-        //     ...obj,
-        //     ...relatedData,
-        // });
+
+        // check and parse new arrays of IDs for DB
+        let addedRelations = {};
+        let removedRelations = {};
+
+        Object.entries(relatedData).map(([key, arr], i) => {
+            console.log("💚 arr: ", arr);
+            console.log("💚 relatedData: ", relatedData);
+            // console.log("💚 originalData: ", originalData);
+
+            // reduce originalData array to only IDs
+            let ogIDs = originalData[key]
+                ? originalData[key].map(({ id }) => id)
+                : [];
+
+            // set final arrays of IDs for DB
+            if (arr.length) {
+                addedRelations[key] = arr.filter((n) => !ogIDs.includes(n));
+                removedRelations[key] = ogIDs.filter((n) => !arr.includes(n));
+            } else {
+                addedRelations[key] = [];
+                removedRelations[key] = ogIDs;
+            }
+        });
+
         return axios.post(
-            `/api/admin/new/item`,
+            `/api/admin/edit/item`,
             {
                 ...obj,
-                ...relatedData,
+                addedRelations,
+                removedRelations,
             },
             {
                 headers: { authorization: `Bearer ${userInfo.token}` },
             }
         );
-        // if props exist return put req to db
-        /*
-        // IO QUI FACCIO SOLO ADD, non EDIT
-        // else return post req
-        if (propsData) {
-            // find addedRelations and removedRelations for DB req
-            const relationsObj = parseFormRelationsEdit(relatedData, propsData);
-            return axios.put(`/api/admin/edit/item`, {
-                ...obj,
-                ...relationsObj,
-            });
-            // 🧨🧨🧨 Probably Broken Parse and TODO API
-            // 🧨🧨🧨 need to check changes in pics too (remove deleted and merge with the rest)
-        } else {
-            return axios.post(`/api/admin/new/item`, {
-                ...obj,
-                ...relatedData,
-            });
-        } */
+
+        //....
+
+        // 🧠 find addedRelations and removedRelations for DB req
+        // 🧨 need to check changes in pics too (remove deleted and merge with the rest)
     };
 
     //================================================================================
     // Render UI
     //================================================================================
+
     return (
         <main>
             <section className="page">
-                <h1>Nuovo Articolo</h1>
+                <h1>Modifica Articolo</h1>
                 {isAdmin ? (
                     <ItemForm
                         formState={formState}
@@ -219,10 +240,11 @@ export default function NuovoArticolo() {
                         validateData={validateData}
                         confirmChanges={handleSubmit}
                         newImages={newImages}
+                        storedImages={storedImages}
                         addLocalImages={addLocalImages}
                         deleteImage={deleteImage}
+                        deleteStoredImage={deleteStoredImage}
                         errors={errors}
-                        // parentRef={fileInput}
                     />
                 ) : (
                     <p>Caricamento...</p>

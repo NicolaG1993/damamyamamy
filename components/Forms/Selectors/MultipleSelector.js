@@ -29,12 +29,18 @@ export default function MultipleSelector({
     const [availableOptions, setAvailableOptions] = useState();
     const [selection, setSelection] = useState(currentState);
     const [valueIsNew, setValueIsNew] = useState(false);
-
+    // console.log("💚💚 currentState:", currentState);
+    // console.log("💚💚 selection:", selection);
     useEffect(() => {
         if (openSection === label) {
             fetchData();
         }
     }, [openSection]);
+    useEffect(() => {
+        if (currentState) {
+            setSelection(currentState);
+        }
+    }, [currentState]);
 
     useEffect(() => {
         // console.log("💚 allOptions:", allOptions);

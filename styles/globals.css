@@ -315,6 +315,11 @@ footer {
     grid-template-columns: 0.25fr 1fr 0.75fr 1.5fr 0.5fr 0.5fr 0.5fr 0.5fr;
 }
 
+#ItemsList > .listHead,
+#ItemsList > .listItem {
+    grid-template-columns: 0.25fr 1.5fr 0.5fr 0.5fr 0.75fr 0.5fr 0.5fr 0.5fr;
+}
+
 /* COOKIES WRAP */
 .cookieWrap {
     position: fixed;

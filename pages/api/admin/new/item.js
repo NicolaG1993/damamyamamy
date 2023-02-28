@@ -1,13 +1,16 @@
 import { isAdmin, isAuth } from "@/utils/auth";
 import { newItem, newRelations } from "@/utils/db/db";
+import { deleteDuplicateObjects } from "@/utils/parsers";
+import slugify from "@/utils/slugify";
+
 async function handler(req, res) {
     try {
         let {
-            title,
+            name,
             pics,
             price,
             count_in_stock,
-            conditions,
+            condition,
             info,
             description,
             categories,
@@ -15,26 +18,31 @@ async function handler(req, res) {
             brands,
         } = req.body;
 
-        if (!title) {
+        if (!name) {
             return res.status(422).send({ error: ["Manca il titolo"] });
         }
 
+        let slug = slugify(name);
+
+        console.log("req.body: ", { ...req.body, slug });
+
         // CREATE ITEM
         let { rows } = await newItem(
-            title,
+            name,
             pics,
             price,
             count_in_stock,
-            conditions,
+            condition,
+            description,
             info,
-            description
+            slug
         );
         // ADD RELATIONS
         categories &&
             categories.length &&
             (await newRelations(
                 rows[0].id,
-                categories,
+                deleteDuplicateObjects(categories),
                 "item_category",
                 "item_id",
                 "category_id"
@@ -43,7 +51,7 @@ async function handler(req, res) {
             tags.length &&
             (await newRelations(
                 rows[0].id,
-                tags,
+                deleteDuplicateObjects(tags),
                 "item_tag",
                 "item_id",
                 "tag_id"
@@ -52,7 +60,7 @@ async function handler(req, res) {
             brands.length &&
             (await newRelations(
                 rows[0].id,
-                brands,
+                deleteDuplicateObjects(brands),
                 "item_brand",
                 "item_id",
                 "brand_id"

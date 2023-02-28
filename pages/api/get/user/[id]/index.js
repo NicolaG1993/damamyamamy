@@ -16,4 +16,6 @@ export default async function handler(req, res) {
     }
 }
 
-// middleware! check if user id match logged user id
+// 🧠 middleware! check if user id match logged user id ??? ma come -- testare se chiunqe puo richiedere questa API
+// ma dove la uso questa?
+// la uso in utils/custom/checks.js

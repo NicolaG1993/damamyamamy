@@ -6,6 +6,7 @@ import { shallowEqual, useSelector } from "react-redux";
 import { selectUserState } from "@/redux/slices/userSlice";
 import { checkUser } from "@/utils/custom/checks";
 import { getError } from "@/utils/error";
+import Link from "next/link";
 
 export default function Articoli() {
     const router = useRouter();
@@ -52,12 +53,29 @@ export default function Articoli() {
                     {isAdmin ? (
                         items && items.length ? (
                             <>
-                                <div className="listHead"></div>
+                                <div className="listHead">
+                                    <p>ID</p>
+                                    <p>Nome</p>
+                                    <p>Prezzo</p>
+                                    <p>Disponibilità</p>
+                                    <p>Condizioni</p>
+                                </div>
                                 {items.map((item) => (
                                     <div
                                         key={"item " + item.id}
                                         className="listItem"
-                                    ></div>
+                                    >
+                                        <p>{item.id}</p>
+                                        <p>{item.name}</p>
+                                        <p>€{item.price || "N/A"}</p>
+                                        <p>{item.count_in_stock || 0}</p>
+                                        <p>{item.condition || "N/A"}</p>
+                                        <Link
+                                            href={`/admin/modifica/articolo/${item.id}`}
+                                        >
+                                            Modifica
+                                        </Link>
+                                    </div>
                                 ))}
                             </>
                         ) : (

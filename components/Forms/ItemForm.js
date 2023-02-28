@@ -14,8 +14,10 @@ export default function ItemForm({
     validateData,
     confirmChanges,
     newImages,
+    storedImages,
     addLocalImages,
     deleteImage,
+    deleteStoredImage,
     errors,
     parentRef,
 }) {
@@ -34,17 +36,17 @@ export default function ItemForm({
                 <input
                     type="text"
                     placeholder="Titolo*"
-                    name="title"
-                    id="Title"
+                    name="name"
+                    id="Name"
                     onChange={(e) =>
                         updateFormState(e.target.value, e.target.name)
                     }
                     onBlur={(e) => validateData(e)}
                     onClick={(e) => setOpenSection(e.target.name)}
-                    value={formState.title}
+                    value={formState.name}
                 />
-                {errors.title && (
-                    <div className={styles["form-error"]}>• {errors.title}</div>
+                {errors.name && (
+                    <div className={styles["form-error"]}>• {errors.name}</div>
                 )}
             </div>
             <div className={styles.inputWrap}>
@@ -83,16 +85,21 @@ export default function ItemForm({
             </div>
             <div className={styles.inputWrap}>
                 <select
-                    name="conditions"
-                    id="Conditions"
+                    name="condition"
+                    id="Condition"
                     onChange={(e) =>
                         updateFormState(e.target.value, e.target.name)
                     }
                     onClick={(e) => setOpenSection(e.target.name)}
-                    defaultValue={formState.conditions}
-                    className={!formState.conditions && styles.placeholder}
+                    value={formState.condition}
+                    className={!formState.condition && styles.placeholder}
                 >
-                    <option value="" selected disabled hidden>
+                    <option
+                        value=""
+                        selected={formState.condition ? false : true}
+                        disabled
+                        hidden
+                    >
                         Condizioni
                     </option>
                     <option value={"new"}>Come nuovo</option>
@@ -135,24 +142,24 @@ export default function ItemForm({
                     />
                 </label>
 
-                {formState.pics && formState.pics.length && (
+                {storedImages && storedImages.length && (
                     <div className={styles["imagesWrap"]}>
                         <p>Foto</p>
                         <div>
-                            {formState.pics.map((pic) => (
+                            {storedImages.map((str, i) => (
                                 <div
-                                    key={pic.key}
+                                    key={"DB pic " + i}
                                     className={styles["formImage"]}
                                 >
                                     <Image
-                                        src={pic.location}
+                                        src={str}
                                         alt={`Picture`}
                                         fill
                                         style={{ objectFit: "cover" }}
                                     />
                                     <span
-                                        className={styles["form-delete-image"]}
-                                        // onClick={() => deleteImage(pic)} // 🧠 serve un'altra fn qui
+                                        className={styles["deleteImage"]}
+                                        onClick={() => deleteStoredImage(str)} // 🧠 serve un'altra fn qui
                                     >
                                         X
                                     </span>
@@ -286,7 +293,7 @@ export default function ItemForm({
                     onClick={() => setOpenSection()}
                     disabled={
                         Object.keys(errors).length === 0 &&
-                        formState.title &&
+                        formState.name &&
                         formState.price &&
                         formState.count_in_stock
                             ? false
@@ -294,7 +301,7 @@ export default function ItemForm({
                     }
                     className={`${
                         Object.keys(errors).length === 0 &&
-                        formState.title &&
+                        formState.name &&
                         formState.price &&
                         formState.count_in_stock
                             ? "button form-button"

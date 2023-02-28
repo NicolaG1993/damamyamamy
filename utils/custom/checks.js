@@ -5,7 +5,7 @@ const checkUser = async (user) => {
         if (!user) {
             return false;
         } else {
-            let { data } = await axios.get(`/api/user/${user.id}`);
+            let { data } = await axios.get(`/api/get/user/${user.id}`);
             if (data.is_admin) {
                 return true;
             } else {
