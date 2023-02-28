@@ -59,6 +59,7 @@ export default function Articoli() {
                                     <p>Prezzo</p>
                                     <p>Disponibilità</p>
                                     <p>Condizioni</p>
+                                    <p>Azioni</p>
                                 </div>
                                 {items.map((item) => (
                                     <div
@@ -73,8 +74,9 @@ export default function Articoli() {
                                         <Link
                                             href={`/admin/modifica/articolo/${item.id}`}
                                         >
-                                            Modifica
+                                            📝
                                         </Link>
+                                        <p className="action">❌</p>
                                     </div>
                                 ))}
                             </>

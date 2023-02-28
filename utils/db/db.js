@@ -164,6 +164,10 @@ module.exports.getUserByEmail = (email) => {
     const key = [email];
     return db.query(myQuery, key);
 };
+module.exports.getHomeItems = () => {
+    const myQuery = `SELECT * FROM item ORDER BY id DESC LIMIT 20`;
+    return db.query(myQuery);
+};
 module.exports.getItem = (id) => {
     const myQuery = `SELECT 
         item.*,
@@ -232,7 +236,67 @@ module.exports.getItem = (id) => {
 
 /* GET ALL */
 module.exports.getAllItems = () => {
-    const myQuery = `SELECT * FROM item WHERE count_in_stock >= 1`;
+    const myQuery = `SELECT 
+        item.*,
+        categories_JSON.categories,
+        tags_JSON.tags,
+        brands_JSON.brands
+    FROM
+        item
+
+        LEFT JOIN
+            (SELECT
+                item_category.item_id,
+                JSON_AGG(
+                    JSON_BUILD_OBJECT(
+                        'id', category.id,
+                        'name', category.name 
+                    )
+                ) AS categories
+            FROM
+                item_category
+                JOIN category ON category.id = item_category.category_id
+            GROUP BY
+                item_category.item_id
+            ) AS categories_JSON
+            ON item.id = categories_JSON.item_id
+
+        LEFT JOIN
+            (SELECT
+                item_tag.item_id,
+                JSON_AGG(
+                    JSON_BUILD_OBJECT(
+                        'id', tag.id,
+                        'name', tag.name 
+                    )
+                ) AS tags
+            FROM
+                item_tag
+                JOIN tag ON tag.id = item_tag.tag_id
+            GROUP BY
+                item_tag.item_id
+            ) AS tags_JSON
+            ON item.id = tags_JSON.item_id
+        
+
+        LEFT JOIN
+            (SELECT
+                item_brand.item_id,
+                JSON_AGG(
+                    JSON_BUILD_OBJECT(
+                        'id', brand.id,
+                        'name', brand.name 
+                    )
+                ) AS brands
+            FROM
+                item_brand
+                JOIN brand ON brand.id = item_brand.brand_id
+            GROUP BY
+                item_brand.item_id
+            ) AS brands_JSON
+            ON item.id = brands_JSON.item_id
+        
+        WHERE count_in_stock >= 1`;
     return db.query(myQuery);
 };
 module.exports.getAllItemsForAdmin = () => {

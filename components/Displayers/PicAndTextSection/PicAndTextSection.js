@@ -4,17 +4,24 @@ import styles from "./PicAndTextSection.module.css";
 
 export default function PicAndTextSection({ item }) {
     // voglio che in home cerci il prodotto con il prezzo piu basso, negli ultimi 10-20 inseriti
-    let { title, price, id } = item;
+    let { name, price, id, pics } = item;
     return (
         <section id={styles.PicAndTextSection}>
             <div>
-                <Image />
+                <div>
+                    <Image
+                        src={pics[0] || "/no-image.png"}
+                        alt={name}
+                        fill
+                        style={{ objectFit: "cover" }}
+                    />
+                </div>
             </div>
             <div>
                 <div className={styles.textWrap}>
                     <p className={styles.title}>Occasione</p>
-                    <p>{title}</p>
-                    <p>€{price}</p>
+                    <p>{name}</p>
+                    <p>€ {price}</p>
                     <Link href={`/el/${id}`}>Vedi l&apos;articolo</Link>
                 </div>
             </div>

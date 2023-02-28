@@ -28,18 +28,18 @@ export default function ShortList({ data, tableName }) {
                                     >
                                         <Image
                                             src={
-                                                el.pic
-                                                    ? el.pic
+                                                el.pics && el.pics.length
+                                                    ? el.pics[0]
                                                     : "/no-image.png"
                                             }
-                                            alt={el.title}
+                                            alt={el.name}
                                             fill
                                             style={{ objectFit: "cover" }}
                                         />
                                     </div>
 
                                     <div className={styles.gridElementInfos}>
-                                        <h5>{el.title}</h5>
+                                        <h5>{el.name}</h5>
                                         <p>€{el.price}</p>
                                     </div>
                                 </div>

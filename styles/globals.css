@@ -304,20 +304,26 @@ footer {
     box-shadow: var(--box-shadow-hover);
 }
 .listHead p,
-.listItem p {
+.listItem p,
+.listItem a {
     margin: 0 0.5rem;
     align-self: center;
+    height: 17px;
     /* overflow: hidden; */
     /* white-space: nowrap; */
 }
+.listItem a:hover,
+.listItem .action:hover {
+    font-size: 1rem;
+}
 #UsersList > .listHead,
 #UsersList > .listItem {
-    grid-template-columns: 0.25fr 1fr 0.75fr 1.5fr 0.5fr 0.5fr 0.5fr 0.5fr;
+    grid-template-columns: 75px 1fr 0.75fr 1.5fr 0.5fr 0.5fr 0.5fr 0.5fr;
 }
 
 #ItemsList > .listHead,
 #ItemsList > .listItem {
-    grid-template-columns: 0.25fr 1.5fr 0.5fr 0.5fr 0.75fr 0.5fr 0.5fr 0.5fr;
+    grid-template-columns: 75px 1.5fr 100px 100px 120px 40px 40px;
 }
 
 /* COOKIES WRAP */

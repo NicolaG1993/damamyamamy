@@ -3,22 +3,47 @@ import Image from "next/image";
 import styles from "@/styles/Home.module.css";
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
-import ShortList from "@/components/Displayers/Shortlist/Shortlist";
-import PicAndTextSection from "@/components/Displayers/PicAndTextSection/PicAndTextSection";
 import Link from "next/link";
-
-// import useScrollPosition from "../shared/utils/useScrollPosition";
-// import useWindowDimensions from "../shared/utils/useWindowDimensions";
-// import { formatJSDate } from "../shared/utils/convertTimestamp";
+import axios from "axios";
+import { getError } from "@/utils/error";
 
 const Slider = dynamic(() => import("@/components/Slider/Slider"), {
     ssr: false,
 });
-// import Shortlist from "../components/Shortlist/Shortlist";
-// import IconsList from "../components/Home/IconsList/IconsList";
-// import Button from "../components/Button/Button";
+const ShortList = dynamic(
+    () => import("@/components/Displayers/Shortlist/Shortlist"),
+    {
+        ssr: false,
+    }
+);
+const PicAndTextSection = dynamic(
+    () => import("@/components/Displayers/PicAndTextSection/PicAndTextSection"),
+    {
+        ssr: false,
+    }
+);
 
 export default function Home() {
+    const [lastItems, setLastItems] = useState();
+    const [lowerPriceItem, setLowerPriceItem] = useState();
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
+        try {
+            const { data } = await axios.get("/api/hello");
+            console.log("💚 data: ", data);
+            setLastItems(data.lastItems);
+            setLowerPriceItem(data.lowerPrice);
+        } catch (err) {
+            setLastItems();
+            setLowerPriceItem();
+            alert(getError(err));
+        }
+    };
+
     return (
         <>
             <Head>
@@ -33,7 +58,6 @@ export default function Home() {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-
             <main className={styles.main} id={styles["Home"]}>
                 <Slider />
                 <section className={styles.intro}>
@@ -46,16 +70,8 @@ export default function Home() {
                         Vedi gli articoli in negozio
                     </Link>
                 </section>
-                <ShortList
-                    tableName={"Gli ultimi arrivi"}
-                    data={[
-                        { id: 1, title: "Alb", price: "50.50" },
-                        { id: 2, title: "Bab", price: 50 },
-                        { id: 3, title: "Cac", price: 420 },
-                    ]}
-                />
-                <PicAndTextSection item={{ title: "Something", price: 9.99 }} />
-
+                <ShortList tableName={"Gli ultimi arrivi"} data={lastItems} />
+                {lowerPriceItem && <PicAndTextSection item={lowerPriceItem} />}
                 <section className={styles.intro}>
                     <h2>Vuoi vendere i tuoi articoli?</h2>
                     {/* <p>Scopri come fare</p> */}
