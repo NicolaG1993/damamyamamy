@@ -19,7 +19,10 @@ export default function Negozio() {
             setItems(data);
         } catch (err) {
             setItems();
-            alert(getError(err));
+            // alert(getError(err));
+            alert(
+                "Sembra che abbiamo dei problemi con il nostro sito, riprova piú tardi oppure contattaci al 347 9792 644, ci scusiamo per il disagio."
+            );
         }
     };
 

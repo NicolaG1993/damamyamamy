@@ -7,9 +7,9 @@
 • Aggiungere sezione feed IG o Google reviews
 
 SEZIONI:
-• Auth (login, profilo, admin user, ...)
-• Admin (add, remove, edit products, users, orders)
-• Shop (dinamic components, fetches, responsive design, new design, filters)
+💚 Auth (login, profilo, admin user, ...)
+🧠 Admin (add, remove, edit products, users, orders)
+🧠 Shop (dinamic components, fetches, responsive design, new design, filters)
 • Cart (add and remove items, design, API requests)
 • Checkout (checkout forms, PayPal, Stripe, API requests)
 
@@ -18,10 +18,11 @@ NON PRIORITARIO:
 • bisogna bloccare submit button in ItemForm quando si preme, finche promise non sono risolte o si riceve errore
 • save form states in cookies (serve sempre per tutti? quando pulire?)
 • err handling e req responses confirmations like a pro
+• vedere bene tutti i dynamic imports
 
 26.02.2023
 • 💚aggiungere middleware per admin api routes
-• 🧠add/edit item form and api and components
+• 💚add/edit item form and api and components
 • 💚categories and tags and brands tabels
 • completare sezione admin
 
@@ -30,12 +31,21 @@ NON PRIORITARIO:
 • 💚 ItemForm pics
 • 💚 S3 Bucket
 • 💚 ItemForm API generate relations and slug on submit + run checks
-• 🧠 Edit items via ItemForm
+• 💚 Edit items via ItemForm
 
 28.02.2023
 • 💚 capire perché conditions non viene salvato in crea articolo
 • 💚 capire perché non mostra pics in modifica articolo
 • 💚 capire perché multipleSelector non mostra data in modifica articolo // fare relations fetch
+• 🧠 order lists (by name, date, etc...)
+
+29.02.2023
+• Cart
+• Add/Remove/Empty Cart btn
+• Keep cart in cookie?
+
+30.02.2023
+• Shop Filters (easy version)
 
 ---
 

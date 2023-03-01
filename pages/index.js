@@ -40,7 +40,10 @@ export default function Home() {
         } catch (err) {
             setLastItems();
             setLowerPriceItem();
-            alert(getError(err));
+            alert(
+                "Sembra che abbiamo dei problemi con il nostro sito, riprova piú tardi oppure contattaci al 347 9792 644, ci scusiamo per il disagio."
+            );
+            // alert(getError(err));
         }
     };
 

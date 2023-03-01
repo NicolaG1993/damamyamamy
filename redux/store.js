@@ -5,12 +5,13 @@ import { createWrapper } from "next-redux-wrapper";
 
 // create a slice
 import userSlice from "./slices/userSlice";
+import cartSlice from "./slices/cartSlice";
 
 // config the store
 const store = configureStore({
     reducer: {
         user: userSlice.reducer,
-        // cart: cartSlice.reducer,
+        cart: cartSlice.reducer,
     },
     devTools: true,
 });
