@@ -14,13 +14,12 @@ export default function Item({ item }) {
     };
 
     return (
-        <>
-            <Link
-                href={`/negozio/articolo/${item.slug}`}
-                onMouseEnter={onMouseEnter}
-                onMouseLeave={onMouseLeave}
-                className={styles.gridElement}
-            >
+        <div
+            className={styles.gridElement}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
+        >
+            <Link href={`/negozio/articolo/${item.slug}`}>
                 <div id={styles.thumbnailWrap}>
                     <div
                         style={{
@@ -47,6 +46,6 @@ export default function Item({ item }) {
                 </div>
             </Link>
             <CartButton isVisibile={isHovered} wrapSize="small" item={item} />
-        </>
+        </div>
     );
 }

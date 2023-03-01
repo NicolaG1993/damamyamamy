@@ -20,6 +20,7 @@
     border: 1px solid var(--colorF);
     border-radius: 12px;
     /* margin: 0 0.5rem; */
+    position: relative;
     background: linear-gradient(
             to bottom,
             transparent,
@@ -41,6 +42,9 @@
     transition: var(--transition);
     color: var(--colorD);
     border: 1px solid var(--colorF);
+}
+.gridElement:hover p {
+    color: var(--colorD);
 }
 .gridElement:hover h5 {
     color: var(--colorB);

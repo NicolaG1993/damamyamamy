@@ -17,29 +17,27 @@ export default function CartButton({ isVisibile, wrapSize, item }) {
     const dispatch = useDispatch();
     let { cart } = useSelector(selectCartState, shallowEqual);
     const [isAvailable, setIsAvailable] = useState(false);
-
     useEffect(() => {
-        console.log("cart: ", cart);
+        console.log("CART: ", cart);
+        // check if item is in cart already
         if (cart) {
-            let result = cart.filter((i) => {
-                return i.id === item.id;
-            });
-
-            if (result.length === 0) {
-                setIsAvailable(true);
-            } else {
-                setIsAvailable(false);
-            }
+            let cartItem = checkCart(item.id, cart);
+            !cartItem ? setIsAvailable(true) : setIsAvailable(false);
         }
     }, [cart]);
 
+    // find element in cart
+    const checkCart = (itemID, cart) => cart.find(({ id }) => id === itemID);
+
+    // add item to cart
     const addToCartHandler = async (itemID, quantity) => {
         try {
-            let cartItem = cart.find(({ id }) => id === itemID);
+            // check cart and add cartQuantity, i don't really need it in this case, but whatever
+            let cartItem = checkCart(itemID, cart);
             let cartQuantity =
                 cartItem && cartItem.quantity ? cartItem.quantity : 0;
             let totalQuantity = cartQuantity + quantity;
-
+            // check stock, if available add to cart
             let dbCheck = await checkItemStock(itemID, totalQuantity);
             dbCheck &&
                 dispatch(addToCart({ id: itemID, quantity: totalQuantity }));
@@ -48,6 +46,7 @@ export default function CartButton({ isVisibile, wrapSize, item }) {
         }
     };
 
+    // remove item from cart
     const removeFromCartHandler = async (id) => {
         dispatch(removeFromCart(id));
     };
@@ -55,21 +54,23 @@ export default function CartButton({ isVisibile, wrapSize, item }) {
     const SmallCartButton = () =>
         isAvailable ? (
             <button
+                className="button cartActionButton"
                 // className={`${styles["add-cart"]} ${
                 //     styles["add-cart-for-small"]
                 // } ${showBtn ? styles["show"] : ""}`}
                 onClick={() => addToCartHandler(item.id, 1)}
             >
-                {/* <ShoppingCart /> */} +
+                {/* <ShoppingCart /> */}+
             </button>
         ) : (
             <button
+                className="button cartActionButton"
                 // className={`${styles["remove-cart"]} ${
                 //     styles["remove-cart-for-small"]
                 // } ${showBtn ? styles["show"] : ""}`}
                 onClick={() => removeFromCartHandler(item.id)}
             >
-                {/* <X /> */} -
+                {/* <X /> */}-
             </button>
         );
 

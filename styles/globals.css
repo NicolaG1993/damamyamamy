@@ -124,6 +124,10 @@ section {
     text-align: center;
 }
 
+.center-text {
+    text-align: center;
+}
+
 h1,
 h2,
 h3,
@@ -135,6 +139,7 @@ h6 {
     font-weight: bold;
 }
 
+/* LINKS AND BUTTONS */
 a {
     color: var(--colorD);
     text-decoration: none;
@@ -186,8 +191,18 @@ a:hover {
     border: 2px solid var(--colorD);
 }
 
-.center-text {
-    text-align: center;
+.cartActionButton {
+    min-width: auto;
+    max-width: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 0;
 }
 
 /* ABOUT US */
