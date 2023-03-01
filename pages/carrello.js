@@ -24,12 +24,14 @@ import styles from "@/styles/Shop.module.css";
 
 function Cart() {
     const dispatch = useDispatch();
-    let { cart } = useSelector(selectCartState, shallowEqual);
+    let { cart } = useSelector(selectCartState);
     const [cartData, setCartData] = useState();
 
     useEffect(() => {
         if (cart && cart.length) {
             fetchData(cart);
+        } else {
+            setCartData([]);
         }
     }, [cart]);
 
@@ -74,7 +76,9 @@ function Cart() {
                         <p>{item.name}</p>
                         <p>{item.quantity}</p>
                         <p>€ {item.price}</p>
-                        <span>❌</span>
+                        <span onClick={() => dispatch(removeFromCart(item.id))}>
+                            ❌
+                        </span>
                     </div>
                 ))}
             </div>
