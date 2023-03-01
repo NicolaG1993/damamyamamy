@@ -17,6 +17,7 @@
     --colorE: whitesmoke;
     --colorF: rgb(205, 205, 205);
     --colorG: rgb(150, 150, 150);
+    --colorH: rgb(235, 171, 181);
 
     --transition: 0.2s ease;
     --box-shadow-hover: 0 0 11px rgba(33, 33, 33, 0.2);
@@ -204,26 +205,17 @@ a:hover {
     right: 5px;
     padding: 0;
 }
-
-/* ABOUT US */
-#About h2 {
-    font-size: 1.17em;
-    margin-bottom: 1rem;
+.cartActionButton > svg {
+    fill: var(--colorC);
+    /* height: 30px;
+    width: 30px; */
+    /* margin: 0.66rem; */
 }
-#About .center-text {
-    /* margin-top: 0.5rem; */
-    margin-bottom: 4rem;
-
-    text-align: justify;
+.cartSVG > svg {
+    margin: 0.5rem;
 }
-#About .document-text-wrap {
-    /* background: var(--colorB); */
-}
-#About .document-text-wrap > div {
-    margin-bottom: 2rem;
-}
-#About .document-text-wrap > div:nth-child(1) {
-    margin-bottom: 4rem;
+.xSVG > svg {
+    margin: 0.65rem;
 }
 
 /* LAYOUT */
@@ -264,12 +256,31 @@ header nav a:hover {
 }
 
 footer {
-    background: var(--colorF);
+    background: var(--colorH);
+    color: var(--colorD);
     display: flex;
     align-items: center;
     justify-content: space-around;
     padding: 2em 1.5em;
     min-height: 300px;
+}
+footer > div {
+    height: 170px;
+}
+footer h4 {
+    color: var(--colorD);
+    margin-bottom: 1rem;
+    /* font-size: 1.2rem; */
+}
+footer ul {
+    list-style: none;
+}
+footer ul li {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+}
+footer a {
+    color: var(--colorD);
 }
 .copyrights {
     width: 100%;
@@ -278,6 +289,28 @@ footer {
     text-align: center;
     font-size: 0.85rem;
     font-family: var(--fontB);
+    color: var(--colorC);
+}
+
+/* ABOUT US */
+#About h2 {
+    font-size: 1.17em;
+    margin-bottom: 1rem;
+}
+#About .center-text {
+    /* margin-top: 0.5rem; */
+    margin-bottom: 4rem;
+
+    text-align: justify;
+}
+#About .document-text-wrap {
+    /* background: var(--colorB); */
+}
+#About .document-text-wrap > div {
+    margin-bottom: 2rem;
+}
+#About .document-text-wrap > div:nth-child(1) {
+    margin-bottom: 4rem;
 }
 
 /* LIST */

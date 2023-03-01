@@ -15,6 +15,14 @@ import { selectUserState } from "@/redux/slices/userSlice";
 
 import Header from "./Header";
 import Footer from "./Footer";
+import dynamic from "next/dynamic";
+const CartIcon = dynamic(
+    () => import("@/components/Buttons/CartIcon/CartIcon"),
+    {
+        ssr: false,
+    }
+);
+// import CartIcon from "@/components/Buttons/CartIcon/CartIcon";
 // import Cookies from "js-cookie";
 
 export default function Layout({ children, ...pageProps }) {
@@ -131,6 +139,7 @@ export default function Layout({ children, ...pageProps }) {
             </Head>
 
             <Header userInfo={userInfo} />
+            <CartIcon />
             {children}
             <Footer />
 

@@ -1,4 +1,4 @@
-import CartButton from "@/components/Buttons/CartButton";
+import CartButton from "@/components/Buttons/CartButton/CartButton";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";

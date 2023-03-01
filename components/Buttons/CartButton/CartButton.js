@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 // import styles from "./style/CartButton.module.css";
 
-// import ShoppingCart from "./assets/shopping-cart.svg";
-// import X from "./assets/x.svg";
+import ShoppingCart from "public/assets/icons/shopping-cart.svg";
+import X from "public/assets/icons/x.svg";
 import axios from "axios";
 import {
     selectCartState,
@@ -54,23 +54,23 @@ export default function CartButton({ isVisibile, wrapSize, item }) {
     const SmallCartButton = () =>
         isAvailable ? (
             <button
-                className="button cartActionButton"
+                className="button cartActionButton cartSVG"
                 // className={`${styles["add-cart"]} ${
                 //     styles["add-cart-for-small"]
                 // } ${showBtn ? styles["show"] : ""}`}
                 onClick={() => addToCartHandler(item.id, 1)}
             >
-                {/* <ShoppingCart /> */}+
+                <ShoppingCart />
             </button>
         ) : (
             <button
-                className="button cartActionButton"
+                className="button cartActionButton xSVG"
                 // className={`${styles["remove-cart"]} ${
                 //     styles["remove-cart-for-small"]
                 // } ${showBtn ? styles["show"] : ""}`}
                 onClick={() => removeFromCartHandler(item.id)}
             >
-                {/* <X /> */}-
+                <X />
             </button>
         );
 

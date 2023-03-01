@@ -28,7 +28,9 @@ function Cart() {
     const EmptyCart = () => (
         <>
             <p>Nessun prodotto nel tuo carrello</p>
-            <Link href={"/negozio"} className="button"></Link>
+            <Link href={"/negozio"} className="button">
+                Torna al negozio
+            </Link>
         </>
     );
 
@@ -53,7 +55,12 @@ function Cart() {
             </div>
             <div className={styles.tableFoot}>
                 <h3>Totale: € {}</h3>
-                <button className="button">Svuota carrello</button>
+                <button
+                    className="button"
+                    onClick={() => dispatch(emptyCart())}
+                >
+                    Svuota carrello
+                </button>
                 <button className="button">Alla cassa: € {}</button>
             </div>
         </div>
