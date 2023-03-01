@@ -215,7 +215,7 @@ a:hover {
     margin: 0.5rem;
 }
 .xSVG > svg {
-    margin: 0.65rem;
+    margin: 0.68rem;
 }
 
 /* LAYOUT */
@@ -256,20 +256,29 @@ header nav a:hover {
 }
 
 footer {
-    background: var(--colorH);
+    /* background: rgb(247, 219, 223); */
+    background: var(--colorA);
+    /* background: var(--colorH); */
     color: var(--colorD);
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     padding: 2em 1.5em;
     min-height: 300px;
 }
+.footerContent {
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
 footer > div {
-    height: 170px;
 }
 footer h4 {
     color: var(--colorD);
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     /* font-size: 1.2rem; */
 }
 footer ul {
@@ -284,12 +293,12 @@ footer a {
 }
 .copyrights {
     width: 100%;
-    background: var(--colorG);
+    background: var(--colorH);
     padding: 2em 1.5em;
     text-align: center;
     font-size: 0.85rem;
     font-family: var(--fontB);
-    color: var(--colorC);
+    color: var(--colorD);
 }
 
 /* ABOUT US */

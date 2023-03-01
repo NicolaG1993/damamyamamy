@@ -3,7 +3,7 @@
     height: 30px;
     /* margin-bottom: 2px; */
     position: fixed;
-    top: 80px;
+    top: 85px;
     /* bottom: 1.5rem; */
     right: 1.75rem;
     z-index: 50;
@@ -17,6 +17,7 @@
 }
 .cart-icon-box svg:hover {
     fill: var(--colorB);
+    opacity: 1;
 }
 
 #cartCounter {

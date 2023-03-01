@@ -32,8 +32,17 @@ const cartSlice = createSlice({
             Cookies.set("cart", JSON.stringify(cart));
             state.cart = cart;
         },
+        updateCart: (state, action) => {
+            const cart = action.payload;
+            let parsedCart = cart.map(({ id, quantity }) => ({
+                id,
+                quantity,
+            }));
+            Cookies.set("cart", JSON.stringify(parsedCart));
+            state.cart = parsedCart;
+        },
         emptyCart: (state) => {
-            // no set cookies here??? 🧠
+            Cookies.set("cart", JSON.stringify([]));
             state.cart = [];
         },
         saveShippingAddress: (state, action) => {

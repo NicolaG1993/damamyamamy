@@ -168,6 +168,11 @@ module.exports.getHomeItems = () => {
     const myQuery = `SELECT * FROM item ORDER BY id DESC LIMIT 20`;
     return db.query(myQuery);
 };
+module.exports.getCheckoutItems = (arr) => {
+    const myQuery = `SELECT * FROM item WHERE id = ANY($1)`;
+    const key = [arr];
+    return db.query(myQuery, key);
+};
 module.exports.getItem = (id) => {
     const myQuery = `SELECT 
         item.*,

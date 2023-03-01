@@ -5,6 +5,7 @@
 
 #Cart {
     background: var(--colorA);
+    border-bottom: 1px solid var(--colorH);
 }
 #Cart section {
     background: transparent;

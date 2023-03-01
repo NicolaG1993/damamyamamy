@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import axios from "axios";
@@ -8,6 +8,7 @@ import {
     addToCart,
     removeFromCart,
     emptyCart,
+    updateCart,
 } from "@/redux/slices/cartSlice";
 import { checkItemStock } from "@/utils/custom/handlers";
 import { getError } from "@/utils/error";
@@ -24,6 +25,30 @@ import styles from "@/styles/Shop.module.css";
 function Cart() {
     const dispatch = useDispatch();
     let { cart } = useSelector(selectCartState, shallowEqual);
+    const [cartData, setCartData] = useState();
+
+    useEffect(() => {
+        if (cart && cart.length) {
+            fetchData(cart);
+        }
+    }, [cart]);
+
+    const fetchData = async (cart) => {
+        try {
+            console.log("cart:", cart);
+            const { data } = await axios.post(`/api/get/cart/`, cart);
+            console.log("data:", data);
+            setCartData(data.cart);
+            if (data.changes) {
+                dispatch(updateCart(data.cart));
+                alert(
+                    "Uno o piú prodotti del tuo carrello sono stati acquistati da un altro utente. Il tuo carrello é stato aggiornato."
+                );
+            }
+        } catch (err) {
+            alert(getError(err));
+        }
+    };
 
     const EmptyCart = () => (
         <>
@@ -43,7 +68,7 @@ function Cart() {
                 <h4>Azioni</h4>
             </div>
             <div className={styles.cartItems}>
-                {cart.map((item) => (
+                {cartData.map((item) => (
                     <div className={styles.cartItem} key={item.id}>
                         {/* <CartItem item={item} styles={styles} /> */}
                         <p>{item.name}</p>
@@ -54,7 +79,11 @@ function Cart() {
                 ))}
             </div>
             <div className={styles.tableFoot}>
-                <h3>Totale: € {}</h3>
+                <h3>
+                    Totale: €{" "}
+                    {cartData.reduce((a, c) => a + c.quantity * c.price, 0)}
+                </h3>{" "}
+                <p>{cartData.reduce((a, c) => a + c.quantity, 0)} articoli</p>
                 <button
                     className="button"
                     onClick={() => dispatch(emptyCart())}
@@ -66,7 +95,7 @@ function Cart() {
         </div>
     );
 
-    if (!cart) return <p>Loading...</p>;
+    if (!cartData) return <p>Loading...</p>;
 
     return (
         <main id={styles["Cart"]}>
@@ -82,7 +111,7 @@ function Cart() {
             <section>
                 <h1>Il tuo carrello</h1>
 
-                {!cart.length ? <EmptyCart /> : <FilledCart />}
+                {!cartData.length ? <EmptyCart /> : <FilledCart />}
             </section>
         </main>
     );
