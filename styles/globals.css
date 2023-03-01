@@ -233,8 +233,12 @@ header {
 }
 header #HeaderLogo {
     height: 100%;
-    width: 100px;
-    background: var(--colorA);
+    /* width: 100px; */
+    /* background: var(--colorA); */
+}
+header #HeaderLogo svg {
+    height: 100%;
+    /* width: 100px; */
 }
 header nav {
     min-width: 500px;
@@ -271,14 +275,15 @@ footer {
     width: 100%;
     max-width: 1000px;
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     justify-content: space-around;
 }
-footer > div {
+footer > .footerContent > div {
+    margin: 2rem 0;
 }
 footer h4 {
     color: var(--colorD);
-    margin-bottom: 2rem;
+    margin-bottom: 1.75rem;
     /* font-size: 1.2rem; */
 }
 footer ul {
@@ -288,12 +293,18 @@ footer ul li {
     margin: 0.5rem 0;
     font-size: 0.9rem;
 }
+footer ul > li:last-child {
+    margin: 0.5rem 0 0 0;
+    font-size: 0.9rem;
+}
 footer a {
     color: var(--colorD);
 }
 .copyrights {
     width: 100%;
-    background: var(--colorH);
+    /* background: var(--colorH); */
+    background: linear-gradient(to bottom, transparent, var(--colorA))
+        var(--colorH);
     padding: 2em 1.5em;
     text-align: center;
     font-size: 0.85rem;
@@ -363,11 +374,16 @@ footer a {
 .listHead p,
 .listItem p,
 .listItem a {
-    margin: 0 0.5rem;
+    padding: 0 0.5rem;
     align-self: center;
     height: 17px;
     /* overflow: hidden; */
     /* white-space: nowrap; */
+}
+.listItem a,
+.listItem .action {
+    /* padding: 0 0 0 1rem; */
+    text-align: end;
 }
 .listItem a:hover,
 .listItem .action:hover {

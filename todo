@@ -10,7 +10,7 @@ SEZIONI:
 💚 Auth (login, profilo, admin user, ...)
 🧠 Admin (add, remove, edit products, users, orders)
 🧠 Shop (dinamic components, fetches, responsive design, new design, filters)
-• Cart (add and remove items, design, API requests)
+💚 Cart (add and remove items, design, API requests)
 • Checkout (checkout forms, PayPal, Stripe, API requests)
 
 NON PRIORITARIO:
@@ -40,8 +40,8 @@ NON PRIORITARIO:
 • 🧠 order lists (by name, date, etc...)
 
 29.02.2023
-• 🧠 Cart
-• 🧠 Add/Remove/Empty Cart btn
+• 💚 Cart
+• 💚 Add/Remove/Empty Cart btn
 • 💚 Keep cart in cookie?
 • Shop Filters (easy version)
 

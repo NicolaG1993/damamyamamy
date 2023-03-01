@@ -1,9 +1,12 @@
 import Link from "next/link";
+import Logo from "public/assets/brand/Logo.svg";
 
 export default function Header({ userInfo }) {
     return (
         <header>
-            <div id="HeaderLogo"></div>
+            <div id="HeaderLogo">
+                <Logo />
+            </div>
             <nav>
                 <Link href={"/"}>Home</Link>
                 <Link href={"/negozio"}>In negozio</Link>

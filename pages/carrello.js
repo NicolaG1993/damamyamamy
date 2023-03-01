@@ -53,12 +53,12 @@ function Cart() {
     };
 
     const EmptyCart = () => (
-        <>
+        <div className={styles.emptyCart}>
             <p>Nessun prodotto nel tuo carrello</p>
             <Link href={"/negozio"} className="button">
                 Torna al negozio
             </Link>
-        </>
+        </div>
     );
 
     const FilledCart = () => (
@@ -82,19 +82,24 @@ function Cart() {
                     </div>
                 ))}
             </div>
-            <div className={styles.tableFoot}>
+            {/* <div className={styles.tableFoot}>
+                <p>{cartData.reduce((a, c) => a + c.quantity, 0)} articoli</p>
                 <h3>
                     Totale: €{" "}
                     {cartData.reduce((a, c) => a + c.quantity * c.price, 0)}
                 </h3>{" "}
-                <p>{cartData.reduce((a, c) => a + c.quantity, 0)} articoli</p>
+            </div> */}
+            <div className={styles.tableButtons}>
                 <button
-                    className="button"
+                    className="button form-button"
                     onClick={() => dispatch(emptyCart())}
                 >
                     Svuota carrello
                 </button>
-                <button className="button">Alla cassa: € {}</button>
+                <button className="button form-button">
+                    Alla cassa: €{" "}
+                    {cartData.reduce((a, c) => a + c.quantity * c.price, 0)}
+                </button>
             </div>
         </div>
     );
