@@ -27,9 +27,8 @@ const cartSlice = createSlice({
             state.cart = cart;
         },
         removeFromCart: (state, action) => {
-            const cart = state.cart.filter(
-                ({ id }) => id !== action.payload.id
-            );
+            const itemID = action.payload;
+            const cart = state.cart.filter(({ id }) => id !== itemID);
             Cookies.set("cart", JSON.stringify(cart));
             state.cart = cart;
         },

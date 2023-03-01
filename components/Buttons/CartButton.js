@@ -48,7 +48,7 @@ export default function CartButton({ isVisibile, wrapSize, item }) {
         }
     };
 
-    const removeFromCartHandler = (id) => {
+    const removeFromCartHandler = async (id) => {
         dispatch(removeFromCart(id));
     };
 
