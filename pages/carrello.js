@@ -65,8 +65,8 @@ function Cart() {
         <div className={styles.cartGridWrap}>
             <div className={styles.tableHead}>
                 <h4>Articolo</h4>
-                <h4>Quantitá</h4>
                 <h4>Prezzo</h4>
+                <h4>Quantitá</h4>
                 <h4>Azioni</h4>
             </div>
             <div className={styles.cartItems}>
@@ -74,8 +74,8 @@ function Cart() {
                     <div className={styles.cartItem} key={item.id}>
                         {/* <CartItem item={item} styles={styles} /> */}
                         <p>{item.name}</p>
-                        <p>{item.quantity}</p>
                         <p>€ {item.price}</p>
+                        <p>- {item.quantity} +</p>
                         <span onClick={() => dispatch(removeFromCart(item.id))}>
                             ❌
                         </span>

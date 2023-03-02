@@ -4,9 +4,9 @@ import Logo from "public/assets/brand/Logo.svg";
 export default function Header({ userInfo }) {
     return (
         <header>
-            <div id="HeaderLogo">
+            <Link href={"/"} id="HeaderLogo">
                 <Logo />
-            </div>
+            </Link>
             <nav>
                 <Link href={"/"}>Home</Link>
                 <Link href={"/negozio"}>In negozio</Link>

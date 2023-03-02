@@ -4,14 +4,16 @@ import { configureStore } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";
 
 // create a slice
-import userSlice from "./slices/userSlice";
 import cartSlice from "./slices/cartSlice";
+import formsSlice from "./slices/formsSlice";
+import userSlice from "./slices/userSlice";
 
 // config the store
 const store = configureStore({
     reducer: {
-        user: userSlice.reducer,
         cart: cartSlice.reducer,
+        forms: formsSlice.reducer,
+        user: userSlice.reducer,
     },
     devTools: true,
 });
