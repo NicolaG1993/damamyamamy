@@ -7,13 +7,14 @@
 }
 
 .shortListGrid {
-    /* display: flex;
+    display: flex;
     align-items: center;
-    justify-content: space-between; */
-    display: grid;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    /* display: grid;
     justify-items: center;
     align-items: center;
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: repeat(3, 1fr); */
     max-width: 1000px;
     width: 100%;
     margin: 4rem 0 8rem 0;
@@ -21,8 +22,10 @@
 
 .gridElement {
     height: 350px;
-    margin: 1rem 0;
+    margin: 2rem 0;
     width: 300px;
+    /* flex: 0 0 33.3333%; */
+    /* width: 100%; */
     border: 1px solid var(--colorF);
     border-radius: 12px;
     /* margin: 0 0.5rem; */

@@ -276,12 +276,14 @@ footer {
 .footerContent {
     width: 100%;
     max-width: 1000px;
+    /* max-width: 600px; */
     display: flex;
     /* align-items: center; */
-    justify-content: space-around;
+    justify-content: space-between;
 }
 footer > .footerContent > div {
     margin: 2rem 0;
+    padding: 1rem;
 }
 footer h4 {
     color: var(--colorD);
