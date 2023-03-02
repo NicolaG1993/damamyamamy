@@ -6,12 +6,12 @@
     align-items: center;
 }
 #Shop .filtersWrap {
-    max-width: 1000px;
+    /* max-width: 1000px;
     margin: 2rem;
     padding: 1rem 1.5rem;
     border: 1px solid var(--colorD);
     background: var(--colorA);
-    border-radius: 12px;
+    border-radius: 12px; */
 }
 #Shop .listItem {
 }

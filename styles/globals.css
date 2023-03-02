@@ -403,6 +403,32 @@ footer a {
     grid-template-columns: 75px 1.5fr 100px 100px 120px 40px 40px;
 }
 
+/* 404 */
+#Page404 > section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#Page404 h1 {
+    font-size: 8rem;
+    line-height: 8rem;
+    margin: 0 0 2rem 0;
+    color: var(--colorA);
+    /* width: 300px; */
+}
+#Page404 > section > div:nth-child(2) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 4rem 0;
+}
+#Page404 p {
+    text-align: center;
+    font-size: 1.6rem;
+    color: var(--colorD);
+    width: 300px;
+}
+
 /* COOKIES WRAP */
 .cookieWrap {
     position: fixed;

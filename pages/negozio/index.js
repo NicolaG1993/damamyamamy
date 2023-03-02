@@ -13,15 +13,18 @@ import {
 
 export default function Negozio() {
     const [items, setItems] = useState();
+    const [totalPages, setTotalPages] = useState(1);
+    let countPerPage = 15;
     // const [filtersState, setFiltersState] = useState();
     const dispatch = useDispatch();
     let storedFilters = useSelector(selectShopFiltersState, shallowEqual);
 
+    // useEffect(() => {
+    //     fetchData(storedFilters);
+    //     // setOrder(sessionStorage.getItem(name));
+    // }, []);
     useEffect(() => {
-        fetchData();
-        // setOrder(sessionStorage.getItem(name));
-    }, []);
-    useEffect(() => {
+        fetchData({ ...storedFilters, countPerPage });
         console.log("💚 storedFilters: ", storedFilters);
     }, [storedFilters]);
 
@@ -33,13 +36,17 @@ export default function Negozio() {
         dispatch(saveShopFilters(newState));
     };
 
-    const fetchData = async () => {
+    const fetchData = async (obj) => {
         try {
-            const { data } = await axios.get("/api/get/all-items");
-            // console.log("💚 data: ", data);
+            const { data } = await axios.post("/api/get/all-items", obj);
+            console.log("💚 data: ", data);
             setItems(data);
+            setTotalPages(
+                Math.ceil(Number(data.length) / Number(countPerPage))
+            );
         } catch (err) {
             setItems();
+            setTotalPages(1);
             // alert(getError(err));
             alert(
                 "Sembra che abbiamo dei problemi con il nostro sito, riprova piú tardi oppure contattaci al 347 9792 644, ci scusiamo per il disagio."
@@ -55,7 +62,7 @@ export default function Negozio() {
                 <h1>Negozio</h1>
                 <div className={styles.filtersWrap}>
                     <ShopFilters
-                        filters={storedFilters}
+                        filters={{ ...storedFilters, totalPages }}
                         handleFilters={handleFilters}
                     />
                 </div>

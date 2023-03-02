@@ -18,7 +18,7 @@ export default function CartButton({ isVisibile, wrapSize, item }) {
     let { cart } = useSelector(selectCartState, shallowEqual);
     const [isAvailable, setIsAvailable] = useState(false);
     useEffect(() => {
-        console.log("CART: ", cart);
+        // console.log("CART: ", cart);
         // check if item is in cart already
         if (cart) {
             let cartItem = checkCart(item.id, cart);

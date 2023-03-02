@@ -1,5 +1,6 @@
 import useSessionStorage from "@/utils/useSessionStorage";
 import { useEffect, useState } from "react";
+import styles from "./Filters.module.css";
 
 let allCategories = [];
 
@@ -9,23 +10,41 @@ export default function ShopFilters({ filters, handleFilters }) {
     }, [filters]);
 
     return (
-        <form>
-            <label htmlFor={"page"}>
-                Pagina
-                <input
-                    name="page"
-                    id="page"
-                    type="number"
-                    min={1}
-                    value={filters.page || 1}
+        <form id={styles.ShopFilters}>
+            <div className={styles.searchBarWrap}>
+                <label htmlFor={"research"}>
+                    {/* Ricerca */}
+                    <input
+                        name="research"
+                        id="research"
+                        placeholder="Cerca..."
+                        type="text"
+                        value={filters.research}
+                        onChange={(e) =>
+                            handleFilters(e.target.name, e.target.value)
+                        }
+                    />
+                </label>
+            </div>
+
+            <div className={styles.filtersBarWrap}>
+                <label htmlFor={"category"}>Categorie</label>
+                <select
+                    name="category"
+                    id="category"
                     onChange={(e) =>
                         handleFilters(e.target.name, e.target.value)
                     }
-                />
-            </label>
+                    defaultValue={filters.category}
+                >
+                    {allCategories.map((el) => (
+                        <option key={"category: " + el.id}>{el.name}</option>
+                    ))}
+                </select>
+            </div>
 
-            <label htmlFor={"order"}>
-                Ordina per
+            <div className={styles.orderBarWrap}>
+                <label htmlFor={"order"}>Ordina per</label>
                 <select
                     name="order"
                     id="order"
@@ -39,34 +58,25 @@ export default function ShopFilters({ filters, handleFilters }) {
                     <option value="price_desc">Prezzo più alto</option>
                     <option value="name_asc">Ordine alfabetico</option>
                 </select>
-            </label>
-            <label htmlFor={"category"}>
-                Categorie
-                <select
-                    name="category"
-                    id="category"
-                    onChange={(e) =>
-                        handleFilters(e.target.name, e.target.value)
-                    }
-                    defaultValue={filters.category}
-                >
-                    {allCategories.map((el) => (
-                        <option key={"category: " + el.id}>{el.name}</option>
-                    ))}
-                </select>
-            </label>
-            <label htmlFor={"research"}>
-                Ricerca
+            </div>
+
+            <div className={styles.pagesBarWrap}>
+                {/* <label htmlFor={"page"}>Pagina</label> */}
+                {[...Array(filters.totalPages)].map((el, i) => (
+                    <div key={"page selector " + i}>{i + 1}</div>
+                ))}
                 <input
-                    name="research"
-                    id="research"
-                    type="text"
-                    value={filters.research}
+                    name="page"
+                    id="page"
+                    type="number"
+                    min={1}
+                    max={filters.totalPages}
+                    value={filters.page || 1}
                     onChange={(e) =>
                         handleFilters(e.target.name, e.target.value)
                     }
                 />
-            </label>
+            </div>
         </form>
     );
 }

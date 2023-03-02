@@ -240,7 +240,7 @@ module.exports.getItem = (id) => {
 };
 
 /* GET ALL */
-module.exports.getAllItems = () => {
+module.exports.getAllItems = (value, column, order, start, end) => {
     const myQuery = `SELECT 
         item.*,
         categories_JSON.categories,
@@ -301,8 +301,13 @@ module.exports.getAllItems = () => {
             ) AS brands_JSON
             ON item.id = brands_JSON.item_id
         
-        WHERE count_in_stock >= 1`;
-    return db.query(myQuery);
+        WHERE count_in_stock >= 1
+        AND name ILIKE '%' || $1 || '%'
+        ORDER BY ${column} ${order}
+        LIMIT ${end - 1} OFFSET ${start - 1}
+        `;
+    const key = [value];
+    return db.query(myQuery, key);
 };
 module.exports.getAllItemsForAdmin = () => {
     const myQuery = `SELECT * FROM item ORDER BY id`;
