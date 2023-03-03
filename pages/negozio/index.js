@@ -10,10 +10,12 @@ import {
     selectShopFiltersState,
     saveShopFilters,
 } from "@/redux/slices/formsSlice";
+import PageNav from "@/components/Filters/PageNav";
 
 export default function Negozio() {
     const [items, setItems] = useState();
     const [totalPages, setTotalPages] = useState(1);
+    const [allCategories, setAllCategories] = useState();
     let countPerPage = 15;
     // const [filtersState, setFiltersState] = useState();
     const dispatch = useDispatch();
@@ -25,28 +27,37 @@ export default function Negozio() {
     // }, []);
     useEffect(() => {
         fetchData({ ...storedFilters, countPerPage });
-        console.log("💚 storedFilters: ", storedFilters);
+        // console.log("💚 storedFilters: ", storedFilters);
     }, [storedFilters]);
 
     const handleFilters = (name, value) => {
         console.log("handleFilters: ", name, value);
         // let newState = { ...filtersState, [name]: value };
         // setFiltersState(newState);
-        let newState = { ...storedFilters, [name]: value };
+
+        let newState;
+        if (name == "category" || name == "order") {
+            newState = { ...storedFilters, page: 1, [name]: value };
+        } else {
+            newState = { ...storedFilters, [name]: value };
+        }
+
         dispatch(saveShopFilters(newState));
     };
 
     const fetchData = async (obj) => {
         try {
             const { data } = await axios.post("/api/get/all-items", obj);
-            console.log("💚 data: ", data.items);
+            console.log("💚 data: ", data);
             setItems(data.items);
+            setAllCategories(data.all_categories);
             setTotalPages(
                 Math.ceil(Number(data.full_count) / Number(countPerPage))
             );
         } catch (err) {
             setItems();
             setTotalPages(1);
+            setAllCategories();
             // alert(getError(err));
             alert(
                 "Sembra che abbiamo dei problemi con il nostro sito, riprova piú tardi oppure contattaci al 347 9792 644, ci scusiamo per il disagio."
@@ -64,9 +75,15 @@ export default function Negozio() {
                     <ShopFilters
                         filters={{ ...storedFilters, totalPages }}
                         handleFilters={handleFilters}
+                        allCategories={allCategories}
                     />
                 </div>
                 <ShopItems data={items} />
+                <PageNav
+                    totalPages={totalPages}
+                    page={storedFilters.page}
+                    handleFilters={handleFilters}
+                />
             </section>
         </main>
     );

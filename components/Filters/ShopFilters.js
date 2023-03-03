@@ -1,10 +1,9 @@
 import useSessionStorage from "@/utils/useSessionStorage";
 import { useEffect, useState } from "react";
 import styles from "./Filters.module.css";
+import PageNav from "./PageNav";
 
-let allCategories = [];
-
-export default function ShopFilters({ filters, handleFilters }) {
+export default function ShopFilters({ filters, handleFilters, allCategories }) {
     useEffect(() => {
         console.log("filters: ", filters);
     }, [filters]);
@@ -33,13 +32,17 @@ export default function ShopFilters({ filters, handleFilters }) {
                     name="category"
                     id="category"
                     onChange={(e) =>
-                        handleFilters(e.target.name, e.target.value)
+                        handleFilters(e.target.name, Number(e.target.value))
                     }
                     defaultValue={filters.category}
                 >
-                    {allCategories.map((el) => (
-                        <option key={"category: " + el.id}>{el.name}</option>
-                    ))}
+                    <option value={0}>--Tutte--</option>
+                    {allCategories &&
+                        allCategories.map((el) => (
+                            <option key={"category: " + el.id} value={el.id}>
+                                {el.name}
+                            </option>
+                        ))}
                 </select>
             </div>
 
@@ -60,23 +63,11 @@ export default function ShopFilters({ filters, handleFilters }) {
                 </select>
             </div>
 
-            <div className={styles.pagesBarWrap}>
-                {/* <label htmlFor={"page"}>Pagina</label> */}
-                {[...Array(filters.totalPages)].map((el, i) => (
-                    <div key={"page selector " + i}>{i + 1}</div>
-                ))}
-                <input
-                    name="page"
-                    id="page"
-                    type="number"
-                    min={1}
-                    max={filters.totalPages}
-                    value={filters.page || 1}
-                    onChange={(e) =>
-                        handleFilters(e.target.name, Number(e.target.value))
-                    }
-                />
-            </div>
+            <PageNav
+                totalPages={filters.totalPages}
+                page={filters.page}
+                handleFilters={handleFilters}
+            />
         </form>
     );
 }

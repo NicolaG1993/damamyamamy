@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 // import Cookies from "js-cookie";
 
 const initialState = {
-    shopFilters: {},
+    shopFilters: { page: 1 },
 };
 
 const formsSlice = createSlice({

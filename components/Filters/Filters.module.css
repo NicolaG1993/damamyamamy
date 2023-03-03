@@ -33,7 +33,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 1rem 0 3rem 0;
+    margin: 1rem 0 2.5rem 0;
 }
 #ShopFilters .searchBarWrap input {
     width: 500px;
@@ -57,6 +57,45 @@
     left: -80px;
     font-size: 0.8rem;
 }
-#ShopFilters .pagesBarWrap {
-    margin-top: 2rem;
+
+/* PAGE NAV */
+.pagesBarWrap {
+    margin: 1rem;
+    display: flex;
+    /* justify-content: center; */
+    max-width: 600px;
+    width: auto;
+    flex-wrap: wrap;
+}
+.pagesBarWrap > div {
+    border-radius: 50px;
+    font-size: 12px;
+    line-height: 12px;
+    height: 24px;
+    width: 24px;
+    margin: 0.5rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.pagesBarWrap > div.active {
+    background: var(--colorA);
+    border: 2px solid var(--colorA);
+    color: var(--colorC);
+}
+.pagesBarWrap > div.active:hover {
+    background: var(--colorA);
+    border: 2px solid var(--colorH);
+    color: var(--colorC);
+}
+.pagesBarWrap > div.normal {
+    background: var(--colorC);
+    border: 2px solid var(--colorF);
+}
+.pagesBarWrap > div.normal:hover {
+    background: var(--colorE);
+    color: var(--colorD);
 }

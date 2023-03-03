@@ -264,15 +264,17 @@ module.exports.getAllItems = (value, column, order, start, end, max) => {
                             JSON_BUILD_OBJECT(
                                 'id', category.id,
                                 'name', category.name 
-                            )
+                                )
+                      
                         ) AS categories
                     FROM
                         item_category
-                        JOIN category ON category.id = item_category.category_id
+                        JOIN category ON category.id = item_category.category_id 
                     GROUP BY
                         item_category.item_id
                     ) AS categories_JSON
                     ON item.id = categories_JSON.item_id
+                    
 
                 LEFT JOIN
                     (SELECT
@@ -312,9 +314,12 @@ module.exports.getAllItems = (value, column, order, start, end, max) => {
                 WHERE count_in_stock >= 1
                 AND name ILIKE '%' || $1 || '%'
                 ORDER BY ${column} ${order}
-                LIMIT ${max} OFFSET ${start}
+                /* LIMIT ${max} OFFSET ${start} */
         ) AS t
     ) AS items`;
+    // -🧨 non posso usare LIMIT e OFFSET nella query finché non capisco come filtrare qua in base a category
+    // se category esiste torna solo item che contengono quel ID in item.categories
+    // altrimenti torna tutti gli items
     const key = [value];
     return db.query(myQuery, key);
 };
