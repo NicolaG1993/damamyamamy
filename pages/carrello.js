@@ -37,9 +37,9 @@ function Cart() {
 
     const fetchData = async (cart) => {
         try {
-            console.log("cart:", cart);
+            console.log("🔍 cart for cart check:", cart);
             const { data } = await axios.post(`/api/get/cart/`, cart);
-            console.log("data:", data);
+            console.log("📐 data from cart check:", data);
             setCartData(data.cart);
             if (data.changes) {
                 dispatch(updateCart(data.cart));
@@ -49,6 +49,22 @@ function Cart() {
             }
         } catch (err) {
             alert(getError(err));
+        }
+    };
+
+    const handleQuantity = async (item, quantity) => {
+        // const { data } = await axios.get(`/api/product/${item.slug}`);
+        // console.log("data:", data);
+        // if (data.count_in_stock < quantity) {
+        //     window.alert("Sorry, product is out of stock");
+        //     return;
+        // }
+        if (quantity !== item.quantity) {
+            dispatch(addToCart({ id: item.id, quantity: quantity }));
+            console.log("📐 dispatch done!", {
+                id: item.id,
+                quantity: quantity,
+            });
         }
     };
 
@@ -75,7 +91,21 @@ function Cart() {
                         {/* <CartItem item={item} styles={styles} /> */}
                         <p>{item.name}</p>
                         <p>€ {item.price}</p>
-                        <p>- {item.quantity} +</p>
+                        <select
+                            name="quantity"
+                            id="quantity"
+                            value={item.quantity}
+                            onChange={(e) =>
+                                handleQuantity(item, Number(e.target.value))
+                            }
+                        >
+                            {[...Array(item.count_in_stock).keys()].map((i) => (
+                                <option key={i + 1} value={i + 1}>
+                                    {i + 1}
+                                </option>
+                            ))}
+                        </select>
+                        {/* <p>- {item.quantity} +</p> */}
                         <span onClick={() => dispatch(removeFromCart(item.id))}>
                             ❌
                         </span>

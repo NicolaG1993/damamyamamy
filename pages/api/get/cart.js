@@ -3,6 +3,7 @@ import { getCheckoutItems } from "@/utils/db/db";
 export default async function handler(req, res) {
     const cart = req.body;
     const cartIDs = cart.map(({ id }) => id);
+    console.log("📐 getCheckoutItems invoked:", cart);
 
     try {
         let { rows } = await getCheckoutItems(cartIDs);
@@ -28,6 +29,7 @@ export default async function handler(req, res) {
         //...
         res.status(200).send({ cart: newCart, changes: changes });
     } catch (err) {
+        console.log("🐞 ERROR: ", err);
         res.status(500).json({ message: "Internal server error" });
     }
 }
