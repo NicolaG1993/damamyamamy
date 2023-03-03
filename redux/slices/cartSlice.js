@@ -47,8 +47,10 @@ const cartSlice = createSlice({
             state.cart = [];
         },
         saveShippingAddress: (state, action) => {
-            // no set cookies here??? 🧠
-            state.shippingAddress = action.payload;
+            const address = action.payload;
+            console.log("address", address);
+            Cookies.set("shippingAddress", JSON.stringify(address));
+            state.shippingAddress = address;
         },
         savePaymentMethod: (state, action) => {
             // no set cookies here??? 🧠
@@ -65,4 +67,4 @@ export const {
     savePaymentMethod,
 } = cartSlice.actions; // ACTIONS
 export const selectCartState = (state) => state.cart; // SELECTOR
-export default cartSlice;
+export default cartSlice; // REDUCER

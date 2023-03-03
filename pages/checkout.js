@@ -7,17 +7,99 @@ import Link from "next/link";
 import styles from "@/styles/Shop.module.css";
 import { useRouter } from "next/router";
 import { selectUserState } from "@/redux/slices/userSlice";
+import { selectCartState, saveShippingAddress } from "@/redux/slices/cartSlice";
+import AddressForm from "@/components/Forms/AddressForm";
+import PaymentForm from "@/components/Forms/PaymentForm";
 
 export default function Checkout() {
+    //================================================================================
+    // Component State
+    //================================================================================
     const router = useRouter();
     const dispatch = useDispatch();
-    const [activeStep, setActiveStep] = useState(1);
 
     let userInfo = useSelector(selectUserState, shallowEqual);
-    if (!userInfo) {
-        router.push("/profilo/login");
-    }
+    let cartState = useSelector(selectCartState, shallowEqual);
+    let { cart, shippingAddress, paymentMethod } = cartState;
+    // let cartItems = useSelector(selectCartState, shallowEqual);
+    // let shippingAddress = useSelector(selectShippingAddressState, shallowEqual);
 
+    const [activeStep, setActiveStep] = useState(1);
+
+    useEffect(() => {
+        if (!userInfo) {
+            router.push("/profilo/login?redirect=/checkout");
+        }
+    }, []);
+
+    //================================================================================
+    // Functions
+    //================================================================================
+    const nextStep = () => {
+        setActiveStep((prev) => prev > 0 && prev < 3 && prev + 1);
+    };
+    const backStep = () => {
+        setActiveStep((prev) => prev > 1 && prev <= 3 && prev - 1);
+    };
+    const confirmShippingAddress = (data) => {
+        dispatch(saveShippingAddress(data));
+        nextStep();
+    };
+
+    //================================================================================
+    // Sub-Components
+    //================================================================================
+    const ProgressBar = () => (
+        <ul className={styles["progressbar"]}>
+            <li className={styles["active"]}>Indirizzo</li>
+            <li
+                className={`${
+                    activeStep > 1 ? styles["active"] : styles["not-active"]
+                }`}
+            >
+                Metodo di pagamento
+            </li>
+        </ul>
+    );
+
+    const Forms = () =>
+        activeStep === 1 ? (
+            <AddressForm
+                next={confirmShippingAddress}
+                shippingAddress={shippingAddress}
+                cartItems={cart}
+            />
+        ) : (
+            <PaymentForm
+                userInfo={userInfo}
+                cartItems={cart}
+                shippingAddress={shippingAddress}
+                nextStep={nextStep}
+                backStep={backStep}
+            />
+        );
+
+    let Confirmation = () => (
+        <div className={styles["confirmation-wrap"]}>
+            <div>
+                <h3>Grazie per il tuo acquisto {userInfo.name}!</h3>
+                <p>Il tuo ordine é andato a buon fine</p>
+            </div>
+
+            <div>
+                <Link href={"/"} className="button">
+                    Vedi il tuo ordine
+                </Link>
+                <Link href={"/"} className="button">
+                    Torna al sito
+                </Link>
+            </div>
+        </div>
+    );
+
+    //================================================================================
+    // Render UI
+    //================================================================================
     return (
         <main id={styles["Cart"]}>
             <Head>
@@ -27,7 +109,8 @@ export default function Checkout() {
             </Head>
             <section className="page">
                 <h1>Checkout</h1>
-                {}
+                <ProgressBar />
+                {activeStep === 3 ? <Confirmation /> : <Forms />}
             </section>
         </main>
     );

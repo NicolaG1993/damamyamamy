@@ -65,8 +65,6 @@ export default function Negozio() {
         }
     };
 
-    const handleOrder = () => {};
-
     return (
         <main className={styles.main} id={styles["Shop"]}>
             <section className="page">
