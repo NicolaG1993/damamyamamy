@@ -17,14 +17,13 @@ const cartSlice = createSlice({
     reducers: {
         addToCart: (state, action) => {
             const item = action.payload;
-            console.log("📐 addToCart invoked:", item);
+
             const cartItem = state.cart.find(({ id }) => id === item.id);
 
             // we replace item in cart if existing, not update quantity
             const cart = cartItem
                 ? state.cart.map((el) => (el.id === item.id ? item : el))
                 : [...state.cart, item];
-            console.log("📐 new CART:", cart);
             Cookies.set("cart", JSON.stringify(cart));
             state.cart = cart;
         },

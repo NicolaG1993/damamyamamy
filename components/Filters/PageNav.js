@@ -2,7 +2,7 @@ import styles from "./Filters.module.css";
 
 export default function PageNav({ totalPages, page, handleFilters }) {
     return (
-        <div className={styles.pagesBarWrap}>
+        <div id={styles.PagesBarWrap}>
             {[...Array(totalPages)].map((el, i) => (
                 <div
                     className={

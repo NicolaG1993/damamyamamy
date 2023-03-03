@@ -37,17 +37,25 @@
     background: var(--colorA);
     border: 1px solid var(--colorD);
     border-radius: 12px;
+    margin-bottom: 5rem;
 }
 
 .cartGridWrap .tableHead,
 .cartGridWrap .cartItem,
 .cartGridWrap .tableFoot {
     display: grid;
-    grid-template-columns: 1fr 150px 150px 80px;
+    grid-template-columns: 1fr 100px 100px 55px;
 }
 .cartGridWrap .tableHead {
     padding: 1rem 1rem;
     border-bottom: 1px solid var(--colorC);
+}
+.cartGridWrap .tableHead > h4:last-child,
+.cartGridWrap .cartItem > span:last-child {
+    justify-self: center;
+}
+.cartGridWrap .cartItem > span:last-child {
+    cursor: pointer;
 }
 .cartGridWrap .cartItems {
     padding: 1rem 0 1.5rem 0;
@@ -57,6 +65,13 @@
     padding: 0.75rem;
     margin: 0.5rem;
     border-bottom: 1px solid var(--colorC);
+}
+.cartGridWrap .cartItem select {
+    cursor: pointer;
+    width: 50px;
+    margin-left: 1rem;
+    /* align-self: center; */
+    /* justify-self: center; */
 }
 .cartGridWrap .tableFoot {
     padding: 1rem 1rem;
@@ -76,8 +91,11 @@
     justify-content: flex-end;
     /* justify-content: center; */
 }
-.cartGridWrap .tableButtons button {
+.cartGridWrap .tableButtons button,
+.cartGridWrap .tableButtons a {
     margin: 1rem;
+    font-size: 14px;
+    font-weight: 700;
 }
 
 .emptyCart {

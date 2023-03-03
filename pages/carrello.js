@@ -37,9 +37,7 @@ function Cart() {
 
     const fetchData = async (cart) => {
         try {
-            console.log("🔍 cart for cart check:", cart);
             const { data } = await axios.post(`/api/get/cart/`, cart);
-            console.log("📐 data from cart check:", data);
             setCartData(data.cart);
             if (data.changes) {
                 dispatch(updateCart(data.cart));
@@ -61,10 +59,6 @@ function Cart() {
         // }
         if (quantity !== item.quantity) {
             dispatch(addToCart({ id: item.id, quantity: quantity }));
-            console.log("📐 dispatch done!", {
-                id: item.id,
-                quantity: quantity,
-            });
         }
     };
 
@@ -126,10 +120,10 @@ function Cart() {
                 >
                     Svuota carrello
                 </button>
-                <button className="button form-button">
+                <Link href={"/checkout"} className="button form-button">
                     Alla cassa: €{" "}
                     {cartData.reduce((a, c) => a + c.quantity * c.price, 0)}
-                </button>
+                </Link>
             </div>
         </div>
     );
@@ -147,9 +141,8 @@ function Cart() {
                 <meta property="og:type" content="website" />
             </Head>
 
-            <section>
+            <section className="page">
                 <h1>Il tuo carrello</h1>
-
                 {!cartData.length ? <EmptyCart /> : <FilledCart />}
             </section>
         </main>
