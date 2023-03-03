@@ -73,7 +73,7 @@ export default function ShopFilters({ filters, handleFilters }) {
                     max={filters.totalPages}
                     value={filters.page || 1}
                     onChange={(e) =>
-                        handleFilters(e.target.name, e.target.value)
+                        handleFilters(e.target.name, Number(e.target.value))
                     }
                 />
             </div>

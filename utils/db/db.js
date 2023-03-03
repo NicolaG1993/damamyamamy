@@ -240,72 +240,81 @@ module.exports.getItem = (id) => {
 };
 
 /* GET ALL */
-module.exports.getAllItems = (value, column, order, start, end) => {
+module.exports.getAllItems = (value, column, order, start, end, max) => {
     const myQuery = `SELECT 
-        item.*,
-        categories_JSON.categories,
-        tags_JSON.tags,
-        brands_JSON.brands
-    FROM
-        item
-
-        LEFT JOIN
-            (SELECT
-                item_category.item_id,
-                JSON_AGG(
-                    JSON_BUILD_OBJECT(
-                        'id', category.id,
-                        'name', category.name 
-                    )
-                ) AS categories
-            FROM
-                item_category
-                JOIN category ON category.id = item_category.category_id
-            GROUP BY
-                item_category.item_id
-            ) AS categories_JSON
-            ON item.id = categories_JSON.item_id
-
-        LEFT JOIN
-            (SELECT
-                item_tag.item_id,
-                JSON_AGG(
-                    JSON_BUILD_OBJECT(
-                        'id', tag.id,
-                        'name', tag.name 
-                    )
-                ) AS tags
-            FROM
-                item_tag
-                JOIN tag ON tag.id = item_tag.tag_id
-            GROUP BY
-                item_tag.item_id
-            ) AS tags_JSON
-            ON item.id = tags_JSON.item_id
-        
-
-        LEFT JOIN
-            (SELECT
-                item_brand.item_id,
-                JSON_AGG(
-                    JSON_BUILD_OBJECT(
-                        'id', brand.id,
-                        'name', brand.name 
-                    )
-                ) AS brands
-            FROM
-                item_brand
-                JOIN brand ON brand.id = item_brand.brand_id
-            GROUP BY
-                item_brand.item_id
-            ) AS brands_JSON
-            ON item.id = brands_JSON.item_id
-        
+    (SELECT COUNT(*) 
+        FROM item
         WHERE count_in_stock >= 1
         AND name ILIKE '%' || $1 || '%'
-        ORDER BY ${column} ${order}
-        LIMIT ${end - 1} OFFSET ${start - 1}
-        `;
+    ) AS full_count,
+    (SELECT json_agg(t.*) FROM
+        (SELECT 
+            item.*,
+            categories_JSON.categories,
+            tags_JSON.tags,
+            brands_JSON.brands
+
+            FROM
+                item
+
+                LEFT JOIN
+                    (SELECT
+                        item_category.item_id,
+                        JSON_AGG(
+                            JSON_BUILD_OBJECT(
+                                'id', category.id,
+                                'name', category.name 
+                            )
+                        ) AS categories
+                    FROM
+                        item_category
+                        JOIN category ON category.id = item_category.category_id
+                    GROUP BY
+                        item_category.item_id
+                    ) AS categories_JSON
+                    ON item.id = categories_JSON.item_id
+
+                LEFT JOIN
+                    (SELECT
+                        item_tag.item_id,
+                        JSON_AGG(
+                            JSON_BUILD_OBJECT(
+                                'id', tag.id,
+                                'name', tag.name 
+                            )
+                        ) AS tags
+                    FROM
+                        item_tag
+                        JOIN tag ON tag.id = item_tag.tag_id
+                    GROUP BY
+                        item_tag.item_id
+                    ) AS tags_JSON
+                    ON item.id = tags_JSON.item_id
+                            
+
+                LEFT JOIN
+                    (SELECT
+                        item_brand.item_id,
+                        JSON_AGG(
+                            JSON_BUILD_OBJECT(
+                                'id', brand.id,
+                                'name', brand.name 
+                            )
+                        ) AS brands
+                    FROM
+                        item_brand
+                        JOIN brand ON brand.id = item_brand.brand_id
+                    GROUP BY
+                        item_brand.item_id
+                    ) AS brands_JSON
+                    ON item.id = brands_JSON.item_id
+
+                WHERE count_in_stock >= 1
+                AND name ILIKE '%' || $1 || '%'
+                ORDER BY ${column} ${order}
+                LIMIT ${max} OFFSET ${start}
+        ) AS t
+    ) AS items`;
     const key = [value];
     return db.query(myQuery, key);
 };

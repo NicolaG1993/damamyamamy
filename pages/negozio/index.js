@@ -39,10 +39,10 @@ export default function Negozio() {
     const fetchData = async (obj) => {
         try {
             const { data } = await axios.post("/api/get/all-items", obj);
-            console.log("💚 data: ", data);
-            setItems(data);
+            console.log("💚 data: ", data.items);
+            setItems(data.items);
             setTotalPages(
-                Math.ceil(Number(data.length) / Number(countPerPage))
+                Math.ceil(Number(data.full_count) / Number(countPerPage))
             );
         } catch (err) {
             setItems();
