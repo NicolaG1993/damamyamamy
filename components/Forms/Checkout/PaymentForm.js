@@ -1,12 +1,16 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import styles from "./Form.module.css";
+import styles from "../Form.module.css";
 import { useDispatch, shallowEqual, useSelector } from "react-redux";
 import { savePaymentMethod } from "@/redux/slices/cartSlice";
 import OrderReview from "./OrderReview";
 import { getError } from "@/utils/error";
 import axios from "axios";
+import StripeForm from "./StripeForm";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_PUBLIC_KEY}`);
 
 export default function PaymentForm({
     userInfo,
@@ -16,9 +20,6 @@ export default function PaymentForm({
     nextStep,
     backStep,
 }) {
-    // console.log("shippingAddress: ", shippingAddress);
-    // console.log("paymentMethod: ", paymentMethod);
-    // console.log("cartItems: ", cartItems);
     //================================================================================
     // Component State
     //================================================================================
@@ -26,7 +27,7 @@ export default function PaymentForm({
     const dispatch = useDispatch();
 
     const { shippingOption } = shippingAddress;
-    const [state, setState] = useState("PayPal");
+    const [state, setState] = useState(paymentMethod);
     const [loading, setLoading] = useState(false);
     const [cartData, setCartData] = useState();
 
@@ -71,10 +72,8 @@ export default function PaymentForm({
         if (!shippingAddress.address) {
             backStep();
         }
-        if (paymentMethod) {
-            setState(paymentMethod);
-        }
-    }, []);
+        setState(paymentMethod);
+    }, [shippingAddress, paymentMethod]);
 
     useEffect(() => {
         fetchCart(cartItems);
@@ -82,8 +81,10 @@ export default function PaymentForm({
 
     const handleChange = (e) => {
         e.preventDefault();
-        // setState(newState);
-        dispatch(savePaymentMethod(e.target.value));
+        if (e.target.value) {
+            setState(e.target.value);
+            dispatch(savePaymentMethod(e.target.value));
+        }
     };
 
     //================================================================================
@@ -104,6 +105,38 @@ export default function PaymentForm({
             alert(getError(err));
         }
     };
+
+    const createOrder = async () => {
+        try {
+            setLoading(true);
+            const { data } = await axios.post(
+                "/api/checkout/order",
+                {
+                    user_id: userInfo.id,
+                    order_items: cartData,
+                    shipping_address: shippingAddress,
+                    payment_method: paymentMethod,
+                    payment_result: undefined,
+                    items_price,
+                    shipping_price,
+                    tax_price,
+                    total_price,
+                },
+                { headers: { authorization: `Bearer ${userInfo.token}` } }
+            );
+            setLoading(false);
+            console.log("🥶 data:", data);
+            return data.order_id;
+        } catch (err) {
+            // router.push("/carrello");
+            alert(getError(err));
+        }
+    };
+
+    // console.log("🔍cartItems: ", cartItems);
+    // console.log("🔍shippingAddress: ", shippingAddress);
+    // console.log("🔍paymentMethod: ", paymentMethod);
+    // console.log("💚state: ", state);
 
     //================================================================================
     // Render UI
@@ -128,12 +161,12 @@ export default function PaymentForm({
                     shippingPrice={shipping_price}
                 />
 
-                <h3>Scegli come pagare il tuo ordine</h3>
+                {/* <h3>Scegli come pagare il tuo ordine</h3> */}
 
                 <select
                     className={styles["payment-mode"]}
                     onChange={(e) => handleChange(e)}
-                    value={paymentMethod}
+                    value={state}
                 >
                     <option value="PayPal">Paypal</option>
                     <option value="Carta di credito">Carta di credito</option>
@@ -142,7 +175,21 @@ export default function PaymentForm({
 
                 {paymentMethod === "PayPal" && <p>{paymentMethod}</p>}
 
-                {paymentMethod === "Carta di credito" && <p>{paymentMethod}</p>}
+                {paymentMethod === "Carta di credito" && (
+                    <Elements stripe={stripePromise}>
+                        <StripeForm
+                            backStep={backStep}
+                            nextStep={nextStep}
+                            createOrder={createOrder}
+                            userInfo={userInfo}
+                            total_price={total_price}
+                            cartItems={cartData}
+                            email={userInfo.email_address}
+                            shipping={undefined}
+                            loading={loading}
+                        />
+                    </Elements>
+                )}
             </form>
         </div>
     );

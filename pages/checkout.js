@@ -8,8 +8,8 @@ import styles from "@/styles/Shop.module.css";
 import { useRouter } from "next/router";
 import { selectUserState } from "@/redux/slices/userSlice";
 import { selectCartState, saveShippingAddress } from "@/redux/slices/cartSlice";
-import AddressForm from "@/components/Forms/AddressForm";
-import PaymentForm from "@/components/Forms/PaymentForm";
+import AddressForm from "@/components/Forms/Checkout/AddressForm";
+import PaymentForm from "@/components/Forms/Checkout/PaymentForm";
 
 export default function Checkout() {
     //================================================================================

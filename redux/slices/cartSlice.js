@@ -47,13 +47,11 @@ const cartSlice = createSlice({
             state.cart = [];
         },
         saveShippingAddress: (state, action) => {
-            const address = action.payload;
-            console.log("address", address);
-            Cookies.set("shippingAddress", JSON.stringify(address));
-            state.shippingAddress = address;
+            Cookies.set("shippingAddress", JSON.stringify(action.payload));
+            state.shippingAddress = action.payload;
         },
         savePaymentMethod: (state, action) => {
-            // no set cookies here??? 🧠
+            Cookies.set("paymentMethod", action.payload);
             state.paymentMethod = action.payload;
         },
     },

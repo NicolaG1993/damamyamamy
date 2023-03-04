@@ -203,22 +203,24 @@
 
 /* ORDER REVIEW */
 #OrderReview {
-    border: 1px solid var(--colorC);
-    border-radius: 3px;
-    padding: 0.66rem 0.66rem;
+    border: 1px solid var(--colorD);
+    background: var(--colorC);
+    border-radius: 8px;
+    padding: 1.25rem 0.66rem;
     margin: 1.5rem 0;
 }
 #OrderReview > div:nth-child(2) {
     /* border: 1px solid var(--colorC); */
 }
 #OrderReview h5 {
-    margin: 0 0 0.33rem 0.33rem;
+    margin: 0rem 0 1rem 0.33rem;
 }
 .review-row {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid var(--colorC);
-    padding: 0.4rem 0.8rem;
+    border-bottom: 1px solid var(--colorF);
+    padding: 0.66rem 0.8rem;
+    font-size: 0.9rem;
 }
 .review-row p:nth-child(1) {
     width: 50px;
@@ -233,12 +235,58 @@
     text-align: right;
 }
 .price-row {
-    padding: 0.4rem 0.8rem 0 0.8rem;
+    padding: 1rem 0.8rem 0rem 0.8rem;
     text-align: right;
 }
 .price-row p {
     font-size: 0.8rem;
     margin: 0.6rem 0;
+}
+.payment-form {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.payment-form > div {
+    width: 100%;
+}
+.payment-form > div:nth-child(1) {
+    width: 95%;
+    /* margin-top: 1rem; */
+}
+.payment-form .check-terms {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0rem 1rem 1rem 1rem;
+}
+.payment-form .check-terms input {
+    width: auto;
+    margin-right: 0.75rem;
+    cursor: pointer;
+}
+
+#card-element {
+    /* padding: 0.5rem 0;*/
+    margin: 0 0 1.5rem 0;
+    padding: 0.5rem;
+    width: 400px;
+    background: var(--colorC);
+    border: 1px solid var(--colorD);
+    font-size: 0.9rem;
+    /* font-family: var(--fontB); */
+    border-radius: 12px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#card-element > div {
+    width: 100%;
+}
+
+.card-error {
 }
 
 /* ERROR */

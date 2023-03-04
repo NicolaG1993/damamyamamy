@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import styles from "./Form.module.css";
+import styles from "../Form.module.css";
 import {
     addressValidation,
     nameValidation,
@@ -26,7 +26,10 @@ export default function AddressForm({ next, shippingAddress, cartItems }) {
     // Component State
     //================================================================================
     const router = useRouter();
-    const [formState, setFormState] = useState({});
+    const [formState, setFormState] = useState({
+        country: "Italy",
+        shippingOption: "Ritiro in negozio",
+    });
     const [errors, setErrors] = useState({});
 
     //================================================================================
@@ -37,7 +40,7 @@ export default function AddressForm({ next, shippingAddress, cartItems }) {
             router.push("/carrello");
         }
         if (shippingAddress && Object.keys(shippingAddress).length) {
-            setFormState(shippingAddress);
+            setFormState((prev) => ({ ...prev, ...shippingAddress }));
         }
     }, []);
 
@@ -222,8 +225,8 @@ export default function AddressForm({ next, shippingAddress, cartItems }) {
                 <div className={styles.inputWrap}>
                     <select
                         required
-                        name="country"
-                        id="Country"
+                        name="shippingOption"
+                        id="ShippingOption"
                         placeholder="Metodo di spedizione*"
                         value={formState.shippingOption}
                         onChange={(e) =>
@@ -232,7 +235,15 @@ export default function AddressForm({ next, shippingAddress, cartItems }) {
                         onBlur={(e) => validateData(e)}
                     >
                         {shippingOptions.map((option) => (
-                            <option key={option.id} value={option.id}>
+                            <option
+                                key={option.id}
+                                value={option.id}
+                                // selected={
+                                //     option.id === "Ritiro in negozio"
+                                //         ? true
+                                //         : false
+                                // }
+                            >
                                 {option.label}
                             </option>
                         ))}
