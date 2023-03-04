@@ -43,7 +43,7 @@ function Cart() {
                 dispatch(updateCart(data.cart));
                 alert(
                     "Uno o piú prodotti del tuo carrello sono stati acquistati da un altro utente. Il tuo carrello é stato aggiornato."
-                );
+                ); // 🧠 testare
             }
         } catch (err) {
             alert(getError(err));

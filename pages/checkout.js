@@ -21,14 +21,15 @@ export default function Checkout() {
     let userInfo = useSelector(selectUserState, shallowEqual);
     let cartState = useSelector(selectCartState, shallowEqual);
     let { cart, shippingAddress, paymentMethod } = cartState;
-    // let cartItems = useSelector(selectCartState, shallowEqual);
-    // let shippingAddress = useSelector(selectShippingAddressState, shallowEqual);
 
     const [activeStep, setActiveStep] = useState(1);
 
     useEffect(() => {
         if (!userInfo) {
-            router.push("/profilo/login?redirect=/checkout");
+            router.push("/profilo/login?redirect=/checkout"); // 🧠 devo ancora collegarlo
+        }
+        if (!cart) {
+            router.push("/profilo/carrello");
         }
     }, []);
 
@@ -57,7 +58,14 @@ export default function Checkout() {
                     activeStep > 1 ? styles["active"] : styles["not-active"]
                 }`}
             >
-                Metodo di pagamento
+                Pagamento
+            </li>
+            <li
+                className={`${
+                    activeStep > 2 ? styles["active"] : styles["not-active"]
+                }`}
+            >
+                Ordine
             </li>
         </ul>
     );
@@ -74,6 +82,7 @@ export default function Checkout() {
                 userInfo={userInfo}
                 cartItems={cart}
                 shippingAddress={shippingAddress}
+                paymentMethod={paymentMethod}
                 nextStep={nextStep}
                 backStep={backStep}
             />
@@ -101,7 +110,7 @@ export default function Checkout() {
     // Render UI
     //================================================================================
     return (
-        <main id={styles["Cart"]}>
+        <main id={styles["Checkout"]}>
             <Head>
                 <title>Checkout • Da Mamy a Mamy</title>
                 <meta property="og:title" content="Checkout • Da Mamy a Mamy" />
@@ -115,3 +124,5 @@ export default function Checkout() {
         </main>
     );
 }
+
+// fare check prodotti prima di piazzare ordine 🧠
