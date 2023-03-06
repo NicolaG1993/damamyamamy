@@ -196,3 +196,32 @@
 #Checkout form {
     margin-top: 1.5rem;
 }
+
+#Checkout .confirmation-wrap {
+    display: flex;
+    flex-direction: column;
+    /* min-height: 100px; */
+    justify-content: space-between;
+    text-align: center;
+    min-width: 500px;
+}
+
+#Checkout .confirmation-wrap > div:nth-child(1) {
+    margin-top: 3rem;
+    margin-bottom: 4rem;
+}
+#Checkout .confirmation-wrap > div:nth-child(1) h3 {
+    margin-bottom: 1rem;
+}
+#Checkout .confirmation-wrap > div:nth-child(1) p:last-child {
+    margin-top: 1rem;
+    font-weight: 700;
+}
+#Checkout .confirmation-wrap > div:nth-child(2) {
+    display: flex;
+    justify-content: space-between;
+}
+#Checkout .confirmation-wrap > div:nth-child(2) a {
+    /* width: 150px; */
+    display: block;
+}

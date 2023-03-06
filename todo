@@ -1,19 +1,19 @@
 20.02.2023
-• Ricreare sito in maniera pulita e corretta (MODULARE!)
-• Ricreare API
-• Ricreare DB in postgresql
-• Ideare un nuovo design, piú clean e pro (no dark mode, solo white mode)
-• Aggiungere PayPal e Stripe logos
-• Aggiungere sezione feed IG o Google reviews
+💚 Ricreare sito in maniera pulita e corretta (MODULARE!)
+💚 Ricreare API
+💚 Ricreare DB in postgresql
+💚 Ideare un nuovo design, piú clean e pro (no dark mode, solo white mode)
 
 SEZIONI:
 💚 Auth (login, profilo, admin user, ...)
-🧠 Admin (add, remove, edit products, users, orders)
-🧠 Shop (dinamic components, fetches, responsive design, new design, filters)
+💚 Admin (add, remove, edit products, users, orders)
+💚 Shop (dinamic components, fetches, responsive design, new design, filters)
 💚 Cart (add and remove items, design, API requests)
-• Checkout (checkout forms, PayPal, Stripe, API requests)
+🧠 Checkout (checkout forms, PayPal, Stripe, API requests)
 
 NON PRIORITARIO:
+• Aggiungere PayPal e Stripe logos
+• Aggiungere sezione feed IG o Google reviews
 • vedi "registrazione.js" per cose non aggiunte, tipo snackbar o redux per user State
 • bisogna bloccare submit button in ItemForm quando si preme, finche promise non sono risolte o si riceve errore
 • save form states in cookies (serve sempre per tutti? quando pulire?)
@@ -24,7 +24,7 @@ NON PRIORITARIO:
 • 💚aggiungere middleware per admin api routes
 • 💚add/edit item form and api and components
 • 💚categories and tags and brands tabels
-• completare sezione admin
+• 💚 completare sezione admin
 
 27.02.2023
 • 💚 ItemForm brands
@@ -37,18 +37,29 @@ NON PRIORITARIO:
 • 💚 capire perché conditions non viene salvato in crea articolo
 • 💚 capire perché non mostra pics in modifica articolo
 • 💚 capire perché multipleSelector non mostra data in modifica articolo // fare relations fetch
-• 🧠 order lists (by name, date, etc...)
+• 💚 order lists (by name, date, etc...)
 
-29.02.2023
+01.03.2023
 • 💚 Cart
 • 💚 Add/Remove/Empty Cart btn
 • 💚 Keep cart in cookie?
-• 🧠 Shop Filters (easy version)
+• 💚 Shop Filters (easy version)
 
-30.02.2023
-• Checkout process and forms
-• Checkout PayPal
-• Checkout Stripe
+02.03.2023
+• 💚 Checkout process and forms
+• 🧠 Checkout PayPal
+• 💚 Checkout Stripe
+
+04.03.2023
+• 💚 Testare Stripe
+• Testare Paypal
+• Testare DB Order
+• Cart Cookie deve durare al massimo 3 ore
+• Portare in prod mode
+
+05.03.2023
+• Testare tutti i check cart in checkout process
+• 🧠 API req per orders (new, pay)
 
 ---
 

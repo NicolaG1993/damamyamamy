@@ -1,9 +1,9 @@
 -- sudo service postgresql start
 -- psql -d damamyamamy -f utils/db/setup.sql
 
-DROP TABLE IF EXISTS item;
+-- DROP TABLE IF EXISTS item;
 -- DROP TABLE IF EXISTS users;
--- DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS orders;
 -- DROP TABLE IF EXISTS brand;
 -- DROP TABLE IF EXISTS category;
 -- DROP TABLE IF EXISTS tag;
@@ -36,7 +36,7 @@ CREATE TABLE users(
     pic VARCHAR(255),
     is_admin BOOLEAN DEFAULT FALSE,
     newsletter BOOLEAN DEFAULT FALSE,
-    shipping_address JSON,
+    shipping_address JSONB,
     terms_accepted BOOLEAN DEFAULT FALSE,
     personal_code VARCHAR(255)
 );
@@ -45,9 +45,10 @@ CREATE TABLE orders(
     id SERIAL PRIMARY KEY,  
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     user_id INTEGER,
-    shipping_address JSON NOT NULL,
+    shipping_address JSONB NOT NULL,
     payment_method VARCHAR(255) NOT NULL,
-    payment_result JSON,
+    payment_result JSONB,
+    order_items JSONB NOT NULL,
     items_price DECIMAL(12,2) NOT NULL,
     shipping_price DECIMAL(12,2) NOT NULL,
     tax_price DECIMAL(12,2) NOT NULL,

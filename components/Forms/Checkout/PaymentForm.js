@@ -79,6 +79,10 @@ export default function PaymentForm({
         fetchCart(cartItems);
     }, [cartItems]);
 
+    useEffect(() => {
+        console.log("💚 cartData updated!", cartData);
+    }, [cartData]);
+
     const handleChange = (e) => {
         e.preventDefault();
         if (e.target.value) {
@@ -90,25 +94,31 @@ export default function PaymentForm({
     //================================================================================
     // API Req
     //================================================================================
-    const fetchCart = async (cartItems) => {
-        try {
-            const { data } = await axios.post(`/api/get/cart/`, cartItems);
-            console.log("cartData: ", data.cart);
-            setCartData(data.cart);
-            if (data.changes) {
-                dispatch(updateCart(data.cart));
-                alert(
-                    "Uno o piú prodotti del tuo carrello sono stati acquistati da un altro utente. Il tuo carrello é stato aggiornato."
-                ); // 🧠 testare
+    const fetchCart = async (arr) => {
+        console.log("🔍 fetchCart invoked!", arr);
+        if (arr) {
+            try {
+                const { data } = await axios.post(`/api/get/cart`, arr);
+                // console.log("💚 cartData: ", data.cart);
+                setCartData(data.cart);
+                if (data.changes) {
+                    dispatch(updateCart(data.cart));
+                    alert(
+                        "Uno o piú prodotti del tuo carrello sono stati acquistati da un altro utente. Il tuo carrello é stato aggiornato."
+                    ); // 🧠 testare
+                }
+            } catch (err) {
+                alert(getError(err));
             }
-        } catch (err) {
-            alert(getError(err));
         }
     };
 
     const createOrder = async () => {
+        console.log("🔍 createOrder invoked!");
         try {
             setLoading(true);
+            await fetchCart(cartData); // check stock prima di creare ordine // devo passare arg come cartItems
+            // testare 🧠 l'ordine non deve crearsi, user deve confermare di nuovo prima
             const { data } = await axios.post(
                 "/api/checkout/order",
                 {
@@ -126,17 +136,19 @@ export default function PaymentForm({
             );
             setLoading(false);
             console.log("🥶 data:", data);
-            return data.order_id;
+            return data.id;
         } catch (err) {
             // router.push("/carrello");
             alert(getError(err));
         }
     };
 
-    // console.log("🔍cartItems: ", cartItems);
-    // console.log("🔍shippingAddress: ", shippingAddress);
-    // console.log("🔍paymentMethod: ", paymentMethod);
-    // console.log("💚state: ", state);
+    // console.log("🔍 cartItems: ", cartItems);
+    // console.log("🔍 shippingAddress: ", shippingAddress);
+    // console.log("🔍 paymentMethod: ", paymentMethod);
+    // console.log("💚 state: ", state);
+    // console.log("💚 userInfo: ", userInfo);
+    // console.log("💚 total_price: ", total_price);
 
     //================================================================================
     // Render UI
@@ -150,7 +162,7 @@ export default function PaymentForm({
             >
                 {"< "}Torna indietro
             </Link>
-            <form className={styles.form}>
+            <div className={styles.form}>
                 <h2>Metodo di pagamento</h2>
 
                 <OrderReview
@@ -173,9 +185,11 @@ export default function PaymentForm({
                     {/* <option value="test">Test</option> */}
                 </select>
 
-                {paymentMethod === "PayPal" && <p>{paymentMethod}</p>}
+                {cartData && paymentMethod === "PayPal" && (
+                    <p>{paymentMethod}</p>
+                )}
 
-                {paymentMethod === "Carta di credito" && (
+                {cartData && paymentMethod === "Carta di credito" && (
                     <Elements stripe={stripePromise}>
                         <StripeForm
                             backStep={backStep}
@@ -184,13 +198,16 @@ export default function PaymentForm({
                             userInfo={userInfo}
                             total_price={total_price}
                             cartItems={cartData}
-                            email={userInfo.email_address}
-                            shipping={undefined}
+                            shipping={shipping_price}
                             loading={loading}
                         />
                     </Elements>
                 )}
-            </form>
+            </div>
         </div>
     );
 }
+
+/*
+fetchCart -> createPaymentIntent -> handleSubmit -> createOrder -> payOrder -> updateDB
+*/

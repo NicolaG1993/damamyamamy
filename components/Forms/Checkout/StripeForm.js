@@ -14,7 +14,6 @@ export default function StripeForm({
     userInfo,
     total_price,
     cartItems,
-    email,
     shipping,
     loading,
 }) {
@@ -39,7 +38,12 @@ export default function StripeForm({
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
         if (!succeeded && total_price > 0 && !clientSecret) {
-            createPaymentIntent(cartItems, email, shipping, total_price);
+            createPaymentIntent(
+                cartItems,
+                userInfo.email,
+                // shipping,
+                total_price
+            );
         }
     }, []);
 
@@ -60,7 +64,8 @@ export default function StripeForm({
     const handleSubmit = async (e) => {
         e.preventDefault();
         setProcessing(true);
-        payOrder(userInfo, clientSecret);
+        let newOrderID = await createOrder();
+        newOrderID && payOrder(userInfo, clientSecret, newOrderID);
     };
 
     //================================================================================
@@ -69,50 +74,57 @@ export default function StripeForm({
     const createPaymentIntent = async (
         cartItems,
         email,
-        shipping,
+        // shipping,
         total_price
     ) => {
+        console.log("🐠 createPaymentIntent invoked");
         try {
             const { data } = await axios.post(
                 `/api/checkout/stripe/create-payment-intent`,
                 {
                     items: cartItems,
                     email: email,
-                    shipping: shipping,
+                    // shipping: shipping,
                     total_price: total_price,
                 }
             );
             setClientSecret(data.clientSecret);
-            console.log("data: ", data);
-        } catch (error) {
+            console.log("💚 createPaymentIntent data: ", data);
+        } catch (err) {
             alert(getError(err));
         }
     };
 
-    const payOrder = async (userInfo, clientSecret) => {
-        if (!stripe || !elements) return;
-        const payload = await stripe.confirmCardPayment(clientSecret, {
-            payment_method: {
-                card: elements.getElement(CardElement),
-            },
-        });
-        if (payload.error) {
-            setError(`Payment failed ${payload.error.message}`);
-            setProcessing(false);
-        } else {
-            setError(null);
-            setProcessing(false);
-            setSucceeded(true);
-            console.log("stripe order", payload);
-            updateDB(payload, userInfo);
+    const payOrder = async (userInfo, clientSecret, newOrderID) => {
+        console.log("🐠 payOrder invoked");
+        try {
+            if (!stripe || !elements) return;
+            const payload = await stripe.confirmCardPayment(clientSecret, {
+                payment_method: {
+                    card: elements.getElement(CardElement),
+                },
+            });
+            if (payload.error) {
+                setError(`Payment failed ${payload.error.message}`);
+                setProcessing(false);
+            } else {
+                setError(null);
+                setProcessing(false);
+                setSucceeded(true);
+                console.log("stripe order", payload);
+                updateDB(payload, userInfo, newOrderID);
+            }
+        } catch (err) {
+            alert(getError(err));
         }
     };
 
-    const updateDB = async (payload, userInfo) => {
+    const updateDB = async (payload, userInfo, newOrderID) => {
+        console.log("🐠 updateDB invoked", newOrderID);
         try {
-            const orderID = await createOrder();
+            // const orderID = await createOrder();
             const { data } = await axios.put(
-                `/api/checkout/pay/${orderID}`,
+                `/api/checkout/pay/${newOrderID}`,
                 payload.paymentIntent,
                 {
                     headers: {
@@ -121,7 +133,7 @@ export default function StripeForm({
                 }
             );
             dispatch(emptyCart());
-            console.log("🥶 paySuccess", data);
+            console.log("💚 updateDB response! paySuccess!", data);
             nextStep();
         } catch (err) {
             alert(getError(err));
@@ -156,7 +168,10 @@ export default function StripeForm({
     // Render UI
     //================================================================================
     return (
-        <form onSubmit={handleSubmit} className={styles["payment-form"]}>
+        <form
+            onSubmit={(e) => handleSubmit(e)}
+            className={styles["payment-form"]}
+        >
             <CardElement
                 id={styles["card-element"]}
                 options={cardStyle}

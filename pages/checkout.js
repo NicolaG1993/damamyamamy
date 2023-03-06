@@ -91,8 +91,9 @@ export default function Checkout() {
     let Confirmation = () => (
         <div className={styles["confirmation-wrap"]}>
             <div>
-                <h3>Grazie per il tuo acquisto {userInfo.name}!</h3>
+                <h3>Grazie per il tuo acquisto {userInfo.firstName}!</h3>
                 <p>Il tuo ordine é andato a buon fine</p>
+                <p>ID ordine: #{}</p>
             </div>
 
             <div>

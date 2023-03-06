@@ -56,6 +56,7 @@ module.exports.newOrder = ({
     shipping_address,
     payment_method,
     payment_result,
+    order_items,
     items_price,
     shipping_price,
     tax_price,
@@ -66,14 +67,15 @@ module.exports.newOrder = ({
     delivered_at,
 }) => {
     const myQuery = `INSERT INTO orders
-    (user_id, shipping_address, payment_method, payment_result, items_price, shipping_price, tax_price, total_price, is_paid, is_delivered, paid_at, delivered_at)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+    (user_id, shipping_address, payment_method, payment_result, order_items, items_price, shipping_price, tax_price, total_price, is_paid, is_delivered, paid_at, delivered_at)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
     RETURNING *`;
     const keys = [
         user_id,
         shipping_address,
         payment_method,
         payment_result,
+        order_items,
         items_price,
         shipping_price,
         tax_price,
@@ -150,6 +152,30 @@ module.exports.editItem = (
         info,
         condition,
     ];
+    return db.query(myQuery, keys);
+};
+module.exports.payOrder = (orderID, loggedUserID, paymentResult) => {
+    const myQuery = `UPDATE orders
+    SET payment_result = COALESCE($3, payment_result), is_paid = TRUE
+    WHERE id = $1
+    AND user_id = $2
+    RETURNING *`;
+    const keys = [orderID, loggedUserID, paymentResult];
+    return db.query(myQuery, keys);
+};
+module.exports.updateStock = (ids, quantities) => {
+    const myQuery = `UPDATE item
+    SET count_in_stock = count_in_stock - bulk_query.quantity
+    FROM
+        (SELECT *
+        FROM
+            UNNEST($1::INT[], $2::INT[])
+            AS u(id, quantity)
+        ) AS bulk_query
+    WHERE
+        item.id = bulk_query.id
+    RETURNING *`;
+    const keys = [ids, quantities];
     return db.query(myQuery, keys);
 };
 

@@ -26,6 +26,7 @@ export default async function handler(req, res) {
         // 💚 if not return an alert and the updated cart 🔍
         // 🧠 update cart in cookies and redux too 📝
         //...
+        console.log("💚 newCart: ", newCart);
         res.status(200).send({ cart: newCart, changes: changes });
     } catch (err) {
         console.log("🐞 ERROR: ", err);
