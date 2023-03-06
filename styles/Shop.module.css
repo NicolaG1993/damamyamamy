@@ -193,10 +193,6 @@
     width: auto;
 }
 
-#Checkout form {
-    margin-top: 1.5rem;
-}
-
 #Checkout .confirmation-wrap {
     display: flex;
     flex-direction: column;

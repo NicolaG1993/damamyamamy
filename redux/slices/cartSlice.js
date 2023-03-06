@@ -60,6 +60,7 @@ const cartSlice = createSlice({
 export const {
     addToCart,
     removeFromCart,
+    updateCart,
     emptyCart,
     saveShippingAddress,
     savePaymentMethod,

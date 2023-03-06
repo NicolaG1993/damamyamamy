@@ -46,6 +46,7 @@ body {
         )
         rgb(var(--background-start-rgb));
     font-family: var(--fontA);
+    min-height: 90vh;
 }
 
 main {

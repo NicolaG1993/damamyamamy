@@ -1,16 +1,19 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import styles from "../Form.module.css";
-import { useDispatch, shallowEqual, useSelector } from "react-redux";
-import { savePaymentMethod } from "@/redux/slices/cartSlice";
-import OrderReview from "./OrderReview";
-import { getError } from "@/utils/error";
 import axios from "axios";
+import { useDispatch, shallowEqual, useSelector } from "react-redux";
+import {
+    savePaymentMethod,
+    emptyCart,
+    updateCart,
+} from "@/redux/slices/cartSlice";
+import { getError } from "@/utils/error";
+import OrderReview from "./OrderReview";
+import styles from "../Form.module.css";
+
 import StripeForm from "./StripeForm";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_PUBLIC_KEY}`);
+import PayPalForm from "./PayPalForm";
 
 export default function PaymentForm({
     userInfo,
@@ -25,11 +28,11 @@ export default function PaymentForm({
     //================================================================================
     const router = useRouter();
     const dispatch = useDispatch();
-
     const { shippingOption } = shippingAddress;
     const [state, setState] = useState(paymentMethod);
-    const [loading, setLoading] = useState(false);
     const [cartData, setCartData] = useState();
+    const [loading, setLoading] = useState(false);
+    const [termsAccepted, setTermsAccepted] = useState(false);
 
     const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100; // 123.456 => 123.46
     const items_price = cartData
@@ -76,12 +79,11 @@ export default function PaymentForm({
     }, [shippingAddress, paymentMethod]);
 
     useEffect(() => {
+        if (!cartItems) {
+            router.push("/carrello");
+        }
         fetchCart(cartItems);
     }, [cartItems]);
-
-    useEffect(() => {
-        console.log("💚 cartData updated!", cartData);
-    }, [cartData]);
 
     const handleChange = (e) => {
         e.preventDefault();
@@ -89,6 +91,13 @@ export default function PaymentForm({
             setState(e.target.value);
             dispatch(savePaymentMethod(e.target.value));
         }
+    };
+
+    const acceptTerms = (e) => {
+        // e.preventDefault();
+        e.persist();
+        const checked = e.target.checked;
+        checked ? setTermsAccepted(true) : setTermsAccepted(false);
     };
 
     //================================================================================
@@ -106,6 +115,7 @@ export default function PaymentForm({
                     alert(
                         "Uno o piú prodotti del tuo carrello sono stati acquistati da un altro utente. Il tuo carrello é stato aggiornato."
                     ); // 🧠 testare
+                    router.push("/carrello");
                 }
             } catch (err) {
                 alert(getError(err));
@@ -143,12 +153,50 @@ export default function PaymentForm({
         }
     };
 
-    // console.log("🔍 cartItems: ", cartItems);
-    // console.log("🔍 shippingAddress: ", shippingAddress);
-    // console.log("🔍 paymentMethod: ", paymentMethod);
-    // console.log("💚 state: ", state);
-    // console.log("💚 userInfo: ", userInfo);
-    // console.log("💚 total_price: ", total_price);
+    const updateDB = async (paymentResult, userInfo, newOrderID) => {
+        console.log("🔍 updateDB invoked", newOrderID, paymentResult);
+        try {
+            // const orderID = await createOrder();
+            const { data } = await axios.put(
+                `/api/checkout/pay/${newOrderID}`,
+                paymentResult,
+                {
+                    headers: {
+                        authorization: `Bearer ${userInfo.token}`,
+                    },
+                }
+            );
+            dispatch(emptyCart());
+            console.log("💚 updateDB response! paySuccess!", data);
+            nextStep();
+        } catch (err) {
+            alert(getError(err));
+        }
+    };
+
+    //================================================================================
+    // Sub-Components
+    //================================================================================
+    const TermsBox = () => (
+        <div className={styles["check-terms"]} id={styles.TermsBox}>
+            <input
+                type="checkbox"
+                name="accept"
+                onChange={(e) => acceptTerms(e)}
+                checked={termsAccepted}
+            />
+            <label htmlFor="accept">
+                Dichiaro di aver letto e compreso{" "}
+                <a
+                    href="/documenti/termini"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Termini e Condizioni
+                </a>
+            </label>
+        </div>
+    );
 
     //================================================================================
     // Render UI
@@ -185,23 +233,32 @@ export default function PaymentForm({
                     {/* <option value="test">Test</option> */}
                 </select>
 
-                {cartData && paymentMethod === "PayPal" && (
-                    <p>{paymentMethod}</p>
+                {cartData && paymentMethod === "Carta di credito" && (
+                    <StripeForm
+                        createOrder={createOrder}
+                        updateDB={updateDB}
+                        userInfo={userInfo}
+                        total_price={total_price}
+                        cartItems={cartData}
+                        // shipping={shipping_price}
+                        loading={loading}
+                        termsAccepted={termsAccepted}
+                    />
                 )}
 
-                {cartData && paymentMethod === "Carta di credito" && (
-                    <Elements stripe={stripePromise}>
-                        <StripeForm
-                            backStep={backStep}
-                            nextStep={nextStep}
-                            createOrder={createOrder}
-                            userInfo={userInfo}
-                            total_price={total_price}
-                            cartItems={cartData}
-                            shipping={shipping_price}
-                            loading={loading}
-                        />
-                    </Elements>
+                <TermsBox />
+
+                {cartData && paymentMethod === "PayPal" && (
+                    <PayPalForm
+                        createOrder={createOrder}
+                        updateDB={updateDB}
+                        userInfo={userInfo}
+                        total_price={total_price}
+                        cartItems={cartData}
+                        shipping={shipping_price}
+                        loading={loading}
+                        termsAccepted={termsAccepted}
+                    />
                 )}
             </div>
         </div>

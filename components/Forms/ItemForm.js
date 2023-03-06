@@ -294,16 +294,14 @@ export default function ItemForm({
                     disabled={
                         Object.keys(errors).length === 0 &&
                         formState.name &&
-                        formState.price &&
-                        formState.count_in_stock
+                        formState.price
                             ? false
                             : true
                     }
                     className={`${
                         Object.keys(errors).length === 0 &&
                         formState.name &&
-                        formState.price &&
-                        formState.count_in_stock
+                        formState.price
                             ? "button form-button"
                             : "button-disabled form-button"
                     }`}

@@ -26,6 +26,7 @@ function Cart() {
     const dispatch = useDispatch();
     let { cart } = useSelector(selectCartState);
     const [cartData, setCartData] = useState();
+    const [isChanged, setIsChanged] = useState(false);
 
     useEffect(() => {
         if (cart && cart.length) {
@@ -35,17 +36,25 @@ function Cart() {
         }
     }, [cart]);
 
+    useEffect(() => {
+        if (isChanged) {
+            alert(
+                "Uno o piú prodotti del tuo carrello sono stati acquistati da un altro utente. Il tuo carrello é stato aggiornato."
+            ); // 🧠 testare
+            setIsChanged(false);
+        }
+    }, [isChanged]);
+
     const fetchData = async (cart) => {
         try {
             const { data } = await axios.post(`/api/get/cart/`, cart);
             setCartData(data.cart);
             if (data.changes) {
                 dispatch(updateCart(data.cart));
-                alert(
-                    "Uno o piú prodotti del tuo carrello sono stati acquistati da un altro utente. Il tuo carrello é stato aggiornato."
-                ); // 🧠 testare
+                setIsChanged(true);
             }
         } catch (err) {
+            console.log("ERROR: ", err);
             alert(getError(err));
         }
     };
@@ -128,8 +137,6 @@ function Cart() {
         </div>
     );
 
-    if (!cartData) return <p>Loading...</p>;
-
     return (
         <main id={styles["Cart"]}>
             <Head>
@@ -142,8 +149,16 @@ function Cart() {
             </Head>
 
             <section className="page">
-                <h1>Il tuo carrello</h1>
-                {!cartData.length ? <EmptyCart /> : <FilledCart />}
+                {cartData ? (
+                    <>
+                        <h1>Il tuo carrello</h1>
+                        {!cartData.length ? <EmptyCart /> : <FilledCart />}
+                    </>
+                ) : (
+                    <div className={styles.emptyCart}>
+                        <p>Loading...</p>
+                    </div>
+                )}
             </section>
         </main>
     );

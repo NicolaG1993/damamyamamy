@@ -6,7 +6,7 @@ import { useSelector, shallowEqual } from "react-redux";
 import { selectCartState } from "@/redux/slices/cartSlice";
 
 export default function CartIcon({ closeNav }) {
-    let { cart } = useSelector(selectCartState, shallowEqual);
+    let { cart } = useSelector(selectCartState);
 
     const TotalItems = () => {
         let total_items = cart.reduce((a, c) => a + c.quantity, 0);

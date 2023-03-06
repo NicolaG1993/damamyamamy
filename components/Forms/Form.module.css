@@ -3,7 +3,12 @@
     background: var(--colorA);
     border: 1px solid var(--colorD);
     border-radius: 12px;
+    margin-top: 1.5rem;
     /* align-self: flex-start; */
+}
+
+.form form {
+    margin-top: 1.5rem;
 }
 
 /* INPUTS */
@@ -208,6 +213,7 @@
     border-radius: 8px;
     padding: 1.25rem 0.66rem;
     margin: 1.5rem 0;
+    width: 400px;
 }
 #OrderReview > div:nth-child(2) {
     /* border: 1px solid var(--colorC); */
@@ -255,16 +261,24 @@
     width: 95%;
     /* margin-top: 1rem; */
 }
-.payment-form .check-terms {
+#TermsBox {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0rem 1rem 1rem 1rem;
+    margin: 1rem 0;
+    padding: 0 1rem;
+    max-width: 400px;
 }
-.payment-form .check-terms input {
+#TermsBox input {
     width: auto;
     margin-right: 0.75rem;
     cursor: pointer;
+}
+#TermsBox label {
+    /* white-space: ; */
+    /* text-align: left; */
+    /* max-width: 240px; */
+    font-size: 0.85rem;
 }
 
 #card-element {

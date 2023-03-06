@@ -29,7 +29,7 @@ export default function Checkout() {
             router.push("/profilo/login?redirect=/checkout"); // 🧠 devo ancora collegarlo
         }
         if (!cart) {
-            router.push("/profilo/carrello");
+            router.push("/carrello");
         }
     }, []);
 

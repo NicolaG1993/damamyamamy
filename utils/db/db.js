@@ -191,7 +191,7 @@ module.exports.getUserByEmail = (email) => {
     return db.query(myQuery, key);
 };
 module.exports.getHomeItems = () => {
-    const myQuery = `SELECT * FROM item ORDER BY id DESC LIMIT 20`;
+    const myQuery = `SELECT * FROM item WHERE count_in_stock >= 1 ORDER BY id DESC LIMIT 20`;
     return db.query(myQuery);
 };
 module.exports.getCheckoutItems = (arr) => {

@@ -3,21 +3,26 @@ import { getCheckoutItems } from "@/utils/db/db";
 export default async function handler(req, res) {
     const cart = req.body;
     const cartIDs = cart.map(({ id }) => id);
-
+    console.log("📐 cart: ", cart);
     try {
         let { rows } = await getCheckoutItems(cartIDs);
         let changes = false;
-        let newCart = cart.map((el) => {
+        let newCart = [];
+
+        cart.map((el) => {
             const liveItem = rows.find(({ id }) => el.id === id);
             if (liveItem.count_in_stock < el.quantity) {
+                changes = true;
                 if (liveItem.count_in_stock > 0) {
-                    changes = true;
-                    return { ...liveItem, quantity: liveItem.count_in_stock }; //...update item quantity
+                    newCart.push({
+                        ...liveItem,
+                        quantity: liveItem.count_in_stock,
+                    }); //...update item quantity
                 } else {
-                    return; //... delete item
+                    // return; //... delete item ? do nothing?
                 }
             } else {
-                return { ...liveItem, quantity: el.quantity };
+                newCart.push({ ...liveItem, quantity: el.quantity });
             }
         });
 
@@ -26,7 +31,7 @@ export default async function handler(req, res) {
         // 💚 if not return an alert and the updated cart 🔍
         // 🧠 update cart in cookies and redux too 📝
         //...
-        console.log("💚 newCart: ", newCart);
+        console.log("💚 newCart: ", { cart: newCart, changes: changes });
         res.status(200).send({ cart: newCart, changes: changes });
     } catch (err) {
         console.log("🐞 ERROR: ", err);

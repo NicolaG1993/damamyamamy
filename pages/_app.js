@@ -1,6 +1,7 @@
 import { Provider } from "react-redux";
 import Cookies from "js-cookie";
 import "@/styles/globals.css";
+// import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 import Layout from "@/constants/Layout/layout";
 

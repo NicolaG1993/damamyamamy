@@ -47,19 +47,29 @@ NON PRIORITARIO:
 
 02.03.2023
 • 💚 Checkout process and forms
-• 🧠 Checkout PayPal
+• 💚 Checkout PayPal
 • 💚 Checkout Stripe
 
 04.03.2023
 • 💚 Testare Stripe
-• Testare Paypal
-• Testare DB Order
-• Cart Cookie deve durare al massimo 3 ore
+• 💚 Testare Paypal
+• 💚 Testare DB Order
+• 🧠? Cart Cookie deve durare al massimo 3 ore / testare senza prima 🤨
 • Portare in prod mode
 
 05.03.2023
-• Testare tutti i check cart in checkout process
-• 🧠 API req per orders (new, pay)
+• 💚 Testare tutti i check cart in checkout process
+• 💚 API req per orders (new, pay)
+• Testare API key in prod mode (Stripe, PayPal, AWS)
+
+06.03.2023
+• Item Component
+
+---
+
+• PICCOLEZZE
+
+🔍 in order deve essere salvato shipping_price (0 se ritiro, "a carico del cliente" se spedizione) oppure solo string?
 
 ---
 

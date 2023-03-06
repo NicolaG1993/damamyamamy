@@ -1,31 +1,35 @@
 import { useEffect, useState } from "react";
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import { useDispatch } from "react-redux";
+import {
+    CardElement,
+    useStripe,
+    useElements,
+    Elements,
+} from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_PUBLIC_KEY}`);
+// import { useDispatch } from "react-redux";
+// import { useRouter } from "next/router";
 import axios from "axios";
-import { useRouter } from "next/router";
-import { emptyCart } from "@/redux/slices/cartSlice";
 import styles from "../Form.module.css";
 import { getError } from "@/utils/error";
 
-export default function StripeForm({
-    backStep,
-    nextStep,
+function StripeForm({
     createOrder,
+    updateDB,
     userInfo,
     total_price,
     cartItems,
     shipping,
     loading,
+    termsAccepted,
 }) {
     //================================================================================
     // Component State
     //================================================================================
     const stripe = useStripe();
     const elements = useElements();
-    const dispatch = useDispatch();
-    const router = useRouter();
-
-    const [termsAccepted, setTermsAccepted] = useState(false);
+    // const dispatch = useDispatch();
+    // const router = useRouter();
     const [succeeded, setSucceeded] = useState(false);
     const [error, setError] = useState(null);
     const [processing, setProcessing] = useState("");
@@ -46,13 +50,6 @@ export default function StripeForm({
             );
         }
     }, []);
-
-    const acceptTerms = (e) => {
-        // e.preventDefault();
-        e.persist();
-        const checked = e.target.checked;
-        checked ? setTermsAccepted(true) : setTermsAccepted(false);
-    };
 
     const handleChange = async (e) => {
         // Listen for changes in the CardElement
@@ -112,57 +109,12 @@ export default function StripeForm({
                 setProcessing(false);
                 setSucceeded(true);
                 console.log("stripe order", payload);
-                updateDB(payload, userInfo, newOrderID);
+                updateDB(payload.paymentIntent, userInfo, newOrderID);
             }
         } catch (err) {
             alert(getError(err));
         }
     };
-
-    const updateDB = async (payload, userInfo, newOrderID) => {
-        console.log("🐠 updateDB invoked", newOrderID);
-        try {
-            // const orderID = await createOrder();
-            const { data } = await axios.put(
-                `/api/checkout/pay/${newOrderID}`,
-                payload.paymentIntent,
-                {
-                    headers: {
-                        authorization: `Bearer ${userInfo.token}`,
-                    },
-                }
-            );
-            dispatch(emptyCart());
-            console.log("💚 updateDB response! paySuccess!", data);
-            nextStep();
-        } catch (err) {
-            alert(getError(err));
-        }
-    };
-
-    //================================================================================
-    // Sub-Components
-    //================================================================================
-    const TermsBox = () => (
-        <div className={styles["check-terms"]}>
-            <input
-                type="checkbox"
-                name="accept"
-                onChange={(e) => acceptTerms(e)}
-                checked={termsAccepted}
-            />
-            <label htmlFor="accept">
-                Dichiaro di aver letto{" "}
-                <a
-                    href="/documenti/termini"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Termini e Condizioni
-                </a>
-            </label>
-        </div>
-    );
 
     //================================================================================
     // Render UI
@@ -183,8 +135,6 @@ export default function StripeForm({
                     {error}
                 </div>
             )}
-
-            <TermsBox />
 
             <div className={styles["row2"]}>
                 <button
@@ -259,3 +209,13 @@ const cardStyle = {
         },
     },
 }; // non sembra funzionare 🧠
+
+function ProviderWrapper(props) {
+    return (
+        <Elements stripe={stripePromise}>
+            <StripeForm {...props} />
+        </Elements>
+    );
+}
+
+export default ProviderWrapper;
