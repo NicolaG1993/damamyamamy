@@ -103,3 +103,44 @@
     margin-left: 1rem;
     white-space: nowrap;
 }
+
+@media screen and (max-width: 1000px) {
+    .gridElement {
+        width: 260px;
+    }
+}
+@media screen and (max-width: 860px) {
+    .gridElement {
+        width: 210px;
+    }
+    .picWrap {
+        height: 210px;
+    }
+}
+@media screen and (max-width: 720px) {
+    .displayerHeading p {
+        text-align: center;
+    }
+    .shortListGrid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        /* flex-direction: column; */
+    }
+    .gridElement {
+        width: 300px;
+        margin: 1rem;
+    }
+    .picWrap {
+        height: 260px;
+    }
+}
+@media screen and (max-width: 400px) {
+    .gridElement {
+        width: 260px;
+        margin: 1rem 0;
+    }
+    .picWrap {
+        height: 260px;
+    }
+}

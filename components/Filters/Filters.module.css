@@ -99,3 +99,28 @@
     background: var(--colorE);
     color: var(--colorD);
 }
+
+@media screen and (max-width: 720px) {
+    #ShopFilters .searchBarWrap input {
+        width: auto;
+        min-width: 390px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    #ShopFilters .searchBarWrap input {
+        width: auto;
+        min-width: 0;
+    }
+    #ShopFilters .filtersBarWrap,
+    #ShopFilters .orderBarWrap {
+        flex-direction: column;
+    }
+    #ShopFilters .filtersBarWrap label,
+    #ShopFilters .orderBarWrap label {
+        position: relative;
+        width: auto;
+        left: 0;
+        margin-bottom: 0.75rem;
+    }
+}

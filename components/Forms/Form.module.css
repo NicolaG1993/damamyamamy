@@ -317,3 +317,14 @@
 .toggleForms {
     margin-top: 1rem;
 }
+
+@media screen and (max-width: 500px) {
+    .form,
+    .form input,
+    .form select,
+    .form textarea,
+    .form .input,
+    .form .picsInput {
+        width: 100%;
+    }
+}

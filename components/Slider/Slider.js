@@ -7,10 +7,10 @@ const slides = [
         src: "https://res.cloudinary.com/dg4i4hspr/image/upload/v1676941571/damamyamamy.com/pic3_aczqx2.jpg",
         alt: "Third slider picture",
     },
-    {
-        src: "https://res.cloudinary.com/dg4i4hspr/image/upload/v1676941571/damamyamamy.com/pic4_qxfqje.jpg",
-        alt: "First slider picture",
-    },
+    // {
+    //     src: "https://res.cloudinary.com/dg4i4hspr/image/upload/v1676941571/damamyamamy.com/pic4_qxfqje.jpg",
+    //     alt: "First slider picture",
+    // },
     {
         src: "https://res.cloudinary.com/dg4i4hspr/image/upload/v1676941571/damamyamamy.com/pic2a_b3pkir.jpg",
         alt: "Second slider picture",

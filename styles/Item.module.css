@@ -64,3 +64,25 @@
     width: 100%;
     height: 100%;
 }
+@media screen and (max-width: 720px) {
+    .item-wrap {
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .picDisplayWrap {
+        margin-bottom: 2rem;
+        width: 100%;
+        height: 300px;
+    }
+    .item-infos {
+        width: 300px;
+        margin: 0 0.5rem;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .picDisplayWrap {
+        height: 240px;
+    }
+}

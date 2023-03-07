@@ -67,8 +67,8 @@
         /* justify-content: flex-end; */
     }
     #PicAndTextSection > div:nth-child(1) > div {
-        width: 300px;
-        height: 300px;
+        width: 500px;
+        height: 500px;
         /* margin-right: 250px; */
     }
     #PicAndTextSection > div:nth-child(2) {
