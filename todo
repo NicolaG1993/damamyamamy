@@ -9,16 +9,17 @@ SEZIONI:
 💚 Admin (add, remove, edit products, users, orders)
 💚 Shop (dinamic components, fetches, responsive design, new design, filters)
 💚 Cart (add and remove items, design, API requests)
-🧠 Checkout (checkout forms, PayPal, Stripe, API requests)
+💚 Checkout (checkout forms, PayPal, Stripe, API requests)
 
 NON PRIORITARIO:
 • Aggiungere PayPal e Stripe logos
 • Aggiungere sezione feed IG o Google reviews
 • vedi "registrazione.js" per cose non aggiunte, tipo snackbar o redux per user State
 • bisogna bloccare submit button in ItemForm quando si preme, finche promise non sono risolte o si riceve errore
-• save form states in cookies (serve sempre per tutti? quando pulire?)
+💚 save form states in cookies (serve sempre per tutti? quando pulire?)
 • err handling e req responses confirmations like a pro
 • vedere bene tutti i dynamic imports
+• newsletter
 
 26.02.2023
 • 💚aggiungere middleware per admin api routes
@@ -54,16 +55,21 @@ NON PRIORITARIO:
 • 💚 Testare Stripe
 • 💚 Testare Paypal
 • 💚 Testare DB Order
-• 🧠? Cart Cookie deve durare al massimo 3 ore / testare senza prima 🤨
-• Portare in prod mode
+• 💚 Cart Cookie deve durare al massimo 1 ora
+• 🧨 Portare in prod mode
 
 05.03.2023
 • 💚 Testare tutti i check cart in checkout process
 • 💚 API req per orders (new, pay)
-• Testare API key in prod mode (Stripe, PayPal, AWS)
+• 🧨 Testare API key in prod mode (Stripe, PayPal, AWS)
 
 06.03.2023
-• Item Component
+• 💚 Item Component
+
+07.03.2023
+• 🧨 Attivare Contact Form
+• 🧠 Responsive
+• Mandare email quando si pagano ordini
 
 ---
 

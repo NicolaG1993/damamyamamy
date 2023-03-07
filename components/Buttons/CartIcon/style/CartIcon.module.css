@@ -15,7 +15,7 @@
     opacity: 0.75;
     vertical-align: middle;
 }
-.cart-icon-box svg:hover {
+.cart-icon-box:hover svg {
     fill: var(--colorB);
     opacity: 1;
 }

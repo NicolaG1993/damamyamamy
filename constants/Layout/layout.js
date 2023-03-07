@@ -6,49 +6,30 @@ import {
     isValidElement,
     cloneElement,
 } from "react";
-import { useDispatch, useSelector } from "react-redux";
-
+import { useSelector } from "react-redux";
 import { selectUserState } from "@/redux/slices/userSlice";
-// const selectUserInfo = (state) => state.user.userInfo;
-// import useWindowDimensions from "@/utils/useWindowDimensions";
-// import useScrollPosition from "@/utils/useScrollPosition";
-
 import Header from "./Header";
 import Footer from "./Footer";
 import dynamic from "next/dynamic";
+import useWindowDimensions from "@/utils/useWindowDimensions";
 const CartIcon = dynamic(
     () => import("@/components/Buttons/CartIcon/CartIcon"),
     {
         ssr: false,
     }
 );
-// import CartIcon from "@/components/Buttons/CartIcon/CartIcon";
-// import Cookies from "js-cookie";
 
 export default function Layout({ children, ...pageProps }) {
     const [userInfo, setUserInfo] = useState(null);
     const [cookiesConfirm, setCookiesConfirm] = useState(false);
-    // const [isSmallDevice, setIsSmallDevice] = useState(false);
+    const [isSmallDevice, setIsSmallDevice] = useState(false);
     const [animationReady, setAnimationReady] = useState(false);
 
-    // const dispatch = useDispatch();
     let user = useSelector(selectUserState);
-    // const { width, height } = useWindowDimensions();
+    const { width, height } = useWindowDimensions();
     // const { scrollTop } = useScrollPosition();
 
-    // useEffect(() => {
-    //     setUserInfo(selectedUserInfo);
-    // }, []);
-
-    //  useEffect(() => setUserInfo(selectedUserInfo), [selectedUserInfo]);
-
     useEffect(() => {
-        // let userCookie = Cookies.get("userInfo")
-        //     ? JSON.parse(Cookies.get("userInfo"))
-        //     : undefined;
-        // setUserInfo(userCookie);
-        // console.log("userInfo:", userCookie);
-
         const timer = setTimeout(() => {
             setAnimationReady(true);
         }, 5000);
@@ -56,10 +37,10 @@ export default function Layout({ children, ...pageProps }) {
     }, []);
 
     useEffect(() => (user ? setUserInfo(user) : setUserInfo(null)), [user]);
-    // useEffect(
-    //     () => (width > 550 ? setIsSmallDevice(false) : setIsSmallDevice(true)),
-    //     [width]
-    // );
+    useEffect(
+        () => (width > 720 ? setIsSmallDevice(false) : setIsSmallDevice(true)),
+        [width]
+    );
 
     // function recursiveMap(children, fn) {
     //     return Children.map(children, (child) => {
@@ -138,7 +119,13 @@ export default function Layout({ children, ...pageProps }) {
                 <meta charSet="UTF-8" />
             </Head>
 
-            <Header userInfo={userInfo} />
+            <Header
+                userInfo={userInfo}
+                width={width}
+                isSmallDevice={isSmallDevice}
+            />
+            {/* {isSmallDevice ? <SideNav close={close} /> : <></>} */}
+
             <CartIcon />
             {children}
             <Footer />

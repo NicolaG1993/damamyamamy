@@ -74,7 +74,22 @@ export default function CartButton({ isVisibile, wrapSize, item }) {
             </button>
         );
 
-    const LargeCartButton = () => {};
+    const LargeCartButton = () =>
+        isAvailable ? (
+            <button
+                className="button"
+                onClick={() => addToCartHandler(item.id, 1)}
+            >
+                Aggiungi al carrello
+            </button>
+        ) : (
+            <button
+                className="button"
+                onClick={() => removeFromCartHandler(item.id)}
+            >
+                Rimuovi dal carrello
+            </button>
+        );
 
     return (
         <>

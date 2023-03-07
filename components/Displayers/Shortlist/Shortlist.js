@@ -1,3 +1,4 @@
+import createMarkup from "@/utils/createMarkup";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./Shortlist.module.css";
@@ -15,9 +16,10 @@ export default function ShortList({ data, tableName }) {
                     data.length ? (
                         data.map((el) => (
                             <Link
-                                href={`/el/${el.id}`}
+                                href={`/negozio/articolo/${el.id}`}
                                 key={tableName + " ShortList " + el.id}
                                 className={styles.gridElement}
+                                title={el.name}
                             >
                                 <div id={styles.thumbnailWrap}>
                                     <div
@@ -39,7 +41,11 @@ export default function ShortList({ data, tableName }) {
                                     </div>
 
                                     <div className={styles.gridElementInfos}>
-                                        <h5>{el.name}</h5>
+                                        <h5
+                                            dangerouslySetInnerHTML={createMarkup(
+                                                el.name
+                                            )}
+                                        ></h5>
                                         <p>€{el.price}</p>
                                     </div>
                                 </div>

@@ -11,6 +11,8 @@ const initialState = {
         : "",
 };
 
+const in1Hour = new Date(new Date().getTime() + 60 * 60 * 1000);
+
 const cartSlice = createSlice({
     name: "cart",
     initialState,
@@ -24,13 +26,17 @@ const cartSlice = createSlice({
             const cart = cartItem
                 ? state.cart.map((el) => (el.id === item.id ? item : el))
                 : [...state.cart, item];
-            Cookies.set("cart", JSON.stringify(cart));
+            Cookies.set("cart", JSON.stringify(cart), {
+                expires: in1Hour,
+            });
             state.cart = cart;
         },
         removeFromCart: (state, action) => {
             const itemID = action.payload;
             const cart = state.cart.filter(({ id }) => id !== itemID);
-            Cookies.set("cart", JSON.stringify(cart));
+            Cookies.set("cart", JSON.stringify(cart), {
+                expires: in1Hour,
+            });
             state.cart = cart;
         },
         updateCart: (state, action) => {
@@ -39,15 +45,21 @@ const cartSlice = createSlice({
                 id,
                 quantity,
             }));
-            Cookies.set("cart", JSON.stringify(parsedCart));
+            Cookies.set("cart", JSON.stringify(parsedCart), {
+                expires: in1Hour,
+            });
             state.cart = parsedCart;
         },
         emptyCart: (state) => {
-            Cookies.set("cart", JSON.stringify([]));
+            Cookies.set("cart", JSON.stringify([]), {
+                expires: in1Hour,
+            });
             state.cart = [];
         },
         saveShippingAddress: (state, action) => {
-            Cookies.set("shippingAddress", JSON.stringify(action.payload));
+            Cookies.set("shippingAddress", JSON.stringify(action.payload), {
+                expires: in1Hour,
+            });
             state.shippingAddress = action.payload;
         },
         savePaymentMethod: (state, action) => {

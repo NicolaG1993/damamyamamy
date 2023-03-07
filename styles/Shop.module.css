@@ -12,6 +12,8 @@
     border: 1px solid var(--colorD);
     background: var(--colorA);
     border-radius: 12px; */
+    display: flex;
+    justify-content: center;
 }
 #Shop .listItem {
 }

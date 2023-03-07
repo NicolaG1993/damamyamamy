@@ -1,0 +1,66 @@
+#Item {
+    background: var(--colorC);
+}
+
+#Item section {
+    padding: 7rem 1.5rem 7rem 1.5rem;
+}
+
+.item-section {
+    background: var(--colorA);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.item-wrap {
+    background: var(--colorC);
+    padding: 1rem;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    max-width: 1000px;
+}
+
+.item-infos {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 0.5rem 0 2rem;
+    /* justify-content: space-between; */
+}
+.item-infos h1 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+}
+.item-infos h2 {
+    font-size: 1.75rem;
+}
+.item-price {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--colorF);
+}
+.item-infos-wrap {
+    margin: 0.75rem 0;
+}
+.item-row {
+    display: flex;
+    /* justify-content: center; */
+    /* align-items: center; */
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+}
+.item-row span {
+    width: 100px;
+    margin-right: 1.5rem;
+}
+
+.picDisplayWrap {
+    width: 320px;
+    min-height: 320px;
+    /* margin-right: 3rem; */
+}
+.picDisplayWrap > .item-pic {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}

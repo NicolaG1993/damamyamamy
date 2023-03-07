@@ -422,6 +422,29 @@ footer a {
     grid-template-columns: 75px 1.5fr 100px 100px 120px 40px 40px;
 }
 
+/* CONDITION CIRCLES */
+.green-circle {
+    border-radius: 50%;
+    background-color: greenyellow;
+    height: 13px;
+    width: 13px;
+    margin: 0.2rem 0.4rem;
+}
+.yellow-circle {
+    border-radius: 50%;
+    background-color: yellow;
+    height: 13px;
+    width: 13px;
+    margin: 0.2rem 0.4rem;
+}
+.red-circle {
+    border-radius: 50%;
+    background-color: tomato;
+    height: 13px;
+    width: 13px;
+    margin: 0.2rem 0.4rem;
+}
+
 /* 404 */
 #Page404 > section {
     display: flex;
@@ -515,3 +538,17 @@ footer a {
         justify-self: end;
     }
 }
+
+@media screen and (max-width: 500px) {
+    .footerContent {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+}
+
+/*
+Break-points:
+ width: 1500px, 1120px, 1000px, 860px, 720px, 680px, 500px, 400px.
+ heigth:
+*/

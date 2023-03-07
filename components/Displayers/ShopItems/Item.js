@@ -1,4 +1,5 @@
 import CartButton from "@/components/Buttons/CartButton/CartButton";
+import createMarkup from "@/utils/createMarkup";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -19,7 +20,7 @@ export default function Item({ item }) {
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
         >
-            <Link href={`/negozio/articolo/${item.slug}`}>
+            <Link title={item.name} href={`/negozio/articolo/${item.id}`}>
                 <div id={styles.thumbnailWrap}>
                     <div
                         style={{
@@ -40,8 +41,10 @@ export default function Item({ item }) {
                     </div>
 
                     <div className={styles.gridElementInfos}>
-                        <h5>{item.name}</h5>
-                        <p>€{item.price}</p>
+                        <h5 dangerouslySetInnerHTML={createMarkup(item.name)}>
+                            {/* {item.name} */}
+                        </h5>
+                        <p>€ {item.price}</p>
                     </div>
                 </div>
             </Link>

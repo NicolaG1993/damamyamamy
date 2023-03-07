@@ -10,7 +10,7 @@ export default function Footer() {
                         <h4>Informazioni</h4>
                         <ul>
                             <li>
-                                <Link href={"/info/regolamento"}>
+                                <Link href={"/documenti/regolamento"}>
                                     Regolamento
                                 </Link>
                             </li>
@@ -25,11 +25,11 @@ export default function Footer() {
                                 </Link>
                             </li>
 
-                            <li>
+                            {/* <li>
                                 <Link href={"/info/faq"}>
                                     Domande frequenti
                                 </Link>
-                            </li>
+                            </li> */}
                             {/* <p>Metodi di pagamento / Spedizione</p> */}
                         </ul>
                     </div>

@@ -1,14 +1,14 @@
 import Head from "next/head";
 import Link from "next/link";
 
-export default function Vendi() {
+export default function Regolamento() {
     return (
         <>
             <Head>
-                <title>Vendi • Regolamento • Da Mamy a Mamy</title>
+                <title>Vendi: Regolamento • Da Mamy a Mamy</title>
                 <meta
                     property="og:title"
-                    content="Vendi • Regolamento - Da Mamy a Mamy"
+                    content="Vendi: Regolamento • Da Mamy a Mamy"
                 />
                 <meta property="og:type" content="website" />
             </Head>

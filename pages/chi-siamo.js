@@ -72,7 +72,10 @@ export default function ChiSiamo() {
                         </div>
 
                         <div className={"document-button-wrap"}>
-                            <Link href={"/vendi"} className="button">
+                            <Link
+                                href={"/documenti/regolamento"}
+                                className="button"
+                            >
                                 Leggi il regolamento
                             </Link>
                         </div>
