@@ -230,11 +230,13 @@
 }
 .review-row p:nth-child(1) {
     width: 50px;
+    text-align: left;
 }
 .review-row p:nth-child(2) {
     /* width: 100%; */
     flex-grow: 1;
     margin: 0 0.5rem;
+    text-align: left;
 }
 .review-row p:nth-child(3) {
     width: 80px;
@@ -317,7 +319,12 @@
 .toggleForms {
     margin-top: 1rem;
 }
-
+@media screen and (max-width: 720px) {
+    #OrderReview {
+        padding: 1.25rem 0.25rem;
+        width: 100%;
+    }
+}
 @media screen and (max-width: 500px) {
     .form,
     .form input,
@@ -325,6 +332,10 @@
     .form textarea,
     .form .input,
     .form .picsInput {
+        width: 100%;
+    }
+    #card-element,
+    .payment-form {
         width: 100%;
     }
 }

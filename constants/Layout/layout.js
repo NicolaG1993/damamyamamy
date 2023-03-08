@@ -6,12 +6,16 @@ import {
     isValidElement,
     cloneElement,
 } from "react";
-import { useSelector } from "react-redux";
+
 import { selectUserState } from "@/redux/slices/userSlice";
 import Header from "./Header";
 import Footer from "./Footer";
 import dynamic from "next/dynamic";
 import useWindowDimensions from "@/utils/useWindowDimensions";
+import SideNav from "./SideNav";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { close, selectLayoutsState, toggle } from "@/redux/slices/uiSlice";
+
 const CartIcon = dynamic(
     () => import("@/components/Buttons/CartIcon/CartIcon"),
     {
@@ -24,10 +28,18 @@ export default function Layout({ children, ...pageProps }) {
     const [cookiesConfirm, setCookiesConfirm] = useState(false);
     const [isSmallDevice, setIsSmallDevice] = useState(false);
     const [animationReady, setAnimationReady] = useState(false);
-
-    let user = useSelector(selectUserState);
     const { width, height } = useWindowDimensions();
     // const { scrollTop } = useScrollPosition();
+
+    let user = useSelector(selectUserState);
+    let layouts = useSelector(selectLayoutsState, shallowEqual);
+    const dispatch = useDispatch();
+    const toggleNav = () => {
+        dispatch(toggle({ component: "nav" }));
+    };
+    const closeNav = () => {
+        dispatch(close({ component: "nav" }));
+    };
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -41,6 +53,11 @@ export default function Layout({ children, ...pageProps }) {
         () => (width > 720 ? setIsSmallDevice(false) : setIsSmallDevice(true)),
         [width]
     );
+    useEffect(() => {
+        if (!isSmallDevice) {
+            closeNav();
+        }
+    }, [isSmallDevice]);
 
     // function recursiveMap(children, fn) {
     //     return Children.map(children, (child) => {
@@ -123,8 +140,16 @@ export default function Layout({ children, ...pageProps }) {
                 userInfo={userInfo}
                 width={width}
                 isSmallDevice={isSmallDevice}
+                toggleNav={toggleNav}
+                closeNav={closeNav}
             />
-            {/* {isSmallDevice ? <SideNav close={close} /> : <></>} */}
+            {isSmallDevice && (
+                <SideNav
+                    close={closeNav}
+                    navIsActive={layouts[1].status}
+                    userInfo={userInfo}
+                />
+            )}
 
             <CartIcon />
             {children}

@@ -1,14 +1,22 @@
+import HamburgerButton from "@/components/Buttons/HamburgerButton/HamburgerButton";
 import Link from "next/link";
 import Logo from "public/assets/brand/Logo.svg";
 
-export default function Header({ userInfo, width, isSmallDevice }) {
+export default function Header({
+    userInfo,
+    width,
+    isSmallDevice,
+
+    toggleNav,
+    closeNav,
+}) {
     return (
         <header>
-            <Link href={"/"} id="HeaderLogo">
+            <Link href={"/"} id="HeaderLogo" onClick={() => closeNav()}>
                 <Logo />
             </Link>
             {isSmallDevice ? (
-                <div>Hamburger</div>
+                <HamburgerButton toggleNav={toggleNav} />
             ) : (
                 <nav>
                     <Link href={"/"}>Home</Link>

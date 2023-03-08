@@ -14,6 +14,7 @@ import { checkItemStock } from "@/utils/custom/handlers";
 import { getError } from "@/utils/error";
 import Link from "next/link";
 import styles from "@/styles/Shop.module.css";
+import createMarkup from "@/utils/createMarkup";
 
 // import {
 // cartAddItem,
@@ -92,7 +93,9 @@ function Cart() {
                 {cartData.map((item) => (
                     <div className={styles.cartItem} key={item.id}>
                         {/* <CartItem item={item} styles={styles} /> */}
-                        <p>{item.name}</p>
+                        <p
+                            dangerouslySetInnerHTML={createMarkup(item.name)}
+                        ></p>
                         <p>€ {item.price}</p>
                         <select
                             name="quantity"

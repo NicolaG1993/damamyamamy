@@ -1,6 +1,6 @@
 import Link from "next/link";
 import ShoppingCart from "public/assets/icons/shopping-cart.svg";
-import styles from "./style/CartIcon.module.css";
+import styles from "./CartIcon.module.css";
 
 import { useSelector, shallowEqual } from "react-redux";
 import { selectCartState } from "@/redux/slices/cartSlice";

@@ -54,7 +54,7 @@
 }
 .cartGridWrap .tableHead > h4:last-child,
 .cartGridWrap .cartItem > span:last-child {
-    justify-self: center;
+    justify-self: end;
 }
 .cartGridWrap .cartItem > span:last-child {
     cursor: pointer;
@@ -67,6 +67,13 @@
     padding: 0.75rem;
     margin: 0.5rem;
     border-bottom: 1px solid var(--colorC);
+}
+.cartGridWrap .cartItem p {
+    max-width: 100%;
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 .cartGridWrap .cartItem select {
     cursor: pointer;
@@ -222,4 +229,41 @@
 #Checkout .confirmation-wrap > div:nth-child(2) a {
     /* width: 150px; */
     display: block;
+}
+
+@media screen and (max-width: 720px) {
+    .cartGridWrap {
+        padding: 1rem 0.5rem;
+    }
+    .cartGridWrap .tableHead,
+    .cartGridWrap .cartItem,
+    .cartGridWrap .tableFoot {
+        display: grid;
+        grid-template-columns: 1fr 60px 60px 50px;
+        font-size: 0.8rem;
+        padding: 1rem 0.25rem;
+    }
+    .cartGridWrap .cartItem {
+        margin: 0.5rem 0.25rem;
+    }
+    .cartGridWrap .cartItem select {
+        width: 35px;
+    }
+    .cartGridWrap .tableButtons {
+        flex-direction: column-reverse;
+        align-items: center;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    #Checkout .confirmation-wrap {
+        width: 100%;
+        min-width: 0;
+        margin: 4rem 0 8rem 0;
+    }
+    #Checkout .confirmation-wrap > div:nth-child(2) {
+        flex-direction: column;
+        height: 140px;
+    }
 }

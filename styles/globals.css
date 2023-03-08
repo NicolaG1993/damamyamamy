@@ -70,6 +70,7 @@ section {
     /* width: 100%; */
     max-width: 1000px;
     font-size: 2.5rem;
+    text-align: center;
 }
 .page > div {
     width: 100%;
@@ -335,6 +336,37 @@ footer a {
     color: var(--colorD);
 }
 
+/* SIDE NAV */
+#SideNav {
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(to top, transparent, var(--colorA))
+        var(--colorH);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--colorE);
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: 0.4s ease;
+    z-index: 99;
+}
+.nav-on {
+    transform: translateX(0);
+}
+.nav-off {
+    transform: translateX(100vw);
+}
+#SideNav a {
+    margin: 1rem;
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: var(--colorC);
+}
+
 /* ABOUT US */
 #About h2 {
     font-size: 1.17em;
@@ -388,6 +420,7 @@ footer a {
     border-radius: 12px;
     font-size: 0.9rem;
     /* transition: box-shadow var(--transition); */
+    align-items: center;
 }
 .listItem:hover {
     color: var(--colorB);
@@ -399,9 +432,10 @@ footer a {
 .listItem a {
     padding: 0 0.5rem;
     align-self: center;
-    height: 17px;
-    /* overflow: hidden; */
-    /* white-space: nowrap; */
+    line-height: 17px;
+
+    overflow: hidden;
+    white-space: nowrap;
 }
 .listItem a,
 .listItem .action {
@@ -419,7 +453,7 @@ footer a {
 
 #ItemsList > .listHead,
 #ItemsList > .listItem {
-    grid-template-columns: 75px 1.5fr 100px 100px 120px 40px 40px;
+    grid-template-columns: 75px 1fr 0.5fr 0.5fr 0.5fr 40px 40px;
 }
 
 /* CONDITION CIRCLES */
@@ -515,6 +549,28 @@ footer a {
     /* text-decoration: underline; */
 }
 
+@media screen and (max-width: 720px) {
+    .list {
+        padding: 1rem 0;
+    }
+    #UsersList > .listHead,
+    #UsersList > .listItem {
+        grid-template-columns: 25px 1fr 0.75fr 1.5fr 0.5fr 0.5fr 0.5fr 0.5fr;
+    }
+    #ItemsList > .listHead,
+    #ItemsList > .listItem {
+        grid-template-columns: 25px 130px 0.5fr 0.5fr 0.5fr 40px 40px;
+    }
+    .listItem {
+        font-size: 0.8rem;
+        padding: 1rem 0.5rem;
+    }
+    .listHead p,
+    .listItem p,
+    .listItem a {
+        padding: 0 0.25rem;
+    }
+}
 @media screen and (max-width: 680px) {
     .cookieWrap {
         width: 100%;
