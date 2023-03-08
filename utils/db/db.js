@@ -1,13 +1,25 @@
 import { Pool } from "pg";
 
-const config = {
-    // connectionString: process.env.DATABASE_URL,
-    host: process.env.DEV_DATABASE_HOST,
-    port: process.env.DEV_DATABASE_PORT,
-    user: process.env.DEV_DATABASE_USER,
-    password: process.env.DEV_DATABASE_PSW,
-    database: process.env.DEV_DATABASE_NAME,
-};
+const env = process.env.NODE_ENV;
+let config = {};
+if (env == "development") {
+    config = {
+        // connectionString: process.env.DATABASE_URL,
+        host: process.env.DEV_DATABASE_HOST,
+        port: process.env.DEV_DATABASE_PORT,
+        user: process.env.DEV_DATABASE_USER,
+        password: process.env.DEV_DATABASE_PSW,
+        database: process.env.DEV_DATABASE_NAME,
+    };
+} else if (env == "production") {
+    config = {
+        host: process.env.DATABASE_HOST,
+        port: process.env.DATABASE_PORT,
+        user: process.env.DATABASE_USER,
+        password: process.env.DATABASE_PSW,
+        database: process.env.DATABASE_NAME,
+    };
+}
 
 let db;
 if (!db) {

@@ -3,7 +3,7 @@
 
 -- DROP TABLE IF EXISTS item;
 -- DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS orders;
+-- DROP TABLE IF EXISTS orders;
 -- DROP TABLE IF EXISTS brand;
 -- DROP TABLE IF EXISTS category;
 -- DROP TABLE IF EXISTS tag;
@@ -11,6 +11,10 @@ DROP TABLE IF EXISTS orders;
 -- DROP TABLE IF EXISTS item_brand;
 -- DROP TABLE IF EXISTS item_tag;
 -- DROP TABLE IF EXISTS item_category;
+
+DROP TABLE orders;
+DROP TABLE products;
+DROP TABLE users;
 
 CREATE TABLE item(
     id SERIAL PRIMARY KEY,
