@@ -12,10 +12,6 @@
 -- DROP TABLE IF EXISTS item_tag;
 -- DROP TABLE IF EXISTS item_category;
 
-DROP TABLE orders;
-DROP TABLE products;
-DROP TABLE users;
-
 CREATE TABLE item(
     id SERIAL PRIMARY KEY,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
