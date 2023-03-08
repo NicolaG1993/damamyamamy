@@ -56,12 +56,12 @@ NON PRIORITARIO:
 • 💚 Testare Paypal
 • 💚 Testare DB Order
 • 💚 Cart Cookie deve durare al massimo 1 ora
-• 🧨 Portare in prod mode
+• 🧠 Portare in prod mode (Vercel host, setup+connect heroku db, S3)
 
 05.03.2023
 • 💚 Testare tutti i check cart in checkout process
 • 💚 API req per orders (new, pay)
-• 🧨 Testare API key in prod mode (Stripe, PayPal, AWS)
+• 🧠 Testare API key in prod mode (🧠Stripe, 🧠PayPal, 💚AWS)
 
 06.03.2023
 • 💚 Item Component
