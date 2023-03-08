@@ -9,6 +9,8 @@ import { Pool } from "pg";
 //     database: process.env.DEV_DATABASE_NAME,
 // };
 
+console.log("🐞 process.env.DATABASE_HOST: ", process.env.DATABASE_HOST);
+
 let config = {
     host: process.env.DATABASE_HOST,
     port: process.env.DATABASE_PORT,
