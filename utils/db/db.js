@@ -17,6 +17,9 @@ let config = {
     user: process.env.DATABASE_USER,
     password: process.env.DATABASE_PSW,
     database: process.env.DATABASE_NAME,
+    ssl: {
+        rejectUnauthorized: false,
+    },
 };
 
 let db;
