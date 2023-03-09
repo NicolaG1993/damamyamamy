@@ -13,7 +13,7 @@ export default function Contatto() {
         email: userInfo ? userInfo.email : "",
         phone: userInfo ? userInfo.phone : "",
         message: "",
-        sender: "Da Mamy a Mamy - Contattaci",
+        sender: "Da Mamy a Mamy • Contattaci",
         domain: "damamyamamy.com",
     });
     const [activeStep, setActiveStep] = useState(1);
@@ -25,7 +25,7 @@ export default function Contatto() {
     //================================================================================
     const handleChange = (e) => {
         e.preventDefault();
-        const { id, name, value } = e.target;
+        const { name, value } = e.target;
         let newState = { ...formState, [name]: value };
         setFormState(newState);
     };
@@ -38,10 +38,11 @@ export default function Contatto() {
     };
 
     const sendEmail = async () => {
-        let endpoint = process.env.EMAIL_URL;
         nextStep();
         try {
-            const resp = await axios.post(endpoint, formState);
+            // let endpoint = process.env.EMAIL_URL;
+            // const resp = await axios.post(endpoint, formState);
+            const resp = await axios.post("/api/email/contact-us", formState);
             console.log("resp: ", resp);
             if (resp.data.emailSended) {
                 setIsFailed(false);
@@ -73,16 +74,18 @@ export default function Contatto() {
             );
         } else if (isFailed) {
             return (
-                <div className="error">
-                    <p>
-                        Sembra esserci un errore, non abbiamo ricevuto questo
-                        messaggio. Riprova o contattaci direttamente via email o
-                        via telefono.
-                    </p>
+                <>
+                    <div className="error">
+                        <p>
+                            Sembra esserci un errore, non abbiamo ricevuto
+                            questo messaggio. Riprova o contattaci direttamente
+                            via email o via telefono.
+                        </p>
+                    </div>
                     <p onClick={backStep} style={{ cursor: "pointer" }}>
                         Torna indietro
                     </p>
-                </div>
+                </>
             );
         } else {
             return <div className="loader">Attendere, invio in corso...</div>;

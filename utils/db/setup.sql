@@ -101,3 +101,5 @@ CREATE TABLE item_category(
     item_id INTEGER,
     category_id INTEGER
 );
+
+-- UPDATE users SET is_admin = true WHERE id = 1;

@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import { signToken } from "@/utils/auth";
 import { newUser, getUserByEmail } from "@/utils/db/db";
+import { sendEmail } from "@/utils/libs/ses";
 
 export default async function handler(req, res) {
     const { body, method } = req;
@@ -26,6 +27,9 @@ export default async function handler(req, res) {
                 console.log("user: ", response.rows[0]);
                 let user = response.rows[0];
                 const token = signToken(user);
+
+                let emailToUser = await sendEmail(firstName, lastName, email);
+
                 res.send({
                     id: user.id,
                     firstName: user.first_name,

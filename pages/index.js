@@ -78,7 +78,7 @@ export default function Home() {
                 <section className={styles.intro}>
                     <h2>Vuoi vendere i tuoi articoli?</h2>
                     {/* <p>Scopri come fare</p> */}
-                    <Link className="button" href={"/vendi"}>
+                    <Link className="button" href={"/documenti/regolamento"}>
                         Scopri come fare
                     </Link>
                 </section>

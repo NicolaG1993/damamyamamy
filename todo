@@ -61,7 +61,7 @@ NON PRIORITARIO:
 05.03.2023
 • 💚 Testare tutti i check cart in checkout process
 • 💚 API req per orders (new, pay)
-• 🧠 Testare API key in prod mode (🧠Stripe, 🧠PayPal, 💚AWS)
+• Testare API key in prod mode (🧠Stripe, 🧠PayPal, 💚AWS, 🧠AWS SES)
 
 06.03.2023
 • 💚 Item Component
@@ -70,9 +70,16 @@ NON PRIORITARIO:
 • 💚 Attivare Contact Form
 • 💚 Responsive
 • 🧠 Mandare email quando si pagano ordini
+• 🧠 Mandare email quando ci si registra
 
 08.03.2023
-• Creare primo admin
+• 💚 Creare primo admin
+
+09.03.2023
+• sezione ordini per Admin
+• sezione ordini per user
+• modifica profilo per user
+
 
 ---
 

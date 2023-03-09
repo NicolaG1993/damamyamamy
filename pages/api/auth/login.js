@@ -3,7 +3,8 @@ import { signToken } from "@/utils/auth";
 import { getUserByEmail } from "@/utils/db/db";
 
 export default async function handler(req, res) {
-    const email = req.body.email;
+    const { body, method } = req;
+    const { email } = body;
     if (method === "POST") {
         try {
             let { rows } = await getUserByEmail(email);
