@@ -56,7 +56,7 @@ NON PRIORITARIO:
 • 💚 Testare Paypal
 • 💚 Testare DB Order
 • 💚 Cart Cookie deve durare al massimo 1 ora
-• 🧠 Portare in prod mode (💚Vercel host, 🧠setup+connect heroku db, 💚S3)
+• 💚 Portare in prod mode (💚Vercel host, 💚setup+connect heroku db, 💚S3)
 
 05.03.2023
 • 💚 Testare tutti i check cart in checkout process
@@ -67,15 +67,20 @@ NON PRIORITARIO:
 • 💚 Item Component
 
 07.03.2023
-• 🧨 Attivare Contact Form
+• 💚 Attivare Contact Form
 • 💚 Responsive
-• Mandare email quando si pagano ordini
+• 🧠 Mandare email quando si pagano ordini
+
+08.03.2023
+• Creare primo admin
 
 ---
 
 • PICCOLEZZE
 
 🔍 in order deve essere salvato shipping_price (0 se ritiro, "a carico del cliente" se spedizione) oppure solo string?
+🔍 user deve poter modificare profilo
+🔍 user deve poter richiedere assistenza per password e resettarla
 
 ---
 

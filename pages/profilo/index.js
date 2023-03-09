@@ -15,8 +15,8 @@ function Profilo() {
 
     const logout = () => {
         dispatch(userLogout());
-        Cookies.remove("userInfo");
-        Cookies.remove("cartItems");
+        // Cookies.remove("userInfo");
+        // Cookies.remove("cartItems");
         router.push("/");
     };
 

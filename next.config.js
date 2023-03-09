@@ -30,6 +30,9 @@ const nextConfig = {
         REACT_APP_STRIPE_PUBLIC_KEY: process.env.REACT_APP_STRIPE_PUBLIC_KEY,
         REACT_APP_STRIPE_SECRET_KEY: process.env.REACT_APP_STRIPE_SECRET_KEY,
         REACT_APP_PAYPAL_CLIENT_ID: process.env.REACT_APP_PAYPAL_CLIENT_ID,
+        RECAPTCHA_PUBLIC_KEY: process.env.RECAPTCHA_PUBLIC_KEY,
+        RECAPTCHA_SECRET_KEY: process.env.RECAPTCHA_SECRET_KEY,
+        EMAIL_URL: process.env.EMAIL_URL,
     },
 
     webpack(config) {

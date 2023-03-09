@@ -1,7 +1,97 @@
 import ContactForm from "@/components/Forms/ContactForm";
 import Head from "next/head";
+import { selectUserState } from "@/redux/slices/userSlice";
+import { shallowEqual, useSelector } from "react-redux";
+import { createRef, useState } from "react";
+import axios from "axios";
 
 export default function Contatto() {
+    let userInfo = useSelector(selectUserState);
+    const [formState, setFormState] = useState({
+        first: userInfo ? userInfo.firstName : "",
+        last: userInfo ? userInfo.lastName : "",
+        email: userInfo ? userInfo.email : "",
+        phone: userInfo ? userInfo.phone : "",
+        message: "",
+        sender: "Da Mamy a Mamy - Contattaci",
+        domain: "damamyamamy.com",
+    });
+    const [activeStep, setActiveStep] = useState(1);
+    const [isFinished, setIsFinished] = useState(false);
+    const [isFailed, setIsFailed] = useState(false);
+
+    //================================================================================
+    // Functions
+    //================================================================================
+    const handleChange = (e) => {
+        e.preventDefault();
+        const { id, name, value } = e.target;
+        let newState = { ...formState, [name]: value };
+        setFormState(newState);
+    };
+
+    const nextStep = () => {
+        setActiveStep((prev) => (prev <= 2 ? prev + 1 : 2));
+    };
+    const backStep = () => {
+        setActiveStep((prev) => (prev > 1 ? prev - 1 : 1));
+    };
+
+    const sendEmail = async () => {
+        let endpoint = process.env.EMAIL_URL;
+        nextStep();
+        try {
+            const resp = await axios.post(endpoint, formState);
+            console.log("resp: ", resp);
+            if (resp.data.emailSended) {
+                setIsFailed(false);
+                setIsFinished(true);
+            } else {
+                setIsFailed(resp.data.body);
+            }
+        } catch (err) {
+            console.log("err in sendEmail(): ", err); //handle error
+            setIsFailed(err);
+        }
+    };
+
+    //================================================================================
+    // Sub-Components
+    //================================================================================
+
+    let Confirmation = () => {
+        if (isFinished) {
+            return (
+                <>
+                    <div className="success">
+                        <p>Messaggio inviato!</p>
+                    </div>
+                    <p onClick={backStep} style={{ cursor: "pointer" }}>
+                        Torna indietro
+                    </p>
+                </>
+            );
+        } else if (isFailed) {
+            return (
+                <div className="error">
+                    <p>
+                        Sembra esserci un errore, non abbiamo ricevuto questo
+                        messaggio. Riprova o contattaci direttamente via email o
+                        via telefono.
+                    </p>
+                    <p onClick={backStep} style={{ cursor: "pointer" }}>
+                        Torna indietro
+                    </p>
+                </div>
+            );
+        } else {
+            return <div className="loader">Attendere, invio in corso...</div>;
+        }
+    };
+
+    //================================================================================
+    // Render UI
+    //================================================================================
     return (
         <>
             <Head>
@@ -13,7 +103,18 @@ export default function Contatto() {
             <main>
                 <section className="page">
                     <h1>Contatto</h1>
-                    <ContactForm />
+                    {activeStep === 1 && (
+                        <ContactForm
+                            handleChange={handleChange}
+                            formState={formState}
+                            sendEmail={sendEmail}
+                        />
+                    )}
+                    {activeStep === 2 && (
+                        <div className="center">
+                            <Confirmation />
+                        </div>
+                    )}
                 </section>
             </main>
         </>

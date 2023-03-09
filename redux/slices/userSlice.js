@@ -13,6 +13,8 @@ const userSlice = createSlice({
             state.user = action.payload;
         },
         userLogout: (state) => {
+            Cookies.remove("userInfo");
+            Cookies.remove("cartItems");
             state.user = null;
             state.cart = null;
         },

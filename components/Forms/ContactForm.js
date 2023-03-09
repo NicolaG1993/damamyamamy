@@ -1,86 +1,180 @@
-import { useState, memo } from "react";
+import { useState, createRef, memo, useRef } from "react";
 // import axios from "../../../shared/libs/axios";
 import styles from "./Form.module.css";
+import ReCAPTCHA from "react-google-recaptcha";
 
-export default function ContactForm() {
-    const [contactReq, setContactReq] = useState({});
-    const [robotCheck, setRobotCheck] = useState(false); // finché false non si invia messaggio
-    const [isFinished, setIsFinished] = useState(false);
-    const [isFailed, setIsFailed] = useState(false);
-    const [error, setError] = useState();
+import {
+    emailValidation,
+    nameValidation,
+    textValidation,
+} from "@/utils/validateForms";
 
-    let Form = () => {
-        return (
-            <form className={styles.form}>
+export default function ContactForm({ handleChange, formState, sendEmail }) {
+    //================================================================================
+    // Component State
+    //================================================================================
+    const [errors, setErrors] = useState({});
+    const recaptchaRef = useRef();
+
+    //================================================================================
+    // Functions
+    //================================================================================
+    const validateData = (key, value) => {
+        // e.preventDefault();
+        if (!value) {
+            value = "";
+        }
+        // validate data + setErrors
+        let newErrObj = errors;
+        if (key === "first" || key === "last") {
+            const resp = nameValidation("nome", value);
+            if (resp) {
+                newErrObj[key] = resp;
+            } else {
+                delete newErrObj[key];
+            }
+        }
+        if (key === "email") {
+            const resp = emailValidation(value);
+            if (resp) {
+                newErrObj[key] = resp;
+            } else {
+                delete newErrObj[key];
+            }
+        }
+        if (key === "message") {
+            const resp = textValidation(value);
+            if (resp) {
+                newErrObj[key] = resp;
+            } else {
+                delete newErrObj[key];
+            }
+        }
+
+        setErrors((prev) => ({ ...prev, ...newErrObj }));
+    };
+
+    const onReCAPTCHAChange = (captchaCode) => {
+        if (!captchaCode) {
+            return;
+        }
+        sendEmail();
+        recaptchaRef.current.reset();
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        Object.entries(formState).map(([key, value]) =>
+            validateData(key, value)
+        );
+
+        if (Object.keys(errors).length === 0) {
+            recaptchaRef.current.execute();
+        }
+    };
+
+    //================================================================================
+    // Render UI
+    //================================================================================
+    return (
+        <>
+            <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>
+                <ReCAPTCHA
+                    ref={recaptchaRef}
+                    size="invisible"
+                    sitekey={process.env.RECAPTCHA_PUBLIC_KEY}
+                    onChange={onReCAPTCHAChange}
+                />
+
                 <div className={styles.inputWrap}>
                     <input
                         type="text"
                         placeholder="Nome*"
-                        defaultValue={contactReq.name || ""}
-                        name="name"
-                        id="name"
+                        name="first"
+                        id="First"
+                        value={formState.first}
+                        onChange={(e) => handleChange(e)}
+                        onBlur={(e) =>
+                            validateData(e.target.name, e.target.value)
+                        }
                     />
+                    {errors.first && (
+                        <div className={styles["form-error"]}>
+                            • {errors.first}
+                        </div>
+                    )}
                 </div>
                 <div className={styles.inputWrap}>
                     <input
                         type="text"
                         placeholder="Cognome*"
-                        defaultValue={contactReq.last || ""}
                         name="last"
-                        id="last"
+                        id="Last"
+                        value={formState.last}
+                        onChange={(e) => handleChange(e)}
+                        onBlur={(e) =>
+                            validateData(e.target.name, e.target.value)
+                        }
                     />
+                    {errors.last && (
+                        <div className={styles["form-error"]}>
+                            • {errors.last}
+                        </div>
+                    )}
                 </div>
                 <div className={styles.inputWrap}>
                     <input
-                        type="text"
+                        type="email"
                         placeholder="Email*"
-                        defaultValue={contactReq.email || ""}
                         name="email"
-                        id="email"
+                        id="Email"
+                        value={formState.email}
+                        onChange={(e) => handleChange(e)}
+                        onBlur={(e) =>
+                            validateData(e.target.name, e.target.value)
+                        }
                     />
+                    {errors.email && (
+                        <div className={styles["form-error"]}>
+                            • {errors.email}
+                        </div>
+                    )}
                 </div>
                 <div className={styles.inputWrap}>
                     <input
                         type="text"
                         placeholder="Numero di telefono"
-                        defaultValue={contactReq.phone || ""}
+                        value={formState.phone}
                         name="phone"
-                        id="phone"
+                        id="Phone"
+                        onChange={(e) => handleChange(e)}
                     />
                 </div>
                 <div className={styles.inputWrap}>
                     <textarea
                         placeholder="Messaggio*"
-                        defaultValue={contactReq.message || ""}
+                        value={formState.message}
                         name="message"
-                        id="message"
+                        id="Message"
                         className={styles.message}
+                        onChange={(e) => handleChange(e)}
+                        onBlur={(e) =>
+                            validateData(e.target.name, e.target.value)
+                        }
                     />
+                    {errors.message && (
+                        <div className={styles["form-error"]}>
+                            • {errors.message}
+                        </div>
+                    )}
                 </div>
                 <div className={styles.buttonWrap}>
-                    {/* <Button text="Invia" type="submit" /> */}
-                    <button className="button form-button">Invia</button>
+                    <button type="submit" className="button form-button">
+                        Invia
+                    </button>
                 </div>
             </form>
-        );
-    };
-
-    let Confirmation = () => {
-        if (isFinished) {
-            // return end step, message is sended!
-        } else {
-            return <div className="loader"></div>;
-        }
-    };
-
-    if (error || isFailed) {
-        // handle error
-        // render it
-    }
-
-    return (
-        <>
-            <Form />
         </>
     );
 }
