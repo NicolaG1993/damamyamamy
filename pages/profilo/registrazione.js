@@ -99,12 +99,12 @@ export default function Registrazione() {
                     password,
                 });
                 // Cookies.set("userInfo", JSON.stringify(data));
-                let clone = (({ token, ...obj }) => obj)(data); // remove obj key
-                dispatch(userLogin(clone));
+                // let clone = (({ token, ...obj }) => obj)(data); // remove obj key
+                dispatch(userLogin(data));
                 await axios.post("/api/email/welcome", {
-                    first: clone.firstName,
-                    last: clone.lastName,
-                    email: clone.email,
+                    first: data.firstName,
+                    last: data.lastName,
+                    email: data.email,
                 });
                 router.push(redirect || "/");
             } catch (err) {

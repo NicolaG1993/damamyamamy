@@ -56,8 +56,8 @@ export default function Login() {
                     password,
                 });
                 // Cookies.set("userInfo", JSON.stringify(data));
-                let clone = (({ token, ...obj }) => obj)(data);
-                dispatch(userLogin(clone));
+                // let clone = (({ token, ...obj }) => obj)(data);
+                dispatch(userLogin(data));
                 router.push(redirect || "/");
             } catch (err) {
                 alert(getError(err));
