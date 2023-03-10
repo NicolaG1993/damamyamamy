@@ -86,11 +86,22 @@ export function sendEmail({
                                     <h1>Da Mamy a Mamy</h1>
                                     <p>Vicolo Teatro, 4, 37010</p>
                                     <p>Cavaion, Verona, IT</p>
-                                    <a href="tel:+393479792644">(+39) 347 9792 644</a>
-                                    <a href="mailto:damamyamamy@gmail.com">damamyamamy@gmail.com</a>
+                                    <ul>
+                                        <li>
+                                            <a href="tel:+393479792644">(+39) 347 9792 644</a>
+                                        </li>
+                                        <li>
+                                            <a href="mailto:damamyamamy@gmail.com">damamyamamy@gmail.com</a>
+                                        </li>
+                                        <li>
+                                            <a href="www.damamyamamy.com">www.damamyamamy.com</a>
+                                        </li>
+                                    </ul>
                                     <br />
                                     <br />
                                     <div>${message}</div>
+                                    <br />
+                                    <p>Da Mamy a Mamy</p>
                                 </body>
                             </html>`,
                 },

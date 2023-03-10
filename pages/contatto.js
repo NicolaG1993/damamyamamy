@@ -40,8 +40,6 @@ export default function Contatto() {
     const sendEmail = async () => {
         nextStep();
         try {
-            // let endpoint = process.env.EMAIL_URL;
-            // const resp = await axios.post(endpoint, formState);
             const resp = await axios.post("/api/email/contact-us", formState);
             console.log("resp: ", resp);
             if (resp.data.emailSended) {

@@ -1,5 +1,6 @@
 import { isAuth } from "@/utils/auth";
 import { newOrder } from "@/utils/db/db";
+import { v4 as uuidv4 } from "uuid";
 
 async function handler(req, res) {
     try {
@@ -21,6 +22,7 @@ async function handler(req, res) {
 
         let { rows } = await newOrder({
             ...req.body,
+            order_uuid: uuidv4(),
             user_id: req.user.id,
             order_items: JSON.stringify(parsedItems),
         });

@@ -43,6 +43,7 @@ CREATE TABLE users(
 
 CREATE TABLE orders(
     id SERIAL PRIMARY KEY,  
+    order_uuid VARCHAR NOT NULL UNIQUE,  
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     user_id INTEGER,
     shipping_address JSONB NOT NULL,
@@ -100,6 +101,13 @@ CREATE TABLE item_category(
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     item_id INTEGER,
     category_id INTEGER
+);
+
+CREATE TABLE code(
+    id SERIAL PRIMARY KEY,
+    email VARCHAR NOT NULL,
+    code VARCHAR NOT NULL,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- UPDATE users SET is_admin = true WHERE id = 1;

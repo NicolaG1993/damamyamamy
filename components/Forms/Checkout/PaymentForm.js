@@ -156,7 +156,6 @@ export default function PaymentForm({
     const updateDB = async (paymentResult, userInfo, newOrderID) => {
         console.log("🔍 updateDB invoked", newOrderID, paymentResult);
         try {
-            // const orderID = await createOrder();
             const { data } = await axios.put(
                 `/api/checkout/pay/${newOrderID}`,
                 paymentResult,
@@ -166,8 +165,14 @@ export default function PaymentForm({
                     },
                 }
             );
-            dispatch(emptyCart());
             console.log("💚 updateDB response! paySuccess!", data);
+            dispatch(emptyCart());
+            await axios.post("/api/email/checkout", {
+                first: userInfo.firstName,
+                last: userInfo.lastName,
+                email: userInfo.email,
+                ...data,
+            });
             nextStep();
         } catch (err) {
             alert(getError(err));

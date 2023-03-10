@@ -1,16 +1,5 @@
 import { Pool } from "pg";
 
-// let config = {
-//     connectionString: process.env.DATABASE_URL,
-//     host: process.env.DEV_DATABASE_HOST,
-//     port: process.env.DEV_DATABASE_PORT,
-//     user: process.env.DEV_DATABASE_USER,
-//     password: process.env.DEV_DATABASE_PSW,
-//     database: process.env.DEV_DATABASE_NAME,
-// };
-
-console.log("🐞 process.env.DATABASE_HOST: ", process.env.DATABASE_HOST);
-
 let config = {
     host: process.env.DATABASE_HOST,
     port: process.env.DATABASE_PORT,
@@ -78,10 +67,11 @@ module.exports.newOrder = ({
     is_delivered,
     paid_at,
     delivered_at,
+    order_uuid,
 }) => {
     const myQuery = `INSERT INTO orders
-    (user_id, shipping_address, payment_method, payment_result, order_items, items_price, shipping_price, tax_price, total_price, is_paid, is_delivered, paid_at, delivered_at)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+    (user_id, shipping_address, payment_method, payment_result, order_items, items_price, shipping_price, tax_price, total_price, is_paid, is_delivered, paid_at, delivered_at, order_uuid)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
     RETURNING *`;
     const keys = [
         user_id,
@@ -97,6 +87,7 @@ module.exports.newOrder = ({
         is_delivered,
         paid_at,
         delivered_at,
+        order_uuid,
     ];
     return db.query(myQuery, keys);
 };
@@ -129,6 +120,11 @@ module.exports.newRelations = (id, arr, table, idColumn, arrColumn) => {
     const keys = [id, arr];
     return db.query(myQuery, keys);
 };
+module.exports.storeCode = (email, code) => {
+    const myQuery = `INSERT INTO code (email, code) VALUES ($1, $2) RETURNING id`;
+    const keys = [email, code];
+    return db.query(myQuery, keys);
+};
 
 /* EDIT */
 module.exports.upgradeUser = (id) => {
@@ -138,6 +134,11 @@ module.exports.upgradeUser = (id) => {
     RETURNING *`;
     const key = [id];
     return db.query(myQuery, key);
+};
+module.exports.editPassword = (email, password) => {
+    const myQuery = `UPDATE users SET psw = $2 WHERE email = $1`;
+    const keys = [email, password];
+    return db.query(myQuery, keys);
 };
 module.exports.editItem = (
     id,
@@ -275,6 +276,11 @@ module.exports.getItem = (id) => {
         
         WHERE item.id = $1`;
     const key = [id];
+    return db.query(myQuery, key);
+};
+module.exports.getCode = (code) => {
+    const myQuery = `SELECT * FROM code WHERE code = $1`;
+    const key = [code];
     return db.query(myQuery, key);
 };
 

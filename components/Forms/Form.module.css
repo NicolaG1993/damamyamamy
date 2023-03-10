@@ -4,6 +4,7 @@
     border: 1px solid var(--colorD);
     border-radius: 12px;
     margin-top: 1.5rem;
+    width: auto;
     /* align-self: flex-start; */
 }
 
@@ -317,7 +318,7 @@
 }
 
 .toggleForms {
-    margin-top: 1rem;
+    margin: 1.5rem 0 0rem 0;
 }
 @media screen and (max-width: 720px) {
     #OrderReview {

@@ -73,7 +73,7 @@ section {
     text-align: center;
 }
 .page > div {
-    width: 100%;
+    /* width: 100%; */
     text-align: justify;
 }
 .document-text-wrap {
@@ -158,12 +158,15 @@ h6 {
 }
 
 /* LINKS AND BUTTONS */
-a {
+a,
+.fake-link {
     color: var(--colorD);
     text-decoration: none;
     font-weight: 700;
+    cursor: pointer;
 }
-a:hover {
+a:hover,
+.fake-link:hover {
     color: var(--colorB);
     /* text-decoration: underline; */
 }

@@ -101,6 +101,11 @@ export default function Login() {
                 </form>
 
                 <p className={styles.toggleForms}>
+                    <Link href={"/profilo/reset-psw"}>
+                        Ho dimenticato la mia password
+                    </Link>
+                </p>
+                <p className={styles.toggleForms}>
                     Non hai ancora un profilo?{" "}
                     <Link href={"/profilo/registrazione"}>Registrati qui</Link>
                 </p>

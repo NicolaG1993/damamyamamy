@@ -28,8 +28,6 @@ export default async function handler(req, res) {
                 let user = response.rows[0];
                 const token = signToken(user);
 
-                let emailToUser = await sendEmail(firstName, lastName, email);
-
                 res.send({
                     id: user.id,
                     firstName: user.first_name,
