@@ -98,10 +98,14 @@ export default function Registrazione() {
                     email,
                     password,
                 });
-
-                Cookies.set("userInfo", JSON.stringify(data));
+                // Cookies.set("userInfo", JSON.stringify(data));
                 let clone = (({ token, ...obj }) => obj)(data); // remove obj key
                 dispatch(userLogin(clone));
+                await axios.post("/api/email/welcome", {
+                    first: clone.firstName,
+                    last: clone.lastName,
+                    email: clone.email,
+                });
                 router.push(redirect || "/");
             } catch (err) {
                 // console.log("error:", err);

@@ -10,6 +10,7 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         userLogin: (state, action) => {
+            Cookies.set("userInfo", JSON.stringify(action.payload));
             state.user = action.payload;
         },
         userLogout: (state) => {

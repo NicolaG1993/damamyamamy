@@ -97,3 +97,12 @@ NON PRIORITARIO:
 2. Shop UI
 3. Cart
 4. Checkout
+
+
+
+----------------------
+DA TESTARE IN PROD MODE:
+• Welcome Email - Registrazione (su indirizzo non verificato, tipo N.i.k.93)
+• PayPal Checkout
+• Stripe Checkout
+• Transactional Email - checkout
