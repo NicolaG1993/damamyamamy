@@ -10,7 +10,7 @@ export default async function handler(req, res) {
         console.log("req.body 📐 stripe.paymentIntents.create: ", req.body);
 
         const paymentIntent = await stripe.paymentIntents.create({
-            amount: Number(total_price) * 100,
+            amount: Math.round(Number(total_price) * 100),
             currency: "eur",
             receipt_email: email,
             // shipping: "Ritiro in negozio",

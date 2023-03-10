@@ -22,6 +22,7 @@ export default function PaymentForm({
     paymentMethod,
     nextStep,
     backStep,
+    saveOrderData,
 }) {
     //================================================================================
     // Component State
@@ -171,11 +172,13 @@ export default function PaymentForm({
                 first: userInfo.firstName,
                 last: userInfo.lastName,
                 email: userInfo.email,
-                ...data,
+                ...data.payedOrder,
             });
+            saveOrderData(data.payedOrder);
             nextStep();
         } catch (err) {
             alert(getError(err));
+            router.push("/carrello");
         }
     };
 

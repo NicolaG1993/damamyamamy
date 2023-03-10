@@ -23,6 +23,7 @@ export default function Checkout() {
     let { cart, shippingAddress, paymentMethod } = cartState;
 
     const [activeStep, setActiveStep] = useState(1);
+    const [payedOrder, setPayedOrder] = useState();
 
     useEffect(() => {
         if (!userInfo) {
@@ -41,6 +42,9 @@ export default function Checkout() {
     };
     const backStep = () => {
         setActiveStep((prev) => prev > 1 && prev <= 3 && prev - 1);
+    };
+    const saveOrderData = (obj) => {
+        obj && setPayedOrder(obj);
     };
     const confirmShippingAddress = (data) => {
         dispatch(saveShippingAddress(data));
@@ -85,6 +89,7 @@ export default function Checkout() {
                 paymentMethod={paymentMethod}
                 nextStep={nextStep}
                 backStep={backStep}
+                saveOrderData={saveOrderData}
             />
         );
 
@@ -93,11 +98,19 @@ export default function Checkout() {
             <div>
                 <h3>Grazie per il tuo acquisto {userInfo.firstName}!</h3>
                 <p>Il tuo ordine é andato a buon fine</p>
-                <p>ID ordine: #{}</p>
+                <p>
+                    Ordine:{" "}
+                    <Link href={`/ordine/${payedOrder.order_uuid}`}>
+                        {payedOrder.order_uuid}
+                    </Link>
+                </p>
             </div>
 
             <div>
-                <Link href={"/"} className="button">
+                <Link
+                    href={`/ordine/${payedOrder.order_uuid}`}
+                    className="button"
+                >
                     Vedi il tuo ordine
                 </Link>
                 <Link href={"/"} className="button">

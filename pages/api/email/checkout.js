@@ -10,6 +10,7 @@ export default async function handler(req, res) {
                 email,
                 order_uuid,
                 total_price,
+                order_items,
                 phone,
                 message,
                 sender,
@@ -25,10 +26,22 @@ export default async function handler(req, res) {
                         <p>ID ordine: ${order_uuid}</p>
                         <div>
                             <h3>Articoli acquistati:</h3>
-                            ${""}
+                            ${order_items.map((el) => {
+                                console.log("🔍🔍🔍 ", el);
+                                return `<div
+                                        key=${"articolo: " + el.id}
+                                        style="display: flex; align-items: center;"
+                                    >
+                                        <p>${el.name}</p>
+                                        <p style="padding: 0 20px;">€ ${
+                                            el.price
+                                        }</p>
+                                        <p>x${el.quantity}</p>
+                                    </div>`;
+                            })}
                             <p>Importo totale: € ${total_price}</p>
                         </div>
-                        <a href="www.damamyamamy.com/order/${order_uuid}">Vedi il tuo ordine sul nostro sito</a>
+                        <a href="www.damamyamamy.com/ordine/${order_uuid}">Vedi il tuo ordine sul nostro sito</a>
                         <p>Grazie per averci scelto!</p>`,
                 // phone: phone,
             };
