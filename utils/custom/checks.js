@@ -5,7 +5,9 @@ const checkUser = async (user) => {
         if (!user) {
             return false;
         } else {
-            let { data } = await axios.get(`/api/get/user/${user.id}`);
+            let { data } = await axios.get(`/api/get/user/${user.id}`, {
+                headers: { authorization: `Bearer ${user.token}` },
+            });
             if (data.is_admin) {
                 return true;
             } else {

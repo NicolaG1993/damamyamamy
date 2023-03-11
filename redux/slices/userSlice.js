@@ -11,8 +11,7 @@ const userSlice = createSlice({
     reducers: {
         userLogin: (state, action) => {
             Cookies.set("userInfo", JSON.stringify(action.payload));
-            let clone = (({ token, ...obj }) => obj)(action.payload);
-            state.user = clone;
+            state.user = action.payload;
         },
         userLogout: (state) => {
             Cookies.remove("userInfo");

@@ -6,8 +6,13 @@ import { shallowEqual, useSelector } from "react-redux";
 import { selectUserState } from "@/redux/slices/userSlice";
 import { checkUser } from "@/utils/custom/checks";
 import { getError } from "@/utils/error";
+import Link from "next/link";
+import { formatDateEU } from "@/utils/convertTimestamp";
 
 export default function Articoli() {
+    //================================================================================
+    // Component State
+    //================================================================================
     const router = useRouter();
     let userInfo = useSelector(selectUserState);
     const [isAdmin, setIsAdmin] = useState(false);
@@ -31,6 +36,9 @@ export default function Articoli() {
         }
     };
 
+    //================================================================================
+    // API
+    //================================================================================
     const fetchData = async () => {
         try {
             const { data } = await axios.get("/api/admin/all-orders", {
@@ -43,27 +51,50 @@ export default function Articoli() {
         }
     };
 
+    //================================================================================
+    // Render UI
+    //================================================================================
     return (
         <main>
             <section className="page">
                 <h1>Tutti gli ordini</h1>
-                <div className="list" id="ItemsList">
+                <Link href={"/admin"} className="back-link">
+                    Torna indietro
+                </Link>
+                <div className="list" id="OrdersList">
                     {isAdmin ? (
                         orders && orders.length ? (
                             <>
-                                <div className="listHead"></div>
-                                {orders.map((order) => (
-                                    <div
-                                        key={"order " + order.id}
+                                <div className="listHead">
+                                    <p>ID</p>
+                                    <p>Data</p>
+                                    <p>Importo</p>
+                                    <p>Stato</p>
+                                    <p>Consegnato</p>
+                                </div>
+                                {orders.map((el) => (
+                                    <Link
+                                        key={el.order_uuid}
+                                        href={`/admin/vedi/ordine/${el.order_uuid}`}
                                         className="listItem"
-                                    ></div>
+                                    >
+                                        <p># {el.order_uuid}</p>
+                                        <p>{formatDateEU(el.created_at)}</p>
+                                        <p>€ {el.total_price}</p>
+                                        <p>
+                                            {el.is_paid
+                                                ? "Pagato"
+                                                : "Annullato"}
+                                        </p>
+                                        <p>{el.is_delivered ? "Sì" : "No"}</p>
+                                    </Link>
                                 ))}
                             </>
                         ) : (
-                            <p>Nessun risultato</p>
+                            <p className="center">Nessun risultato</p>
                         )
                     ) : (
-                        <p>Caricamento...</p>
+                        <p className="center">Caricamento...</p>
                     )}
                 </div>
             </section>

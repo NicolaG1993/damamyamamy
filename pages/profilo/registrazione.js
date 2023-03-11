@@ -28,7 +28,7 @@ export default function Registrazione() {
     const [errors, setErrors] = useState({});
 
     const router = useRouter();
-    const { redirect } = router.query;
+    const { redirect } = router.query; // non in uso
     const dispatch = useDispatch();
     let userInfo = useSelector(selectUserState, shallowEqual);
     if (userInfo) {

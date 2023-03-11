@@ -32,9 +32,15 @@ export default function NuovoAdmin() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { data } = await axios.post("/api/admin/new/admin", {
-                id: userID,
-            });
+            const { data } = await axios.post(
+                "/api/admin/new/admin",
+                {
+                    id: userID,
+                },
+                {
+                    headers: { authorization: `Bearer ${userInfo.token}` },
+                }
+            );
             // setUserID();
             setSuccess(data);
         } catch (err) {

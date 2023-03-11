@@ -247,6 +247,9 @@ a:hover,
 .back-button {
     margin: 0rem 0.65rem;
 }
+.back-link {
+    margin: -1.5rem 0 1rem 0;
+}
 
 /* LAYOUT */
 header {
@@ -449,9 +452,11 @@ footer a {
 }
 .listItem a,
 .listItem .action,
-.listItem *:last-child,
-.listHead *:last-child {
+.listItem *:last-child {
     /* padding: 0 0 0 1rem; */
+    text-align: end;
+}
+.listHead *:last-child {
     text-align: end;
 }
 .listItem a:hover,
@@ -469,7 +474,7 @@ footer a {
 }
 #OrdersList > .listHead,
 #OrdersList > .listItem {
-    grid-template-columns: 1fr 120px 90px 120px;
+    grid-template-columns: 1fr 120px 90px 80px 80px;
 }
 
 /* CONDITION CIRCLES */

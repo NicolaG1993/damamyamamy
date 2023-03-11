@@ -27,6 +27,7 @@ export default function Ordini() {
     //================================================================================
     const fetchData = async () => {
         try {
+            console.log("💚🔍 userInfo", userInfo);
             const { data } = await axios.get(`/api/get/all-orders`, {
                 headers: { authorization: `Bearer ${userInfo.token}` },
             });
@@ -46,20 +47,38 @@ export default function Ordini() {
                 <h1>Tutti i tuoi ordini</h1>
                 <div className="list" id="OrdersList">
                     {orders ? (
-                        orders.map((el) => (
-                            <Link
-                                key={el.order_uuid}
-                                href={`/ordine/${el.order_uuid}`}
-                                className="listItem"
-                            >
-                                <p># {el.order_uuid}</p>
-                                <p>{formatDateEU(el.created_at)}</p>
-                                <p>€ {el.total_price}</p>
-                                <p>{el.is_paid ? "Confermato" : "Annullato"}</p>
-                            </Link>
-                        ))
+                        orders.length ? (
+                            <>
+                                <div className="listHead">
+                                    <p>ID</p>
+                                    <p>Data</p>
+                                    <p>Importo</p>
+                                    <p>Stato</p>
+                                    <p>Consegnato</p>
+                                </div>
+                                {orders.map((el) => (
+                                    <Link
+                                        key={el.order_uuid}
+                                        href={`/ordine/${el.order_uuid}`}
+                                        className="listItem"
+                                    >
+                                        <p># {el.order_uuid}</p>
+                                        <p>{formatDateEU(el.created_at)}</p>
+                                        <p>€ {el.total_price}</p>
+                                        <p>
+                                            {el.is_paid
+                                                ? "Pagato"
+                                                : "Annullato"}
+                                        </p>
+                                        <p>{el.is_delivered ? "Sì" : "No"}</p>
+                                    </Link>
+                                ))}
+                            </>
+                        ) : (
+                            <p className="center">Nessun ordine</p>
+                        )
                     ) : (
-                        <p>Nessun ordine</p>
+                        <p className="center">Caricamento...</p>
                     )}
                 </div>
             </section>

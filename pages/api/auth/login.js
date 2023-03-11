@@ -10,9 +10,6 @@ export default async function handler(req, res) {
             let { rows } = await getUserByEmail(email);
             if (rows.length) {
                 let user = rows[0];
-
-                // console.log("ERROR: ", err);
-
                 if (bcrypt.compareSync(req.body.password, user.psw)) {
                     const token = signToken(user);
                     res.send({

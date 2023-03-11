@@ -8,10 +8,11 @@ function Profilo() {
     const router = useRouter();
     const dispatch = useDispatch();
 
-    let userInfo = useSelector(selectUserState, shallowEqual);
+    let userInfo = useSelector(selectUserState);
     if (!userInfo) {
         router.push("/profilo/login");
     }
+    console.log("User: ", userInfo);
 
     const logout = () => {
         dispatch(userLogout());
@@ -35,9 +36,10 @@ function Profilo() {
                     <Link className="button" href={"/profilo/ordini"}>
                         I tuoi ordini
                     </Link>
-                    <button disabled className="button-disabled">
+                    <Link className="button" href={"/profilo/modifica"}>
                         Modifica profilo
-                    </button>
+                    </Link>
+
                     <button onClick={() => logout()} className="button">
                         Esci
                     </button>

@@ -135,6 +135,22 @@ module.exports.upgradeUser = (id) => {
     const key = [id];
     return db.query(myQuery, key);
 };
+module.exports.confirmShipping = (uuid) => {
+    const myQuery = `UPDATE orders 
+    SET is_delivered = true
+    WHERE order_uuid = $1
+    RETURNING *`;
+    const key = [uuid];
+    return db.query(myQuery, key);
+};
+module.exports.editUser = (id, firstName, lastName) => {
+    const myQuery = `UPDATE users 
+    SET first_name = COALESCE($2, first_name), last_name = COALESCE($3, last_name)
+    WHERE id = $1
+    RETURNING *`;
+    const keys = [id, firstName, lastName];
+    return db.query(myQuery, keys);
+};
 module.exports.editPassword = (email, password) => {
     const myQuery = `UPDATE users SET psw = $2 WHERE email = $1`;
     const keys = [email, password];
@@ -387,7 +403,7 @@ module.exports.getAllUsers = () => {
     return db.query(myQuery);
 };
 module.exports.getAllOrders = () => {
-    const myQuery = `SELECT * FROM orders ORDER BY created_at DESC`;
+    const myQuery = `SELECT * FROM orders ORDER BY id DESC`;
     return db.query(myQuery);
 };
 module.exports.getAllCategories = () => {

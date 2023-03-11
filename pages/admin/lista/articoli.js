@@ -49,6 +49,9 @@ export default function Articoli() {
         <main>
             <section className="page">
                 <h1>Tutti gli articoli</h1>
+                <Link href={"/admin"} className="back-link">
+                    Torna indietro
+                </Link>
                 <div className="list" id="ItemsList">
                     {isAdmin ? (
                         items && items.length ? (

@@ -76,9 +76,9 @@ NON PRIORITARIO:
 • 💚 Creare primo admin
 
 09.03.2023
-• sezione ordini per Admin
+• 💚 sezione ordini per Admin
 • 💚 sezione ordini per user
-• modifica profilo per user
+• 🧠 modifica profilo per user
 
 10.03.2023
 • 💚 restore password process
@@ -90,6 +90,7 @@ NON PRIORITARIO:
 
 • PICCOLEZZE
 
+• 🧨 stripe: payment intent di crea solo DOPO che non ci sono errori in stripeForm
 • eliminare tutti log to console
 
 ---

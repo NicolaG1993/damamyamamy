@@ -6,10 +6,9 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import styles from "@/styles/Order.module.css";
 import { formatDateWithTimeEU } from "@/utils/convertTimestamp";
+import { getError } from "@/utils/error";
 
 export default function Ordine() {
-    // solo admin e matching user 🧠
-
     //================================================================================
     // Component State
     //================================================================================
@@ -30,16 +29,14 @@ export default function Ordine() {
     }, [uuid]);
 
     //================================================================================
-    // Functions
-    //================================================================================
-
-    //================================================================================
     // API
     //================================================================================
     const fetchData = async () => {
         if (uuid) {
             try {
-                const { data } = await axios.get(`/api/get/order/${uuid}`);
+                const { data } = await axios.get(`/api/get/order/${uuid}`, {
+                    headers: { authorization: `Bearer ${userInfo.token}` },
+                });
                 console.log("💚 order:", data);
                 setOrder(data);
             } catch (err) {
@@ -62,6 +59,11 @@ export default function Ordine() {
                 <Link href={"/profilo/ordini"} className={styles.goBack}>
                     Torna indietro
                 </Link>
+                {error && (
+                    <div className="error">
+                        <p>{getError(error)}</p>
+                    </div>
+                )}
                 {order ? (
                     <div className={styles.orderWrap}>
                         <div>

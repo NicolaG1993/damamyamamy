@@ -1,12 +1,23 @@
+import { isAuth } from "@/utils/auth";
 import { getOrderByUUID } from "@/utils/db/db";
 
-export default async function handler(req, res) {
+async function handler(req, res) {
+    const loggedUser = req.user;
     const uuid = req.query.uuid;
     try {
         let { rows } = await getOrderByUUID(uuid);
         if (rows.length) {
             let order = rows[0];
-            res.status(200).send(order);
+            if (
+                Number(order.user_id) === Number(loggedUser.id) ||
+                loggedUser.is_admin
+            ) {
+                res.status(200).send(order);
+            } else {
+                res.status(401).send({
+                    message: "Non sei autorizzato.",
+                });
+            }
         } else {
             res.status(404).send({
                 message: "Nessun ordine trovato.",
@@ -18,4 +29,4 @@ export default async function handler(req, res) {
     }
 }
 
-// middleware matching user and admin only! 🔍🧠🔍
+export default isAuth(handler);

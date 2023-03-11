@@ -6,6 +6,7 @@ import { shallowEqual, useSelector } from "react-redux";
 import { selectUserState } from "@/redux/slices/userSlice";
 import { checkUser } from "@/utils/custom/checks";
 import { getError } from "@/utils/error";
+import Link from "next/link";
 
 export default function Utenti() {
     const router = useRouter();
@@ -47,6 +48,9 @@ export default function Utenti() {
         <main>
             <section className="page">
                 <h1>Tutti gli utenti</h1>
+                <Link href={"/admin"} className="back-link">
+                    Torna indietro
+                </Link>
                 <div className="list" id="UsersList">
                     {isAdmin ? (
                         users && users.length ? (
