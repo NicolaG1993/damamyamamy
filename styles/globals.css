@@ -406,6 +406,8 @@ footer a {
     flex-direction: column;
     justify-content: space-between;
     border-radius: 12px;
+    width: 100%;
+    max-width: 900px;
 }
 .listHead,
 .listItem {
@@ -446,7 +448,9 @@ footer a {
     white-space: nowrap;
 }
 .listItem a,
-.listItem .action {
+.listItem .action,
+.listItem *:last-child,
+.listHead *:last-child {
     /* padding: 0 0 0 1rem; */
     text-align: end;
 }
@@ -462,6 +466,10 @@ footer a {
 #ItemsList > .listHead,
 #ItemsList > .listItem {
     grid-template-columns: 75px 1fr 0.5fr 0.5fr 0.5fr 40px 40px;
+}
+#OrdersList > .listHead,
+#OrdersList > .listItem {
+    grid-template-columns: 1fr 120px 90px 120px;
 }
 
 /* CONDITION CIRCLES */

@@ -278,6 +278,16 @@ module.exports.getItem = (id) => {
     const key = [id];
     return db.query(myQuery, key);
 };
+module.exports.getOrderByUUID = (uuid) => {
+    const myQuery = `SELECT * FROM orders WHERE order_uuid = $1`;
+    const key = [uuid];
+    return db.query(myQuery, key);
+};
+module.exports.getOrders = (user) => {
+    const myQuery = `SELECT * FROM orders WHERE user_id = $1 ORDER BY id DESC`;
+    const key = [user];
+    return db.query(myQuery, key);
+};
 module.exports.getCode = (code) => {
     const myQuery = `SELECT * FROM code WHERE code = $1`;
     const key = [code];

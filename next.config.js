@@ -33,6 +33,7 @@ const nextConfig = {
         RECAPTCHA_PUBLIC_KEY: process.env.RECAPTCHA_PUBLIC_KEY,
         RECAPTCHA_SECRET_KEY: process.env.RECAPTCHA_SECRET_KEY,
         EMAIL_URL: process.env.EMAIL_URL,
+        DOMAIN: process.env.DOMAIN,
     },
 
     webpack(config) {

@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { selectUserState, userLogout } from "@/redux/slices/userSlice";
-import Cookies from "js-cookie";
+import Link from "next/link";
 
 function Profilo() {
     const router = useRouter();
@@ -15,8 +15,6 @@ function Profilo() {
 
     const logout = () => {
         dispatch(userLogout());
-        // Cookies.remove("userInfo");
-        // Cookies.remove("cartItems");
         router.push("/");
     };
 
@@ -34,6 +32,9 @@ function Profilo() {
                     <h3>Email: {userInfo && userInfo.email}</h3>
                 </div>
                 <div className={"document-double-button-wrap"}>
+                    <Link className="button" href={"/profilo/ordini"}>
+                        I tuoi ordini
+                    </Link>
                     <button disabled className="button-disabled">
                         Modifica profilo
                     </button>

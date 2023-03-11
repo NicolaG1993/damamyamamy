@@ -256,7 +256,7 @@ export default function PaymentForm({
 
                 <TermsBox />
 
-                {cartData && paymentMethod === "PayPal" && (
+                {cartData && paymentMethod === "PayPal" && termsAccepted && (
                     <PayPalForm
                         createOrder={createOrder}
                         updateDB={updateDB}

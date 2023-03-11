@@ -5,7 +5,6 @@ import { selectUserState } from "@/redux/slices/userSlice";
 import { shallowEqual, useSelector } from "react-redux";
 import { checkUser } from "@/utils/custom/checks";
 import { getError } from "@/utils/error";
-import styles from "@/components/Forms/Form.module.css";
 import {
     decimalValidation,
     numberValidation,
@@ -228,7 +227,6 @@ export default function ModificaArticolo() {
     //================================================================================
     // Render UI
     //================================================================================
-
     return (
         <main>
             <section className="page">

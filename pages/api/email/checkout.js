@@ -41,7 +41,9 @@ export default async function handler(req, res) {
                             })}
                             <p>Importo totale: € ${total_price}</p>
                         </div>
-                        <a href="www.damamyamamy.com/ordine/${order_uuid}">Vedi il tuo ordine sul nostro sito</a>
+                        <a href="${
+                            process.env.DOMAIN
+                        }/ordine/${order_uuid}">Vedi il tuo ordine sul nostro sito</a>
                         <p>Grazie per averci scelto!</p>`,
                 // phone: phone,
             };

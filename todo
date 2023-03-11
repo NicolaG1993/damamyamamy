@@ -77,20 +77,20 @@ NON PRIORITARIO:
 
 09.03.2023
 • sezione ordini per Admin
-• sezione ordini per user
+• 💚 sezione ordini per user
 • modifica profilo per user
 
 10.03.2023
 • 💚 restore password process
+• Aggiungere tutti Head e fare SEO
 
-
+11.03.2023
+• 🧨 Sistemare name checks in forms
 ---
 
 • PICCOLEZZE
 
-🔍 in order deve essere salvato shipping_price (0 se ritiro, "a carico del cliente" se spedizione) oppure solo string?
-🔍 user deve poter modificare profilo
-🔍 user deve poter richiedere assistenza per password e resettarla
+• eliminare tutti log to console
 
 ---
 
