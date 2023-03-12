@@ -41,7 +41,7 @@ export default function Contatto() {
         nextStep();
         try {
             const resp = await axios.post("/api/email/contact-us", formState);
-            console.log("resp: ", resp);
+            // console.log("resp: ", resp);
             if (resp.data.emailSended) {
                 setIsFailed(false);
                 setIsFinished(true);
@@ -49,7 +49,7 @@ export default function Contatto() {
                 setIsFailed(resp.data.body);
             }
         } catch (err) {
-            console.log("err in sendEmail(): ", err); //handle error
+            console.log("🐞 ERR: ", err); //handle error
             setIsFailed(err);
         }
     };

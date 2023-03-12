@@ -11,7 +11,6 @@ export default function HamburgerButton({ toggleNav }) {
     let layouts = useSelector(selectLayoutsState, shallowEqual);
 
     const getBtnStyle = () => {
-        console.log("getBtnStyle activated!", layouts);
         if (layouts[1].status) {
             return styles["hamBtn-active"];
         } else {

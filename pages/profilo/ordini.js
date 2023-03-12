@@ -28,11 +28,10 @@ export default function Ordini() {
     //================================================================================
     const fetchData = async () => {
         try {
-            console.log("💚🔍 userInfo", userInfo);
             const { data } = await axios.get(`/api/get/all-orders`, {
                 headers: { authorization: `Bearer ${userInfo.token}` },
             });
-            console.log("💚🔍 data", data);
+
             setOrders(data);
         } catch (err) {
             console.log("ERROR!", err);

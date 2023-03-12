@@ -29,8 +29,6 @@ export default function MultipleSelector({
     const [availableOptions, setAvailableOptions] = useState();
     const [selection, setSelection] = useState(currentState);
     const [valueIsNew, setValueIsNew] = useState(false);
-    // console.log("💚💚 currentState:", currentState);
-    // console.log("💚💚 selection:", selection);
     useEffect(() => {
         if (openSection === label) {
             fetchData();
@@ -43,9 +41,6 @@ export default function MultipleSelector({
     }, [currentState]);
 
     useEffect(() => {
-        // console.log("💚 allOptions:", allOptions);
-        // console.log("📝 inputValue:", inputValue);
-        // console.log("🧠 selection:", selection);
         selection && updateFormState(selection, label);
 
         if (allOptions) {
@@ -63,7 +58,7 @@ export default function MultipleSelector({
                     pattern.test(name.toLowerCase())
                 );
             }
-            // console.log("🔍 parsedData:", parsedData);
+
             setAvailableOptions(parsedData);
         }
     }, [allOptions, inputValue, selection]);
@@ -85,7 +80,7 @@ export default function MultipleSelector({
                         headers: { authorization: `Bearer ${userInfo.token}` },
                     }
                 );
-                // console.log("💚 ADD NEW WORKED! ", data);
+
                 fetchData();
                 setSelection((prevState) => [...prevState, data]);
                 handleInput();

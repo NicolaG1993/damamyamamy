@@ -4,10 +4,6 @@ import styles from "./Filters.module.css";
 import PageNav from "./PageNav";
 
 export default function ShopFilters({ filters, handleFilters, allCategories }) {
-    useEffect(() => {
-        console.log("filters: ", filters);
-    }, [filters]);
-
     return (
         <form id={styles.ShopFilters}>
             <div className={styles.searchBarWrap}>

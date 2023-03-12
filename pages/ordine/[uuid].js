@@ -38,7 +38,7 @@ export default function Ordine() {
                 const { data } = await axios.get(`/api/get/order/${uuid}`, {
                     headers: { authorization: `Bearer ${userInfo.token}` },
                 });
-                console.log("💚 order:", data);
+
                 setOrder(data);
             } catch (err) {
                 console.log("ERROR!", err);

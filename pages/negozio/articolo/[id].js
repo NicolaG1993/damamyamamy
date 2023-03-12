@@ -21,7 +21,6 @@ export default function Articolo({ item }) {
     const [galleryOpen, setGalleryOpen] = useState(false);
     const [clickedPic, setClickedPic] = useState(0);
     const [shortListData, setShortListData] = useState([]);
-    console.log("item", item);
 
     //================================================================================
     // Functions

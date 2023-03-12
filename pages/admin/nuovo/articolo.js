@@ -120,14 +120,14 @@ export default function NuovoArticolo() {
             try {
                 // const file = e.target.files[0];
                 let { data } = await uploadImages(newImages);
-                console.log("S3 res!", data);
+
                 if (data.length) {
                     data = data.map((obj) => obj.Location);
                 }
                 // let { files } = fileInput.current;
                 // const { data } = await uploadImages(files);
                 const res = await createItem({ ...formState, pics: data });
-                console.log("res!", res.data);
+
                 router.push("/admin/lista/articoli");
             } catch (err) {
                 alert(getError(err));
@@ -139,14 +139,13 @@ export default function NuovoArticolo() {
     // API
     //================================================================================
     const uploadImages = (files) => {
-        console.log("💚🔍 files", files);
         if (files) {
             const formData = new FormData();
             files.forEach((file) => {
                 formData.append("arrOfFiles", file.file);
             });
             formData.append("folder", "item");
-            console.log("💚🔍 formData", formData);
+
             return axios.post("/api/admin/upload-pic", formData, {
                 headers: { authorization: `Bearer ${userInfo.token}` },
             });

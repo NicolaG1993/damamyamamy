@@ -105,11 +105,10 @@ export default function PaymentForm({
     // API Req
     //================================================================================
     const fetchCart = async (arr) => {
-        console.log("🔍 fetchCart invoked!", arr);
         if (arr) {
             try {
                 const { data } = await axios.post(`/api/get/cart`, arr);
-                // console.log("💚 cartData: ", data.cart);
+
                 setCartData(data.cart);
                 if (data.changes) {
                     dispatch(updateCart(data.cart));
@@ -125,7 +124,6 @@ export default function PaymentForm({
     };
 
     const createOrder = async () => {
-        console.log("🔍 createOrder invoked!");
         try {
             setLoading(true);
             await fetchCart(cartData); // check stock prima di creare ordine // devo passare arg come cartItems
@@ -146,7 +144,7 @@ export default function PaymentForm({
                 { headers: { authorization: `Bearer ${userInfo.token}` } }
             );
             setLoading(false);
-            console.log("🥶 data:", data);
+
             return data.id;
         } catch (err) {
             // router.push("/carrello");
@@ -155,7 +153,6 @@ export default function PaymentForm({
     };
 
     const updateDB = async (paymentResult, userInfo, newOrderID) => {
-        console.log("🔍 updateDB invoked", newOrderID, paymentResult);
         try {
             const { data } = await axios.put(
                 `/api/checkout/pay/${newOrderID}`,
@@ -166,7 +163,7 @@ export default function PaymentForm({
                     },
                 }
             );
-            console.log("💚 updateDB response! paySuccess!", data);
+
             dispatch(emptyCart());
             await axios.post("/api/email/checkout", {
                 first: userInfo.firstName,

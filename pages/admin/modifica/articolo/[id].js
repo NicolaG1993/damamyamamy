@@ -127,7 +127,7 @@ export default function ModificaArticolo() {
                     ...formState,
                     pics: [...data, ...storedImages],
                 });
-                console.log("res!", res.data);
+
                 router.push("/admin/lista/articoli");
             } catch (err) {
                 alert(getError(err));
@@ -141,7 +141,7 @@ export default function ModificaArticolo() {
     const fetchData = async () => {
         try {
             const { data } = await axios.get(`/api/get/item/${id}`);
-            console.log("💚🔍 data", data);
+
             setFormState(data);
             setOriginalData(data);
             setStoredImages(data.pics);
@@ -157,7 +157,7 @@ export default function ModificaArticolo() {
                 formData.append("arrOfFiles", file.file);
             });
             formData.append("folder", "item");
-            console.log("💚🔍 formData", formData);
+
             return axios.post("/api/admin/upload-pic", formData, {
                 headers: { authorization: `Bearer ${userInfo.token}` },
             });
@@ -167,7 +167,6 @@ export default function ModificaArticolo() {
     };
 
     const editItem = async (obj) => {
-        console.log("💚 obj: ", obj);
         let relatedData = {};
         let relations = [
             { topic: "tags", label: "tag" },
@@ -188,10 +187,6 @@ export default function ModificaArticolo() {
         let removedRelations = {};
 
         Object.entries(relatedData).map(([key, arr], i) => {
-            console.log("💚 arr: ", arr);
-            console.log("💚 relatedData: ", relatedData);
-            // console.log("💚 originalData: ", originalData);
-
             // reduce originalData array to only IDs
             let ogIDs = originalData[key]
                 ? originalData[key].map(({ id }) => id)

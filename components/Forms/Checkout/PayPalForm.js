@@ -23,7 +23,6 @@ function PayPalForm({
     const [{ ispending }, paypalDispatch] = usePayPalScriptReducer();
 
     useEffect(() => {
-        console.log("PP COMPONENT RENDERS!");
         loadPayPalScript();
     }, []);
 
@@ -36,7 +35,6 @@ function PayPalForm({
                 purchase_units: [{ amount: { value: total_price } }],
             })
             .then((orderID) => {
-                console.log("🥶 orderID:", orderID);
                 return orderID;
             });
     };
@@ -58,13 +56,10 @@ function PayPalForm({
 
     const onApprove = async (data, actions) => {
         try {
-            console.log("🥶 onApprove data:", data);
-            console.log("🥶 onApprove actions.order:", actions.order);
-
             let newOrderID = await createOrder();
             if (newOrderID) {
                 let details = await actions.order.capture();
-                console.log("🥶 details:", details);
+
                 updateDB(details, userInfo, newOrderID);
             }
         } catch (err) {

@@ -34,16 +34,16 @@ export default function Home() {
     const fetchData = async () => {
         try {
             const { data } = await axios.get("/api/hello");
-            console.log("💚 data: ", data);
+            // console.log("💚 data: ", data);
             setLastItems(data.lastItems);
             setLowerPriceItem(data.lowerPrice);
         } catch (err) {
             setLastItems();
             setLowerPriceItem();
+            console.log("🐞 ERROR: ", getError(err));
             alert(
                 "Sembra che abbiamo dei problemi con il nostro sito, riprova piú tardi oppure contattaci al 347 9792 644, ci scusiamo per il disagio."
             );
-            // alert(getError(err));
         }
     };
 
@@ -76,7 +76,6 @@ export default function Home() {
                 {lowerPriceItem && <PicAndTextSection item={lowerPriceItem} />}
                 <section className={styles.intro}>
                     <h2>Vuoi vendere i tuoi articoli?</h2>
-                    {/* <p>Scopri come fare</p> */}
                     <Link className="button" href={"/documenti/regolamento"}>
                         Scopri come fare
                     </Link>

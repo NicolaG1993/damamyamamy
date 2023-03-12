@@ -28,11 +28,9 @@ export default function Negozio() {
     // }, []);
     useEffect(() => {
         fetchData({ ...storedFilters, countPerPage });
-        // console.log("💚 storedFilters: ", storedFilters);
     }, [storedFilters]);
 
     const handleFilters = (name, value) => {
-        console.log("handleFilters: ", name, value);
         // let newState = { ...filtersState, [name]: value };
         // setFiltersState(newState);
 
@@ -49,7 +47,7 @@ export default function Negozio() {
     const fetchData = async (obj) => {
         try {
             const { data } = await axios.post("/api/get/all-items", obj);
-            console.log("💚 data: ", data);
+
             setItems(data.items);
             setAllCategories(data.all_categories);
             setTotalPages(

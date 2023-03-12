@@ -4,23 +4,6 @@
 💚 Ricreare DB in postgresql
 💚 Ideare un nuovo design, piú clean e pro (no dark mode, solo white mode)
 
-SEZIONI:
-💚 Auth (login, profilo, admin user, ...)
-💚 Admin (add, remove, edit products, users, orders)
-💚 Shop (dinamic components, fetches, responsive design, new design, filters)
-💚 Cart (add and remove items, design, API requests)
-💚 Checkout (checkout forms, PayPal, Stripe, API requests)
-
-NON PRIORITARIO:
-• Aggiungere PayPal e Stripe logos
-• Aggiungere sezione feed IG o Google reviews
-• vedi "registrazione.js" per cose non aggiunte, tipo snackbar o redux per user State
-• bisogna bloccare submit button in ItemForm quando si preme, finche promise non sono risolte o si riceve errore
-💚 save form states in cookies (serve sempre per tutti? quando pulire?)
-• err handling e req responses confirmations like a pro
-• vedere bene tutti i dynamic imports
-• newsletter
-
 26.02.2023
 • 💚aggiungere middleware per admin api routes
 • 💚add/edit item form and api and components
@@ -88,23 +71,39 @@ NON PRIORITARIO:
 • 💚 Sistemare/controllare checks in forms
 • 💚 stripe: order in db si crea solo DOPO che non ci sono errori in pagamento
 
+12.03.2023
+• 💚 eliminare tutti log to console
+
 ---
 
-• PICCOLEZZE
+SEZIONI:
+💚 Auth (login, profilo, admin user, ...)
+💚 Admin (add, remove, edit products, users, orders)
+💚 Shop (dinamic components, fetches, responsive design, new design, filters)
+💚 Cart (add and remove items, design, API requests)
+💚 Checkout (checkout forms, PayPal, Stripe, API requests)
 
-• 🧠 eliminare tutti log to console
+NON PRIORITARIO:
+• Aggiungere PayPal e Stripe logos
+• Aggiungere sezione feed IG o Google reviews
+• vedi "registrazione.js" per cose non aggiunte, tipo snackbar o redux per user State
+• bisogna bloccare submit button in ItemForm quando si preme, finche promise non sono risolte o si riceve errore
+💚 save form states in cookies (serve sempre per tutti? quando pulire?)
+• err handling e req responses confirmations like a pro
+• vedere bene tutti i dynamic imports
+• newsletter
+
+PICCOLEZZE
 • guardare bene come vanno fatti: manifest.json, robots.txt, sitemap.xml
 
 ---
 
-• BIG STEPS LEFT
+• BIG STEPS LEFT (Marzo 2023)
 
-1. Items (Add/Modify) + S3 Bucket
-2. Shop UI
-3. Cart
-4. Checkout
-
-
+1. 💚 Items (Add/Modify) + S3 Bucket
+2. 💚 Shop UI
+3. 💚 Cart
+4. 💚 Checkout
 
 ----------------------
 DA TESTARE IN PROD MODE:

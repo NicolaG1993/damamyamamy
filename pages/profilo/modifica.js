@@ -32,7 +32,6 @@ export default function Modifica() {
         if (id === "First" || id === "Last") {
             const resp = nameValidation("nome", value);
             if (resp) {
-                console.log("nameValidation:", resp);
                 setErrors({ ...errors, [name]: resp });
             } else {
                 delete newErrObj[name];

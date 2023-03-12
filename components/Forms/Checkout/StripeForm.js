@@ -59,7 +59,6 @@ function StripeForm({
     };
 
     const handleSubmit = async (e) => {
-        console.log("🐠 handleSubmit invoked", error);
         if (!error) {
             e.preventDefault();
             setProcessing(true);
@@ -76,7 +75,6 @@ function StripeForm({
         // shipping,
         total_price
     ) => {
-        console.log("🐠 createPaymentIntent invoked");
         try {
             const { data } = await axios.post(
                 `/api/checkout/stripe/create-payment-intent`,
@@ -88,14 +86,12 @@ function StripeForm({
                 }
             );
             setClientSecret(data.clientSecret);
-            console.log("💚 createPaymentIntent data: ", data);
         } catch (err) {
             alert(getError(err));
         }
     };
 
     const payOrder = async (userInfo, clientSecret) => {
-        console.log("🐠 payOrder invoked");
         try {
             if (!stripe || !elements) return;
             const payload = await stripe.confirmCardPayment(clientSecret, {
@@ -111,7 +107,7 @@ function StripeForm({
                 setError(null);
                 setProcessing(false);
                 setSucceeded(true);
-                console.log("stripe order", payload);
+                // console.log("stripe order", payload);
                 updateDB(payload.paymentIntent, userInfo, newOrderID);
             }
         } catch (err) {

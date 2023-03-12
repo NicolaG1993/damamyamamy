@@ -13,7 +13,7 @@ function Profilo() {
     if (!userInfo) {
         router.push("/profilo/login");
     }
-    console.log("User: ", userInfo);
+    // console.log("User: ", userInfo);
 
     const logout = () => {
         dispatch(userLogout());

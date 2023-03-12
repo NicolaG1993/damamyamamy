@@ -1,12 +1,10 @@
 const parseFormRelationsEdit = (relatedData, propsData) => {
-    console.log("💛💛💛 parseFormRelationsEdit", relatedData, propsData);
     // !important that we need ids and not names for db update
     let addedRelations = {};
     let removedRelations = {};
 
     if (relatedData) {
         Object.entries(relatedData).map(([key, arr], i) => {
-            console.log("💛💛💛 parseFormRelationsEdit data", key, arr);
             let standardMethod = (arr, propsData, key) => {
                 return arr
                     .filter(

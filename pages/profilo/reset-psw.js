@@ -55,7 +55,7 @@ export default function ResetPsw() {
 
     function handleEmailSubmit(e) {
         // e.preventDefault();
-        console.log("handleEmailSubmit: ", email);
+
         validateData("email", email);
         if (email && !formError) {
             recaptchaRef.current.execute();
@@ -63,7 +63,6 @@ export default function ResetPsw() {
     }
 
     async function handlePswSubmit(e) {
-        console.log("handlePswSubmit: ", password);
         e.preventDefault;
         try {
             validateData("password", password);
