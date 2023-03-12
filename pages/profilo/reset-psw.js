@@ -5,6 +5,7 @@ import { emailValidation, passwordValidation } from "@/utils/validateForms";
 import { getError } from "@/utils/error";
 import axios from "axios";
 import ReCAPTCHA from "react-google-recaptcha";
+import Head from "next/head";
 
 export default function ResetPsw() {
     //================================================================================
@@ -237,6 +238,15 @@ export default function ResetPsw() {
     //================================================================================
     return (
         <main>
+            <Head>
+                <title>Reimposta la tua password • Da Mamy a Mamy</title>
+                <meta property="og:type" content="website" />
+                <meta
+                    property="og:title"
+                    content="Reimposta la tua password • Da Mamy a Mamy"
+                />
+            </Head>
+
             <section className="page">
                 <h1>Reset Password</h1>
                 {error && <div className="error">{getError(error)}</div>}

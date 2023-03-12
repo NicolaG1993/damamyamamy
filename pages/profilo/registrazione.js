@@ -14,6 +14,7 @@ import {
     confirmPassword,
 } from "@/utils/validateForms";
 import { getError } from "@/utils/error";
+import Head from "next/head";
 // import { useSnackbar } from "notistack";
 
 export default function Registrazione() {
@@ -121,6 +122,15 @@ export default function Registrazione() {
     //================================================================================
     return (
         <main>
+            <Head>
+                <title>Registrazione • Da Mamy a Mamy</title>
+                <meta property="og:type" content="website" />
+                <meta
+                    property="og:title"
+                    content="Registrazione • Da Mamy a Mamy"
+                />
+            </Head>
+
             <section className="page">
                 <h1>Registrazione</h1>
                 <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>

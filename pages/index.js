@@ -51,15 +51,14 @@ export default function Home() {
         <>
             <Head>
                 <title>
-                    Da Mamy a Mamy - Mercatino dell&apos;usato per Bambini in
+                    Da Mamy a Mamy • Mercatino dell&apos;usato per Bambini in
                     provincia di Verona
                 </title>
                 <meta property="og:type" content="website" />
                 <meta
                     property="og:title"
-                    content="Da Mamy a Mamy - Mercatino dell'usato per Bambini in provincia di Verona"
+                    content="Da Mamy a Mamy • Mercatino dell'usato per Bambini in provincia di Verona"
                 />
-                <link rel="icon" href="/favicon.ico" />
             </Head>
             <main className={styles.main} id={styles["Home"]}>
                 <Slider />

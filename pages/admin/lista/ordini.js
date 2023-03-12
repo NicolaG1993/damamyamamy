@@ -8,6 +8,7 @@ import { checkUser } from "@/utils/custom/checks";
 import { getError } from "@/utils/error";
 import Link from "next/link";
 import { formatDateEU } from "@/utils/convertTimestamp";
+import Head from "next/head";
 
 export default function Articoli() {
     //================================================================================
@@ -56,6 +57,14 @@ export default function Articoli() {
     //================================================================================
     return (
         <main>
+            <Head>
+                <title>Admin • Ordini • Da Mamy a Mamy</title>
+                <meta property="og:type" content="website" />
+                <meta
+                    property="og:title"
+                    content="Admin • Ordini • Da Mamy a Mamy"
+                />
+            </Head>
             <section className="page">
                 <h1>Tutti gli ordini</h1>
                 <Link href={"/admin"} className="back-link">

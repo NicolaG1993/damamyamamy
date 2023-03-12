@@ -13,6 +13,7 @@ import {
 import { createObjectURL, revokeObjectURL } from "@/utils/useLocalImages";
 import { parseFormRelationsEdit } from "@/utils/custom/parsers";
 import axios from "axios";
+import Head from "next/head";
 
 export default function ModificaArticolo() {
     //================================================================================
@@ -229,6 +230,14 @@ export default function ModificaArticolo() {
     //================================================================================
     return (
         <main>
+            <Head>
+                <title>Admin • Modifica articolo • Da Mamy a Mamy</title>
+                <meta property="og:type" content="website" />
+                <meta
+                    property="og:title"
+                    content="Admin • Modifica articolo • Da Mamy a Mamy"
+                />
+            </Head>
             <section className="page">
                 <h1>Modifica Articolo</h1>
                 {isAdmin ? (

@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { selectUserState, userLogout } from "@/redux/slices/userSlice";
 import Link from "next/link";
+import Head from "next/head";
 
 function Profilo() {
     const router = useRouter();
@@ -21,6 +22,14 @@ function Profilo() {
 
     return (
         <main>
+            <Head>
+                <title>Il tuo profilo • Da Mamy a Mamy</title>
+                <meta property="og:type" content="website" />
+                <meta
+                    property="og:title"
+                    content="Il tuo profilo • Da Mamy a Mamy"
+                />
+            </Head>
             <section className="page">
                 <h1>Il mio profilo</h1>
                 <div className={"document-text-wrap"}>

@@ -7,6 +7,7 @@ import { selectUserState } from "@/redux/slices/userSlice";
 import styles from "@/styles/Admin.module.css";
 import { getError } from "@/utils/error";
 import { checkUser } from "@/utils/custom/checks";
+import Head from "next/head";
 
 function Admin() {
     const router = useRouter();
@@ -29,6 +30,11 @@ function Admin() {
     };
     return (
         <main>
+            <Head>
+                <title>Admin • Da Mamy a Mamy</title>
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content="Admin • Da Mamy a Mamy" />
+            </Head>
             <section className="page">
                 <h1>Area Admin</h1>
                 <div className={styles.adminHomeWrap}>

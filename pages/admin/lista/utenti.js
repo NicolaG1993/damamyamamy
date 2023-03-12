@@ -7,6 +7,7 @@ import { selectUserState } from "@/redux/slices/userSlice";
 import { checkUser } from "@/utils/custom/checks";
 import { getError } from "@/utils/error";
 import Link from "next/link";
+import Head from "next/head";
 
 export default function Utenti() {
     const router = useRouter();
@@ -46,6 +47,14 @@ export default function Utenti() {
 
     return (
         <main>
+            <Head>
+                <title>Admin • Utenti • Da Mamy a Mamy</title>
+                <meta property="og:type" content="website" />
+                <meta
+                    property="og:title"
+                    content="Admin • Utenti • Da Mamy a Mamy"
+                />
+            </Head>
             <section className="page">
                 <h1>Tutti gli utenti</h1>
                 <Link href={"/admin"} className="back-link">

@@ -21,6 +21,9 @@ async function handler(req, res) {
         if (!name) {
             return res.status(422).send({ error: ["Manca il titolo"] });
         }
+        if (!condition) {
+            condition = "new";
+        }
 
         let slug = slugify(name);
 

@@ -7,6 +7,7 @@ import { selectUserState } from "@/redux/slices/userSlice";
 import { checkUser } from "@/utils/custom/checks";
 import { getError } from "@/utils/error";
 import Link from "next/link";
+import Head from "next/head";
 
 export default function Articoli() {
     const router = useRouter();
@@ -47,6 +48,15 @@ export default function Articoli() {
 
     return (
         <main>
+            <Head>
+                <title>Admin • Articoli • Da Mamy a Mamy</title>
+                <meta property="og:type" content="website" />
+                <meta
+                    property="og:title"
+                    content="Admin • Articoli • Da Mamy a Mamy"
+                />
+            </Head>
+
             <section className="page">
                 <h1>Tutti gli articoli</h1>
                 <Link href={"/admin"} className="back-link">

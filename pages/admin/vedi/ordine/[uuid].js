@@ -7,6 +7,7 @@ import Link from "next/link";
 import styles from "@/styles/Order.module.css";
 import { formatDateWithTimeEU } from "@/utils/convertTimestamp";
 import { getError } from "@/utils/error";
+import Head from "next/head";
 
 export default function Ordine() {
     //================================================================================
@@ -71,6 +72,14 @@ export default function Ordine() {
     //================================================================================
     return (
         <main>
+            <Head>
+                <title>Admin • Ordine {uuid} • Da Mamy a Mamy</title>
+                <meta property="og:type" content="website" />
+                <meta
+                    property="og:title"
+                    content={`Admin • Ordine ${uuid} • Da Mamy a Mamy`}
+                />
+            </Head>
             <section className="page" id={styles.Order}>
                 <h1>Ordine</h1>
                 <p>

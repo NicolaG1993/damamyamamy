@@ -14,6 +14,7 @@ import {
 import { createObjectURL, revokeObjectURL } from "@/utils/useLocalImages";
 // import { parseFormRelationsEdit } from "@/utils/custom/parsers";
 import axios from "axios";
+import Head from "next/head";
 
 export default function NuovoArticolo() {
     //================================================================================
@@ -210,6 +211,14 @@ export default function NuovoArticolo() {
     //================================================================================
     return (
         <main>
+            <Head>
+                <title>Admin • Nuovo articolo • Da Mamy a Mamy</title>
+                <meta property="og:type" content="website" />
+                <meta
+                    property="og:title"
+                    content="Admin • Nuovo articolo • Da Mamy a Mamy"
+                />
+            </Head>
             <section className="page">
                 <h1>Nuovo Articolo</h1>
                 {isAdmin ? (

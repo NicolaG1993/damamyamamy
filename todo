@@ -61,7 +61,7 @@ NON PRIORITARIO:
 05.03.2023
 • 💚 Testare tutti i check cart in checkout process
 • 💚 API req per orders (new, pay)
-• Testare API key in prod mode (🧠Stripe, 🧠PayPal, 💚AWS, 🧠AWS SES)
+• 🧠 Testare API key in prod mode (🧠Stripe, 🧠PayPal, 💚AWS, 🧠AWS SES)
 
 06.03.2023
 • 💚 Item Component
@@ -82,17 +82,18 @@ NON PRIORITARIO:
 
 10.03.2023
 • 💚 restore password process
-• 🧠 Aggiungere tutti Head e fare SEO
+• 💚 Aggiungere tutti Head e fare SEO
 
 11.03.2023
 • 💚 Sistemare/controllare checks in forms
-• 🧨 stripe: payment intent di crea solo DOPO che non ci sono errori in stripeForm
+• 💚 stripe: order in db si crea solo DOPO che non ci sono errori in pagamento
 
 ---
 
 • PICCOLEZZE
 
-• eliminare tutti log to console
+• 🧠 eliminare tutti log to console
+• guardare bene come vanno fatti: manifest.json, robots.txt, sitemap.xml
 
 ---
 

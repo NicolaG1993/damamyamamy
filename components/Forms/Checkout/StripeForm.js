@@ -59,10 +59,12 @@ function StripeForm({
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        setProcessing(true);
-        let newOrderID = await createOrder();
-        newOrderID && payOrder(userInfo, clientSecret, newOrderID);
+        console.log("🐠 handleSubmit invoked", error);
+        if (!error) {
+            e.preventDefault();
+            setProcessing(true);
+            payOrder(userInfo, clientSecret);
+        }
     };
 
     //================================================================================
@@ -92,7 +94,7 @@ function StripeForm({
         }
     };
 
-    const payOrder = async (userInfo, clientSecret, newOrderID) => {
+    const payOrder = async (userInfo, clientSecret) => {
         console.log("🐠 payOrder invoked");
         try {
             if (!stripe || !elements) return;
@@ -105,6 +107,7 @@ function StripeForm({
                 setError(`Payment failed ${payload.error.message}`);
                 setProcessing(false);
             } else {
+                let newOrderID = await createOrder();
                 setError(null);
                 setProcessing(false);
                 setSucceeded(true);
@@ -163,7 +166,9 @@ function StripeForm({
                 >
                     <span id="button-text">
                         {processing ? (
-                            <div className="spinner" id="spinner"></div>
+                            <div className="spinner" id="spinner">
+                                Pagamento in corso...
+                            </div>
                         ) : (
                             `Conferma ${total_price} €`
                         )}

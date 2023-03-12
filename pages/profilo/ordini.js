@@ -5,6 +5,7 @@ import { shallowEqual, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { formatDateEU, formatDateWithTimeEU } from "@/utils/convertTimestamp";
+import Head from "next/head";
 
 export default function Ordini() {
     //================================================================================
@@ -43,6 +44,14 @@ export default function Ordini() {
     //================================================================================
     return (
         <main>
+            <Head>
+                <title>I tuoi ordini • Da Mamy a Mamy</title>
+                <meta property="og:type" content="website" />
+                <meta
+                    property="og:title"
+                    content="I tuoi ordini • Da Mamy a Mamy"
+                />
+            </Head>
             <section className="page">
                 <h1>Tutti i tuoi ordini</h1>
                 <div className="list" id="OrdersList">

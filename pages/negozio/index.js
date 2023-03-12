@@ -11,6 +11,7 @@ import {
     saveShopFilters,
 } from "@/redux/slices/formsSlice";
 import PageNav from "@/components/Filters/PageNav";
+import Head from "next/head";
 
 export default function Negozio() {
     const [items, setItems] = useState();
@@ -67,6 +68,14 @@ export default function Negozio() {
 
     return (
         <main className={styles.main} id={styles["Shop"]}>
+            <Head>
+                <title>In negozio • Da Mamy a Mamy</title>
+                <meta property="og:type" content="website" />
+                <meta
+                    property="og:title"
+                    content="In negozio • Da Mamy a Mamy"
+                />
+            </Head>
             <section className="page">
                 <h1>Negozio</h1>
                 <div className={styles.filtersWrap}>

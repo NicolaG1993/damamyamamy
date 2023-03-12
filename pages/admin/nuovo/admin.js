@@ -7,6 +7,7 @@ import styles from "@/components/Forms/Form.module.css";
 import { checkUser } from "@/utils/custom/checks";
 import { getError } from "@/utils/error";
 import { selectUserState } from "@/redux/slices/userSlice";
+import Head from "next/head";
 
 export default function NuovoAdmin() {
     const router = useRouter();
@@ -50,6 +51,14 @@ export default function NuovoAdmin() {
 
     return (
         <main>
+            <Head>
+                <title>Admin • Nuovo admin • Da Mamy a Mamy</title>
+                <meta property="og:type" content="website" />
+                <meta
+                    property="og:title"
+                    content="Admin • Nuovo admin • Da Mamy a Mamy"
+                />
+            </Head>
             <section className="page">
                 <h1>Crea nuovo admin</h1>
                 {isAdmin ? (

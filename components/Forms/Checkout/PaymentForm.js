@@ -274,5 +274,7 @@ export default function PaymentForm({
 }
 
 /*
-fetchCart -> createPaymentIntent -> handleSubmit -> createOrder -> payOrder -> updateDB
+fetchCart -> createPaymentIntent -> handleSubmit -> payOrder -> createOrder -> updateDB
+
+check stock?
 */

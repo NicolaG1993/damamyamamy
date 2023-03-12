@@ -7,6 +7,7 @@ import { selectUserState, userLogin } from "@/redux/slices/userSlice";
 import { nameValidation } from "@/utils/validateForms";
 import styles from "@/components/Forms/Form.module.css";
 import { getError } from "@/utils/error";
+import Head from "next/head";
 
 export default function Modifica() {
     //================================================================================
@@ -67,6 +68,14 @@ export default function Modifica() {
     //================================================================================
     return (
         <main>
+            <Head>
+                <title>Modifica profilo • Da Mamy a Mamy</title>
+                <meta property="og:type" content="website" />
+                <meta
+                    property="og:title"
+                    content="Modifica profilo • Da Mamy a Mamy"
+                />
+            </Head>
             <section className="page">
                 <h1>Modifica profilo</h1>
                 <Link href={"/profilo"} className="back-link">

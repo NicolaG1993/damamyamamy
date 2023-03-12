@@ -10,6 +10,7 @@ import styles from "@/components/Forms/Form.module.css";
 import { selectUserState, userLogin } from "@/redux/slices/userSlice";
 import { emailValidation, passwordValidation } from "@/utils/validateForms";
 import { getError } from "@/utils/error";
+import Head from "next/head";
 
 export default function Login() {
     //================================================================================
@@ -70,6 +71,11 @@ export default function Login() {
     //================================================================================
     return (
         <main>
+            <Head>
+                <title>Accedi • Da Mamy a Mamy</title>
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content="Accedi • Da Mamy a Mamy" />
+            </Head>
             <section className="page">
                 <h1>Login</h1>
                 <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>

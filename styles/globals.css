@@ -105,8 +105,12 @@ section {
 .document-double-button-wrap {
     flex-direction: column;
 }
-.document-double-button-wrap button {
-    margin: 1rem;
+.document-double-button-wrap button,
+.document-double-button-wrap a {
+    margin: 0 1rem 1rem 1rem;
+}
+.document-double-button-wrap *:last-child {
+    margin: 1rem 1rem;
 }
 .error,
 .success {
