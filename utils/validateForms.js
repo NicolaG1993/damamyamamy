@@ -14,14 +14,17 @@ const titleValidation = (fieldName, fieldValue) => {
 const nameValidation = (fieldName, fieldValue) => {
     if (fieldValue.trim() === "") {
         return `Il ${fieldName} è richiesto`;
-    }
-    if (/^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$/.test(fieldValue)) {
+    } else if (fieldValue.trim().length < 3) {
+        return `Il ${fieldName} deve contenere almeno 3 lettere`;
+    } else if (
+        /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u.test(
+            fieldValue
+        )
+    ) {
+        return null;
+    } else {
         return "Caratteri non consentiti";
     }
-    if (fieldValue.trim().length < 3) {
-        return `Il ${fieldName} deve contenere almeno 3 lettere`;
-    }
-    return null;
 };
 
 const emailValidation = (email) => {

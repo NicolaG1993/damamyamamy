@@ -78,19 +78,20 @@ NON PRIORITARIO:
 09.03.2023
 • 💚 sezione ordini per Admin
 • 💚 sezione ordini per user
-• 🧠 modifica profilo per user
+• 💚 modifica profilo per user
 
 10.03.2023
 • 💚 restore password process
-• Aggiungere tutti Head e fare SEO
+• 🧠 Aggiungere tutti Head e fare SEO
 
 11.03.2023
-• 🧨 Sistemare name checks in forms
+• 💚 Sistemare/controllare checks in forms
+• 🧨 stripe: payment intent di crea solo DOPO che non ci sono errori in stripeForm
+
 ---
 
 • PICCOLEZZE
 
-• 🧨 stripe: payment intent di crea solo DOPO che non ci sono errori in stripeForm
 • eliminare tutti log to console
 
 ---

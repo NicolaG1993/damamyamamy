@@ -7,7 +7,11 @@ async function handler(req, res) {
         try {
             const userID = req.user.id;
             const { firstName, lastName } = req.body;
-            const { rows } = await editUser(userID, firstName, lastName);
+            const { rows } = await editUser(
+                userID,
+                firstName || null,
+                lastName || null
+            );
             let user = rows[0];
             const token = signToken(user);
             res.send({
@@ -20,7 +24,8 @@ async function handler(req, res) {
                 token: token,
             });
         } catch (err) {
-            res.code(500).send({ message: "🤖 Server error" });
+            console.log("🐞 ERROR: ", err);
+            res.status(500).send({ message: "🤖 Server error" });
         }
     } else {
         return res.status(404).send("Not found");
