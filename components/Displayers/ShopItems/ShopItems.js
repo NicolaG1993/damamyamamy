@@ -5,18 +5,20 @@ import Item from "./Item";
 
 export default function ShopItems({ data }) {
     return (
-        <div className={styles.shortListGrid}>
+        <>
             {data ? (
                 data.length ? (
-                    data.map((el) => (
-                        <Item item={el} key={"Shop item " + el.id} />
-                    ))
+                    <div className={styles.shortListGrid}>
+                        {data.map((el) => (
+                            <Item item={el} key={"Shop item " + el.id} />
+                        ))}
+                    </div>
                 ) : (
-                    <p>Nessun risultato disponibile</p>
+                    <p className="center">Nessun risultato disponibile</p>
                 )
             ) : (
-                <p>Caricamento...</p>
+                <p className="center">Caricamento...</p>
             )}
-        </div>
+        </>
     );
 }

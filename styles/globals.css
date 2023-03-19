@@ -403,6 +403,10 @@ footer a {
     margin-bottom: 4rem;
 }
 
+/* CONTACT */
+#Contact p {
+    margin: 1rem 0;
+}
 /* LIST */
 .list {
     padding: 1rem;
@@ -536,7 +540,7 @@ footer a {
     bottom: 0.5rem;
     right: 1.5rem;
     /* width: 50%; */
-    max-width: 650px;
+    /* max-width: 650px; */
     border-radius: 40px;
     display: flex;
     justify-content: space-between;
@@ -544,7 +548,7 @@ footer a {
     background: var(--colorD);
     padding: 0.3rem 0.5rem;
     margin-bottom: 0.5rem;
-    font-size: 0.9em;
+    font-size: 0.75rem;
     transition: 0.5s ease;
     background: var(--colorA);
     color: var(--colorD);
@@ -553,7 +557,7 @@ footer a {
 .cookieWrap span {
     cursor: pointer;
     margin-left: 1rem;
-    width: 130px;
+    width: 110px;
     /* height: 40px; */
     background: var(--colorA);
     color: var(--colorD);
@@ -563,7 +567,7 @@ footer a {
     align-items: center;
     justify-content: center;
     padding: 0.2rem 0.2rem;
-    font-size: 0.9em;
+    font-size: 0.75rem;
     transition: 0.2s ease;
     border: 2px solid var(--colorD);
 }

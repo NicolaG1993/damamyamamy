@@ -54,7 +54,7 @@ export default function Footer() {
                                 </a>
                             </li>
                             <li>
-                                <Link href="/contatto">
+                                <Link href="/orari">
                                     <strong>Vedi orari di apertura</strong>
                                 </Link>
                             </li>

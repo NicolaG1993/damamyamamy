@@ -158,11 +158,11 @@ export default function Layout({ children, ...pageProps }) {
             {!cookiesConfirm && (
                 <div className="cookieWrap" style={renderAnimation}>
                     <p>
-                        This website uses essential cookies to improve the user
-                        experience.
+                        Questo sito utilizza solo cookies necessari per
+                        migliorare la tua esperienza di navigazione.
                     </p>
                     <span onClick={() => setCookiesConfirm(true)}>
-                        I understand
+                        Ho capito
                     </span>
                 </div>
             )}

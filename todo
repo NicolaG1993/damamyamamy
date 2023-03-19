@@ -75,9 +75,9 @@
 • 💚 eliminare tutti log to console
 
 18.03.2023
-• 🧠 Trovare soluzione per Transactional Emails
-• 🧠 Testare emails in production
-• Testare checkout in production
+• 💚 Trovare soluzione per Transactional Emails (SES in production mode accepted!)
+• 💚 Testare emails in production
+• 🧠 Testare checkout in production
 • User elimina profilo
 
 ---
