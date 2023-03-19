@@ -74,6 +74,9 @@
 12.03.2023
 • 💚 eliminare tutti log to console
 
+18.03.2023
+• Trovare nuova soluzione per Transactional Emails
+
 ---
 
 SEZIONI:
@@ -110,4 +113,6 @@ DA TESTARE IN PROD MODE:
 • Welcome Email - Registrazione (su indirizzo non verificato, tipo N.i.k.93)
 • PayPal Checkout
 • Stripe Checkout
-• Transactional Email - checkout
+• Transactional Email - checkout^
+
+--------------

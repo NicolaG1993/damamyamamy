@@ -6,6 +6,9 @@ import { createRef, useState } from "react";
 import axios from "axios";
 
 export default function Contatto() {
+    //================================================================================
+    // Component State
+    //================================================================================
     let userInfo = useSelector(selectUserState);
     const [formState, setFormState] = useState({
         first: userInfo ? userInfo.firstName : "",

@@ -14,6 +14,7 @@ export function contactUs({
     subject,
     first,
     last,
+    email,
     phone,
 }) {
     return SES.sendEmail({
@@ -30,7 +31,7 @@ export function contactUs({
                                 <body>
                                     Mittente: ${first} ${last}
                                     <br />
-                                    Email: ${recipient}
+                                    Email: ${email}
                                     <br />
                                     Telefono: ${phone || "nessuno"}
                                     <br />

@@ -8,10 +8,13 @@ export default async function handler(req, res) {
             let emailData = {
                 first: first,
                 last: last,
-                recipient: email,
+                // recipient: email,
+                // source: `${first} ${last} <${email}>`,
                 source: "Da Mamy a Mamy <damamyamamy@gmail.com>",
+                recipient: "damamyamamy@gmail.com",
                 subject: "Email dal sito damamyamamy.com",
                 message: message,
+                email: email,
                 phone: phone,
             };
             let response = await contactUs(emailData);

@@ -132,7 +132,7 @@ export default function Layout({ children, ...pageProps }) {
                     name="viewport"
                     content="width=device-width, initial-scale=1.0"
                 />
-                <meta name="author" content="NGD - Nicola Gaioni Design" />
+                <meta name="author" content="NGD • Nicola Gaioni Design" />
                 <meta charSet="UTF-8" />
             </Head>
 
