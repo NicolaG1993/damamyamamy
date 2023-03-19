@@ -71,18 +71,20 @@ export default async function handler(req, res) {
         // altrimenti mappiamo tutti gli item della DB res
         // per ogni item filtriamo solo quelli che non sono gia presenti in all_categories (evitiamo doppi)
         // e li aggiungiamo a all_categories (passiamo tutto oggetto category)
-        let all_items;
-        if (filters.category) {
-            // all_categories.push(filters.category);
-            all_items = rows[0].items.filter((item) =>
-                item.categories
-                    ? item.categories
-                          .map((c) => c.id)
-                          .includes(Number(filters.category))
-                    : false
-            );
-        } else {
-            all_items = rows[0].items;
+        let all_items = [];
+        if (rows[0] && rows[0].items) {
+            if (filters.category) {
+                // all_categories.push(filters.category);
+                all_items = rows[0].items.filter((item) =>
+                    item.categories
+                        ? item.categories
+                              .map((c) => c.id)
+                              .includes(Number(filters.category))
+                        : false
+                );
+            } else {
+                all_items = rows[0].items;
+            }
         }
 
         res.send({
