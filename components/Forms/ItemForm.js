@@ -20,6 +20,7 @@ export default function ItemForm({
     deleteStoredImage,
     errors,
     parentRef,
+    processing,
 }) {
     const [openSection, setOpenSection] = useState(false);
 
@@ -294,14 +295,16 @@ export default function ItemForm({
                     disabled={
                         Object.keys(errors).length === 0 &&
                         formState.name &&
-                        formState.price
+                        formState.price &&
+                        !processing
                             ? false
                             : true
                     }
                     className={`${
                         Object.keys(errors).length === 0 &&
                         formState.name &&
-                        formState.price
+                        formState.price &&
+                        !processing
                             ? "button form-button"
                             : "button-disabled form-button"
                     }`}

@@ -32,7 +32,7 @@ function StripeForm({
     // const router = useRouter();
     const [succeeded, setSucceeded] = useState(false);
     const [error, setError] = useState(null);
-    const [processing, setProcessing] = useState("");
+    const [processing, setProcessing] = useState(false);
     const [disabled, setDisabled] = useState(true);
     const [clientSecret, setClientSecret] = useState("");
 

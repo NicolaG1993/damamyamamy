@@ -26,6 +26,7 @@ export default function NuovoArticolo() {
     const [errors, setErrors] = useState({});
     const [newImages, setNewImages] = useState([]);
     const [formState, setFormState] = useState({});
+    const [processing, setProcessing] = useState(false);
     // const fileInput = useRef();
     // const [formState, setFormState] = useState({
     //     categories: [],
@@ -116,6 +117,7 @@ export default function NuovoArticolo() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setProcessing(true);
         if (Object.keys(errors).length === 0) {
             try {
                 // const file = e.target.files[0];
@@ -127,9 +129,10 @@ export default function NuovoArticolo() {
                 // let { files } = fileInput.current;
                 // const { data } = await uploadImages(files);
                 const res = await createItem({ ...formState, pics: data });
-
+                setProcessing(false);
                 router.push("/admin/lista/articoli");
             } catch (err) {
+                setProcessing(false);
                 alert(getError(err));
             }
         }
@@ -231,6 +234,7 @@ export default function NuovoArticolo() {
                         deleteImage={deleteImage}
                         errors={errors}
                         // parentRef={fileInput}
+                        processing={processing}
                     />
                 ) : (
                     <p>Caricamento...</p>

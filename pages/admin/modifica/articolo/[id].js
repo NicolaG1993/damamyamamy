@@ -28,6 +28,7 @@ export default function ModificaArticolo() {
     const [storedImages, setStoredImages] = useState([]);
     const [formState, setFormState] = useState({});
     const [originalData, setOriginalData] = useState({});
+    const [processing, setProcessing] = useState(false);
 
     useEffect(() => {
         setIsAdmin(false);
@@ -117,6 +118,7 @@ export default function ModificaArticolo() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setProcessing(true);
         if (Object.keys(errors).length === 0) {
             try {
                 let { data } = await uploadImages(newImages);
@@ -128,8 +130,10 @@ export default function ModificaArticolo() {
                     pics: [...data, ...storedImages],
                 });
 
+                setProcessing(false);
                 router.push("/admin/lista/articoli");
             } catch (err) {
+                setProcessing(false);
                 alert(getError(err));
             }
         }
@@ -247,6 +251,7 @@ export default function ModificaArticolo() {
                         deleteImage={deleteImage}
                         deleteStoredImage={deleteStoredImage}
                         errors={errors}
+                        processing={processing}
                     />
                 ) : (
                     <p>Caricamento...</p>
