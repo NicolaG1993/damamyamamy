@@ -309,7 +309,7 @@ export default function ItemForm({
                             : "button-disabled form-button"
                     }`}
                 >
-                    Conferma
+                    {processing ? "Attendere..." : "Conferma"}
                 </button>
             </div>
         </form>
