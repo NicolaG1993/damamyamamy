@@ -1,7 +1,7 @@
-// 🧠 posso disinstallare: redux-thunk redux-devtools-extension next-redux-wrapper ???
+// 🧠 posso disinstallare: redux redux-thunk redux-devtools-extension next-redux-wrapper ???
 
 import { configureStore } from "@reduxjs/toolkit";
-import { createWrapper } from "next-redux-wrapper";
+// import { createWrapper } from "next-redux-wrapper";
 
 // create a slice
 import cartSlice from "./slices/cartSlice";

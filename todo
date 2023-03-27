@@ -44,7 +44,7 @@
 05.03.2023
 • 💚 Testare tutti i check cart in checkout process
 • 💚 API req per orders (new, pay)
-• 🧠 Testare API key in prod mode (🧠Stripe, 🧠PayPal, 💚AWS, 🧠AWS SES)
+• 💚 Testare API key in prod mode (💚Stripe, 💚PayPal, 💚AWS, 💚AWS SES)
 
 06.03.2023
 • 💚 Item Component
@@ -77,7 +77,7 @@
 18.03.2023
 • 💚 Trovare soluzione per Transactional Emails (SES in production mode accepted!)
 • 💚 Testare emails in production
-• 🧠 Testare checkout in production
+• 💚 Testare checkout in production
 • User elimina profilo
 
 ---
@@ -93,7 +93,7 @@ NON PRIORITARIO:
 • Aggiungere PayPal e Stripe logos
 • Aggiungere sezione feed IG o Google reviews
 • vedi "registrazione.js" per cose non aggiunte, tipo snackbar o redux per user State
-• bisogna bloccare submit button in ItemForm quando si preme, finche promise non sono risolte o si riceve errore
+💚 bisogna bloccare submit button in ItemForm quando si preme, finche promise non sono risolte o si riceve errore
 💚 save form states in cookies (serve sempre per tutti? quando pulire?)
 • err handling e req responses confirmations like a pro
 • vedere bene tutti i dynamic imports
