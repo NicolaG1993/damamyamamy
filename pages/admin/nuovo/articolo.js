@@ -36,9 +36,9 @@ export default function NuovoArticolo() {
     //     // count_in_stock: 1,
     // });
 
-    useEffect(() => {
-        console.log("💚 formState: ", formState);
-    }, [formState]);
+    // useEffect(() => {
+    //     console.log("💚 formState: ", formState);
+    // }, [formState]);
 
     useEffect(() => {
         setIsAdmin(false);

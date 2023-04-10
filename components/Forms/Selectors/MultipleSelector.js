@@ -64,8 +64,13 @@ export default function MultipleSelector({
     }, [allOptions, inputValue, selection]);
 
     const fetchData = async () => {
-        let { data } = await axios.get(`/api/get/all-${label}`);
-        setAllOptions(data);
+        try {
+            let { data } = await axios.get(`/api/get/all-${label}`);
+            setAllOptions(data);
+        } catch (err) {
+            console.log("🐞 ERROR: ", err);
+            alert(getError(err));
+        }
     };
 
     const handleAddNew = async () => {
@@ -82,7 +87,9 @@ export default function MultipleSelector({
                 );
 
                 fetchData();
-                setSelection((prevState) => [...prevState, data]);
+                setSelection((prevState) =>
+                    Array.isArray(prevState) ? [...prevState, data] : [data]
+                );
                 handleInput();
             } catch (err) {
                 console.log("🐞 ERROR: ", err);
