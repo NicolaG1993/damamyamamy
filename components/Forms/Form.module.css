@@ -91,7 +91,7 @@
     margin: 0.2rem 0 0.5rem 0;
 }
 .optionsWrap .addNewWrap input {
-    width: auto;
+    /* width: auto; */
     /* flex-grow: 1; */
     border-radius: 12px 0 0 12px;
     font-size: 0.85rem;
@@ -145,7 +145,7 @@
 }
 .optionsWrap .options .option {
     cursor: pointer;
-    margin: 0.1rem 0 0.1rem 0.2rem;
+    margin: 0.3rem 0.2rem 0rem 0;
     padding: 0.15rem 0.5rem;
     font-size: 0.8rem;
     border-radius: 12px;
@@ -330,6 +330,9 @@
     }
 }
 @media screen and (max-width: 500px) {
+    .form {
+        padding: 1rem 1rem;
+    }
     .form,
     .form input,
     .form select,
