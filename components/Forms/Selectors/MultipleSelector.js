@@ -175,13 +175,14 @@ export default function MultipleSelector({
                             <p>Disponibili</p>
                             {availableOptions && availableOptions.length ? (
                                 availableOptions.map((el) => (
-                                    <option
+                                    <div
+                                        className={styles.option}
                                         key={label + " option " + el.id}
-                                        value={el}
+                                        // value={el}
                                         onClick={() => handleSelect(el)}
                                     >
                                         {el.name}
-                                    </option>
+                                    </div>
                                 ))
                             ) : (
                                 <p>Nessun risultato</p>
@@ -192,13 +193,14 @@ export default function MultipleSelector({
                             <p>Selezionati</p>
                             {selection && selection.length ? (
                                 selection.map((el) => (
-                                    <option
+                                    <div
                                         key={label + " option " + el.id}
-                                        value={el}
+                                        className={styles.option}
+                                        // value={el}
                                         onClick={() => handleDeselect(el)}
                                     >
                                         {el.name}
-                                    </option>
+                                    </div>
                                 ))
                             ) : (
                                 <p>Nessun risultato</p>
