@@ -85,11 +85,18 @@ export default function Articoli() {
                                         <p>{item.count_in_stock || 0}</p>
                                         <p>{item.condition || "N/A"}</p>
                                         <Link
+                                            className="action"
                                             href={`/admin/modifica/articolo/${item.id}`}
+                                            title="Modifica"
                                         >
                                             📝
                                         </Link>
-                                        <p className="action">❌</p>
+                                        <p
+                                            className="action"
+                                            title="Elimina (disattivato)"
+                                        >
+                                            ❌
+                                        </p>
                                     </div>
                                 ))}
                             </>

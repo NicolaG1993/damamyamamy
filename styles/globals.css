@@ -454,9 +454,11 @@ footer a {
     padding: 0 0.5rem;
     align-self: center;
     line-height: 17px;
-
     overflow: hidden;
     white-space: nowrap;
+}
+.listItem .action {
+    overflow: visible;
 }
 .listItem a,
 .listItem .action,

@@ -15,6 +15,7 @@ const ShortList = dynamic(
 );
 
 export default function Articolo({ item }) {
+    console.log("ITEM: ", item);
     //================================================================================
     // Component State
     //================================================================================
@@ -67,7 +68,11 @@ export default function Articolo({ item }) {
                         <div className={styles["item-infos-wrap"]}>
                             <div className={styles["item-row"]}>
                                 <span>Brand:</span>
-                                <p>{item.brand}</p>
+                                {item.brands
+                                    ? item.brands.map((b) => (
+                                          <p key={"brand: " + b.id}>{b.name}</p>
+                                      ))
+                                    : ""}
                             </div>
 
                             <div className={styles["item-row"]}>
@@ -202,10 +207,21 @@ export default function Articolo({ item }) {
                         >
                             Informazioni
                         </h3>
+
+                        <h3
+                            onClick={() => toggleInfoDisplay("pics")}
+                            className={`${
+                                infoDisplay === "pics"
+                                    ? styles["active-selector"]
+                                    : styles["not-active-selector"]
+                            }`}
+                        >
+                            Immagini
+                        </h3>
                     </div>
 
                     <div className={styles["item-description-display"]}>
-                        {infoDisplay === "description" ? (
+                        {infoDisplay === "description" && (
                             <div
                                 className={styles["dangerHTML-box"]}
                                 dangerouslySetInnerHTML={{
@@ -217,11 +233,17 @@ export default function Articolo({ item }) {
                                         ),
                                 }}
                             ></div>
-                        ) : item.infos ? (
-                            <p>{item.infos}</p>
-                        ) : (
-                            <p>Nessuna informazione</p>
                         )}
+
+                        {infoDisplay === "infos" && (
+                            <p>
+                                {item.infos
+                                    ? item.infos
+                                    : "Nessuna informazione"}
+                            </p>
+                        )}
+
+                        {infoDisplay === "pics" && <div>Immagini qui ....</div>}
                     </div>
                 </div>
             </section>
@@ -243,7 +265,7 @@ export default function Articolo({ item }) {
             </Head>
 
             <ItemWrap />
-            {/* <ItemDescriptionWrap /> */}
+            <ItemDescriptionWrap />
             <ShortList tableName={"Gli ultimi arrivi"} data={shortListData} />
             {/* <section className="page"> */}
             {/* <h3>Potrebbero interessarti</h3> */}
