@@ -9,6 +9,9 @@
 .main > section {
     /* padding: 3rem 1.5rem; */
 }
+.main > section:nth-child(3) {
+    background: linear-gradient(to bottom, #eeeeee, #f9f9f9);
+}
 
 .main > .intro {
     background: var(--colorC);

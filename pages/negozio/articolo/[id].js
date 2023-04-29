@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
 import CartButton from "@/components/Buttons/CartButton/CartButton";
+import Gallery from "@/components/Displayers/Gallery/Gallery";
 // import { formatJSDate } from "../../shared/utils/convertTimestamp";
 const ShortList = dynamic(
     () => import("@/components/Displayers/Shortlist/Shortlist"),
@@ -33,6 +34,9 @@ export default function Articolo({ item }) {
     const toggleGallery = async (n, bool) => {
         setClickedPic(n);
         setGalleryOpen(bool);
+    };
+    const closeGallery = async () => {
+        setGalleryOpen(false);
     };
 
     //================================================================================
@@ -222,17 +226,23 @@ export default function Articolo({ item }) {
 
                     <div className={styles["item-description-display"]}>
                         {infoDisplay === "description" && (
-                            <div
-                                className={styles["dangerHTML-box"]}
-                                dangerouslySetInnerHTML={{
-                                    __html:
-                                        item.description &&
-                                        item.description.replace(
-                                            /\u00a0/g,
-                                            " "
-                                        ),
-                                }}
-                            ></div>
+                            <>
+                                {item.description ? (
+                                    <div
+                                        className={styles["dangerHTML-box"]}
+                                        dangerouslySetInnerHTML={{
+                                            __html:
+                                                item.description &&
+                                                item.description.replace(
+                                                    /\u00a0/g,
+                                                    " "
+                                                ),
+                                        }}
+                                    ></div>
+                                ) : (
+                                    <p>Nessuna descrizione</p>
+                                )}
+                            </>
                         )}
 
                         {infoDisplay === "infos" && (
@@ -243,7 +253,31 @@ export default function Articolo({ item }) {
                             </p>
                         )}
 
-                        {infoDisplay === "pics" && <div>Immagini qui ....</div>}
+                        {infoDisplay === "pics" && (
+                            <>
+                                {item.pics ? (
+                                    <div className={styles["pics-wrap"]}>
+                                        {item.pics.map((p, i) => (
+                                            <Image
+                                                key={p}
+                                                src={p}
+                                                alt={"Immagine prodotto"}
+                                                width={150}
+                                                height={150}
+                                                style={{
+                                                    objectFit: "cover",
+                                                }}
+                                                onClick={() =>
+                                                    toggleGallery(i, true)
+                                                }
+                                            />
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <p>Nessuna immagine</p>
+                                )}
+                            </>
+                        )}
                     </div>
                 </div>
             </section>
@@ -270,6 +304,9 @@ export default function Articolo({ item }) {
             {/* <section className="page"> */}
             {/* <h3>Potrebbero interessarti</h3> */}
             {/* </section> */}
+            {galleryOpen && (
+                <Gallery close={closeGallery} pics={item.pics} i={clickedPic} />
+            )}
         </main>
     );
 }

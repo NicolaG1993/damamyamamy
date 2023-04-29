@@ -104,6 +104,20 @@
     padding: 0 0.5rem;
 }
 
+.pics-wrap {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.pics-wrap img {
+    cursor: pointer;
+    margin: 0.5rem;
+    transition: 0.1s ease;
+}
+.pics-wrap img:hover {
+    box-shadow: var(--box-shadow-hover);
+}
+
 /* SHORTLIST */
 #Item > section:last-child {
     padding: 7rem 1.5rem 7rem 1.5rem;

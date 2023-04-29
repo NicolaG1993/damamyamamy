@@ -123,12 +123,13 @@ DA TESTARE IN PROD MODE:
 
 11.04.2023 BUGS TROVATI:
 • 🧠 limite massimo 4.5MB payload per foto in form (errore visibile in UI prima di fare submit)
-• 🧠 multiple selector not 100% responsive per mobile
+• 💚 multiple selector not 100% responsive per mobile
 
 28.04 BUGS:
 • 💚 Brands non si vedono
 • 💚 Fare render di descrizione prodotto
 • 🧠 Fare galleria per vedere tutte le foto si prodotto, non solo la prima
+• sistemare liste in Admin per mobile
 • Categorie si duplicano. bug o errore? probabilmente entrambi perché dovrebbe esserci un check per evitarlo
 • • sistemare check
 • • sistemare categories

@@ -39,12 +39,13 @@ body {
 
 body {
     color: rgb(var(--colorD));
-    background: linear-gradient(
+    background-color: var(--colorA);
+    /* background: linear-gradient(
             to bottom,
             transparent,
             rgb(var(--background-end-rgb))
         )
-        rgb(var(--background-start-rgb));
+        rgb(var(--background-start-rgb)); */
     font-family: var(--fontA);
     min-height: 90vh;
 }
@@ -237,6 +238,7 @@ a:hover,
 }
 .cartActionButton > svg {
     fill: var(--colorC);
+    height: 100%;
     /* height: 30px;
     width: 30px; */
     /* margin: 0.66rem; */
@@ -459,6 +461,7 @@ footer a {
 }
 .listItem .action {
     overflow: visible;
+    padding: 0;
 }
 .listItem a,
 .listItem .action,
@@ -480,7 +483,7 @@ footer a {
 
 #ItemsList > .listHead,
 #ItemsList > .listItem {
-    grid-template-columns: 75px 1fr 0.5fr 0.5fr 0.5fr 40px 40px;
+    grid-template-columns: 75px 1fr 0.5fr 0.5fr 0.5fr 35px 35px;
 }
 #OrdersList > .listHead,
 #OrdersList > .listItem {
@@ -590,7 +593,7 @@ footer a {
     }
     #ItemsList > .listHead,
     #ItemsList > .listItem {
-        grid-template-columns: 25px 130px 0.5fr 0.5fr 0.5fr 40px 40px;
+        grid-template-columns: 25px 130px 0.5fr 0.5fr 0.5fr 25px 25px;
     }
     .listItem {
         font-size: 0.8rem;
