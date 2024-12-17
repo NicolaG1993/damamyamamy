@@ -1,0 +1,362 @@
+.form {
+    padding: 1rem 1.5rem;
+    background: var(--color-primary);
+    /* border: 1px solid var(--color-foreground); */
+    border: none;
+    border-radius: 12px;
+    margin-top: 3rem;
+    width: auto;
+    /* align-self: flex-start; */
+}
+
+.form form {
+    margin-top: 1.5rem;
+}
+
+/* INPUTS */
+.form input,
+.form select,
+.form textarea,
+.form .input,
+.form .picsInput {
+    padding: 0.5rem;
+    width: 400px;
+    background: var(--color-background);
+    /* border: 1px solid var(--color-foreground); */
+    border: none;
+    font-size: 0.9rem;
+    font-family: var(--fontB);
+}
+
+.form input,
+.form select,
+.form .input,
+.form .picsInput {
+    border-radius: 12px;
+}
+
+.form select,
+.form .input {
+    cursor: pointer;
+}
+
+.form input::placeholder,
+.form .placeholder {
+    color: var(--color-placeholder);
+}
+.form select option {
+    color: var(--color-foreground);
+}
+.form textarea {
+    border-radius: 12px;
+    min-height: 70px;
+    max-height: 200px;
+    resize: vertical;
+}
+.form textarea.message {
+    height: 200px;
+    resize: none;
+}
+
+.picsInput {
+    cursor: pointer;
+    width: 100%;
+    display: inline-block;
+}
+
+.inputWrap {
+    margin: 1rem 0;
+}
+
+.inputWrap input[type="file"] {
+    display: none;
+}
+
+/* OPTIONS */
+.optionsWrap {
+    margin-top: 0.5rem;
+    padding: 0.75rem;
+    min-height: 50px;
+    /* max-height: 200px; */
+    background: var(--color-background);
+    border: 1px solid var(--color-foreground);
+    font-size: 0.85rem;
+    box-shadow: var(--box-shadow-hover);
+}
+.optionsWrap .addNewWrap {
+    /* display: flex;
+    justify-items: stretch;
+    width: 100%; */
+    display: grid;
+    grid-template-columns: 1fr 65px;
+    align-items: center;
+    margin: 0.2rem 0 0.5rem 0;
+}
+.optionsWrap .addNewWrap input {
+    /* width: auto; */
+    /* flex-grow: 1; */
+    border-radius: 12px 0 0 12px;
+    font-size: 0.85rem;
+    padding: 0.3rem 0.5rem;
+    height: 30px;
+}
+.optionsWrap .addNewWrap .mini-bar-button {
+    min-width: 30px;
+    /* width: 30px; */
+    height: 26px;
+    /* cursor: pointer; */
+    border: 0px;
+    padding: 0 0.75rem;
+    border: none;
+    /* border: 1px solid var(--color-foreground); */
+    outline: 2px solid var(--color-secondary);
+    /* background: var(--color-secondary);
+    color: var(--color-background); */
+    font-weight: 600;
+    font-size: 0.8rem;
+    border-radius: 0 12px 12px 0;
+}
+.optionsWrap .addNewWrap .mini-bar-button:hover {
+    outline: 2px solid var(--color-secondary);
+    border: none;
+    /* border: 1px solid var(--color-foreground); */
+    /* background: var(--color-primary);*/
+    color: var(--color-secondary);
+}
+
+.optionsWrap .options {
+    /* margin: 0 0.5rem; */
+    display: flex;
+}
+.optionsWrap .options .column {
+    height: 150px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 0.5rem;
+    width: 50%;
+    border: 1px solid var(--color-foreground);
+}
+.optionsWrap .options .column > p:nth-child(1) {
+    color: var(--color-secondary);
+    /* text-decoration: underline; */
+    font-weight: bold;
+    margin: 0.2rem 0;
+}
+.optionsWrap .options .column > p:nth-child(2) {
+    color: var(--color-placeholder);
+}
+.optionsWrap .options .option {
+    cursor: pointer;
+    margin: 0.3rem 0.2rem 0rem 0;
+    padding: 0.15rem 0.5rem;
+    font-size: 0.8rem;
+    border-radius: 12px;
+    background: var(--color-secondary);
+    color: var(--color-background);
+}
+.optionsWrap .options .option:hover {
+    background: var(--color-primary);
+    color: var(--color-secondary);
+    /* text-decoration: underline; */
+}
+
+/* IMAGES */
+.imagesWrap {
+    width: 400px;
+    margin-top: 0.5rem;
+    padding: 0.75rem;
+    background: var(--color-background);
+    border: 1px solid var(--color-foreground);
+    font-size: 0.85rem;
+}
+.imagesWrap > p:nth-child(1) {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+.imagesWrap > div:nth-child(2) {
+    /* display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap; */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    justify-items: center;
+}
+.formImage {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    margin: 0.5rem;
+}
+.deleteImage {
+    cursor: pointer;
+    position: absolute;
+    top: 0.2rem;
+    right: 0.2rem;
+    padding: 0.2rem;
+    font-weight: 900;
+    border-radius: 50px;
+    height: 25px;
+    width: 25px;
+    line-height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: var(--color-secondary);
+    color: var(--color-background);
+}
+.deleteImage:hover {
+    background: var(--color-background);
+    color: var(--color-foreground);
+}
+
+/* ORDER REVIEW */
+#OrderReview {
+    border: 1px solid var(--color-foreground);
+    background: var(--color-background);
+    border-radius: 8px;
+    padding: 1.25rem 0.66rem;
+    margin: 1.5rem 0;
+    width: 400px;
+}
+#OrderReview > div:nth-child(2) {
+    /* border: 1px solid var(--color-background); */
+}
+#OrderReview h5 {
+    margin: 0rem 0 1rem 0.33rem;
+}
+.review-row {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--color-background-dark);
+    padding: 0.66rem 0.8rem;
+    font-size: 0.9rem;
+}
+.review-row p:nth-child(1) {
+    width: 50px;
+    text-align: left;
+}
+.review-row p:nth-child(2) {
+    /* width: 100%; */
+    flex-grow: 1;
+    margin: 0 0.5rem;
+    text-align: left;
+}
+.review-row p:nth-child(3) {
+    width: 80px;
+    text-align: right;
+}
+.price-row {
+    padding: 1rem 0.8rem 0rem 0.8rem;
+    text-align: right;
+}
+.price-row p {
+    font-size: 0.8rem;
+    margin: 0.6rem 0;
+}
+.payment-form {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.payment-form > div {
+    width: 100%;
+}
+.payment-form > div:nth-child(1) {
+    width: 95%;
+    /* margin-top: 1rem; */
+}
+#TermsBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0;
+    padding: 0 1rem;
+    max-width: 400px;
+}
+#TermsBox input {
+    width: auto;
+    margin-right: 0.75rem;
+    cursor: pointer;
+}
+#TermsBox label {
+    /* white-space: ; */
+    /* text-align: left; */
+    /* max-width: 240px; */
+    font-size: 0.85rem;
+}
+
+#card-element {
+    /* padding: 0.5rem 0;*/
+    margin: 0 0 1.5rem 0;
+    padding: 0.5rem;
+    width: 400px;
+    background: var(--color-background);
+    border: 1px solid var(--color-foreground);
+    font-size: 0.9rem;
+    /* font-family: var(--fontB); */
+    border-radius: 12px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#card-element > div {
+    width: 100%;
+}
+
+.card-error {
+}
+
+/* ERROR */
+.form-error {
+    margin: 0.5rem 0.5rem 0 0.5rem;
+    color: rgb(180, 0, 0);
+}
+
+/* BUTTONS */
+.buttonWrap {
+    margin: 0.5rem 0;
+}
+
+.toggleForms {
+    margin: 1.5rem 0 0rem 0;
+}
+@media screen and (max-width: 720px) {
+    #OrderReview {
+        padding: 1.25rem 0.25rem;
+        width: 100%;
+    }
+}
+@media screen and (max-width: 500px) {
+    .form {
+        padding: 1rem 1rem;
+    }
+    .form,
+    .form input,
+    .form select,
+    .form textarea,
+    .form .input,
+    .form .picsInput {
+        width: 100%;
+    }
+    #card-element,
+    .payment-form {
+        width: 100%;
+    }
+    .imagesWrap {
+        width: 100%;
+    }
+    .imagesWrap > div:nth-child(2) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .optionsWrap .addNewWrap .mini-bar-button {
+        font-size: 0.7rem;
+        /* min-width: 60px; */
+        /* width: 40px; */
+        padding: 0 0.5rem;
+    }
+}

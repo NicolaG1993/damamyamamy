@@ -1,0 +1,84 @@
+#ShopFilters {
+    max-width: 1000px;
+    /* margin: 2rem 0 0 0;
+    padding: 1rem 1.5rem;
+    border: 1px solid var(--color-foreground);
+    background: var(--color-primary);
+    border-radius: 12px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+#ShopFilters input {
+    padding: 0.5rem;
+    border-radius: 50px;
+    border: 1px solid var(--color-background-dark);
+    background: var(--color-background);
+}
+#ShopFilters select {
+    padding: 0.3rem 0.5rem;
+    border-radius: 50px;
+    border: 1px solid var(--color-background-dark);
+    background: var(--color-background);
+}
+#ShopFilters select {
+    width: 200px;
+    text-align: center;
+    cursor: pointer;
+    /* margin-left: 2rem; */
+}
+
+#ShopFilters .searchBarWrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0 2.5rem 0;
+}
+#ShopFilters .searchBarWrap input {
+    width: 500px;
+    padding: 1rem 1.5rem;
+    font-size: 1.3rem;
+}
+
+#ShopFilters .filtersBarWrap,
+#ShopFilters .orderBarWrap {
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+#ShopFilters .filtersBarWrap label,
+#ShopFilters .orderBarWrap label {
+    width: 100px;
+    margin-bottom: 0.2rem;
+    position: absolute;
+    left: -80px;
+    font-size: 0.8rem;
+}
+
+@media screen and (max-width: 768px) {
+    #ShopFilters .searchBarWrap input {
+        width: auto;
+        min-width: 390px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #ShopFilters .searchBarWrap input {
+        width: auto;
+        min-width: 0;
+    }
+    #ShopFilters .filtersBarWrap,
+    #ShopFilters .orderBarWrap {
+        flex-direction: column;
+    }
+    #ShopFilters .filtersBarWrap label,
+    #ShopFilters .orderBarWrap label {
+        position: relative;
+        width: auto;
+        left: 0;
+        margin-bottom: 0.75rem;
+    }
+}

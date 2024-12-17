@@ -1,0 +1,143 @@
+#ShortList {
+    /* background: transparent; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* padding: 10rem 1.5rem; */
+    height: 100%;
+    width: 100%;
+}
+.displayerHeading {
+    max-width: 1000px;
+    width: 100%;
+}
+.displayerHeading p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: var(--fontB);
+    margin: 0 0 2rem 0;
+}
+.shortListGrid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1000px;
+    width: 100%;
+    height: 360px;
+    padding: 1rem 0 0 0;
+    gap: 2.5rem;
+}
+
+.gridElement {
+    /* height: 350px; */
+    width: 300px;
+    border: 1px solid var(--color-background-dark);
+    border-radius: 12px;
+    /* margin: 0 0.5rem; */
+    background: linear-gradient(
+            to bottom,
+            transparent,
+            var(--color-background-hover)
+        )
+        var(--color-background-dark);
+}
+.gridElement h5 {
+    transition: var(--transition);
+}
+.shortListGrid > .gridElement:nth-child(1) {
+    /* margin: 0 1rem 0 0; */
+}
+.shortListGrid > .gridElement:nth-last-child(1) {
+    /* margin: 0 0 0 1rem; */
+}
+.gridElement:hover {
+    box-shadow: var(--box-shadow-hover);
+    transition: var(--transition);
+    color: var(--color-foreground);
+    border: 1px solid var(--color-background-dark);
+}
+.gridElement:hover h5 {
+    color: var(--color-secondary);
+}
+.picWrap {
+    width: 100%;
+    height: 260px;
+    background: var(--color-background);
+    border-radius: 12px 12px 0 0;
+}
+.picWrap img {
+    border-radius: 12px 12px 0 0;
+}
+.gridElementInfos {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.gridElementInfos h5 {
+    font-size: 0.95rem;
+    overflow: hidden;
+    flex-grow: 1;
+    max-width: 100%;
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: 600;
+}
+.gridElementInfos p {
+    font-size: 1.1rem;
+    font-weight: 800;
+    text-align: right;
+    /* margin-left: 1rem; */
+    margin: 0.5rem 0.5rem 0 0.5rem;
+    white-space: nowrap;
+}
+
+.noDataWrap {
+    height: 360px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+@media screen and (max-width: 1000px) {
+    .gridElement {
+        width: 260px;
+    }
+}
+@media screen and (max-width: 860px) {
+    .gridElement {
+        width: 210px;
+    }
+    .picWrap {
+        height: 210px;
+    }
+}
+@media screen and (max-width: 768px) {
+    .displayerHeading p {
+        text-align: center;
+    }
+    .shortListGrid {
+        flex-direction: column;
+    }
+    .gridElement {
+        width: 300px;
+        margin: 1rem;
+    }
+    .picWrap {
+        height: 260px;
+    }
+}
+@media screen and (max-width: 480px) {
+    .gridElement {
+        width: 260px;
+        margin: 1rem 0;
+    }
+    .picWrap {
+        height: 260px;
+    }
+}
