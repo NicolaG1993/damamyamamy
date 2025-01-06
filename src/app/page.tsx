@@ -1,14 +1,25 @@
 import Link from "next/link";
 import styles from "./page.module.css";
 import ShortList from "@/components/ShortList/ShortList";
+import Image from "next/image";
 
 export default function Home() {
-    // TODO: Vedere quale parte si puó mettere in layout + global css (es. .page)
     return (
         <div className={"page"}>
             <main>
                 <section id={styles.SliderSection}>
-                    <div></div>
+                    <div>
+                        <Image
+                            src={
+                                "https://res.cloudinary.com/dg4i4hspr/image/upload/v1676941571/damamyamamy.com/pic3_aczqx2.jpg"
+                            }
+                            alt={"Home slider picture"}
+                            fill
+                            style={{
+                                objectFit: "cover",
+                            }}
+                        />
+                    </div>
                 </section>
 
                 <section id={styles.IntroSection}>

@@ -1,6 +1,23 @@
 #SliderSection {
-    height: 66vh;
+    /* height: 66vh; */
+    height: calc(100vh - 60px);
     background-color: var(--color-primary);
+    position: relative;
+    padding: 0;
+    display: flex;
+}
+
+#SliderSection > div {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    /* background-attachment: fixed; */
+    background-repeat: no-repeat;
+    background-position: center;
+    object-position: center;
+    background-size: cover;
+    background-attachment: scroll; /* importante per proporzioni su ios */
 }
 
 #IntroSection {

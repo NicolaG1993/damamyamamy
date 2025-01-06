@@ -39,7 +39,7 @@ export default function Footer() {
                         <h4>Da Mamy a Mamy</h4>
                         <ul>
                             <li>
-                                <p>Vicolo Teatro, 4, 37010</p>
+                                <p>Via Tosin, 1, 37010</p>
                             </li>
                             <li>
                                 <p>Cavaion, Verona, IT</p>
@@ -54,11 +54,11 @@ export default function Footer() {
                                     damamyamamy@gmail.com
                                 </a>
                             </li>
-                            <li>
+                            {/* <li>
                                 <Link href="/orari">
                                     <strong>Vedi orari di apertura</strong>
                                 </Link>
-                            </li>
+                            </li> */}
                         </ul>
                     </div>
                 </div>
