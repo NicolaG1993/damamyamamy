@@ -11,11 +11,11 @@ export default function Footer() {
                         <h4>Informazioni</h4>
                         <ul>
                             <li>
-                                <Link href={"/documenti/regolamento"}>
+                                <Link href={"/info/regolamento"}>
                                     Regolamento
                                 </Link>
                             </li>
-                            <li>
+                            {/* <li>
                                 <Link href={"/info/note-legali"}>
                                     Note legali
                                 </Link>
@@ -24,7 +24,7 @@ export default function Footer() {
                                 <Link href={"/info/cookie-policy"}>
                                     Cookies policy
                                 </Link>
-                            </li>
+                            </li> */}
 
                             {/* <li>
                                 <Link href={"/info/faq"}>

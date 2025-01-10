@@ -27,7 +27,7 @@ export default function ShortList({ tableName }) {
             console.log("🐞 ERROR: ", getError(err));
             alert(
                 "Sembra che abbiamo dei problemi con il nostro sito, riprova piú tardi oppure contattaci al 347 9792 644, ci scusiamo per il disagio."
-            );
+            ); // TODO: Move alert to /constants/messages.ts files
         }
     };
 
