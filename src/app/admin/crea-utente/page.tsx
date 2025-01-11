@@ -4,7 +4,7 @@ import AddUserForm from "@/components/forms/AddUserForm";
 
 // IMPORTANT: After creating first user for me make this form available only for admins 🔴
 
-export default function Contatto() {
+export default function CreaUtente() {
     return (
         <div className="page">
             <main>

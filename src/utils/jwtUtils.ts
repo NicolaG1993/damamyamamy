@@ -10,7 +10,7 @@ interface TokenPayload extends JwtPayload {
 
 function signToken(mappedUser: TokenPayload) {
     return jwt.sign(mappedUser, process.env.JWT_SECRET || "", {
-        expiresIn: "1h",
+        expiresIn: "1m",
     });
 }
 
@@ -32,4 +32,9 @@ async function middlewareVerifyToken(
     }
 }
 
-export { signToken, verifyToken, middlewareVerifyToken };
+// Helper function to check if the error is a JWT error
+function isJwtError(error: unknown): error is { name: string } {
+    return typeof error === "object" && error !== null && "name" in error;
+}
+
+export { signToken, verifyToken, middlewareVerifyToken, isJwtError };

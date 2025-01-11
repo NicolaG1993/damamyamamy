@@ -65,7 +65,7 @@ export default function LoginForm() {
                     placeholder="Password"
                     value={formData.password}
                     onChange={handleChange}
-                    // required
+                    required
                 />
             </div>
             <div className={styles.buttonWrap}>

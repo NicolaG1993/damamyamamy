@@ -29,9 +29,10 @@ export default function AddUserForm() {
 
         try {
             const response = await createUser(formData);
+            console.log("response: ", response);
 
             if (response?.id) {
-                console.log("createUser response: ", response);
+                // Todo: redirect somewhere? just restart form? success message? test
                 // router.push(`/admin/users/${response.id}`);
             } else {
                 setError(response.message);
@@ -54,7 +55,7 @@ export default function AddUserForm() {
                 <input
                     type="text"
                     name="firstName"
-                    placeholder="Nome"
+                    placeholder="Nome*"
                     value={formData.firstName}
                     onChange={handleChange}
                     required
@@ -64,7 +65,7 @@ export default function AddUserForm() {
                 <input
                     type="text"
                     name="lastName"
-                    placeholder="Cognome"
+                    placeholder="Cognome*"
                     value={formData.lastName}
                     onChange={handleChange}
                     required
@@ -74,7 +75,7 @@ export default function AddUserForm() {
                 <input
                     type="email"
                     name="email"
-                    placeholder="Email"
+                    placeholder="Email*"
                     value={formData.email}
                     onChange={handleChange}
                     required
@@ -84,7 +85,7 @@ export default function AddUserForm() {
                 <input
                     type="password"
                     name="password"
-                    placeholder="Password"
+                    placeholder="Password*"
                     value={formData.password}
                     onChange={handleChange}
                     required

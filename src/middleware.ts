@@ -3,48 +3,48 @@ import type { NextRequest } from "next/server";
 import { middlewareVerifyToken } from "./utils/jwtUtils";
 
 export async function middleware(req: NextRequest) {
-    const url = req.nextUrl;
-    const token = req.cookies.get("damamyamamy_auth_token")?.value;
+    const authToken = req.cookies.get("damamyamamy_auth_token")?.value;
 
-    try {
-        if (token) {
-            // Decode the token if present
-            const decodedToken = await middlewareVerifyToken(token);
+    const url = req.nextUrl.clone();
+    const adminPath = "/admin";
+    const loginPath = "/admin/login";
+    const forbiddenPath = "/403"; // Optional forbidden page
 
-            // Admin users should be redirected away from `/admin/login` to `/admin`
-            if (decodedToken?.isAdmin && url.pathname === "/admin/login") {
-                return NextResponse.redirect(new URL("/admin", req.url));
-            }
-
-            // Restrict non-admin users from accessing other `/admin` pages
-            if (
-                url.pathname.startsWith("/admin") &&
-                !decodedToken?.isAdmin &&
-                url.pathname !== "/admin/login"
-            ) {
-                return NextResponse.redirect(new URL("/", req.url));
-            }
-        } else {
-            // Redirect unauthenticated users from `/admin` pages to `/admin/login`
-            if (
-                url.pathname.startsWith("/admin") &&
-                url.pathname !== "/admin/login"
-            ) {
-                return NextResponse.redirect(new URL("/admin/login", req.url));
-            }
-        }
-    } catch (error) {
-        console.error("Token error:", error);
-
-        // Redirect invalid token users to `/admin/login`
-        if (url.pathname.startsWith("/admin")) {
-            return NextResponse.redirect(new URL("/admin/login", req.url));
-        }
+    // Exclude the login page from middleware processing
+    if (url.pathname === loginPath) {
+        return NextResponse.next();
     }
-    return NextResponse.next();
+
+    // If no token exists, redirect to the login page
+    if (!authToken) {
+        if (url.pathname.startsWith(adminPath)) {
+            url.pathname = loginPath;
+            return NextResponse.redirect(url);
+        }
+        return NextResponse.next(); // Allow non-admin routes to proceed
+    }
+
+    // Verify the token using middlewareVerifyToken
+    const tokenPayload = await middlewareVerifyToken(authToken);
+
+    if (tokenPayload) {
+        if (tokenPayload.isAdmin) {
+            // Token is valid, and user is admin; allow access
+            return NextResponse.next();
+        } else {
+            // Token is valid, but user is not an admin
+            console.warn("Non-admin user attempted to access admin route.");
+            url.pathname = forbiddenPath; // Redirect to forbidden page
+            return NextResponse.redirect(url);
+        }
+    } else {
+        // Token is invalid or expired
+        console.warn("Token invalid or expired. Redirecting to login...");
+        url.pathname = loginPath;
+        return NextResponse.redirect(url);
+    }
 }
 
-// Define the matcher for the middleware
 export const config = {
-    matcher: ["/admin/:path*"], // Apply the middleware to all `/admin` routes
+    matcher: ["/admin/:path*"], // Apply middleware only to admin routes
 };
