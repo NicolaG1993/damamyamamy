@@ -1,39 +1,37 @@
 import { useState } from "react";
 import styles from "./Form.module.css";
-import { createUser } from "@/services/user";
+import { adminLogin } from "@/services/auth";
+import { useRouter } from "next/navigation";
 import { handleAxiosError } from "@/utils/axiosUtils";
-// import { useRouter } from "next/navigation";
 
-export default function AddUserForm() {
+export default function LoginForm() {
     const [formData, setFormData] = useState({
-        firstName: "",
-        lastName: "",
         email: "",
         password: "",
-        isAdmin: false,
     });
     const [error, setError] = useState<string | null>(null);
-    // const router = useRouter();
+    const router = useRouter();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value, type, checked } = e.target;
+        const { name, value } = e.target;
         setFormData({
             ...formData,
-            [name]: type === "checkbox" ? checked : value,
+            [name]: value,
         });
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setError(null);
 
         try {
-            const response = await createUser(formData);
+            const response = await adminLogin(formData);
+            console.log("adminLogin response: ", response);
 
-            if (response?.id) {
-                console.log("createUser response: ", response);
-                // router.push(`/admin/users/${response.id}`);
+            if (response.token) {
+                // If login is successful, redirect to /admin
+                router.push(`/admin`);
             } else {
+                // Handle failed login response
                 setError(response.message);
             }
         } catch (err) {
@@ -52,26 +50,6 @@ export default function AddUserForm() {
 
             <div className={styles.inputWrap}>
                 <input
-                    type="text"
-                    name="firstName"
-                    placeholder="Nome"
-                    value={formData.firstName}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div className={styles.inputWrap}>
-                <input
-                    type="text"
-                    name="lastName"
-                    placeholder="Cognome"
-                    value={formData.lastName}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div className={styles.inputWrap}>
-                <input
                     type="email"
                     name="email"
                     placeholder="Email"
@@ -87,24 +65,12 @@ export default function AddUserForm() {
                     placeholder="Password"
                     value={formData.password}
                     onChange={handleChange}
-                    required
+                    // required
                 />
             </div>
-            <div className={styles.inputWrap}>
-                <label>
-                    Amministratore
-                    <input
-                        type="checkbox"
-                        name="isAdmin"
-                        checked={formData.isAdmin}
-                        onChange={handleChange}
-                    />
-                </label>
-            </div>
-
             <div className={styles.buttonWrap}>
                 <button type="submit" className="primary form-button">
-                    Conferma
+                    Login
                 </button>
             </div>
         </form>

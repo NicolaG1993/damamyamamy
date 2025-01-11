@@ -316,6 +316,11 @@
     margin: 0.5rem 0.5rem 0 0.5rem;
     color: rgb(180, 0, 0);
 }
+.server-error {
+    margin: 0.5rem 0 1.5rem 0;
+    color: rgb(180, 0, 0);
+    max-width: 400px;
+}
 
 /* BUTTONS */
 .buttonWrap {

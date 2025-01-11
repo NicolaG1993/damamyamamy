@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
 
     if (!firstName || !lastName || !email || !password) {
         return NextResponse.json(
-            { message: "Missing required fields" },
+            { message: "Mancano delle informazioni" },
             { status: 400 }
         );
     }
@@ -36,21 +36,18 @@ export async function POST(req: NextRequest) {
 
         if (!userId) {
             return NextResponse.json(
-                { message: "Failed to add user" },
+                { message: "Non è stato possibile creare l'utente" },
                 { status: 500 }
             );
         }
 
         return NextResponse.json(
-            { message: "User created successfully", userId },
+            { message: "Utente creato con successo!", userId },
             { status: 201 }
         );
     } catch (error) {
         console.error(error);
-        return NextResponse.json(
-            { message: "Internal server error" },
-            { status: 500 }
-        );
+        return NextResponse.json({ message: "Errore server" }, { status: 500 });
     } finally {
         release(client);
     }
