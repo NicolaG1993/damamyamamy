@@ -10,7 +10,7 @@ interface TokenPayload extends JwtPayload {
 
 function signToken(mappedUser: TokenPayload) {
     return jwt.sign(mappedUser, process.env.JWT_SECRET || "", {
-        expiresIn: "1m",
+        expiresIn: "3h",
     });
 }
 

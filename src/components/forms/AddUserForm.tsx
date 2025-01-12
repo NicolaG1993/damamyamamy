@@ -31,8 +31,9 @@ export default function AddUserForm() {
             const response = await createUser(formData);
             console.log("response: ", response);
 
-            if (response?.id) {
-                // Todo: redirect somewhere? just restart form? success message? test
+            if (response?.userId) {
+                // 🧠 Todo: redirect somewhere? just restart form? success message? test
+                // Right now the user is created but nothing happens
                 // router.push(`/admin/users/${response.id}`);
             } else {
                 setError(response.message);

@@ -11,7 +11,7 @@ interface AddUserFormData {
 
 interface CreateUserResponse {
     message: string;
-    id?: string;
+    userId?: string;
 }
 
 export const createUser = async (
