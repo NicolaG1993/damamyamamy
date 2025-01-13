@@ -6,6 +6,7 @@ import styles from "./page.module.css";
 // import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { logout } from "@/services/auth";
+import Link from "next/link";
 
 export default function Admin() {
     const router = useRouter();
@@ -37,9 +38,23 @@ export default function Admin() {
                 ) : (
                     <section>
                         <h1>Area amministratore</h1>
-                        <p>• Aggiungi prodotto</p>
-                        <p>• Modifica prodotti</p>
-                        <p>• Aggiungi utente</p>
+
+                        <div className={styles.adminNav}>
+                            <Link href={"/admin/crea-cliente"}>
+                                Aggiungi cliente
+                            </Link>
+                            <Link href={"/admin/crea-prodotto"}>
+                                Aggiungi prodotto
+                            </Link>
+                            <Link href={"/admin/crea-utente"}>
+                                Aggiungi utente autorizzato
+                            </Link>
+                            <Link href={"/admin/prodotti"}>Lista clienti</Link>
+                            <Link href={"/admin/prodotti"}>Lista prodotti</Link>
+                            <Link href={"/admin/utenti"}>
+                                Lista utenti autorizzati
+                            </Link>
+                        </div>
                         <button onClick={handleLogout} className="">
                             Logout
                         </button>

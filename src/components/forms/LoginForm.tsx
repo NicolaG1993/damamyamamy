@@ -69,7 +69,7 @@ export default function LoginForm() {
                 />
             </div>
             <div className={styles.buttonWrap}>
-                <button type="submit" className="primary form-button">
+                <button type="submit" className="secondary form-button">
                     Login
                 </button>
             </div>

@@ -1,18 +1,6 @@
+import { AddUserFormData, CreateUserResponse, User } from "@/types/user";
 import { handleAxiosError } from "@/utils/axiosUtils";
 import axios from "axios";
-
-interface AddUserFormData {
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-    isAdmin: boolean;
-}
-
-interface CreateUserResponse {
-    message: string;
-    userId?: string;
-}
 
 export const createUser = async (
     formData: AddUserFormData
@@ -33,5 +21,20 @@ export const createUser = async (
         // Use the error utility to handle the Axios error and pass a custom message
         const errorMessage = handleAxiosError(err);
         return { message: errorMessage };
+    }
+};
+
+export const getUsers = async (): Promise<User[]> => {
+    try {
+        const res = await axios.get("/api/users");
+
+        if (res.status === 200) {
+            return res.data.users;
+        } else {
+            console.error("Unexpected status code:", res.data);
+            throw new Error(res.data.message || "Errore sconosciuto.");
+        }
+    } catch (err) {
+        throw new Error(handleAxiosError(err));
     }
 };

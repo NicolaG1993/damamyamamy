@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "./Form.module.css";
 import { createUser } from "@/services/user";
 import { handleAxiosError } from "@/utils/axiosUtils";
+import InputCheckbox from "../inputs/InputCheckbox";
 // import { useRouter } from "next/navigation";
 
 export default function AddUserForm() {
@@ -34,7 +35,7 @@ export default function AddUserForm() {
             if (response?.userId) {
                 // 🧠 Todo: redirect somewhere? just restart form? success message? test
                 // Right now the user is created but nothing happens
-                // router.push(`/admin/users/${response.id}`);
+                // router.push(`/admin/users/${response.userId}`);
             } else {
                 setError(response.message);
             }
@@ -93,7 +94,14 @@ export default function AddUserForm() {
                 />
             </div>
             <div className={styles.inputWrap}>
-                <label>
+                <InputCheckbox
+                    name="isAdmin"
+                    isChecked={formData.isAdmin}
+                    onChange={handleChange}
+                    label="Amministratore"
+                />
+
+                {/* <label className={styles.checkboxInput}>
                     Amministratore
                     <input
                         type="checkbox"
@@ -101,11 +109,11 @@ export default function AddUserForm() {
                         checked={formData.isAdmin}
                         onChange={handleChange}
                     />
-                </label>
+                </label> */}
             </div>
 
             <div className={styles.buttonWrap}>
-                <button type="submit" className="primary form-button">
+                <button type="submit" className="secondary form-button">
                     Conferma
                 </button>
             </div>

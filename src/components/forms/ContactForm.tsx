@@ -233,7 +233,7 @@ export default function ContactForm() {
                     )}
                 </div>
                 <div className={styles.buttonWrap}>
-                    <button type="submit" className="primary form-button">
+                    <button type="submit" className="secondary form-button">
                         Invia
                     </button>
                 </div>

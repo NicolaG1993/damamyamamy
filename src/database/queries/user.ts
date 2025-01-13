@@ -1,14 +1,5 @@
+import { RawUser } from "@/types/user";
 import { PoolClient, QueryResult } from "pg";
-
-interface RawUser {
-    id: number;
-    first_name: string;
-    last_name: string;
-    email: string;
-    psw?: string;
-    hashed_password?: string;
-    is_admin: boolean;
-}
 
 const newUser = async (
     client: PoolClient,
@@ -41,4 +32,12 @@ const getUser = async (
     return client.query(myQuery, keys);
 };
 
-export { newUser, getUser };
+const getUsers = async (client: PoolClient): Promise<QueryResult<RawUser>> => {
+    const myQuery = `
+        SELECT id, first_name, last_name, email, is_admin, created_at
+        FROM users
+    `;
+    return client.query(myQuery);
+};
+
+export { newUser, getUser, getUsers };

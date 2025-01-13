@@ -115,13 +115,13 @@ button {
 
 a.primary,
 button.primary {
-    background: var(--color-secondary);
+    background: var(--color-primary);
     color: var(--color-background);
 }
 
 a.secondary,
 button.secondary {
-    background: var(--color-primary);
+    background: var(--color-secondary);
     color: var(--color-background);
 }
 
@@ -134,6 +134,15 @@ button.bg {
 button.form-button {
     width: 100%;
     letter-spacing: 1px;
+}
+
+.go-back {
+    margin: 0.5rem 0;
+    color: var(--color-text);
+}
+.go-back:hover {
+    transition: 0.2s;
+    color: var(--color-placeholder);
 }
 
 .strong {

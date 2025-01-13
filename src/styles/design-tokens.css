@@ -11,9 +11,9 @@
     --color-background-dark: #cdcdcd;
     --color-primary-dark: #ebabb5;
 
-    --color-primary-hover: #57c4f7;
-    --color-secondary-hover: #f9a4b0;
     --color-background-hover: #f1f1f1;
+    --color-primary-hover: #f9a4b0;
+    --color-secondary-hover: #57c4f7;
 
     /* Breakpoints */
     --breakpoint-mobile: 480px;

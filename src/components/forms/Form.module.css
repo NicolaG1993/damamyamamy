@@ -14,7 +14,7 @@
 }
 
 /* INPUTS */
-.form input,
+.form input:not([type="checkbox"]),
 .form select,
 .form textarea,
 .form .input,
@@ -28,7 +28,7 @@
     font-family: var(--fontB);
 }
 
-.form input,
+.form input:not([type="checkbox"]),
 .form select,
 .form .input,
 .form .picsInput {
@@ -92,7 +92,7 @@
     align-items: center;
     margin: 0.2rem 0 0.5rem 0;
 }
-.optionsWrap .addNewWrap input {
+.optionsWrap .addNewWrap input:not([type="checkbox"]) {
     /* width: auto; */
     /* flex-grow: 1; */
     border-radius: 12px 0 0 12px;
@@ -210,83 +210,6 @@
 .deleteImage:hover {
     background: var(--color-background);
     color: var(--color-foreground);
-}
-
-/* ORDER REVIEW */
-#OrderReview {
-    border: 1px solid var(--color-foreground);
-    background: var(--color-background);
-    border-radius: 8px;
-    padding: 1.25rem 0.66rem;
-    margin: 1.5rem 0;
-    width: 400px;
-}
-#OrderReview > div:nth-child(2) {
-    /* border: 1px solid var(--color-background); */
-}
-#OrderReview h5 {
-    margin: 0rem 0 1rem 0.33rem;
-}
-.review-row {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid var(--color-background-dark);
-    padding: 0.66rem 0.8rem;
-    font-size: 0.9rem;
-}
-.review-row p:nth-child(1) {
-    width: 50px;
-    text-align: left;
-}
-.review-row p:nth-child(2) {
-    /* width: 100%; */
-    flex-grow: 1;
-    margin: 0 0.5rem;
-    text-align: left;
-}
-.review-row p:nth-child(3) {
-    width: 80px;
-    text-align: right;
-}
-.price-row {
-    padding: 1rem 0.8rem 0rem 0.8rem;
-    text-align: right;
-}
-.price-row p {
-    font-size: 0.8rem;
-    margin: 0.6rem 0;
-}
-.payment-form {
-    width: 400px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.payment-form > div {
-    width: 100%;
-}
-.payment-form > div:nth-child(1) {
-    width: 95%;
-    /* margin-top: 1rem; */
-}
-#TermsBox {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 1rem 0;
-    padding: 0 1rem;
-    max-width: 400px;
-}
-#TermsBox input {
-    width: auto;
-    margin-right: 0.75rem;
-    cursor: pointer;
-}
-#TermsBox label {
-    /* white-space: ; */
-    /* text-align: left; */
-    /* max-width: 240px; */
-    font-size: 0.85rem;
 }
 
 #card-element {
