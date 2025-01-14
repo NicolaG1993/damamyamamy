@@ -4,6 +4,7 @@ import { middlewareVerifyToken } from "@/utils/jwtUtils";
 import { fetchUsers } from "@/database/utils/fetchUsers";
 
 export async function GET(req: NextRequest) {
+    // Step 1: Retrieve the token from cookies
     const authToken = req.cookies.get("damamyamamy_auth_token")?.value;
 
     if (!authToken) {
@@ -13,7 +14,7 @@ export async function GET(req: NextRequest) {
         );
     }
 
-    // const { middlewareVerifyToken } = await import("@/utils/jwtUtils");
+    // Step 2: Verify the token
     const tokenPayload = await middlewareVerifyToken(authToken);
 
     if (!tokenPayload) {

@@ -10,19 +10,12 @@ import Link from "next/link";
 
 export default function Admin() {
     const router = useRouter();
-    // const userInfo = useAppSelector(selectUserState);
-
-    // useEffect(() => {
-    //     if (!userInfo?.isAdmin) {
-    //         router.push("/admin/login");
-    //     }
-    // }, [userInfo]);
 
     const handleLogout = async () => {
         try {
             await logout();
             console.log("User logged out successfully");
-            router.push("/admin/login"); // Redirect to the login page
+            router.push("/admin/login");
         } catch (error) {
             console.error("Logout failed:", error);
         }
@@ -40,16 +33,16 @@ export default function Admin() {
                         <h1>Area amministratore</h1>
 
                         <div className={styles.adminNav}>
-                            <Link href={"/admin/crea-cliente"}>
+                            <Link href={"/admin/clienti/crea"}>
                                 Aggiungi cliente
                             </Link>
-                            <Link href={"/admin/crea-prodotto"}>
+                            <Link href={"/admin/prodotti/crea"}>
                                 Aggiungi prodotto
                             </Link>
-                            <Link href={"/admin/crea-utente"}>
+                            <Link href={"/admin/utenti/crea"}>
                                 Aggiungi utente autorizzato
                             </Link>
-                            <Link href={"/admin/prodotti"}>Lista clienti</Link>
+                            <Link href={"/admin/clienti"}>Lista clienti</Link>
                             <Link href={"/admin/prodotti"}>Lista prodotti</Link>
                             <Link href={"/admin/utenti"}>
                                 Lista utenti autorizzati

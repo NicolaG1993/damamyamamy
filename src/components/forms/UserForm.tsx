@@ -1,20 +1,30 @@
 import { useState } from "react";
 import styles from "./Form.module.css";
-import { createUser } from "@/services/user";
 import { handleAxiosError } from "@/utils/axiosUtils";
 import InputCheckbox from "../inputs/InputCheckbox";
-// import { useRouter } from "next/navigation";
+import { AddUserFormData } from "@/types/user";
 
-export default function AddUserForm() {
-    const [formData, setFormData] = useState({
+interface UserFormProps {
+    initialData?: AddUserFormData; // For adding or editing users
+    onSubmit: (data: AddUserFormData) => Promise<void>;
+    buttonText?: string;
+    hidePassword?: boolean; // To hide password field for edit
+}
+
+export default function UserForm({
+    initialData = {
         firstName: "",
         lastName: "",
         email: "",
         password: "",
         isAdmin: false,
-    });
+    },
+    onSubmit,
+    buttonText = "Submit",
+    hidePassword = false,
+}: UserFormProps) {
+    const [formData, setFormData] = useState<AddUserFormData>(initialData);
     const [error, setError] = useState<string | null>(null);
-    // const router = useRouter();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value, type, checked } = e.target;
@@ -29,16 +39,15 @@ export default function AddUserForm() {
         setError(null);
 
         try {
-            const response = await createUser(formData);
-            console.log("response: ", response);
+            await onSubmit(formData);
+            // const response = await onSubmit(formData); // const response = await createUser(formData);
+            // console.log("response: ", response);
 
-            if (response?.userId) {
-                // 🧠 Todo: redirect somewhere? just restart form? success message? test
-                // Right now the user is created but nothing happens
-                // router.push(`/admin/users/${response.userId}`);
-            } else {
-                setError(response.message);
-            }
+            // if (response?.userId) {
+            // router.push(`/admin/users`); // router.push(`/admin/users/${response.userId}`);
+            // } else {
+            // setError(response.message);
+            // }
         } catch (err) {
             console.error("Login failed:", err);
             setError(handleAxiosError(err));
@@ -83,16 +92,18 @@ export default function AddUserForm() {
                     required
                 />
             </div>
-            <div className={styles.inputWrap}>
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password*"
-                    value={formData.password}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
+            {!hidePassword && (
+                <div className={styles.inputWrap}>
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Password*"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required={!hidePassword}
+                    />
+                </div>
+            )}
             <div className={styles.inputWrap}>
                 <InputCheckbox
                     name="isAdmin"
@@ -100,21 +111,11 @@ export default function AddUserForm() {
                     onChange={handleChange}
                     label="Amministratore"
                 />
-
-                {/* <label className={styles.checkboxInput}>
-                    Amministratore
-                    <input
-                        type="checkbox"
-                        name="isAdmin"
-                        checked={formData.isAdmin}
-                        onChange={handleChange}
-                    />
-                </label> */}
             </div>
 
             <div className={styles.buttonWrap}>
                 <button type="submit" className="secondary form-button">
-                    Conferma
+                    {buttonText}
                 </button>
             </div>
         </form>

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connect, release } from "@/database/db";
-import { fetchUser } from "@/database/utils/fetchUser";
+import { fetchUserLogin } from "@/database/utils/fetchUserLogin";
 
 export async function POST(req: NextRequest) {
     console.log("🔥 Admin Login API Invoked! 🔥");
@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
 
     try {
         // Fetch user by email
-        const user = await fetchUser(client, email, password);
+        const user = await fetchUserLogin(client, email, password);
 
         if (!user) {
             return NextResponse.json(

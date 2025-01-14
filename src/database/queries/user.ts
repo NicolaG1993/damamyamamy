@@ -1,7 +1,7 @@
 import { RawUser } from "@/types/user";
 import { PoolClient, QueryResult } from "pg";
 
-const newUser = async (
+export const newUser = async (
     client: PoolClient,
     firstName: string,
     lastName: string,
@@ -19,7 +19,7 @@ const newUser = async (
     return client.query(myQuery, keys);
 };
 
-const getUser = async (
+export const getUser = async (
     client: PoolClient,
     email: string
 ): Promise<QueryResult<RawUser>> => {
@@ -32,7 +32,22 @@ const getUser = async (
     return client.query(myQuery, keys);
 };
 
-const getUsers = async (client: PoolClient): Promise<QueryResult<RawUser>> => {
+export const getUserById = async (
+    client: PoolClient,
+    userId: number
+): Promise<QueryResult<RawUser>> => {
+    const myQuery = `
+        SELECT id, first_name, last_name, email, is_admin, created_at
+        FROM users
+        WHERE id = $1
+    `;
+    const values = [userId];
+    return client.query(myQuery, values);
+};
+
+export const getUsers = async (
+    client: PoolClient
+): Promise<QueryResult<RawUser>> => {
     const myQuery = `
         SELECT id, first_name, last_name, email, is_admin, created_at
         FROM users
@@ -40,4 +55,31 @@ const getUsers = async (client: PoolClient): Promise<QueryResult<RawUser>> => {
     return client.query(myQuery);
 };
 
-export { newUser, getUser, getUsers };
+export const updateUserById = async (
+    client: PoolClient,
+    userId: number,
+    data: {
+        firstName?: string;
+        lastName?: string;
+        email?: string;
+        isAdmin?: boolean;
+    }
+) => {
+    const myQuery = `
+        UPDATE users
+        SET 
+            first_name = COALESCE($1, first_name),
+            last_name = COALESCE($2, last_name),
+            email = COALESCE($3, email),
+            is_admin = COALESCE($4, is_admin)
+        WHERE id = $5
+    `;
+    const values = [
+        data.firstName,
+        data.lastName,
+        data.email,
+        data.isAdmin,
+        userId,
+    ];
+    return client.query(myQuery, values);
+};

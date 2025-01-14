@@ -35,6 +35,6 @@ export async function addUser(
     } catch (error) {
         await rollback(client);
         console.error("Error inserting user:", error);
-        return null;
+        throw error; // throw new Error("User insertion failed: " + error.message);
     }
 }

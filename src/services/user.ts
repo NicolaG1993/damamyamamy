@@ -24,6 +24,39 @@ export const createUser = async (
     }
 };
 
+export const updateUser = async (
+    userId: number,
+    updatedData: AddUserFormData
+): Promise<CreateUserResponse> => {
+    try {
+        const res = await axios.put(`/api/admin/users/${userId}`, updatedData);
+
+        if (res.status === 200) {
+            return res.data;
+        } else {
+            console.error("Unexpected status code:", res.data);
+            throw new Error(res.data.message || "Errore sconosciuto.");
+        }
+    } catch (err) {
+        throw new Error(handleAxiosError(err));
+    }
+};
+
+export const getUser = async (userId: number): Promise<User> => {
+    try {
+        const res = await axios.get(`/api/admin/users/${userId}`);
+
+        if (res.status === 200) {
+            return res.data.user;
+        } else {
+            console.error("Unexpected status code:", res.data);
+            throw new Error(res.data.message || "Errore sconosciuto.");
+        }
+    } catch (err) {
+        throw new Error(handleAxiosError(err));
+    }
+};
+
 export const getUsers = async (): Promise<User[]> => {
     try {
         const res = await axios.get("/api/users");
