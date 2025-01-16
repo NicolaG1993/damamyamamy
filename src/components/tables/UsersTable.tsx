@@ -1,17 +1,5 @@
+import { UsersTableProps } from "@/types/user";
 import styles from "./Table.module.css";
-
-type User = {
-    id: number;
-    firstName: string;
-    lastName: string;
-    email: string;
-    isAdmin: boolean;
-    createdAt: string;
-};
-
-type UsersTableProps = {
-    users: User[];
-};
 
 export default function UsersTable({ users }: UsersTableProps) {
     return (

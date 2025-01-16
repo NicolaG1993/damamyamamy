@@ -1,36 +1,34 @@
 import { useState } from "react";
 import styles from "./Form.module.css";
 import { handleAxiosError } from "@/utils/axiosUtils";
-import InputCheckbox from "@/components/inputs/InputCheckbox";
-import { UserFormData } from "@/types/user";
+import { ClientFormData } from "@/types/client";
 
-interface UserFormProps {
-    initialData?: UserFormData; // For adding or editing users
-    onSubmit: (data: UserFormData) => Promise<void>;
+interface ClientFormProps {
+    initialData?: ClientFormData;
+    onSubmit: (data: ClientFormData) => Promise<void>;
     buttonText?: string;
-    hidePassword?: boolean; // To hide password field for edit
 }
 
-export default function UserForm({
+export default function ClientForm({
     initialData = {
         firstName: "",
         lastName: "",
         email: "",
-        password: "",
-        isAdmin: false,
+        phone: "",
+        // address: "", // TODO: add column to db
+        code: "",
     },
     onSubmit,
     buttonText = "Conferma",
-    hidePassword = false,
-}: UserFormProps) {
-    const [formData, setFormData] = useState<UserFormData>(initialData);
+}: ClientFormProps) {
+    const [formData, setFormData] = useState<ClientFormData>(initialData);
     const [error, setError] = useState<string | null>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value, type, checked } = e.target;
+        const { name, value } = e.target;
         setFormData({
             ...formData,
-            [name]: type === "checkbox" ? checked : value,
+            [name]: value,
         });
     };
 
@@ -39,15 +37,7 @@ export default function UserForm({
         setError(null);
 
         try {
-            await onSubmit(formData); // TEST 🟨
-            // const response = await onSubmit(formData); // const response = await createUser(formData);
-            // console.log("response: ", response);
-
-            // if (response?.userId) {
-            // router.push(`/admin/users`); // router.push(`/admin/users/${response.userId}`);
-            // } else {
-            // setError(response.message);
-            // }
+            await onSubmit(formData);
         } catch (err) {
             console.error("Login failed:", err);
             setError(handleAxiosError(err));
@@ -92,24 +82,26 @@ export default function UserForm({
                     required
                 />
             </div>
-            {!hidePassword && (
-                <div className={styles.inputWrap}>
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Password*"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required={!hidePassword}
-                    />
-                </div>
-            )}
             <div className={styles.inputWrap}>
-                <InputCheckbox
-                    name="isAdmin"
-                    isChecked={formData.isAdmin}
+                <input
+                    type="tel"
+                    name="phone"
+                    placeholder="Telefono*"
+                    value={formData.phone}
                     onChange={handleChange}
-                    label="Amministratore"
+                    required
+                />
+            </div>
+
+            {/* TODO: Autogenerate code, if missing in creation 🧠 on edit: if deleted, reuse previous one - if new code use new code */}
+            <div className={styles.inputWrap}>
+                <input
+                    type="text"
+                    name="code"
+                    placeholder="Codice personale*"
+                    value={formData.code}
+                    onChange={handleChange}
+                    required
                 />
             </div>
 

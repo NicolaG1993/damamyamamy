@@ -2,17 +2,17 @@
 
 import UserForm from "@/components/forms/UserForm";
 import { createUser } from "@/services/user";
-import { AddUserFormData, CreateUserResponse } from "@/types/user";
+import { UserFormData, CreateUserResponse } from "@/types/user";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function CreaUtente() {
     const router = useRouter();
 
-    const handleAddUser = async (formData: AddUserFormData) => {
+    const handleAddUser = async (formData: UserFormData) => {
         const response: CreateUserResponse = await createUser(formData);
         if (response?.userId) {
-            router.push(`/admin/users`);
+            router.push(`/admin/utenti`);
         } else {
             throw new Error(response.message || "Failed to create user");
         }

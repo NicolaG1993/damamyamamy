@@ -1,16 +1,16 @@
-import { UserFormData, CreateUserResponse, User } from "@/types/user";
+import { Client, ClientFormData, CreateClientResponse } from "@/types/client";
 import { handleAxiosError } from "@/utils/axiosUtils";
 import axios from "axios";
 
-export const createUser = async (
-    formData: UserFormData
-): Promise<CreateUserResponse> => {
+export const createClient = async (
+    formData: ClientFormData
+): Promise<CreateClientResponse> => {
     try {
-        const res = await axios.post("/api/users/add", formData);
+        const res = await axios.post("/api/clients/add", formData);
 
         if (res.status === 201) {
             // Successful response
-            console.log(`Utente creato con successo!: ${res.data}`);
+            console.log(`Cliente creato con successo!: ${res.data}`);
             return res.data;
         } else {
             // Handle unexpected status codes
@@ -24,12 +24,15 @@ export const createUser = async (
     }
 };
 
-export const updateUser = async (
-    userId: number,
-    updatedData: UserFormData
-): Promise<CreateUserResponse> => {
+export const updateClient = async (
+    clientId: number,
+    updatedData: ClientFormData
+): Promise<CreateClientResponse> => {
     try {
-        const res = await axios.put(`/api/admin/users/${userId}`, updatedData);
+        const res = await axios.put(
+            `/api/admin/clients/${clientId}`,
+            updatedData
+        );
 
         if (res.status === 200) {
             return res.data;
@@ -42,12 +45,13 @@ export const updateUser = async (
     }
 };
 
-export const getUser = async (userId: number): Promise<User> => {
+// TODO: retrieve related items 👇🧠
+export const getClient = async (clientId: number): Promise<Client> => {
     try {
-        const res = await axios.get(`/api/admin/users/${userId}`);
+        const res = await axios.get(`/api/admin/clients/${clientId}`);
 
         if (res.status === 200) {
-            return res.data.user;
+            return res.data.client;
         } else {
             console.error("Unexpected status code:", res.data);
             throw new Error(res.data.message || "Errore sconosciuto.");
@@ -57,12 +61,12 @@ export const getUser = async (userId: number): Promise<User> => {
     }
 };
 
-export const getUsers = async (): Promise<User[]> => {
+export const getClients = async (): Promise<Client[]> => {
     try {
-        const res = await axios.get("/api/users");
+        const res = await axios.get("/api/clients");
 
         if (res.status === 200) {
-            return res.data.users;
+            return res.data.clients;
         } else {
             console.error("Unexpected status code:", res.data);
             throw new Error(res.data.message || "Errore sconosciuto.");

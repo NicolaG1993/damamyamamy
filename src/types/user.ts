@@ -22,7 +22,7 @@ export interface UserListProps {
     users: User[];
 }
 
-export interface AddUserFormData {
+export interface UserFormData {
     firstName: string;
     lastName: string;
     email: string;
@@ -32,5 +32,9 @@ export interface AddUserFormData {
 
 export interface CreateUserResponse {
     message: string;
-    userId?: string;
+    userId?: number;
+}
+
+export interface UsersTableProps {
+    users: User[];
 }

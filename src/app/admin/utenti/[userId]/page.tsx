@@ -1,6 +1,6 @@
 import UserForm from "@/components/forms/UserForm";
 import { getUser, updateUser } from "@/services/user";
-import { AddUserFormData, User } from "@/types/user";
+import { UserFormData, User } from "@/types/user";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -11,7 +11,7 @@ export default function ModificaUtente({
 }) {
     const { userId } = params;
     const router = useRouter();
-    const [user, setUser] = useState<AddUserFormData | null>(null);
+    const [user, setUser] = useState<UserFormData | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -36,7 +36,7 @@ export default function ModificaUtente({
         loadUser();
     }, [userId]);
 
-    const handleEditUser = async (formData: AddUserFormData) => {
+    const handleEditUser = async (formData: UserFormData) => {
         try {
             await updateUser(userId, formData);
             router.push(`/admin/users`);

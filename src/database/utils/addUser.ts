@@ -2,18 +2,16 @@ import { begin, commit, rollback } from "@/database/db";
 import { PoolClient } from "pg";
 import bcrypt from "bcryptjs";
 import { newUser } from "@/database/queries/user";
+import { UserFormData } from "@/types/user";
 
 export async function addUser(
     client: PoolClient,
-    firstName: string,
-    lastName: string,
-    email: string,
-    password: string,
-    isAdmin: boolean = false
+    userData: UserFormData
 ): Promise<number | null> {
     try {
         await begin(client);
 
+        const { firstName, lastName, email, password, isAdmin } = userData;
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const res = await newUser(

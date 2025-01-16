@@ -16,6 +16,7 @@ export const adminLogin = async (
 ): Promise<LoginResponse> => {
     try {
         const res = await axios.post("/api/auth/admin-login", formData);
+        console.log("res: ", res);
 
         if (res.status === 200) {
             // Successful login
@@ -28,6 +29,7 @@ export const adminLogin = async (
         }
     } catch (err) {
         // Use the error utility to handle the Axios error and pass a custom message
+        console.log("err: ", err);
         const errorMessage = handleAxiosError(err);
         return { message: errorMessage };
     }
