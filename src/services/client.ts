@@ -24,15 +24,12 @@ export const createClient = async (
     }
 };
 
-export const updateClient = async (
+export const editClient = async (
     clientId: number,
     updatedData: ClientFormData
 ): Promise<CreateClientResponse> => {
     try {
-        const res = await axios.put(
-            `/api/admin/clients/${clientId}`,
-            updatedData
-        );
+        const res = await axios.put(`/api/clients/${clientId}`, updatedData);
 
         if (res.status === 200) {
             return res.data;
@@ -48,7 +45,7 @@ export const updateClient = async (
 // TODO: retrieve related items 👇🧠
 export const getClient = async (clientId: number): Promise<Client> => {
     try {
-        const res = await axios.get(`/api/admin/clients/${clientId}`);
+        const res = await axios.get(`/api/clients/${clientId}`);
 
         if (res.status === 200) {
             return res.data.client;

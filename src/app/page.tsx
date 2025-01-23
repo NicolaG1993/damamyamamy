@@ -31,7 +31,7 @@ export default function Home() {
                             anni
                         </p>
                         <div className={"ctas"}>
-                            <Link className="primary" href={"/prodotti"}>
+                            <Link className="primary" href={"/articoli"}>
                                 Vedi tutti gli articoli
                             </Link>
                         </div>

@@ -1,11 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { addUser } from "@/database/utils/addUser";
 import { connect, release } from "@/database/db";
 import { middlewareVerifyToken } from "@/utils/jwtUtils";
+import { fetchClients } from "@/database/utils/fetchClients";
 
-export async function POST(req: NextRequest) {
-    console.log("🔥 add user API invoked! 🔥");
-
+export async function GET(req: NextRequest) {
     // Step 1: Retrieve the token from cookies
     const authToken = req.cookies.get("damamyamamy_auth_token")?.value;
 
@@ -37,50 +35,25 @@ export async function POST(req: NextRequest) {
         );
     }
 
-    // Step 4: Process the request if the user is authorized
-    if (req.method !== "POST") {
-        return NextResponse.json(
-            { message: "Method not allowed" },
-            { status: 405 }
-        );
-    }
-
-    const body = await req.json();
-    const { firstName, lastName, email, password, isAdmin } = body;
-
-    if (!firstName || !lastName || !email || !password) {
-        return NextResponse.json(
-            { message: "Mancano delle informazioni" },
-            { status: 400 }
-        );
-    }
-
-    const client = await connect();
+    // Step 4: Connect to the database and fetch clients
+    const poolClient = await connect();
 
     try {
-        const userId = await addUser(client, {
-            firstName,
-            lastName,
-            email,
-            password,
-            isAdmin: isAdmin || false,
-        });
+        const clients = await fetchClients(poolClient);
+        console.log("clients: ", clients); // { rows } forse giusto in questo caso?
 
-        if (!userId) {
+        if (!clients || clients.length === 0) {
             return NextResponse.json(
-                { message: "Non è stato possibile creare l'utente" },
-                { status: 500 }
+                { message: "Nessun cliente trovato." },
+                { status: 404 }
             );
         }
 
-        return NextResponse.json(
-            { message: "Utente creato con successo!", userId },
-            { status: 201 }
-        );
+        return NextResponse.json({ clients: clients }, { status: 200 });
     } catch (error) {
-        console.error(error);
+        console.error("Errore API clients:", error);
         return NextResponse.json({ message: "Errore server" }, { status: 500 });
     } finally {
-        release(client);
+        release(poolClient);
     }
 }

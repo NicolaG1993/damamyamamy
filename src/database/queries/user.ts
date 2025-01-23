@@ -41,8 +41,8 @@ export const getUserById = async (
         FROM users
         WHERE id = $1
     `;
-    const values = [userId];
-    return client.query(myQuery, values);
+    const keys = [userId];
+    return client.query(myQuery, keys);
 };
 
 export const getUsers = async (
@@ -74,12 +74,12 @@ export const updateUserById = async (
             is_admin = COALESCE($4, is_admin)
         WHERE id = $5
     `;
-    const values = [
+    const keys = [
         data.firstName,
         data.lastName,
         data.email,
         data.isAdmin,
         userId,
     ];
-    return client.query(myQuery, values);
+    return client.query(myQuery, keys);
 };

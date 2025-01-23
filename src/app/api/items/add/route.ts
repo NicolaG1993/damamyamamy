@@ -1,11 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { addUser } from "@/database/utils/addUser";
-import { connect, release } from "@/database/db";
+import { connect, release, rollback } from "@/database/db";
 import { middlewareVerifyToken } from "@/utils/jwtUtils";
+import { addItem } from "@/database/utils/addItem";
 
 export async function POST(req: NextRequest) {
-    console.log("🔥 add user API invoked! 🔥");
-
     // Step 1: Retrieve the token from cookies
     const authToken = req.cookies.get("damamyamamy_auth_token")?.value;
 
@@ -37,7 +35,7 @@ export async function POST(req: NextRequest) {
         );
     }
 
-    // Step 4: Process the request if the user is authorized
+    // Step 4: Process the request if the client is authorized
     if (req.method !== "POST") {
         return NextResponse.json(
             { message: "Method not allowed" },
@@ -45,12 +43,14 @@ export async function POST(req: NextRequest) {
         );
     }
 
-    const body = await req.json();
-    const { firstName, lastName, email, password, isAdmin } = body;
+    // Step 5: Procede with the Item creation
+    const formData = await req.formData(); // 🧠 req.formdata or const body = await req.json() ? 🧠
+    const itemData = JSON.parse(formData.get("item") as string);
+    const pictures = formData.getAll("pictures") as File[];
 
-    if (!firstName || !lastName || !email || !password) {
+    if (!itemData || !pictures.length) {
         return NextResponse.json(
-            { message: "Mancano delle informazioni" },
+            { message: "Dati mancanti. Controlla item e immagini." },
             { status: 400 }
         );
     }
@@ -58,28 +58,34 @@ export async function POST(req: NextRequest) {
     const client = await connect();
 
     try {
-        const userId = await addUser(client, {
-            firstName,
-            lastName,
-            email,
-            password,
-            isAdmin: isAdmin || false,
+        const { itemId, itemSlug } = await addItem(client, {
+            ...itemData,
+            pictures,
         });
 
-        if (!userId) {
+        if (!itemId) {
             return NextResponse.json(
-                { message: "Non è stato possibile creare l'utente" },
+                { message: "Non è stato possibile creare l'articolo" },
                 { status: 500 }
             );
         }
 
         return NextResponse.json(
-            { message: "Utente creato con successo!", userId },
+            {
+                message:
+                    "Articolo, brand, categorie e immagini salvati con successo.",
+                itemId,
+                itemSlug,
+            },
             { status: 201 }
         );
     } catch (error) {
-        console.error(error);
-        return NextResponse.json({ message: "Errore server" }, { status: 500 });
+        await rollback(client);
+        console.error("Errore API:", error);
+        return NextResponse.json(
+            { message: "Errore server", error: error.message },
+            { status: 500 }
+        );
     } finally {
         release(client);
     }

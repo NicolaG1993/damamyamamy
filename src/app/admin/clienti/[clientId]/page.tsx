@@ -1,10 +1,10 @@
 import ClientForm from "@/components/forms/ClientForm";
-import { getClient, updateClient } from "@/services/client";
+import { getClient, editClient } from "@/services/client";
 import { ClientFormData, Client } from "@/types/client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function ModificaUtente({
+export default function ModificaCliente({
     params,
 }: {
     params: { clientId: number };
@@ -38,7 +38,7 @@ export default function ModificaUtente({
 
     const handleEditClient = async (formData: ClientFormData) => {
         try {
-            await updateClient(clientId, formData);
+            await editClient(clientId, formData);
             router.push(`/admin/clients`);
         } catch (err) {
             console.error("Error updating client:", err);
@@ -47,7 +47,7 @@ export default function ModificaUtente({
     };
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <div>Caricamento...</div>;
     }
 
     if (error) {
@@ -55,7 +55,7 @@ export default function ModificaUtente({
     }
 
     if (!client) {
-        return <div>Client not found.</div>;
+        return <div>Cliente non trovato.</div>;
     }
 
     return (
@@ -63,7 +63,7 @@ export default function ModificaUtente({
             <main>
                 <section>
                     <div>
-                        <h1>Modifica utente</h1>
+                        <h1>Modifica client</h1>
                         <ClientForm
                             initialData={client}
                             onSubmit={handleEditClient}

@@ -24,12 +24,12 @@ export const createUser = async (
     }
 };
 
-export const updateUser = async (
+export const editUser = async (
     userId: number,
     updatedData: UserFormData
 ): Promise<CreateUserResponse> => {
     try {
-        const res = await axios.put(`/api/admin/users/${userId}`, updatedData);
+        const res = await axios.put(`/api/users/${userId}`, updatedData);
 
         if (res.status === 200) {
             return res.data;
@@ -44,7 +44,7 @@ export const updateUser = async (
 
 export const getUser = async (userId: number): Promise<User> => {
     try {
-        const res = await axios.get(`/api/admin/users/${userId}`);
+        const res = await axios.get(`/api/users/${userId}`);
 
         if (res.status === 200) {
             return res.data.user;

@@ -40,7 +40,7 @@ export default function Header({ isSmallDevice }: HeaderProps) {
                             <Link href={"/"}>Home</Link>
                         </li>
                         <li>
-                            <Link href={"/prodotti"}>Prodotti</Link>
+                            <Link href={"/articoli"}>Articoli</Link>
                         </li>
                         <li>
                             <Link href={"/info/regolamento"}>Vendi</Link>

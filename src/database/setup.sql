@@ -14,29 +14,23 @@ CREATE TABLE clients (
     first_name VARCHAR NOT NULL CHECK (first_name != ''),
     last_name VARCHAR NOT NULL CHECK (last_name != ''),
     email VARCHAR(255) NOT NULL UNIQUE,
-    phone VARCHAR(15) CHECK (phone ~ '^\+?[0-9]{7,15}$'), -- Validates phone format
+    phone VARCHAR(15) CHECK (phone ~ '^\+?[0-9]{7,15}$'),
     personal_code VARCHAR(255) NOT NULL UNIQUE
 );
 
 CREATE TABLE items (
     id SERIAL PRIMARY KEY,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    soldAt TIMESTAMP DEFAULT NULL,
     name VARCHAR NOT NULL CHECK (name != ''),
     price DECIMAL(12, 2),
     count_in_stock INTEGER,
     slug VARCHAR(255),
     description VARCHAR(255),
-    info VARCHAR(255),
     condition VARCHAR(255)
 );
 
 CREATE TABLE brands (
-    id SERIAL PRIMARY KEY,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    name VARCHAR NOT NULL CHECK (name != '')
-);
-
-CREATE TABLE tags (
     id SERIAL PRIMARY KEY,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     name VARCHAR NOT NULL CHECK (name != '')
@@ -59,13 +53,6 @@ CREATE TABLE item_brand (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     item_id INTEGER REFERENCES items(id) ON DELETE CASCADE,
     brand_id INTEGER REFERENCES brands(id) ON DELETE CASCADE
-);
-
-CREATE TABLE item_tag (
-    id SERIAL PRIMARY KEY,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    item_id INTEGER REFERENCES items(id) ON DELETE CASCADE,
-    tag_id INTEGER REFERENCES tags(id) ON DELETE CASCADE
 );
 
 CREATE TABLE item_category (

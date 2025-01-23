@@ -1,29 +1,29 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import ClientsTable from "@/components/tables/ClientsTable";
+import ItemsTable from "@/components/tables/ItemsTable";
 import { handleAxiosError } from "@/utils/axiosUtils";
-import { getClients } from "@/services/client";
-import { Client } from "@/types/client";
+import { getItems } from "@/services/item";
+import { Item } from "@/types/item";
 import Link from "next/link";
 
-export default function Clienti() {
-    const [clients, setClients] = useState<Client[]>([]);
+export default function Articoli() {
+    const [items, setItems] = useState<Item[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        const fetchClients = async () => {
+        const fetchItems = async () => {
             try {
-                const response = await getClients();
-                setClients(response);
+                const response = await getItems();
+                setItems(response);
             } catch (err) {
-                console.error("Clients fetching failed:", err);
+                console.error("Items fetching failed:", err);
                 setError(handleAxiosError(err));
             }
         };
 
-        fetchClients();
+        fetchItems();
         setIsLoading(false);
     }, []);
 
@@ -37,11 +37,11 @@ export default function Clienti() {
                         <div className="loading">Caricamento...</div>
                     ) : (
                         <div>
-                            <h1>Lista clienti</h1>
+                            <h1>Lista articoli</h1>
                             <Link href={"/admin"} className="go-back">
                                 Torna indietro
                             </Link>
-                            <ClientsTable clients={clients} />
+                            <ItemsTable items={items} />
                         </div>
                     )}
                 </section>

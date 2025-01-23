@@ -1,11 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { addUser } from "@/database/utils/addUser";
 import { connect, release } from "@/database/db";
 import { middlewareVerifyToken } from "@/utils/jwtUtils";
+import { fetchItems } from "@/database/utils/fetchItems";
 
-export async function POST(req: NextRequest) {
-    console.log("🔥 add user API invoked! 🔥");
-
+export async function GET(req: NextRequest) {
     // Step 1: Retrieve the token from cookies
     const authToken = req.cookies.get("damamyamamy_auth_token")?.value;
 
@@ -37,48 +35,23 @@ export async function POST(req: NextRequest) {
         );
     }
 
-    // Step 4: Process the request if the user is authorized
-    if (req.method !== "POST") {
-        return NextResponse.json(
-            { message: "Method not allowed" },
-            { status: 405 }
-        );
-    }
-
-    const body = await req.json();
-    const { firstName, lastName, email, password, isAdmin } = body;
-
-    if (!firstName || !lastName || !email || !password) {
-        return NextResponse.json(
-            { message: "Mancano delle informazioni" },
-            { status: 400 }
-        );
-    }
-
+    // Step 4: Connect to the database and fetch items
     const client = await connect();
 
     try {
-        const userId = await addUser(client, {
-            firstName,
-            lastName,
-            email,
-            password,
-            isAdmin: isAdmin || false,
-        });
+        const items = await fetchItems(client);
+        console.log("items: ", items); // { rows } forse giusto in questo caso?
 
-        if (!userId) {
+        if (!items || items.length === 0) {
             return NextResponse.json(
-                { message: "Non è stato possibile creare l'utente" },
-                { status: 500 }
+                { message: "Nessun articolo trovato." },
+                { status: 404 }
             );
         }
 
-        return NextResponse.json(
-            { message: "Utente creato con successo!", userId },
-            { status: 201 }
-        );
+        return NextResponse.json({ items: items }, { status: 200 });
     } catch (error) {
-        console.error(error);
+        console.error("Errore API items:", error);
         return NextResponse.json({ message: "Errore server" }, { status: 500 });
     } finally {
         release(client);

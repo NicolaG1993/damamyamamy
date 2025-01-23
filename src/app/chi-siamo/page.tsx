@@ -58,7 +58,7 @@ export default function ChiSiamo() {
 
                             <p>
                                 Offriamo il migliore servizio, controllando ogni
-                                prodotto
+                                articolo
                             </p> */}
                         </div>
 

@@ -36,14 +36,14 @@ export default function Admin() {
                             <Link href={"/admin/clienti/crea"}>
                                 Aggiungi cliente
                             </Link>
-                            <Link href={"/admin/prodotti/crea"}>
-                                Aggiungi prodotto
+                            <Link href={"/admin/articoli/crea"}>
+                                Aggiungi articolo
                             </Link>
                             <Link href={"/admin/utenti/crea"}>
                                 Aggiungi utente autorizzato
                             </Link>
                             <Link href={"/admin/clienti"}>Lista clienti</Link>
-                            <Link href={"/admin/prodotti"}>Lista prodotti</Link>
+                            <Link href={"/admin/articoli"}>Lista articoli</Link>
                             <Link href={"/admin/utenti"}>
                                 Lista utenti autorizzati
                             </Link>
