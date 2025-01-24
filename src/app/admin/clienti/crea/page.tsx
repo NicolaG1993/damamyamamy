@@ -12,7 +12,7 @@ export default function CreaCliente() {
     const handleAddClient = async (formData: ClientFormData) => {
         const response: CreateClientResponse = await createClient(formData);
         if (response?.clientId) {
-            router.push(`/admin/clienti`);
+            router.push(`/admin/clienti/${response.clientId}`);
         } else {
             throw new Error(response.message || "Failed to create client");
         }

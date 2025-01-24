@@ -1,0 +1,17 @@
+.elContainer {
+}
+
+.elRow {
+    display: flex;
+    align-items: center;
+}
+
+.elLabel {
+    margin: 0 0.5rem 0 0;
+    width: 80px;
+    color: var(--color-placeholder);
+}
+
+.elValue {
+    margin: 0;
+}

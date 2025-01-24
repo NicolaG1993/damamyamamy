@@ -1,49 +1,51 @@
-import UserForm from "@/components/forms/UserForm";
-import { getUser, editUser } from "@/services/user";
-import { UserFormData, User } from "@/types/user";
+"use client";
+
+import ClientForm from "@/components/forms/ClientForm";
+import { getClient, editClient } from "@/services/client";
+import { ClientFormData, Client } from "@/types/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function ModificaUtente({
+export default function ModificaCliente({
     params,
 }: {
-    params: { userId: number };
+    params: { clientId: number };
 }) {
-    const { userId } = params;
+    const { clientId } = params;
     const router = useRouter();
-    const [user, setUser] = useState<UserFormData | null>(null);
+    const [client, setClient] = useState<ClientFormData | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        const loadUser = async () => {
+        const loadClient = async () => {
             try {
-                const data: User = await getUser(userId);
-                setUser({
+                const data: Client = await getClient(clientId);
+                setClient({
                     firstName: data.firstName,
                     lastName: data.lastName,
                     email: data.email,
-                    password: "", // Password isn't fetched, left blank for security
-                    isAdmin: data.isAdmin,
+                    phone: data.phone,
+                    code: data.code,
                 });
             } catch (err) {
-                console.error("Error fetching user:", err);
-                setError("Failed to load user data.");
+                console.error("Error fetching client:", err);
+                setError("Failed to load client data.");
             } finally {
                 setIsLoading(false);
             }
         };
-        loadUser();
-    }, [userId]);
+        loadClient();
+    }, [clientId]);
 
-    const handleEditUser = async (formData: UserFormData) => {
+    const handleEditClient = async (formData: ClientFormData) => {
         try {
-            await editUser(userId, formData);
-            router.push(`/admin/users`);
+            await editClient(clientId, formData);
+            router.push(`/admin/clients`);
         } catch (err) {
-            console.error("Error updating user:", err);
-            setError("Failed to update user.");
+            console.error("Error updating client:", err);
+            setError("Failed to update client.");
         }
     };
 
@@ -52,7 +54,7 @@ export default function ModificaUtente({
             <main>
                 <section>
                     <div>
-                        <h1>Modifica utente</h1>
+                        <h1>Modifica cliente</h1>
                         <Link href={"/admin"} className="go-back">
                             Torna indietro
                         </Link>
@@ -60,15 +62,14 @@ export default function ModificaUtente({
                             <div className="error">{error}</div>
                         ) : isLoading ? (
                             <div className="loading">Caricamento...</div>
-                        ) : user ? (
-                            <UserForm
-                                initialData={user}
-                                onSubmit={handleEditUser}
+                        ) : client ? (
+                            <ClientForm
+                                initialData={client}
+                                onSubmit={handleEditClient}
                                 buttonText="Salva modifiche"
-                                hidePassword
                             />
                         ) : (
-                            <div className="error">Utente non trovato</div>
+                            <div className="error">Cliente non trovato</div>
                         )}
                     </div>
                 </section>

@@ -20,30 +20,32 @@ export default function UtentiRiservati() {
             } catch (err) {
                 console.error("Users fetching failed:", err);
                 setError(handleAxiosError(err));
+            } finally {
+                setIsLoading(false);
             }
         };
-
         fetchUsers();
-        setIsLoading(false);
     }, []);
 
     return (
         <div className="page">
             <main>
                 <section>
-                    {error ? (
-                        <div className="error">{error}</div>
-                    ) : isLoading ? (
-                        <div className="loading">Caricamento...</div>
-                    ) : (
-                        <div>
-                            <h1>Lista utenti autorizzati</h1>
-                            <Link href={"/admin"} className="go-back">
-                                Torna indietro
-                            </Link>
+                    <div>
+                        <h1>Lista utenti autorizzati</h1>
+                        <Link href={"/admin"} className="go-back">
+                            Torna indietro
+                        </Link>
+                        {error ? (
+                            <div className="error">{error}</div>
+                        ) : isLoading ? (
+                            <div className="loading">Caricamento...</div>
+                        ) : users && !!users.length ? (
                             <UsersTable users={users} />
-                        </div>
-                    )}
+                        ) : (
+                            <div className="error">Nessun risultato</div>
+                        )}
+                    </div>
                 </section>
             </main>
         </div>

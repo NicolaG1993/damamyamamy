@@ -43,12 +43,14 @@ export async function GET(req: NextRequest) {
     try {
         const brands = await searchBrands(poolClient, search);
 
+        /*
         if (!brands || brands.length === 0) {
             return NextResponse.json(
                 { message: "Nessun brand trovato." },
                 { status: 404 }
             );
         }
+        */
 
         return NextResponse.json({ brands }, { status: 200 });
     } catch (error) {

@@ -43,12 +43,14 @@ export async function GET(req: NextRequest) {
     try {
         const categories = await searchCategories(poolClient, search);
 
+        /*
         if (!categories || categories.length === 0) {
             return NextResponse.json(
                 { message: "Nessuna categoria trovata." },
                 { status: 404 }
             );
         }
+        */
 
         return NextResponse.json({ categories }, { status: 200 });
     } catch (error) {

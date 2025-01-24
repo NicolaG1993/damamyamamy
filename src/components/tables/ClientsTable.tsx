@@ -1,5 +1,6 @@
 import { ClientsTableProps } from "@/types/client";
 import styles from "./Table.module.css";
+import Link from "next/link";
 
 export default function ClientsTable({ clients }: ClientsTableProps) {
     return (
@@ -14,6 +15,7 @@ export default function ClientsTable({ clients }: ClientsTableProps) {
                         <th>Telefono</th>
                         <th>Codice</th>
                         <th>Data Creazione</th>
+                        <th>Azioni</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,6 +32,18 @@ export default function ClientsTable({ clients }: ClientsTableProps) {
                                 {new Date(
                                     client.createdAt
                                 ).toLocaleDateString()}
+                            </td>
+                            <td>
+                                <div className={styles.actions}>
+                                    <Link href={`/admin/clienti/${client.id}`}>
+                                        👁️
+                                    </Link>
+                                    <Link
+                                        href={`/admin/clienti/modifica/${client.id}`}
+                                    >
+                                        ✏️
+                                    </Link>
+                                </div>
                             </td>
                         </tr>
                     ))}

@@ -6,16 +6,23 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    background-color: var(--color-background);
 }
 
 .table th,
 .table td {
-    border: 1px solid #ddd;
+    border: 1px solid var(--color-background-dark);
     padding: 8px;
     text-align: left;
 }
 
 .table th {
-    background-color: #f4f4f4;
+    background-color: var(--color-background-hover);
     font-weight: bold;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

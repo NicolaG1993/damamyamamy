@@ -23,9 +23,9 @@ export default function ItemsTable({ items }: ItemsTableProps) {
                             <td>{item.name}</td>
                             <td>{item.price}</td>
                             <td>{item.stock}</td>
-                            <td>{item.brand}</td>
+                            <td>{item.brand?.name || "N/A"}</td>
                             <td>{item.pic}</td>
-                            <td>{item.owner}</td>
+                            <td>{`${item.owner.firstName} ${item.owner.lastName}`}</td>
                             <td>
                                 {new Date(item.createdAt).toLocaleDateString()}
                             </td>

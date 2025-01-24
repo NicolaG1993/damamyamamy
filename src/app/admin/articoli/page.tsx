@@ -20,30 +20,33 @@ export default function Articoli() {
             } catch (err) {
                 console.error("Items fetching failed:", err);
                 setError(handleAxiosError(err));
+            } finally {
+                setIsLoading(false);
             }
         };
 
         fetchItems();
-        setIsLoading(false);
     }, []);
 
     return (
         <div className="page">
             <main>
                 <section>
-                    {error ? (
-                        <div className="error">{error}</div>
-                    ) : isLoading ? (
-                        <div className="loading">Caricamento...</div>
-                    ) : (
-                        <div>
-                            <h1>Lista articoli</h1>
-                            <Link href={"/admin"} className="go-back">
-                                Torna indietro
-                            </Link>
+                    <div>
+                        <h1>Lista articoli</h1>
+                        <Link href={"/admin"} className="go-back">
+                            Torna indietro
+                        </Link>
+                        {error ? (
+                            <div className="error">{error}</div>
+                        ) : isLoading ? (
+                            <div className="loading">Caricamento...</div>
+                        ) : items && !!items.length ? (
                             <ItemsTable items={items} />
-                        </div>
-                    )}
+                        ) : (
+                            <div className="error">Nessun risultato</div>
+                        )}
+                    </div>
                 </section>
             </main>
         </div>

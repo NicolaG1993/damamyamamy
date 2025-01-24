@@ -20,30 +20,33 @@ export default function Clienti() {
             } catch (err) {
                 console.error("Clients fetching failed:", err);
                 setError(handleAxiosError(err));
+            } finally {
+                setIsLoading(false);
             }
         };
 
         fetchClients();
-        setIsLoading(false);
     }, []);
 
     return (
         <div className="page">
             <main>
                 <section>
-                    {error ? (
-                        <div className="error">{error}</div>
-                    ) : isLoading ? (
-                        <div className="loading">Caricamento...</div>
-                    ) : (
-                        <div>
-                            <h1>Lista clienti</h1>
-                            <Link href={"/admin"} className="go-back">
-                                Torna indietro
-                            </Link>
+                    <div>
+                        <h1>Lista clienti</h1>
+                        <Link href={"/admin"} className="go-back">
+                            Torna indietro
+                        </Link>
+                        {error ? (
+                            <div className="error">{error}</div>
+                        ) : isLoading ? (
+                            <div className="loading">Caricamento...</div>
+                        ) : clients && !!clients.length ? (
                             <ClientsTable clients={clients} />
-                        </div>
-                    )}
+                        ) : (
+                            <div className="error">Nessun risultato</div>
+                        )}
+                    </div>
                 </section>
             </main>
         </div>

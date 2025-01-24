@@ -42,11 +42,9 @@ export const editItem = async (
     }
 };
 
-// used to get item to edit (ItemFormData)
-export const getItem = async (slug: string): Promise<Item> => {
-    /*
+export const getItemToEdit = async (itemId: number): Promise<ItemFormData> => {
     try {
-        const res = await axios.get(`/api/shop/item/${slug}`);
+        const res = await axios.get(`/api/items/${itemId}/form-data`);
 
         if (res.status === 200) {
             return res.data.item;
@@ -57,10 +55,9 @@ export const getItem = async (slug: string): Promise<Item> => {
     } catch (err) {
         throw new Error(handleAxiosError(err));
     }
-        */
 };
 
-export const getItemToEdit = async (itemId: number): Promise<ItemFormData> => {
+export const getItem = async (itemId: number): Promise<Item> => {
     try {
         const res = await axios.get(`/api/items/${itemId}`);
 

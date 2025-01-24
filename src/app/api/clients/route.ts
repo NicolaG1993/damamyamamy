@@ -42,12 +42,14 @@ export async function GET(req: NextRequest) {
         const clients = await fetchClients(poolClient);
         console.log("clients: ", clients); // { rows } forse giusto in questo caso?
 
+        /*
         if (!clients || clients.length === 0) {
             return NextResponse.json(
                 { message: "Nessun cliente trovato." },
                 { status: 404 }
             );
         }
+        */
 
         return NextResponse.json({ clients: clients }, { status: 200 });
     } catch (error) {

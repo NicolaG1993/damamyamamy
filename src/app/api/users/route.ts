@@ -42,12 +42,14 @@ export async function GET(req: NextRequest) {
         const users = await fetchUsers(client);
         console.log("users: ", users); // { rows } forse giusto in questo caso?
 
+        /*
         if (!users || users.length === 0) {
             return NextResponse.json(
                 { message: "Nessun utente trovato." },
                 { status: 404 }
             );
         }
+        */
 
         return NextResponse.json({ users: users }, { status: 200 });
     } catch (error) {
