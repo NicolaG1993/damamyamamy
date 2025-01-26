@@ -1,18 +1,39 @@
-import { OptionResponse } from "@/types/form";
+import { CreateOptionResponse, Option } from "@/types/form";
 import { handleAxiosError } from "@/utils/axiosUtils";
-import { searchCategory } from "./category";
-import { searchBrand } from "./brand";
+import { createCategory, searchCategory } from "./category";
+import { createBrand, searchBrand } from "./brand";
+
+export const createOption = async (
+    name: string,
+    label: string
+): Promise<Option | CreateOptionResponse> => {
+    try {
+        let res;
+
+        if (label === "Brand") {
+            res = await createBrand(name);
+        } else if (label === "Category") {
+            res = await createCategory(name);
+        } else {
+            throw new Error("Label mancante.");
+        }
+
+        return res;
+    } catch (err) {
+        throw new Error(handleAxiosError(err));
+    }
+};
 
 export const getInputOptions = async (
     term: string,
     label: string
-): Promise<OptionResponse> => {
+): Promise<Option[]> => {
     try {
         let res;
         if (label === "Brand") {
             // res = await axios.get<Option[]>(`/api/brands?search=${term}`);
             res = await searchBrand(term);
-        } else if (label === "Brand") {
+        } else if (label === "Category") {
             // res = await axios.get<Option[]>(`/api/categories?search=${term}`);
             res = await searchCategory(term);
         } else {
@@ -27,7 +48,8 @@ export const getInputOptions = async (
         //     throw new Error(res.data.message || "Errore sconosciuto.");
         // }
 
-        return { options: res };
+        return res;
+        // return { options: res };
     } catch (err) {
         throw new Error(handleAxiosError(err));
     }

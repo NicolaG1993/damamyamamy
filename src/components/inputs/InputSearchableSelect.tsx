@@ -1,8 +1,7 @@
 import { useState } from "react";
-// import axios from "axios";
 import styles from "./InputSearchableSelect.module.css";
-import { Option, OptionResponse } from "@/types/form";
-import { getInputOptions } from "@/services/form";
+import { Option } from "@/types/form";
+import { createOption, getInputOptions } from "@/services/form";
 
 interface InputSearchableSelectProps {
     label: string;
@@ -32,9 +31,10 @@ export default function InputSearchableSelect({
             return;
         }
         try {
-            const response: OptionResponse = await getInputOptions(term, label);
+            const response: Option[] = await getInputOptions(term, label);
+            console.log("InputSearchableSelect response: ", response);
 
-            setSuggestions(response.options);
+            setSuggestions(response);
         } catch (err) {
             setError("Failed to fetch suggestions.");
         }
@@ -58,6 +58,24 @@ export default function InputSearchableSelect({
     const handleRemove = (option: Option) => {
         if (onRemove) {
             onRemove(option);
+        }
+    };
+
+    const handleNew = async (name: string) => {
+        /*
+        
+    TODO:
+    • Avere sempre una linea di option per creare contenuto input
+    • Deve scomparire solo quando abbiamo un risultato con lo stesso nome in options
+    • onClick creiamo il nuovo brand o category - e solo dopo lo aggiungiamo a form options 
+   
+        */
+
+        const response: Option = await createOption(name, label);
+        if (response?.id) {
+            handleAdd(response);
+        } else {
+            throw new Error("Failed to create option");
         }
     };
 
@@ -92,15 +110,19 @@ export default function InputSearchableSelect({
 
     return (
         <div className={styles.container}>
-            <label>{label}</label>
             <input
                 type="text"
                 value={searchTerm}
                 onChange={(e) => handleSearch(e.target.value)}
-                placeholder={`Search or add ${label.toLowerCase()}`}
+                placeholder={`Cerca o crea ${label.toLowerCase()}`}
             />
             <ul className={styles.suggestions}>
-                {suggestions.map((option) => (
+                {searchTerm && (
+                    <li
+                        onClick={() => handleNew(searchTerm)}
+                    >{`Aggiungi "${searchTerm}"`}</li>
+                )}
+                {suggestions.map((option: Option) => (
                     <li key={option.id} onClick={() => handleAdd(option)}>
                         {option.name}
                     </li>

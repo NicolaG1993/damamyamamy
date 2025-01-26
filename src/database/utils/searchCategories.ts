@@ -6,9 +6,9 @@ export async function searchCategories(client: PoolClient, search: string) {
     try {
         const res = await getCategoriesBySearch(client, search);
 
-        if (!res.rows || res.rows.length === 0) {
-            throw new Error(`No categories found for search term: ${search}`);
-        }
+        // if (!res.rows || res.rows.length === 0) {
+        //     throw new Error(`No categories found for search term: ${search}`);
+        // }
 
         return res.rows.map(mapRawCategoryToCategory);
     } catch (error) {

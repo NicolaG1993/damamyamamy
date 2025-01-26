@@ -43,6 +43,17 @@ export const getClients = async (
     return client.query(myQuery);
 };
 
+export const getClientsAsOptions = async (
+    client: PoolClient
+): Promise<QueryResult<RawClient>> => {
+    const myQuery = `
+        SELECT id, first_name, last_name
+        FROM clients
+        ORDER BY last_name, first_name
+    `;
+    return client.query(myQuery);
+};
+
 export const updateClientById = async (
     client: PoolClient,
     clientId: number,

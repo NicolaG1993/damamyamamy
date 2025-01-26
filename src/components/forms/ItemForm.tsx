@@ -31,9 +31,9 @@ export default function ItemForm({
     buttonText = "Conferma",
 }: ItemFormProps) {
     const conditions = [
-        { key: "new", value: "nuovo" },
-        { key: "used", value: "usato" },
-        { key: "refurbished", value: "rigenerato" },
+        { value: "new", key: "Nuovo" },
+        { value: "used", key: "Usato" },
+        { value: "refurbished", key: "Rigenerato" },
     ];
     const [formData, setFormData] = useState<ItemFormData>(initialData);
     const [isSlugCustom, setIsSlugCustom] = useState(false);
@@ -140,6 +140,10 @@ export default function ItemForm({
         }
     }, [formData.name, isSlugCustom]);
 
+    useEffect(() => {
+        console.log("👁️ formData: ", formData);
+    }, [formData]);
+
     return (
         <form className={styles.form} onSubmit={handleSubmit}>
             {error && (
@@ -173,7 +177,7 @@ export default function ItemForm({
             <div className={styles.inputWrap}>
                 <textarea
                     name="description"
-                    placeholder="Description"
+                    placeholder="Descrizione"
                     value={formData.description}
                     onChange={handleChange}
                     required
@@ -209,6 +213,7 @@ export default function ItemForm({
             </div>
 
             <div className={styles.inputWrap}>
+                <label>Condizioni</label>
                 <select
                     name="condition"
                     value={formData.condition}
@@ -224,6 +229,7 @@ export default function ItemForm({
             </div>
 
             <div className={styles.inputWrap}>
+                <label>Foto</label>
                 <input
                     type="file"
                     name="images"
@@ -233,43 +239,54 @@ export default function ItemForm({
             </div>
 
             {/* Brand input */}
-            <InputSearchableSelect
-                label="Brand"
-                selected={formData.brand}
-                onAdd={(brand) => setFormData((prev) => ({ ...prev, brand }))}
-                // apiEndpoint="/api/brands"
-                allowMultiple={false}
-            />
+            <div className={styles.inputWrap}>
+                <label>Brand</label>
+                <InputSearchableSelect
+                    label="Brand"
+                    selected={formData.brand}
+                    onAdd={(brand) =>
+                        setFormData((prev) => ({ ...prev, brand }))
+                    }
+                    // apiEndpoint="/api/brands"
+                    allowMultiple={false}
+                />
+            </div>
 
             {/* Categories input */}
-            <InputSearchableSelect
-                label="Categorie"
-                selected={formData.categories}
-                onAdd={(category) =>
-                    setFormData((prev) => ({
-                        ...prev,
-                        categories: [...prev.categories, category],
-                    }))
-                }
-                onRemove={(category) =>
-                    setFormData((prev) => ({
-                        ...prev,
-                        categories: prev.categories.filter(
-                            (cat) => cat !== category
-                        ),
-                    }))
-                }
-                // apiEndpoint="/api/categories"
-                allowMultiple={true}
-            />
+            <div className={styles.inputWrap}>
+                <label>Categorie</label>
+                <InputSearchableSelect
+                    label="Category"
+                    selected={formData.categories}
+                    onAdd={(category) =>
+                        setFormData((prev) => ({
+                            ...prev,
+                            categories: [...prev.categories, category],
+                        }))
+                    }
+                    onRemove={(category) =>
+                        setFormData((prev) => ({
+                            ...prev,
+                            categories: prev.categories.filter(
+                                (cat) => cat !== category
+                            ),
+                        }))
+                    }
+                    // apiEndpoint="/api/categories"
+                    allowMultiple={true}
+                />
+            </div>
 
             {/* Owner input */}
-            <InputOwner
-                selectedOwner={formData.owner}
-                onSelectOwner={(owner) =>
-                    setFormData((prev) => ({ ...prev, owner }))
-                }
-            />
+            <div className={styles.inputWrap}>
+                <label>Proprietario</label>
+                <InputOwner
+                    selectedOwner={formData.owner}
+                    onSelectOwner={(owner) =>
+                        setFormData((prev) => ({ ...prev, owner }))
+                    }
+                />
+            </div>
 
             <div className={styles.buttonWrap}>
                 <button type="submit" className="secondary form-button">

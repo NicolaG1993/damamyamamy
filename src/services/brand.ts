@@ -1,6 +1,29 @@
+import { CreateOptionResponse } from "@/types/form";
 import { Brand, SearchBrandResponse } from "@/types/item";
 import { handleAxiosError } from "@/utils/axiosUtils";
 import axios from "axios";
+
+export const createBrand = async (
+    name: string
+): Promise<CreateOptionResponse> => {
+    try {
+        const res = await axios.post("/api/brands/add", { name });
+
+        if (res.status === 201) {
+            // Successful response
+            console.log(`Brand created: `, res.data);
+            return res.data.brand;
+        } else {
+            // Handle unexpected status codes
+            console.error("Unexpected error:", res.data);
+            return { message: `Errore: ${res.data.message}` };
+        }
+    } catch (err) {
+        // Use the error utility to handle the Axios error and pass a custom message
+        const errorMessage = handleAxiosError(err);
+        return { message: errorMessage };
+    }
+};
 
 export const getBrand = async (brandId: number): Promise<Brand> => {
     try {

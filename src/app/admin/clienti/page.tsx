@@ -15,7 +15,7 @@ export default function Clienti() {
     useEffect(() => {
         const fetchClients = async () => {
             try {
-                const response = await getClients();
+                const response = await getClients(); // type missing
                 setClients(response);
             } catch (err) {
                 console.error("Clients fetching failed:", err);

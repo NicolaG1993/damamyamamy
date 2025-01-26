@@ -12,3 +12,9 @@ export interface OptionResponse {
     // message: string;
     options: Option[];
 }
+
+export interface CreateOptionResponse {
+    message: string;
+    id?: number;
+    name?: string;
+}

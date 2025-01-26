@@ -21,7 +21,7 @@ CREATE TABLE clients (
 CREATE TABLE items (
     id SERIAL PRIMARY KEY,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    soldAt TIMESTAMP DEFAULT NULL,
+    sold_at TIMESTAMP DEFAULT NULL,
     name VARCHAR NOT NULL CHECK (name != ''),
     price DECIMAL(12, 2),
     count_in_stock INTEGER,

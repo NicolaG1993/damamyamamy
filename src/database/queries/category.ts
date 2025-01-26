@@ -8,7 +8,7 @@ export const newCategory = async (
     const myQuery = `
         INSERT INTO categories (name)
         VALUES ($1)
-        RETURNING *;
+        RETURNING id, name;
     `;
     const keys = [name];
     return client.query(myQuery, keys);

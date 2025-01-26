@@ -24,6 +24,12 @@ export interface RawClient {
     created_at: Date;
 }
 
+export interface RawClientPartial {
+    id: number;
+    first_name: string;
+    last_name: string;
+}
+
 export interface ClientListProps {
     clients: Client[];
 }

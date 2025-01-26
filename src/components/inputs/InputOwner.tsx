@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import styles from "./InputOwner.module.css";
 import { Option } from "@/types/form";
+import { getClientOptions } from "@/services/client";
 
 interface InputOwnerProps {
     selectedOwner: Option | null;
@@ -18,8 +18,8 @@ export default function InputOwner({
     useEffect(() => {
         const fetchClients = async () => {
             try {
-                const response = await axios.get<Option[]>("/api/clients");
-                setClients(response.data);
+                const response: Option[] = await getClientOptions();
+                setClients(response);
             } catch (err) {
                 setError("Failed to load clients.");
             }
@@ -40,7 +40,6 @@ export default function InputOwner({
 
     return (
         <div className={styles.container}>
-            <label>Proprietario</label>
             <select
                 value={selectedOwner?.name || ""}
                 onChange={handleChange}

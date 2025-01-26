@@ -8,7 +8,7 @@ export const newBrand = async (
     const myQuery = `
         INSERT INTO brands (name)
         VALUES ($1)
-        RETURNING *;
+        RETURNING id, name;
     `;
     const keys = [name];
     return client.query(myQuery, keys);
