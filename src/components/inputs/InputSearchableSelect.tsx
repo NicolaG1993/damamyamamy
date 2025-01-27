@@ -7,7 +7,7 @@ interface InputSearchableSelectProps {
     label: string;
     selected: Option[] | Option | null;
     onAdd: (option: Option) => void;
-    onRemove?: (option: Option) => void;
+    onRemove?: (option?: Option) => void;
     // apiEndpoint: string;
     allowMultiple: boolean;
 }
@@ -55,22 +55,13 @@ export default function InputSearchableSelect({
         setSuggestions([]);
     };
 
-    const handleRemove = (option: Option) => {
+    const handleRemove = (option?: Option) => {
         if (onRemove) {
             onRemove(option);
         }
     };
 
     const handleNew = async (name: string) => {
-        /*
-        
-    TODO:
-    • Avere sempre una linea di option per creare contenuto input
-    • Deve scomparire solo quando abbiamo un risultato con lo stesso nome in options
-    • onClick creiamo il nuovo brand o category - e solo dopo lo aggiungiamo a form options 
-   
-        */
-
         const response: Option = await createOption(name, label);
         if (response?.id) {
             handleAdd(response);
@@ -84,15 +75,12 @@ export default function InputSearchableSelect({
             return (
                 <ul className={styles.selectedList}>
                     {selected.map((option) => (
-                        <li key={option.id}>
-                            {option.name}{" "}
+                        <li key={option.id} className={styles.selected}>
+                            <p>{option.name}</p>
                             {onRemove && (
-                                <button
-                                    type="button"
-                                    onClick={() => handleRemove(option)}
-                                >
+                                <span onClick={() => handleRemove(option)}>
                                     Rimuovi
-                                </button>
+                                </span>
                             )}
                         </li>
                     ))}
@@ -100,36 +88,53 @@ export default function InputSearchableSelect({
             );
         } else if (!allowMultiple && selected) {
             return (
-                <p className={styles.selected}>
-                    Selezionato: <strong>{(selected as Option).name}</strong>
-                </p>
+                <div className={styles.selected}>
+                    <p>{(selected as Option).name}</p>
+                    <span onClick={() => handleRemove()}>Rimuovi</span>
+                </div>
             );
         }
         return null;
     };
 
     return (
-        <div className={styles.container}>
-            <input
-                type="text"
-                value={searchTerm}
-                onChange={(e) => handleSearch(e.target.value)}
-                placeholder={`Cerca o crea ${label.toLowerCase()}`}
-            />
-            <ul className={styles.suggestions}>
-                {searchTerm && (
-                    <li
-                        onClick={() => handleNew(searchTerm)}
-                    >{`Aggiungi "${searchTerm}"`}</li>
-                )}
-                {suggestions.map((option: Option) => (
-                    <li key={option.id} onClick={() => handleAdd(option)}>
-                        {option.name}
-                    </li>
-                ))}
-            </ul>
+        <>
+            {!allowMultiple && selected ? (
+                <></>
+            ) : (
+                <>
+                    <input
+                        type="text"
+                        value={searchTerm}
+                        onChange={(e) => handleSearch(e.target.value)}
+                        placeholder={`Cerca o crea ${label.toLowerCase()}`}
+                    />
+                    <ul className={styles.suggestions}>
+                        {searchTerm &&
+                            !suggestions.some(
+                                (option) =>
+                                    option.name.toLowerCase() ===
+                                    searchTerm.toLowerCase()
+                            ) && (
+                                <li
+                                    className={styles.addOption}
+                                    onClick={() => handleNew(searchTerm)}
+                                >{`+ Aggiungi "${searchTerm}"`}</li>
+                            )}
+                        {suggestions.map((option: Option) => (
+                            <li
+                                key={option.id}
+                                onClick={() => handleAdd(option)}
+                            >
+                                {option.name}
+                            </li>
+                        ))}
+                    </ul>
+                </>
+            )}
+
             {renderSelectedItems()}
             {error && <p className={styles.error}>{error}</p>}
-        </div>
+        </>
     );
 }

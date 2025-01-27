@@ -5,6 +5,7 @@ import { ItemFormData } from "@/types/item";
 import InputSearchableSelect from "../inputs/InputSearchableSelect";
 import InputOwner from "../inputs/InputOwner";
 import { checkSlugUniqueness } from "@/services/item";
+import Image from "next/image";
 
 interface ItemFormProps {
     initialData?: ItemFormData;
@@ -38,6 +39,7 @@ export default function ItemForm({
     const [formData, setFormData] = useState<ItemFormData>(initialData);
     const [isSlugCustom, setIsSlugCustom] = useState(false);
     const [isSlugUnique, setIsSlugUnique] = useState(true);
+    const [filePreviews, setFilePreviews] = useState<string[]>([]);
     const [error, setError] = useState<string | null>(null);
 
     const generateSlug = (name: string) => {
@@ -103,12 +105,37 @@ export default function ItemForm({
 
     const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
+            // Pics formData
             const files = Array.from(e.target.files);
             setFormData((prev) => ({
                 ...prev,
                 pics: [...prev.pics, ...files.map((file) => file.name)],
             }));
+
+            // Pics preview
+            const previews: string[] = [];
+            files.forEach((file) => {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    if (event.target?.result) {
+                        previews.push(event.target.result as string);
+                        setFilePreviews((prev) => [
+                            ...prev,
+                            event.target.result as string,
+                        ]);
+                    }
+                };
+                reader.readAsDataURL(file); // Read file as a data URL (suitable for images)
+            });
         }
+    };
+
+    const handleFileDelete = (index: number) => {
+        setFormData((prev) => ({
+            ...prev,
+            pics: prev.pics.filter((_, i) => i !== index),
+        }));
+        setFilePreviews((prev) => prev.filter((_, i) => i !== index));
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -153,10 +180,11 @@ export default function ItemForm({
             )}
 
             <div className={styles.inputWrap}>
+                <label>Nome*</label>
                 <input
                     type="text"
                     name="name"
-                    placeholder="Nome*"
+                    placeholder="Inserisci nome"
                     value={formData.name}
                     onChange={handleChange}
                     required
@@ -164,6 +192,7 @@ export default function ItemForm({
             </div>
 
             <div className={styles.inputWrap}>
+                <label>Prezzo*</label>
                 <input
                     type="number"
                     name="price"
@@ -175,9 +204,10 @@ export default function ItemForm({
             </div>
 
             <div className={styles.inputWrap}>
+                <label>Descrizione</label>
                 <textarea
                     name="description"
-                    placeholder="Descrizione"
+                    placeholder="Inserisci maggiori informazioni"
                     value={formData.description}
                     onChange={handleChange}
                     required
@@ -185,10 +215,11 @@ export default function ItemForm({
             </div>
 
             <div className={styles.inputWrap}>
+                <label>Slug* (generato automaticamente)</label>
                 <input
                     type="text"
                     name="slug"
-                    placeholder="Slug*"
+                    placeholder="Inserisci url articolo"
                     value={formData.slug}
                     onChange={handleChange}
                     onBlur={handleSlugBlur}
@@ -202,6 +233,7 @@ export default function ItemForm({
             </div>
 
             <div className={styles.inputWrap}>
+                <label>Numero di articoli</label>
                 <input
                     type="number"
                     name="stock"
@@ -213,7 +245,7 @@ export default function ItemForm({
             </div>
 
             <div className={styles.inputWrap}>
-                <label>Condizioni</label>
+                <label>Condizioni*</label>
                 <select
                     name="condition"
                     value={formData.condition}
@@ -228,15 +260,66 @@ export default function ItemForm({
                 </select>
             </div>
 
+            <div className={styles.separator}></div>
+
             <div className={styles.inputWrap}>
                 <label>Foto</label>
-                <input
-                    type="file"
-                    name="images"
-                    multiple
-                    onChange={handleFileUpload}
+                <div className={styles.imagesWrap}>
+                    <div className={styles.customFileInput}>
+                        <label
+                            htmlFor="file-upload-button"
+                            className={styles.trigger}
+                        >
+                            <span className={styles.plus}>+</span>
+                        </label>
+                        <input
+                            type="file"
+                            name="images"
+                            id="file-upload-button"
+                            multiple
+                            onChange={handleFileUpload}
+                            accept="image/*"
+                        />
+                    </div>
+
+                    {filePreviews.map((pic, i) => (
+                        <div
+                            key={"picture: " + pic}
+                            className={styles.previewPic}
+                        >
+                            <span
+                                className={styles.deletePic}
+                                onClick={() => handleFileDelete(i)}
+                            >
+                                X
+                            </span>
+                            <Image
+                                src={pic}
+                                alt={`Preview ${i + 1}`}
+                                fill
+                                style={{
+                                    objectFit: "cover",
+                                }}
+                            />
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            <div className={styles.separator}></div>
+
+            {/* Owner input */}
+            <div className={styles.inputWrap}>
+                <label>Proprietario*</label>
+                <InputOwner
+                    selectedOwner={formData.owner}
+                    onSelectOwner={(owner) =>
+                        setFormData((prev) => ({ ...prev, owner }))
+                    }
                 />
             </div>
+
+            <div className={styles.separator}></div>
 
             {/* Brand input */}
             <div className={styles.inputWrap}>
@@ -247,10 +330,15 @@ export default function ItemForm({
                     onAdd={(brand) =>
                         setFormData((prev) => ({ ...prev, brand }))
                     }
+                    onRemove={() =>
+                        setFormData((prev) => ({ ...prev, brand: null }))
+                    }
                     // apiEndpoint="/api/brands"
                     allowMultiple={false}
                 />
             </div>
+
+            <div className={styles.separator}></div>
 
             {/* Categories input */}
             <div className={styles.inputWrap}>
@@ -274,17 +362,6 @@ export default function ItemForm({
                     }
                     // apiEndpoint="/api/categories"
                     allowMultiple={true}
-                />
-            </div>
-
-            {/* Owner input */}
-            <div className={styles.inputWrap}>
-                <label>Proprietario</label>
-                <InputOwner
-                    selectedOwner={formData.owner}
-                    onSelectOwner={(owner) =>
-                        setFormData((prev) => ({ ...prev, owner }))
-                    }
                 />
             </div>
 

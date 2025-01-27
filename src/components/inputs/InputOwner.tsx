@@ -39,7 +39,7 @@ export default function InputOwner({
     };
 
     return (
-        <div className={styles.container}>
+        <>
             <select
                 value={selectedOwner?.name || ""}
                 onChange={handleChange}
@@ -55,6 +55,6 @@ export default function InputOwner({
                 ))}
             </select>
             {error && <p className={styles.error}>{error}</p>}
-        </div>
+        </>
     );
 }
