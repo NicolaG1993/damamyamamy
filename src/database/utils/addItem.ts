@@ -11,6 +11,7 @@ import { ItemFormData } from "@/types/item";
 import { getBrandsBySearch, newBrand } from "../queries/brand";
 import { getCategoriesBySearch, newCategory } from "../queries/category";
 import { supabase } from "@/utils/supabaseUtils";
+import fs from "fs";
 
 export async function addItem(
     client: PoolClient,
@@ -31,6 +32,7 @@ export async function addItem(
             categories,
             pics,
         } = itemData;
+        console.log("itemData: ", itemData);
 
         // Step 1: Check for existing brand or add a new one
         let brandId;
@@ -81,10 +83,12 @@ export async function addItem(
         const uploadedPictureUrls: string[] = [];
 
         for (const picture of pics) {
+            console.log("picture: ", picture);
             const fileName = `${name}-${Date.now()}-${picture.name}`;
             const { data, error } = await supabase.storage
                 .from(bucketName)
                 .upload(fileName, picture);
+            //    .upload(fileName, fs.createReadStream(picture.filepath));
 
             if (error) {
                 throw new Error(`Errore caricamento immagine: ${picture.name}`);

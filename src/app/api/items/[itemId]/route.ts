@@ -57,6 +57,13 @@ export async function GET(
     }
 }
 
+// Disable the default body parser (required for file uploads)
+export const config = {
+    api: {
+        bodyParser: false,
+    },
+};
+
 export async function PUT(
     req: NextRequest,
     { params }: { params: { itemId: number } }

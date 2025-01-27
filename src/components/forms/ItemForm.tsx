@@ -49,22 +49,6 @@ export default function ItemForm({
             .replace(/[^a-z0-9-]/g, "");
     };
 
-    // const checkSlugUniqueness = async (slug: string) => {
-    //     if (slug === initialData.slug) {
-    //         return true;
-    //     }
-
-    //     try {
-    //         const response = await axios.get(`/api/check-slug`, {
-    //             params: { slug },
-    //         });
-    //         return response.data.isUnique;
-    //     } catch (err) {
-    //         console.error("Error checking slug uniqueness:", err);
-    //         return false;
-    //     }
-    // };
-
     const handleChange = (
         e: React.ChangeEvent<
             HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -85,8 +69,12 @@ export default function ItemForm({
     };
 
     const handleSlugBlur = async () => {
-        if (initialData.slug && formData.slug === initialData.slug) {
-            return true;
+        if (
+            !formData.slug ||
+            (initialData.slug && formData.slug === initialData.slug)
+        ) {
+            setIsSlugUnique(true);
+            return;
         }
 
         try {
@@ -109,7 +97,8 @@ export default function ItemForm({
             const files = Array.from(e.target.files);
             setFormData((prev) => ({
                 ...prev,
-                pics: [...prev.pics, ...files.map((file) => file.name)],
+                // pics: [...prev.pics, ...files.map((file) => file.name)],
+                pics: [...prev.pics, ...files],
             }));
 
             // Pics preview
@@ -153,7 +142,34 @@ export default function ItemForm({
         }
 
         try {
-            await onSubmit(formData);
+            // Create a new FormData object directly from the form element
+            const formElement = e.target as HTMLFormElement;
+            // Create FormData object to handle files upload
+            const formDataToSend = new FormData(formElement);
+
+            // Manually serialize the complex fields (brand, owner, categories) before appending
+            if (formData.brand) {
+                formDataToSend.append("brand", JSON.stringify(formData.brand)); // Serialize brand object
+            }
+            if (formData.owner) {
+                formDataToSend.append("owner", JSON.stringify(formData.owner)); // Serialize owner object
+            }
+            if (formData.categories) {
+                formDataToSend.append(
+                    "categories",
+                    JSON.stringify(formData.categories)
+                ); // Serialize categories object
+            }
+            if (formData.pics) {
+                // Append each pic individually
+                formData.pics.forEach((pic, index) => {
+                    formDataToSend.append("pics", pic);
+                });
+            }
+
+            console.log("formDataToSend: ", formDataToSend);
+            await onSubmit(formDataToSend);
+            // await onSubmit(formData);
         } catch (err) {
             console.error("Item form submission failed:", err);
             setError(handleAxiosError(err));
@@ -210,7 +226,6 @@ export default function ItemForm({
                     placeholder="Inserisci maggiori informazioni"
                     value={formData.description}
                     onChange={handleChange}
-                    required
                 />
             </div>
 

@@ -4,8 +4,8 @@ import { middlewareVerifyToken } from "@/utils/jwtUtils";
 import { fetchItemSlug } from "@/database/utils/fetchItemSlug";
 
 export async function GET(
-    req: NextRequest,
-    { params }: { params: { slug: string } }
+    req: NextRequest
+    // { params }: { params: { slug: string } }
 ) {
     const authToken = req.cookies.get("damamyamamy_auth_token")?.value;
 
@@ -35,7 +35,9 @@ export async function GET(
         );
     }
 
-    if (!params.slug || params.slug.trim() === "") {
+    const slug = req.nextUrl.searchParams.get("slug");
+
+    if (!slug || slug.trim() === "") {
         return NextResponse.json(
             { isUnique: false, message: "Slug mancante." },
             { status: 400 }
@@ -45,7 +47,7 @@ export async function GET(
     const client = await connect();
 
     try {
-        const result = await fetchItemSlug(client, params.slug);
+        const result = await fetchItemSlug(client, slug);
         return NextResponse.json({ isUnique: result });
     } catch (error) {
         console.error("Errore API fetchItemSlug:", error);
