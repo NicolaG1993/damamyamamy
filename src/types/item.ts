@@ -36,7 +36,41 @@ export interface RawItem {
 }
 
 export interface ItemsTableProps {
-    items: Item[];
+    id: number; // The ID of the item
+    name: string; // The name of the item
+    price: number; // The price of the item
+    stock: number; // The count of items in stock
+    slug: string; // The slug for the item
+    description: string; // A detailed description of the item
+    condition: string; // The condition of the item (e.g., "new", "used")
+    brand: {
+        id: number; // The ID of the brand
+        name: string; // The name of the brand
+    } | null; // Null if no brand is associated
+    totalCategories: number; // The total number of categories the item belongs to
+    owner: {
+        id: number; // The ID of the client who owns the item
+        name: string; // The name of the client, formatted as "LastName, FirstName"
+    } | null; // Null if no owner is associated
+    pic: string; // An array of picture URLs associated with the item
+    createdAt: Date;
+}
+
+export interface RawItemTableProps {
+    item_id: number; // The ID of the item
+    item_name: string; // The name of the item
+    price: string; // The price of the item (as a string from the database)
+    count_in_stock: number; // The stock count of the item
+    slug: string; // The slug for the item
+    description: string; // A detailed description of the item
+    condition: string; // The condition of the item (e.g., "new", "used")
+    client_id: number; // The ID of the client owning the item
+    client_name: string; // The full name of the client, formatted as "FirstName LastName"
+    first_picture_url: string | null; // URL for the first picture (if available)
+    brand_id: number; // The ID of the brand associated with the item
+    brand_name: string; // The name of the brand associated with the item
+    total_categories: number; // The total count of categories linked to the item
+    created_at: Date;
 }
 
 export interface ItemFormData {

@@ -1,4 +1,4 @@
-import { ItemFormDataPartial, RawItem } from "@/types/item";
+import { ItemFormDataPartial, RawItem, RawItemTableProps } from "@/types/item";
 import { PoolClient, QueryResult } from "pg";
 
 export const newItem = async (
@@ -104,7 +104,7 @@ export const getItemById = async (
 
 export const getItems = async (
     client: PoolClient
-): Promise<QueryResult<RawItem>> => {
+): Promise<QueryResult<RawItemTableProps>> => {
     const myQuery = `
     SELECT 
         i.id AS item_id,
@@ -114,9 +114,16 @@ export const getItems = async (
         i.slug,
         i.description,
         i.condition,
+        i.created_at,
         c.id AS client_id,
-        c.first_name || ' ' || c.last_name AS client_name,
-        ip.picture_url AS first_picture_url,
+        c.first_name || ', ' || c.last_name AS client_name,
+        (
+            SELECT ip.picture_url
+            FROM item_pictures ip
+            WHERE ip.item_id = i.id
+            ORDER BY ip.id ASC
+            LIMIT 1
+        ) AS first_picture_url,
         b.id AS brand_id,
         b.name AS brand_name,
         COUNT(ic.category_id) AS total_categories
@@ -127,15 +134,13 @@ export const getItems = async (
     LEFT JOIN 
         clients c ON icl.client_id = c.id
     LEFT JOIN 
-        item_pictures ip ON i.id = ip.item_id
-    LEFT JOIN 
         item_brand ib ON i.id = ib.item_id
     LEFT JOIN 
         brands b ON ib.brand_id = b.id
     LEFT JOIN 
         item_category ic ON i.id = ic.item_id
     GROUP BY 
-        i.id, c.id, ip.picture_url, b.id
+        i.id, c.id, b.id
     ORDER BY 
         i.created_at DESC
     `;

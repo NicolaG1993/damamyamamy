@@ -6,6 +6,7 @@ interface AdminItemProps {
 }
 
 export default function AdminItem({ item }: AdminItemProps) {
+    console.log("item: ", item);
     return (
         <div className={styles.elContainer}>
             <div className={styles.elRow}>
