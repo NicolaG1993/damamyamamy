@@ -3,23 +3,28 @@
     margin: 20px 0;
     background-color: var(--color-primary);
     border-radius: 12px;
+    font-size: 0.85rem;
 }
 
 .elBlock {
     display: flex;
-    align-items: top;
-    margin: 1rem 0;
+    /* margin: 1rem 0; */
 }
-
 .elContainer > .elBlock:first-child {
-    margin: 0 0 1rem 0;
+    /* margin: 0 0 1rem 0; */
 }
 .elContainer > .elBlock:last-child {
-    margin: 1rem 0 0 0;
+    /* margin: 1rem 0 0 0; */
+}
+
+.elBlockFull {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 .elBlockColumn {
-    width: 300px;
+    width: 350px;
 }
 
 .elBlock > .elBlockColumn:first-child {
@@ -28,6 +33,9 @@
 .elBlock > .elBlockColumn:last-child {
     margin-left: 3rem;
 }
+.elBlock > .elBlockColumn:only-child {
+    margin: 0;
+}
 
 .elRow {
     display: flex;
@@ -35,14 +43,11 @@
     padding-bottom: 0.75rem;
     border-bottom: 1px solid var(--color-background);
 }
-.elRow {
-    display: flex;
-    margin: 0.75rem 0;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid var(--color-background);
+.elBlockColumn > .elRow:last-child {
+    border-bottom: none;
 }
 .cleanRow {
-    padding-bottom: 0;
+    /* padding-bottom: 0; */
     border-bottom: none;
 }
 
@@ -51,6 +56,7 @@
     width: 120px;
     color: var(--color-background);
     font-weight: 600;
+    font-size: 0.85rem;
 }
 
 .elValue {
@@ -75,6 +81,7 @@
     font-weight: 600;
 }
 
+/* PICTURES */
 .elPicturesList {
     display: flex;
     flex-flow: wrap;
@@ -96,6 +103,57 @@
     outline: 2px solid var(--color-primary);
 }
 
+/* ITEMS */
+.elItemsList {
+    display: flex;
+    flex-flow: wrap;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.elItem {
+    height: 180px;
+    width: 130px;
+    background-color: var(--color-background-hover);
+    outline: 2px solid var(--color-background);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: 0.2s ease;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+.elItem:hover {
+    outline: 2px solid var(--color-primary);
+}
+.elItemPic {
+    position: relative;
+    width: 100%;
+    height: 66.6%;
+    overflow: hidden;
+    background-color: var(--color-background-dark);
+}
+
+.elItemInfo {
+    display: grid;
+    height: 33.4%;
+    grid-template-rows: auto 15px;
+    padding: 0.25rem;
+}
+
+.elItemHeading {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+.elItemSubHeading {
+    font-weight: 500;
+}
+
+.elItemPrice {
+    /* text-align: right; */
+}
+
+/* SEPARATOR */
 .elSeparator {
     width: 100%;
     height: 1px;

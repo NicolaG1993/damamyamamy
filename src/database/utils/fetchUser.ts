@@ -3,6 +3,7 @@ import { getUserById } from "@/database/queries/user";
 import { mapRawUserToUser } from "./maps/mapRawUserToUser";
 
 export async function fetchUser(client: PoolClient, userId: number) {
+    console.log("fetchUser: ", userId);
     try {
         const res = await getUserById(client, userId);
 

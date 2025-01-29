@@ -8,7 +8,6 @@ interface AdminItemProps {
 }
 
 export default function AdminItem({ item }: AdminItemProps) {
-    console.log("item: ", item);
     return (
         <div className={styles.elContainer}>
             <div className={styles.elBlock}>
@@ -34,6 +33,7 @@ export default function AdminItem({ item }: AdminItemProps) {
                         ))}
                     </div>
                 </div>
+
                 <div className={styles.elBlockColumn}>
                     <div className={styles.elRow}>
                         <p className={styles.elLabel}>#ID</p>
@@ -105,6 +105,12 @@ export default function AdminItem({ item }: AdminItemProps) {
                     <div className={styles.elRow}>
                         <p className={styles.elLabel}>Data Creazione</p>
                         <p className={styles.elValue}>{item.createdAt}</p>
+                    </div>
+                    <div className={styles.elRow}>
+                        <p className={styles.elLabel}>Venduto</p>
+                        <p className={styles.elValue}>
+                            {item.soldAt ? "Sì" : "No"}
+                        </p>
                     </div>
                 </div>
             </div>

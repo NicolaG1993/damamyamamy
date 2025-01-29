@@ -6,8 +6,11 @@ import { updateUser } from "@/database/utils/updateUser";
 
 export async function GET(
     req: NextRequest,
-    { params }: { params: { userId: number } }
+    context: { params: Promise<{ userId: number }> }
 ) {
+    const { params } = context;
+    const { userId } = await params;
+
     const authToken = req.cookies.get("damamyamamy_auth_token")?.value;
 
     if (!authToken) {
@@ -39,7 +42,7 @@ export async function GET(
     const client = await connect();
 
     try {
-        const user = await fetchUser(client, params.userId);
+        const user = await fetchUser(client, userId);
 
         if (!user) {
             return NextResponse.json(

@@ -4,6 +4,7 @@ import {
     RawClientPreview,
     ClientPreview,
 } from "@/types/client";
+import { mapRawItemPreviewToItemPreview } from "./mapRawItemToItem";
 
 export const mapRawClientToClient = (rawClient: RawClient): Client => {
     return {
@@ -13,7 +14,7 @@ export const mapRawClientToClient = (rawClient: RawClient): Client => {
         email: rawClient.email,
         phone: rawClient.phone,
         code: rawClient.personal_code,
-        // items: rawClient.items.map((item) => ({ name: item.name })), // 🧠 TODO: use mapRawItemsToItems
+        items: mapRawItemPreviewToItemPreview(rawClient.items), // 🧠 TODO: use mapRawItemsToItems
         createdAt: rawClient.created_at.toISOString(),
     };
 };

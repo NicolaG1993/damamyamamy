@@ -5,6 +5,8 @@ import {
     ItemFormData,
     RawItemTableRow,
     ItemsTableRow,
+    RawItemPreview,
+    ItemPreview,
 } from "@/types/item";
 import { mapRawBrandToBrand } from "./mapRawBrandToBrand";
 import { mapRawCategoryToCategory } from "./mapRawCategoryToCategory";
@@ -12,7 +14,6 @@ import { mapRawClientPreviewToClientPreview } from "./mapRawClientToClient";
 import { mapRawClientToOption } from "./mapRawClientToOption";
 
 export function mapRawItemToItem(rawItem: RawItem): Item {
-    console.log("rawItem: ", rawItem);
     return {
         id: rawItem.item_id,
         name: rawItem.item_name,
@@ -77,28 +78,44 @@ export function mapRawItemToItemFormData(rawItem: RawItem): ItemFormData {
 export function mapRawItemsToItems(
     rawItems: RawItemTableRow[]
 ): ItemsTableRow[] {
-    return rawItems.map((rawItem) => ({
-        id: rawItem.item_id,
-        name: rawItem.item_name,
-        price: parseFloat(rawItem.price),
-        stock: rawItem.count_in_stock,
-        slug: rawItem.slug,
-        description: rawItem.description,
-        condition: rawItem.condition,
-        createdAt: rawItem.created_at,
-        brand: rawItem.brand_id
-            ? {
-                  id: rawItem.brand_id,
-                  name: rawItem.brand_name,
-              }
-            : null,
-        totalCategories: rawItem.total_categories,
-        owner: {
-            id: rawItem.client_id,
-            name: rawItem.client_name,
-        },
-        pic: rawItem.first_picture_url || "",
-    }));
+    return rawItems.map(
+        (rawItem: RawItemTableRow): ItemsTableRow => ({
+            id: rawItem.item_id,
+            name: rawItem.item_name,
+            price: parseFloat(rawItem.price),
+            stock: rawItem.count_in_stock,
+            slug: rawItem.slug,
+            description: rawItem.description,
+            condition: rawItem.condition,
+            createdAt: rawItem.created_at,
+            brand: rawItem.brand_id
+                ? {
+                      id: rawItem.brand_id,
+                      name: rawItem.brand_name,
+                  }
+                : null,
+            totalCategories: rawItem.total_categories,
+            owner: {
+                id: rawItem.client_id,
+                name: rawItem.client_name,
+            },
+            pic: rawItem.first_picture_url || "",
+        })
+    );
+}
+
+export function mapRawItemPreviewToItemPreview(
+    rawItems: RawItemPreview[]
+): ItemPreview[] {
+    return rawItems.map(
+        (rawItem: RawItemPreview): ItemPreview => ({
+            id: rawItem.id,
+            name: rawItem.name,
+            price: rawItem.price,
+            pic: rawItem.pic,
+            soldAt: rawItem.sold_at ? rawItem.sold_at.toISOString() : undefined,
+        })
+    );
 }
 
 export function mapRawItemCondition(

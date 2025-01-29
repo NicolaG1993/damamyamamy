@@ -1,4 +1,4 @@
-import { Item, RawItem } from "./item";
+import { ItemPreview, RawItemPreview } from "./item";
 
 export interface Client {
     id: number;
@@ -8,7 +8,7 @@ export interface Client {
     phone?: string;
     // address?: string
     code: string;
-    items?: Item[];
+    items?: ItemPreview[];
     createdAt: string;
 }
 
@@ -25,7 +25,7 @@ export interface RawClient {
     phone?: string;
     // address?: string;
     personal_code: string;
-    items: RawItem[];
+    items: RawItemPreview[];
     created_at: Date;
 }
 

@@ -25,9 +25,39 @@ export const getClientById = async (
     clientId: number
 ): Promise<QueryResult<RawClient>> => {
     const myQuery = `
-        SELECT id, first_name, last_name, email, phone, personal_code, created_at
-        FROM clients
-        WHERE id = $1
+        WITH item_pics AS (
+            SELECT DISTINCT ON (ip.item_id) 
+                ip.item_id, 
+                ip.picture_url AS pic
+            FROM item_pictures ip
+            ORDER BY ip.item_id, ip.id ASC
+        )
+        SELECT 
+            c.id,
+            c.first_name,
+            c.last_name,
+            c.email,
+            c.phone,
+            c.personal_code,
+            c.created_at,
+            COALESCE(
+                JSON_AGG(
+                    JSON_BUILD_OBJECT(
+                        'id', i.id,
+                        'name', i.name,
+                        'price', i.price,
+                        'sold_at', i.sold_at,
+                        'pic', ip.pic
+                    )
+                ) FILTER (WHERE i.id IS NOT NULL), 
+                '[]'
+            ) AS items
+        FROM clients c
+        LEFT JOIN item_client ic ON c.id = ic.client_id
+        LEFT JOIN items i ON ic.item_id = i.id
+        LEFT JOIN item_pics ip ON i.id = ip.item_id
+        WHERE c.id = $1
+        GROUP BY c.id
     `;
     const values = [clientId];
     return client.query(myQuery, values);

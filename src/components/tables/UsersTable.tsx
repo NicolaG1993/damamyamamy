@@ -1,5 +1,6 @@
 import { UsersTableProps } from "@/types/user";
 import styles from "./Table.module.css";
+import Link from "next/link";
 
 export default function UsersTable({ users }: UsersTableProps) {
     return (
@@ -13,6 +14,7 @@ export default function UsersTable({ users }: UsersTableProps) {
                         <th>Email</th>
                         <th>Admin</th>
                         <th>Data Creazione</th>
+                        <th>Azioni</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,6 +27,18 @@ export default function UsersTable({ users }: UsersTableProps) {
                             <td>{user.isAdmin ? "Sì" : "No"}</td>
                             <td>
                                 {new Date(user.createdAt).toLocaleDateString()}
+                            </td>
+                            <td>
+                                <div className={styles.actions}>
+                                    <Link href={`/admin/utenti/${user.id}`}>
+                                        👁️
+                                    </Link>
+                                    <Link
+                                        href={`/admin/utenti/modifica/${user.id}`}
+                                    >
+                                        ✏️
+                                    </Link>
+                                </div>
                             </td>
                         </tr>
                     ))}

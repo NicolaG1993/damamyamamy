@@ -1,8 +1,12 @@
 import { PoolClient } from "pg";
 import { getClientById } from "@/database/queries/client";
 import { mapRawClientToClient } from "./maps/mapRawClientToClient";
+import { Client } from "@/types/client";
 
-export async function fetchClient(client: PoolClient, clientId: number) {
+export async function fetchClient(
+    client: PoolClient,
+    clientId: number
+): Promise<Client> {
     try {
         const res = await getClientById(client, clientId);
 

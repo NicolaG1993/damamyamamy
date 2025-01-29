@@ -21,6 +21,7 @@ export default function Articolo({
         const fetchItem = async () => {
             try {
                 const response = await getItem(itemId);
+                console.log("fetchItem: ", response);
                 setItem(response);
             } catch (err) {
                 console.error("Item fetching failed:", err);

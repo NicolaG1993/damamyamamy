@@ -17,6 +17,14 @@ export interface Item {
     categories?: Category[];
 }
 
+export interface ItemPreview {
+    id: number;
+    name: string;
+    price: number;
+    pic: string;
+    soldAt?: string;
+}
+
 export interface RawItem {
     item_id: number;
     item_name: string;
@@ -33,6 +41,14 @@ export interface RawItem {
     pics?: string[]; // correct?
     categories: RawCategory[];
     total_categories?: number;
+}
+
+export interface RawItemPreview {
+    id: number;
+    name: string;
+    price: number;
+    pic: string;
+    sold_at?: Date;
 }
 
 export interface ItemsTableProps {
