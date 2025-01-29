@@ -1,4 +1,9 @@
-import { ItemFormDataPartial, RawItem, RawItemTableProps } from "@/types/item";
+import {
+    ItemFormDataPartial,
+    RawItem,
+    RawItemTableProps,
+    RawItemTableRow,
+} from "@/types/item";
 import { PoolClient, QueryResult } from "pg";
 
 export const newItem = async (
@@ -63,40 +68,46 @@ export const getItemById = async (
     itemId: number
 ): Promise<QueryResult<RawItem>> => {
     const myQuery = `
-            SELECT 
-                i.id AS item_id,
-                i.name AS item_name,
-                i.price,
-                i.count_in_stock,
-                i.slug,
-                i.description,
-                i.condition,
-                c.id AS client_id,
-                c.first_name || ' ' || c.last_name AS client_name,
-                b.id AS brand_id,
-                b.name AS brand_name,
-                ARRAY_AGG(DISTINCT ip.picture_url) AS pictures,
-                ARRAY_AGG(DISTINCT cat.name) AS categories
-            FROM 
-                items i
-            LEFT JOIN 
-                item_client icl ON i.id = icl.item_id
-            LEFT JOIN 
-                clients c ON icl.client_id = c.id
-            LEFT JOIN 
-                item_pictures ip ON i.id = ip.item_id
-            LEFT JOIN 
-                item_brand ib ON i.id = ib.item_id
-            LEFT JOIN 
-                brands b ON ib.brand_id = b.id
-            LEFT JOIN 
-                item_category ic ON i.id = ic.item_id
-            LEFT JOIN 
-                categories cat ON ic.category_id = cat.id
-            WHERE 
-                i.id = $1
-            GROUP BY 
-                i.id, c.id, b.id
+        SELECT 
+            i.id AS item_id,
+            i.name AS item_name,
+            i.price,
+            i.count_in_stock,
+            i.slug,
+            i.description,
+            i.condition,
+            i.created_at,
+            i.sold_at,
+            JSONB_BUILD_OBJECT(
+                'id', c.id,
+                'name', c.last_name || ', ' || c.first_name
+            ) AS owner,
+            JSONB_BUILD_OBJECT(
+                'id', b.id,
+                'name', b.name
+            ) AS brand,
+            ARRAY_AGG(DISTINCT ip.picture_url) FILTER (WHERE ip.picture_url IS NOT NULL) AS pics,
+            ARRAY_AGG(DISTINCT JSONB_BUILD_OBJECT('id', cat.id, 'name', cat.name)) FILTER (WHERE cat.id IS NOT NULL) AS categories
+        FROM 
+            items i
+        LEFT JOIN 
+            item_client icl ON i.id = icl.item_id
+        LEFT JOIN 
+            clients c ON icl.client_id = c.id
+        LEFT JOIN 
+            item_pictures ip ON i.id = ip.item_id
+        LEFT JOIN 
+            item_brand ib ON i.id = ib.item_id
+        LEFT JOIN 
+            brands b ON ib.brand_id = b.id
+        LEFT JOIN 
+            item_category ic ON i.id = ic.item_id
+        LEFT JOIN 
+            categories cat ON ic.category_id = cat.id
+        WHERE 
+            i.id = $1
+        GROUP BY 
+            i.id, c.id, b.id
         `;
     const keys = [itemId];
     return client.query(myQuery, keys);
@@ -104,7 +115,7 @@ export const getItemById = async (
 
 export const getItems = async (
     client: PoolClient
-): Promise<QueryResult<RawItemTableProps>> => {
+): Promise<QueryResult<RawItemTableRow>> => {
     const myQuery = `
     SELECT 
         i.id AS item_id,
@@ -116,7 +127,7 @@ export const getItems = async (
         i.condition,
         i.created_at,
         c.id AS client_id,
-        c.first_name || ', ' || c.last_name AS client_name,
+        c.last_name || ', ' || c.first_name AS client_name,
         (
             SELECT ip.picture_url
             FROM item_pictures ip

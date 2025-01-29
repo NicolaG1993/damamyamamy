@@ -1,4 +1,9 @@
-import { RawClient, Client } from "@/types/client";
+import {
+    RawClient,
+    Client,
+    RawClientPreview,
+    ClientPreview,
+} from "@/types/client";
 
 export const mapRawClientToClient = (rawClient: RawClient): Client => {
     return {
@@ -10,5 +15,14 @@ export const mapRawClientToClient = (rawClient: RawClient): Client => {
         code: rawClient.personal_code,
         // items: rawClient.items.map((item) => ({ name: item.name })), // 🧠 TODO: use mapRawItemsToItems
         createdAt: rawClient.created_at.toISOString(),
+    };
+};
+
+export const mapRawClientPreviewToClientPreview = (
+    rawClient: RawClientPreview
+): ClientPreview => {
+    return {
+        id: rawClient.id,
+        name: rawClient.name,
     };
 };

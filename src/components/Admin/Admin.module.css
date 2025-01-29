@@ -1,17 +1,104 @@
 .elContainer {
+    padding: 20px;
+    margin: 20px 0;
+    background-color: var(--color-primary);
+    border-radius: 12px;
+}
+
+.elBlock {
+    display: flex;
+    align-items: top;
+    margin: 1rem 0;
+}
+
+.elContainer > .elBlock:first-child {
+    margin: 0 0 1rem 0;
+}
+.elContainer > .elBlock:last-child {
+    margin: 1rem 0 0 0;
+}
+
+.elBlockColumn {
+    width: 300px;
+}
+
+.elBlock > .elBlockColumn:first-child {
+    margin-right: 3rem;
+}
+.elBlock > .elBlockColumn:last-child {
+    margin-left: 3rem;
 }
 
 .elRow {
     display: flex;
-    align-items: center;
+    margin: 0.75rem 0;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--color-background);
+}
+.elRow {
+    display: flex;
+    margin: 0.75rem 0;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--color-background);
+}
+.cleanRow {
+    padding-bottom: 0;
+    border-bottom: none;
 }
 
 .elLabel {
-    margin: 0 0.5rem 0 0;
-    width: 80px;
-    color: var(--color-placeholder);
+    margin: 0 1.5rem 0 0;
+    width: 120px;
+    color: var(--color-background);
+    font-weight: 600;
 }
 
 .elValue {
     margin: 0;
+    font-weight: 500;
+    color: var(--color-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.elLink {
+    margin: 0;
+    font-weight: 600;
+    color: var(--color-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.elLink:hover {
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.elPicturesList {
+    display: flex;
+    flex-flow: wrap;
+    gap: 0.75rem;
+}
+
+.elPicture {
+    height: 90px;
+    width: 90px;
+    position: relative;
+    background-color: var(--color-background-hover);
+    outline: 2px solid var(--color-background);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+.elPicture:hover {
+    outline: 2px solid var(--color-primary);
+}
+
+.elSeparator {
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-background);
+    margin: 2rem 0;
 }

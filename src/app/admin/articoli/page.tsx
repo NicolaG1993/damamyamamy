@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import ItemsTable from "@/components/tables/ItemsTable";
 import { handleAxiosError } from "@/utils/axiosUtils";
 import { getItems } from "@/services/item";
-import { Item } from "@/types/item";
+import { ItemsTableRow } from "@/types/item";
 import Link from "next/link";
 
 export default function Articoli() {
-    const [items, setItems] = useState<Item[]>([]);
+    const [items, setItems] = useState<ItemsTableRow[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 

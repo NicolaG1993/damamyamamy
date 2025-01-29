@@ -3,31 +3,36 @@ import {
     Item,
     ItemSummary,
     ItemFormData,
-    ItemsTableProps,
-    RawItemTableProps,
+    RawItemTableRow,
+    ItemsTableRow,
 } from "@/types/item";
 import { mapRawBrandToBrand } from "./mapRawBrandToBrand";
 import { mapRawCategoryToCategory } from "./mapRawCategoryToCategory";
-import { mapRawClientToClient } from "./mapRawClientToClient";
+import { mapRawClientPreviewToClientPreview } from "./mapRawClientToClient";
 import { mapRawClientToOption } from "./mapRawClientToOption";
 
 export function mapRawItemToItem(rawItem: RawItem): Item {
     console.log("rawItem: ", rawItem);
     return {
-        id: rawItem.id,
-        name: rawItem.name,
+        id: rawItem.item_id,
+        name: rawItem.item_name,
         price: parseFloat(rawItem.price),
         stock: rawItem.count_in_stock,
         slug: rawItem.slug,
         description: rawItem.description,
-        condition: rawItem.condition,
+        condition: mapRawItemCondition(rawItem.condition),
         brand: rawItem.brand?.id ? mapRawBrandToBrand(rawItem.brand) : null,
-        pics: rawItem.pics || [],
+        pics: rawItem.pics,
         categories: rawItem.categories
             ? rawItem.categories.map(mapRawCategoryToCategory)
             : [], // rawItem.categories || [],
-        owner: mapRawClientToClient(rawItem.owner),
-        // createdAt: rawItem.created_at,
+        owner: mapRawClientPreviewToClientPreview(rawItem.owner),
+        createdAt: rawItem.created_at
+            ? new Date(rawItem.created_at).toLocaleDateString()
+            : undefined,
+        soldAt: rawItem.sold_at
+            ? new Date(rawItem.sold_at).toLocaleDateString()
+            : undefined,
     };
 }
 
@@ -53,7 +58,7 @@ export function mapRawItemSummary(rawItem: RawItem): ItemSummary {
 export function mapRawItemToItemFormData(rawItem: RawItem): ItemFormData {
     return {
         // id: rawItem.id,
-        name: rawItem.name,
+        name: rawItem.item_name,
         price: parseFloat(rawItem.price),
         stock: rawItem.count_in_stock,
         slug: rawItem.slug,
@@ -70,8 +75,8 @@ export function mapRawItemToItemFormData(rawItem: RawItem): ItemFormData {
 }
 
 export function mapRawItemsToItems(
-    rawItems: RawItemTableProps[]
-): ItemsTableProps[] {
+    rawItems: RawItemTableRow[]
+): ItemsTableRow[] {
     return rawItems.map((rawItem) => ({
         id: rawItem.item_id,
         name: rawItem.item_name,
@@ -88,12 +93,22 @@ export function mapRawItemsToItems(
               }
             : null,
         totalCategories: rawItem.total_categories,
-        owner: rawItem.client_id
-            ? {
-                  id: rawItem.client_id,
-                  name: rawItem.client_name,
-              }
-            : null,
+        owner: {
+            id: rawItem.client_id,
+            name: rawItem.client_name,
+        },
         pic: rawItem.first_picture_url || "",
     }));
+}
+
+export function mapRawItemCondition(
+    condition: "new" | "used" | "refurbished"
+): "Nuovo" | "Usato" | "Rigenerato" {
+    if (condition === "new") {
+        return "Nuovo";
+    } else if (condition === "used") {
+        return "Usato";
+    } else {
+        return "Rigenerato";
+    }
 }

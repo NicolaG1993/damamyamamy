@@ -26,3 +26,13 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.previewPic {
+    height: 50px;
+    width: 50px;
+    position: relative;
+    background-color: var(--color-background-hover);
+    outline: 2px solid var(--color-placeholder);
+    border-radius: 12px;
+    overflow: hidden;
+}

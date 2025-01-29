@@ -6,8 +6,11 @@ import { updateClient } from "@/database/utils/updateClient";
 
 export async function GET(
     req: NextRequest,
-    { params }: { params: { clientId: number } }
+    context: { params: Promise<{ clientId: number }> }
 ) {
+    const { params } = context;
+    const { clientId } = await params;
+
     const authToken = req.cookies.get("damamyamamy_auth_token")?.value;
 
     if (!authToken) {
@@ -39,7 +42,7 @@ export async function GET(
     const poolClient = await connect();
 
     try {
-        const client = await fetchClient(poolClient, params.clientId);
+        const client = await fetchClient(poolClient, clientId);
 
         if (!client) {
             return NextResponse.json(

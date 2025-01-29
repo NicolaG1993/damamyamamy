@@ -6,8 +6,11 @@ import { updateItem } from "@/database/utils/updateItem";
 
 export async function GET(
     req: NextRequest,
-    { params }: { params: { itemId: number } }
+    context: { params: Promise<{ itemId: number }> }
 ) {
+    const { params } = context;
+    const { itemId } = await params;
+
     const authToken = req.cookies.get("damamyamamy_auth_token")?.value;
 
     if (!authToken) {
@@ -39,7 +42,7 @@ export async function GET(
     const client = await connect();
 
     try {
-        const item = await fetchItem(client, params.itemId);
+        const item = await fetchItem(client, itemId);
 
         if (!item) {
             return NextResponse.json(

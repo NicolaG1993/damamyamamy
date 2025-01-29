@@ -5,10 +5,14 @@ import { getItem } from "@/services/item";
 import { Item } from "@/types/item";
 import { handleAxiosError } from "@/utils/axiosUtils";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 
-export default function Articolo({ params }: { params: { itemId: number } }) {
-    const { itemId } = params;
+export default function Articolo({
+    params,
+}: {
+    params: Promise<{ itemId: number }>;
+}) {
+    const { itemId } = use(params);
     const [item, setItem] = useState<Item | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -44,7 +48,17 @@ export default function Articolo({ params }: { params: { itemId: number } }) {
                         ) : isLoading ? (
                             <div className="loading">Caricamento...</div>
                         ) : item ? (
-                            <AdminItem item={item} />
+                            <>
+                                <AdminItem item={item} />
+                                <button className="">
+                                    <Link
+                                        href={`/admin/articoli/${item.id}`}
+                                        className="go-back"
+                                    >
+                                        Modifica
+                                    </Link>
+                                </button>
+                            </>
                         ) : (
                             <div className="error">Articolo non trovato</div>
                         )}

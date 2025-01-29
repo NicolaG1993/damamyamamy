@@ -12,6 +12,11 @@ export interface Client {
     createdAt: string;
 }
 
+export interface ClientPreview {
+    id: number;
+    name: string;
+}
+
 export interface RawClient {
     id: number;
     first_name: string;
@@ -28,6 +33,11 @@ export interface RawClientPartial {
     id: number;
     first_name: string;
     last_name: string;
+}
+
+export interface RawClientPreview {
+    id: number;
+    name: string;
 }
 
 export interface ClientListProps {

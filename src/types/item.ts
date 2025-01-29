@@ -1,33 +1,33 @@
-import { Client, RawClient } from "./client";
+import { ClientPreview, RawClientPreview } from "./client";
 import { Option } from "./form";
 
 export interface Item {
     id: number;
     name: string;
-    condition: "new" | "used" | "refurbished";
+    condition: "Nuovo" | "Usato" | "Rigenerato";
     stock: number;
     price: number; // we need float value
     slug: string; // correct?
     description: string; // correct?
     createdAt?: string;
-    // soldAt?: string,
-    owner: Client; // client id or object?
+    soldAt?: string;
+    owner: ClientPreview; // client id or object?
     brand: Brand | null; // brand id or object?
     pics?: string[]; // correct?
     categories?: Category[];
 }
 
 export interface RawItem {
-    id: number;
-    name: string;
+    item_id: number;
+    item_name: string;
     condition: "new" | "used" | "refurbished";
     count_in_stock: number;
-    price: number; // we need float value
-    slug: string; // correct?
-    description: string; // correct?
+    price: string; // we need float value
+    slug: string;
+    description: string;
     created_at?: Date;
-    // soldAt?: Date,
-    owner: RawClient; // client id or object?
+    sold_at?: Date;
+    owner: RawClientPreview;
     brand?: RawBrand; // brand id or object?
     pic?: string; // correct?
     pics?: string[]; // correct?
@@ -36,6 +36,10 @@ export interface RawItem {
 }
 
 export interface ItemsTableProps {
+    items: ItemsTableRow[];
+}
+
+export interface ItemsTableRow {
     id: number; // The ID of the item
     name: string; // The name of the item
     price: number; // The price of the item
@@ -51,12 +55,12 @@ export interface ItemsTableProps {
     owner: {
         id: number; // The ID of the client who owns the item
         name: string; // The name of the client, formatted as "LastName, FirstName"
-    } | null; // Null if no owner is associated
+    }; // Null if no owner is associated
     pic: string; // An array of picture URLs associated with the item
     createdAt: Date;
 }
 
-export interface RawItemTableProps {
+export interface RawItemTableRow {
     item_id: number; // The ID of the item
     item_name: string; // The name of the item
     price: string; // The price of the item (as a string from the database)
