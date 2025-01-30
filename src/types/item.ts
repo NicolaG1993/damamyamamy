@@ -107,21 +107,6 @@ export interface ItemFormData {
     categories: Option[];
     pics: (string | File)[]; // correct?
 }
-export interface ItemFormDataToSend {
-    name: string;
-    condition: "new" | "used" | "refurbished";
-    stock: number;
-    price: number;
-    slug: string;
-    description: string;
-    soldAt?: string;
-    owner: Option | null;
-    brand: Option | null;
-    categories: Option[];
-    newPictures: File[];
-    existingPictures: string;
-    picturesToDelete: string;
-}
 
 export interface RawItemFormData {
     item_name: string;

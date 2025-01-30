@@ -6,6 +6,7 @@ import InputSearchableSelect from "../inputs/InputSearchableSelect";
 import InputOwner from "../inputs/InputOwner";
 import { checkSlugUniqueness } from "@/services/item";
 import Image from "next/image";
+import { generateSlug, sanitizeName } from "@/utils/slug";
 
 interface ItemFormProps {
     initialData?: ItemFormData;
@@ -44,13 +45,6 @@ export default function ItemForm({
     );
     const [error, setError] = useState<string | null>(null);
 
-    const generateSlug = (name: string) => {
-        return name
-            .toLowerCase()
-            .replace(/\s+/g, "-")
-            .replace(/[^a-z0-9-]/g, "");
-    };
-
     const handleChange = (
         e: React.ChangeEvent<
             HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -66,7 +60,7 @@ export default function ItemForm({
 
         if (name === "slug") {
             setIsSlugCustom(true);
-            setFormData((prev) => ({ ...prev, slug: value }));
+            setFormData((prev) => ({ ...prev, slug: sanitizeName(value) }));
         }
     };
 
@@ -207,7 +201,7 @@ export default function ItemForm({
             );
 
 
-            
+
 
             */
 

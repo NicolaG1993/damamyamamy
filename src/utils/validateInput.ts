@@ -1,3 +1,5 @@
+// Are we using any of these? 🧠👇
+
 export const titleValidation = (fieldName: string, fieldValue: string) => {
     // if (fieldValue.trim() === "") {
     //     return `Il ${fieldName} è richiesto`;

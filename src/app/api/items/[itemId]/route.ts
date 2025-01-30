@@ -3,7 +3,7 @@ import { connect, release } from "@/database/db";
 import { middlewareVerifyToken } from "@/utils/jwtUtils";
 import { fetchItem } from "@/database/utils/fetchItem";
 import { updateItem } from "@/database/utils/updateItem";
-import { ItemFormData, ItemFormDataToSend } from "@/types/item";
+import { ItemFormData } from "@/types/item";
 
 export async function GET(
     req: NextRequest,
@@ -123,31 +123,10 @@ export async function PUT(
         const description = formData.get("description") as string;
         const owner = JSON.parse(formData.get("owner") as string);
 
-        // const pics: File[] = [];
-        // formData.getAll("pics").forEach((file) => {
-        //     if (file instanceof Blob) {
-        //         pics.push(file as File);
-        //     }
-        // });
         const pics: (File | string)[] = [];
         formData.getAll("pics").forEach((file) => {
             pics.push(file as File | string);
         });
-
-        /* 
-        const newPictures: File[] = [];
-        formData.getAll("newPictures").forEach((file) => {
-            if (file instanceof Blob) {
-                newPictures.push(file as File);
-            }
-        });
-        const existingPictures = JSON.parse(
-            formData.get("existingPictures") as string
-        );
-        const picturesToDelete = JSON.parse(
-            formData.get("picturesToDelete") as string
-        );
-        */
 
         const body: ItemFormData = {
             name,
@@ -160,14 +139,9 @@ export async function PUT(
             description,
             owner,
             pics,
-            // newPictures, // Array of uploaded files
-            // existingPictures,
-            // picturesToDelete,
         };
 
         const success = await updateItem(client, itemId, body);
-        console.log("updateItem body: ", body);
-        console.log("updateItem itemId: ", itemId);
 
         if (!success) {
             return NextResponse.json(
