@@ -53,14 +53,20 @@ export default function ItemForm({
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
 
-        if (name === "name" && !isSlugCustom) {
+        if ((name === "name" && !isSlugCustom) || !formData.slug) {
             const newSlug = generateSlug(value);
             setFormData((prev) => ({ ...prev, slug: newSlug }));
         }
 
         if (name === "slug") {
-            setIsSlugCustom(true);
-            setFormData((prev) => ({ ...prev, slug: sanitizeName(value) }));
+            if (isSlugCustom && !value) {
+                setIsSlugCustom(false);
+                const newSlug = generateSlug(formData.name);
+                setFormData((prev) => ({ ...prev, slug: newSlug }));
+            } else {
+                setIsSlugCustom(true);
+                setFormData((prev) => ({ ...prev, slug: sanitizeName(value) }));
+            }
         }
     };
 
