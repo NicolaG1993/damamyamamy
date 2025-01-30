@@ -3,6 +3,7 @@ import { connect, release } from "@/database/db";
 import { middlewareVerifyToken } from "@/utils/jwtUtils";
 import { fetchItem } from "@/database/utils/fetchItem";
 import { updateItem } from "@/database/utils/updateItem";
+import { ItemFormData, ItemFormDataToSend } from "@/types/item";
 
 export async function GET(
     req: NextRequest,
@@ -69,7 +70,7 @@ export const config = {
 
 export async function PUT(
     req: NextRequest,
-    { params }: { params: { itemId: number } }
+    context: { params: Promise<{ itemId: number }> }
 ) {
     const authToken = req.cookies.get("damamyamamy_auth_token")?.value;
 
@@ -102,8 +103,71 @@ export async function PUT(
     const client = await connect();
 
     try {
-        const body = await req.json();
-        const success = await updateItem(client, params.itemId, body);
+        const { params } = context;
+        const { itemId } = await params;
+        const formData = await req.formData();
+
+        // Extract form fields
+        const name = formData.get("name") as string;
+        const price = formData.get("price") as string;
+        const brand = formData.get("brand")
+            ? JSON.parse(formData.get("brand") as string)
+            : null;
+        const categories = JSON.parse(formData.get("categories") as string);
+        const condition = formData.get("condition") as
+            | "new"
+            | "used"
+            | "refurbished";
+        const stock = formData.get("stock") as string;
+        const slug = formData.get("slug") as string;
+        const description = formData.get("description") as string;
+        const owner = JSON.parse(formData.get("owner") as string);
+
+        // const pics: File[] = [];
+        // formData.getAll("pics").forEach((file) => {
+        //     if (file instanceof Blob) {
+        //         pics.push(file as File);
+        //     }
+        // });
+        const pics: (File | string)[] = [];
+        formData.getAll("pics").forEach((file) => {
+            pics.push(file as File | string);
+        });
+
+        /* 
+        const newPictures: File[] = [];
+        formData.getAll("newPictures").forEach((file) => {
+            if (file instanceof Blob) {
+                newPictures.push(file as File);
+            }
+        });
+        const existingPictures = JSON.parse(
+            formData.get("existingPictures") as string
+        );
+        const picturesToDelete = JSON.parse(
+            formData.get("picturesToDelete") as string
+        );
+        */
+
+        const body: ItemFormData = {
+            name,
+            price: parseFloat(price),
+            brand,
+            categories,
+            condition,
+            stock: Number(stock),
+            slug,
+            description,
+            owner,
+            pics,
+            // newPictures, // Array of uploaded files
+            // existingPictures,
+            // picturesToDelete,
+        };
+
+        const success = await updateItem(client, itemId, body);
+        console.log("updateItem body: ", body);
+        console.log("updateItem itemId: ", itemId);
 
         if (!success) {
             return NextResponse.json(

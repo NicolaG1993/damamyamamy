@@ -1,18 +1,18 @@
 "use client";
 
 import ClientForm from "@/components/forms/ClientForm";
-import { getClient, editClient } from "@/services/client";
-import { ClientFormData, Client } from "@/types/client";
+import { getClientToEdit, editClient } from "@/services/client";
+import { ClientFormData } from "@/types/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 
 export default function ModificaCliente({
     params,
 }: {
-    params: { clientId: number };
+    params: Promise<{ clientId: number }>;
 }) {
-    const { clientId } = params;
+    const { clientId } = use(params);
     const router = useRouter();
     const [client, setClient] = useState<ClientFormData | null>(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -21,14 +21,9 @@ export default function ModificaCliente({
     useEffect(() => {
         const loadClient = async () => {
             try {
-                const data: Client = await getClient(clientId);
-                setClient({
-                    firstName: data.firstName,
-                    lastName: data.lastName,
-                    email: data.email,
-                    phone: data.phone,
-                    code: data.code,
-                });
+                const data: ClientFormData = await getClientToEdit(clientId);
+                console.log("loadClient: ", data);
+                setClient(data);
             } catch (err) {
                 console.error("Error fetching client:", err);
                 setError("Failed to load client data.");
@@ -42,7 +37,7 @@ export default function ModificaCliente({
     const handleEditClient = async (formData: ClientFormData) => {
         try {
             await editClient(clientId, formData);
-            router.push(`/admin/clients`);
+            router.push(`/admin/clienti/${clientId}`);
         } catch (err) {
             console.error("Error updating client:", err);
             setError("Failed to update client.");

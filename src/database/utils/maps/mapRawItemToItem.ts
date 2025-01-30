@@ -7,6 +7,7 @@ import {
     ItemsTableRow,
     RawItemPreview,
     ItemPreview,
+    RawItemFormData,
 } from "@/types/item";
 import { mapRawBrandToBrand } from "./mapRawBrandToBrand";
 import { mapRawCategoryToCategory } from "./mapRawCategoryToCategory";
@@ -56,9 +57,8 @@ export function mapRawItemSummary(rawItem: RawItem): ItemSummary {
     };
 }
 
-export function mapRawItemToItemFormData(rawItem: RawItem): ItemFormData {
+export function mapRawItemFormData(rawItem: RawItemFormData): ItemFormData {
     return {
-        // id: rawItem.id,
         name: rawItem.item_name,
         price: parseFloat(rawItem.price),
         stock: rawItem.count_in_stock,

@@ -7,6 +7,12 @@ export interface User {
     createdAt: string;
 }
 
+export interface UserFormData {
+    firstName: string;
+    lastName: string;
+    email: string;
+    isAdmin: boolean;
+}
 export interface RawUser {
     id: number;
     first_name: string;
@@ -18,16 +24,15 @@ export interface RawUser {
     created_at: Date;
 }
 
-export interface UserListProps {
-    users: User[];
+export interface RawUserFormData {
+    first_name: string;
+    last_name: string;
+    email: string;
+    is_admin: boolean;
 }
 
-export interface UserFormData {
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-    isAdmin: boolean;
+export interface UserListProps {
+    users: User[];
 }
 
 export interface CreateUserResponse {

@@ -7,8 +7,8 @@ export async function updateClient(
     client: PoolClient,
     clientId: number,
     clientData: ClientFormData
-    // clientData: Partial<Client>
 ): Promise<boolean> {
+    console.log("clientData: ", clientData);
     try {
         await begin(client);
 

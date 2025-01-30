@@ -29,6 +29,24 @@ export interface RawClient {
     created_at: Date;
 }
 
+export interface ClientFormData {
+    firstName: string;
+    lastName: string;
+    email?: string;
+    phone?: string;
+    // address?: string
+    code: string;
+    // items: Item[];
+}
+export interface RawClientFormData {
+    first_name: string;
+    last_name: string;
+    email?: string;
+    phone?: string;
+    // address?: string
+    personal_code: string;
+    // items: Item[];
+}
 export interface RawClientPartial {
     id: number;
     first_name: string;
@@ -42,16 +60,6 @@ export interface RawClientPreview {
 
 export interface ClientListProps {
     clients: Client[];
-}
-
-export interface ClientFormData {
-    firstName: string;
-    lastName: string;
-    email?: string;
-    phone?: string;
-    // address?: string
-    code: string;
-    // items: Item[];
 }
 
 export interface CreateClientResponse {

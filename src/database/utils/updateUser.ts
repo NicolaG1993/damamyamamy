@@ -1,12 +1,13 @@
 import { begin, commit, rollback } from "@/database/db";
 import { PoolClient } from "pg";
 import { updateUserById } from "@/database/queries/user";
-import { User } from "@/types/user";
+import { UserFormData } from "@/types/user";
 
 export async function updateUser(
     client: PoolClient,
     userId: number,
-    userData: Partial<User>
+    userData: UserFormData
+    // userData: Partial<User>
 ): Promise<boolean> {
     try {
         await begin(client);

@@ -3,6 +3,7 @@ import { connect, release } from "@/database/db";
 import { middlewareVerifyToken } from "@/utils/jwtUtils";
 import { fetchUser } from "@/database/utils/fetchUser";
 import { updateUser } from "@/database/utils/updateUser";
+import { User } from "@/types/user";
 
 export async function GET(
     req: NextRequest,
@@ -42,7 +43,7 @@ export async function GET(
     const client = await connect();
 
     try {
-        const user = await fetchUser(client, userId);
+        const user: User = await fetchUser(client, userId);
 
         if (!user) {
             return NextResponse.json(
@@ -62,8 +63,11 @@ export async function GET(
 
 export async function PUT(
     req: NextRequest,
-    { params }: { params: { userId: number } }
+    context: { params: Promise<{ userId: number }> }
 ) {
+    const { params } = context;
+    const { userId } = await params;
+
     const authToken = req.cookies.get("damamyamamy_auth_token")?.value;
 
     if (!authToken) {
@@ -96,7 +100,7 @@ export async function PUT(
 
     try {
         const body = await req.json();
-        const success = await updateUser(client, params.userId, body);
+        const success = await updateUser(client, userId, body);
 
         if (!success) {
             return NextResponse.json(

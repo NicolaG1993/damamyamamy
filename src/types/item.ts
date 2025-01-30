@@ -1,4 +1,4 @@
-import { ClientPreview, RawClientPreview } from "./client";
+import { ClientPreview, RawClientPartial, RawClientPreview } from "./client";
 import { Option } from "./form";
 
 export interface Item {
@@ -106,6 +106,35 @@ export interface ItemFormData {
     brand: Option | null; // brand id or object?
     categories: Option[];
     pics: (string | File)[]; // correct?
+}
+export interface ItemFormDataToSend {
+    name: string;
+    condition: "new" | "used" | "refurbished";
+    stock: number;
+    price: number;
+    slug: string;
+    description: string;
+    soldAt?: string;
+    owner: Option | null;
+    brand: Option | null;
+    categories: Option[];
+    newPictures: File[];
+    existingPictures: string;
+    picturesToDelete: string;
+}
+
+export interface RawItemFormData {
+    item_name: string;
+    condition: "new" | "used" | "refurbished";
+    count_in_stock: number;
+    price: string; // we need float value
+    slug: string; // correct?
+    description: string; // correct?
+    soldAt?: string;
+    owner: RawClientPartial;
+    brand: RawBrand | null; // brand id or object?
+    categories: RawCategory[];
+    pics: string[]; // correct?
 }
 export interface ItemFormDataPartial {
     name: string;

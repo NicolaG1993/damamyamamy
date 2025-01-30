@@ -23,7 +23,7 @@ import { supabase } from "@/utils/supabaseUtils";
 export async function updateItem(
     client: PoolClient,
     itemId: number,
-    updatedData: ItemFormData
+    updatedData: ItemFormData // ItemFormDataToSend
 ): Promise<boolean> {
     try {
         await begin(client);
@@ -39,24 +39,10 @@ export async function updateItem(
             owner,
             categories,
             pics,
+            // newPictures,
+            // existingPictures,
+            // picturesToDelete,
         } = updatedData;
-
-        // TODO: Update relations (brand, categories, owner and pics) 🔴
-
-        // Step 1: Check if brand is modified (delete relation, edit existing one or create new)
-        // Create new brand if user requires it
-
-        // Step 2: Check if categories are modified (delete relations, edit existing ones or create news)
-        // Create new categories if user requires it
-
-        // Step 3a: Check if pictures are modified (delete relations, edit existing ones or create news)
-        // Step 3b: Upload and delete pictures to Supabase bucket
-
-        // Step 4: Check if client relation is to edit
-
-        //////////////////////////////////////
-        //////////////////////////////////////
-        //////////////////////////////////////
 
         // Step 1: Update item details
         await updateItemById(client, itemId, {
@@ -66,23 +52,7 @@ export async function updateItem(
             slug,
             description,
             condition,
-        }); // TEST
-
-        /*
-        const res = await updateItemById(client, itemId, {
-            name,
-            price,
-            stock,
-            slug,
-            description,
-            condition,
         });
-
-        if (!res.rowCount) {
-            // TEST: is this working since we are not returning anything from the query?
-            throw new Error(`Failed to update item with ID ${itemId}`);
-        }
-            */
 
         // Step 2: Update brand relation
         if (brand) {
@@ -102,6 +72,8 @@ export async function updateItem(
                     await linkItemToBrand(client, itemId, newBrandId);
                 }
             }
+        } else {
+            await unlinkItemFromBrand(client, itemId);
         }
 
         // Step 3: Update categories relations
@@ -124,6 +96,7 @@ export async function updateItem(
         await linkItemToCategories(client, itemId, categoryIds); // Re-link updated categories
 
         // Step 4: Update pictures (upload new and delete unused)
+        /*
         const bucketName = "item-pictures";
 
         const existingPicturesResult = await getItemPictures(client, itemId);
@@ -185,6 +158,94 @@ export async function updateItem(
             uploadedPictureUrls.push(publicUrl);
         }
 
+        await linkItemToPictures(client, itemId, uploadedPictureUrls);
+        */
+
+        const bucketName = "item-pictures";
+
+        // Get existing pictures from the database
+        const existingPicturesResult = await getItemPictures(client, itemId);
+        const existingPictures = existingPicturesResult.rows.map(
+            (row) => row.picture_url
+        );
+
+        // Identify pictures to delete (pictures that exist in the database but not in the new form data)
+        const picturesToDelete = existingPictures.filter(
+            (existing) => !pics.includes(existing)
+        );
+
+        // Identify new pictures (only handle `File` types)
+        const newPictures = pics.filter(
+            (newPicture) =>
+                typeof newPicture !== "string" &&
+                !existingPictures.includes((newPicture as File).name) // Assuming existingPictures are names/URLs
+        );
+
+        // Identify existing pictures that should remain
+        const picturesToKeep = pics.filter(
+            (newPicture) =>
+                typeof newPicture === "string" &&
+                existingPictures.includes(newPicture)
+        );
+
+        console.log("pictures 🔥: ", {
+            picturesToDelete,
+            newPictures,
+            picturesToKeep,
+        });
+
+        // Delete unused pictures from Supabase bucket and database
+        for (const pictureUrl of picturesToDelete) {
+            // Ensure the URL is correctly formatted before removing
+            // Remove "20%" and double slashes if present (supabase issue)
+            const fileName =
+                decodeURIComponent(pictureUrl)
+                    .replace(/\/\//g, "/")
+                    .split("/")
+                    .pop() ?? ""; // Ensure fileName is never undefined
+
+            const { error } = await supabase.storage
+                .from(bucketName)
+                .remove([fileName]);
+
+            if (error) {
+                throw new Error(
+                    `Failed to delete image from bucket: ${fileName}`
+                );
+            }
+            await unlinkItemPicture(client, itemId, pictureUrl);
+        }
+
+        // Upload new pictures to Supabase bucket and database
+        const uploadedPictureUrls: string[] = [];
+        for (const picture of newPictures) {
+            if (typeof picture === "string") {
+                // Skip or handle existing picture URLs
+                continue;
+            }
+
+            // It's a File
+            const fileName = `${name}-${Date.now()}-${picture.name}`;
+            const { error } = await supabase.storage
+                .from(bucketName)
+                .upload(fileName, picture);
+
+            if (error) {
+                throw new Error(`Error uploading image: ${picture.name}`);
+            }
+
+            const publicUrl = supabase.storage
+                .from(bucketName)
+                .getPublicUrl(fileName).data?.publicUrl;
+
+            if (!publicUrl) {
+                throw new Error(`Unable to get public URL for: ${fileName}`);
+            }
+
+            uploadedPictureUrls.push(publicUrl);
+        }
+
+        // Link the new uploaded pictures to the database
         await linkItemToPictures(client, itemId, uploadedPictureUrls);
 
         // Step 5: Update client relation

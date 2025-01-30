@@ -1,16 +1,18 @@
+"use client";
+
 import ItemForm from "@/components/forms/ItemForm";
 import { getItemToEdit, editItem } from "@/services/item";
-import { ItemFormData, Item } from "@/types/item";
+import { ItemFormData } from "@/types/item";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 
 export default function ModificaArticolo({
     params,
 }: {
-    params: { itemId: number };
+    params: Promise<{ itemId: number }>;
 }) {
-    const { itemId } = params;
+    const { itemId } = use(params);
     const router = useRouter();
     const [item, setItem] = useState<ItemFormData | null>(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -31,10 +33,10 @@ export default function ModificaArticolo({
         loadItem();
     }, [itemId]);
 
-    const handleEditItem = async (formData: ItemFormData) => {
+    const handleEditItem = async (formData: FormData) => {
         try {
             await editItem(itemId, formData);
-            router.push(`/admin/items`);
+            router.push(`/admin/articoli/${itemId}`);
         } catch (err) {
             console.error("Error updating item:", err);
             setError("Failed to update item.");

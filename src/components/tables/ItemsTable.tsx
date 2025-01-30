@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function ItemsTable({ items }: ItemsTableProps) {
-    console.log("items: ", items);
     return (
         <div className={styles.container}>
             <table className={styles.table}>

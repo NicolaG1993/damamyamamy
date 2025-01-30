@@ -41,7 +41,7 @@ export default function InputOwner({
     return (
         <>
             <select
-                value={selectedOwner?.name || ""}
+                value={selectedOwner?.id || ""}
                 onChange={handleChange}
                 required
             >

@@ -1,4 +1,4 @@
-import { RawUser } from "@/types/user";
+import { RawUser, RawUserFormData } from "@/types/user";
 import { PoolClient, QueryResult } from "pg";
 
 export const newUser = async (
@@ -29,6 +29,19 @@ export const getUser = async (
             WHERE email = $1
         `;
     const keys = [email];
+    return client.query(myQuery, keys);
+};
+
+export const getUserFormData = async (
+    client: PoolClient,
+    userId: number
+): Promise<QueryResult<RawUserFormData>> => {
+    const myQuery = `
+            SELECT first_name, last_name, email, is_admin 
+            FROM users 
+            WHERE id = $1
+        `;
+    const keys = [userId];
     return client.query(myQuery, keys);
 };
 

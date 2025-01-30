@@ -43,10 +43,24 @@ export const editClient = async (
     }
 };
 
-// TODO: retrieve related items 👇🧠
 export const getClient = async (clientId: number): Promise<Client> => {
     try {
         const res = await axios.get(`/api/clients/${clientId}`);
+
+        if (res.status === 200) {
+            return res.data.client;
+        } else {
+            console.error("Unexpected status code:", res.data);
+            throw new Error(res.data.message || "Errore sconosciuto.");
+        }
+    } catch (err) {
+        throw new Error(handleAxiosError(err));
+    }
+};
+
+export const getClientToEdit = async (clientId: number): Promise<Client> => {
+    try {
+        const res = await axios.get(`/api/clients/${clientId}/form-data`);
 
         if (res.status === 200) {
             return res.data.client;

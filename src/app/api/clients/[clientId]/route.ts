@@ -62,8 +62,11 @@ export async function GET(
 
 export async function PUT(
     req: NextRequest,
-    { params }: { params: { clientId: number } }
+    context: { params: Promise<{ clientId: number }> }
 ) {
+    const { params } = context;
+    const { clientId } = await params;
+
     const authToken = req.cookies.get("damamyamamy_auth_token")?.value;
 
     if (!authToken) {
@@ -96,7 +99,7 @@ export async function PUT(
 
     try {
         const body = await req.json();
-        const success = await updateClient(client, params.clientId, body);
+        const success = await updateClient(client, clientId, body);
 
         if (!success) {
             return NextResponse.json(

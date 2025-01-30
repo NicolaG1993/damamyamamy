@@ -71,3 +71,18 @@ export const getUsers = async (): Promise<User[]> => {
         throw new Error(handleAxiosError(err));
     }
 };
+
+export const getUserToEdit = async (userId: number): Promise<UserFormData> => {
+    try {
+        const res = await axios.get(`/api/users/${userId}/form-data`);
+
+        if (res.status === 200) {
+            return res.data.user;
+        } else {
+            console.error("Unexpected status code:", res.data);
+            throw new Error(res.data.message || "Errore sconosciuto.");
+        }
+    } catch (err) {
+        throw new Error(handleAxiosError(err));
+    }
+};

@@ -1,7 +1,7 @@
 import {
     ItemFormDataPartial,
     RawItem,
-    RawItemTableProps,
+    RawItemFormData,
     RawItemTableRow,
 } from "@/types/item";
 import { PoolClient, QueryResult } from "pg";
@@ -156,6 +156,65 @@ export const getItems = async (
         i.created_at DESC
     `;
     return client.query(myQuery);
+};
+
+export const getItemFormData = async (
+    client: PoolClient,
+    itemId: number
+): Promise<QueryResult<RawItemFormData>> => {
+    const myQuery = `
+    SELECT 
+        i.name AS item_name,
+        i.price,
+        i.count_in_stock,
+        i.slug,
+        i.description,
+        i.condition,
+        i.sold_at,
+        i.created_at,
+        jsonb_build_object(
+            'id', c.id,
+            'first_name', c.first_name,
+            'last_name', c.last_name
+        ) AS owner,
+        COALESCE(
+            jsonb_agg(DISTINCT ip.picture_url) FILTER (WHERE ip.picture_url IS NOT NULL), 
+            '[]'
+        ) AS pics,
+        COALESCE(
+            jsonb_agg(DISTINCT jsonb_build_object('id', cat.id, 'name', cat.name)) 
+            FILTER (WHERE cat.id IS NOT NULL), 
+            '[]'
+        ) AS categories,
+        jsonb_build_object(
+            'id', b.id,
+            'name', b.name
+        ) AS brand
+    FROM 
+        items i
+    LEFT JOIN 
+        item_client icl ON i.id = icl.item_id
+    LEFT JOIN 
+        clients c ON icl.client_id = c.id
+    LEFT JOIN 
+        item_pictures ip ON i.id = ip.item_id
+    LEFT JOIN 
+        item_brand ib ON i.id = ib.item_id
+    LEFT JOIN 
+        brands b ON ib.brand_id = b.id
+    LEFT JOIN 
+        item_category ic ON i.id = ic.item_id
+    LEFT JOIN 
+        categories cat ON ic.category_id = cat.id
+    WHERE
+        i.id = $1  -- Add the WHERE clause to filter by itemId
+    GROUP BY 
+        i.id, c.id, b.id
+    ORDER BY 
+        i.created_at DESC
+    `;
+    const keys = [itemId];
+    return client.query(myQuery, keys);
 };
 
 export const updateItemById = async (

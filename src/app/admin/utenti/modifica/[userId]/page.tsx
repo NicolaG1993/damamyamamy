@@ -1,16 +1,18 @@
+"use client";
+
 import UserForm from "@/components/forms/UserForm";
-import { getUser, editUser } from "@/services/user";
-import { UserFormData, User } from "@/types/user";
+import { getUserToEdit, editUser } from "@/services/user";
+import { UserFormData } from "@/types/user";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 
 export default function ModificaUtente({
     params,
 }: {
-    params: { userId: number };
+    params: Promise<{ userId: number }>;
 }) {
-    const { userId } = params;
+    const { userId } = use(params);
     const router = useRouter();
     const [user, setUser] = useState<UserFormData | null>(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -19,14 +21,8 @@ export default function ModificaUtente({
     useEffect(() => {
         const loadUser = async () => {
             try {
-                const data: User = await getUser(userId);
-                setUser({
-                    firstName: data.firstName,
-                    lastName: data.lastName,
-                    email: data.email,
-                    password: "", // Password isn't fetched, left blank for security
-                    isAdmin: data.isAdmin,
-                });
+                const data: UserFormData = await getUserToEdit(userId);
+                setUser(data);
             } catch (err) {
                 console.error("Error fetching user:", err);
                 setError("Failed to load user data.");
@@ -40,7 +36,7 @@ export default function ModificaUtente({
     const handleEditUser = async (formData: UserFormData) => {
         try {
             await editUser(userId, formData);
-            router.push(`/admin/users`);
+            router.push(`/admin/utenti/${userId}`);
         } catch (err) {
             console.error("Error updating user:", err);
             setError("Failed to update user.");

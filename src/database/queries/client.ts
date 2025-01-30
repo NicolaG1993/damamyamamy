@@ -1,4 +1,4 @@
-import { ClientFormData, RawClient } from "@/types/client";
+import { ClientFormData, RawClient, RawClientFormData } from "@/types/client";
 import { PoolClient, QueryResult } from "pg";
 
 export const newClient = async (
@@ -16,6 +16,19 @@ export const newClient = async (
             RETURNING *
         `;
     const keys = [firstName, lastName, email, phone, code];
+    return client.query(myQuery, keys);
+};
+
+export const getClientFormData = async (
+    client: PoolClient,
+    clientId: number
+): Promise<QueryResult<RawClientFormData>> => {
+    const myQuery = `
+            SELECT first_name, last_name, email, phone, personal_code 
+            FROM clients 
+            WHERE id = $1
+        `;
+    const keys = [clientId];
     return client.query(myQuery, keys);
 };
 
@@ -96,10 +109,10 @@ export const updateClientById = async (
             last_name = COALESCE($2, last_name),
             email = COALESCE($3, email),
             phone = COALESCE($4, phone),
-            code = COALESCE($4, code)
-        WHERE id = $5
+            personal_code = COALESCE($5, personal_code)
+        WHERE id = $6
     `;
-    const values = [
+    const keys = [
         data.firstName,
         data.lastName,
         data.email,
@@ -107,5 +120,5 @@ export const updateClientById = async (
         data.code,
         clientId,
     ];
-    return client.query(myQuery, values);
+    return client.query(myQuery, keys);
 };

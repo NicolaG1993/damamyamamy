@@ -26,7 +26,7 @@ export const createItem = async (
 
 export const editItem = async (
     itemId: number,
-    updatedData: ItemFormData
+    updatedData: FormData
 ): Promise<CreateItemResponse> => {
     try {
         const res = await axios.put(`/api/items/${itemId}`, updatedData);
