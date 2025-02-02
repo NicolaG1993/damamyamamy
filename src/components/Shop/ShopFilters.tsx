@@ -1,6 +1,7 @@
 import { ShopPageFilters } from "@/types/shop";
 import styles from "./ShopFilters.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDebounce } from "@/hooks/useDebounce";
 
 interface ShopFiltersProps {
     filters: ShopPageFilters;
@@ -17,12 +18,12 @@ export default function ShopFilters({
     allBrands,
     isLoading,
 }: ShopFiltersProps) {
-    // const [searchInput, setSearchInput] = useState(filters.search || "");
+    const [searchInput, setSearchInput] = useState(filters.search || "");
+    const debouncedSearch = useDebounce(searchInput, 500); // Delay API call by 500ms
 
-    // const handleSearchSubmit = (e: React.FormEvent) => {
-    //     e.preventDefault();
-    //     handleFilters("search", searchInput);
-    // };
+    useEffect(() => {
+        handleFilters("search", debouncedSearch);
+    }, [debouncedSearch]);
 
     return (
         <form id={styles.ShopFilters}>
@@ -34,11 +35,8 @@ export default function ShopFilters({
                         id="search"
                         placeholder="Cerca..."
                         type="text"
-                        value={filters.search || ""}
-                        onChange={(e) =>
-                            handleFilters(e.target.name, e.target.value)
-                        }
-                        disabled={isLoading}
+                        value={searchInput}
+                        onChange={(e) => setSearchInput(e.target.value)}
                     />
                 </label>
             </div>
@@ -50,7 +48,7 @@ export default function ShopFilters({
                     id="category"
                     value={filters.category || ""}
                     onChange={(e) =>
-                        handleFilters(e.target.name, Number(e.target.value))
+                        handleFilters(e.target.name, e.target.value)
                     }
                     disabled={isLoading}
                 >
@@ -64,12 +62,6 @@ export default function ShopFilters({
                                 {category}
                             </option>
                         ))}
-                    {/* {allCategories &&
-                        allCategories.map((el) => (
-                            <option key={"category: " + el.id} value={el.id}>
-                                {el.name}
-                            </option>
-                        ))} */}
                 </select>
             </div>
 
@@ -80,7 +72,7 @@ export default function ShopFilters({
                     id="brand"
                     value={filters.brand || ""}
                     onChange={(e) =>
-                        handleFilters(e.target.name, Number(e.target.value))
+                        handleFilters(e.target.name, e.target.value)
                     }
                     disabled={isLoading}
                 >
@@ -95,27 +87,29 @@ export default function ShopFilters({
             </div>
 
             <div className={styles.priceRangeWrap}>
-                <label htmlFor={"minPrice"}>Prezzo minimo</label>
-                <input
-                    name="minPrice"
-                    id="minPrice"
-                    value={filters.minPrice || ""}
-                    onChange={(e) =>
-                        handleFilters(e.target.name, Number(e.target.value))
-                    }
-                    disabled={isLoading}
-                />
+                <div>
+                    <label htmlFor={"minPrice"}>Prezzo minimo</label>
+                    <input
+                        name="minPrice"
+                        id="minPrice"
+                        value={filters.minPrice || ""}
+                        onChange={(e) =>
+                            handleFilters(e.target.name, Number(e.target.value))
+                        }
+                    />
+                </div>
 
-                <label htmlFor={"maxPrice"}>Prezzo massimo</label>
-                <input
-                    name="maxPrice"
-                    id="maxPrice"
-                    value={filters.maxPrice || ""}
-                    onChange={(e) =>
-                        handleFilters(e.target.name, Number(e.target.value))
-                    }
-                    disabled={isLoading}
-                />
+                <div>
+                    <label htmlFor={"maxPrice"}>Prezzo massimo</label>
+                    <input
+                        name="maxPrice"
+                        id="maxPrice"
+                        value={filters.maxPrice || ""}
+                        onChange={(e) =>
+                            handleFilters(e.target.name, Number(e.target.value))
+                        }
+                    />
+                </div>
             </div>
 
             <div className={styles.orderBarWrap}>

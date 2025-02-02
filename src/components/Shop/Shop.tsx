@@ -18,16 +18,16 @@ export default function Shop() {
     const getFiltersFromURL = () => {
         return {
             page: Number(searchParams.get("page")) || 1,
-            brand: searchParams.get("brand") || "",
+            order: searchParams.get("order") || "DESC",
             minPrice: searchParams.get("minPrice")
                 ? Number(searchParams.get("minPrice"))
                 : undefined,
             maxPrice: searchParams.get("maxPrice")
                 ? Number(searchParams.get("maxPrice"))
                 : undefined,
-            category: searchParams.get("category") || "",
             search: searchParams.get("search") || "",
-            order: searchParams.get("order") || "desc",
+            brand: searchParams.get("brand") || "",
+            category: searchParams.get("category") || "",
         };
     };
 
@@ -55,6 +55,7 @@ export default function Shop() {
     };
 
     const fetchData = async (currentFilters: typeof filters) => {
+        console.log("👉 fetchData currentFilters: ", currentFilters);
         setIsLoading(true);
         try {
             const data = await getShopPage(currentFilters);

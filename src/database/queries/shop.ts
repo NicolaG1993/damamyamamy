@@ -15,6 +15,7 @@ export const getShopItems = async (
         search,
         order,
     } = filters;
+    console.log("👉 filters: ", filters);
 
     const offset = (page - 1) * countPerPage;
 
@@ -26,12 +27,12 @@ export const getShopItems = async (
         condition += ` AND b.name = $${keys.length}`;
     }
 
-    if (minPrice !== undefined) {
+    if (minPrice) {
         keys.push(minPrice);
         condition += ` AND i.price >= $${keys.length}`;
     }
 
-    if (maxPrice !== undefined) {
+    if (maxPrice) {
         keys.push(maxPrice);
         condition += ` AND i.price <= $${keys.length}`;
     }

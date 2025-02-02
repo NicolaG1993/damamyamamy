@@ -54,8 +54,40 @@
     width: 100px;
     margin-bottom: 0.2rem;
     position: absolute;
-    left: -80px;
-    font-size: 0.8rem;
+    left: -100px;
+    font-size: 0.75rem;
+}
+
+#ShopFilters .priceRangeWrap {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#ShopFilters .priceRangeWrap > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+#ShopFilters .priceRangeWrap > div:first-child {
+    margin-bottom: 2rem;
+}
+
+#ShopFilters .priceRangeWrap label {
+    width: 100px;
+    margin-bottom: 0.2rem;
+    position: absolute;
+    left: -100px;
+    font-size: 0.75rem;
+}
+
+#ShopFilters .priceRangeWrap input {
+    width: 200px;
+    text-align: center;
+    height: 28px;
 }
 
 @media screen and (max-width: 768px) {
@@ -75,7 +107,8 @@
         flex-direction: column;
     }
     #ShopFilters .filtersBarWrap label,
-    #ShopFilters .orderBarWrap label {
+    #ShopFilters .orderBarWrap label,
+    #ShopFilters .priceRangeWrap label {
         position: relative;
         width: auto;
         left: 0;
