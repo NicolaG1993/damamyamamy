@@ -55,7 +55,6 @@ export default function Shop() {
     };
 
     const fetchData = async (currentFilters: typeof filters) => {
-        console.log("👉 fetchData currentFilters: ", currentFilters);
         setIsLoading(true);
         try {
             const data = await getShopPage(currentFilters);

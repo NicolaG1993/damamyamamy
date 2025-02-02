@@ -1,35 +1,99 @@
-import createMarkup from "@/utils/createMarkup"; // 🧠 TODO: FIX, there must be another solution then dangerouslySetInnerHTML
+import { ShopItem } from "@/types/shop";
 import Image from "next/image";
-import Link from "next/link";
-import styles from "./ShopItems.module.css";
+import styles from "./ShopItem.module.css";
 
-export default function Item({ item }) {
+interface ShopItemProps {
+    item: ShopItem;
+}
+
+export default function ShopItem({ item }: ShopItemProps) {
     return (
-        <div className={styles.gridElement}>
-            <Link title={item.name} href={`/articolo/${item.slug}`}>
-                <div id={styles.thumbnailWrap}>
-                    <div
-                        style={{
-                            position: "relative",
-                        }}
-                        className={styles.picWrap}
-                    >
-                        <Image
-                            src={item.pic ? item.pic : "/no-image.png"}
-                            alt={item.name}
-                            fill
-                            style={{ objectFit: "cover" }}
-                        />
+        <div className={styles.elContainer}>
+            <div className={styles.elBlock}>
+                <div className={styles.elBlockColumn}>
+                    <div className={`${styles.elRow} ${styles.cleanRow}`}>
+                        <p className={styles.elLabel}>Foto</p>
                     </div>
-
-                    <div className={styles.gridElementInfos}>
-                        <h5 dangerouslySetInnerHTML={createMarkup(item.name)}>
-                            {/* {item.name} */}
-                        </h5>
-                        <p>€ {item.price}</p>
+                    <div className={styles.elPicturesList}>
+                        {item.pics?.map((pic: string, i: number) => (
+                            <div
+                                key={`item pic: ${pic} ${i}`}
+                                className={styles.elPicture}
+                            >
+                                <Image
+                                    src={pic}
+                                    alt={`item pic: ${pic} ${i}`}
+                                    fill
+                                    style={{
+                                        objectFit: "cover",
+                                    }}
+                                />
+                            </div>
+                        ))}
                     </div>
                 </div>
-            </Link>
+
+                <div className={styles.elBlockColumn}>
+                    <div className={styles.elRow}>
+                        <p className={styles.elLabel}>Nome</p>
+                        <p className={styles.elValue}>{item.name}</p>
+                    </div>
+                    <div className={styles.elRow}>
+                        <p className={styles.elLabel}>Prezzo</p>
+                        <p className={styles.elValue}>€ {item.price}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div className={styles.elSeparator}></div>
+
+            <div className={styles.elBlock}>
+                <div className={styles.elBlockColumn}>
+                    <div className={styles.elRow}>
+                        <p className={styles.elLabel}>Descrizione</p>
+                        <p className={styles.elValue}>
+                            {item.description || "-"}
+                        </p>
+                    </div>
+                    <div className={styles.elRow}>
+                        <p className={styles.elLabel}>In magazzino</p>
+                        <p className={styles.elValue}>{item.stock}</p>
+                    </div>
+                    <div className={styles.elRow}>
+                        <p className={styles.elLabel}>Marca</p>
+                        <p className={styles.elValue}>{item.brand || "-"}</p>
+                    </div>
+                    <div className={styles.elRow}>
+                        <p className={styles.elLabel}>Condizioni</p>
+                        <p className={styles.elValue}>{item.condition}</p>
+                    </div>
+                </div>
+                <div className={styles.elBlockColumn}>
+                    <div className={styles.elRow}>
+                        <p className={styles.elLabel}>Categorie</p>
+                        <div className={styles.elList}>
+                            {item.categories?.map((category, i) => (
+                                <p
+                                    key={`item category: ${category} ${i}`}
+                                    className={styles.elValue}
+                                >
+                                    • {category}
+                                </p>
+                            )) || "-"}
+                        </div>
+                    </div>
+                    {/* <div className={styles.elRow}>
+                        <p className={styles.elLabel}>Data Creazione</p>
+                        <p className={styles.elValue}>{item.createdAt}</p>
+                    </div> */}
+                    {/* <div className={styles.elRow}>
+                        <p className={styles.elLabel}>Venduto</p>
+                        <p className={styles.elValue}>
+                            {item.soldAt ? "Sì" : "No"}
+                        </p>
+                    </div> */}
+                </div>
+            </div>
         </div>
     );
 }

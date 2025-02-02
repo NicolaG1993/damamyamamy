@@ -20,27 +20,33 @@ export interface ShopItem {
     name: string;
     condition: "Nuovo" | "Usato" | "Rigenerato";
     stock: number;
-    price: number; // we need float value
-    slug: string; // correct?
-    description: string; // correct?
-    // soldAt?: string;
-    brand: Brand | null; // brand id or object?
-    pics: string[]; // correct?
-    categories: Category[];
+    price: number;
+    // slug: string;
+    description: string;
+    createdAt: string;
+    soldAt?: string;
+    pics: string[];
+    brand: string;
+    categories: string[];
 }
 
 export interface RawShopItem {
-    item_name: string;
+    name: string;
     condition: "new" | "used" | "refurbished";
     count_in_stock: number;
-    price: string; // we need float value
-    slug: string;
+    price: string;
+    // slug: string;
     description: string;
-    // sold_at?: Date;
-    brand?: RawBrand;
-    pics: string[];
-    categories: RawCategory[];
+    created_at: Date;
+    sold_at?: Date;
+    pictures: string[];
+    brand_name?: string;
+    categories: string[];
     // total_categories?: number;
+}
+
+export interface RawShopRelation {
+    name: string;
 }
 
 export interface ShopItemPreview {

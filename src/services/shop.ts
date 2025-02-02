@@ -1,5 +1,6 @@
 import {
     ShopFiltersData,
+    ShopItem,
     ShopPageFilters,
     ShopPageResponse,
 } from "@/types/shop";
@@ -44,9 +45,7 @@ export const getShopFilters = async (): Promise<ShopFiltersData> => {
     }
 };
 
-// TODO
-export const getShopItem = async (slug: string): Promise<Item> => {
-    /*
+export const getShopItem = async (slug: string): Promise<ShopItem> => {
     try {
         const res = await axios.get(`/api/shop/item/${slug}`);
 
@@ -59,5 +58,4 @@ export const getShopItem = async (slug: string): Promise<Item> => {
     } catch (err) {
         throw new Error(handleAxiosError(err));
     }
-        */
 };

@@ -25,44 +25,6 @@ export const newItem = async (
     return client.query(myQuery, keys);
 };
 
-export const getItemBySlug = async (
-    client: PoolClient,
-    slug: string
-): Promise<QueryResult<RawItem>> => {
-    const myQuery = `
-            SELECT 
-                i.id AS item_id,
-                i.name AS item_name,
-                i.price,
-                i.count_in_stock,
-                i.slug,
-                i.description,
-                i.condition,
-                b.id AS brand_id,
-                b.name AS brand_name,
-                ARRAY_AGG(DISTINCT ip.picture_url) AS pictures,
-                ARRAY_AGG(DISTINCT cat.name) AS categories
-            FROM 
-                items i
-            LEFT JOIN 
-                item_pictures ip ON i.id = ip.item_id
-            LEFT JOIN 
-                item_brand ib ON i.id = ib.item_id
-            LEFT JOIN 
-                brands b ON ib.brand_id = b.id
-            LEFT JOIN 
-                item_category ic ON i.id = ic.item_id
-            LEFT JOIN 
-                categories cat ON ic.category_id = cat.id
-            WHERE 
-                i.slug = $1
-            GROUP BY 
-                i.id, b.id
-        `;
-    const keys = [slug];
-    return client.query(myQuery, keys);
-};
-
 export const getItemById = async (
     client: PoolClient,
     itemId: number

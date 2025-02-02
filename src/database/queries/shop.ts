@@ -147,7 +147,35 @@ export const getShopItem = async (
     client: PoolClient,
     slug: string
 ): Promise<QueryResult<RawShopItem>> => {
-    const myQuery = ``;
+    const myQuery = `
+        SELECT 
+            i.name,
+            i.slug,
+            i.description,
+            i.price,
+            i.created_at,
+            i.sold_at,
+            i.count_in_stock,
+            i.condition,
+            b.name AS brand_name,
+            ARRAY(
+                SELECT c.name
+                FROM item_category ic
+                JOIN categories c ON ic.category_id = c.id
+                WHERE ic.item_id = i.id
+            ) AS categories,
+            ARRAY(
+                SELECT ip.picture_url
+                FROM item_pictures ip
+                WHERE ip.item_id = i.id
+                ORDER BY ip.id ASC
+            ) AS pictures
+        FROM items i
+        LEFT JOIN item_brand ib ON i.id = ib.item_id
+        LEFT JOIN brands b ON ib.brand_id = b.id
+        WHERE i.slug = $1
+        LIMIT 1;
+    `;
     const keys = [slug];
     return client.query(myQuery, keys);
 };
