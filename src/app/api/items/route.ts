@@ -40,16 +40,6 @@ export async function GET(req: NextRequest) {
 
     try {
         const items = await fetchItems(client);
-        console.log("items: ", items); // { rows } forse giusto in questo caso?
-
-        /*
-        if (!items || items.length === 0) {
-            return NextResponse.json(
-                { message: "Nessun articolo trovato." },
-                { status: 404 }
-            );
-        }
-        */
 
         return NextResponse.json({ items: items }, { status: 200 });
     } catch (error) {

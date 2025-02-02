@@ -6,7 +6,7 @@ import styles from "./ShopItems.module.css";
 export default function Item({ item }) {
     return (
         <div className={styles.gridElement}>
-            <Link title={item.name} href={`/negozio/articolo/${item.id}`}>
+            <Link title={item.name} href={`/articolo/${item.slug}`}>
                 <div id={styles.thumbnailWrap}>
                     <div
                         style={{
@@ -15,11 +15,7 @@ export default function Item({ item }) {
                         className={styles.picWrap}
                     >
                         <Image
-                            src={
-                                item.pics && item.pics.length
-                                    ? item.pics[0]
-                                    : "/no-image.png"
-                            }
+                            src={item.pic ? item.pic : "/no-image.png"}
                             alt={item.name}
                             fill
                             style={{ objectFit: "cover" }}

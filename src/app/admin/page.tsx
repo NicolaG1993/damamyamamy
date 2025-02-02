@@ -1,9 +1,6 @@
 "use client";
 
 import styles from "./page.module.css";
-// import { useAppSelector } from "@/redux/lib/hooks";
-// import { selectUserState } from "@/redux/slices/userSlice";
-// import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { logout } from "@/services/auth";
 import Link from "next/link";

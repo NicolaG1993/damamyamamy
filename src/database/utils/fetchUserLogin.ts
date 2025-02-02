@@ -10,7 +10,7 @@ interface User {
     isAdmin: boolean;
     email: string;
     token: string;
-}
+} // todo: move
 
 export async function fetchUserLogin(
     client: PoolClient,

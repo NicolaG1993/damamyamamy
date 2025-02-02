@@ -8,16 +8,6 @@ interface HeaderProps {
 }
 
 export default function Header({ isSmallDevice }: HeaderProps) {
-    // let layouts = useSelector(selectLayoutsState, shallowEqual);
-
-    // const getBtnStyle = () => {
-    //     if (layouts[1].status) {
-    //         return styles["hamBtn-active"];
-    //     } else {
-    //         return styles["hamBtn"];
-    //     }
-    // };
-
     return (
         <header className={styles.header}>
             <div className={styles.logo}>

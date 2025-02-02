@@ -12,10 +12,6 @@ export default function Articoli() {
                     </div>
                 </section>
             </main>
-            {/* <h1>Articoli</h1>
-            <p>• Filtri e ricerca</p>
-            <p>• Lista articoli - paginazione</p>
-            <p>• UI o pagina per articolo</p> */}
         </div>
     );
 }

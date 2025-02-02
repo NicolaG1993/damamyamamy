@@ -1,22 +1,40 @@
+import { ShopPageFilters } from "@/types/shop";
 import styles from "./ShopFilters.module.css";
+import { useState } from "react";
+
+interface ShopFiltersProps {
+    filters: ShopPageFilters;
+    handleFilters: (name: string, value: any) => void;
+    allCategories: string[];
+    allBrands: string[];
+    isLoading: boolean;
+}
 
 export default function ShopFilters({
     filters,
     handleFilters,
     allCategories,
+    allBrands,
     isLoading,
-}) {
+}: ShopFiltersProps) {
+    // const [searchInput, setSearchInput] = useState(filters.search || "");
+
+    // const handleSearchSubmit = (e: React.FormEvent) => {
+    //     e.preventDefault();
+    //     handleFilters("search", searchInput);
+    // };
+
     return (
         <form id={styles.ShopFilters}>
             <div className={styles.searchBarWrap}>
-                <label htmlFor={"research"}>
+                <label htmlFor={"search"}>
                     {/* Ricerca */}
                     <input
-                        name="research"
-                        id="research"
+                        name="search"
+                        id="search"
                         placeholder="Cerca..."
                         type="text"
-                        value={filters.research}
+                        value={filters.search || ""}
                         onChange={(e) =>
                             handleFilters(e.target.name, e.target.value)
                         }
@@ -30,20 +48,74 @@ export default function ShopFilters({
                 <select
                     name="category"
                     id="category"
+                    value={filters.category || ""}
                     onChange={(e) =>
                         handleFilters(e.target.name, Number(e.target.value))
                     }
-                    defaultValue={filters.category}
                     disabled={isLoading}
                 >
-                    <option value={0}>--Tutte--</option>
+                    <option value={""}>--Tutte--</option>
                     {allCategories &&
+                        allCategories.map((category) => (
+                            <option
+                                key={"category: " + category}
+                                value={category}
+                            >
+                                {category}
+                            </option>
+                        ))}
+                    {/* {allCategories &&
                         allCategories.map((el) => (
                             <option key={"category: " + el.id} value={el.id}>
                                 {el.name}
                             </option>
+                        ))} */}
+                </select>
+            </div>
+
+            <div className={styles.filtersBarWrap}>
+                <label htmlFor={"brand"}>Marca</label>
+                <select
+                    name="brand"
+                    id="brand"
+                    value={filters.brand || ""}
+                    onChange={(e) =>
+                        handleFilters(e.target.name, Number(e.target.value))
+                    }
+                    disabled={isLoading}
+                >
+                    <option value={""}>--Tutte--</option>
+                    {allBrands &&
+                        allBrands.map((brand) => (
+                            <option key={"brand: " + brand} value={brand}>
+                                {brand}
+                            </option>
                         ))}
                 </select>
+            </div>
+
+            <div className={styles.priceRangeWrap}>
+                <label htmlFor={"minPrice"}>Prezzo minimo</label>
+                <input
+                    name="minPrice"
+                    id="minPrice"
+                    value={filters.minPrice || ""}
+                    onChange={(e) =>
+                        handleFilters(e.target.name, Number(e.target.value))
+                    }
+                    disabled={isLoading}
+                />
+
+                <label htmlFor={"maxPrice"}>Prezzo massimo</label>
+                <input
+                    name="maxPrice"
+                    id="maxPrice"
+                    value={filters.maxPrice || ""}
+                    onChange={(e) =>
+                        handleFilters(e.target.name, Number(e.target.value))
+                    }
+                    disabled={isLoading}
+                />
             </div>
 
             <div className={styles.orderBarWrap}>
@@ -54,13 +126,14 @@ export default function ShopFilters({
                     onChange={(e) =>
                         handleFilters(e.target.name, e.target.value)
                     }
-                    defaultValue={filters.order}
                     disabled={isLoading}
                 >
-                    <option value="id_desc">Ultimi arrivi</option>
+                    {/* <option value="id_desc">Ultimi arrivi</option> 
                     <option value="price_asc">Prezzo più basso</option>
                     <option value="price_desc">Prezzo più alto</option>
-                    <option value="name_asc">Ordine alfabetico</option>
+                    <option value="name_asc">Ordine alfabetico</option>*/}
+                    <option value="DESC">Più recenti</option>
+                    <option value="ASC">Meno recenti</option>
                 </select>
             </div>
         </form>

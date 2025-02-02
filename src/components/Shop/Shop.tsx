@@ -1,114 +1,117 @@
 "use client";
 
-import { useAppDispatch, useAppSelector } from "@/redux/lib/hooks";
 import { useEffect, useState } from "react";
 import styles from "./Shop.module.css";
-import { shallowEqual } from "react-redux";
-import {
-    saveShopFilters,
-    selectShopFiltersState,
-} from "@/redux/slices/formsSlice";
 import ShopFilters from "./ShopFilters";
 import PageNav from "@/components/shared/PageNav/PageNav";
 import ShopItems from "./ShopItems";
 import ShopItemsSkeleton from "./ShopItemsSkeleton";
 import { PAGINATION } from "@/constants/config";
+import { getShopFilters, getShopPage } from "@/services/shop";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function Shop() {
+    const router = useRouter();
+    const searchParams = useSearchParams();
+
+    // Convert URL search params to an object
+    const getFiltersFromURL = () => {
+        return {
+            page: Number(searchParams.get("page")) || 1,
+            brand: searchParams.get("brand") || "",
+            minPrice: searchParams.get("minPrice")
+                ? Number(searchParams.get("minPrice"))
+                : undefined,
+            maxPrice: searchParams.get("maxPrice")
+                ? Number(searchParams.get("maxPrice"))
+                : undefined,
+            category: searchParams.get("category") || "",
+            search: searchParams.get("search") || "",
+            order: searchParams.get("order") || "desc",
+        };
+    };
+
     const [isLoading, setIsLoading] = useState(true);
     const [items, setItems] = useState();
     const [totalPages, setTotalPages] = useState(1);
-    const [allCategories, setAllCategories] = useState();
+    const [allCategories, setAllCategories] = useState([]);
+    const [allBrands, setAllBrands] = useState([]);
     const countPerPage = PAGINATION.defaultPageSize;
-    // const [filtersState, setFiltersState] = useState();
-    const dispatch = useAppDispatch();
-    const storedFilters = useAppSelector(selectShopFiltersState, shallowEqual);
+    const [filters, setFilters] = useState(getFiltersFromURL());
 
     useEffect(() => {
-        fetchData({ ...storedFilters, countPerPage });
-    }, [storedFilters]);
+        fetchFilters();
+        fetchData({ ...filters, countPerPage });
+    }, [filters]);
 
-    const handleFilters = (name: string, value) => {
-        // let newState = { ...filtersState, [name]: value };
-        // setFiltersState(newState);
-
-        let newState;
-        if (name == "category" || name == "order") {
-            newState = { ...storedFilters, page: 1, [name]: value };
-        } else {
-            newState = { ...storedFilters, [name]: value };
+    const fetchFilters = async () => {
+        try {
+            const data = await getShopFilters();
+            setAllCategories(data.categories || []);
+            setAllBrands(data.brands || []);
+        } catch (err) {
+            console.error("Errore nel caricamento dei filtri", err);
         }
-
-        dispatch(saveShopFilters(newState));
     };
 
-    const fetchData = async (obj) => {
+    const fetchData = async (currentFilters: typeof filters) => {
+        setIsLoading(true);
         try {
-            const { data } = await axios.post("/api/get/all-items", obj);
-
+            const data = await getShopPage(currentFilters);
             setItems(data.items);
-            setAllCategories(data.all_categories);
-            setTotalPages(
-                Math.ceil(Number(data.full_count) / Number(countPerPage))
-            );
+            setTotalPages(Math.ceil(Number(data.total) / countPerPage));
         } catch (err) {
-            setItems();
+            setItems([]);
             setTotalPages(1);
-            setAllCategories();
-            // alert(getError(err));
             alert(
-                "Sembra che abbiamo dei problemi con il nostro sito, riprova piú tardi oppure contattaci al 347 9792 644, ci scusiamo per il disagio."
+                "Sembra che abbiamo dei problemi con il nostro sito. Riprova più tardi."
             );
+        } finally {
+            setIsLoading(false);
         }
+    };
+
+    const handleFilters = (name: string, value: any) => {
+        const newFilters = { ...filters, [name]: value, page: 1 };
+        setFilters(newFilters);
+
+        // Update URL parameters
+        const params = new URLSearchParams();
+        Object.entries(newFilters).forEach(([key, val]) => {
+            if (val) params.set(key, String(val));
+        });
+        router.push(`?${params.toString()}`);
     };
 
     return (
         <div>
             <div className={styles.filtersWrap}>
                 <ShopFilters
-                    filters={{ ...storedFilters, totalPages }}
+                    filters={{ ...filters, totalPages }}
                     handleFilters={handleFilters}
                     allCategories={allCategories}
+                    allBrands={allBrands}
                     isLoading={isLoading}
                 />
             </div>
 
             <PageNav
                 totalPages={totalPages}
-                page={storedFilters.page}
+                page={filters.page}
                 handleFilters={handleFilters}
             />
 
             {isLoading ? (
                 <ShopItemsSkeleton />
             ) : !!items?.length ? (
-                <ShopItems
-                    data={items}
-                    mockedData={[
-                        { id: 1, name: "Articolo test 1", price: 5 },
-                        { id: 2, name: "Articolo test 2", price: 5 },
-                        { id: 3, name: "Articolo test 3", price: 5 },
-                        { id: 4, name: "Articolo test 4", price: 5 },
-                        { id: 5, name: "Articolo test 5", price: 5 },
-                        { id: 6, name: "Articolo test 6", price: 5 },
-                        { id: 7, name: "Articolo test 7", price: 5 },
-                        { id: 8, name: "Articolo test 8", price: 5 },
-                        { id: 9, name: "Articolo test 9", price: 5 },
-                        { id: 10, name: "Articolo test 10", price: 5 },
-                        { id: 11, name: "Articolo test 11", price: 5 },
-                        { id: 12, name: "Articolo test 12", price: 5 },
-                        { id: 13, name: "Articolo test 13", price: 5 },
-                        { id: 14, name: "Articolo test 14", price: 5 },
-                        { id: 15, name: "Articolo test 15", price: 5 },
-                    ]}
-                />
+                <ShopItems items={items} />
             ) : (
                 <p className="center">Nessun risultato disponibile</p>
             )}
 
             <PageNav
                 totalPages={totalPages}
-                page={storedFilters.page}
+                page={filters.page}
                 handleFilters={handleFilters}
             />
         </div>

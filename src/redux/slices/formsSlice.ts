@@ -18,3 +18,5 @@ const formsSlice = createSlice({
 export const { saveShopFilters } = formsSlice.actions; // ACTIONS
 export const selectShopFiltersState = (state) => state.forms.shopFilters; // SELECTOR
 export default formsSlice;
+
+// DELETE FILE AND UNINSTAL REDUX

@@ -1,11 +1,12 @@
 import styles from "./ShopItems.module.css";
 import ShopItem from "./ShopItem";
 
-export default function ShopItems({ data, mockedData }) {
+export default function ShopItems({ items }) {
+    console.log("items: ", items);
     return (
         <div className={styles.shopGrid}>
-            {mockedData.map((el) => (
-                <ShopItem item={el} key={"Shop item " + el.id} />
+            {items.map((item) => (
+                <ShopItem item={item} key={"Shop item " + item.slug} />
             ))}
         </div>
     );

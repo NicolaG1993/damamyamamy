@@ -99,7 +99,6 @@ export default function ItemForm({
             const files = Array.from(e.target.files);
             setFormData((prev) => ({
                 ...prev,
-                // pics: [...prev.pics, ...files.map((file) => file.name)],
                 pics: [...prev.pics, ...files],
             }));
 
@@ -143,25 +142,6 @@ export default function ItemForm({
             return;
         }
 
-        /*
-        const initialPics = initialData.pics; // Array of strings and files (original state)
-        const formPics = formData.pics; // Updated array from the form
-
-        // Separate new files, existing strings, and deleted pictures
-        const newPictures: File[] = formPics.filter(
-            (pic: string | File) => pic instanceof File
-        ) as File[];
-
-        const existingPictures: string[] = formPics.filter(
-            (pic: string | File) => typeof pic === "string"
-        ) as string[];
-
-        const picturesToDelete: string[] = initialPics.filter(
-            (pic: string | File) =>
-                typeof pic === "string" && !existingPictures.includes(pic)
-        ) as string[];
-         */
-
         try {
             // Create a new FormData object directly from the form element
             const formElement = e.target as HTMLFormElement;
@@ -186,32 +166,7 @@ export default function ItemForm({
                     formDataToSend.append("pics", pic);
                 });
             }
-            /*
-            if (newPictures) {
-                // Append each pic individually
-                newPictures.forEach((pic: File) => {
-                    formDataToSend.append("newPictures", pic);
-                });
-            }
 
-            // Append existing pictures (strings) to FormData
-            formDataToSend.append(
-                "existingPictures",
-                JSON.stringify(existingPictures)
-            );
-
-            // Append pictures to delete (strings) to FormData
-            formDataToSend.append(
-                "picturesToDelete",
-                JSON.stringify(picturesToDelete)
-            );
-
-
-
-
-            */
-
-            console.log("formDataToSend: ", formDataToSend);
             await onSubmit(formDataToSend);
             // await onSubmit(formData);
         } catch (err) {
@@ -226,10 +181,6 @@ export default function ItemForm({
             setFormData((prev) => ({ ...prev, slug: newSlug }));
         }
     }, [formData.name, isSlugCustom]);
-
-    useEffect(() => {
-        console.log("👁️ formData: ", formData);
-    }, [formData]);
 
     return (
         <form className={styles.form} onSubmit={handleSubmit}>
