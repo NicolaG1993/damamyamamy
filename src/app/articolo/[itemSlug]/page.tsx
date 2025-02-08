@@ -37,15 +37,12 @@ export default function Articolo({
             <main>
                 <section>
                     <div>
-                        <h1>Articolo</h1>
                         {error ? (
                             <div className="error">{error}</div>
                         ) : isLoading ? (
                             <div className="loading">Caricamento...</div>
                         ) : item ? (
-                            <>
-                                <ShopItem item={item} />
-                            </>
+                            <ShopItem item={item} />
                         ) : (
                             <div className="error">Articolo non trovato</div>
                         )}
