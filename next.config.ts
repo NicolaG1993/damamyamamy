@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
 
     images: {
         domains: [
-            // "res.cloudinary.com",
+            "res.cloudinary.com",
             // "s3.eu-south-1.amazonaws.com",
             // process.env.S3_BUCKET_URL || "",
             "mctqgfkgogunzqjjmnyx.supabase.co",

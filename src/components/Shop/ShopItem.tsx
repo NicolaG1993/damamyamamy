@@ -61,7 +61,9 @@ export default function ShopItem({ item }: ShopItemProps) {
                             <h1 className={styles.name}>{item.name}</h1>
                             <h2 className={styles.brand}>{item.brand}</h2>
                         </div>
-                        <h3 className={styles.price}>€ {item.price}</h3>
+                        <h3 className={styles.price}>
+                            {item.price.toFixed(2)} €
+                        </h3>
                     </div>
                 </div>
             </div>

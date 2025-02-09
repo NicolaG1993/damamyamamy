@@ -67,7 +67,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
+/* 
 .elLink {
     margin: 0;
     font-weight: 600;
@@ -79,7 +79,7 @@
 .elLink:hover {
     text-decoration: underline;
     font-weight: 600;
-}
+} */
 
 /* PICTURES */
 .picDisplayer {
@@ -151,6 +151,9 @@
     padding: 0.25rem 0.5rem;
     border-radius: 12px;
     font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* SEPARATOR */
@@ -159,4 +162,57 @@
     height: 1px;
     background-color: var(--color-background);
     margin: 2rem 0;
+}
+
+@media screen and (max-width: 768px) {
+    .elBlock {
+        grid-template-columns: 1fr 2rem 1fr;
+    }
+}
+
+@media screen and (max-width: 768px) and (min-width: 480px) {
+    .picDisplayer {
+        height: 250px;
+        width: 250px;
+    }
+
+    .elPicturesList {
+        gap: 0.75rem;
+        width: 250px;
+    }
+
+    .elPicture {
+        height: 40px;
+        width: 40px;
+        position: relative;
+        background-color: var(--color-background-hover);
+        border-radius: 12px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+
+    .elLabel {
+        margin: 0 1.25rem 0 0;
+        width: 100px;
+        font-size: 0.8rem;
+    }
+
+    .elValue {
+        font-size: 0.8rem;
+    }
+
+    .category {
+        font-size: 0.8rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .picDisplayer {
+        width: 100%;
+    }
+    .elBlock {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 3rem auto;
+    }
 }

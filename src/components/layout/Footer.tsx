@@ -38,9 +38,9 @@ export default function Footer() {
                     <div>
                         <h4>Da Mamy a Mamy</h4>
                         <ul>
-                            <li>
+                            {/* <li>
                                 <p>Via Tosin, 1, 37010</p>
-                            </li>
+                            </li> */}
                             <li>
                                 <p>Cavaion, Verona, IT</p>
                             </li>

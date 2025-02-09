@@ -38,9 +38,9 @@ export default function Header({ isSmallDevice }: HeaderProps) {
                         <li>
                             <Link href={"/chi-siamo"}>Chi siamo</Link>
                         </li>
-                        <li>
+                        {/* <li>
                             <Link href={"/contatto"}>Contatto</Link>
-                        </li>
+                        </li> */}
                     </ul>
                 </nav>
             )}
