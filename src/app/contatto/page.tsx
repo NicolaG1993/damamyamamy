@@ -1,4 +1,4 @@
-import ContactForm from "@/components/forms/ContactForm";
+// import ContactForm from "@/components/forms/ContactForm";
 
 export default function Contatto() {
     return (
@@ -7,7 +7,7 @@ export default function Contatto() {
                 <section>
                     <div>
                         <h1>Contatto</h1>
-                        <ContactForm />
+                        {/* <ContactForm /> */}
                     </div>
                 </section>
             </main>
