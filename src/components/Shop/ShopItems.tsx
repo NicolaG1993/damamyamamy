@@ -1,9 +1,9 @@
 import styles from "./ShopItems.module.css";
 import ShopItemPreview from "./ShopItemPreview";
-import { ShopItem } from "@/types/shop";
+import { ShopItemPreview as ShopItemPreviewType } from "@/types/shop";
 
 interface ShopItemsProps {
-    items: ShopItem[];
+    items: ShopItemPreviewType[];
 }
 
 export default function ShopItems({ items }: ShopItemsProps) {

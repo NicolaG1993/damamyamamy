@@ -9,6 +9,7 @@ import ShopItemsSkeleton from "./ShopItemsSkeleton";
 import { PAGINATION } from "@/constants/config";
 import { getShopFilters, getShopPage } from "@/services/shop";
 import { useRouter, useSearchParams } from "next/navigation";
+import { ShopItemPreview, ShopPageFilters } from "@/types/shop";
 
 export default function Shop() {
     const router = useRouter();
@@ -32,18 +33,20 @@ export default function Shop() {
     };
 
     const [isLoading, setIsLoading] = useState(true);
-    const [items, setItems] = useState();
+    const [items, setItems] = useState<ShopItemPreview[]>();
     const [totalPages, setTotalPages] = useState(1);
-    const [allCategories, setAllCategories] = useState([]);
-    const [allBrands, setAllBrands] = useState([]);
+    const [allCategories, setAllCategories] = useState<string[]>([]);
+    const [allBrands, setAllBrands] = useState<string[]>([]);
     const countPerPage = PAGINATION.defaultPageSize;
-    const [filters, setFilters] = useState(getFiltersFromURL());
+    const [filters, setFilters] = useState<ShopPageFilters>(
+        getFiltersFromURL()
+    );
 
     const fetchFilters = async () => {
         try {
             const data = await getShopFilters();
-            setAllCategories(data.categories || []);
-            setAllBrands(data.brands || []);
+            setAllCategories(data.categories);
+            setAllBrands(data.brands);
         } catch (err) {
             console.error("Errore nel caricamento dei filtri", err);
         }
@@ -88,7 +91,7 @@ export default function Shop() {
         <div>
             <div className={styles.filtersWrap}>
                 <ShopFilters
-                    filters={{ ...filters, totalPages }}
+                    filters={{ ...filters }}
                     handleFilters={handleFilters}
                     allCategories={allCategories}
                     allBrands={allBrands}

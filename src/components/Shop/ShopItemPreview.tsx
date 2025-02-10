@@ -2,8 +2,13 @@ import createMarkup from "@/utils/createMarkup"; // 🧠 TODO: FIX, there must b
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./ShopItems.module.css";
+import { ShopItemPreview as ShopItemPreviewType } from "@/types/shop";
 
-export default function ShopItemPreview({ item }) {
+interface ShopItemPreviewProps {
+    item: ShopItemPreviewType;
+}
+
+export default function ShopItemPreview({ item }: ShopItemPreviewProps) {
     return (
         <div className={styles.gridElement}>
             <Link title={item.name} href={`/articolo/${item.slug}`}>

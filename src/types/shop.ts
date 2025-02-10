@@ -1,12 +1,12 @@
 export interface ShopPageFilters {
     page: number;
-    countPerPage: number;
+    countPerPage?: number;
     brand?: string;
     maxPrice?: number;
     minPrice?: number;
     category?: string;
     search?: string;
-    order?: "ASC" | "DESC";
+    order?: string; // "ASC" | "DESC";
 }
 
 export interface ShopPageResponse {
