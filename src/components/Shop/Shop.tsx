@@ -15,23 +15,6 @@ export default function Shop() {
     const router = useRouter();
     const searchParams = useSearchParams();
 
-    // Convert URL search params to an object
-    const getFiltersFromURL = () => {
-        return {
-            page: Number(searchParams.get("page")) || 1,
-            order: searchParams.get("order") || "DESC",
-            minPrice: searchParams.get("minPrice")
-                ? Number(searchParams.get("minPrice"))
-                : undefined,
-            maxPrice: searchParams.get("maxPrice")
-                ? Number(searchParams.get("maxPrice"))
-                : undefined,
-            search: searchParams.get("search") || "",
-            brand: searchParams.get("brand") || "",
-            category: searchParams.get("category") || "",
-        };
-    };
-
     const [isLoading, setIsLoading] = useState(true);
     const [items, setItems] = useState<ShopItemPreview[]>();
     const [totalPages, setTotalPages] = useState(1);
@@ -40,7 +23,15 @@ export default function Shop() {
     const countPerPage = PAGINATION.defaultPageSize;
     const [filters, setFilters] = useState<
         Omit<ShopPageFilters, "countPerPage">
-    >(getFiltersFromURL());
+    >({
+        page: 1,
+        order: "DESC",
+        minPrice: undefined,
+        maxPrice: undefined,
+        search: "",
+        brand: "",
+        category: "",
+    });
 
     const fetchFilters = async () => {
         try {
@@ -57,7 +48,9 @@ export default function Shop() {
         try {
             const data = await getShopPage(currentFilters);
             setItems(data.items);
-            setTotalPages(Math.ceil(Number(data.total) / countPerPage));
+            setTotalPages(
+                Math.ceil(Number(data.total) / currentFilters.countPerPage)
+            );
         } catch (err) {
             setItems([]);
             setTotalPages(1);
@@ -81,6 +74,27 @@ export default function Shop() {
         });
         router.push(`?${params.toString()}`);
     };
+
+    useEffect(() => {
+        setIsLoading(true);
+
+        // Convert URL search params to an object
+        const newFilters = {
+            page: Number(searchParams.get("page")) || 1,
+            order: searchParams.get("order") || "DESC",
+            minPrice: searchParams.get("minPrice")
+                ? Number(searchParams.get("minPrice"))
+                : undefined,
+            maxPrice: searchParams.get("maxPrice")
+                ? Number(searchParams.get("maxPrice"))
+                : undefined,
+            search: searchParams.get("search") || "",
+            brand: searchParams.get("brand") || "",
+            category: searchParams.get("category") || "",
+        };
+
+        setFilters(newFilters);
+    }, [searchParams]);
 
     useEffect(() => {
         fetchFilters();
