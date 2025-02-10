@@ -116,7 +116,10 @@ export async function POST(req: NextRequest) {
         await rollback(client);
         console.error("Errore API:", error);
         return NextResponse.json(
-            { message: "Errore server", error: error.message },
+            {
+                message: "Errore server",
+                error: error instanceof Error ? error.message : "Errore server",
+            },
             { status: 500 }
         );
     } finally {
