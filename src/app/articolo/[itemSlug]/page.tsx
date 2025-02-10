@@ -2,7 +2,7 @@
 
 import ShopItem from "@/components/Shop/ShopItem";
 import { getShopItem } from "@/services/shop";
-import { Item } from "@/types/item";
+import { ShopItem as ShopItemType } from "@/types/shop";
 import { handleAxiosError } from "@/utils/axiosUtils";
 import { use, useEffect, useState } from "react";
 
@@ -12,7 +12,7 @@ export default function Articolo({
     params: Promise<{ itemSlug: string }>;
 }) {
     const { itemSlug } = use(params);
-    const [item, setItem] = useState<Item | null>(null);
+    const [item, setItem] = useState<ShopItemType | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
