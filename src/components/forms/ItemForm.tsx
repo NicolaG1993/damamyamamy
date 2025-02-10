@@ -108,11 +108,16 @@ export default function ItemForm({
                 const reader = new FileReader();
                 reader.onload = (event) => {
                     if (event.target?.result) {
-                        previews.push(event.target.result as string);
-                        setFilePreviews((prev) => [
-                            ...prev,
-                            event.target.result as string,
-                        ]);
+                        const result = event.target?.result;
+                        if (typeof result === "string") {
+                            previews.push(result);
+                            setFilePreviews((prev) => [...prev, result]);
+                        }
+                        // previews.push(event.target.result as string);
+                        // setFilePreviews((prev) => [
+                        //     ...prev,
+                        //     event.target.result as string,
+                        // ]);
                     }
                 };
                 reader.readAsDataURL(file); // Read file as a data URL (suitable for images)
