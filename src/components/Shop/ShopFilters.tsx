@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useDebounce } from "@/hooks/useDebounce";
 
 interface ShopFiltersProps {
-    filters: ShopPageFilters;
+    filters: Omit<ShopPageFilters, "countPerPage">;
     handleFilters: (name: string, value: string | number) => void;
     allCategories: string[];
     allBrands: string[];

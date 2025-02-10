@@ -38,9 +38,9 @@ export default function Shop() {
     const [allCategories, setAllCategories] = useState<string[]>([]);
     const [allBrands, setAllBrands] = useState<string[]>([]);
     const countPerPage = PAGINATION.defaultPageSize;
-    const [filters, setFilters] = useState<ShopPageFilters>(
-        getFiltersFromURL()
-    );
+    const [filters, setFilters] = useState<
+        Omit<ShopPageFilters, "countPerPage">
+    >(getFiltersFromURL());
 
     const fetchFilters = async () => {
         try {
@@ -52,7 +52,7 @@ export default function Shop() {
         }
     };
 
-    const fetchData = async (currentFilters: typeof filters) => {
+    const fetchData = async (currentFilters: ShopPageFilters) => {
         setIsLoading(true);
         try {
             const data = await getShopPage(currentFilters);

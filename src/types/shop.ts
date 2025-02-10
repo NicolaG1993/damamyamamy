@@ -1,6 +1,6 @@
 export interface ShopPageFilters {
     page: number;
-    countPerPage?: number;
+    countPerPage: number;
     brand?: string;
     maxPrice?: number;
     minPrice?: number;
