@@ -40,13 +40,13 @@ export default function Home() {
 
                 <section id={styles.ShortlistSection}>
                     <ShortList
-                    // tableName={"Gli ultimi arrivi"}
-                    // data={lastItems}
-                    // data={[
-                    //     { id: 1, name: "Articolo test 1", price: 5 },
-                    //     { id: 2, name: "Articolo test 2", price: 5 },
-                    //     { id: 3, name: "Articolo test 3", price: 5 },
-                    // ]} // x testing, rimuovere
+                        listTitle={"Gli ultimi arrivi"}
+                        // data={lastItems}
+                        // data={[
+                        //     { id: 1, name: "Articolo test 1", price: 5 },
+                        //     { id: 2, name: "Articolo test 2", price: 5 },
+                        //     { id: 3, name: "Articolo test 3", price: 5 },
+                        // ]} // x testing, rimuovere
                     />
                 </section>
 

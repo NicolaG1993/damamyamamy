@@ -1,7 +1,12 @@
 import styles from "./ShopItems.module.css";
 import ShopItemPreview from "./ShopItemPreview";
+import { ShopItem } from "@/types/shop";
 
-export default function ShopItems({ items }) {
+interface ShopItemsProps {
+    items: ShopItem[];
+}
+
+export default function ShopItems({ items }: ShopItemsProps) {
     return (
         <div className={styles.shopGrid}>
             {items.map((item) => (

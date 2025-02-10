@@ -1,10 +1,10 @@
-import { ShopItem } from "@/types/shop";
+import { ShopItem as ShopItemType } from "@/types/shop";
 import Image from "next/image";
 import styles from "./ShopItem.module.css";
 import { useState } from "react";
 
 interface ShopItemProps {
-    item: ShopItem;
+    item: ShopItemType;
 }
 
 export default function ShopItem({ item }: ShopItemProps) {

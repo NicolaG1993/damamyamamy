@@ -6,11 +6,17 @@ import Link from "next/link";
 import styles from "./ShortList.module.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { ShopItem } from "@/types/shop";
 
-export default function ShortList() {
+interface ShortListProps {
+    listTitle: string;
+    // data: ShopItem[];
+}
+
+export default function ShortList({ listTitle }: ShortListProps) {
     // 🧠👇 TODO: dove dichiarare isLoading? non posso nel parent perché é home page - dovrei gestire BE data direttamente qua (ma tenere component flessibile)
     const [isLoading, setIsLoading] = useState(true); // Todo: finire 🧠
-    const [data, setData] = useState([]); // Todo: finire 🧠
+    const [data, setData] = useState<ShopItem[]>([]); // Todo: finire 🧠
     // 🧠👇 TODO: posso prendere ShopItem and ShopSkeleton elements? this DOM is slightly different and rendundant at the same time
 
     const fetchData = async () => {
@@ -41,7 +47,7 @@ export default function ShortList() {
     return (
         <div id={styles.ShortList}>
             <div className={styles.displayerHeading}>
-                <p>Gli ultimi arrivi</p>
+                <p>{listTitle}</p>
             </div>
 
             {isLoading ? (
@@ -50,12 +56,12 @@ export default function ShortList() {
                 </div>
             ) : !!data?.length ? (
                 <div className={styles.shortListGrid}>
-                    {data.map((el) => (
+                    {data.map((item, i) => (
                         <Link
-                            href={`/negozio/articolo/${el.id}`}
-                            key={"ShortList " + el.id}
+                            href={`/negozio/articolo/${item.name}`}
+                            key={`ShortList ${listTitle} ${item.name} ${i}`}
                             className={styles.gridElement}
-                            title={el.name}
+                            title={item.name}
                         >
                             <div id={styles.thumbnailWrap}>
                                 <div
@@ -66,11 +72,11 @@ export default function ShortList() {
                                 >
                                     <Image
                                         src={
-                                            el.pics && el.pics.length
-                                                ? el.pics[0]
+                                            item.pics && item.pics.length
+                                                ? item.pics[0]
                                                 : "/no-image.png"
                                         }
-                                        alt={el.name}
+                                        alt={item.name}
                                         fill
                                         style={{ objectFit: "cover" }}
                                     />
@@ -79,10 +85,10 @@ export default function ShortList() {
                                 <div className={styles.gridElementInfos}>
                                     <h5
                                         dangerouslySetInnerHTML={createMarkup(
-                                            el.name
+                                            item.name
                                         )}
                                     ></h5>
-                                    <p>€{el.price}</p>
+                                    <p>€{item.price}</p>
                                 </div>
                             </div>
                         </Link>

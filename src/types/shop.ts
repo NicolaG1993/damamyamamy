@@ -19,7 +19,7 @@ export interface ShopItem {
     condition: "Nuovo" | "Usato" | "Rigenerato";
     stock: number;
     price: number;
-    // slug: string;
+    slug?: string;
     description: string;
     createdAt: string;
     soldAt?: string;
