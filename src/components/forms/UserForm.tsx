@@ -41,7 +41,6 @@ export default function UserForm({
         try {
             await onSubmit(formData); // TEST 🟨
             // const response = await onSubmit(formData); // const response = await createUser(formData);
-            // console.log("response: ", response);
 
             // if (response?.userId) {
             // router.push(`/admin/users`); // router.push(`/admin/users/${response.userId}`);

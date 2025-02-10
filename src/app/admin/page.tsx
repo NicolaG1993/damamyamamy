@@ -11,7 +11,6 @@ export default function Admin() {
     const handleLogout = async () => {
         try {
             await logout();
-            console.log("User logged out successfully");
             router.push("/admin/login");
         } catch (error) {
             console.error("Logout failed:", error);

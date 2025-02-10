@@ -8,7 +8,6 @@ export async function updateClient(
     clientId: number,
     clientData: ClientFormData
 ): Promise<boolean> {
-    console.log("clientData: ", clientData);
     try {
         await begin(client);
 

@@ -42,7 +42,6 @@ export async function GET(
     const client = await connect();
 
     try {
-        console.log("itemId: ", itemId);
         const item: ItemFormData = await fetchItemFormData(client, itemId);
 
         if (!item) {

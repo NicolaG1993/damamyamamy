@@ -10,7 +10,7 @@ export const createItem = async (
 
         if (res.status === 201) {
             // Successful response
-            console.log(`Articolo creato con successo!: ${res.data}`);
+
             return res.data;
         } else {
             // Handle unexpected status codes

@@ -40,7 +40,6 @@ export async function GET(req: NextRequest) {
 
     try {
         const users = await fetchUsers(client);
-        console.log("users: ", users); // { rows } forse giusto in questo caso?
 
         /*
         if (!users || users.length === 0) {

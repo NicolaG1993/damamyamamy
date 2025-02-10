@@ -11,7 +11,7 @@ export const createBrand = async (
 
         if (res.status === 201) {
             // Successful response
-            console.log(`Brand created: `, res.data);
+
             return res.data.brand;
         } else {
             // Handle unexpected status codes

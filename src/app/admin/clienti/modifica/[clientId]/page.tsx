@@ -22,7 +22,6 @@ export default function ModificaCliente({
         const loadClient = async () => {
             try {
                 const data: ClientFormData = await getClientToEdit(clientId);
-                console.log("loadClient: ", data);
                 setClient(data);
             } catch (err) {
                 console.error("Error fetching client:", err);

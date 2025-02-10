@@ -110,7 +110,6 @@ export default function ContactForm() {
         nextStep();
         try {
             const res = await axios.post("/api/email/contact-us", formData);
-            // console.log("res: ", res);
 
             if (res.status === 201 && res.data.emailSended) {
                 setIsFailed(false);

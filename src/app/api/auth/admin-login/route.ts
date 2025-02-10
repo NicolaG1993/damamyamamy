@@ -3,8 +3,6 @@ import { connect, release } from "@/database/db";
 import { fetchUserLogin } from "@/database/utils/fetchUserLogin";
 
 export async function POST(req: NextRequest) {
-    console.log("🔥 Admin Login API Invoked! 🔥");
-
     if (req.method !== "POST") {
         return NextResponse.json(
             { message: "Method not allowed" },

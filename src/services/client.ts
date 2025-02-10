@@ -11,7 +11,6 @@ export const createClient = async (
 
         if (res.status === 201) {
             // Successful response
-            console.log(`Client created: ${res.data}`);
             return res.data;
         } else {
             // Handle unexpected status codes
@@ -91,7 +90,6 @@ export const getClients = async (): Promise<Client[]> => {
 export const getClientOptions = async (): Promise<Option[]> => {
     try {
         const res = await axios.get("/api/clients/options");
-        console.log("res: ", res);
 
         if (res.status === 200) {
             return res.data.options;

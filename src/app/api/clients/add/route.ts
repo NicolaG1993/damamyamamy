@@ -4,8 +4,6 @@ import { connect, release } from "@/database/db";
 import { middlewareVerifyToken } from "@/utils/jwtUtils";
 
 export async function POST(req: NextRequest) {
-    console.log("🔥 add client API invoked! 🔥");
-
     // Step 1: Retrieve the token from cookies
     const authToken = req.cookies.get("damamyamamy_auth_token")?.value;
 

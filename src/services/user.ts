@@ -10,7 +10,6 @@ export const createUser = async (
 
         if (res.status === 201) {
             // Successful response
-            console.log(`Utente creato con successo!: ${res.data}`);
             return res.data;
         } else {
             // Handle unexpected status codes

@@ -18,13 +18,11 @@ export default function ShortList({ tableName }) {
         // setIsLoading(false);
         try {
             const { data } = await axios.get("/api/hello"); // TODO: Cambiare nome di "hello"
-            // console.log("💚 data: ", data);
             setLastItems(data.lastItems);
             setLowerPriceItem(data.lowerPrice);
         } catch (err) {
             setLastItems();
             setLowerPriceItem();
-            console.log("🐞 ERROR: ", getError(err));
             alert(
                 "Sembra che abbiamo dei problemi con il nostro sito, riprova piú tardi oppure contattaci al 347 9792 644, ci scusiamo per il disagio."
             ); // TODO: Move alert to /constants/messages.ts files

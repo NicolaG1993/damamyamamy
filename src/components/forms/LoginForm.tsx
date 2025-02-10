@@ -25,7 +25,6 @@ export default function LoginForm() {
 
         try {
             const response = await adminLogin(formData);
-            console.log("adminLogin response: ", response);
 
             if (response.token) {
                 // If login is successful, redirect to /admin

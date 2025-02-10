@@ -71,22 +71,6 @@ export async function POST(req: NextRequest) {
     const parsedCategories = categories ? JSON.parse(categories as string) : [];
     const pics = formData.getAll("pics"); // Get all files uploaded as "pics"
 
-    console.log("Form Fields: ", {
-        name,
-        price,
-        stock,
-        slug,
-        description,
-        condition,
-        brand,
-        owner,
-        categories,
-        parsedBrand,
-        parsedOwner,
-        parsedCategories,
-    });
-    console.log("Uploaded Pictures: ", pics);
-
     if (!name || !owner || !condition || !price || !slug) {
         return NextResponse.json(
             { message: "Dati mancanti. Controlla item e immagini." },

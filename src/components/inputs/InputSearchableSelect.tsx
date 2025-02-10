@@ -32,7 +32,6 @@ export default function InputSearchableSelect({
         }
         try {
             const response: Option[] = await getInputOptions(term, label);
-            console.log("InputSearchableSelect response: ", response);
 
             setSuggestions(response);
         } catch (err) {

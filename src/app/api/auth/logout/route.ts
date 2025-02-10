@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 
 export async function POST() {
-    console.log("🔥 Logout API invoked! 🔥");
-
     try {
         // Clear the session cookie
         const response = NextResponse.json(

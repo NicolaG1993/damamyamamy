@@ -4,8 +4,6 @@ import { connect, release } from "@/database/db";
 import { middlewareVerifyToken } from "@/utils/jwtUtils";
 
 export async function POST(req: NextRequest) {
-    console.log("🔥 add brand API invoked! 🔥");
-
     // Step 1: Retrieve the token from cookies
     const authToken = req.cookies.get("damamyamamy_auth_token")?.value;
 
@@ -59,7 +57,6 @@ export async function POST(req: NextRequest) {
 
     try {
         const brand = await addBrand(client, name);
-        console.log("addBrand: ", brand);
 
         if (!brand) {
             return NextResponse.json(

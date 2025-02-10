@@ -15,7 +15,6 @@ export const getShopItems = async (
         search,
         order,
     } = filters;
-    console.log("👉 filters: ", filters);
 
     const offset = (page - 1) * countPerPage;
 

@@ -11,7 +11,6 @@ export const createCategory = async (
 
         if (res.status === 201) {
             // Successful response
-            console.log(`Category created: ${res.data}`);
             return res.data.category;
         } else {
             // Handle unexpected status codes
