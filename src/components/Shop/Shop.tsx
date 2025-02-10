@@ -13,12 +13,7 @@ import { ShopItemPreview, ShopPageFilters } from "@/types/shop";
 
 export default function Shop() {
     const router = useRouter();
-
-    // Define a state to handle searchParams
-    const [searchParams, setSearchParams] = useState<URLSearchParams | null>(
-        null
-    );
-    // const searchParams = useSearchParams();
+    const searchParams = useSearchParams();
 
     const [isLoading, setIsLoading] = useState(true);
     const [items, setItems] = useState<ShopItemPreview[]>();
@@ -78,12 +73,6 @@ export default function Shop() {
         });
         router.push(`?${params.toString()}`);
     };
-
-    // Effect to update searchParams state from useSearchParams() hook
-    useEffect(() => {
-        const search = useSearchParams();
-        setSearchParams(search);
-    }, []);
 
     useEffect(() => {
         if (searchParams) {
