@@ -1,5 +1,3 @@
-import { Brand, Category, RawBrand, RawCategory } from "./item";
-
 export interface ShopPageFilters {
     page: number;
     countPerPage: number;

@@ -35,6 +35,7 @@ export default function InputSearchableSelect({
 
             setSuggestions(response);
         } catch (err) {
+            console.error("Error: ", err);
             setError("Failed to fetch suggestions.");
         }
     };

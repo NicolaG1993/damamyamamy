@@ -30,7 +30,7 @@ export default function Articolo({
         };
 
         fetchItem();
-    }, []);
+    }, [itemSlug]);
 
     return (
         <div className="page">

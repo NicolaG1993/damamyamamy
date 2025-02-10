@@ -32,7 +32,7 @@ export default function Articolo({
         };
 
         fetchItem();
-    }, []);
+    }, [itemId]);
 
     return (
         <div className="page">

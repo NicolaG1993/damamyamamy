@@ -32,7 +32,7 @@ export default function Utente({
         };
 
         fetchClient();
-    }, []);
+    }, [clientId]);
 
     return (
         <div className="page">

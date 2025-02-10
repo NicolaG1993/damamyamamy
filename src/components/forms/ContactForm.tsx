@@ -1,5 +1,6 @@
-"use client";
+//"use client";
 
+/*
 import { useRef, useState } from "react";
 import styles from "./Form.module.css";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -48,13 +49,13 @@ export default function ContactForm() {
         setFormData(newState);
     };
 
-    const validateData = (key, value) => {
+    const validateData = (key: string, value: string) => {
         // e.preventDefault();
         if (!value) {
             value = "";
         }
         // validate data + setErrors
-        let newErrObj = errors;
+        const newErrObj = errors;
         if (key === "first" || key === "last") {
             const resp = nameValidation(
                 key !== "last" ? "nome" : "cognome",
@@ -275,3 +276,4 @@ export default function ContactForm() {
         }
     }
 }
+*/

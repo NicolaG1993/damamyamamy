@@ -3,7 +3,7 @@ import styles from "./PageNav.module.css";
 interface PageNavProps {
     totalPages: number;
     page: number;
-    handleFilters: (name: string, value: any) => void;
+    handleFilters: (name: string, value: string | number) => void;
 }
 
 export default function PageNav({

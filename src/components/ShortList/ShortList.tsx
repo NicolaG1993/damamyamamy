@@ -4,9 +4,9 @@ import createMarkup from "@/utils/createMarkup";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./ShortList.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function ShortList({ tableName }) {
+export default function ShortList() {
     // 🧠👇 TODO: dove dichiarare isLoading? non posso nel parent perché é home page - dovrei gestire BE data direttamente qua (ma tenere component flessibile)
     const [isLoading, setIsLoading] = useState(true); // Todo: finire 🧠
     const [data, setData] = useState([]); // Todo: finire 🧠
@@ -18,16 +18,23 @@ export default function ShortList({ tableName }) {
         // setIsLoading(false);
         try {
             const { data } = await axios.get("/api/hello"); // TODO: Cambiare nome di "hello"
-            setLastItems(data.lastItems);
-            setLowerPriceItem(data.lowerPrice);
+            // setLastItems(data.lastItems);
+            // setLowerPriceItem(data.lowerPrice);
+            setData(data);
         } catch (err) {
-            setLastItems();
-            setLowerPriceItem();
+            // setLastItems();
+            // setLowerPriceItem();
             alert(
                 "Sembra che abbiamo dei problemi con il nostro sito, riprova piú tardi oppure contattaci al 347 9792 644, ci scusiamo per il disagio."
             ); // TODO: Move alert to /constants/messages.ts files
+        } finally {
+            setIsLoading(false);
         }
     };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     return (
         <div id={styles.ShortList}>
@@ -44,7 +51,7 @@ export default function ShortList({ tableName }) {
                     {data.map((el) => (
                         <Link
                             href={`/negozio/articolo/${el.id}`}
-                            key={tableName + " ShortList " + el.id}
+                            key={"ShortList " + el.id}
                             className={styles.gridElement}
                             title={el.name}
                         >

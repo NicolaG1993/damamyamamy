@@ -32,7 +32,7 @@ export default function Utente({
         };
 
         fetchUser();
-    }, []);
+    }, [userId]);
 
     return (
         <div className="page">

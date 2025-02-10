@@ -39,11 +39,6 @@ export default function Shop() {
     const countPerPage = PAGINATION.defaultPageSize;
     const [filters, setFilters] = useState(getFiltersFromURL());
 
-    useEffect(() => {
-        fetchFilters();
-        fetchData({ ...filters, countPerPage });
-    }, [filters]);
-
     const fetchFilters = async () => {
         try {
             const data = await getShopFilters();
@@ -66,12 +61,13 @@ export default function Shop() {
             alert(
                 "Sembra che abbiamo dei problemi con il nostro sito. Riprova più tardi."
             );
+            console.error("Error: ", err);
         } finally {
             setIsLoading(false);
         }
     };
 
-    const handleFilters = (name: string, value: any) => {
+    const handleFilters = (name: string, value: string | number) => {
         const newFilters = { ...filters, [name]: value, page: 1 };
         setFilters(newFilters);
 
@@ -82,6 +78,11 @@ export default function Shop() {
         });
         router.push(`?${params.toString()}`);
     };
+
+    useEffect(() => {
+        fetchFilters();
+        fetchData({ ...filters, countPerPage });
+    }, [filters, countPerPage]);
 
     return (
         <div>

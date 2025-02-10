@@ -21,6 +21,7 @@ export default function InputOwner({
                 const response: Option[] = await getClientOptions();
                 setClients(response);
             } catch (err) {
+                console.error("Error: ", err);
                 setError("Failed to load clients.");
             }
         };
