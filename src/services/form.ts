@@ -6,7 +6,7 @@ import { createBrand, searchBrand } from "./brand";
 export const createOption = async (
     name: string,
     label: string
-): Promise<Option | CreateOptionResponse> => {
+): Promise<CreateOptionResponse> => {
     try {
         let res;
 

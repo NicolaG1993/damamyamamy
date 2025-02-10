@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./InputSearchableSelect.module.css";
-import { Option } from "@/types/form";
+import { CreateOptionResponse, Option } from "@/types/form";
 import { createOption, getInputOptions } from "@/services/form";
 
 interface InputSearchableSelectProps {
@@ -62,9 +62,9 @@ export default function InputSearchableSelect({
     };
 
     const handleNew = async (name: string) => {
-        const response: Option = await createOption(name, label);
+        const response: CreateOptionResponse = await createOption(name, label);
         if (response?.id) {
-            handleAdd(response);
+            handleAdd({ id: response.id, name: response.name as string });
         } else {
             throw new Error("Failed to create option");
         }
