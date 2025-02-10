@@ -1,4 +1,9 @@
-import { ItemFormData, CreateItemResponse, Item } from "@/types/item";
+import {
+    ItemFormData,
+    CreateItemResponse,
+    Item,
+    ItemsTableRow,
+} from "@/types/item";
 import { handleAxiosError } from "@/utils/axiosUtils";
 import axios from "axios";
 
@@ -72,7 +77,7 @@ export const getItem = async (itemId: number): Promise<Item> => {
     }
 };
 
-export const getItems = async (): Promise<Item[]> => {
+export const getItems = async (): Promise<ItemsTableRow[]> => {
     try {
         const res = await axios.get("/api/items");
 
