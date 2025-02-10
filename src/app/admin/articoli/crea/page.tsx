@@ -2,14 +2,14 @@
 
 import ItemForm from "@/components/forms/ItemForm";
 import { createItem } from "@/services/item";
-import { ItemFormData, CreateItemResponse } from "@/types/item";
+import { CreateItemResponse } from "@/types/item";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function CreaArticolo() {
     const router = useRouter();
 
-    const handleAddItem = async (formData: ItemFormData) => {
+    const handleAddItem = async (formData: FormData) => {
         const response: CreateItemResponse = await createItem(formData);
         if (response?.itemId) {
             router.push(`/admin/articoli/${response.itemId}`);

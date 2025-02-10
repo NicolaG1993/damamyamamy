@@ -84,12 +84,12 @@ export async function POST(req: NextRequest) {
     try {
         // Add item to the database
         const { itemId, itemSlug } = await addItem(client, {
-            name,
-            price,
-            stock,
-            slug,
-            description,
-            condition,
+            name: name as string,
+            price: Number(price),
+            stock: Number(stock),
+            slug: slug as string,
+            description: description as string,
+            condition: condition as "new" | "used" | "refurbished",
             brand: parsedBrand,
             owner: parsedOwner,
             categories: parsedCategories,

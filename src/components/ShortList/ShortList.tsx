@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./ShortList.module.css";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function ShortList() {
     // 🧠👇 TODO: dove dichiarare isLoading? non posso nel parent perché é home page - dovrei gestire BE data direttamente qua (ma tenere component flessibile)
@@ -40,7 +41,7 @@ export default function ShortList() {
     return (
         <div id={styles.ShortList}>
             <div className={styles.displayerHeading}>
-                <p>{tableName}</p>
+                <p>Gli ultimi arrivi</p>
             </div>
 
             {isLoading ? (

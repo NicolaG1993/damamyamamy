@@ -3,7 +3,7 @@ import { handleAxiosError } from "@/utils/axiosUtils";
 import axios from "axios";
 
 export const createItem = async (
-    formData: ItemFormData
+    formData: FormData
 ): Promise<CreateItemResponse> => {
     try {
         const res = await axios.post("/api/items/add", formData);
