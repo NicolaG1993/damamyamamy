@@ -6,7 +6,7 @@ import Link from "next/link";
 import styles from "./ShortList.module.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { ShopItem } from "@/types/shop";
+import { ShopItemPreview } from "@/types/shop";
 
 interface ShortListProps {
     listTitle: string;
@@ -16,7 +16,7 @@ interface ShortListProps {
 export default function ShortList({ listTitle }: ShortListProps) {
     // 🧠👇 TODO: dove dichiarare isLoading? non posso nel parent perché é home page - dovrei gestire BE data direttamente qua (ma tenere component flessibile)
     const [isLoading, setIsLoading] = useState(true); // Todo: finire 🧠
-    const [data, setData] = useState<ShopItem[]>([]); // Todo: finire 🧠
+    const [data, setData] = useState<ShopItemPreview[]>([]); // Todo: finire 🧠
     // 🧠👇 TODO: posso prendere ShopItem and ShopSkeleton elements? this DOM is slightly different and rendundant at the same time
 
     const fetchData = async () => {
@@ -71,11 +71,7 @@ export default function ShortList({ listTitle }: ShortListProps) {
                                     className={styles.picWrap}
                                 >
                                     <Image
-                                        src={
-                                            item.pics && item.pics.length
-                                                ? item.pics[0]
-                                                : "/no-image.png"
-                                        }
+                                        src={item.pic || "/no-image.png"}
                                         alt={item.name}
                                         fill
                                         style={{ objectFit: "cover" }}
