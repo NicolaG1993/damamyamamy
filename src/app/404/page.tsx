@@ -1,4 +1,4 @@
-export default function ForbiddenPage() {
+export default function NotFoundPage() {
     return (
         <main>
             <section>
