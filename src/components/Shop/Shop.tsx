@@ -21,9 +21,7 @@ export default function Shop() {
     const [allCategories, setAllCategories] = useState<string[]>([]);
     const [allBrands, setAllBrands] = useState<string[]>([]);
     const countPerPage = PAGINATION.defaultPageSize;
-    const [filters, setFilters] = useState<
-        Omit<ShopPageFilters, "countPerPage">
-    >({
+    const [filters, setFilters] = useState<ShopPageFilters>({
         page: 1,
         order: "DESC",
         minPrice: undefined,
@@ -31,6 +29,7 @@ export default function Shop() {
         search: "",
         brand: "",
         category: "",
+        countPerPage,
     });
 
     const fetchFilters = async () => {
@@ -91,14 +90,17 @@ export default function Shop() {
             search: searchParams.get("search") || "",
             brand: searchParams.get("brand") || "",
             category: searchParams.get("category") || "",
+            countPerPage,
         };
 
         setFilters(newFilters);
-    }, [searchParams]);
+    }, [searchParams, countPerPage]);
 
     useEffect(() => {
         fetchFilters();
-        fetchData({ ...filters, countPerPage });
+        if (filters) {
+            fetchData(filters);
+        }
     }, [filters, countPerPage]);
 
     return (
