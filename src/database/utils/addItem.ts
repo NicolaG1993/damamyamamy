@@ -82,7 +82,7 @@ export async function addItem(
         const uploadedPictureUrls: string[] = [];
         const safeItemName = sanitizeName(name);
 
-        for (const picture of pics) {
+        for (const picture of pics as File[]) {
             const safeFileName = sanitizeFileName(picture.name);
             const fileName = `${safeItemName}-${Date.now()}-${safeFileName}`;
             const { error } = await supabase.storage

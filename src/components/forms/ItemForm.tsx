@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./Form.module.css";
 import { handleAxiosError } from "@/utils/axiosUtils";
-import { ItemFormData } from "@/types/item";
+import { InitialItemFormData } from "@/types/item";
 import InputSearchableSelect from "../inputs/InputSearchableSelect";
 import InputOwner from "../inputs/InputOwner";
 import { checkSlugUniqueness } from "@/services/item";
@@ -9,7 +9,7 @@ import Image from "next/image";
 import { generateSlug, sanitizeName } from "@/utils/slug";
 
 interface ItemFormProps {
-    initialData?: ItemFormData;
+    initialData?: InitialItemFormData;
     onSubmit: (data: FormData) => Promise<void>;
     buttonText?: string;
 }
@@ -27,7 +27,7 @@ export default function ItemForm({
         slug: "",
         description: "",
         // createdAt: "",
-        soldAt: "", // we could add a date when admin confirm the product was sold (not available on creation phase, but a separate button on item page)
+        // soldAt: "", // we could add a date when admin confirm the product was sold (not available on creation phase, but a separate button on item page)
     },
     onSubmit,
     buttonText = "Conferma",
@@ -37,7 +37,7 @@ export default function ItemForm({
         { value: "used", key: "Usato" },
         { value: "refurbished", key: "Rigenerato" },
     ];
-    const [formData, setFormData] = useState<ItemFormData>(initialData);
+    const [formData, setFormData] = useState<InitialItemFormData>(initialData);
     const [isSlugCustom, setIsSlugCustom] = useState(false);
     const [isSlugUnique, setIsSlugUnique] = useState(true);
     const [filePreviews, setFilePreviews] = useState<string[]>(

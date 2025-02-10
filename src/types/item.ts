@@ -93,6 +93,21 @@ export interface RawItemTableRow {
     created_at: Date;
 }
 
+export interface InitialItemFormData {
+    name: string;
+    condition: "new" | "used" | "refurbished";
+    stock: number;
+    price: number; // we need float value
+    slug: string; // correct?
+    description: string; // correct?
+    // createdAt?: string;
+    // soldAt?: string;
+    owner: Option | null;
+    brand: Option | null; // brand id or object?
+    categories: Option[];
+    pics: (string | File)[]; // correct?
+}
+
 export interface ItemFormData {
     name: string;
     condition: "new" | "used" | "refurbished";
@@ -102,7 +117,7 @@ export interface ItemFormData {
     description: string; // correct?
     // createdAt?: string;
     soldAt?: string;
-    owner: Option | null;
+    owner: Option;
     brand: Option | null; // brand id or object?
     categories: Option[];
     pics: (string | File)[]; // correct?
