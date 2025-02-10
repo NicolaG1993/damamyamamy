@@ -12,6 +12,11 @@ export async function addUser(
         await begin(client);
 
         const { firstName, lastName, email, password, isAdmin } = userData;
+
+        if (!password) {
+            throw new Error("Password missing");
+        }
+
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const res = await newUser(

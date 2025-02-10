@@ -12,6 +12,7 @@ export interface UserFormData {
     lastName: string;
     email: string;
     isAdmin: boolean;
+    password?: string;
 }
 export interface RawUser {
     id: number;
