@@ -1,4 +1,6 @@
-export function mapRawShopPageToShopPage(rawShopItems) {
+import { RawShopItemPreview } from "@/types/shop";
+
+export function mapRawShopPageToShopPage(rawShopItems: RawShopItemPreview[]) {
     return rawShopItems.map((rawItem) => ({
         name: rawItem.item_name,
         price: rawItem.price,

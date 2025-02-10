@@ -57,12 +57,16 @@ export interface ShopItemPreview {
 
 export interface RawShopItemPreview {
     slug: string;
-    name: string;
+    item_name: string;
     price: number;
-    pic: string;
+    first_picture_url: string;
     // sold_at?: Date;
+    brand: RawShopItemPreviewBrand;
 }
 
+export interface RawShopItemPreviewBrand {
+    name: string;
+}
 export interface ShopFiltersData {
     brands: string[];
     categories: string[];

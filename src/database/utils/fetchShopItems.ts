@@ -8,8 +8,8 @@ export async function fetchShopItems(
     filters: ShopPageFilters
 ) {
     try {
-        const res = await getShopItems(client, filters);
-        const mappedShopPage = mapRawShopPageToShopPage(res.rows);
+        const { rows } = await getShopItems(client, filters);
+        const mappedShopPage = mapRawShopPageToShopPage(rows);
 
         const totalCountRes = await getTotalShopItemsCount(client, filters);
         const total = totalCountRes.rows[0]?.count || 0;

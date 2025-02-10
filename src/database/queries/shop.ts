@@ -4,7 +4,7 @@ import { PoolClient, QueryResult } from "pg";
 export const getShopItems = async (
     client: PoolClient,
     filters: ShopPageFilters
-): Promise<QueryResult<RawShopItemPreview[]>> => {
+): Promise<QueryResult<RawShopItemPreview>> => {
     const {
         page,
         countPerPage,
