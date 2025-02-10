@@ -18,7 +18,7 @@ export const getShopItems = async (
 
     const offset = (page - 1) * countPerPage;
 
-    const keys: any[] = [];
+    const keys = []; // const keys: any[] = [];
     let condition = "WHERE i.sold_at IS NULL"; // Only show unsold items
 
     if (brand) {

@@ -85,7 +85,7 @@ export async function addItem(
         for (const picture of pics) {
             const safeFileName = sanitizeFileName(picture.name);
             const fileName = `${safeItemName}-${Date.now()}-${safeFileName}`;
-            const { data, error } = await supabase.storage
+            const { error } = await supabase.storage
                 .from(bucketName)
                 .upload(fileName, picture);
             //    .upload(fileName, fs.createReadStream(picture.filepath));
