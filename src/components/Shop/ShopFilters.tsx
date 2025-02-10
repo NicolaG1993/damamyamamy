@@ -5,7 +5,7 @@ import { useDebounce } from "@/hooks/useDebounce";
 
 interface ShopFiltersProps {
     filters: ShopPageFilters;
-    handleFilters: (name: string, value: any) => void;
+    handleFilters: (name: string, value: string | number) => void;
     allCategories: string[];
     allBrands: string[];
     isLoading: boolean;

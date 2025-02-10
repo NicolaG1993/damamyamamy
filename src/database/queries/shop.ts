@@ -87,7 +87,7 @@ export const getTotalShopItemsCount = async (
     filters: ShopPageFilters
 ): Promise<QueryResult<{ count: number }>> => {
     const { brand, maxPrice, minPrice, category, search } = filters;
-    const keys: any[] = [];
+    const keys = []; //  const keys: any[] = [];
     let condition = "WHERE i.sold_at IS NULL";
 
     if (brand) {
