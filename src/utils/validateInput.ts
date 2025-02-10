@@ -22,7 +22,7 @@ export const titleValidation = (fieldName: string, fieldValue: string) => {
     }
 };
 
-export const nicknameValidation = (fieldName, fieldValue) => {
+export const nicknameValidation = (fieldName: string, fieldValue: string) => {
     if (fieldValue.trim() === "") {
         return `Il ${fieldName} è richiesto`;
     } else if (fieldValue.trim().length < 3) {
@@ -35,7 +35,7 @@ export const nicknameValidation = (fieldName, fieldValue) => {
     }
 };
 
-export const nameValidation = (fieldName, fieldValue) => {
+export const nameValidation = (fieldName: string, fieldValue: string) => {
     if (fieldValue.trim() === "") {
         return `Il ${fieldName} è richiesto`;
     } else if (fieldValue.trim().length < 3) {
@@ -65,7 +65,7 @@ export const emailValidation = (email: string) => {
     return "Perfavore inserisci un'email valida";
 };
 
-export const urlValidation = (url) => {
+export const urlValidation = (url: string) => {
     if (
         /\b(https?|ftp|file):\/\/[\-A-Za-z0-9+&@#\/%?=~_|!:,.;]*[\-A-Za-z0-9+&@#\/%=~_|]/.test(
             url
@@ -79,7 +79,7 @@ export const urlValidation = (url) => {
     return "Perfavore inserisci un url valido";
 };
 
-export const passwordValidation = (password) => {
+export const passwordValidation = (password: string) => {
     if (password.trim().length < 6) {
         return "La password deve contenere almeno 6 caratteri";
     } else {
@@ -87,7 +87,7 @@ export const passwordValidation = (password) => {
     }
 };
 
-export const confirmPassword = (password, value) => {
+export const confirmPassword = (password: string, value: string) => {
     if (password !== value) {
         return "Le due passwords non corrispondono";
     } else {
@@ -103,7 +103,7 @@ export const addressValidation = (fieldName: string, fieldValue: string) => {
     }
 };
 
-export const requestedValue = (fieldValue) => {
+export const requestedValue = (fieldValue: string) => {
     if (fieldValue.trim() === "") {
         return `Devi inserire qualcosa`;
     }
@@ -116,7 +116,7 @@ export const textValidation = (fieldValue: string) => {
     return null;
 };
 
-export const numberValidation = (fieldName, fieldValue) => {
+export const numberValidation = (fieldName: string, fieldValue: string) => {
     if (fieldValue.trim() === "") {
         return `Il ${fieldName} è richiesto`;
     }
@@ -126,7 +126,7 @@ export const numberValidation = (fieldName, fieldValue) => {
     return `${fieldName} deve essere un numero`;
 };
 
-export const decimalValidation = (fieldName, fieldValue) => {
+export const decimalValidation = (fieldName: string, fieldValue: string) => {
     if (fieldValue.trim() === "") {
         return `Il ${fieldName} è richiesto`;
     }
@@ -136,7 +136,7 @@ export const decimalValidation = (fieldName, fieldValue) => {
     return `${fieldName} deve essere un numero`;
 };
 
-export const slugValidation = (fieldName, fieldValue) => {
+export const slugValidation = (fieldName: string, fieldValue: string) => {
     if (fieldValue.trim() === "") {
         return `Lo ${fieldName} è richiesto`;
     } // 🧨 devo controllare che non ci siano spazi (ancora meglio se li sostituisco con "-")
