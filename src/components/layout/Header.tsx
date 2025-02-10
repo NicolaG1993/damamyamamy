@@ -4,7 +4,7 @@ import Image from "next/image";
 import HamburgerButton from "@/components/shared/HamburgerButton/HamburgerButton";
 
 interface HeaderProps {
-    isSmallDevice: boolean;
+    isSmallDevice?: boolean;
 }
 
 export default function Header({ isSmallDevice }: HeaderProps) {
@@ -22,7 +22,12 @@ export default function Header({ isSmallDevice }: HeaderProps) {
                 </Link>
             </div>
             {isSmallDevice ? (
-                <HamburgerButton onClick={toggleNav} isActive={false} />
+                <HamburgerButton
+                    onClick={() => {
+                        return;
+                    }}
+                    isActive={false}
+                />
             ) : (
                 <nav className={styles.nav}>
                     <ul>
