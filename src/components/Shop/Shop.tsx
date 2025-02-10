@@ -13,7 +13,12 @@ import { ShopItemPreview, ShopPageFilters } from "@/types/shop";
 
 export default function Shop() {
     const router = useRouter();
-    const searchParams = useSearchParams();
+
+    // Define a state to handle searchParams
+    const [searchParams, setSearchParams] = useState<URLSearchParams | null>(
+        null
+    );
+    // const searchParams = useSearchParams();
 
     const [isLoading, setIsLoading] = useState(true);
     const [items, setItems] = useState<ShopItemPreview[]>();
@@ -74,26 +79,31 @@ export default function Shop() {
         router.push(`?${params.toString()}`);
     };
 
+    // Effect to update searchParams state from useSearchParams() hook
     useEffect(() => {
-        setIsLoading(true);
+        const search = useSearchParams();
+        setSearchParams(search);
+    }, []);
 
-        // Convert URL search params to an object
-        const newFilters = {
-            page: Number(searchParams.get("page")) || 1,
-            order: searchParams.get("order") || "DESC",
-            minPrice: searchParams.get("minPrice")
-                ? Number(searchParams.get("minPrice"))
-                : undefined,
-            maxPrice: searchParams.get("maxPrice")
-                ? Number(searchParams.get("maxPrice"))
-                : undefined,
-            search: searchParams.get("search") || "",
-            brand: searchParams.get("brand") || "",
-            category: searchParams.get("category") || "",
-            countPerPage,
-        };
+    useEffect(() => {
+        if (searchParams) {
+            const newFilters = {
+                page: Number(searchParams.get("page")) || 1,
+                order: searchParams.get("order") || "DESC",
+                minPrice: searchParams.get("minPrice")
+                    ? Number(searchParams.get("minPrice"))
+                    : undefined,
+                maxPrice: searchParams.get("maxPrice")
+                    ? Number(searchParams.get("maxPrice"))
+                    : undefined,
+                search: searchParams.get("search") || "",
+                brand: searchParams.get("brand") || "",
+                category: searchParams.get("category") || "",
+                countPerPage,
+            };
 
-        setFilters(newFilters);
+            setFilters(newFilters);
+        }
     }, [searchParams, countPerPage]);
 
     useEffect(() => {
