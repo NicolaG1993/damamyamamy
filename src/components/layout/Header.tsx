@@ -15,8 +15,8 @@ export default function Header({ isSmallDevice }: HeaderProps) {
                     <Image
                         src="/assets/brand/Logo.svg"
                         alt="Da Mamy a Mamy logo"
-                        width={63}
-                        height={44}
+                        width={50}
+                        height={35}
                         priority
                     />
                 </Link>

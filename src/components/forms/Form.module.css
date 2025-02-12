@@ -218,40 +218,21 @@
     margin: 0.5rem 0;
 }
 
-.toggleForms {
-    margin: 1.5rem 0 0rem 0;
-}
-@media screen and (max-width: 720px) {
-    #OrderReview {
-        padding: 1.25rem 0.25rem;
-        width: 100%;
-    }
-}
-@media screen and (max-width: 500px) {
-    .form {
-        padding: 1rem 1rem;
-    }
-    .form,
-    .form input,
+@media screen and (max-width: 768px) {
+    .form input:not([type="checkbox"]),
     .form select,
     .form textarea,
-    .form .input {
-        width: 100%;
+    .form .input,
+    .form .imagesWrap {
+        width: 350px;
     }
-    #card-element,
-    .payment-form {
-        width: 100%;
-    }
-    .imagesWrap {
-        width: 100%;
-    }
-    .imagesWrap > div:nth-child(2) {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .optionsWrap .addNewWrap .mini-bar-button {
-        font-size: 0.7rem;
-        /* min-width: 60px; */
-        /* width: 40px; */
-        padding: 0 0.5rem;
+}
+@media screen and (max-width: 480px) {
+    .form input:not([type="checkbox"]),
+    .form select,
+    .form textarea,
+    .form .input,
+    .form .imagesWrap {
+        width: 280px;
     }
 }

@@ -103,12 +103,13 @@
         min-width: 0;
     }
     #ShopFilters .filtersBarWrap,
-    #ShopFilters .orderBarWrap {
+    #ShopFilters .orderBarWrap,
+    #ShopFilters .priceRangeWrap > div {
         flex-direction: column;
     }
     #ShopFilters .filtersBarWrap label,
     #ShopFilters .orderBarWrap label,
-    #ShopFilters .priceRangeWrap label {
+    #ShopFilters .priceRangeWrap > div label {
         position: relative;
         width: auto;
         left: 0;

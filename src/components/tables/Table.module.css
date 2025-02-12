@@ -1,5 +1,7 @@
 .container {
+    width: 100%;
     padding: 20px;
+    overflow-x: auto;
 }
 
 .table {
@@ -14,6 +16,7 @@
     border: 1px solid var(--color-background-dark);
     padding: 8px;
     text-align: left;
+    font-size: 0.8rem;
 }
 
 .table th {
@@ -35,4 +38,27 @@
     outline: 2px solid var(--color-placeholder);
     border-radius: 12px;
     overflow: hidden;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 20px 0;
+    }
+    .table th,
+    .table td {
+        padding: 6px;
+        font-size: 0.7rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .table th,
+    .table td {
+        padding: 4px;
+        font-size: 0.65rem;
+    }
+    .previewPic {
+        height: 40px;
+        width: 40px;
+    }
 }

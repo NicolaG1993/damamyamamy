@@ -2,8 +2,23 @@ import { ItemsTableProps, ItemsTableRow } from "@/types/item";
 import styles from "./Table.module.css";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { BREAKPOINTS } from "@/constants/design";
 
 export default function ItemsTable({ items }: ItemsTableProps) {
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsLargeScreen(window.innerWidth >= BREAKPOINTS.tablet);
+        };
+
+        handleResize(); // Check on mount
+        window.addEventListener("resize", handleResize);
+
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
     return (
         <div className={styles.container}>
             <table className={styles.table}>
@@ -13,10 +28,10 @@ export default function ItemsTable({ items }: ItemsTableProps) {
                         <th>Foto</th>
                         <th>Nome</th>
                         <th>Prezzo</th>
-                        <th>Marca</th>
-                        <th>Numero</th>
+                        {isLargeScreen && <th>Marca</th>}
+                        {isLargeScreen && <th>Numero</th>}
                         <th>Proprietario</th>
-                        <th>Categorie</th>
+                        {isLargeScreen && <th>Categorie</th>}
                         <th>Data Creazione</th>
                         <th>Azioni</th>
                     </tr>
@@ -39,10 +54,12 @@ export default function ItemsTable({ items }: ItemsTableProps) {
                             </td>
                             <td>{item.name}</td>
                             <td>{item.price} €</td>
-                            <td>{item.brand?.name || "-"}</td>
-                            <td>{item.stock}</td>
+                            {isLargeScreen && (
+                                <td>{item.brand?.name || "-"}</td>
+                            )}
+                            {isLargeScreen && <td>{item.stock}</td>}
                             <td>{item.owner.name}</td>
-                            <td>{item.totalCategories}</td>
+                            {isLargeScreen && <td>{item.totalCategories}</td>}
                             <td>
                                 {new Date(item.createdAt).toLocaleDateString()}
                             </td>

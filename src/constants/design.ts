@@ -10,7 +10,7 @@
 // }; // Per usare questo dovremmo creare il file css via js - xk non é possibile importare questi in module.css (credo)
 
 export const BREAKPOINTS = {
-    mobile: "480px",
-    tablet: "768px",
-    desktop: "1024px",
+    mobile: 480, // px
+    tablet: 768, // px
+    desktop: 1024, // px
 };

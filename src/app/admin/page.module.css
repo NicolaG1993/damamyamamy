@@ -3,22 +3,38 @@
     grid-template-columns: repeat(3, 33%);
     max-width: 1000px;
     /* gap: 1rem; */
+    margin: 2rem 0;
 }
 
 .adminNav > a {
-    width: 250px;
-    height: 250px;
+    width: 220px;
+    height: 220px;
     background-color: var(--color-primary);
     margin: 0.5rem;
     padding: 1rem;
     border-radius: 12px;
+    transition: 0.2s;
 }
 .adminNav > a:hover {
-    width: 250px;
-    height: 250px;
     background-color: var(--color-primary-hover);
-    transition: 0.2s;
-    margin: 0.5rem;
-    padding: 1rem;
-    border-radius: 12px;
+}
+
+@media screen and (max-width: 768px) {
+    .adminNav {
+        grid-template-columns: repeat(2, 50%);
+    }
+
+    .adminNav > a {
+        width: 200px;
+        height: 200px;
+    }
+}
+@media screen and (max-width: 480px) {
+    .adminNav {
+        grid-template-columns: 1fr;
+    }
+    .adminNav > a {
+        width: 250px;
+        height: 250px;
+    }
 }

@@ -37,7 +37,9 @@ export async function fetchUserLogin(
         );
 
         if (!passwordMatch) {
-            throw new Error("Invalid email or password");
+            throw new Error(
+                "I dati di accesso che hai fornito non sono validi"
+            );
         }
 
         // Generate JWT
