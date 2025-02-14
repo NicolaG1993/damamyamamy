@@ -76,17 +76,17 @@ export default function ClientForm({
                 <input
                     type="email"
                     name="email"
-                    placeholder="Email*"
+                    placeholder="Email"
                     value={formData.email}
                     onChange={handleChange}
-                    required
+                    // required
                 />
             </div>
             <div className={styles.inputWrap}>
                 <input
                     type="tel"
                     name="phone"
-                    placeholder="Telefono*"
+                    placeholder="Telefono"
                     value={formData.phone}
                     onChange={handleChange}
                     required

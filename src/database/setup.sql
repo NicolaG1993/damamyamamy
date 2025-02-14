@@ -13,7 +13,7 @@ CREATE TABLE clients (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     first_name VARCHAR NOT NULL CHECK (first_name != ''),
     last_name VARCHAR NOT NULL CHECK (last_name != ''),
-    email VARCHAR(255) NOT NULL UNIQUE,
+    email VARCHAR(255) UNIQUE,
     phone VARCHAR(15) CHECK (phone ~ '^\+?[0-9]{7,15}$'),
     personal_code VARCHAR(255) NOT NULL UNIQUE
 );

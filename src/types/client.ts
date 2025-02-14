@@ -21,7 +21,7 @@ export interface RawClient {
     id: number;
     first_name: string;
     last_name: string;
-    email: string;
+    email?: string;
     phone?: string;
     // address?: string;
     personal_code: string;
