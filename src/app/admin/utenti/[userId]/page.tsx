@@ -25,7 +25,7 @@ export default function Utente({
             } catch (err) {
                 console.error("User fetching failed:", err);
                 // setError("Failed to load item data.");
-                setError(handleAxiosError(err)); // TEST 🧠
+                setError(handleAxiosError(err as Error)); // TEST 🧠
             } finally {
                 setIsLoading(false);
             }

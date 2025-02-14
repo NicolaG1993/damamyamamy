@@ -20,7 +20,7 @@ export const createOption = async (
 
         return res;
     } catch (err) {
-        throw new Error(handleAxiosError(err));
+        throw new Error(handleAxiosError(err as Error));
     }
 };
 
@@ -51,6 +51,6 @@ export const getInputOptions = async (
         return res;
         // return { options: res };
     } catch (err) {
-        throw new Error(handleAxiosError(err));
+        throw new Error(handleAxiosError(err as Error));
     }
 };

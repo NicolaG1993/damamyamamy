@@ -24,7 +24,7 @@ export const createItem = async (
         }
     } catch (err) {
         // Use the error utility to handle the Axios error and pass a custom message
-        const errorMessage = handleAxiosError(err);
+        const errorMessage = handleAxiosError(err as Error);
         return { message: errorMessage };
     }
 };
@@ -43,7 +43,7 @@ export const editItem = async (
             throw new Error(res.data.message || "Errore sconosciuto.");
         }
     } catch (err) {
-        throw new Error(handleAxiosError(err));
+        throw new Error(handleAxiosError(err as Error));
     }
 };
 
@@ -58,7 +58,7 @@ export const getItemToEdit = async (itemId: number): Promise<ItemFormData> => {
             throw new Error(res.data.message || "Errore sconosciuto.");
         }
     } catch (err) {
-        throw new Error(handleAxiosError(err));
+        throw new Error(handleAxiosError(err as Error));
     }
 };
 
@@ -73,7 +73,7 @@ export const getItem = async (itemId: number): Promise<Item> => {
             throw new Error(res.data.message || "Errore sconosciuto.");
         }
     } catch (err) {
-        throw new Error(handleAxiosError(err));
+        throw new Error(handleAxiosError(err as Error));
     }
 };
 
@@ -88,7 +88,7 @@ export const getItems = async (): Promise<ItemsTableRow[]> => {
             throw new Error(res.data.message || "Errore sconosciuto.");
         }
     } catch (err) {
-        throw new Error(handleAxiosError(err));
+        throw new Error(handleAxiosError(err as Error));
     }
 };
 
@@ -99,6 +99,6 @@ export const checkSlugUniqueness = async (slug: string) => {
         });
         return response.data.isUnique;
     } catch (err) {
-        throw new Error(handleAxiosError(err));
+        throw new Error(handleAxiosError(err as Error));
     }
 };

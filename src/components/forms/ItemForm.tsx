@@ -176,7 +176,7 @@ export default function ItemForm({
             // await onSubmit(formData);
         } catch (err) {
             console.error("Item form submission failed:", err);
-            setError(handleAxiosError(err));
+            setError(handleAxiosError(err as Error));
         }
     };
 

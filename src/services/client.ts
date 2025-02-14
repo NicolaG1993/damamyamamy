@@ -19,7 +19,7 @@ export const createClient = async (
         }
     } catch (err) {
         // Use the error utility to handle the Axios error and pass a custom message
-        const errorMessage = handleAxiosError(err);
+        const errorMessage = handleAxiosError(err as Error);
         return { message: errorMessage };
     }
 };
@@ -38,7 +38,7 @@ export const editClient = async (
             throw new Error(res.data.message || "Errore sconosciuto.");
         }
     } catch (err) {
-        throw new Error(handleAxiosError(err));
+        throw new Error(handleAxiosError(err as Error));
     }
 };
 
@@ -53,7 +53,7 @@ export const getClient = async (clientId: number): Promise<Client> => {
             throw new Error(res.data.message || "Errore sconosciuto.");
         }
     } catch (err) {
-        throw new Error(handleAxiosError(err));
+        throw new Error(handleAxiosError(err as Error));
     }
 };
 
@@ -68,7 +68,7 @@ export const getClientToEdit = async (clientId: number): Promise<Client> => {
             throw new Error(res.data.message || "Errore sconosciuto.");
         }
     } catch (err) {
-        throw new Error(handleAxiosError(err));
+        throw new Error(handleAxiosError(err as Error));
     }
 };
 
@@ -83,7 +83,7 @@ export const getClients = async (): Promise<Client[]> => {
             throw new Error(res.data.message || "Errore sconosciuto.");
         }
     } catch (err) {
-        throw new Error(handleAxiosError(err));
+        throw new Error(handleAxiosError(err as Error));
     }
 };
 
@@ -98,6 +98,6 @@ export const getClientOptions = async (): Promise<Option[]> => {
             throw new Error(res.data.message || "Errore sconosciuto.");
         }
     } catch (err) {
-        throw new Error(handleAxiosError(err));
+        throw new Error(handleAxiosError(err as Error));
     }
 };

@@ -49,7 +49,7 @@ export default function UserForm({
             // }
         } catch (err) {
             console.error("User form submission failed:", err);
-            setError(handleAxiosError(err));
+            setError(handleAxiosError(err as Error));
         }
     };
 

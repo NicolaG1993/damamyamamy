@@ -35,7 +35,7 @@ export default function LoginForm() {
             }
         } catch (err) {
             console.error("Login failed:", err);
-            setError(handleAxiosError(err));
+            setError(handleAxiosError(err as Error));
         }
     };
 

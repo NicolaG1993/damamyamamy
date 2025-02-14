@@ -23,7 +23,7 @@ export const getShopPage = async (
             throw new Error(res.data.message || "Errore sconosciuto.");
         }
     } catch (err) {
-        throw new Error(handleAxiosError(err));
+        throw new Error(handleAxiosError(err as Error));
     }
 };
 
@@ -41,7 +41,7 @@ export const getShopFilters = async (): Promise<ShopFiltersData> => {
             throw new Error(res.data.message || "Errore sconosciuto.");
         }
     } catch (err) {
-        throw new Error(handleAxiosError(err));
+        throw new Error(handleAxiosError(err as Error));
     }
 };
 
@@ -56,6 +56,6 @@ export const getShopItem = async (slug: string): Promise<ShopItem> => {
             throw new Error(res.data.message || "Errore sconosciuto.");
         }
     } catch (err) {
-        throw new Error(handleAxiosError(err));
+        throw new Error(handleAxiosError(err as Error));
     }
 };

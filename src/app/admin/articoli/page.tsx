@@ -19,7 +19,7 @@ export default function Articoli() {
                 setItems(response);
             } catch (err) {
                 console.error("Items fetching failed:", err);
-                setError(handleAxiosError(err));
+                setError(handleAxiosError(err as Error));
             } finally {
                 setIsLoading(false);
             }

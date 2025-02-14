@@ -20,7 +20,7 @@ export const createBrand = async (
         }
     } catch (err) {
         // Use the error utility to handle the Axios error and pass a custom message
-        const errorMessage = handleAxiosError(err);
+        const errorMessage = handleAxiosError(err as Error);
         return { message: errorMessage };
     }
 };
@@ -36,7 +36,7 @@ export const getBrand = async (brandId: number): Promise<Brand> => {
             throw new Error(res.data.message || "Errore sconosciuto.");
         }
     } catch (err) {
-        throw new Error(handleAxiosError(err));
+        throw new Error(handleAxiosError(err as Error));
     }
 };
 
@@ -53,7 +53,7 @@ export const searchBrand = async (term: string): Promise<Brand[]> => {
             throw new Error(res.data.message || "Errore sconosciuto.");
         }
     } catch (err) {
-        throw new Error(handleAxiosError(err));
+        throw new Error(handleAxiosError(err as Error));
     }
 };
 
@@ -68,6 +68,6 @@ export const getBrands = async (): Promise<Brand[]> => {
             throw new Error(res.data.message || "Errore sconosciuto.");
         }
     } catch (err) {
-        throw new Error(handleAxiosError(err));
+        throw new Error(handleAxiosError(err as Error));
     }
 };

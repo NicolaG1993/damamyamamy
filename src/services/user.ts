@@ -18,7 +18,7 @@ export const createUser = async (
         }
     } catch (err) {
         // Use the error utility to handle the Axios error and pass a custom message
-        const errorMessage = handleAxiosError(err);
+        const errorMessage = handleAxiosError(err as Error);
         return { message: errorMessage };
     }
 };
@@ -37,7 +37,7 @@ export const editUser = async (
             throw new Error(res.data.message || "Errore sconosciuto.");
         }
     } catch (err) {
-        throw new Error(handleAxiosError(err));
+        throw new Error(handleAxiosError(err as Error));
     }
 };
 
@@ -52,7 +52,7 @@ export const getUser = async (userId: number): Promise<User> => {
             throw new Error(res.data.message || "Errore sconosciuto.");
         }
     } catch (err) {
-        throw new Error(handleAxiosError(err));
+        throw new Error(handleAxiosError(err as Error));
     }
 };
 
@@ -67,7 +67,7 @@ export const getUsers = async (): Promise<User[]> => {
             throw new Error(res.data.message || "Errore sconosciuto.");
         }
     } catch (err) {
-        throw new Error(handleAxiosError(err));
+        throw new Error(handleAxiosError(err as Error));
     }
 };
 
@@ -82,6 +82,6 @@ export const getUserToEdit = async (userId: number): Promise<UserFormData> => {
             throw new Error(res.data.message || "Errore sconosciuto.");
         }
     } catch (err) {
-        throw new Error(handleAxiosError(err));
+        throw new Error(handleAxiosError(err as Error));
     }
 };

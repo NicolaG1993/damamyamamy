@@ -19,7 +19,7 @@ export default function UtentiRiservati() {
                 setUsers(response);
             } catch (err) {
                 console.error("Users fetching failed:", err);
-                setError(handleAxiosError(err));
+                setError(handleAxiosError(err as Error));
             } finally {
                 setIsLoading(false);
             }

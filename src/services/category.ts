@@ -19,7 +19,7 @@ export const createCategory = async (
         }
     } catch (err) {
         // Use the error utility to handle the Axios error and pass a custom message
-        const errorMessage = handleAxiosError(err);
+        const errorMessage = handleAxiosError(err as Error);
         return { message: errorMessage };
     }
 };
@@ -35,7 +35,7 @@ export const getCategory = async (categoryId: number): Promise<Category> => {
             throw new Error(res.data.message || "Errore sconosciuto.");
         }
     } catch (err) {
-        throw new Error(handleAxiosError(err));
+        throw new Error(handleAxiosError(err as Error));
     }
 };
 
@@ -52,7 +52,7 @@ export const searchCategory = async (term: string): Promise<Category[]> => {
             throw new Error(res.data.message || "Errore sconosciuto.");
         }
     } catch (err) {
-        throw new Error(handleAxiosError(err));
+        throw new Error(handleAxiosError(err as Error));
     }
 };
 
@@ -67,6 +67,6 @@ export const getCategories = async (): Promise<Category[]> => {
             throw new Error(res.data.message || "Errore sconosciuto.");
         }
     } catch (err) {
-        throw new Error(handleAxiosError(err));
+        throw new Error(handleAxiosError(err as Error));
     }
 };

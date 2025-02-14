@@ -40,7 +40,7 @@ export default function ClientForm({
             await onSubmit(formData);
         } catch (err) {
             console.error("Client form submission failed:", err);
-            setError(handleAxiosError(err));
+            setError(handleAxiosError(err as Error));
         }
     };
 
