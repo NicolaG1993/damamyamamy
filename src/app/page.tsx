@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styles from "./page.module.css";
-import ShortList from "@/components/ShortList/ShortList";
+// import ShortList from "@/components/ShortList/ShortList";
 import Image from "next/image";
 
 export default function Home() {
@@ -38,7 +38,7 @@ export default function Home() {
                     </div>
                 </section>
 
-                <section id={styles.ShortlistSection}>
+                {/* <section id={styles.ShortlistSection}>
                     <ShortList
                         listTitle={"Gli ultimi arrivi"}
                         // data={lastItems}
@@ -48,7 +48,7 @@ export default function Home() {
                         //     { id: 3, name: "Articolo test 3", price: 5 },
                         // ]} // x testing, rimuovere
                     />
-                </section>
+                </section> */}
 
                 <section id={styles.CTASection}>
                     <div>
