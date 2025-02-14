@@ -81,7 +81,12 @@ export async function middleware(req: NextRequest) {
         // Token is invalid or expired
         console.warn("Token invalid or expired. Redirecting to login...");
         url.pathname = LOGIN_PATH;
-        return NextResponse.redirect(url);
+
+        const response = NextResponse.redirect(url);
+
+        response.cookies.set("damamyamamy_auth_token", "", { maxAge: 0 }); // Clear cookie
+
+        return response;
     }
 }
 
