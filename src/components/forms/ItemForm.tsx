@@ -84,7 +84,7 @@ export default function ItemForm({
             setIsSlugUnique(unique);
             if (!unique) {
                 setError(
-                    "Il slug non è unico. Per favore, scegli un altro slug."
+                    "Lo slug non è unico. Per favore, scegli un altro slug."
                 );
             }
         } catch (err) {

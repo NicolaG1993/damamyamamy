@@ -91,6 +91,7 @@ export async function addItem(
             //    .upload(fileName, fs.createReadStream(picture.filepath));
 
             if (error) {
+                console.log("error: ", error);
                 throw new Error(`Errore caricamento immagine: ${picture.name}`);
             }
 
