@@ -33,8 +33,8 @@ export default function ItemForm({
     buttonText = "Conferma",
 }: ItemFormProps) {
     const conditions = [
-        { value: "new", key: "Nuovo" },
         { value: "used", key: "Usato" },
+        { value: "new", key: "Nuovo" },
         { value: "refurbished", key: "Rigenerato" },
     ];
     const [formData, setFormData] = useState<InitialItemFormData>(initialData);

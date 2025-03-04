@@ -28,7 +28,6 @@ export default function AdminItem({ item }: AdminItemProps) {
                                     style={{
                                         objectFit: "cover",
                                     }}
-                                    unoptimized
                                 />
                             </div>
                         ))}
