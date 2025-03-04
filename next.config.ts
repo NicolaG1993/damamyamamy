@@ -14,7 +14,8 @@ const nextConfig: NextConfig = {
             "res.cloudinary.com",
             // "s3.eu-south-1.amazonaws.com",
             // process.env.S3_BUCKET_URL || "",
-            "mctqgfkgogunzqjjmnyx.supabase.co",
+            "mctqgfkgogunzqjjmnyx.supabase.co", // DEV
+            "nkesmvnfiblqqmspcnsd.supabase.co", // PROD
         ],
     },
 

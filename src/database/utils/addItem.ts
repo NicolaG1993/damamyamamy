@@ -91,11 +91,6 @@ export async function addItem(
             //    .upload(fileName, fs.createReadStream(picture.filepath));
 
             if (error) {
-                console.log("error: ", error);
-                console.log("auth data: ", {
-                    projectUrl: process.env.SUPABASE_PROJECT_URL,
-                    projectKey: process.env.SUPABASE_KEY,
-                });
                 throw new Error(`Errore caricamento immagine: ${picture.name}`);
             }
 
