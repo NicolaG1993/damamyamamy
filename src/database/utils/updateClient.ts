@@ -11,7 +11,15 @@ export async function updateClient(
     try {
         await begin(client);
 
-        const res = await updateClientById(client, clientId, clientData);
+        const { firstName, lastName, email, phone, code } = clientData;
+
+        const res = await updateClientById(client, clientId, {
+            firstName,
+            lastName,
+            email: email || null,
+            phone: phone || null,
+            code,
+        });
 
         if (!res.rowCount) {
             throw new Error(`Failed to update client with ID ${clientId}`);
