@@ -89,7 +89,7 @@ export default function ClientForm({
                     placeholder="Telefono"
                     value={formData.phone}
                     onChange={handleChange}
-                    required
+                    // required
                 />
             </div>
 
