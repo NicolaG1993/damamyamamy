@@ -38,6 +38,13 @@ export interface ClientFormData {
     code: string;
     // items: Item[];
 }
+export interface ClientFormQueryData {
+    firstName: string;
+    lastName: string;
+    email: string | null;
+    phone: string | null;
+    code: string;
+}
 export interface RawClientFormData {
     first_name: string;
     last_name: string;

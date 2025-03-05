@@ -16,8 +16,8 @@ export async function addClient(
             client,
             firstName,
             lastName,
-            email || "",
-            phone || "",
+            email || null,
+            phone || null,
             code
         );
 

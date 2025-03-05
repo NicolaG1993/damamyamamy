@@ -1,12 +1,16 @@
-import { ClientFormData, RawClient, RawClientFormData } from "@/types/client";
+import {
+    ClientFormQueryData,
+    RawClient,
+    RawClientFormData,
+} from "@/types/client";
 import { PoolClient, QueryResult } from "pg";
 
 export const newClient = async (
     client: PoolClient,
     firstName: string,
     lastName: string,
-    email: string,
-    phone: string,
+    email: string | null,
+    phone: string | null,
     code: string
 ): Promise<QueryResult<RawClient>> => {
     const myQuery = `
@@ -100,7 +104,7 @@ export const getClientsAsOptions = async (
 export const updateClientById = async (
     client: PoolClient,
     clientId: number,
-    data: ClientFormData
+    data: ClientFormQueryData
 ): Promise<QueryResult> => {
     const myQuery = `
         UPDATE clients
