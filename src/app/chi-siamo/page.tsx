@@ -16,8 +16,9 @@ export default function ChiSiamo() {
                                 acquisti per il tuo bambino ma vorresti anche
                                 risparmiare in sicurezza? Niente di piú facile!
                                 A Cavaion Veronese nasce il negozio di
-                                abbigliamento e giocattoli di seconda mano per
-                                bambini da 0 a 10 anni.
+                                abbigliamento, giocattoli e attrezzatura di
+                                seconda mano per bambini e ragazzi da 0 a 14
+                                anni.
                             </p>
                         </div>
 
@@ -31,13 +32,14 @@ export default function ChiSiamo() {
                                 perché si possono trovare prodotti di qualitá in
                                 ottime condizioni, ma anche perché i nostri
                                 clienti possono rivendere i loro articoli
-                                trammite il nostro negozio, lasciandoci prendere
-                                cura delle trattative e dei loro prodotti. Da
-                                Mamy a Mamy infatti nasce dall&apos;idea di Sara
-                                Gagliardi, due volte mamma, che sa quindi
-                                riconoscere al meglio le esigenze delle proprie
-                                clienti, sempre disponibile a dare consiglio sul
-                                prossimo acquisto per i piú piccoli.
+                                trammite il nostro sito online, lasciandoci
+                                prendere cura delle trattative e dei loro
+                                prodotti. Da Mamy a Mamy infatti nasce
+                                dall&apos;idea di Sara Gagliardi, due volte
+                                mamma, che sa quindi riconoscere al meglio le
+                                esigenze delle proprie clienti, sempre
+                                disponibile a dare consiglio sul prossimo
+                                acquisto per i piú piccoli.
                             </p>
                         </div>
 

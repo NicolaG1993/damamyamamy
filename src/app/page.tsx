@@ -26,9 +26,9 @@ export default function Home() {
                     <div>
                         <h1>Da Mamy a Mamy</h1>
                         <p>
-                            A Cavaion Veronese nasce il negozio di abbigliamento
-                            e giocattoli di seconda mano per bambini da 0 a 10
-                            anni
+                            A Cavaion Veronese nasce il negozio di
+                            abbigliamento, giocattoli e attrezzatura di seconda
+                            mano per bambini e ragazzi da 0 a 14 anni
                         </p>
                         <div className={"ctas"}>
                             <Link className="primary" href={"/articoli"}>

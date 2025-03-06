@@ -24,9 +24,9 @@ export default function Regolamento() {
                                 </p>
                                 <p>
                                     È strettamente personale e deve essere
-                                    presentato alla cassa ad ogni operazione di
-                                    carico merce in conto vendita, di acquisto,
-                                    di ritiro del rimborso o caparra. Alla prima
+                                    presentato ad ogni operazione di carico
+                                    merce in conto vendita, di acquisto, di
+                                    ritiro del rimborso o caparra. Alla prima
                                     registrazione bisogna presentare un
                                     documento d&apos;identità e codice fiscale.
                                 </p>
@@ -34,7 +34,7 @@ export default function Regolamento() {
                             <div className={"textBlock"}>
                                 <p className={"strong"}>
                                     2) La merce viene esposta gratuitamente per
-                                    60 giorni al prezzo pattuito.
+                                    60 giorni al prezzo di valutazione.
                                 </p>
                                 <p>
                                     E&apos;compito dell&apos;intermediario
@@ -43,14 +43,14 @@ export default function Regolamento() {
                                     50% rispetto al valore commerciale
                                     dell&apos;articolo nuovo. Dopo 60 gg la
                                     merce sarà scontata del 50% e rimarrà
-                                    esposta per ulteriori 30 gg. Gli oggetti non
-                                    venduti entro i 3 mesi e non ritirati nella
-                                    settimana successiva, verranno dismessi nei
+                                    esposta per ulteriori 90 gg. Gli oggetti non
+                                    venduti entro i 3 mesi verranno dismessi nei
                                     seguenti modi: cessione al miglior realizzo,
                                     devoluzione in beneficenza o smaltimento
                                     presso discariche. Se nel periodo di
                                     esposizione dei tuoi articoli cambi idea,
-                                    puoi ritirarli avvisando almeno tre giorni
+                                    puoi ritirarli non prima dei 60 giorni di
+                                    esposizione, avvisando almeno tre giorni
                                     prima per poter preparare il reso.
                                     L&apos;intermediario può rifiutarsi di
                                     prendere in custodia beni ritenuti non
@@ -63,21 +63,20 @@ export default function Regolamento() {
                                     tempi di esposizione.
                                 </p>
                                 <p>
-                                    Con una semplice telefonata o passando in
-                                    negozio puoi monitorare lo stato delle tue
-                                    vendite e incassare il tuo rimborso. I
-                                    rimborsi vengono eseguiti in contanti, dopo
-                                    15 giorni dalla vendita, passando in negozio
-                                    e presentando il codice cliente e solo al
-                                    titolare dello stesso. Il rimborso viene
-                                    eseguito per il valore di vendita concordato
-                                    dell&apos;oggetto, detratto del 50% di
-                                    provvigione per il servizio di “Da Mamy a
-                                    Mamy”; per importi superiori ai 50€ verranno
-                                    emessi solo previo appuntamento. Dopo un
-                                    anno dallo scadere del mandato, il mandante
-                                    perde il diritto di riscossione (art.2964
-                                    Codice Civile).
+                                    Con una semplice telefonata puoi monitorare
+                                    lo stato delle tue vendite e incassare il
+                                    tuo rimborso. I rimborsi vengono eseguiti in
+                                    contanti, dopo 15 giorni dalla vendita,
+                                    passando in negozio e presentando il codice
+                                    cliente e solo al titolare dello stesso. Il
+                                    rimborso viene eseguito per il valore di
+                                    vendita concordato dell&apos;oggetto,
+                                    detratto del 50% di provvigione per il
+                                    servizio di “Da Mamy a Mamy”; per importi
+                                    superiori ai 50€ verranno emessi solo previo
+                                    appuntamento. Dopo un anno dallo scadere del
+                                    mandato, il mandante perde il diritto di
+                                    riscossione (art.2964 Codice Civile).
                                 </p>
                             </div>
                             <div className={"textBlock"}>
@@ -98,11 +97,10 @@ export default function Regolamento() {
                                     essere restituito al mandante. Lo stesso
                                     sarà avvisato telefonicamente al numero
                                     fornito nel momento del conferimento del
-                                    mandato di vendita e dopo 15 giorni solari
-                                    (due settimane), se non ritirato, sarà
-                                    devoluto in beneficenza o scontato di una
-                                    percentuale a totale discrezione del
-                                    mandatario.
+                                    mandato di vendita e dopo 5 giorni solari,
+                                    se non ritirato, sarà devoluto in
+                                    beneficenza o scontato di una percentuale a
+                                    totale discrezione del mandatario.
                                 </p>
                             </div>
                         </div>
@@ -128,10 +126,10 @@ export default function Regolamento() {
                                 valutati eventuali resi solo se effettuati nelle
                                 12 ore successive all’acquisto. I resi\cambi non
                                 saranno rimborsati in denaro ma con buoni
-                                acquisto. Sono sempre esclusi dalla possibilità
-                                di reso\cambio: costumi di carnevale,
-                                abbigliamento e accessori sci, accessori mare e
-                                gli abiti da cerimonia.
+                                acquisto della durata di 3 mesi. Sono sempre
+                                esclusi dalla possibilità di reso\cambio:
+                                costumi di carnevale, abbigliamento e accessori
+                                sci, accessori mare e gli abiti da cerimonia.
                             </p>
                         </div>
 
