@@ -11,7 +11,7 @@ export default function Home() {
                     <div>
                         <Image
                             src={
-                                "https://res.cloudinary.com/dg4i4hspr/image/upload/v1676941571/damamyamamy.com/pic3_aczqx2.jpg"
+                                "https://nkesmvnfiblqqmspcnsd.supabase.co/storage/v1/object/public/assets//pic2a.jpg"
                             }
                             alt={"Home slider picture"}
                             fill
