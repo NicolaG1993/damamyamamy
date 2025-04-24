@@ -88,7 +88,7 @@ export const getTotalShopItemsCount = async (
 ): Promise<QueryResult<{ count: number }>> => {
     const { brand, maxPrice, minPrice, category, search } = filters;
     const keys = []; //  const keys: any[] = [];
-    let condition = "WHERE i.sold_at IS NULL";
+    let condition = "WHERE i.sold_at IS NULL AND i.count_in_stock > 0";
 
     if (brand) {
         keys.push(brand);
@@ -116,7 +116,7 @@ export const getTotalShopItemsCount = async (
     }
 
     const myQuery = `
-    SELECT COUNT(*) AS count
+    SELECT COUNT(DISTINCT i.id) AS count
     FROM items i
     LEFT JOIN item_brand ib ON i.id = ib.item_id
     LEFT JOIN brands b ON ib.brand_id = b.id
