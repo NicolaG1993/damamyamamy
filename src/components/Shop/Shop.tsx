@@ -63,7 +63,8 @@ export default function Shop() {
     };
 
     const handleFilters = (name: string, value: string | number) => {
-        const newFilters = { ...filters, [name]: value, page: 1 };
+        const newFilters = { ...filters, [name]: value };
+        console.log("newFilters: ", newFilters);
         setFilters(newFilters);
 
         // Update URL parameters
@@ -76,6 +77,7 @@ export default function Shop() {
 
     useEffect(() => {
         if (searchParams) {
+            // BUGGED: AUTOFILL NOT WORKING AS EXPECTED 🪲
             const newFilters = {
                 page: Number(searchParams.get("page")) || 1,
                 order: searchParams.get("order") || "DESC",
