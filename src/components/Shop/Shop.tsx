@@ -47,14 +47,6 @@ export default function Shop() {
         try {
             const data = await getShopPage(currentFilters);
             setItems(data.items);
-            console.log({
-                data,
-                "Number(data.total)": Number(data.total),
-                "currentFilters.countPerPage": currentFilters.countPerPage,
-                "Total Pages": Math.ceil(
-                    Number(data.total) / currentFilters.countPerPage
-                ),
-            });
             setTotalPages(
                 Math.ceil(Number(data.total) / currentFilters.countPerPage)
             );
