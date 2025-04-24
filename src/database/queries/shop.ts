@@ -19,7 +19,7 @@ export const getShopItems = async (
     const offset = (page - 1) * countPerPage;
 
     const keys = []; // const keys: any[] = [];
-    let condition = "WHERE i.sold_at IS NULL"; // Only show unsold items
+    let condition = "WHERE i.sold_at IS NULL AND i.count_in_stock > 0"; // Only show unsold items
 
     if (brand) {
         keys.push(brand);
