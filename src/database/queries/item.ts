@@ -112,6 +112,55 @@ export const getItems = async (
         brands b ON ib.brand_id = b.id
     LEFT JOIN 
         item_category ic ON i.id = ic.item_id
+    WHERE
+        i.sold_at IS NULL
+    GROUP BY 
+        i.id, c.id, b.id
+    ORDER BY 
+        i.created_at DESC
+    `;
+    return client.query(myQuery);
+};
+
+export const getSoldItems = async (
+    client: PoolClient
+): Promise<QueryResult<RawItemTableRow>> => {
+    const myQuery = `
+    SELECT 
+        i.id AS item_id,
+        i.name AS item_name,
+        i.price,
+        i.count_in_stock,
+        i.slug,
+        i.description,
+        i.condition,
+        i.created_at,
+        c.id AS client_id,
+        c.last_name || ', ' || c.first_name AS client_name,
+        (
+            SELECT ip.picture_url
+            FROM item_pictures ip
+            WHERE ip.item_id = i.id
+            ORDER BY ip.id ASC
+            LIMIT 1
+        ) AS first_picture_url,
+        b.id AS brand_id,
+        b.name AS brand_name,
+        COUNT(ic.category_id) AS total_categories
+    FROM 
+        items i
+    LEFT JOIN 
+        item_client icl ON i.id = icl.item_id
+    LEFT JOIN 
+        clients c ON icl.client_id = c.id
+    LEFT JOIN 
+        item_brand ib ON i.id = ib.item_id
+    LEFT JOIN 
+        brands b ON ib.brand_id = b.id
+    LEFT JOIN 
+        item_category ic ON i.id = ic.item_id
+    WHERE
+        i.sold_at IS NOT NULL
     GROUP BY 
         i.id, c.id, b.id
     ORDER BY 
@@ -314,5 +363,23 @@ export const getItemSlug = async (
 ): Promise<QueryResult<{ exists: boolean }>> => {
     const myQuery = `SELECT EXISTS (SELECT 1 FROM items WHERE slug = $1) AS exists`;
     const keys = [slug];
+    return client.query(myQuery, keys);
+};
+
+export const setItemSold = async (
+    client: PoolClient,
+    itemId: number
+): Promise<QueryResult> => {
+    const myQuery = `UPDATE items SET sold_at = CURRENT_TIMESTAMP WHERE id = $1`;
+    const keys = [itemId];
+    return client.query(myQuery, keys);
+};
+
+export const setItemUnsold = async (
+    client: PoolClient,
+    itemId: number
+): Promise<QueryResult> => {
+    const myQuery = `UPDATE items SET sold_at = NULL WHERE id = $1`;
+    const keys = [itemId];
     return client.query(myQuery, keys);
 };

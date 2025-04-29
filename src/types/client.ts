@@ -76,4 +76,5 @@ export interface CreateClientResponse {
 
 export interface ClientsTableProps {
     clients: Client[];
+    isLoading: boolean;
 }

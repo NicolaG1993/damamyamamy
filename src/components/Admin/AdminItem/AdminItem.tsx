@@ -2,6 +2,7 @@ import { Item } from "@/types/item";
 import styles from "../Admin.module.css";
 import Link from "next/link";
 import Image from "next/image";
+import { NO_IMAGE } from "@/constants/design";
 
 interface AdminItemProps {
     item: Item;
@@ -22,7 +23,7 @@ export default function AdminItem({ item }: AdminItemProps) {
                                 className={styles.elPicture}
                             >
                                 <Image
-                                    src={pic}
+                                    src={pic || NO_IMAGE}
                                     alt={`item pic: ${pic} ${i}`}
                                     fill
                                     style={{

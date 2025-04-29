@@ -38,12 +38,8 @@ export default function UtentiRiservati() {
                         </Link>
                         {error ? (
                             <div className="error">{error}</div>
-                        ) : isLoading ? (
-                            <div className="loading">Caricamento...</div>
-                        ) : users && !!users.length ? (
-                            <UsersTable users={users} />
                         ) : (
-                            <div className="error">Nessun risultato</div>
+                            <UsersTable users={users} isLoading={isLoading} />
                         )}
                     </div>
                 </section>

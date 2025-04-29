@@ -53,6 +53,11 @@ export interface RawItemPreview {
 
 export interface ItemsTableProps {
     items: ItemsTableRow[];
+    isLoading: boolean;
+    soldItemsView: boolean;
+    handleView: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    handleSellItem: (itemId: number) => void;
+    handleUnsellItem: (itemId: number) => void;
 }
 
 export interface ItemsTableRow {

@@ -7,6 +7,7 @@ import styles from "./ShortList.module.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { ShopItemPreview } from "@/types/shop";
+import { NO_IMAGE } from "@/constants/design";
 
 interface ShortListProps {
     listTitle: string;
@@ -71,7 +72,7 @@ export default function ShortList({ listTitle }: ShortListProps) {
                                     className={styles.picWrap}
                                 >
                                     <Image
-                                        src={item.pic || "/no-image.png"}
+                                        src={item.pic || NO_IMAGE}
                                         alt={item.name}
                                         fill
                                         style={{ objectFit: "cover" }}

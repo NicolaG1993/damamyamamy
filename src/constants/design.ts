@@ -14,3 +14,5 @@ export const BREAKPOINTS = {
     tablet: 768, // px
     desktop: 1024, // px
 };
+
+export const NO_IMAGE = `https://${process.env.SUPABASE_PROJECT_URL_PROD}/storage/v1/object/public/assets//no-image.png`;

@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./ShopItems.module.css";
 import { ShopItemPreview as ShopItemPreviewType } from "@/types/shop";
+import { NO_IMAGE } from "@/constants/design";
 
 interface ShopItemPreviewProps {
     item: ShopItemPreviewType;
@@ -20,7 +21,7 @@ export default function ShopItemPreview({ item }: ShopItemPreviewProps) {
                         className={styles.picWrap}
                     >
                         <Image
-                            src={item.pic ? item.pic : "/no-image.png"}
+                            src={item.pic ? item.pic : NO_IMAGE}
                             alt={item.name}
                             fill
                             style={{ objectFit: "cover" }}

@@ -33,6 +33,7 @@ section {
     gap: 64px;
     padding: 4rem 1.5rem;
     min-height: 50vh;
+    min-width: 100%;
 }
 section > div:first-child {
     grid-row-start: 2;
@@ -151,6 +152,15 @@ button.form-button {
 
 .strong {
     font-weight: bold;
+}
+
+.centered {
+    text-align: center;
+}
+.server-error {
+    margin: 0.5rem 0 1.5rem 0;
+    color: rgb(180, 0, 0);
+    max-width: 400px;
 }
 
 /* Enable hover only on non-touch devices */

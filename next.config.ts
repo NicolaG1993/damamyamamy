@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+const isDev = process.env.NODE_ENV === "development";
 
 const nextConfig: NextConfig = {
     i18n: {
@@ -14,7 +15,8 @@ const nextConfig: NextConfig = {
             // "res.cloudinary.com",
             // "s3.eu-south-1.amazonaws.com",
             // process.env.S3_BUCKET_URL || "",
-            process.env.SUPABASE_PROJECT_URL || "",
+            isDev ? process.env.SUPABASE_PROJECT_URL_DEV || "" : "",
+            process.env.SUPABASE_PROJECT_URL_PROD || "",
         ],
     },
 
@@ -25,7 +27,8 @@ const nextConfig: NextConfig = {
         DATABASE_PORT: process.env.DATABASE_PORT,
         DATABASE_NAME: process.env.DATABASE_NAME,
         JWT_SECRET: process.env.JWT_SECRET,
-        SUPABASE_PROJECT_URL: process.env.SUPABASE_PROJECT_URL,
+        SUPABASE_PROJECT_URL_DEV: process.env.SUPABASE_PROJECT_URL_DEV,
+        SUPABASE_PROJECT_URL_PROD: process.env.SUPABASE_PROJECT_URL_PROD,
         SUPABASE_KEY: process.env.SUPABASE_KEY,
         EMAIL_URL: process.env.EMAIL_URL,
         DOMAIN: process.env.DOMAIN,

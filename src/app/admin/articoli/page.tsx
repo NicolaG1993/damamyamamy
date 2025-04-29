@@ -1,32 +1,60 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ItemsTable from "@/components/tables/ItemsTable";
 import { handleAxiosError } from "@/utils/axiosUtils";
-import { getItems } from "@/services/item";
+import { getItems, getSoldItems, sellItem, unsellItem } from "@/services/item";
 import { ItemsTableRow } from "@/types/item";
 import Link from "next/link";
 
 export default function Articoli() {
     const [items, setItems] = useState<ItemsTableRow[]>([]);
+    const [soldItemsView, setSoldItemsView] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-    useEffect(() => {
-        const fetchItems = async () => {
-            try {
-                const response = await getItems();
-                setItems(response);
-            } catch (err) {
-                console.error("Items fetching failed:", err);
-                setError(handleAxiosError(err as Error));
-            } finally {
-                setIsLoading(false);
-            }
-        };
+    const fetchItems = useCallback(async () => {
+        setIsLoading(true);
+        try {
+            const response = soldItemsView
+                ? await getSoldItems()
+                : await getItems();
+            setItems(response);
+        } catch (err) {
+            console.error("Items fetching failed:", err);
+            setError(handleAxiosError(err as Error));
+        } finally {
+            setIsLoading(false);
+        }
+    }, [soldItemsView]);
 
+    useEffect(() => {
         fetchItems();
-    }, []);
+    }, [fetchItems]);
+
+    const handleView = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { checked } = e.target;
+        setSoldItemsView(!checked);
+    };
+
+    const handleSellItem = async (itemId: number) => {
+        try {
+            await sellItem(itemId);
+            await fetchItems();
+        } catch (err) {
+            console.error("Error updating item:", err);
+            setError("Failed to update item.");
+        }
+    };
+    const handleUnsellItem = async (itemId: number) => {
+        try {
+            await unsellItem(itemId);
+            await fetchItems();
+        } catch (err) {
+            console.error("Error updating item:", err);
+            setError("Failed to update item.");
+        }
+    };
 
     return (
         <div className="page">
@@ -39,12 +67,15 @@ export default function Articoli() {
                         </Link>
                         {error ? (
                             <div className="error">{error}</div>
-                        ) : isLoading ? (
-                            <div className="loading">Caricamento...</div>
-                        ) : items && !!items.length ? (
-                            <ItemsTable items={items} />
                         ) : (
-                            <div className="error">Nessun risultato</div>
+                            <ItemsTable
+                                items={items}
+                                isLoading={isLoading}
+                                soldItemsView={soldItemsView}
+                                handleView={handleView}
+                                handleSellItem={handleSellItem}
+                                handleUnsellItem={handleUnsellItem}
+                            />
                         )}
                     </div>
                 </section>

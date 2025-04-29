@@ -2,6 +2,7 @@ import { Client } from "@/types/client";
 import styles from "../Admin.module.css";
 import Link from "next/link";
 import Image from "next/image";
+import { NO_IMAGE } from "@/constants/design";
 
 interface AdminClientProps {
     client: Client;
@@ -65,7 +66,7 @@ export default function AdminClient({ client }: AdminClientProps) {
                             >
                                 <div className={styles.elItemPic}>
                                     <Image
-                                        src={item.pic}
+                                        src={item.pic || NO_IMAGE}
                                         alt={`item pic: ${item.pic} ${i}`}
                                         fill
                                         style={{

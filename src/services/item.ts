@@ -92,6 +92,55 @@ export const getItems = async (): Promise<ItemsTableRow[]> => {
     }
 };
 
+export const getSoldItems = async (): Promise<ItemsTableRow[]> => {
+    try {
+        const res = await axios.get("/api/items/sold");
+
+        if (res.status === 200) {
+            return res.data.items;
+        } else {
+            console.error("Unexpected status code:", res.data);
+            throw new Error(res.data.message || "Errore sconosciuto.");
+        }
+    } catch (err) {
+        throw new Error(handleAxiosError(err as Error));
+    }
+};
+
+export const sellItem = async (itemId: number) => {
+    try {
+        const res = await axios.put(`/api/items/${itemId}/sell`, {
+            params: { itemId },
+        });
+
+        if (res.status === 200) {
+            return res.data;
+        } else {
+            console.error("Unexpected status code:", res.data);
+            throw new Error(res.data.message || "Errore sconosciuto.");
+        }
+    } catch (err) {
+        throw new Error(handleAxiosError(err as Error));
+    }
+};
+
+export const unsellItem = async (itemId: number) => {
+    try {
+        const res = await axios.put(`/api/items/${itemId}/unsell`, {
+            params: { itemId },
+        });
+
+        if (res.status === 200) {
+            return res.data;
+        } else {
+            console.error("Unexpected status code:", res.data);
+            throw new Error(res.data.message || "Errore sconosciuto.");
+        }
+    } catch (err) {
+        throw new Error(handleAxiosError(err as Error));
+    }
+};
+
 export const checkSlugUniqueness = async (slug: string) => {
     try {
         const response = await axios.get(`/api/items/check-slug`, {

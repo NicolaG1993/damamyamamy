@@ -39,12 +39,11 @@ export default function Clienti() {
                         </Link>
                         {error ? (
                             <div className="error">{error}</div>
-                        ) : isLoading ? (
-                            <div className="loading">Caricamento...</div>
-                        ) : clients && !!clients.length ? (
-                            <ClientsTable clients={clients} />
                         ) : (
-                            <div className="error">Nessun risultato</div>
+                            <ClientsTable
+                                clients={clients}
+                                isLoading={isLoading}
+                            />
                         )}
                     </div>
                 </section>
