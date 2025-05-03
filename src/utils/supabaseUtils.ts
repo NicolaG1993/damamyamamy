@@ -1,7 +1,12 @@
 import { createClient } from "@supabase/supabase-js";
 
 // Supabase configuration
-const supabaseUrl = `https://${process.env.SUPABASE_PROJECT_URL}`;
+const isDev = process.env.NODE_ENV === "development";
+const supabaseUrl = `https://${
+    isDev
+        ? process.env.SUPABASE_PROJECT_URL_DEV
+        : process.env.SUPABASE_PROJECT_URL_PROD
+}`;
 const supabaseKey = process.env.SUPABASE_KEY;
 
 if (!supabaseUrl || !supabaseKey) {
